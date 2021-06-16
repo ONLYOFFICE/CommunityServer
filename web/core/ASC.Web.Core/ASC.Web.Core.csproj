@@ -96,6 +96,8 @@
     <Compile Include="Client\Bundling\ClientScriptReference.cs" />
     <Compile Include="Client\HttpHandlers\ClientScriptCustom.cs" />
     <Compile Include="Extensions\TimeZoneExtension.cs" />
+    <Compile Include="Files\ThumbnailBuilderServiceClient.cs" />
+    <Compile Include="Files\IThumbnailBuilderService.cs" />
     <Compile Include="Helpers\ApiSystemHelper.cs" />
     <Compile Include="Jabber\FireBase.cs" />
     <Compile Include="Mail\MailServiceHelper.cs" />
@@ -238,7 +240,7 @@
       <Version>2.9.17.2</Version>
     </PackageReference>
     <PackageReference Include="AWSSDK.S3">
-      <Version>3.3.110.50</Version>
+      <Version>3.5.7.6</Version>
     </PackageReference>
     <PackageReference Include="dotless">
       <Version>1.6.7</Version>

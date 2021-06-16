@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,13 @@
 */
 
 
-using ASC.Api.Employee;
-using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
-using ASC.Specific;
-using ASC.Web.Projects.Classes;
-
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Linq;
+
+using ASC.Api.Employee;
+using ASC.Projects.Core.Domain;
+using ASC.Specific;
+using ASC.Web.Projects.Classes;
 
 namespace ASC.Api.Projects.Wrappers
 {
@@ -127,18 +125,18 @@ namespace ASC.Api.Projects.Wrappers
         public static ProjectWrapperFull GetSample()
         {
             return new ProjectWrapperFull
-                {
-                    Id = 10,
-                    Title = "Sample Title",
-                    Description = "Sample description",
-                    Status = (int)MilestoneStatus.Open,
-                    Responsible = EmployeeWraper.GetSample(),
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Updated = ApiDateTime.GetSample(),
-                    UpdatedBy = EmployeeWraper.GetSample(),
-                    ProjectFolder = 13234
-                };
+            {
+                Id = 10,
+                Title = "Sample Title",
+                Description = "Sample description",
+                Status = (int)MilestoneStatus.Open,
+                Responsible = EmployeeWraper.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                UpdatedBy = EmployeeWraper.GetSample(),
+                ProjectFolder = 13234
+            };
         }
     }
 }

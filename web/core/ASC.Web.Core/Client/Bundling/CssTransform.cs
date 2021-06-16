@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
 */
 
 
-using dotless.Core;
-using dotless.Core.configuration;
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Optimization;
+
+using dotless.Core;
+using dotless.Core.configuration;
+
 using Microsoft.Ajax.Utilities;
 
 namespace ASC.Web.Core.Client.Bundling
@@ -31,7 +33,7 @@ namespace ASC.Web.Core.Client.Bundling
         private readonly string bundlepath;
         private readonly bool minify;
 
-        public CssTransform(): this("", false) { }
+        public CssTransform() : this("", false) { }
 
         public CssTransform(string bundlepath, bool minify = true)
         {
@@ -57,7 +59,7 @@ namespace ASC.Web.Core.Client.Bundling
 
             var urlRegex = new Regex(@"url\((.*?)\)", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
             input = urlRegex.Replace(input, m => ResolveUrlPath(includedVirtualPath, m));
-            return minify ?  new Minifier().MinifyStyleSheet(input) : input;
+            return minify ? new Minifier().MinifyStyleSheet(input) : input;
         }
 
         private string ResolveImportLessPath(string virtualPath, Match m)

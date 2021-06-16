@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
+
 using ASC.Api.Employee;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Specific;
-using ASC.Core.Tenants;
 using ASC.Web.CRM.Classes;
 #endregion
 
@@ -49,9 +47,9 @@ namespace ASC.Api.CRM.Wrappers
         {
             Status = new InvoiceStatusWrapper(invoice.Status);
             Number = invoice.Number;
-            IssueDate = (ApiDateTime) invoice.IssueDate;
+            IssueDate = (ApiDateTime)invoice.IssueDate;
             TemplateType = invoice.TemplateType;
-            DueDate = (ApiDateTime) invoice.DueDate;
+            DueDate = (ApiDateTime)invoice.DueDate;
             Currency = !String.IsNullOrEmpty(invoice.Currency) ?
                 new CurrencyInfoWrapper(CurrencyProvider.Get(invoice.Currency)) :
                 new CurrencyInfoWrapper(Global.TenantSettings.DefaultCurrency);
@@ -145,10 +143,10 @@ namespace ASC.Api.CRM.Wrappers
         {
             Status = new InvoiceStatusWrapper(invoice.Status);
             Number = invoice.Number;
-            IssueDate = (ApiDateTime) invoice.IssueDate;
+            IssueDate = (ApiDateTime)invoice.IssueDate;
             TemplateType = invoice.TemplateType;
-            DueDate = (ApiDateTime) invoice.DueDate;
-            Currency = !String.IsNullOrEmpty(invoice.Currency) ? 
+            DueDate = (ApiDateTime)invoice.DueDate;
+            Currency = !String.IsNullOrEmpty(invoice.Currency) ?
                 new CurrencyInfoWrapper(CurrencyProvider.Get(invoice.Currency)) :
                 new CurrencyInfoWrapper(Global.TenantSettings.DefaultCurrency);
             ExchangeRate = invoice.ExchangeRate;
@@ -162,7 +160,7 @@ namespace ASC.Api.CRM.Wrappers
             CanEdit = CRMSecurity.CanEdit(invoice);
             CanDelete = CRMSecurity.CanDelete(invoice);
         }
-        
+
         [DataMember]
         public List<InvoiceLineWrapper> InvoiceLines { get; set; }
 
@@ -187,7 +185,7 @@ namespace ASC.Api.CRM.Wrappers
                 CanEdit = true,
                 CanDelete = true,
                 Cost = 0,
-                InvoiceLines = new List<InvoiceLineWrapper>{ InvoiceLineWrapper.GetSample() }
+                InvoiceLines = new List<InvoiceLineWrapper> { InvoiceLineWrapper.GetSample() }
             };
         }
     }
@@ -366,16 +364,16 @@ namespace ASC.Api.CRM.Wrappers
         public static InvoiceLineWrapper GetSample()
         {
             return new InvoiceLineWrapper(0)
-                {
-                    Description = string.Empty,
-                    Discount = (decimal)0.00,
-                    InvoiceID = 0,
-                    InvoiceItemID = 0,
-                    InvoiceTax1ID = 0,
-                    InvoiceTax2ID = 0,
-                    Price = (decimal)0.00,
-                    Quantity = (decimal)0.00
-                };
+            {
+                Description = string.Empty,
+                Discount = (decimal)0.00,
+                InvoiceID = 0,
+                InvoiceItemID = 0,
+                InvoiceTax1ID = 0,
+                InvoiceTax2ID = 0,
+                Price = (decimal)0.00,
+                Quantity = (decimal)0.00
+            };
         }
     }
 

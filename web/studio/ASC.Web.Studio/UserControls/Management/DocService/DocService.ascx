@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DocService.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.DocService" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="docServiceBlock" class="settings-block">
     <div class="header-base"><%= Resource.DocServiceUrl %></div>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Common.Util;
 using ASC.Bookmarking.Pojo;
@@ -27,9 +28,9 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Web.Studio.Utility;
 using ASC.ElasticSearch;
 using ASC.Web.Community.Search;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Bookmarking.Dao
 {
@@ -363,17 +364,17 @@ namespace ASC.Bookmarking.Dao
                             .Identity(0, 0L, true));
 
                     new BookmarkTag
-                        {
-                            BookmarkID = bookmark.ID,
-                            TagID = tag.TagID,
-                            BookmarkTagID = DbManager.ExecuteScalar<long>(
+                    {
+                        BookmarkID = bookmark.ID,
+                        TagID = tag.TagID,
+                        BookmarkTagID = DbManager.ExecuteScalar<long>(
                                 new SqlInsert("bookmarking_bookmarktag", true)
                                     .InColumns("BookmarkID", "TagID", "Tenant")
                                     .Values(bookmark.ID, tag.TagID, Tenant)
                                     .Identity(0, 0L, true))
-                        };
+                    };
 
-                    
+
 
                     var ubt = new UserBookmarkTag { UserBookmarkID = userBookmarkId, TagID = tag.TagID };
 

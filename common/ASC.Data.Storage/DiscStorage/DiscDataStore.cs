@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+
+using ASC.Common;
 using ASC.Common.Logging;
 using ASC.Core;
+using ASC.Core.Encryption;
 using ASC.Data.Storage.Configuration;
 using ASC.Data.Storage.Encryption;
 
@@ -105,6 +109,11 @@ namespace ASC.Data.Storage.DiscStorage
                 return stream;
             }
             throw new FileNotFoundException("File not found", Path.GetFullPath(target));
+        }
+
+        public override Task<Stream> GetReadStreamAsync(string domain, string path, int offset)
+        {
+            return Task.FromResult(GetReadStream(domain, path, offset));
         }
 
         protected override Uri SaveWithAutoAttachment(string domain, string path, Stream stream, string attachmentFileName)
@@ -346,7 +355,7 @@ namespace ASC.Data.Storage.DiscStorage
             Directory.Move(target, newtarget);
         }
 
-        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath)
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
         {
             if (srcpath == null) throw new ArgumentNullException("srcpath");
             if (newpath == null) throw new ArgumentNullException("srcpath");
@@ -368,9 +377,9 @@ namespace ASC.Data.Storage.DiscStorage
                     File.Delete(newtarget);
                 }
                 File.Move(target, newtarget);
-               
+
                 QuotaUsedDelete(srcdomain, flength);
-                QuotaUsedAdd(newdomain, flength);
+                QuotaUsedAdd(newdomain, flength, quotaCheckFileSize);
             }
             else
             {
@@ -545,6 +554,11 @@ namespace ASC.Data.Storage.DiscStorage
             var target = GetTarget(domain, path);
             var result = File.Exists(target);
             return result;
+        }
+        
+        public override Task<bool> IsFileAsync(string domain, string path)
+        {
+            return Task.FromResult(IsFile(domain, path));
         }
 
         public override long ResetQuota(string domain)

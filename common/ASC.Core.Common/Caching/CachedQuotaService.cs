@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,12 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Common.Caching;
+using ASC.Core.Tenants;
 
 namespace ASC.Core.Caching
 {
@@ -30,7 +31,6 @@ namespace ASC.Core.Caching
         private readonly IQuotaService service;
         private readonly ICache cache;
         private readonly ICacheNotify cacheNotify;
-        private readonly TrustInterval interval;
 
 
         public TimeSpan CacheExpiration
@@ -46,19 +46,18 @@ namespace ASC.Core.Caching
 
             this.service = service;
             cache = AscCache.Memory;
-            interval = new TrustInterval();
             CacheExpiration = TimeSpan.FromMinutes(10);
 
             cacheNotify = AscCache.Notify;
             cacheNotify.Subscribe<QuotaCacheItem>((i, a) =>
             {
-                if (i.Key == KEY_QUOTA_ROWS)
-                {
-                    interval.Expire();
-                }
-                else if (i.Key == KEY_QUOTA)
+                if (i.Key == KEY_QUOTA)
                 {
                     cache.Remove(KEY_QUOTA);
+                }
+                else
+                {
+                    cache.Remove(i.Key);
                 }
             });
         }
@@ -95,72 +94,26 @@ namespace ASC.Core.Caching
         public void SetTenantQuotaRow(TenantQuotaRow row, bool exchange)
         {
             service.SetTenantQuotaRow(row, exchange);
-            cacheNotify.Publish(new QuotaCacheItem { Key = KEY_QUOTA_ROWS }, CacheNotifyAction.InsertOrUpdate);
+            cacheNotify.Publish(new QuotaCacheItem { Key = GetKey(row.Tenant) }, CacheNotifyAction.InsertOrUpdate);
         }
 
-        public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(TenantQuotaRowQuery query)
+        public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(int tenantId)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            var key = GetKey(tenantId);
+            var result = cache.Get<IEnumerable<TenantQuotaRow>>(key);
 
-            var rows = cache.Get<Dictionary<string, List<TenantQuotaRow>>>(KEY_QUOTA_ROWS);
-            if (rows == null || interval.Expired)
+            if (result == null)
             {
-                var date = rows != null ? interval.StartTime : DateTime.MinValue;
-                interval.Start(CacheExpiration);
-
-                var changes = service.FindTenantQuotaRows(new TenantQuotaRowQuery(Tenant.DEFAULT_TENANT).WithLastModified(date))
-                    .GroupBy(r => r.Tenant.ToString())
-                    .ToDictionary(g => g.Key, g => g.ToList());
-
-                // merge changes from db to cache
-                if (rows == null)
-                {
-                    rows = changes;
-                }
-                else
-                {
-                    lock (rows)
-                    {
-                        foreach (var p in changes)
-                        {
-                            if (rows.ContainsKey(p.Key))
-                            {
-                                var cachedRows = rows[p.Key];
-                                foreach (var r in p.Value)
-                                {
-                                    cachedRows.RemoveAll(c => c.Path == r.Path);
-                                    cachedRows.Add(r);
-                                }
-                            }
-                            else
-                            {
-                                rows[p.Key] = p.Value;
-                            }
-                        }
-                    }
-                }
-
-                cache.Insert(KEY_QUOTA_ROWS, rows, DateTime.UtcNow.Add(CacheExpiration));
+                result = service.FindTenantQuotaRows(tenantId);
+                cache.Insert(key, result, DateTime.UtcNow.Add(CacheExpiration));
             }
 
-            var quotaRows = cache.Get<Dictionary<string, List<TenantQuotaRow>>>(KEY_QUOTA_ROWS);
-            if (quotaRows == null)
-            {
-                return Enumerable.Empty<TenantQuotaRow>();
-            }
+            return result;
+        }
 
-            lock (quotaRows)
-            {
-                var list = quotaRows.ContainsKey(query.Tenant.ToString()) ?
-                    quotaRows[query.Tenant.ToString()] :
-                    new List<TenantQuotaRow>();
-
-                if (query != null && !string.IsNullOrEmpty(query.Path))
-                {
-                    return list.Where(r => query.Path == r.Path);
-                }
-                return list.ToList();
-            }
+        public string GetKey(int tenant)
+        {
+            return KEY_QUOTA_ROWS + tenant;
         }
 
 

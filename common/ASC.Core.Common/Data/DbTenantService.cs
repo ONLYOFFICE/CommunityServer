@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -73,7 +74,6 @@ namespace ASC.Core.Data
             {
                 var q = TenantsQuery(Exp.Empty)
                     .InnerJoin("core_user u", Exp.EqColumns("t.id", "u.tenant"))
-                    .InnerJoin("core_usersecurity s", Exp.EqColumns("u.id", "s.userid"))
                     .Where("t.status", (int)TenantStatus.Active)
                     .Where(login.Contains('@') ? "u.email" : "u.id", login)
                     .Where("u.status", EmployeeStatus.Active)
@@ -125,6 +125,7 @@ namespace ASC.Core.Data
 
                 q = TenantsQuery(Exp.Empty)
                     .InnerJoin("core_usersecurity s", Exp.EqColumns("t.id", "s.tenant"))
+                    .Where("t.status", (int)TenantStatus.Active)
                     .Where(Exp.In("s.pwdhash", passwordHashs));
 
                 //new password
@@ -372,7 +373,7 @@ namespace ASC.Core.Data
                                 id = File.ReadAllText("/etc/timezone").Trim();
                             }
 
-                            if(string.IsNullOrEmpty(id))
+                            if (string.IsNullOrEmpty(id))
                             {
                                 var psi = new ProcessStartInfo
                                 {
@@ -398,7 +399,7 @@ namespace ASC.Core.Data
                     }
                     defaultTimeZone = tz;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     // ignore
                     defaultTimeZone = TimeZoneInfo.Utc;
@@ -437,7 +438,7 @@ namespace ASC.Core.Data
             if (!exists)
             {
                 exists = 0 < db.ExecuteScalar<int>(new SqlQuery("tenants_tenants").SelectCount()
-                    .Where(Exp.Eq("mappeddomain", domain) & !Exp.Eq("id", tenantId) & !Exp.In("status", new []{(int)TenantStatus.RemovePending, (int) TenantStatus.Restoring})));
+                    .Where(Exp.Eq("mappeddomain", domain) & !Exp.Eq("id", tenantId) & !Exp.In("status", new[] { (int)TenantStatus.RemovePending, (int)TenantStatus.Restoring })));
             }
             if (exists)
             {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -209,7 +209,7 @@ window.EditProfileManager = (function () {
         var selectedGroups = {};
         var $chooseGroupsSelector = jq("#chooseGroupsSelector");
         $chooseGroupsSelector.groupadvancedSelector({
-            canadd: teamlab.profile.isAdmin
+            canadd: teamlab.profile.isAdmin || ASC.Resources.Master.IsProductAdmin
         });
 
         $chooseGroupsSelector.on("showList", function (event, items) {
@@ -236,7 +236,7 @@ window.EditProfileManager = (function () {
             if (groupList.length) {
                 groupList.prepend("<li class=\"menu-sub-item\" data-id=\"" + item.id
                     + "\"><a class=\"menu-item-label outer-text text-overflow\" title=\""
-                    + Encoder.htmlEncode(item.title) + "\"" + " href=\"Products/People/#group=" + item.id + "\">"
+                    + Encoder.htmlEncode(item.title) + "\"" + " href=\"/Products/People/#group=" + item.id + "\">"
                     + Encoder.htmlEncode(item.title)
                     + "</a></li>");
                 if (groupList.parents("li").hasClass("none-sub-list")) {
@@ -403,7 +403,7 @@ window.EditProfileManager = (function () {
                 if (type && value) {
                     for (var j = 0, k = contacts.length; j < k; j++) {
                         if (type == contacts[j].Type && value == contacts[j].Value) {
-                            toastr.error(ASC.Resources.Master.Resource.ErrorMessageContactsDuplicated);
+                            toastr.error(ASC.Resources.Master.ResourceJS.ErrorMessageContactsDuplicated);
                             return;
                         }
                     }
@@ -615,7 +615,7 @@ window.EditProfileManager = (function () {
         }
 
         if (fromDate && fromDate > maxDate) {
-            fromDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.Error);
+            fromDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.ResourceJS.Error);
             showRequiredError(fromDateInp);
             isValid = false;
         }
@@ -627,13 +627,13 @@ window.EditProfileManager = (function () {
         }
 
         if (birthDate && birthDate > maxDate) {
-            birthDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.Error);
+            birthDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.ResourceJS.Error);
             showRequiredError(birthDateInp);
             isValid = false;
         }
 
         if (birthDate && fromDate && fromDate < birthDate) {
-            fromDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.ErrorMessage_InvalidDate);
+            fromDateInp.siblings(requiredErrorText).text(ASC.Resources.Master.ResourceJS.ErrorMessage_InvalidDate);
             showRequiredError(fromDateInp);
             isValid = false;
         }
@@ -824,11 +824,11 @@ window.EditProfileManager = (function () {
     };
 
     function validateFirstName(checkIsEmpty, withouthScroll, withouthFocus) {
-        return validateUserName($profileFirstName, checkIsEmpty, withouthScroll, withouthFocus, ASC.Resources.Master.Resource.ErrorInvalidUserFirstName);
+        return validateUserName($profileFirstName, checkIsEmpty, withouthScroll, withouthFocus, ASC.Resources.Master.ResourceJS.ErrorInvalidUserFirstName);
     }
 
     function validateLastName(checkIsEmpty, withouthScroll, withouthFocus) {
-        return validateUserName($profileSecondName, checkIsEmpty, withouthScroll, withouthFocus, ASC.Resources.Master.Resource.ErrorInvalidUserLastName);
+        return validateUserName($profileSecondName, checkIsEmpty, withouthScroll, withouthFocus, ASC.Resources.Master.ResourceJS.ErrorInvalidUserLastName);
     }
 
     function validateUserName(obj, checkIsEmpty, withouthScroll, withouthFocus, errorMsg) {
@@ -928,7 +928,7 @@ window.EditProfileManager = (function () {
             var infoText = ASC.Resources.Master.EmailAndPasswordIncorrectEmail;
 
             if (param === 'error') {
-                infoText = ASC.Resources.Master.Resource.Error;
+                infoText = ASC.Resources.Master.ResourceJS.Error;
             }
 
             showRequiredError(control, true, true);
@@ -969,7 +969,7 @@ window.EditProfileManager = (function () {
     function checkFieldLength(field, length, $control, showErrMesage) {
         if (field.length > length) {
             if (showErrMesage) {
-                $control.siblings(requiredErrorText).text(ASC.Resources.Master.Resource.ErrorMessageLongField64);
+                $control.siblings(requiredErrorText).text(ASC.Resources.Master.ResourceJS.ErrorMessageLongField64);
             }
             showRequiredError($control);
             isError = true;

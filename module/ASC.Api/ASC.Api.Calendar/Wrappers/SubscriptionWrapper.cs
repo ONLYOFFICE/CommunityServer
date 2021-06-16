@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,11 @@
 
 
 using System;
-using System.Runtime.Serialization;
-using ASC.Web.Core.Calendars;
-using ASC.Api.Calendar.BusinessObjects;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+
+using ASC.Api.Calendar.BusinessObjects;
+using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.Wrappers
 {
@@ -37,7 +38,7 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                if(UserCalendar is Calendar.BusinessObjects.Calendar)
+                if (UserCalendar is Calendar.BusinessObjects.Calendar)
                     return _userViewSettings != null && _userViewSettings.IsAccepted;
 
                 return this.IsAcceptedSubscription;
@@ -51,17 +52,18 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                return _userViewSettings==null;
+                return _userViewSettings == null;
             }
             set { }
         }
 
         [DataMember(Name = "group", Order = 130)]
-        public string Group 
+        public string Group
         {
-            get {
+            get
+            {
 
-                if(UserCalendar.IsiCalStream())
+                if (UserCalendar.IsiCalStream())
                     return Resources.CalendarApiResource.iCalCalendarsGroup;
 
                 return String.IsNullOrEmpty(UserCalendar.Context.Group) ? Resources.CalendarApiResource.SharedCalendarsGroup : UserCalendar.Context.Group;
@@ -69,8 +71,8 @@ namespace ASC.Api.Calendar.Wrappers
             set { }
         }
 
-        [DataMember(IsRequired=false)]
-        public override CalendarPermissions Permissions{get; set;}
+        [DataMember(IsRequired = false)]
+        public override CalendarPermissions Permissions { get; set; }
 
         public new static object GetSample()
         {

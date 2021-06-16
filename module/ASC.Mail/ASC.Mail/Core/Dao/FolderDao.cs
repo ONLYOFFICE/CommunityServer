@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Mail.Core.Dao.Interfaces;
@@ -44,7 +45,7 @@ namespace ASC.Mail.Core.Dao
         public Folder GetFolder(FolderType folder)
         {
             var query = Query()
-                .Where(FolderCountersTable.Columns.Folder, (int) folder)
+                .Where(FolderCountersTable.Columns.Folder, (int)folder)
                 .Where(FolderCountersTable.Columns.Tenant, Tenant)
                 .Where(FolderCountersTable.Columns.User, CurrentUserId);
 
@@ -68,7 +69,7 @@ namespace ASC.Mail.Core.Dao
             var query = new SqlInsert(FolderCountersTable.TABLE_NAME, true)
                 .InColumnValue(FolderCountersTable.Columns.Tenant, folder.Tenant)
                 .InColumnValue(FolderCountersTable.Columns.User, folder.UserId)
-                .InColumnValue(FolderCountersTable.Columns.Folder, (int) folder.FolderType)
+                .InColumnValue(FolderCountersTable.Columns.Folder, (int)folder.FolderType)
                 .InColumnValue(FolderCountersTable.Columns.UnreadMessagesCount, folder.UnreadCount)
                 .InColumnValue(FolderCountersTable.Columns.UnreadConversationsCount, folder.UnreadChainCount)
                 .InColumnValue(FolderCountersTable.Columns.TotalMessagesCount, folder.TotalCount)
@@ -98,7 +99,7 @@ namespace ASC.Mail.Core.Dao
             var updateQuery = new SqlUpdate(FolderCountersTable.TABLE_NAME)
                 .Where(FolderCountersTable.Columns.Tenant, Tenant)
                 .Where(FolderCountersTable.Columns.User, CurrentUserId)
-                .Where(FolderCountersTable.Columns.Folder, (int) folder);
+                .Where(FolderCountersTable.Columns.Folder, (int)folder);
 
             Action<string, int?> setColumnValue = (column, item) =>
             {
@@ -138,7 +139,7 @@ namespace ASC.Mail.Core.Dao
             {
                 Tenant = Convert.ToInt32(r[0]),
                 UserId = Convert.ToString(r[1]),
-                FolderType = (FolderType) Convert.ToInt32(r[2]),
+                FolderType = (FolderType)Convert.ToInt32(r[2]),
                 TimeModified = Convert.ToDateTime(r[3]),
                 UnreadCount = Convert.ToInt32(r[4]),
                 TotalCount = Convert.ToInt32(r[5]),

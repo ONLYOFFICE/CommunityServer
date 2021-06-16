@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,42 +16,28 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.Caching;
 using System.Text.RegularExpressions;
-using ASC.Core;
 using System.Web;
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
+
 using ASC.Common.Logging;
+using ASC.Core;
 
 namespace TMResourceData
 {
     public class DBResourceManager : ResourceManager
     {
-        public static bool WhiteLableEnabled = false;
-        public static bool ResourcesFromDataBase { get; private set; }
         private static readonly ILog log = LogManager.GetLogger("ASC.Resources");
-        private readonly ConcurrentDictionary<string, ResourceSet> resourceSets = new ConcurrentDictionary<string, ResourceSet>();
-
-        static DBResourceManager()
-        {
-            ResourcesFromDataBase = string.Equals(ConfigurationManagerExtension.AppSettings["resources.from-db"], "true");
-        }
 
         public DBResourceManager(string filename, Assembly assembly)
-                    : base(filename, assembly)
+                    : base(filename, assembly, typeof(DBResourceSet))
         {
         }
-
 
         public static void PatchAssemblies()
         {
@@ -107,152 +93,30 @@ namespace TMResourceData
             return (n.StartsWith("ASC.") || n.StartsWith("App_GlobalResources")) && a.GetManifestResourceNames().Any();
         }
 
-
-        public override Type ResourceSetType
-        {
-            get { return typeof(DBResourceSet); }
-        }
-
-
-        protected override ResourceSet InternalGetResourceSet(CultureInfo culture, bool createIfNotExists, bool tryParents)
-        {
-            ResourceSet set;
-            resourceSets.TryGetValue(culture.Name, out set);
-            if (set == null)
-            {
-                var invariant = culture == CultureInfo.InvariantCulture ? base.InternalGetResourceSet(CultureInfo.InvariantCulture, true, true) : null;
-                set = new DBResourceSet(invariant, culture, BaseName);
-                resourceSets.AddOrUpdate(culture.Name, set, (k, v) => set);
-            }
-            return set;
-        }
-
-
         class DBResourceSet : ResourceSet
         {
-            private const string NEUTRAL_CULTURE = "Neutral";
-
-            private static readonly TimeSpan cacheTimeout = TimeSpan.FromMinutes(120); // for performance
-            private readonly object locker = new object();
-            private readonly MemoryCache cache;
-            private readonly ResourceSet invariant;
-            private readonly string culture;
-            private readonly string filename;
-
-
-            static DBResourceSet()
+            public DBResourceSet() : base()
             {
-                try
-                {
-                    var defaultValue = ((int)cacheTimeout.TotalMinutes).ToString();
-                    cacheTimeout = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManagerExtension.AppSettings["resources.cache-timeout"] ?? defaultValue));
-                }
-                catch (Exception err)
-                {
-                    log.Error(err);
-                }
             }
 
-
-            public DBResourceSet(ResourceSet invariant, CultureInfo culture, string filename)
+            public DBResourceSet(string fileName) : base(fileName)
             {
-                if (culture == null)
-                {
-                    throw new ArgumentNullException("culture");
-                }
-                if (string.IsNullOrEmpty(filename))
-                {
-                    throw new ArgumentNullException("filename");
-                }
-
-                this.invariant = invariant;
-                this.culture = invariant != null ? NEUTRAL_CULTURE : culture.Name;
-                this.filename = filename.Split('.').Last() + ".resx";
-                cache = MemoryCache.Default;
             }
+
+            public DBResourceSet(IResourceReader reader) : base(reader)
+            {
+            }
+
+            public DBResourceSet(Stream stream) : base(stream)
+            {
+            }
+        
 
             public override string GetString(string name, bool ignoreCase)
             {
-                var result = (string)null;
-                try
-                {
-                    var dic = GetResources();
-                    dic.TryGetValue(name, out result);
-                }
-                catch (Exception err)
-                {
-                    log.ErrorFormat("Can not get resource from {0} for {1}: GetString({2}), {3}", filename, culture, name, err);
-                }
-
-                if (invariant != null && result == null)
-                {
-                    result = invariant.GetString(name, ignoreCase);
-                }
-
-                if (WhiteLableEnabled)
-                {
-                    result = WhiteLabelHelper.ReplaceLogo(name, result);
-                }
-
+                var result = base.GetString(name, ignoreCase);
+                result = WhiteLabelHelper.ReplaceLogo(name, result);
                 return result;
-            }
-
-            public override IDictionaryEnumerator GetEnumerator()
-            {
-                var result = new Hashtable();
-                if (invariant != null)
-                {
-                    foreach (DictionaryEntry e in invariant)
-                    {
-                        result[e.Key] = e.Value;
-                    }
-                }
-                try
-                {
-                    var dic = GetResources();
-                    foreach (var e in dic)
-                    {
-                        result[e.Key] = e.Value;
-                    }
-                }
-                catch (Exception err)
-                {
-                    log.Error(err);
-                }
-                return result.GetEnumerator();
-            }
-
-            private Dictionary<string, string> GetResources()
-            {
-                var key = string.Format("{0}/{1}", filename, culture);
-                var dic = cache.Get(key) as Dictionary<string, string>;
-                if (dic == null)
-                {
-                    lock (locker)
-                    {
-                        dic = cache.Get(key) as Dictionary<string, string>;
-                        if (dic == null)
-                        {
-                            var policy = cacheTimeout == TimeSpan.Zero ? null : new CacheItemPolicy() { AbsoluteExpiration = DateTimeOffset.Now.Add(cacheTimeout) };
-                            cache.Set(key, dic = LoadResourceSet(filename, culture), policy);
-                        }
-                    }
-                }
-                return dic;
-            }
-
-            private static Dictionary<string, string> LoadResourceSet(string filename, string culture)
-            {
-                using (var dbManager = DbManager.FromHttpContext("tmresource"))
-                {
-                    var q = new SqlQuery("res_data d")
-                        .Select("d.title", "d.textvalue")
-                        .InnerJoin("res_files f", Exp.EqColumns("f.id", "d.fileid"))
-                        .Where("f.resname", filename)
-                        .Where("d.culturetitle", culture);
-                    return dbManager.ExecuteList(q)
-                        .ToDictionary(r => (string) r[0], r => (string) r[1], StringComparer.InvariantCultureIgnoreCase);
-                }
             }
         }
     }
@@ -318,7 +182,7 @@ namespace TMResourceData
                             //Hack for string which used in string.Format
                             newTextReplacement = newTextReplacement.Replace("{", "{{").Replace("}", "}}");
                         }
-                        
+
                         var pattern = string.Format(replPattern, DefaultLogoText);
                         //Hack for resource strings with mails looked like ...@onlyoffice... or with website http://www.onlyoffice.com link or with the https://www.facebook.com/pages/OnlyOffice/833032526736775
 

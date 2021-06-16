@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 
 
 using System;
+
 using ASC.Core.Tenants;
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 
 namespace ASC.Web.UserControls.Forum.Common
 {
-    
+
     public class DateTimeService
     {
         public static DateTime CurrentDate()
@@ -36,14 +38,14 @@ namespace ASC.Web.UserControls.Forum.Common
                 now.Month == dateTime.Month
                 )
             {
-                return Resources.ForumUCResource.Today + ", " + dateTime.ToShortTimeString();
+                return ForumUCResource.Today + ", " + dateTime.ToShortTimeString();
             }
             if ((now.DayOfYear - dateTime.DayOfYear) < 2 &&
                 now.Year == dateTime.Year &&
                 now.Month == dateTime.Month
                 )
             {
-                return Resources.ForumUCResource.Yesterday + ", " + dateTime.ToShortTimeString();
+                return ForumUCResource.Yesterday + ", " + dateTime.ToShortTimeString();
             }
             return dateTime.ToString(format);
         }
@@ -56,14 +58,14 @@ namespace ASC.Web.UserControls.Forum.Common
                 now.Month == dateTime.Month
                 )
             {
-                return "<span class='text-medium-describe'>" + Resources.ForumUCResource.Today + " " + dateTime.ToShortTimeString() + "</span>";
+                return "<span class='text-medium-describe'>" + ForumUCResource.Today + " " + dateTime.ToShortTimeString() + "</span>";
             }
             if ((now.DayOfYear - dateTime.DayOfYear) < 2 &&
                 now.Year == dateTime.Year &&
                 now.Month == dateTime.Month
                 )
             {
-                return "<span class='text-medium-describe'>" + Resources.ForumUCResource.Yesterday + " " + dateTime.ToShortTimeString() + "</span>";
+                return "<span class='text-medium-describe'>" + ForumUCResource.Yesterday + " " + dateTime.ToShortTimeString() + "</span>";
             }
             return "<span class='text-medium-describe'>" + dateTime.ToShortDateString() + " " + dateTime.ToShortTimeString() + "</span>";
         }
@@ -82,16 +84,16 @@ namespace ASC.Web.UserControls.Forum.Common
                 now.Month == dateTime.Month
                 )
             {
-                return "<span class='text-medium-describe'>" + dateTime.ToShortTimeString() + "  " + Resources.ForumUCResource.Today + "</span>";
+                return "<span class='text-medium-describe'>" + dateTime.ToShortTimeString() + "  " + ForumUCResource.Today + "</span>";
             }
             if ((now.DayOfYear - dateTime.DayOfYear) < 2 &&
                 now.Year == dateTime.Year &&
                 now.Month == dateTime.Month
                 )
             {
-                return "<span class='text-medium-describe'>" + dateTime.ToShortTimeString() + "  " + Resources.ForumUCResource.Yesterday + "</span>";
+                return "<span class='text-medium-describe'>" + dateTime.ToShortTimeString() + "  " + ForumUCResource.Yesterday + "</span>";
             }
             return "<span class='text-medium-describe'>" + dateTime.ToShortTimeString() + "  " + dateTime.ToShortDateString() + "</span>";
         }
-    }    
+    }
 }

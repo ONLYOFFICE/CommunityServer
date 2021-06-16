@@ -11,7 +11,7 @@
     <RootNamespace>ASC.TeamLabSvc</RootNamespace>
     <AssemblyName>TeamLabSvc</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>   
+    <FileAlignment>512</FileAlignment>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -59,6 +59,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +77,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="app.manifest" />
-  </ItemGroup> 
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -94,6 +95,15 @@
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.DiagnosticSource">
+      <Version>4.7.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

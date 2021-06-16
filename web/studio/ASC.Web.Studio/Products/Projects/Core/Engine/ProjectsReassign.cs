@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Linq;
 
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
+
 using Autofac;
 
 namespace ASC.Web.Projects.Core.Engine
@@ -90,7 +91,7 @@ namespace ASC.Web.Projects.Core.Engine
 
         private void ReassignMilestones(Guid fromUserId, Guid toUserId)
         {
-            var filter = new TaskFilter { UserId = fromUserId, MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open} };
+            var filter = new TaskFilter { UserId = fromUserId, MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open } };
             var milestones = MilestoneEngine.GetByFilter(filter);
 
             foreach (var milestone in milestones)
@@ -105,10 +106,10 @@ namespace ASC.Web.Projects.Core.Engine
         {
             var tasks = TaskEngine.GetByResponsible(fromUserId, TaskStatus.Open);
 
-            foreach (var task in tasks.Where(r=> r.Responsibles.Any()))
+            foreach (var task in tasks.Where(r => r.Responsibles.Any()))
             {
                 AddToTeam(task.Project, toUserId);
-                task.Responsibles = task.Responsibles.Where(r=> r != fromUserId).ToList();
+                task.Responsibles = task.Responsibles.Where(r => r != fromUserId).ToList();
                 task.Responsibles.Add(toUserId);
                 TaskEngine.SaveOrUpdate(task, null, false);
             }

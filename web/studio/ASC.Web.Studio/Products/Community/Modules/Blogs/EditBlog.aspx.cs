@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,22 @@
 */
 
 
-using ASC.Blogs.Core.Resources;
-using AjaxPro;
-using ASC.Blogs.Core;
-using ASC.Blogs.Core.Domain;
-using ASC.Web.Community.Blogs.Views;
-using ASC.Web.Community.Product;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
+
+using AjaxPro;
+
+using ASC.Blogs.Core;
+using ASC.Blogs.Core.Domain;
+using ASC.Web.Community.Blogs.Views;
+using ASC.Web.Community.Modules.Blogs.Core.Resources;
+using ASC.Web.Community.Product;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Blogs
 {
@@ -192,9 +194,9 @@ namespace ASC.Web.Community.Blogs
                     continue;
 
                 var tag = new Tag(post)
-                    {
-                        Content = GetLimitedText(tagName.Trim())
-                    };
+                {
+                    Content = GetLimitedText(tagName.Trim())
+                };
                 post.TagList.Add(tag);
             }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Impl;
@@ -42,9 +43,10 @@ using ASC.Web.Core.Users;
 using ASC.Web.People.Core.Import;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Employee
@@ -944,7 +946,7 @@ namespace ASC.Api.Employee
 
             return new ThumbnailsDataWrapper(user.ID);
         }
-        
+
         /// <summary>
         /// Updates the specified user photo with the pathname
         /// </summary>
@@ -1189,8 +1191,11 @@ namespace ASC.Api.Employee
                         }
                         break;
                     case EmployeeType.Visitor:
-                        CoreContext.UserManager.AddUserIntoGroup(user.ID, Core.Users.Constants.GroupVisitor.ID);
-                        WebItemSecurity.ClearCache();
+                        if (CoreContext.Configuration.Standalone || TenantStatisticsProvider.GetVisitorsCount() < TenantExtra.GetTenantQuota().ActiveUsers * Core.Users.Constants.CoefficientOfVisitors)
+                        {
+                            CoreContext.UserManager.AddUserIntoGroup(user.ID, Core.Users.Constants.GroupVisitor.ID);
+                            WebItemSecurity.ClearCache();
+                        }
                         break;
                 }
             }
@@ -1340,7 +1345,7 @@ namespace ASC.Api.Employee
         {
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if(user.IsLDAP())
+            if (user.IsLDAP())
                 throw new SecurityException();
 
             StudioNotifyService.Instance.SendMsgProfileDeletion(user);
@@ -1370,6 +1375,11 @@ namespace ASC.Api.Employee
         {
             var profile = new LoginProfile(serializedProfile);
 
+            if (!(CoreContext.Configuration.Standalone ||
+                     CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Oauth))
+            {
+                throw new Exception("ErrorNotAllowedOption");
+            }
             if (string.IsNullOrEmpty(profile.AuthorizationError))
             {
                 GetLinker().AddLink(SecurityContext.CurrentAccount.ID.ToString(), profile);
@@ -1484,7 +1494,7 @@ namespace ASC.Api.Employee
         {
             foreach (var userId in userIds)
             {
-                var reassignStatus = QueueWorker.GetProgressItemStatus(TenantProvider.CurrentTenantID, userId, typeof (ReassignProgressItem));
+                var reassignStatus = QueueWorker.GetProgressItemStatus(TenantProvider.CurrentTenantID, userId, typeof(ReassignProgressItem));
                 if (reassignStatus == null || reassignStatus.IsCompleted)
                     continue;
 

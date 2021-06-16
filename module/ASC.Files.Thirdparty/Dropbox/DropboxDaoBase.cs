@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -29,6 +30,7 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
+
 using Dropbox.Api.Files;
 
 namespace ASC.Files.Thirdparty.Dropbox
@@ -182,25 +184,25 @@ namespace ASC.Files.Thirdparty.Dropbox
             var isRoot = IsRoot(dropboxFolder);
 
             var folder = new Folder
-                {
-                    ID = MakeId(dropboxFolder),
-                    ParentFolderID = isRoot ? null : MakeId(GetParentFolderPath(dropboxFolder)),
-                    CreateBy = DropboxProviderInfo.Owner,
-                    CreateOn = isRoot ? DropboxProviderInfo.CreateOn : default(DateTime),
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = DropboxProviderInfo.Owner,
-                    ModifiedOn = isRoot ? DropboxProviderInfo.CreateOn : default(DateTime),
-                    ProviderId = DropboxProviderInfo.ID,
-                    ProviderKey = DropboxProviderInfo.ProviderKey,
-                    RootFolderCreator = DropboxProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = DropboxProviderInfo.RootFolderType,
+            {
+                ID = MakeId(dropboxFolder),
+                ParentFolderID = isRoot ? null : MakeId(GetParentFolderPath(dropboxFolder)),
+                CreateBy = DropboxProviderInfo.Owner,
+                CreateOn = isRoot ? DropboxProviderInfo.CreateOn : default(DateTime),
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = DropboxProviderInfo.Owner,
+                ModifiedOn = isRoot ? DropboxProviderInfo.CreateOn : default(DateTime),
+                ProviderId = DropboxProviderInfo.ID,
+                ProviderKey = DropboxProviderInfo.ProviderKey,
+                RootFolderCreator = DropboxProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = DropboxProviderInfo.RootFolderType,
 
-                    Shareable = false,
-                    Title = MakeFolderTitle(dropboxFolder),
-                    TotalFiles = 0,
-                    TotalSubFolders = 0,
-                };
+                Shareable = false,
+                Title = MakeFolderTitle(dropboxFolder),
+                TotalFiles = 0,
+                TotalSubFolders = 0,
+            };
 
             if (folder.CreateOn != DateTime.MinValue && folder.CreateOn.Kind == DateTimeKind.Utc)
                 folder.CreateOn = TenantUtil.DateTimeFromUtc(folder.CreateOn);
@@ -220,45 +222,45 @@ namespace ASC.Files.Thirdparty.Dropbox
         {
             if (dropboxFile == null) return null;
             return new File
-                {
-                    ID = MakeId(dropboxFile.ErrorId),
-                    CreateBy = DropboxProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    ModifiedBy = DropboxProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeNow(),
-                    ProviderId = DropboxProviderInfo.ID,
-                    ProviderKey = DropboxProviderInfo.ProviderKey,
-                    RootFolderCreator = DropboxProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = DropboxProviderInfo.RootFolderType,
-                    Title = MakeFileTitle(dropboxFile),
-                    Error = dropboxFile.Error
-                };
+            {
+                ID = MakeId(dropboxFile.ErrorId),
+                CreateBy = DropboxProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeNow(),
+                ModifiedBy = DropboxProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeNow(),
+                ProviderId = DropboxProviderInfo.ID,
+                ProviderKey = DropboxProviderInfo.ProviderKey,
+                RootFolderCreator = DropboxProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = DropboxProviderInfo.RootFolderType,
+                Title = MakeFileTitle(dropboxFile),
+                Error = dropboxFile.Error
+            };
         }
 
         private Folder ToErrorFolder(ErrorFolder dropboxFolder)
         {
             if (dropboxFolder == null) return null;
             return new Folder
-                {
-                    ID = MakeId(dropboxFolder.ErrorId),
-                    ParentFolderID = null,
-                    CreateBy = DropboxProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = DropboxProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeNow(),
-                    ProviderId = DropboxProviderInfo.ID,
-                    ProviderKey = DropboxProviderInfo.ProviderKey,
-                    RootFolderCreator = DropboxProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = DropboxProviderInfo.RootFolderType,
-                    Shareable = false,
-                    Title = MakeFolderTitle(dropboxFolder),
-                    TotalFiles = 0,
-                    TotalSubFolders = 0,
-                    Error = dropboxFolder.Error
-                };
+            {
+                ID = MakeId(dropboxFolder.ErrorId),
+                ParentFolderID = null,
+                CreateBy = DropboxProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeNow(),
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = DropboxProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeNow(),
+                ProviderId = DropboxProviderInfo.ID,
+                ProviderKey = DropboxProviderInfo.ProviderKey,
+                RootFolderCreator = DropboxProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = DropboxProviderInfo.RootFolderType,
+                Shareable = false,
+                Title = MakeFolderTitle(dropboxFolder),
+                TotalFiles = 0,
+                TotalSubFolders = 0,
+                Error = dropboxFolder.Error
+            };
         }
 
         public File ToFile(FileMetadata dropboxFile)
@@ -272,26 +274,26 @@ namespace ASC.Files.Thirdparty.Dropbox
             }
 
             return new File
-                {
-                    ID = MakeId(dropboxFile),
-                    Access = FileShare.None,
-                    ContentLength = (long)dropboxFile.Size,
-                    CreateBy = DropboxProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeFromUtc(dropboxFile.ServerModified),
-                    FileStatus = FileStatus.None,
-                    FolderID = MakeId(GetParentFolderPath(dropboxFile)),
-                    ModifiedBy = DropboxProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeFromUtc(dropboxFile.ServerModified),
-                    NativeAccessor = dropboxFile,
-                    ProviderId = DropboxProviderInfo.ID,
-                    ProviderKey = DropboxProviderInfo.ProviderKey,
-                    Title = MakeFileTitle(dropboxFile),
-                    RootFolderId = MakeId(),
-                    RootFolderType = DropboxProviderInfo.RootFolderType,
-                    RootFolderCreator = DropboxProviderInfo.Owner,
-                    Shared = false,
-                    Version = 1
-                };
+            {
+                ID = MakeId(dropboxFile),
+                Access = FileShare.None,
+                ContentLength = (long)dropboxFile.Size,
+                CreateBy = DropboxProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeFromUtc(dropboxFile.ServerModified),
+                FileStatus = FileStatus.None,
+                FolderID = MakeId(GetParentFolderPath(dropboxFile)),
+                ModifiedBy = DropboxProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeFromUtc(dropboxFile.ServerModified),
+                NativeAccessor = dropboxFile,
+                ProviderId = DropboxProviderInfo.ID,
+                ProviderKey = DropboxProviderInfo.ProviderKey,
+                Title = MakeFileTitle(dropboxFile),
+                RootFolderId = MakeId(),
+                RootFolderType = DropboxProviderInfo.RootFolderType,
+                RootFolderCreator = DropboxProviderInfo.Owner,
+                Shared = false,
+                Version = 1
+            };
         }
 
         public Folder GetRootFolder(object folderId)

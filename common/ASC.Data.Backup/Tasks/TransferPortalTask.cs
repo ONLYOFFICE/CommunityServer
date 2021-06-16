@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ using System;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using ASC.Core.Tenants;
+
 using ASC.Common.Data;
 using ASC.Common.Logging;
+using ASC.Core.Tenants;
 using ASC.Data.Backup.Extensions;
 using ASC.Data.Backup.Tasks.Modules;
 using ASC.Data.Storage;
@@ -41,6 +41,8 @@ namespace ASC.Data.Backup.Tasks
         public bool DeleteOldPortalAfterCompletion { get; set; }
 
         public int Limit { get; private set; }
+
+        public int ToTenantId { get; private set; }
 
         public TransferPortalTask(ILog logger, int tenantId, string fromConfigPath, string toConfigPath, int limit)
             : base(logger, tenantId, fromConfigPath)
@@ -77,16 +79,16 @@ namespace ASC.Data.Backup.Tasks
                 SetStepsCount(ProcessStorage ? 3 : 2);
 
                 //save db data to temporary file
-                var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath, Limit) {ProcessStorage = false};
+                var backupTask = new BackupPortalTask(Logger, TenantId, ConfigPath, backupFilePath, Limit) { ProcessStorage = false };
                 backupTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
                 foreach (var moduleName in IgnoredModules)
                 {
                     backupTask.IgnoreModule(moduleName);
                 }
                 backupTask.RunJob();
-                
+
                 //restore db data from temporary file
-                var restoreTask = new RestorePortalTask(Logger, ToConfigPath, backupFilePath, columnMapper) {ProcessStorage = false};
+                var restoreTask = new RestorePortalTask(Logger, ToConfigPath, backupFilePath, columnMapper) { ProcessStorage = false };
                 restoreTask.ProgressChanged += (sender, args) => SetCurrentStepProgress(args.Progress);
                 foreach (var moduleName in IgnoredModules)
                 {
@@ -109,6 +111,8 @@ namespace ASC.Data.Backup.Tasks
                 {
                     SaveTenant(fromDbFactory, tenantAlias, TenantStatus.Active);
                 }
+
+                ToTenantId = columnMapper.GetTenantMapping();
             }
             catch
             {

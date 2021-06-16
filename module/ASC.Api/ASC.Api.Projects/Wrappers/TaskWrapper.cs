@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
 using ASC.Specific;
@@ -70,7 +71,7 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 53)]
         public List<EmployeeWraper> Responsibles { get; set; }
 
-        [DataMember(Order = 53, EmitDefaultValue=false)]
+        [DataMember(Order = 53, EmitDefaultValue = false)]
         public List<Guid> ResponsibleIds { get; set; }
 
         [DataMember(Order = 54, EmitDefaultValue = false)]
@@ -167,22 +168,22 @@ namespace ASC.Api.Projects.Wrappers
         public static TaskWrapper GetSample()
         {
             return new TaskWrapper
-                {
-                    Id = 10,
-                    Title = "Sample Title",
-                    Description = "Sample description",
-                    Deadline = ApiDateTime.GetSample(),
-                    Priority = TaskPriority.High,
-                    Status = (int)MilestoneStatus.Open,
-                    Responsible = EmployeeWraper.GetSample(),
-                    ProjectOwner = SimpleProjectWrapper.GetSample(),
-                    MilestoneId = 123,
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Updated = ApiDateTime.GetSample(),
-                    UpdatedBy = EmployeeWraper.GetSample(),
-                    StartDate = ApiDateTime.GetSample()
-                };
+            {
+                Id = 10,
+                Title = "Sample Title",
+                Description = "Sample description",
+                Deadline = ApiDateTime.GetSample(),
+                Priority = TaskPriority.High,
+                Status = (int)MilestoneStatus.Open,
+                Responsible = EmployeeWraper.GetSample(),
+                ProjectOwner = SimpleProjectWrapper.GetSample(),
+                MilestoneId = 123,
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                UpdatedBy = EmployeeWraper.GetSample(),
+                StartDate = ApiDateTime.GetSample()
+            };
         }
     }
 }

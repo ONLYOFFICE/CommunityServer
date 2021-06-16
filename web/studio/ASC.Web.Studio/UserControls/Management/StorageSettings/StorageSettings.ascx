@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="StorageSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.StorageSettings.StorageSettings" %>
 
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
+
 <script id="storageSettingsBlockTemplate" type="text/x-jquery-tmpl">
     <div id="${id}">
         <div class="auth-service display-none">
@@ -25,9 +27,9 @@
     </div>
     <div class="small-button-container">
         {{if !current}}
-            <a id="saveBtn${title}" class="button blue {{if !isSet}} disable {{/if}} middle saveButton">${ASC.Resources.Master.Resource.StorageButtonEnable}</a>
+            <a id="saveBtn${title}" class="button blue {{if !isSet}} disable {{/if}} middle saveButton">${ASC.Resources.Master.ResourceJS.StorageButtonEnable}</a>
         {{else}}
-            <a id="setDefault${title}" class="button blue middle saveButton">${ASC.Resources.Master.Resource.StorageButtonResetToDefault}</a>
+            <a id="setDefault${title}" class="button blue middle saveButton">${ASC.Resources.Master.ResourceJS.StorageButtonResetToDefault}</a>
         {{/if}}
     </div>
 </div>
@@ -35,10 +37,10 @@
 </script>
 
 <div id="storageContainer">
-    <div class="header-base"><%= Resources.Resource.StorageTitle %></div>
+    <div class="header-base"><%= Resource.StorageTitle %></div>
 
     <p class="auth-service-text">
-        <%: Resources.Resource.StorageText %>
+        <%: Resource.StorageText %>
         <br />
     </p>
     <div class="storageBlock clearFix">

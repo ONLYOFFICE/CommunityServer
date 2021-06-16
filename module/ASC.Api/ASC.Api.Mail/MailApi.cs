@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
@@ -91,8 +92,8 @@ namespace ASC.Api.Mail
             get
             {
                 var count = 20;
-                if(ConfigurationManagerExtension.AppSettings["mail.autocomplete-max-count"] == null) 
-                   return count;
+                if (ConfigurationManagerExtension.AppSettings["mail.autocomplete-max-count"] == null)
+                    return count;
 
                 int.TryParse(ConfigurationManagerExtension.AppSettings["mail.autocomplete-max-count"], out count);
                 return count;
@@ -165,26 +166,26 @@ namespace ASC.Api.Mail
             switch (type)
             {
                 case MailOperationType.DownloadAllAttachments:
+                {
+                    var progress = op.GetProperty<MailOperationDownloadAllAttachmentsProgress>(MailOperation.PROGRESS);
+                    switch (progress)
                     {
-                        var progress = op.GetProperty<MailOperationDownloadAllAttachmentsProgress>(MailOperation.PROGRESS);
-                        switch (progress)
-                        {
-                            case MailOperationDownloadAllAttachmentsProgress.Init:
-                                return MailApiResource.SetupTenantAndUserHeader;
-                            case MailOperationDownloadAllAttachmentsProgress.GetAttachments:
-                                return MailApiResource.GetAttachmentsHeader;
-                            case MailOperationDownloadAllAttachmentsProgress.Zipping:
-                                return MailApiResource.ZippingAttachmentsHeader;
-                            case MailOperationDownloadAllAttachmentsProgress.ArchivePreparation:
-                                return MailApiResource.PreparationArchiveHeader;
-                            case MailOperationDownloadAllAttachmentsProgress.CreateLink:
-                                return MailApiResource.CreatingLinkHeader;
-                            case MailOperationDownloadAllAttachmentsProgress.Finished:
-                                return MailApiResource.FinishedHeader;
-                            default:
-                                return status;
-                        }
+                        case MailOperationDownloadAllAttachmentsProgress.Init:
+                            return MailApiResource.SetupTenantAndUserHeader;
+                        case MailOperationDownloadAllAttachmentsProgress.GetAttachments:
+                            return MailApiResource.GetAttachmentsHeader;
+                        case MailOperationDownloadAllAttachmentsProgress.Zipping:
+                            return MailApiResource.ZippingAttachmentsHeader;
+                        case MailOperationDownloadAllAttachmentsProgress.ArchivePreparation:
+                            return MailApiResource.PreparationArchiveHeader;
+                        case MailOperationDownloadAllAttachmentsProgress.CreateLink:
+                            return MailApiResource.CreatingLinkHeader;
+                        case MailOperationDownloadAllAttachmentsProgress.Finished:
+                            return MailApiResource.FinishedHeader;
+                        default:
+                            return status;
                     }
+                }
                 case MailOperationType.RemoveMailbox:
                 {
                     var progress = op.GetProperty<MailOperationRemoveMailboxProgress>(MailOperation.PROGRESS);

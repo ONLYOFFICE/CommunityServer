@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,15 @@ using System.Web.UI;
 
 namespace ASC.Web.Mail.Controls
 {
-  public partial class TagBox : UserControl
-  {
-    public static string Location { get { return "~/addons/mail/Controls/TagBox/TagBox.ascx"; } }
-
-    public string Content { get; set; }
-
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class TagBox : UserControl
     {
-        tagFieldPopup.Options.IsPopup = true;
+        public static string Location { get { return "~/addons/mail/Controls/TagBox/TagBox.ascx"; } }
+
+        public string Content { get; set; }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            tagFieldPopup.Options.IsPopup = true;
+        }
     }
-  }
 }

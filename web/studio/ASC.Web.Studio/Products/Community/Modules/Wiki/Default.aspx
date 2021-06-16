@@ -6,7 +6,7 @@
 
 <%@ Import Namespace="ASC.Web.Community.Product" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Wiki.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.Wiki" %>
 
 <%@ Register Src="WikiUC/ViewPage.ascx" TagName="ucViewPage" TagPrefix="wiki" %>

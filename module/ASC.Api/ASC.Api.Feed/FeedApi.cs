@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
 */
 
 
+using System;
+using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
@@ -24,8 +27,6 @@ using ASC.Core.Tenants;
 using ASC.Feed;
 using ASC.Feed.Data;
 using ASC.Specific;
-using System;
-using System.Linq;
 
 namespace ASC.Api.Feed
 {
@@ -33,7 +34,7 @@ namespace ASC.Api.Feed
     {
         private const string newFeedsCountCacheKey = "newfeedscount";
         private readonly ICache newFeedsCountCache = AscCache.Memory;
-        
+
         private static string GetNewFeedsCountKey()
         {
             return newFeedsCountCacheKey + SecurityContext.CurrentAccount.ID;
@@ -68,14 +69,14 @@ namespace ASC.Api.Feed
             ApiDateTime timeReaded)
         {
             var filter = new FeedApiFilter
-                {
-                    Product = product,
-                    Offset = (int)context.StartIndex,
-                    Max = (int)context.Count - 1,
-                    Author = author ?? Guid.Empty,
-                    SearchKeys = context.FilterValues,
-                    OnlyNew = onlyNew.HasValue && onlyNew.Value
-                };
+            {
+                Product = product,
+                Offset = (int)context.StartIndex,
+                Max = (int)context.Count - 1,
+                Author = author ?? Guid.Empty,
+                SearchKeys = context.FilterValues,
+                OnlyNew = onlyNew.HasValue && onlyNew.Value
+            };
 
             if (from != null && to != null)
             {
@@ -120,7 +121,7 @@ namespace ASC.Api.Feed
                 .ToList();
 
             context.SetDataPaginated();
-            return new {feeds, readedDate};
+            return new { feeds, readedDate };
         }
 
         [Read("/newfeedscount")]

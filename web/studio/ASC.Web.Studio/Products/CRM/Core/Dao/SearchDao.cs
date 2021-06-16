@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,7 +57,7 @@ namespace ASC.CRM.Core.Dao
         #region Methods
 
         #region Public
-        
+
         public SearchResultItem[] Search(String searchText)
         {
             var keywords = searchText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
@@ -70,7 +70,7 @@ namespace ASC.CRM.Core.Dao
                                     && BundleSearch.Support(EntityType.Opportunity)
                                     && BundleSearch.Support(EntityType.Task)
                                     && BundleSearch.Support(EntityType.Invoice);
-                            
+
             if (_fullTextSearchEnable)
             {
                 _findedIDs = new Dictionary<EntityType, IEnumerable<int>>();
@@ -205,14 +205,14 @@ namespace ASC.CRM.Core.Dao
                 case EntityType.Opportunity:
                     byField = BuildLike(new[]
                                           {
-                                              "title", 
+                                              "title",
                                               "description"
                                           }, keywords);
                     break;
                 case EntityType.Task:
                     byField = BuildLike(new[]
                                           {
-                                              "title", 
+                                              "title",
                                               "description"
                                           }, keywords);
                     break;
@@ -222,9 +222,9 @@ namespace ASC.CRM.Core.Dao
                                               "title"
                                           }, keywords);
                     break;
-                 case EntityType.Invoice:
-                        byField = BuildLike(new[]
-                                          {
+                case EntityType.Invoice:
+                    byField = BuildLike(new[]
+                                      {
                                               "number",
                                               "description"
                                           }, keywords);
@@ -244,7 +244,7 @@ namespace ASC.CRM.Core.Dao
 
         private bool IncludeToSearch(EntityType entityType)
         {
-            return !BundleSearch.Support(entityType)  || _findedIDs.ContainsKey(entityType);
+            return !BundleSearch.Support(entityType) || _findedIDs.ContainsKey(entityType);
         }
 
         private SqlQuery GetSearchQuery(String[] keywords)
@@ -306,74 +306,74 @@ namespace ASC.CRM.Core.Dao
                 switch (containerType)
                 {
                     case EntityType.Contact:
-                        {
+                    {
 
-                            var contact = DaoFactory.ContactDao.GetByID(Convert.ToInt32(id));
+                        var contact = DaoFactory.ContactDao.GetByID(Convert.ToInt32(id));
 
-                            if (contact == null || !CRMSecurity.CanAccessTo(contact)) continue;
+                        if (contact == null || !CRMSecurity.CanAccessTo(contact)) continue;
 
-                            url = String.Format("Default.aspx?id={0}", id);
+                        url = String.Format("Default.aspx?id={0}", id);
 
-                            if (contact is Company)
-                                imageRef = WebImageSupplier.GetAbsoluteWebPath("companies_widget.png",
-                                                                         ProductEntryPoint.ID);
-                            else
-                                imageRef = WebImageSupplier.GetAbsoluteWebPath("people_widget.png",
-                                                  ProductEntryPoint.ID);
+                        if (contact is Company)
+                            imageRef = WebImageSupplier.GetAbsoluteWebPath("companies_widget.png",
+                                                                     ProductEntryPoint.ID);
+                        else
+                            imageRef = WebImageSupplier.GetAbsoluteWebPath("people_widget.png",
+                                              ProductEntryPoint.ID);
 
-                            break;
-                        }
+                        break;
+                    }
                     case EntityType.Opportunity:
-                        {
+                    {
 
-                            var deal = DaoFactory.DealDao.GetByID(Convert.ToInt32(id));
+                        var deal = DaoFactory.DealDao.GetByID(Convert.ToInt32(id));
 
-                            if (deal == null || !CRMSecurity.CanAccessTo(deal)) continue;
+                        if (deal == null || !CRMSecurity.CanAccessTo(deal)) continue;
 
-                            url = String.Format("Deals.aspx?id={0}", id);
+                        url = String.Format("Deals.aspx?id={0}", id);
 
-                            imageRef = WebImageSupplier.GetAbsoluteWebPath("deal_widget.png",
-                                                                           ProductEntryPoint.ID);
-                            break;
-                        }
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("deal_widget.png",
+                                                                       ProductEntryPoint.ID);
+                        break;
+                    }
                     case EntityType.Case:
-                        {
-                            var cases = DaoFactory.CasesDao.GetByID(Convert.ToInt32(id));
+                    {
+                        var cases = DaoFactory.CasesDao.GetByID(Convert.ToInt32(id));
 
-                            if (cases == null || !CRMSecurity.CanAccessTo(cases)) continue;
+                        if (cases == null || !CRMSecurity.CanAccessTo(cases)) continue;
 
-                            url = String.Format("Cases.aspx?id={0}", id);
+                        url = String.Format("Cases.aspx?id={0}", id);
 
-                            imageRef = WebImageSupplier.GetAbsoluteWebPath("cases_widget.png",
-                                                                           ProductEntryPoint.ID);
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("cases_widget.png",
+                                                                       ProductEntryPoint.ID);
 
-                            break;
-                        }
+                        break;
+                    }
                     case EntityType.Task:
-                        {
-                            var task = DaoFactory.TaskDao.GetByID(Convert.ToInt32(id));
+                    {
+                        var task = DaoFactory.TaskDao.GetByID(Convert.ToInt32(id));
 
-                            if (task == null || !CRMSecurity.CanAccessTo(task)) continue;
+                        if (task == null || !CRMSecurity.CanAccessTo(task)) continue;
 
-                            url = "";
+                        url = "";
 
-                            imageRef = WebImageSupplier.GetAbsoluteWebPath("tasks_widget.png",
-                                                                         ProductEntryPoint.ID);
-                            break;
-                        }
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("tasks_widget.png",
+                                                                     ProductEntryPoint.ID);
+                        break;
+                    }
                     case EntityType.Invoice:
-                        {
-                            var invoice = DaoFactory.InvoiceDao.GetByID(Convert.ToInt32(id));
+                    {
+                        var invoice = DaoFactory.InvoiceDao.GetByID(Convert.ToInt32(id));
 
-                            if (invoice == null || !CRMSecurity.CanAccessTo(invoice)) continue;
+                        if (invoice == null || !CRMSecurity.CanAccessTo(invoice)) continue;
 
-                            url = String.Format("Invoices.aspx?id={0}", id);
+                        url = String.Format("Invoices.aspx?id={0}", id);
 
-                            imageRef = WebImageSupplier.GetAbsoluteWebPath("invoices_widget.png",
-                                             ProductEntryPoint.ID);
+                        imageRef = WebImageSupplier.GetAbsoluteWebPath("invoices_widget.png",
+                                         ProductEntryPoint.ID);
 
-                            break;
-                        }
+                        break;
+                    }
                     default:
                         throw new ArgumentException();
                 }
@@ -384,11 +384,11 @@ namespace ASC.CRM.Core.Dao
                     Description = HtmlUtil.GetText(Convert.ToString(row[3]), 120),
                     URL = !string.IsNullOrEmpty(url) ? String.Concat(PathProvider.BaseAbsolutePath, url) : string.Empty,
                     Date = TenantUtil.DateTimeFromUtc(DateTime.Parse(Convert.ToString(row[7]))),
-                    Additional = new Dictionary<String, Object> 
+                    Additional = new Dictionary<String, Object>
                                         { { "imageRef", imageRef },
                                           {"relativeInfo", GetPath(
                                               Convert.ToInt32(row[4]),
-                                              Convert.ToInt32(row[5]), 
+                                              Convert.ToInt32(row[5]),
                                               (EntityType)Convert.ToInt32(row[6]))},
                                           {"typeInfo", containerType.ToLocalizedString()}
                                         }

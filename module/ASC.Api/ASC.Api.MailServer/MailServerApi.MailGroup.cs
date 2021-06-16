@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,13 @@
 */
 
 
+using System;
 using System.Collections.Generic;
+
 using ASC.Api.Attributes;
 using ASC.Mail.Data.Contracts;
+
+using ASC.Web.Studio.PublicResources;
 
 // ReSharper disable InconsistentNaming
 
@@ -37,6 +41,7 @@ namespace ASC.Api.MailServer
         [Create(@"groupaddress/add")]
         public ServerDomainGroupData CreateMailGroup(string name, int domain_id, List<int> address_ids)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var group = MailEngineFactory.ServerMailgroupEngine.CreateMailGroup(name, domain_id, address_ids);
             return group;
         }
@@ -52,6 +57,7 @@ namespace ASC.Api.MailServer
         [Update(@"groupaddress/address/add")]
         public ServerDomainGroupData AddMailGroupAddress(int mailgroup_id, int address_id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var group = MailEngineFactory.ServerMailgroupEngine.AddMailGroupMember(mailgroup_id, address_id);
             return group;
         }
@@ -67,6 +73,7 @@ namespace ASC.Api.MailServer
         [Delete(@"groupaddress/addresses/remove")]
         public int RemoveMailGroupAddress(int mailgroup_id, int address_id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             MailEngineFactory.ServerMailgroupEngine.RemoveMailGroupMember(mailgroup_id, address_id);
             return address_id;
         }
@@ -80,6 +87,7 @@ namespace ASC.Api.MailServer
         [Read(@"groupaddress/get")]
         public List<ServerDomainGroupData> GetMailGroups()
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var groups = MailEngineFactory.ServerMailgroupEngine.GetMailGroups();
             return groups;
         }
@@ -94,6 +102,7 @@ namespace ASC.Api.MailServer
         [Delete(@"groupaddress/remove/{id}")]
         public int RemoveMailGroup(int id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             MailEngineFactory.ServerMailgroupEngine.RemoveMailGroup(id);
             return id;
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,13 @@
 
 
 using System;
+
 using AjaxPro;
-using ASC.Web.UserControls.Bookmarking.Common.Presentation;
-using ASC.Web.UserControls.Bookmarking.Resources;
-using ASC.Bookmarking.Common;
+
 using ASC.Bookmarking;
+using ASC.Bookmarking.Common;
+using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
+using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 
 namespace ASC.Web.UserControls.Bookmarking
 {

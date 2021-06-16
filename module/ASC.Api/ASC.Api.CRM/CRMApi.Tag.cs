@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
+using ASC.Api.Collections;
+using ASC.Api.CRM.Wrappers;
 using ASC.Api.Exceptions;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.Api.Collections;
 using ASC.MessagingSystem;
 using ASC.Specific;
-using ASC.Api.CRM.Wrappers;
-using System.Security;
 using ASC.Web.CRM.Resources;
 
 namespace ASC.Api.CRM
@@ -51,7 +51,8 @@ namespace ASC.Api.CRM
 
             var entityTypeObj = ToEntityType(entityType);
 
-            switch (entityTypeObj) {
+            switch (entityTypeObj)
+            {
                 case EntityType.Contact:
                 case EntityType.Person:
                 case EntityType.Company:
@@ -141,7 +142,8 @@ namespace ASC.Api.CRM
             if (tagTitles.Count != relativeItemsCountArrayJSON.Count) throw new ArgumentException();
 
             var result = new List<TagWrapper>();
-            for (var i = 0; i < tagTitles.Count; i++) {
+            for (var i = 0; i < tagTitles.Count; i++)
+            {
                 result.Add(new TagWrapper(tagTitles[i], relativeItemsCountArrayJSON[i]));
             }
             return result.OrderBy(x => x.Title.Trim(), StringComparer.OrdinalIgnoreCase).ToList();
@@ -640,9 +642,9 @@ namespace ASC.Api.CRM
             switch (entityType)
             {
                 case EntityType.Company:
-                    return new List<MessageAction> {MessageAction.CompanyCreatedTag, MessageAction.CompanyCreatedPersonsTag};
+                    return new List<MessageAction> { MessageAction.CompanyCreatedTag, MessageAction.CompanyCreatedPersonsTag };
                 case EntityType.Person:
-                    return new List<MessageAction> {MessageAction.PersonCreatedTag, MessageAction.PersonCreatedCompanyTag};
+                    return new List<MessageAction> { MessageAction.PersonCreatedTag, MessageAction.PersonCreatedCompanyTag };
                 default:
                     throw new ArgumentException("Invalid entityType: " + entityType);
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1136,7 +1136,7 @@ ASC.CRM.ListContactView = (function() {
         ASC.CRM.ListContactView.advansedFilter = jq("#contactsAdvansedFilter")
             .advansedFilter({
                 anykey      : false,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxfilters  : -1,
                 colcount    : 2,
                 maxlength   : "100",
@@ -1797,27 +1797,6 @@ ASC.CRM.ListContactView = (function() {
 
             _initFilter();
 
-            ///*tracking events*/
-            ASC.CRM.ListContactView.advansedFilter.one("adv-ready", function () {
-                var crmAdvansedFilterContainer = jq("#contactsAdvansedFilter .advansed-filter-list");
-                crmAdvansedFilterContainer.find("li[data-id='my'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'me_manager');
-                crmAdvansedFilterContainer.find("li[data-id='responsibleID'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'custom_manager');
-                crmAdvansedFilterContainer.find("li[data-id='company'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'company');
-                crmAdvansedFilterContainer.find("li[data-id='Persons'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'persons');
-                crmAdvansedFilterContainer.find("li[data-id='withopportunity'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'with_opportunity');
-                crmAdvansedFilterContainer.find("li[data-id='lastMonth'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'last_month');
-                crmAdvansedFilterContainer.find("li[data-id='yesterday'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'yesterday');
-                crmAdvansedFilterContainer.find("li[data-id='today'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'today');
-                crmAdvansedFilterContainer.find("li[data-id='thisMonth'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'this_month');
-                crmAdvansedFilterContainer.find("li[data-id='fromToDate'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'from_to_date');
-                crmAdvansedFilterContainer.find("li[data-id='contactStage'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'contact_stage');
-                crmAdvansedFilterContainer.find("li[data-id='contactType'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'contact_type');
-                crmAdvansedFilterContainer.find("li[data-id='tags'] .inner-text").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, 'with_tags');
-
-                jq("#contactsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, "sort");
-                jq("#contactsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.contacts, ga_Actions.filterClick, "search_text", "enter");
-            });
-            
             ASC.CRM.PartialExport.init(ASC.CRM.ListContactView.advansedFilter, "contact");
         },
 
@@ -1967,8 +1946,6 @@ ASC.CRM.ListContactView = (function() {
                 filter.StartIndex = startIndex;
             }
             filter.Count = ASC.CRM.ListContactView.entryCountOnPage;
-
-            trackingGoogleAnalytics(ga_Categories.contacts, 'crm_search_contacts_by_filter');
 
             Teamlab.getCrmSimpleContacts({}, { filter: filter, success: ASC.CRM.ListContactView.CallbackMethods.get_contacts_by_filter });
         },
@@ -5124,17 +5101,18 @@ jQuery.fn.sliderWithSections = function (settings) {
         max: options.max,
         range: false, //multiple select elements = true
         slide: function (e, ui) { //slide function
+            var thisSlider = jQuery(this);
             var thisHandle = jQuery(ui.handle);
             thisHandle.attr('aria-valuetext', options.values[ui.value]).attr('aria-valuenow', ui.value);
 
             if (ui.value != 0) {
-                thisHandle.find('.ui-slider-tooltip .ttContent').html(options.values[ui.value]);
+                thisSlider.next('.ui-slider-tooltip').find('.ttContent').html(options.values[ui.value]);
                 thisHandle.removeClass("ui-slider-tooltip-hide");
             } else {
                 thisHandle.addClass("ui-slider-tooltip-hide");
             }
 
-            var liItems = jQuery(this).children('ol.ui-slider-scale').children('li');
+            var liItems = thisSlider.children('ol.ui-slider-scale').children('li');
 
             for (var i = 0; i < sliderOptions.max; i++) {
                 if (i < ui.value) {
@@ -5154,32 +5132,17 @@ jQuery.fn.sliderWithSections = function (settings) {
     //slider options from settings
     options.sliderOptions = (settings) ? jQuery.extend(sliderOptions, settings.sliderOptions) : sliderOptions;
 
-
-    //create slider component div
-    var sliderComponent = jQuery('<div></div>'),
-        $tooltip = jQuery('<a href="#" tabindex="0" ' +
-        'class="ui-slider-handle" ' +
-        'role="slider" ' +
-        'aria-valuenow="' + options.value + '" ' +
-        'aria-valuetext="' + options.values[options.value] + '"' +
-        '><span class="ui-slider-tooltip ui-widget-content ui-corner-all"><span class="ttContent"></span>' +
-        '<span class="ui-tooltip-pointer-down ui-widget-content"><span class="ui-tooltip-pointer-down-inner"></span></span>' +
-        '</span></a>')
-        .data('handleNum', options.value)
-        .appendTo(sliderComponent);
-    sliderComponent.find('.ui-slider-tooltip .ttContent').html(options.values[options.value]);
-    if (options.values[options.value] == "") {
-        sliderComponent.children(".ui-slider-handle").addClass("ui-slider-tooltip-hide");
-    }
-
-    var scale = sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset" role="presentation" style="width: 100%; height: 100%;"></ol>').find('.ui-slider-scale:eq(0)');
-
-    //var widthVal = (1 / sliderOptions.max * 100).toFixed(2) + '%';
-    var sliderWidth = jQuery(this).css('width').replace('px', '') * 1,
+    var thisElement = jQuery(this),
+        valuetext = options.values[options.value],
+        sliderHandleClass = valuetext ? '' : 'ui-slider-tooltip-hide',
+        sliderComponent = jQuery('<div><a href="#" tabindex="0" class="ui-slider-handle ' + sliderHandleClass + '" role="slider" aria-valuenow="' + options.value + '" aria-valuetext="' + valuetext + '"></a></div>'),
+        sliderTooltip = jQuery('<span class="ui-slider-tooltip ui-widget-content ui-corner-all"><span class="ttContent">' + valuetext + '</span><span class="ui-tooltip-pointer-down ui-widget-content"><span class="ui-tooltip-pointer-down-inner"></span></span></span>'),
+        scale = sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset" role="presentation" style="width: 100%; height: 100%;"></ol>').find('.ui-slider-scale:eq(0)'),
+        sliderWidth = thisElement.css('width').replace('px', '') * 1,
         widthVal = ((sliderWidth - options.marginWidth * (sliderOptions.max - 1) - 2 * options.liBorderWidth * sliderOptions.max) / sliderOptions.max).toFixed(4);
+
     for (var i = 0; i <= sliderOptions.max; i++) {
-        var style = (i == sliderOptions.max || i == 0) ? 'display: none;' : '',
-            liStyle = (i == sliderOptions.max) ? 'display: none;' : '',
+        var liStyle = (i == sliderOptions.max) ? 'display: none;' : '',
             color = 'transparent';
 
         if (i < options.value) {
@@ -5197,12 +5160,31 @@ jQuery.fn.sliderWithSections = function (settings) {
     }
 
     //inject and return
-    sliderComponent.appendTo(jQuery(this)).slider(options.sliderOptions).attr('role', 'application');
-    sliderComponent.find('.ui-tooltip-pointer-down-inner').each(function () {
-        var bWidth = jQuery('.ui-tooltip-pointer-down-inner').css('borderTopWidth'),
-            bColor = jQuery(this).parents('.ui-slider-tooltip').css('backgroundColor');
-        jQuery(this).css('border-top', bWidth + ' solid ' + bColor);
+    sliderComponent.appendTo(thisElement).slider(options.sliderOptions).attr('role', 'application');
+    sliderTooltip.appendTo(thisElement);
+
+    var attrObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function (mu) {
+            if (mu.type !== "attributes" && mu.attributeName !== "class") {
+                return;
+            }
+            var classList = mu.target.classList;
+            if (classList.contains("ui-slider-tooltip-hide")) {
+                sliderTooltip.removeClass("visible");
+                return;
+            }
+            if (classList.contains("ui-state-active") || classList.contains("ui-state-focus") || classList.contains("ui-state-hover")) {
+                var rect = mu.target.getBoundingClientRect();
+                sliderTooltip.css("left", rect.left - 16);
+                sliderTooltip.css("top", rect.top - 36);
+                sliderTooltip.addClass("visible");
+                return;
+            }
+            sliderTooltip.removeClass("visible");
+        });
     });
+
+    attrObserver.observe(sliderComponent.find(".ui-slider-handle")[0], { attributes: true });
 
     if (options.disabled)
         sliderComponent.slider('disable');

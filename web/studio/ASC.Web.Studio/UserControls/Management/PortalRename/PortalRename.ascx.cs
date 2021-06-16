@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,11 @@
 
 
 using System;
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Web.Core;
 using System.Web;
-using System.Configuration;
-using ASC.Web.Studio.Core;
 using System.Web.UI;
+
+using ASC.Core;
+using ASC.Web.Studio.Core;
 
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -33,8 +31,10 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected bool Enabled;
 
-        protected string CurrentTenantAlias {
-            get {
+        protected string CurrentTenantAlias
+        {
+            get
+            {
                 return CoreContext.TenantManager.GetCurrentTenant().TenantAlias;
             }
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.ElasticSearch;
 using ASC.Web.Community.News.Code;
@@ -45,9 +46,9 @@ namespace ASC.Web.Community.Search
 
         public static implicit operator NewsWrapper(Feed feed)
         {
-            var result =  new NewsWrapper
+            var result = new NewsWrapper
             {
-                Id = (int) feed.Id,
+                Id = (int)feed.Id,
                 TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                 Caption = feed.Caption,
                 Text = feed.Text
@@ -56,7 +57,7 @@ namespace ASC.Web.Community.Search
             var poll = feed as FeedPoll;
             if (poll != null)
             {
-                result.PollVariantWrapper = poll.Variants.Select(r => new PollVariantWrapper {Name = r.Name}).ToList();
+                result.PollVariantWrapper = poll.Variants.Select(r => new PollVariantWrapper { Name = r.Name }).ToList();
             }
 
             return result;

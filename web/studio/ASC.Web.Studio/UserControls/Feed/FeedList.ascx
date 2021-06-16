@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FeedList.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Feed.FeedList" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="feed-list-box">
     <table id="feed-table">

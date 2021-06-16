@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" encoding="utf-8" standalone="yes" indent="yes" omit-xml-declaration="yes" media-type="text/xhtml" />
 
-  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
+  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="FilesCommonResource" />
 
   <xsl:template match="fileList">
     <div id="contentVersions">
@@ -10,7 +10,7 @@
         <thead>
           <tr class="versions-title">
             <th colspan="7">
-              <resource name="fres.TitleVersionHistory" />
+              <resource name="FilesCommonResource.TitleVersionHistory" />
             </th>
             <th>
               <span class="version-close"></span>
@@ -31,12 +31,12 @@
               </span>
               <div class="version-complete">
                 <xsl:attribute name="title">
-                  <resource name="fres.TitleVersionComplete" />
+                  <resource name="FilesCommonResource.TitleVersionComplete" />
                 </xsl:attribute>
               </div>
               <div class="version-continue">
                 <xsl:attribute name="title">
-                  <resource name="fres.TitleVersionContinue" />
+                  <resource name="FilesCommonResource.TitleVersionContinue" />
                 </xsl:attribute>
               </div>
             </td>
@@ -71,17 +71,17 @@
             <td class="version-operation">
               <div class="version-download">
                 <xsl:attribute name="title">
-                  <resource name="fres.ButtonDownload" />
+                  <resource name="FilesCommonResource.ButtonDownload" />
                 </xsl:attribute>
               </div>
               <div class="version-preview">
                 <xsl:attribute name="title">
-                  <resource name="fres.OpenFile" />
+                  <resource name="FilesCommonResource.OpenFile" />
                 </xsl:attribute>
               </div>
               <div class="version-comment-edit">
                 <xsl:attribute name="title">
-                  <resource name="fres.EnterComment" />
+                  <resource name="FilesCommonResource.EnterComment" />
                 </xsl:attribute>
               </div>
             </td>
@@ -91,9 +91,9 @@
             <td class="version-operation version-restore">
               <span>
                 <xsl:attribute name="title">
-                  <resource name="fres.MakeCurrent" />
+                  <resource name="FilesCommonResource.MakeCurrent" />
                 </xsl:attribute>
-                <resource name="fres.MakeCurrent" />
+                <resource name="FilesCommonResource.MakeCurrent" />
               </span>
             </td>
           </tr>

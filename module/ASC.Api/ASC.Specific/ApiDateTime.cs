@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.Serialization;
+
 using ASC.Api.Interfaces;
 using ASC.Core;
+
 using Newtonsoft.Json;
 
 namespace ASC.Specific
@@ -33,8 +35,8 @@ namespace ASC.Specific
         private static readonly string[] Formats = new[]
                                                        {
                                                            "o",
-                                                           "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'.'fffffffK", 
-                                                           "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'.'fffK", 
+                                                           "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'.'fffffffK",
+                                                           "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'.'fffK",
                                                            "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
                                                            "yyyy'-'MM'-'dd'T'HH'-'mm'-'ssK",
                                                            "yyyy'-'MM'-'dd'T'HH':'mm':'ssK",
@@ -116,7 +118,7 @@ namespace ASC.Specific
             {
                 timeZone = GetTimeZoneInfo();
             }
-            
+
             //Hack
             if (timeZone.IsInvalidTime(new DateTime(value.Ticks, DateTimeKind.Unspecified)))
             {
@@ -249,7 +251,7 @@ namespace ASC.Specific
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return UtcTime.Equals(other.UtcTime)&& TimeZoneOffset.Equals(other.TimeZoneOffset);
+            return UtcTime.Equals(other.UtcTime) && TimeZoneOffset.Equals(other.TimeZoneOffset);
         }
 
         public override int GetHashCode()

@@ -1,5 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdminMessageSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.AdminMessageSettings" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <div class="clearFix">
     <div id="studio_admMessSettings" class="settings-block">
         <div class="header-base clearFix" id="admMessSettingsTitle">

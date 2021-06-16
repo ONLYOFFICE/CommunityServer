@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ using ASC.Common.Utils;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
 
-using MailKit;
 using MailKit.Security;
 
 using MimeKit;
@@ -262,10 +261,11 @@ namespace ASC.Core.Notify.Senders
 
             var smtpClient = new MailKit.Net.Smtp.SmtpClient
             {
-                ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                    sslCertificatePermit || MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                 Timeout = NETWORK_TIMEOUT
             };
+
+            if (sslCertificatePermit)
+                smtpClient.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
 
             return smtpClient;
         }

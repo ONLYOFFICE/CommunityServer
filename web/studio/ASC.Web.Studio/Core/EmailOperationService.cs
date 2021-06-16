@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,14 @@
 using System;
 using System.Web;
 
+using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
-
-using AjaxPro;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.Core
 {
@@ -141,19 +141,19 @@ namespace ASC.Web.Studio.Core
 
                 return String.Format(Resource.MessageEmailActivationInstuctionsSentOnEmail, "<b>" + email + "</b>");
             }
-            catch(UserNotFoundException)
+            catch (UserNotFoundException)
             {
                 throw;
             }
-            catch(AccessDeniedException)
+            catch (AccessDeniedException)
             {
                 throw;
             }
-            catch(InputException)
+            catch (InputException)
             {
                 throw;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new Exception(Resource.UnknownError);
             }
@@ -215,19 +215,19 @@ namespace ASC.Web.Studio.Core
 
                 return String.Format(Resource.MessageEmailChangeInstuctionsSentOnEmail, "<b>" + email + "</b>");
             }
-            catch(AccessDeniedException)
+            catch (AccessDeniedException)
             {
                 throw;
             }
-            catch(UserNotFoundException)
+            catch (UserNotFoundException)
             {
                 throw;
             }
-            catch(InputException)
+            catch (InputException)
             {
                 throw;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw new Exception(Resource.UnknownError);
             }

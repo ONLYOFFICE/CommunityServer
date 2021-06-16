@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Users;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
-using AjaxPro;
-using System.Web;
 using ASC.Web.Studio.Core.Backup;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -90,7 +92,7 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.RegisterBodyScripts("~/UserControls/Management/TransferPortal/js/transferportal.js")
                 .RegisterStyle("~/UserControls/Management/TransferPortal/css/transferportal.less");
 
-            popupTransferStart.Options.IsPopup = true;
+            PopupTransferStartContainer.Options.IsPopup = true;
         }
 
         private static List<TransferRegion> GetRegions()

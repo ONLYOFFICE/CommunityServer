@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
 */
 
 
-using ASC.Blogs.Core.Domain;
 using System;
 using System.Collections.Generic;
+
+using ASC.Blogs.Core.Domain;
 
 namespace ASC.Blogs.Core.Data
 {
@@ -26,10 +27,10 @@ namespace ASC.Blogs.Core.Data
         List<Post> Select(Guid? id, long? blogId, Guid? userId, string tag, bool withContent, bool asc, int? from, int? count, bool fillTags, bool withCommentsCount);
 
         List<Post> Select(Guid? id, long? blogId, Guid? userId, bool withContent, bool asc, int? from, int? count, bool fillTags, bool withCommentsCount);
-        
+
         List<Post> Select(Guid? id, long? blogId, Guid? userId, bool withContent, bool fillTags, bool withCommentsCount);
 
-        List<Post> GetPosts(List<Guid> ids,bool withContent,bool withTags);
+        List<Post> GetPosts(List<Guid> ids, bool withContent, bool withTags);
         List<Post> GetPosts(List<int> ids, bool withContent, bool withTags);
 
         List<int> SearchPostsByWord(string word);
@@ -40,7 +41,7 @@ namespace ASC.Blogs.Core.Data
         int GetCount(Guid? id, long? blogId, Guid? userId, string tag);
 
         List<Comment> GetComments(Guid postId);
-        Comment GetCommentById(Guid commentId);        
+        Comment GetCommentById(Guid commentId);
         List<int> GetCommentsCount(List<Guid> postsIds);
 
         void SaveComment(Comment comment);

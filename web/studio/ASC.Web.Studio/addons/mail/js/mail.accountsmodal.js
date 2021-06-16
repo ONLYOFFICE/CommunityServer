@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -107,7 +107,7 @@ window.accountsModal = (function($) {
                             window.LoadingBanner.displayMailLoading();
 
                             ProgressDialog.init({
-                                header: ASC.Resources.Master.Resource.LoadingDescription,
+                                header: ASC.Resources.Master.ResourceJS.LoadingDescription,
                                 percentage: 0
                             }, jq("#bottomLoaderPanel"), null, 1);
 
@@ -121,7 +121,7 @@ window.accountsModal = (function($) {
                         error: function (params, error) {
                             administrationError.showErrorToastr("getCommonMailDomain", error);
                         }
-                    }, ASC.Resources.Master.Resource.LoadingProcessing);
+                    }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
 
                 } else {
                     serviceManager.removeBox(account.email, { account: account }, {
@@ -129,7 +129,7 @@ window.accountsModal = (function($) {
                             window.LoadingBanner.displayMailLoading();
 
                             ProgressDialog.init({
-                                header: ASC.Resources.Master.Resource.LoadingDescription,
+                                header: ASC.Resources.Master.ResourceJS.LoadingDescription,
                                 percentage: 0
                             }, jq("#bottomLoaderPanel"), null, 1);
 
@@ -143,7 +143,7 @@ window.accountsModal = (function($) {
                         error: function (params, error) {
                             administrationError.showErrorToastr("getCommonMailDomain", error);
                         }
-                    }, ASC.Resources.Master.Resource.LoadingProcessing);
+                    }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
                 }
 
                 return false;
@@ -170,7 +170,7 @@ window.accountsModal = (function($) {
                     error: function (e, error) {
                         administrationError.showErrorToastr("setMailboxState", error);
                     }
-                }, ASC.Resources.Master.Resource.LoadingProcessing);
+                }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
                 return false;
             });
 
@@ -201,7 +201,7 @@ window.accountsModal = (function($) {
 
                     setTimeout(function () {
                         ProgressDialog.close();
-                        ProgressDialog.setProgress(0, ASC.Resources.Master.Resource.LoadingDescription);
+                        ProgressDialog.setProgress(0, ASC.Resources.Master.ResourceJS.LoadingDescription);
                     }, 1000);
                 } else {
                     ProgressDialog.setProgress(data.percents, status);
@@ -248,7 +248,7 @@ window.accountsModal = (function($) {
                     activateOnSuccess: true
                 });
             }
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
 
         return true;
     }
@@ -272,7 +272,7 @@ window.accountsModal = (function($) {
                 error: function (e, error) {
                     administrationError.showErrorToastr("getCommonMailDomain", error);
                 }
-            }, ASC.Resources.Master.Resource.LoadingProcessing);
+            }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
         }
 
         function showMy(domain) {
@@ -334,8 +334,6 @@ window.accountsModal = (function($) {
             turnOffAllRequiredError();
             displayLoading($rootEl, true);
             disablePopupControls($rootEl, true);
-            
-            window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "create_my_mailbox");
 
             showLoader(window.MailScriptResource.MailboxCreation);
             
@@ -444,11 +442,11 @@ window.accountsModal = (function($) {
         serviceManager.getBox(account, { action: 'edit', activateOnSuccess: activateOnSuccess },
         {
             success: onGetBox
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function setDefaultAccount(account, setDefault) {
-        serviceManager.setDefaultAccount(account, setDefault, ASC.Resources.Master.Resource.LoadingProcessing);
+        serviceManager.setDefaultAccount(account, setDefault, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function checkPassword() {
@@ -635,8 +633,6 @@ window.accountsModal = (function($) {
 
         displayLoading(cnt, true);
         disablePopupControls(cnt, true);
-
-        window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "change_mailbox_password");
 
         showLoader(window.MailScriptResource.MailboxCreation);
 
@@ -1203,9 +1199,6 @@ window.accountsModal = (function($) {
         TMMail.setRequiredError("mail_PasswordContainer", !passwordCorrect);
 
         if (emailCorrect && passwordCorrect) {
-
-            window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "create_min_account");
-
             showLoader(window.MailScriptResource.MailboxCreation);
 
             var data = {
@@ -1299,8 +1292,6 @@ window.accountsModal = (function($) {
             !smtpPasswordIncorrect) {
 
             if (true === newFlag) {
-                window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "create_advanced_account");
-
                 showLoader(window.MailScriptResource.MailboxCreation);
 
                 data = $.extend({ oauth: false, action: 'add' }, { settings: settings });
@@ -1671,7 +1662,7 @@ window.accountsModal = (function($) {
         }
 
         serviceManager.updateMailboxSignature(account.mailbox_id, html, isActive, { id: account.mailbox_id, html: html, is_active: isActive },
-            { error: onErrorUpdateMailboxSignature }, ASC.Resources.Master.Resource.LoadingProcessing);
+            { error: onErrorUpdateMailboxSignature }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function onErrorUpdateMailboxSignature() {

@@ -56,20 +56,76 @@
     <Compile Include="JabberStyler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushStyler.cs" />
+    <Compile Include="TextileStyler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\style.css"></EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotifyTemplateResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Resources\NotifyTemplateResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="TextileStyler.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\style.css">
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\NotifyTemplateResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>NotifyTemplateResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Resources\NotifyTemplateResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>NotifyTemplateResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

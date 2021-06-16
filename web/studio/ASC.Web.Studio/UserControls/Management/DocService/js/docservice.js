@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ jq(function () {
                 jq("#docServiceUrlInternal").val(data[1]);
                 jq("#docServiceUrlPortal").val(data[2]);
 
-                LoadingBanner.showMesInfoBtn("#docServiceBlock", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                LoadingBanner.showMesInfoBtn("#docServiceBlock", ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage, "success");
                 jq("#docServiceBlock").unblock();
             },
             error: function (params, error) {

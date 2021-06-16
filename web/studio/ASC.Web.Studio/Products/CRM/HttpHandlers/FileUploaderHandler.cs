@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,14 @@
 using System;
 using System.Web;
 
+using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Controls.FileUploader;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
 using ASC.Web.Studio.Core;
-using ASC.CRM.Core.Dao;
-using ASC.Web.CRM.Core;
+
 using Autofac;
 
 namespace ASC.Web.CRM.Classes
@@ -56,7 +57,8 @@ namespace ASC.Web.CRM.Classes
                 {
                     Title = fileName,
                     FolderID = daoFactory.FileDao.GetRoot(),
-                    ContentLength = file.ContentLength
+                    ContentLength = file.ContentLength,
+                    ThumbnailStatus = Thumbnail.NotRequired,
                 };
 
                 document = daoFactory.FileDao.SaveFile(document, file.InputStream);

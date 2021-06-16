@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security;
+
 using ASC.Common.Logging;
 using ASC.Mail.Core.Entities;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Server.Core.Entities;
 using ASC.Mail.Utils;
 using ASC.Web.Core;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Mail.Core.Engine
@@ -65,14 +67,14 @@ namespace ASC.Mail.Core.Engine
                 var serverAddressDao = daoFactory.CreateServerAddressDao(Tenant);
 
                 list.AddRange(from serverGroup in groups
-                    let address = serverAddressDao.Get(serverGroup.AddressId)
-                    let domain = domains.FirstOrDefault(d => d.Id == address.DomainId)
-                    where domain != null
-                    let serverGroupAddress = ServerMailboxEngine.ToServerDomainAddressData(address, domain)
-                    let serverGroupAddresses =
-                        serverAddressDao.GetGroupAddresses(serverGroup.Id)
-                            .ConvertAll(a => ServerMailboxEngine.ToServerDomainAddressData(a, domain))
-                    select ToServerDomainGroupData(serverGroup.Id, serverGroupAddress, serverGroupAddresses));
+                              let address = serverAddressDao.Get(serverGroup.AddressId)
+                              let domain = domains.FirstOrDefault(d => d.Id == address.DomainId)
+                              where domain != null
+                              let serverGroupAddress = ServerMailboxEngine.ToServerDomainAddressData(address, domain)
+                              let serverGroupAddresses =
+                                  serverAddressDao.GetGroupAddresses(serverGroup.Id)
+                                      .ConvertAll(a => ServerMailboxEngine.ToServerDomainAddressData(a, domain))
+                              select ToServerDomainGroupData(serverGroup.Id, serverGroupAddress, serverGroupAddresses));
             }
 
             return list;
@@ -240,7 +242,7 @@ namespace ASC.Mail.Core.Engine
 
                 using (var tx = daoFactory.DbManager.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
-                    serverAddressDao.AddAddressesToMailGroup(mailgroupId, new List<int> {addressId});
+                    serverAddressDao.AddAddressesToMailGroup(mailgroupId, new List<int> { addressId });
 
                     groupMembers.Add(newMemberAddress);
 
@@ -326,7 +328,7 @@ namespace ASC.Mail.Core.Engine
 
                 var serverDomainDao = daoFactory.CreateServerDomainDao(Tenant);
 
-                 var serverDomain = serverDomainDao.GetDomain(groupAddress.DomainId);
+                var serverDomain = serverDomainDao.GetDomain(groupAddress.DomainId);
 
                 var engine = new Server.Core.ServerEngine(server.Id, server.ConnectionString);
 

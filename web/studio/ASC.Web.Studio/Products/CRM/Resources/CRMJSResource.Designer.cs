@@ -286,15 +286,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close case.
-        /// </summary>
-        public static string CloseCase {
-            get {
-                return ResourceManager.GetString("CloseCase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         public static string Company {
@@ -368,15 +359,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current user.
-        /// </summary>
-        public static string CurrentUser {
-            get {
-                return ResourceManager.GetString("CurrentUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Current week.
         /// </summary>
         public static string CurrentWeek {
@@ -418,15 +400,6 @@ namespace ASC.Web.CRM.Resources {
         public static string DeleteCaseInProgress {
             get {
                 return ResourceManager.GetString("DeleteCaseInProgress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete company.
-        /// </summary>
-        public static string DeleteCompany {
-            get {
-                return ResourceManager.GetString("DeleteCompany", resourceCulture);
             }
         }
         
@@ -557,38 +530,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empty.
-        /// </summary>
-        public static string Empty {
-            get {
-                return ResourceManager.GetString("Empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The settings fields cannot be empty.
-        /// </summary>
-        public static string EmptyFieldsOfSettings {
-            get {
-                return ResourceManager.GetString("EmptyFieldsOfSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The element list cannot be empty.
         /// </summary>
         public static string EmptyItemList {
             get {
                 return ResourceManager.GetString("EmptyItemList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Every field must have a title.
-        /// </summary>
-        public static string EmptyLabelError {
-            get {
-                return ResourceManager.GetString("EmptyLabelError", resourceCulture);
             }
         }
         
@@ -625,15 +571,6 @@ namespace ASC.Web.CRM.Resources {
         public static string EmptyTaskTitle {
             get {
                 return ResourceManager.GetString("EmptyTaskTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The title field cannot be empty.
-        /// </summary>
-        public static string EmptyTitleError {
-            get {
-                return ResourceManager.GetString("EmptyTitleError", resourceCulture);
             }
         }
         
@@ -715,15 +652,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ErrorMessage_SaveImageError {
             get {
                 return ResourceManager.GetString("ErrorMessage_SaveImageError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Incorrect email.
-        /// </summary>
-        public static string ErrorNotCorrectEmail {
-            get {
-                return ResourceManager.GetString("ErrorNotCorrectEmail", resourceCulture);
             }
         }
         
@@ -827,92 +755,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open the portal Settings page if you need to restrict the access to the CRM module and give some users administrator privileges..
-        /// </summary>
-        public static string HelpContentAccessRights {
-            get {
-                return ResourceManager.GetString("HelpContentAccessRights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Click this button and select the Import contacts option if you need to transfer your contacts from a CSV file, all at once..
-        /// </summary>
-        public static string HelpContentAddContacts {
-            get {
-                return ResourceManager.GetString("HelpContentAddContacts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use this button to start creating your customer database adding persons and companies and linking them..
-        /// </summary>
-        public static string HelpContentCreateNew {
-            get {
-                return ResourceManager.GetString("HelpContentCreateNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use this link to build a form that you can publish on your site and capture new contacts automatically..
-        /// </summary>
-        public static string HelpContentCreateWebsite {
-            get {
-                return ResourceManager.GetString("HelpContentCreateWebsite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manage Access Rights.
-        /// </summary>
-        public static string HelpTitleAccessRights {
-            get {
-                return ResourceManager.GetString("HelpTitleAccessRights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Contacts in Bulk.
-        /// </summary>
-        public static string HelpTitleAddContacts {
-            get {
-                return ResourceManager.GetString("HelpTitleAddContacts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create New Contact.
-        /// </summary>
-        public static string HelpTitleCreateNew {
-            get {
-                return ResourceManager.GetString("HelpTitleCreateNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create a Website Contact Form.
-        /// </summary>
-        public static string HelpTitleCreateWebsite {
-            get {
-                return ResourceManager.GetString("HelpTitleCreateWebsite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Link with project.
         /// </summary>
         public static string LinkWithProject {
             get {
                 return ResourceManager.GetString("LinkWithProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uploading.
-        /// </summary>
-        public static string Loading {
-            get {
-                return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
         
@@ -994,15 +841,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ManyTasks {
             get {
                 return ResourceManager.GetString("ManyTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New document.
-        /// </summary>
-        public static string NewDocument {
-            get {
-                return ResourceManager.GetString("NewDocument", resourceCulture);
             }
         }
         
@@ -1178,24 +1016,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open a case.
-        /// </summary>
-        public static string OpenCase {
-            get {
-                return ResourceManager.GetString("OpenCase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overall progress.
-        /// </summary>
-        public static string OverallProgress {
-            get {
-                return ResourceManager.GetString("OverallProgress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to during {0} days.
         /// </summary>
         public static string PerPeriodDays {
@@ -1322,15 +1142,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choices.
-        /// </summary>
-        public static string SelectOptions {
-            get {
-                return ResourceManager.GetString("SelectOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Send.
         /// </summary>
         public static string Send {
@@ -1345,15 +1156,6 @@ namespace ASC.Web.CRM.Resources {
         public static string SettingsUpdated {
             get {
                 return ResourceManager.GetString("SettingsUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show {0} more from {1}.
-        /// </summary>
-        public static string ShowMore {
-            get {
-                return ResourceManager.GetString("ShowMore", resourceCulture);
             }
         }
         
@@ -1444,24 +1246,6 @@ namespace ASC.Web.CRM.Resources {
         public static string UnsuccessfullyClosed {
             get {
                 return ResourceManager.GetString("UnsuccessfullyClosed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Attach file.
-        /// </summary>
-        public static string UploadFile {
-            get {
-                return ResourceManager.GetString("UploadFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The file «{0}» is being uploaded....
-        /// </summary>
-        public static string UploadingProgress {
-            get {
-                return ResourceManager.GetString("UploadingProgress", resourceCulture);
             }
         }
         

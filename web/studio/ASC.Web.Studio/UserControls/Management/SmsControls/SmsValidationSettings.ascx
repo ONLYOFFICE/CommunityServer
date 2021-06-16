@@ -6,7 +6,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core.TFA" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 
 <style>

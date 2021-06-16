@@ -1,12 +1,13 @@
 using System;
 using System.Globalization;
+using System.IO;
+
+using ASC.Core;
+using ASC.Data.Storage;
+using ASC.Web.Community.Modules.Wiki.Resources;
+using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Data.Storage;
-using System.IO;
-using ASC.Core;
-using ASC.Web.Core;
-using ASC.Web.UserControls.Wiki.Resources;
 
 namespace ASC.Web.UserControls.Wiki.UC
 {

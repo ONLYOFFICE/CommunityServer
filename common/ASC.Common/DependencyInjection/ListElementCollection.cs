@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ namespace ASC.Common.DependencyInjection
             public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
             {
                 var instantiableType = GetInstantiableType(destinationType);
-                var elementCollection = (ListElementCollection) value;
+                var elementCollection = (ListElementCollection)value;
                 if (elementCollection == null || !(instantiableType != null))
                     return base.ConvertTo(context, culture, value, destinationType);
                 var genericArguments = instantiableType.GetGenericArguments();

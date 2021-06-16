@@ -2,7 +2,7 @@
 <%@ Import Namespace="ASC.ActiveDirectory.Base.Settings" %>
 <%@ Import Namespace="ASC.Web.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace=" ASC.Web.Studio.Core" %>
 
 <div id="userPhotoDialog" class="popupContainerClass display-none">

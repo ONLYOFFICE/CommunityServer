@@ -61,56 +61,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Active Tasks.
-        /// </summary>
-        public static string ActiveTasks {
-            get {
-                return ResourceManager.GetString("ActiveTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add milestone.
-        /// </summary>
-        public static string AddMilestone {
-            get {
-                return ResourceManager.GetString("AddMilestone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string AddMilestoneButton {
             get {
                 return ResourceManager.GetString("AddMilestoneButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add new task.
-        /// </summary>
-        public static string AddNewTask {
-            get {
-                return ResourceManager.GetString("AddNewTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add task.
-        /// </summary>
-        public static string AddTask {
-            get {
-                return ResourceManager.GetString("AddTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string Cancel {
-            get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -133,24 +88,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Closed.
-        /// </summary>
-        public static string Closed {
-            get {
-                return ResourceManager.GetString("Closed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Closed Tasks.
-        /// </summary>
-        public static string ClosedTasks {
-            get {
-                return ResourceManager.GetString("ClosedTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close Milestone.
         /// </summary>
         public static string CloseMilestone {
@@ -160,47 +97,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created by.
-        /// </summary>
-        public static string CreatedBy {
-            get {
-                return ResourceManager.GetString("CreatedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creation date.
-        /// </summary>
-        public static string CreatingDate {
-            get {
-                return ResourceManager.GetString("CreatingDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Date.
-        /// </summary>
-        public static string Date {
-            get {
-                return ResourceManager.GetString("Date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to d.
         /// </summary>
         public static string Days {
             get {
                 return ResourceManager.GetString("Days", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to due date.
-        /// </summary>
-        public static string DeadLine {
-            get {
-                return ResourceManager.GetString("DeadLine", resourceCulture);
             }
         }
         
@@ -228,15 +129,6 @@ namespace ASC.Web.Projects.Resources {
         public static string DeadlineInWeek {
             get {
                 return ResourceManager.GetString("DeadlineInWeek", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete milestone.
-        /// </summary>
-        public static string Delete {
-            get {
-                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -295,24 +187,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit .
-        /// </summary>
-        public static string Edit {
-            get {
-                return ResourceManager.GetString("Edit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit milestone.
-        /// </summary>
-        public static string EditMilestone {
-            get {
-                return ResourceManager.GetString("EditMilestone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to There are no milestones matching this filter.
         /// </summary>
         public static string FilterNoMilestones {
@@ -327,15 +201,6 @@ namespace ASC.Web.Projects.Resources {
         public static string Milestone {
             get {
                 return ResourceManager.GetString("Milestone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adding milestone....
-        /// </summary>
-        public static string MilestoneAdded {
-            get {
-                return ResourceManager.GetString("MilestoneAdded", resourceCulture);
             }
         }
         
@@ -376,38 +241,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Milestones mark the major timestamps in project planning process. Once a milestone is created you can fill it with tasks for all project participants. Plan a milestone and set a due date to make sure that the tasks are completed on time..
+        ///   Looks up a localized string similar to Milestones mark the major timestamps in project planning process. Once a milestone is created it can be filled with tasks for all project participants..
         /// </summary>
         public static string MilestonesMarkMajorTimestampsVisitor {
             get {
                 return ResourceManager.GetString("MilestonesMarkMajorTimestampsVisitor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Move to milestone.
-        /// </summary>
-        public static string MoveToMilestone {
-            get {
-                return ResourceManager.GetString("MoveToMilestone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Me.
-        /// </summary>
-        public static string My {
-            get {
-                return ResourceManager.GetString("My", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Milestones.
-        /// </summary>
-        public static string MyMilestones {
-            get {
-                return ResourceManager.GetString("MyMilestones", resourceCulture);
             }
         }
         
@@ -466,15 +304,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project.
-        /// </summary>
-        public static string Project {
-            get {
-                return ResourceManager.GetString("Project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Remind me 48 hours before the due date.
         /// </summary>
         public static string RemindMe {
@@ -502,65 +331,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select.
-        /// </summary>
-        public static string Select {
-            get {
-                return ResourceManager.GetString("Select", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string Status {
-            get {
-                return ResourceManager.GetString("Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Closed.
-        /// </summary>
-        public static string StatusClosed {
-            get {
-                return ResourceManager.GetString("StatusClosed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open.
-        /// </summary>
-        public static string StatusOpen {
-            get {
-                return ResourceManager.GetString("StatusOpen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tag.
-        /// </summary>
-        public static string Tag {
-            get {
-                return ResourceManager.GetString("Tag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total.
-        /// </summary>
-        public static string Total {
-            get {
-                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
     }

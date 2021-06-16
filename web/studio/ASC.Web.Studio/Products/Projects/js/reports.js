@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ ASC.Projects.GeneratedReport = (function () {
                             loadingBanner.hideLoading();
                         },
                         error: function () {
-                            toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+                            toastr.error(ASC.Resources.Master.ResourceJS.CommonJSErrorMsg);
                             loadingBanner.hideLoading();
                         }
                     });
@@ -82,7 +82,7 @@ ASC.Projects.GeneratedReport = (function () {
 
 ASC.Projects.ReportView = (function() {
     var tmplId = null,
-        resources = ASC.Projects.Resources.ProjectsJSResource,
+        ProjectsJSResource = ASC.Projects.Resources.ProjectsJSResource,
         teamlab,
         reports,
         progressDialog,
@@ -96,7 +96,7 @@ ASC.Projects.ReportView = (function() {
         loadingBanner = LoadingBanner;
 
         if (location.hash.indexOf("elementNotFound") > 0) {
-            ASC.Projects.Common.displayInfoPanel(resources.ReportTmplNotFound, true);
+            ASC.Projects.Common.displayInfoPanel(ProjectsJSResource.ReportTmplNotFound, true);
         }
         
         $generateBtn = jq("#generateReport");
@@ -229,7 +229,7 @@ ASC.Projects.ReportView = (function() {
     };
 
     var onUpdateTemplate = function (params, tmpl) {
-        ASC.Projects.Common.displayInfoPanel(resources.TemplateSaved);
+        ASC.Projects.Common.displayInfoPanel(ProjectsJSResource.TemplateSaved);
         jq("#updateTemplate").addClass("disable");
 
         jq("#reportsTemplates .active").text(Encoder.htmlDecode(tmpl.title));
@@ -317,6 +317,11 @@ ASC.Projects.Reports = (function () {
 
         this.isVisible = function () {
             return jq("#" + id).length > 0;
+        }
+
+        this.isDisplayed = function () {
+            var obj = jq("#" + id);
+            return obj.length > 0 && obj.is(":visible");
         }
 
         this.init = function (items, defIndex, onShowList) {
@@ -457,10 +462,10 @@ ASC.Projects.Reports = (function () {
             filters = { combo: [], radio: [], check: [] },
             resources = ASC.Projects.Resources,
             projectResource = resources.ProjectResource,
-            commonResource = resources.CommonResource,
+            ProjectsCommonResource = resources.ProjectsCommonResource,
             reportResource = resources.ReportResource;
 
-        defaultFilter = new AdvancedSelectorItem("default", commonResource.All);
+        defaultFilter = new AdvancedSelectorItem("default", ProjectsCommonResource.All);
         defaultFilterDate = new AdvancedSelectorItem(-1, reportResource.AnyDate);
         defaultFilterInterval = new AdvancedSelectorItem(-1, reportResource.AnyInterval);
 
@@ -483,8 +488,9 @@ ASC.Projects.Reports = (function () {
         projectRadioVt = new FilterRadio("byProject", "type_rbl", reportResource.ViewByProjects, 2),
         projectRadio = new FilterRadio("projectReport", "reportType", reportResource.ViewByProjects, 1),
         projectClosedCheck = new FilterCheck("cbxViewClosedProjects", reportResource.ViewClosedProjects),
-        taskRespCheck = new FilterCheck("cbxShowTasksWithoutResponsible", resources.TasksResource.ShowTasksWithoutResponsible);
+        taskRespCheck = new FilterCheck("cbxShowTasksWithoutResponsible", resources.TaskResource.ShowTasksWithoutResponsible);
 
+        var filterUrl = template && template.hasOwnProperty("filter") ? "?" + template.filter : undefined;
 
         switch (reportType) {
             case "0":
@@ -495,7 +501,7 @@ ASC.Projects.Reports = (function () {
                 filters.combo = [tagsFilter, projectsFilter, periodFilter];
                 break;
             case "2":
-                if (jq.getURLParam("fv") == null) {
+                if (jq.getURLParam("fv", filterUrl) == null) {
                     tagsFilter.hidden = projectsFilter.hidden = true;
                     departmentRadio.checked = 1;
                 } else {
@@ -510,7 +516,7 @@ ASC.Projects.Reports = (function () {
                 filters.combo = [departmentFilter, userFilter];
                 break;
             case "5":
-                if (jq.getURLParam("fv") == null) {
+                if (jq.getURLParam("fv", filterUrl) == null) {
                     tagsFilter.hidden = projectsFilter.hidden = true;
                     departmentRadio.checked = 1;
                 } else {
@@ -522,7 +528,7 @@ ASC.Projects.Reports = (function () {
                 filters.radio = [departmentRadio, projectRadio];
                 break;
             case "6":
-                if (jq.getURLParam("fv") == null) {
+                if (jq.getURLParam("fv", filterUrl) == null) {
                     tagsFilter.hidden = projectsFilter.hidden = true;
                     departmentRadio.checked = 1;
                 } else {
@@ -539,7 +545,7 @@ ASC.Projects.Reports = (function () {
                 filters.check = [projectClosedCheck];
                 break;
             case "8":
-                userRadio.checked = jq.getURLParam("fv") == null;
+                userRadio.checked = jq.getURLParam("fv", filterUrl) == null;
                 taskRadio.checked = !userRadio.checked;
                 filters.combo = [departmentFilter, userFilter, paymentFilter, timeFilter];
                 filters.radio = [userRadio, taskRadio, projectRadioVt];
@@ -571,7 +577,7 @@ ASC.Projects.Reports = (function () {
                     }).sort();
 
                     projectsFilter.init(allProjectList, 0, function () {
-                        if (userFilter.isVisible()) {
+                        if (userFilter.isVisible() && projectsFilter.isDisplayed()) {
                             changeProject(filter.tag, filter.project, filter.userId);
                         }
                     });
@@ -667,12 +673,19 @@ ASC.Projects.Reports = (function () {
                 allusers.push(new AdvancedSelectorItem(item.id, item.displayName));
             }
 
-            if (reportType === "5") {
+            allusers.sort(function (a, b) {
+                return (a.title > b.title) ? 1 : -1;
+            });
+
+            if (reportType === "5" && !template) {
                 defaultFilterUser = allusers.findIndex(function(r) { return r.id === Teamlab.profile.id; }) + 1;
             }
 
             userFilter.init(allusers, defaultFilterUser, function () {
                 changeResponsible(filter.userId);
+                if (filter.departament && departmentFilter.isDisplayed()) {
+                    changeDepartment(filter.departament, filter.userId);
+                }
             });
         }
 

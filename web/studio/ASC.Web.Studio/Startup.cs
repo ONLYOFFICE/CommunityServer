@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using System.Web;
 using AjaxPro.Security;
 
 using ASC.ActiveDirectory.Base;
+using ASC.ActiveDirectory.Base.Settings;
 using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.Core;
@@ -35,6 +36,7 @@ using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Security;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SearchHandlers;
 using ASC.Web.Studio.Utility;
@@ -66,12 +68,7 @@ namespace ASC.Web.Studio
 
             ConfigureWebApi();
 
-            if (DBResourceManager.ResourcesFromDataBase)
-            {
-                DBResourceManager.WhiteLableEnabled = true;
-                DBResourceManager.PatchAssemblies();
-            }
-
+            DBResourceManager.PatchAssemblies();
             AjaxSecurityChecker.Instance.CheckMethodPermissions += AjaxCheckMethodPermissions;
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
 
@@ -93,7 +90,10 @@ namespace ASC.Web.Studio
 
             WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
 
-            LdapNotifyHelper.RegisterAll();
+            if (SetupInfo.IsVisibleSettings(nameof(LdapSettings)))
+            {
+                LdapNotifyHelper.RegisterAll();
+            }
 
             try
             {
@@ -105,7 +105,10 @@ namespace ASC.Web.Studio
 
             try
             {
-                Core.WarmUp.Instance.Start();
+                if (CoreContext.Configuration.Standalone)
+                {
+                    Core.WarmUp.Instance.Start();
+                }
             }
             catch (Exception ex)
             {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Mail.Core.Dao.Expressions.Conversation;
@@ -36,7 +37,7 @@ namespace ASC.Mail.Core.Dao
 
         protected string CurrentUserId { get; private set; }
 
-        public ChainDao(IDbManager dbManager, int tenant, string user) 
+        public ChainDao(IDbManager dbManager, int tenant, string user)
             : base(table, dbManager, tenant)
         {
             CurrentUserId = user;
@@ -77,7 +78,7 @@ namespace ASC.Mail.Core.Dao
                                                                       "m.id_user = c.id_user AND " +
                                                                       "m.folder = c.folder " +
                                                   "where t.{8} = @tenant and t.{9} = @user {10}" +
-                                                  "group by t.{3}, c.{4}) as chains " + 
+                                                  "group by t.{3}, c.{4}) as chains " +
                                                   "GROUP BY chains.{3};";
 
         public Dictionary<uint, int> GetChainUserFolderCount(bool? unread = null)
@@ -119,9 +120,9 @@ namespace ASC.Mail.Core.Dao
                 MailTable.Columns.ChainId,
                 UserFoldertXMailTable.Columns.Tenant,
                 UserFoldertXMailTable.Columns.User,
-                string.Format("and t.{0} in ({1}) {2}", UserFoldertXMailTable.Columns.FolderId, string.Join(",", userFolderIds), 
-                    unread.HasValue 
-                        ? string.Format("and m.{0} = {1} ", MailTable.Columns.Unread, unread.Value ? 1 : 0) 
+                string.Format("and t.{0} in ({1}) {2}", UserFoldertXMailTable.Columns.FolderId, string.Join(",", userFolderIds),
+                    unread.HasValue
+                        ? string.Format("and m.{0} = {1} ", MailTable.Columns.Unread, unread.Value ? 1 : 0)
                         : "")
                 );
 
@@ -183,7 +184,7 @@ namespace ASC.Mail.Core.Dao
                 MailboxId = Convert.ToInt32(r[1]),
                 Tenant = Convert.ToInt32(r[2]),
                 User = Convert.ToString(r[3]),
-                Folder = (FolderType) Convert.ToInt32(r[4]),
+                Folder = (FolderType)Convert.ToInt32(r[4]),
                 Length = Convert.ToInt32(r[5]),
                 Unread = Convert.ToBoolean(r[6]),
                 HasAttachments = Convert.ToBoolean(r[7]),

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Forum;
-using ASC.Web.Community.Forum.Resources;
+using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
@@ -57,12 +58,12 @@ namespace ASC.Web.Community.Forum
                 var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
-                        Header = ForumResource.EmptyScreenForumCaption,
-                        Describe = currentUser.IsVisitor() ? ForumResource.EmptyScreenForumTextVisitor : ForumResource.EmptyScreenForumText,
-                        ButtonHTML = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null) ? String.Format("<a class='link underline blue plus' href='NewForum.aspx'>{0}</a>", ForumResource.EmptyScreenForumLink) : String.Empty
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
+                    Header = ForumResource.EmptyScreenForumCaption,
+                    Describe = currentUser.IsVisitor() ? ForumResource.EmptyScreenForumTextVisitor : ForumResource.EmptyScreenForumText,
+                    ButtonHTML = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null) ? String.Format("<a class='link underline blue plus' href='NewForum.aspx'>{0}</a>", ForumResource.EmptyScreenForumLink) : String.Empty
+                };
                 forumListHolder.Controls.Add(emptyScreenControl);
             }
 

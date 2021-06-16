@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -327,6 +327,18 @@ namespace ASC.Web.Core.Files
         {
             return FileRedirectPreviewUrlString + "&" + (isFile ? FileId : FolderId) + "=" + HttpUtility.UrlEncode(enrtyId.ToString());
         }
+
+        public static string FileThumbnailUrlString
+        {
+            get { return FileHandlerPath + "?" + Action + "=thumb&" + FileId + "={0}"; }
+        }
+
+        public static string GetFileThumbnailUrl(object fileId, int fileVersion)
+        {
+            return string.Format(FileThumbnailUrlString, HttpUtility.UrlEncode(fileId.ToString()))
+                   + (fileVersion > 0 ? "&" + Version + "=" + fileVersion : string.Empty);
+        }
+
 
         public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength, bool encrypted)
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,15 +27,15 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Common.Notify;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.News.Code.Module;
+using ASC.Web.Community.Search;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.ElasticSearch;
-using ASC.Web.Community.Search;
 
 namespace ASC.Web.Community.News.Code.DAO
 {
@@ -186,10 +186,10 @@ namespace ASC.Web.Community.News.Code.DAO
                                           if (!poll.Variants.Exists(v => v.ID == variantId))
                                           {
                                               poll.Variants.Add(new FeedPollVariant
-                                                  {
-                                                      ID = variantId,
-                                                      Name = Convert.ToString(row[1])
-                                                  });
+                                              {
+                                                  ID = variantId,
+                                                  Name = Convert.ToString(row[1])
+                                              });
                                           }
                                           if (row[2] != null)
                                           {

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Threading;
 using System.Web;
 
@@ -73,7 +74,7 @@ namespace ASC.Feed.Aggregator
         private volatile bool isStopped;
         private readonly object aggregateLock = new object();
         private readonly object removeLock = new object();
-
+        private ServiceHost _healthCheckServiceHost;
 
         public void Start()
         {
@@ -86,6 +87,8 @@ namespace ASC.Feed.Aggregator
 
             aggregateTimer = new Timer(AggregateFeeds, cfg.AggregateInterval, TimeSpan.Zero, cfg.AggregatePeriod);
             removeTimer = new Timer(RemoveFeeds, cfg.AggregateInterval, cfg.RemovePeriod, cfg.RemovePeriod);
+            _healthCheckServiceHost = new ServiceHost(typeof(HealthCheckService));
+            _healthCheckServiceHost.Open();
         }
 
         public void Stop()
@@ -104,6 +107,12 @@ namespace ASC.Feed.Aggregator
                 removeTimer.Change(Timeout.Infinite, Timeout.Infinite);
                 removeTimer.Dispose();
                 removeTimer = null;
+            }
+
+            if (_healthCheckServiceHost != null)
+            {
+                _healthCheckServiceHost.Close();
+                _healthCheckServiceHost = null;
             }
         }
 
@@ -155,7 +164,7 @@ namespace ASC.Feed.Aggregator
                                 new HttpResponse(new StringWriter()));
                             }
 
-                            var feeds = Attempt(10, () => module.GetFeeds(new FeedFilter(fromTime, toTime) {Tenant = tenant}).Where(r=> r.Item1 != null).ToList());
+                            var feeds = Attempt(10, () => module.GetFeeds(new FeedFilter(fromTime, toTime) { Tenant = tenant }).Where(r => r.Item1 != null).ToList());
                             log.DebugFormat("{0} feeds in {1} tenant.", feeds.Count, tenant);
 
                             var tenant1 = tenant;
@@ -182,7 +191,7 @@ namespace ASC.Feed.Aggregator
                                 module.VisibleFor(feedsRow, u.ID);
                             }
 
-                            result.AddRange(feedsRow.Select(r=> r.Item1));
+                            result.AddRange(feedsRow.Select(r => r.Item1));
                         }
                         catch (Exception ex)
                         {
@@ -204,7 +213,7 @@ namespace ASC.Feed.Aggregator
 
                     FeedAggregateDataProvider.SaveFeeds(result, module.GetType().Name, toTime);
 
-                    foreach(var res in result)
+                    foreach (var res in result)
                     {
                         foreach (var userGuid in res.Users.Where(userGuid => !userGuid.Equals(res.ModifiedById)))
                         {

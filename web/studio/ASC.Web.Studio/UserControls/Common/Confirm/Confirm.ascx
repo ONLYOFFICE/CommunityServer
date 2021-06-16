@@ -2,6 +2,7 @@
     Inherits="ASC.Web.Studio.UserControls.Common.Confirm" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="studio_confirmDialog" class="display-none">
     <sc:Container runat="server" ID="_studioConfirm">
@@ -23,8 +24,8 @@
                 <% } %>
             </div>
             <div class="clearFix" style="margin-top: 16px;">
-                <a id="studio_confirmOk" class="button middle blue float-left" href="javascript:void(0);" onclick="StudioConfirm.Select('');"><%= !string.IsNullOrEmpty(Value) ? Resources.Resource.SaveButton : Resources.Resource.OKButton%></a> 
-                <a id="studio_confirmCancel" class="button middle gray" href="javascript:void(0);" onclick="StudioConfirm.Cancel();" style="float: left;margin-left: 8px;"><%=Resources.Resource.CancelButton%></a>
+                <a id="studio_confirmOk" class="button middle blue float-left" href="javascript:void(0);" onclick="StudioConfirm.Select('');"><%= !string.IsNullOrEmpty(Value) ? Resource.SaveButton : Resource.OKButton%></a> 
+                <a id="studio_confirmCancel" class="button middle gray" href="javascript:void(0);" onclick="StudioConfirm.Cancel();" style="float: left;margin-left: 8px;"><%=Resource.CancelButton%></a>
             </div>
         </Body>
     </sc:Container>

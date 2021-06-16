@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,18 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
+using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using ASC.Web.Studio.Utility;
-using System.Linq;
-using ASC.Core.Users;
 using ASC.Web.Projects.Core;
+using ASC.Web.Studio.Utility;
+
 using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
@@ -105,44 +107,44 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         {
             var participantId = new Guid(Convert.ToString(r[0]));
             return new ParticipantFull(participantId)
+            {
+                Created = Convert.ToDateTime(r[1]),
+                Updated = Convert.ToDateTime(r[2]),
+                Project = new Project
                 {
-                    Created = Convert.ToDateTime(r[1]),
-                    Updated = Convert.ToDateTime(r[2]),
-                    Project = new Project
-                        {
-                            ID = Convert.ToInt32(r[3]),
-                            Title = Convert.ToString(r[4]),
-                            Description = Convert.ToString(r[5]),
-                            Status = (ProjectStatus)Convert.ToInt32(6),
-                            StatusChangedOn = Convert.ToDateTime(r[7]),
-                            Responsible = new Guid(Convert.ToString(r[8])),
-                            Private = Convert.ToBoolean(r[9]),
-                            CreateBy = new Guid(Convert.ToString(r[10])),
-                            CreateOn = Convert.ToDateTime(r[11]),
-                            LastModifiedBy = ToGuid(r[12]),
-                            LastModifiedOn = Convert.ToDateTime(r[13])
-                        }
-                };
+                    ID = Convert.ToInt32(r[3]),
+                    Title = Convert.ToString(r[4]),
+                    Description = Convert.ToString(r[5]),
+                    Status = (ProjectStatus)Convert.ToInt32(6),
+                    StatusChangedOn = Convert.ToDateTime(r[7]),
+                    Responsible = new Guid(Convert.ToString(r[8])),
+                    Private = Convert.ToBoolean(r[9]),
+                    CreateBy = new Guid(Convert.ToString(r[10])),
+                    CreateOn = Convert.ToDateTime(r[11]),
+                    LastModifiedBy = ToGuid(r[12]),
+                    LastModifiedOn = Convert.ToDateTime(r[13])
+                }
+            };
         }
 
         private Feed ToFeed(ParticipantFull participant)
         {
             var projectUrl = "/Products/Projects/Tasks.aspx?prjID=" + participant.Project.ID;
             var feed = new Feed(participant.ID, participant.Created)
-                {
-                    Item = item,
-                    ItemId = string.Format("{0}_{1}", participant.ID, participant.Project.ID),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(projectUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = participant.Project.Title,
-                    ExtraLocation = participant.Project.Title,
-                    ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = GetGroupId(item, Guid.Empty, participant.Project.ID.ToString(CultureInfo.InvariantCulture)),
-                    Keywords = CoreContext.UserManager.GetUsers(participant.ID).DisplayUserName(false)
-                };
+            {
+                Item = item,
+                ItemId = string.Format("{0}_{1}", participant.ID, participant.Project.ID),
+                ItemUrl = CommonLinkUtility.ToAbsolute(projectUrl),
+                Product = Product,
+                Module = Name,
+                Title = participant.Project.Title,
+                ExtraLocation = participant.Project.Title,
+                ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = GetGroupId(item, Guid.Empty, participant.Project.ID.ToString(CultureInfo.InvariantCulture)),
+                Keywords = CoreContext.UserManager.GetUsers(participant.ID).DisplayUserName(false)
+            };
             return feed;
         }
     }

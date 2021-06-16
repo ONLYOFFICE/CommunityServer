@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,20 @@ using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Novell.Exceptions;
 using ASC.ActiveDirectory.Novell.Extensions;
 using ASC.Common.Logging;
+
 using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Controls;
 using Novell.Directory.Ldap.Utilclass;
 
 namespace ASC.ActiveDirectory.Novell
 {
-    public class NovellLdapSearcher: IDisposable
+    public class NovellLdapSearcher : IDisposable
     {
         private readonly ILog _log = LogManager.GetLogger("ASC");
         private LdapCertificateConfirmRequest _certificateConfirmRequest;
@@ -55,7 +57,8 @@ namespace ASC.ActiveDirectory.Novell
 
         private Dictionary<string, string[]> _capabilities;
 
-        public bool IsConnected {
+        public bool IsConnected
+        {
             get { return _ldapConnection != null && _ldapConnection.Connected; }
         }
 
@@ -134,7 +137,7 @@ namespace ASC.ActiveDirectory.Novell
             {
                 _log.Debug("ldapConnection.Bind(Anonymous)");
 
-                ldapConnection.Bind(null, null); 
+                ldapConnection.Bind(null, null);
             }
             else
             {
@@ -356,7 +359,7 @@ namespace ASC.ActiveDirectory.Novell
                 }
                 else
                 {
-                    attributes = new[] {"*", LdapUniqueIdAttribute};
+                    attributes = new[] { "*", LdapUniqueIdAttribute };
                 }
             }
 
@@ -444,7 +447,7 @@ namespace ASC.ActiveDirectory.Novell
                     foreach (LdapControl control in controls)
                     {
                         /* Is this the LdapPagedResultsResponse control? */
-                        if (!(control is LdapPagedResultsResponse)) 
+                        if (!(control is LdapPagedResultsResponse))
                             continue;
 
                         var response = new LdapPagedResultsResponse(control.ID,
@@ -478,7 +481,7 @@ namespace ASC.ActiveDirectory.Novell
                 };
 
                 var ldapSearchResults = _ldapConnection.Search("", LdapConnection.SCOPE_BASE, LdapConstants.OBJECT_FILTER,
-                    new[] {"*", "supportedControls", "supportedCapabilities"}, false, ldapSearchConstraints);
+                    new[] { "*", "supportedControls", "supportedCapabilities" }, false, ldapSearchConstraints);
 
                 while (ldapSearchResults.hasMore())
                 {
@@ -502,8 +505,8 @@ namespace ASC.ActiveDirectory.Novell
 
                     while (ienum.MoveNext())
                     {
-                        var attribute = (LdapAttribute) ienum.Current;
-                        if (attribute == null) 
+                        var attribute = (LdapAttribute)ienum.Current;
+                        if (attribute == null)
                             continue;
 
                         var attributeName = attribute.Name;
@@ -549,7 +552,7 @@ namespace ASC.ActiveDirectory.Novell
                 {
                     ldapUniqueIdAttribute = LdapConstants.RfcLDAPAttributes.ENTRY_UUID;
                 }
-                else if(!string.IsNullOrEmpty(
+                else if (!string.IsNullOrEmpty(
                     ldapEntry.GetAttributeValue(LdapConstants.RfcLDAPAttributes.NS_UNIQUE_ID) as string))
                 {
                     ldapUniqueIdAttribute = LdapConstants.RfcLDAPAttributes.NS_UNIQUE_ID;

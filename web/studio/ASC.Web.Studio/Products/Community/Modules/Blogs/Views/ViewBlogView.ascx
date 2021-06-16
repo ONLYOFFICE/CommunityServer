@@ -4,13 +4,13 @@
     Inherits="ASC.Web.Community.Blogs.Views.ViewBlogView" %>
 
 <%@ Import Namespace="ASC.Web.Community.Product" %>
-<%@ Import Namespace="ASC.Blogs.Core.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.Blogs" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility.HtmlUtility" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Core.Users" %>
 
+<%@ Import Namespace="ASC.Web.Community.Modules.Blogs.Core.Resources" %>
 
 <% if (IsPreview)  { %>
 <div style="margin-bottom: 20px;">
@@ -27,7 +27,7 @@
         </td>
 
         <td valign='top'>
-            <div class="author-title describe-text"><%= ASC.Blogs.Core.Resources.BlogsResource.PostedTitle %>:</div>
+            <div class="author-title describe-text"><%= BlogsResource.PostedTitle %>:</div>
             <div class="author-name">
                 <a class='linkMedium' href="<%= postUser.GetUserProfilePageURL() %>">
                     <%= postUser.DisplayUserName() %>

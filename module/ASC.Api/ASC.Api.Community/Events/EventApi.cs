@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Events;
@@ -94,16 +95,16 @@ namespace ASC.Api.Community
                 throw new ArgumentOutOfRangeException(string.Format("Unknown feed type: {0}.", type));
 
             var feed = new Feed
-                           {
-                               Caption = title,
-                               Text = content,
-                               Creator = SecurityContext.CurrentAccount.ID.ToString(),
-                               Date = DateTime.UtcNow,
-                               FeedType = type
-                           };
+            {
+                Caption = title,
+                Text = content,
+                Creator = SecurityContext.CurrentAccount.ID.ToString(),
+                Date = DateTime.UtcNow,
+                FeedType = type
+            };
 
             FeedStorage.SaveFeed(feed, false, type);
-            
+
             return new EventWrapperFull(feed);
         }
 
@@ -137,7 +138,7 @@ namespace ASC.Api.Community
             feed.Creator = SecurityContext.CurrentAccount.ID.ToString();
 
             FeedStorage.SaveFeed(feed, true, type);
-            
+
             return new EventWrapperFull(feed);
         }
 
@@ -264,22 +265,22 @@ namespace ASC.Api.Community
         [Create("event/{feedid}/comment")]
         public EventCommentWrapper AddEventComments(int feedid, string content, long parentId)
         {
-            if (parentId > 0 && FeedStorage.GetFeedComment(parentId) == null) 
+            if (parentId > 0 && FeedStorage.GetFeedComment(parentId) == null)
                 throw new ItemNotFoundException("parent comment not found");
 
             var feed = FeedStorage.GetFeed(feedid).NotFoundIfNull();
 
             var comment = new FeedComment(feedid)
-                              {
-                                  Comment = content,
-                                  Creator = SecurityContext.CurrentAccount.ID.ToString(),
-                                  FeedId = feedid,
-                                  Date = DateTime.UtcNow,
-                                  ParentId = parentId
-                              };
+            {
+                Comment = content,
+                Creator = SecurityContext.CurrentAccount.ID.ToString(),
+                FeedId = feedid,
+                Date = DateTime.UtcNow,
+                ParentId = parentId
+            };
 
             FeedStorage.SaveFeedComment(feed, comment);
-            
+
             return new EventCommentWrapper(comment);
         }
 
@@ -342,7 +343,7 @@ namespace ASC.Api.Community
             var subscriptionProvider = NewsNotifySource.Instance.GetSubscriptionProvider();
 
             var IAmAsRecipient = (IDirectRecipient)NewsNotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString());
-            
+
             if (IAmAsRecipient == null)
             {
                 return false;
@@ -427,9 +428,9 @@ namespace ASC.Api.Community
             if (String.IsNullOrEmpty(content)) throw new ArgumentException();
 
             var comment = new FeedComment(long.Parse(entityid))
-                {
-                    Comment = content
-                };
+            {
+                Comment = content
+            };
             var storage = FeedStorageFactory.Create();
             if (!string.IsNullOrEmpty(parentcommentid))
                 comment.ParentId = Convert.ToInt64(parentcommentid);

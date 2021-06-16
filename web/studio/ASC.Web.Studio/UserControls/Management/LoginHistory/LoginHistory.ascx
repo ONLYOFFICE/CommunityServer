@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoginHistory.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.LoginHistory" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <script id="login-event-tmpl" type="text/x-jquery-tmpl">
     <tr>
@@ -22,15 +22,24 @@
     </div>
 </script>
 
-<div id="events-box" class="display-none">
+<div id="events-box" class="display-none <%= EnableLoginHistory ? "" : "disable" %>">
     <div class="header-base"><%= AuditResource.LoginHistoryTitle%></div>
 
+    <% if (!EnableLoginHistory)
+         { %>
+        <br/>
+        <span class="settings-help-block">
+            <span><%= String.Format(Resource.ErrorNotAllowedOption, "<b>", "</b>") %></span>
+            <br/>
+            <a href="<%= TariffPageLink %>" target="_blank"> <%= Resource.ViewTariffPlans %></a>
+        </span>
+    <%} %>
     <p><%= AuditResource.LoginLatestText %></p>
     
     <div class="header-base-small"><%= AuditResource.StoragePeriod %>:</div>
     <div class="audit-settings-block">
-        <input id="lifetime-input" class="textEdit" type="text" pattern="[0-9.]+" maxlength="3">
-        <a id="save-settings-btn" class="button blue small"><%= Resource.SaveButton %></a>
+        <input id="lifetime-input" class="textEdit" <%= EnableLoginHistory ? "" : "disabled='disabled'" %> type="text" pattern="[0-9.]+" maxlength="3">
+        <a id="save-settings-btn" class="button blue small <%= EnableLoginHistory ? "" : "disable" %>"><%= Resource.SaveButton %></a>
     </div>
 
     <p><%= AuditResource.LoginDownloadText %></p>
@@ -55,7 +64,7 @@
 
     <div id="events-list-dscr" class="gray-text"><%= AuditResource.TotalAuditItems %>: <span></span></div>
 
-    <a id="download-report-btn" class="button blue middle" href="#generate"><%= AuditResource.DownloadReportBtn %></a>
+    <a id="download-report-btn" class="button blue middle <%= EnableLoginHistory ? "" : "disable" %>" href="#generate"><%= AuditResource.DownloadReportBtn %></a>
     <span id="generate-text" class="display-none"><%= AuditResource.GenerateText %></span>
 </div>
 

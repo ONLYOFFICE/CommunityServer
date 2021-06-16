@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             using (var ms = new MemoryStream())
             {
-                var serializer = new DataContractJsonSerializer(typeof (DocumentServiceParams));
+                var serializer = new DataContractJsonSerializer(typeof(DocumentServiceParams));
                 serializer.WriteObject(ms, docServiceParams);
                 ms.Seek(0, SeekOrigin.Begin);
                 return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);

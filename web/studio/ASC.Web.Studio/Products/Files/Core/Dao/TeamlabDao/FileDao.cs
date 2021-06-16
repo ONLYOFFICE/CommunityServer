@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -289,14 +291,24 @@ namespace ASC.Files.Core.Data
             return GetFileStream(file, 0);
         }
 
+        public async Task<Stream> GetFileStreamAsync(File file)
+        {
+            return await Global.GetStore().GetReadStreamAsync(string.Empty, GetUniqFilePath(file), 0);
+        }
+
         public File SaveFile(File file, Stream fileStream)
+        {
+            return SaveFile(file, fileStream, true);
+        }
+
+        public File SaveFile(File file, Stream fileStream, bool checkQuota = true)
         {
             if (file == null)
             {
                 throw new ArgumentNullException("file");
             }
 
-            if (SetupInfo.MaxChunkedUploadSize < file.ContentLength)
+            if (checkQuota && SetupInfo.MaxChunkedUploadSize < file.ContentLength)
             {
                 throw FileSizeComment.GetFileSizeException(SetupInfo.MaxChunkedUploadSize);
             }
@@ -354,7 +366,8 @@ namespace ASC.Files.Core.Data
                                 .InColumnValue("converted_type", file.ConvertedType)
                                 .InColumnValue("comment", file.Comment)
                                 .InColumnValue("encrypted", file.Encrypted)
-                                .InColumnValue("forcesave", (int)file.Forcesave);
+                                .InColumnValue("forcesave", (int)file.Forcesave)
+                                .InColumnValue("thumb", file.ThumbnailStatus);
                     dbManager.ExecuteNonQuery(sql);
                     tx.Commit();
 
@@ -462,6 +475,7 @@ namespace ASC.Files.Core.Data
                         .Set("comment", file.Comment)
                         .Set("encrypted", file.Encrypted)
                         .Set("forcesave", (int)file.Forcesave)
+                        .Set("thumb", file.ThumbnailStatus)
                         .Where("id", file.ID)
                         .Where("version", file.Version);
                     dbManager.ExecuteNonQuery(sql);
@@ -552,11 +566,12 @@ namespace ASC.Files.Core.Data
                 dbManager.ExecuteNonQuery(Delete("files_file").Where("id", fileId));
                 dbManager.ExecuteNonQuery(Delete("files_tag_link").Where("entry_id", fileId.ToString()).Where("entry_type", (int)FileEntryType.File));
                 var tagsToRemove = dbManager.ExecuteList(
-                    Query("files_tag")
-                        .Select("id")
-                        .Where(Exp.EqColumns("0",
-                            Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))))
-                    .ConvertAll(r => Convert.ToInt32(r[0]));
+             Query("files_tag tbl_ft ")
+                 .Select("tbl_ft.id")
+                 .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
+                                                          Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
+                 .Where("tbl_ftl.tag_id  is null"))
+             .ConvertAll(r => Convert.ToInt32(r[0]));
 
                 dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
 
@@ -638,19 +653,28 @@ namespace ASC.Files.Core.Data
             if (file != null)
             {
                 var copy = new File
-                    {
-                        FileStatus = file.FileStatus,
-                        FolderID = toFolderId,
-                        Title = file.Title,
-                        ConvertedType = file.ConvertedType,
-                        Comment = FilesCommonResource.CommentCopy,
-                        Encrypted = file.Encrypted,
-                    };
+                {
+                    FileStatus = file.FileStatus,
+                    FolderID = toFolderId,
+                    Title = file.Title,
+                    ConvertedType = file.ConvertedType,
+                    Comment = FilesCommonResource.CommentCopy,
+                    Encrypted = file.Encrypted,
+                };
 
                 using (var stream = GetFileStream(file))
                 {
                     copy.ContentLength = stream.CanSeek ? stream.Length : file.ContentLength;
                     copy = SaveFile(copy, stream);
+                }
+
+                if (file.ThumbnailStatus == Thumbnail.Created)
+                {
+                    using (var thumbnail = GetThumbnail(file))
+                    {
+                        SaveThumbnail(copy, thumbnail);
+                    }
+                    copy.ThumbnailStatus = Thumbnail.Created;
                 }
 
                 return copy;
@@ -761,7 +785,7 @@ namespace ASC.Files.Core.Data
             return ChunkedUploadSessionHolder.CreateUploadSession(file, contentLength);
         }
 
-        public void UploadChunk(ChunkedUploadSession uploadSession, Stream stream, long chunkLength)
+        public File UploadChunk(ChunkedUploadSession uploadSession, Stream stream, long chunkLength)
         {
             if (!uploadSession.UseChunks)
             {
@@ -769,11 +793,11 @@ namespace ASC.Files.Core.Data
                 {
                     if (streamToSave != Stream.Null)
                     {
-                        uploadSession.File = SaveFile(GetFileForCommit(uploadSession), streamToSave);
+                        uploadSession.File = SaveFile(GetFileForCommit(uploadSession), streamToSave, uploadSession.CheckQuota);
                     }
                 }
 
-                return;
+                return uploadSession.File;
             }
 
             ChunkedUploadSessionHolder.UploadChunk(uploadSession, stream, chunkLength);
@@ -782,6 +806,7 @@ namespace ASC.Files.Core.Data
             {
                 uploadSession.File = FinalizeUploadSession(uploadSession);
             }
+            return uploadSession.File;
         }
 
         private File FinalizeUploadSession(ChunkedUploadSession uploadSession)
@@ -789,7 +814,7 @@ namespace ASC.Files.Core.Data
             ChunkedUploadSessionHolder.FinalizeUploadSession(uploadSession);
 
             var file = GetFileForCommit(uploadSession);
-            SaveFile(file, null);
+            SaveFile(file, null, uploadSession.CheckQuota);
             ChunkedUploadSessionHolder.Move(uploadSession, GetUniqFilePath(file));
 
             return file;
@@ -810,17 +835,19 @@ namespace ASC.Files.Core.Data
                 file.ConvertedType = null;
                 file.Comment = FilesCommonResource.CommentUpload;
                 file.Encrypted = uploadSession.Encrypted;
+                file.ThumbnailStatus = Thumbnail.Waiting;
+
                 return file;
             }
 
             return new File
-                {
-                    FolderID = uploadSession.File.FolderID,
-                    Title = uploadSession.File.Title,
-                    ContentLength = uploadSession.BytesTotal,
-                    Comment = FilesCommonResource.CommentUpload,
-                    Encrypted = uploadSession.Encrypted,
-                };
+            {
+                FolderID = uploadSession.File.FolderID,
+                Title = uploadSession.File.Title,
+                ContentLength = uploadSession.BytesTotal,
+                Comment = FilesCommonResource.CommentUpload,
+                Encrypted = uploadSession.Encrypted,
+            };
         }
 
         #endregion
@@ -849,7 +876,7 @@ namespace ASC.Files.Core.Data
 
                 var func = GetFuncForSearch(null, null, filterType, subjectGroup, subjectID, searchText, searchInContent, false);
 
-                if (FactoryIndexer<FilesWrapper>.TrySelectIds(s => func(s),  out searchIds))
+                if (FactoryIndexer<FilesWrapper>.TrySelectIds(s => func(s), out searchIds))
                 {
                     q.Where(Exp.In("id", searchIds));
                 }
@@ -932,6 +959,11 @@ namespace ASC.Files.Core.Data
             return Global.GetStore().IsFile(GetUniqFilePath(file));
         }
 
+        public async Task<bool> IsExistOnStorageAsync(File file)
+        {
+            return await Global.GetStore().IsFileAsync(string.Empty, GetUniqFilePath(file));
+        }
+
         private const string DiffTitle = "diff.zip";
         public void SaveEditHistory(File file, string changes, Stream differenceStream)
         {
@@ -974,14 +1006,14 @@ namespace ASC.Files.Core.Data
                     .ConvertAll(r =>
                         {
                             var item = new EditHistory
-                                {
-                            ID = Convert.ToInt32(r[0]),
-                            Version = Convert.ToInt32(r[1]),
-                            VersionGroup = Convert.ToInt32(r[2]),
-                            ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
-                            ModifiedBy = new EditHistoryAuthor {Id = new Guid((string) r[4])},
-                            ChangesString = (string) (r[5]),
-                                };
+                            {
+                                ID = Convert.ToInt32(r[0]),
+                                Version = Convert.ToInt32(r[1]),
+                                VersionGroup = Convert.ToInt32(r[2]),
+                                ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
+                                ModifiedBy = new EditHistoryAuthor { Id = new Guid((string)r[4]) },
+                                ChangesString = (string)(r[5]),
+                            };
 
                             item.Key = DocumentServiceHelper.GetDocKey(item.ID, item.Version, TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6])));
                             return item;
@@ -1001,6 +1033,34 @@ namespace ASC.Files.Core.Data
                     .Where(Exp.Eq("id", fileId))
                     .Where(Exp.Eq("version", fileVersion))
                     .Where(!Exp.Eq("changes", null))) > 0;
+        }
+
+
+        private const string ThumbnailTitle = "thumb";
+
+        public void SaveThumbnail(File file, Stream thumbnail)
+        {
+            if (file == null) throw new ArgumentNullException("file");
+
+            dbManager.ExecuteNonQuery(
+                Update("files_file")
+                    .Set("thumb", thumbnail != null ? Thumbnail.Created : file.ThumbnailStatus)
+                    .Where("id", file.ID)
+                    .Where("version", file.Version));
+
+            if (thumbnail == null) return;
+
+            var thumnailName = ThumbnailTitle + "." + Global.ThumbnailExtension;
+            Global.GetStore().Save(string.Empty, GetUniqFilePath(file, thumnailName), thumbnail, thumnailName);
+        }
+
+        public Stream GetThumbnail(File file)
+        {
+            var thumnailName = ThumbnailTitle + "." + Global.ThumbnailExtension;
+            var path = GetUniqFilePath(file, thumnailName);
+            var storage = Global.GetStore();
+            if (!storage.IsFile(string.Empty, path)) throw new FileNotFoundException();
+            return storage.GetReadStream(string.Empty, path);
         }
 
         #endregion
@@ -1027,6 +1087,7 @@ namespace ASC.Files.Core.Data
                 Comment = (string)r[13],
                 Encrypted = Convert.ToBoolean(r[14]),
                 Forcesave = ParseForcesaveType(r[15]),
+                ThumbnailStatus = (Thumbnail)Enum.Parse(typeof(Thumbnail), r[16].ToString()),
             };
 
             return result;
@@ -1035,7 +1096,7 @@ namespace ASC.Files.Core.Data
         private static ForcesaveType ParseForcesaveType(object v)
         {
             return v != null
-                       ? (ForcesaveType)Enum.Parse(typeof (ForcesaveType), v.ToString().Substring(0, 1))
+                       ? (ForcesaveType)Enum.Parse(typeof(ForcesaveType), v.ToString().Substring(0, 1))
                        : default(ForcesaveType);
         }
 

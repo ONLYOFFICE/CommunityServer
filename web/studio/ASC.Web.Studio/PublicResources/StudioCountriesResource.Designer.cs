@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources {
+namespace ASC.Web.Studio.PublicResources {
     using System;
     
     

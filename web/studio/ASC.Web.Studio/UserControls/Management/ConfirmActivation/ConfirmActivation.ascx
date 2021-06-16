@@ -3,7 +3,7 @@
 <%@ Import Namespace="ASC.Core.Common.Settings" %>
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:Panel runat="server" ID="passwordSetter" Visible="false">
     <p class="confirm-block-text">

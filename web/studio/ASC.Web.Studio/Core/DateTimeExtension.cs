@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,10 @@
 
 using System.Globalization;
 using System.Text;
-using Resources;
-using ASC.Web.Core.Helpers;
+
 using ASC.Core.Tenants;
+using ASC.Web.Core.Helpers;
+using ASC.Web.Studio.PublicResources;
 
 namespace System
 {
@@ -217,8 +218,8 @@ namespace System
             var result = new StringBuilder();
             var diff = (TenantUtil.DateTimeNow() - target);
 
-            var years = diff.Days/yearDuration;
-            var months = diff.Days/monthDuration;
+            var years = diff.Days / yearDuration;
+            var months = diff.Days / monthDuration;
 
             if (years > 0)
                 result.AppendFormat(GetGrammaticalCase(years, Resource.DrnAgoYearsI, Resource.DrnAgoYearsR1, Resource.DrnAgoYearsRm), years);
@@ -232,10 +233,10 @@ namespace System
                         result.Append(Resource.DrnYesterday);
                         isYesterdayOrDayBefore = true;
                         break;
-                        //case 2:
-                        //    result.Append(Resources.Resource.DrnDayBeforeYesterday);
-                        //    isYesterdayOrDayBefore = true;
-                        //    break;
+                    //case 2:
+                    //    result.Append(Resources.Resource.DrnDayBeforeYesterday);
+                    //    isYesterdayOrDayBefore = true;
+                    //    break;
                     default:
                         result.AppendFormat(GetGrammaticalCase(diff.Days, Resource.DrnAgoDaysI, Resource.DrnAgoDaysR1, Resource.DrnAgoDaysRm), diff.Days);
                         break;

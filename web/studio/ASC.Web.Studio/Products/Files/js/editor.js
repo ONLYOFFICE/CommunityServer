@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,7 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.FileRename, completeRename);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetUsers, completeGetUsers);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SendEditorNotify, completeSendEditorNotify);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.ToggleFavorite, completeToggleFavorite);
     };
 
     var createFrameEditor = function (configuration) {
@@ -343,11 +344,23 @@ window.ASC.Files.Editor = (function () {
 
     var metaChange = function (event) {
         if (event && event.data) {
-            ASC.Files.Editor.configurationParams.document.title = event.data.title;
+            if (event.data.title !== undefined) {
+                ASC.Files.Editor.configurationParams.document.title = event.data.title;
 
-            updateDocumentTitle(docIsChanged);
+                updateDocumentTitle(docIsChanged);
+            } else if (event.data.favorite !== undefined) {
+                toggleFavorite(!!event.data.favorite);
+            }
         }
     };
+    var toggleFavorite = function (favorite) {
+        ASC.Files.ServiceManager.toggleFavorite(ASC.Files.ServiceManager.events.ToggleFavorite,
+            {
+                ajaxcontentType: "application/json",
+                fileId: ASC.Files.Editor.docServiceParams.fileId,
+                favorite: favorite
+            });
+    }
 
     var requestClose = function () {
         if (!window.opener
@@ -651,6 +664,14 @@ window.ASC.Files.Editor = (function () {
 
             ASC.Files.Editor.docEditor.showSharingSettings();
         }
+    };
+
+    var completeToggleFavorite = function (data, params, errorMessage) {
+        if (typeof errorMessage != "undefined") {
+            ASC.Files.Editor.docEditor.showMessage(errorMessage || "Connection is lost");
+        }
+
+        ASC.Files.Editor.docEditor.setFavorite(data);
     };
 
     return {

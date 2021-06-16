@@ -19,7 +19,7 @@ namespace ASC.Web.Projects.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProjectsCommonResource {
@@ -61,38 +61,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string About {
-            get {
-                return ResourceManager.GetString("About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Action.
-        /// </summary>
-        public static string Action {
-            get {
-                return ResourceManager.GetString("Action", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string Actions {
             get {
                 return ResourceManager.GetString("Actions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string Add {
-            get {
-                return ResourceManager.GetString("Add", resourceCulture);
             }
         }
         
@@ -138,15 +111,6 @@ namespace ASC.Web.Projects.Resources {
         public static string AllUsers {
             get {
                 return ResourceManager.GetString("AllUsers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Author.
-        /// </summary>
-        public static string Author {
-            get {
-                return ResourceManager.GetString("Author", resourceCulture);
             }
         }
         
@@ -232,7 +196,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Статусы доступны только постановщику задачи.
+        ///   Looks up a localized string similar to Statuses are only available to the user who created the task.
         /// </summary>
         public static string ChangeCustomStatusAvailable {
             get {
@@ -259,15 +223,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comment.
-        /// </summary>
-        public static string Comment {
-            get {
-                return ResourceManager.GetString("Comment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Common Settings.
         /// </summary>
         public static string CommonSettings {
@@ -286,7 +241,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create New ....
+        ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string CreateNewButton {
             get {
@@ -345,15 +300,6 @@ namespace ASC.Web.Projects.Resources {
         public static string CustomStatusTitle {
             get {
                 return ResourceManager.GetString("CustomStatusTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dashboard.
-        /// </summary>
-        public static string Dashboard {
-            get {
-                return ResourceManager.GetString("Dashboard", resourceCulture);
             }
         }
         
@@ -547,15 +493,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {!Users}.
-        /// </summary>
-        public static string Employees {
-            get {
-                return ResourceManager.GetString("Employees", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Link or add contact.
         /// </summary>
         public static string EmptyScreenContactsButton {
@@ -745,42 +682,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to History.
-        /// </summary>
-        public static string History {
-            get {
-                return ResourceManager.GetString("History", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to hours.
-        /// </summary>
-        public static string Hours {
-            get {
-                return ResourceManager.GetString("Hours", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string In {
-            get {
-                return ResourceManager.GetString("In", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Learn more.
-        /// </summary>
-        public static string LearnMore {
-            get {
-                return ResourceManager.GetString("LearnMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Learn more....
         /// </summary>
         public static string LearnMoreLink {
@@ -831,15 +732,6 @@ namespace ASC.Web.Projects.Resources {
         public static string LeftMenuMyProjects {
             get {
                 return ResourceManager.GetString("LeftMenuMyProjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Milestones.
-        /// </summary>
-        public static string Milestones {
-            get {
-                return ResourceManager.GetString("Milestones", resourceCulture);
             }
         }
         
@@ -925,25 +817,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tasks.
-        /// </summary>
-        public static string OpenTasks {
-            get {
-                return ResourceManager.GetString("OpenTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to or.
-        /// </summary>
-        public static string Or {
-            get {
-                return ResourceManager.GetString("Or", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Персональные настройки.
+        ///   Looks up a localized string similar to Personal Settings.
         /// </summary>
         public static string PersonalSettings {
             get {
@@ -1015,29 +889,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View projects and take part in discussions|Create and edit milestones, tasks, discussions, documents|Track time for tasks, generate reports|Form project team and set access rights.
+        ///   Looks up a localized string similar to View projects and take part in discussions|Create and edit milestones, tasks, discussions, documents|Track time for tasks, generate reports|Form a project team and set access rights.
         /// </summary>
         public static string ProductUserOpportunities {
             get {
                 return ResourceManager.GetString("ProductUserOpportunities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string ProjectIn {
-            get {
-                return ResourceManager.GetString("ProjectIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project information.
-        /// </summary>
-        public static string ProjectInformation {
-            get {
-                return ResourceManager.GetString("ProjectInformation", resourceCulture);
             }
         }
         
@@ -1105,15 +961,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Responsible.
-        /// </summary>
-        public static string Responsibles {
-            get {
-                return ResourceManager.GetString("Responsibles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -1137,15 +984,6 @@ namespace ASC.Web.Projects.Resources {
         public static string SaveChanges {
             get {
                 return ResourceManager.GetString("SaveChanges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Saving....
-        /// </summary>
-        public static string Saving {
-            get {
-                return ResourceManager.GetString("Saving", resourceCulture);
             }
         }
         
@@ -1186,7 +1024,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Любой пользователь может создавать проект.
+        ///   Looks up a localized string similar to Any user can create a project.
         /// </summary>
         public static string SettingsWhoCanCreateProject {
             get {
@@ -1200,15 +1038,6 @@ namespace ASC.Web.Projects.Resources {
         public static string Show {
             get {
                 return ResourceManager.GetString("Show", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show next.
-        /// </summary>
-        public static string ShowNext {
-            get {
-                return ResourceManager.GetString("ShowNext", resourceCulture);
             }
         }
         
@@ -1240,7 +1069,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Стратовая страница.
+        ///   Looks up a localized string similar to Start Page.
         /// </summary>
         public static string StartPage {
             get {
@@ -1303,29 +1132,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task Title.
-        /// </summary>
-        public static string TaskTitle {
-            get {
-                return ResourceManager.GetString("TaskTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Remove links and update.
         /// </summary>
         public static string TaskUpdateButton {
             get {
                 return ResourceManager.GetString("TaskUpdateButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Team.
-        /// </summary>
-        public static string Team {
-            get {
-                return ResourceManager.GetString("Team", resourceCulture);
             }
         }
         
@@ -1393,24 +1204,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total on page.
-        /// </summary>
-        public static string TotalOnPage {
-            get {
-                return ResourceManager.GetString("TotalOnPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        public static string Type {
-            get {
-                return ResourceManager.GetString("Type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unfollow.
         /// </summary>
         public static string Unfollow {
@@ -1456,15 +1249,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View project info.
-        /// </summary>
-        public static string ViewProjectInfo {
-            get {
-                return ResourceManager.GetString("ViewProjectInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to hh.
         /// </summary>
         public static string WatermarkHours {
@@ -1488,15 +1272,6 @@ namespace ASC.Web.Projects.Resources {
         public static string WriteComment {
             get {
                 return ResourceManager.GetString("WriteComment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yesterday.
-        /// </summary>
-        public static string Yesterday {
-            get {
-                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }

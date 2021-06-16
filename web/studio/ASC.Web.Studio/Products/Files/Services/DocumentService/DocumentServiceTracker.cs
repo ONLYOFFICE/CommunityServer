@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -35,13 +36,13 @@ using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
-using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
+
 using CommandMethod = ASC.Web.Core.Files.DocumentService.CommandMethod;
 using File = ASC.Files.Core.File;
 
@@ -140,7 +141,7 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 using (var ms = new MemoryStream())
                 {
-                    var serializer = new DataContractJsonSerializer(typeof (TrackResponse));
+                    var serializer = new DataContractJsonSerializer(typeof(TrackResponse));
                     serializer.WriteObject(ms, response);
                     ms.Seek(0, SeekOrigin.Begin);
                     return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
@@ -231,7 +232,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     Guid userId;
                     if (!Guid.TryParse(user, out userId))
                     {
-                        Global.Logger.Error("DocService userId is not Guid: " + user);
+                        Global.Logger.Info("DocService userId is not Guid: " + user);
                         continue;
                     }
                     users.Remove(userId);
@@ -276,7 +277,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             if (fileData.Users == null || fileData.Users.Count == 0 || !Guid.TryParse(fileData.Users[0], out userId))
             {
-                userId = FileTracker.GetEditingBy(fileId).FirstOrDefault();
+                userId = Guid.Empty;
             }
 
             var app = ThirdPartySelector.GetAppByFileId(fileId);
@@ -485,14 +486,14 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 using (var mailMergeTask =
                     new MailMergeTask
-                        {
-                            From = fileData.MailMerge.From,
-                            Subject = fileData.MailMerge.Subject,
-                            To = fileData.MailMerge.To,
-                            Message = message,
-                            AttachTitle = fileData.MailMerge.Title,
-                            Attach = attach
-                        })
+                    {
+                        From = fileData.MailMerge.From,
+                        Subject = fileData.MailMerge.Subject,
+                        To = fileData.MailMerge.To,
+                        Message = message,
+                        AttachTitle = fileData.MailMerge.Title,
+                        Attach = attach
+                    })
                 {
                     var response = mailMergeTask.Run();
                     Global.Logger.InfoFormat("DocService mailMerge {0}/{1} send: {2}",
@@ -525,6 +526,8 @@ namespace ASC.Web.Files.Services.DocumentService
 
         private static void StoringFileAfterError(string fileId, string userId, string downloadUri)
         {
+            if (string.IsNullOrEmpty(downloadUri)) return;
+
             try
             {
                 var fileName = Global.ReplaceInvalidCharsAndTruncate(fileId + FileUtility.GetFileExtension(downloadUri));

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,9 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.MessagingSystem;
 using System.Linq;
+
+using ASC.MessagingSystem;
 
 namespace ASC.AuditTrail.Mappers
 {
@@ -57,7 +58,7 @@ namespace ASC.AuditTrail.Mappers
                 if (evt.Description == null || !evt.Description.Any()) return actionText;
 
                 var description = evt.Description
-                                     .Select(t => t.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                                     .Select(t => t.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                                      .Select(split => string.Join(", ", split.Select(ToLimitedText))).ToArray();
 
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,18 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 
 namespace ASC.Api.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method|AttributeTargets.Class|AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
-    public abstract class ApiCallFilter:Attribute
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Assembly, AllowMultiple = true, Inherited = true)]
+    public abstract class ApiCallFilter : Attribute
     {
-        public virtual void PreMethodCall(IApiMethodCall method,ApiContext context, IEnumerable<object> arguments){}
+        public virtual void PreMethodCall(IApiMethodCall method, ApiContext context, IEnumerable<object> arguments) { }
 
-        public virtual void PostMethodCall(IApiMethodCall method, ApiContext context, object methodResponce){}
+        public virtual void PostMethodCall(IApiMethodCall method, ApiContext context, object methodResponce) { }
 
         public virtual void ErrorMethodCall(IApiMethodCall method, ApiContext context, Exception e) { }
     }

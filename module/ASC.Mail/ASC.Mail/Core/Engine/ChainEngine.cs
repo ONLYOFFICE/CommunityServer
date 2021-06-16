@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
@@ -59,7 +60,8 @@ namespace ASC.Mail.Core.Engine
             Factory = new EngineFactory(Tenant, User, Log);
         }
 
-        public List<Chain> GetChainsById(string id) {
+        public List<Chain> GetChainsById(string id)
+        {
             using (var daoFactory = new DaoFactory())
             {
                 var daoChain = daoFactory.CreateChainDao(Tenant, User);
@@ -98,9 +100,9 @@ namespace ASC.Mail.Core.Engine
             if (filterData == null)
                 throw new ArgumentNullException("filterData");
 
-            var filter = (MailSearchFilterData) filterData.Clone();
+            var filter = (MailSearchFilterData)filterData.Clone();
 
-            if (filter.UserFolderId.HasValue && Factory.UserFolderEngine.Get((uint) filter.UserFolderId.Value) == null)
+            if (filter.UserFolderId.HasValue && Factory.UserFolderEngine.Get((uint)filter.UserFolderId.Value) == null)
                 throw new ArgumentException("Folder not found");
 
             using (var daoFactory = new DaoFactory())
@@ -120,8 +122,8 @@ namespace ASC.Mail.Core.Engine
                     .SetFoldersIds(
                         filter.PrimaryFolder == FolderType.Inbox ||
                         filter.PrimaryFolder == FolderType.Sent
-                            ? new List<int> {(int) FolderType.Inbox, (int) FolderType.Sent}
-                            : new List<int> {(int) filter.PrimaryFolder})
+                            ? new List<int> { (int)FolderType.Inbox, (int)FolderType.Sent }
+                            : new List<int> { (int)filter.PrimaryFolder })
                     .Build();
 
                 var extendedInfo = daoChain.GetChains(exp);
@@ -162,12 +164,12 @@ namespace ASC.Mail.Core.Engine
                 if (messageInfo == null)
                     throw new ArgumentException("Message Id not found");
 
-                var searchFolders = new List<int>(); 
+                var searchFolders = new List<int>();
 
                 if (messageInfo.Folder == FolderType.Inbox || messageInfo.Folder == FolderType.Sent)
-                    searchFolders.AddRange(new[] {(int) FolderType.Inbox, (int) FolderType.Sent});
+                    searchFolders.AddRange(new[] { (int)FolderType.Inbox, (int)FolderType.Sent });
                 else
-                    searchFolders.Add((int) messageInfo.Folder);
+                    searchFolders.Add((int)messageInfo.Folder);
 
                 var exp = SimpleMessagesExp.CreateBuilder(tenant, user)
                     .SetMailboxId(messageInfo.MailboxId)
@@ -240,7 +242,7 @@ namespace ASC.Mail.Core.Engine
                     {
                         var folderType = keyPair.Key;
 
-                        var unreadMessDiff = keyPair.Value != 0 ? keyPair.Value * (-1) : (int?) null;
+                        var unreadMessDiff = keyPair.Value != 0 ? keyPair.Value * (-1) : (int?)null;
 
                         engine.FolderEngine.ChangeFolderCounters(daoFactory, folderType, userFolder,
                             unreadMessDiff, unreadConvDiff: -1);
@@ -355,7 +357,7 @@ namespace ASC.Mail.Core.Engine
 
             var data = new MailWrapper
             {
-                Folder = (byte) folder,
+                Folder = (byte)folder,
                 UserFolders = userFolderId.HasValue
                     ? new List<UserFolderWrapper>
                     {
@@ -413,7 +415,7 @@ namespace ASC.Mail.Core.Engine
             var mails = listObjects.ConvertAll(m => new MailWrapper
             {
                 Id = m.Id,
-                Folder = (byte) m.FolderRestore
+                Folder = (byte)m.FolderRestore
             });
 
             engine.IndexEngine.Update(mails, wrapper => wrapper.Folder);
@@ -578,7 +580,7 @@ namespace ASC.Mail.Core.Engine
                 SimpleMessagesExp.CreateBuilder(tenant, user)
                     .SetChainId(mail.ChainId)
                     .SetMailboxId(mail.MailboxId)
-                    .SetFolder((int) mail.Folder)
+                    .SetFolder((int)mail.Folder)
                     .Build(),
                 fieldFrom);
 
@@ -588,7 +590,7 @@ namespace ASC.Mail.Core.Engine
                 SimpleConversationsExp.CreateBuilder(tenant, user)
                     .SetChainId(mail.ChainId)
                     .SetMailboxId(mail.MailboxId)
-                    .SetFolder((int) mail.Folder)
+                    .SetFolder((int)mail.Folder)
                     .Build(),
                 fieldTo,
                 maxValue);
@@ -635,7 +637,7 @@ namespace ASC.Mail.Core.Engine
         }
 
         // Method for updating chain flags, date and length.
-        public void UpdateChain(IDaoFactory daoFactory, string chainId, FolderType folder, uint? userFolderId, int mailboxId, 
+        public void UpdateChain(IDaoFactory daoFactory, string chainId, FolderType folder, uint? userFolderId, int mailboxId,
             int tenant, string user)
         {
             if (string.IsNullOrEmpty(chainId)) return;
@@ -700,7 +702,7 @@ namespace ASC.Mail.Core.Engine
                     "UpdateChain() row deleted from chain table tenant='{0}', user_id='{1}', id_mailbox='{2}', folder='{3}', chain_id='{4}' result={5}",
                     tenant, user, mailboxId, folder, chainId, result);
 
-                var unreadConvDiff = chainUnreadFlag ? -1 : (int?) null;
+                var unreadConvDiff = chainUnreadFlag ? -1 : (int?)null;
 
                 engine.FolderEngine.ChangeFolderCounters(daoFactory, folder, userFolderId,
                     unreadConvDiff: unreadConvDiff, totalConvDiff: -1);
@@ -754,13 +756,13 @@ namespace ASC.Mail.Core.Engine
                     "UpdateChain() row inserted to chain table tenant='{0}', user_id='{1}', id_mailbox='{2}', folder='{3}', chain_id='{4}'",
                     tenant, user, mailboxId, folder, chainId);
 
-                var unreadConvDiff = (int?) null;
-                var totalConvDiff = (int?) null;
+                var unreadConvDiff = (int?)null;
+                var totalConvDiff = (int?)null;
 
                 if (!storedChainInfo.Any())
                 {
                     totalConvDiff = 1;
-                    unreadConvDiff = chainInfo.unread ? 1 : (int?) null;
+                    unreadConvDiff = chainInfo.unread ? 1 : (int?)null;
                 }
                 else
                 {
@@ -808,7 +810,7 @@ namespace ASC.Mail.Core.Engine
                 .Where(MailTable.Columns.IsRemoved.Prefix(mm_alias), 0)
                 .Where(TagMailTable.Columns.Tenant.Prefix(mtm_alias), tenant)
                 .Where(TagMailTable.Columns.User.Prefix(mtm_alias), user)
-                .Where(MailTable.Columns.Folder.Prefix(mm_alias), (int) folder)
+                .Where(MailTable.Columns.Folder.Prefix(mm_alias), (int)folder)
                 .Where(MailTable.Columns.MailboxId.Prefix(mm_alias), mailboxId)
                 .GroupBy(1)
                 .OrderBy(TagMailTable.Columns.TimeCreated.Prefix(mtm_alias), true);
@@ -839,13 +841,13 @@ namespace ASC.Mail.Core.Engine
 
             while (conversations.Count < pageSize + 1)
             {
-                filter.PageSize = CHUNK_SIZE*pageSize;
+                filter.PageSize = CHUNK_SIZE * pageSize;
 
                 IMessagesExp exp = null;
 
                 if (!filter.IsDefault() && FactoryIndexer<MailWrapper>.Support && FactoryIndexer.CheckState(false))
                 {
-                    filter.Page = chunkIndex*CHUNK_SIZE*pageSize; // Elastic Limit from {index of last message} to {count of messages}
+                    filter.Page = chunkIndex * CHUNK_SIZE * pageSize; // Elastic Limit from {index of last message} to {count of messages}
 
                     List<MailWrapper> mailWrappers;
                     if (FilterChainMessagesExp.TryGetFullTextSearchChains(filter, User, out mailWrappers))
@@ -863,7 +865,8 @@ namespace ASC.Mail.Core.Engine
                         {
                             query.SetOrderAsc(!(filter.SortOrder == Defines.ASCENDING));
                         }
-                        else {
+                        else
+                        {
                             query.SetOrderAsc(filter.SortOrder == Defines.ASCENDING);
                         }
 
@@ -930,7 +933,8 @@ namespace ASC.Mail.Core.Engine
                 conversations = conversations.Take(pageSize).ToList();
             }
 
-            if (prevFlag) {
+            if (prevFlag)
+            {
                 conversations.Reverse();
             }
 

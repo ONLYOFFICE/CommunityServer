@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@
 
 using System;
 using System.Web;
+
 using AjaxPro;
+
 using ASC.Blogs.Core;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Utility;
@@ -42,7 +44,7 @@ namespace ASC.Web.Community.Blogs
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            Utility.RegisterTypeForAjax(typeof (AddBlog));
+            Utility.RegisterTypeForAjax(typeof(AddBlog));
             PageLoad();
             RenderScripts();
         }

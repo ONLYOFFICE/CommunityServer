@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Blogs.Core.Resources {
+namespace ASC.Web.Community.Modules.Blogs.Core.Resources {
     using System;
     
     
@@ -79,7 +79,7 @@ namespace ASC.Blogs.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All records of the author.
+        ///   Looks up a localized string similar to All posts by the author.
         /// </summary>
         public static string AllRecordsOfTheAutor {
             get {
@@ -214,7 +214,7 @@ namespace ASC.Blogs.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create your own page to share the interesting information, thoughts and experiences with others, express your opinions, get feedback from the users&apos; comments..
+        ///   Looks up a localized string similar to View pages with the interesting information, other users&apos; thoughts and experiences, express your opinions, get feedback from the users&apos; comments..
         /// </summary>
         public static string EmptyScreenBlogTextVisitor {
             get {
@@ -232,15 +232,6 @@ namespace ASC.Blogs.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access denied.
-        /// </summary>
-        public static string ErrorAccessDenied {
-            get {
-                return ResourceManager.GetString("ErrorAccessDenied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string HideButton {
@@ -250,38 +241,11 @@ namespace ASC.Blogs.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to blog.
-        /// </summary>
-        public static string InGroupBlogLabel {
-            get {
-                return ResourceManager.GetString("InGroupBlogLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to personal blog.
-        /// </summary>
-        public static string InPersonalBlogLabel {
-            get {
-                return ResourceManager.GetString("InPersonalBlogLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create new post.
         /// </summary>
         public static string NewPost {
             get {
                 return ResourceManager.GetString("NewPost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string PleaseWaitMessage {
-            get {
-                return ResourceManager.GetString("PleaseWaitMessage", resourceCulture);
             }
         }
         
@@ -318,15 +282,6 @@ namespace ASC.Blogs.Core.Resources {
         public static string ReadMoreLink {
             get {
                 return ResourceManager.GetString("ReadMoreLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string SaveButton {
-            get {
-                return ResourceManager.GetString("SaveButton", resourceCulture);
             }
         }
         

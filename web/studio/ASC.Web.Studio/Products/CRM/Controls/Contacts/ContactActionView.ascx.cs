@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
+
 using ASC.Api;
 using ASC.Common.Logging;
 using ASC.Core;
@@ -32,6 +33,7 @@ using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json.Linq;
 
 
@@ -86,36 +88,38 @@ namespace ASC.Web.CRM.Controls.Contacts
                 var URLEmail = UrlParameters.Email;
                 if (!String.IsNullOrEmpty(URLEmail))
                     networks.Add(new ContactInfo()
-                            {
-                               Category = (int) ContactInfoBaseCategory.Work,
-                               ContactID = 0,
-                               Data = URLEmail.HtmlEncode(),
-                               ID = 0,
-                               InfoType = ContactInfoType.Email,
-                               IsPrimary = true
-                            });
-                if (UrlParameters.Type != "people") {
+                    {
+                        Category = (int)ContactInfoBaseCategory.Work,
+                        ContactID = 0,
+                        Data = URLEmail.HtmlEncode(),
+                        ID = 0,
+                        InfoType = ContactInfoType.Email,
+                        IsPrimary = true
+                    });
+                if (UrlParameters.Type != "people")
+                {
                     //init ListContactView
                     RegisterClientScriptHelper.DataListContactTab(Page, 0, EntityType.Company);
                 }
             }
             else
             {
-                data = DaoFactory.CustomFieldDao.GetEnityFields(
+                data = DaoFactory.CustomFieldDao.GetEntityFields(
                     TargetContact is Person ? EntityType.Person : EntityType.Company,
                     TargetContact.ID, true);
 
                 networks = DaoFactory.ContactInfoDao.GetList(TargetContact.ID, null, null, null).ConvertAll(
                 n => new ContactInfo()
-                                    {
-                                        Category = n.Category,
-                                        ContactID = n.ContactID,
-                                        Data = n.Data.HtmlEncode(),
-                                        ID = n.ID,
-                                        InfoType = n.InfoType,
-                                        IsPrimary = n.IsPrimary
-                                    });
-                if (TargetContact is Company) {
+                {
+                    Category = n.Category,
+                    ContactID = n.ContactID,
+                    Data = n.Data.HtmlEncode(),
+                    ID = n.ID,
+                    InfoType = n.InfoType,
+                    IsPrimary = n.IsPrimary
+                });
+                if (TargetContact is Company)
+                {
                     //init ListContactView
                     RegisterClientScriptHelper.DataListContactTab(Page, TargetContact.ID, EntityType.Company);
                 }
@@ -204,7 +208,7 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         protected void InitContactManagerSelector()
         {
-            Dictionary<Guid,String> SelectedUsers = null;
+            Dictionary<Guid, String> SelectedUsers = null;
             if (TargetContact != null)
             {
                 var AccessSubjectTo = CRMSecurity.GetAccessSubjectTo(TargetContact).ToList();
@@ -219,7 +223,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             }
             else
             {
-                SelectedUsers = new Dictionary<Guid,String>();
+                SelectedUsers = new Dictionary<Guid, String>();
                 SelectedUsers.Add(SecurityContext.CurrentAccount.ID, SecurityContext.CurrentAccount.Name.HtmlEncode());
             }
             RegisterClientScriptHelper.DataUserSelectorListView(Page, "_ContactManager", SelectedUsers);
@@ -281,19 +285,19 @@ namespace ASC.Web.CRM.Controls.Contacts
                 if (typeAddedContact.Equals("people"))
                 {
                     contact = new Person
-                                  {
-                                      FirstName = Request["baseInfo_firstName"].Trim(),
-                                      LastName = Request["baseInfo_lastName"].Trim(),
-                                      JobTitle = Request["baseInfo_personPosition"].Trim(),
-                                      CompanyID = companyID
-                                  };
+                    {
+                        FirstName = Request["baseInfo_firstName"].Trim(),
+                        LastName = Request["baseInfo_lastName"].Trim(),
+                        JobTitle = Request["baseInfo_personPosition"].Trim(),
+                        CompanyID = companyID
+                    };
                 }
                 else
                 {
                     contact = new Company
-                                  {
-                                      CompanyName = Request["baseInfo_companyName"].Trim()
-                                  };
+                    {
+                        CompanyName = Request["baseInfo_companyName"].Trim()
+                    };
                 }
 
 
@@ -481,13 +485,13 @@ namespace ASC.Web.CRM.Controls.Contacts
                             if (!addressList.ContainsKey(index))
                             {
                                 var newAddress = new ContactInfo
-                                                     {
-                                                         Category = category,
-                                                         InfoType = contactInfoType,
-                                                         Data = addressTemplateStr,
-                                                         IsPrimary = isPrimaryAddress,
-                                                         ContactID = contact.ID
-                                                     };
+                                {
+                                    Category = category,
+                                    InfoType = contactInfoType,
+                                    Data = addressTemplateStr,
+                                    IsPrimary = isPrimaryAddress,
+                                    ContactID = contact.ID
+                                };
                                 addressList.Add(index, newAddress);
                             }
 
@@ -506,13 +510,13 @@ namespace ASC.Web.CRM.Controls.Contacts
                             var dataValues = Request.Form.GetValues(item).Where(n => !string.IsNullOrEmpty(n.Trim())).ToList();
 
                             contactInfos.AddRange(dataValues.Select(dataValue => new ContactInfo
-                                                                                     {
-                                                                                         Category = category,
-                                                                                         InfoType = contactInfoType,
-                                                                                         Data = dataValue.Trim(),
-                                                                                         IsPrimary = isPrimary,
-                                                                                         ContactID = contact.ID
-                                                                                     }));
+                            {
+                                Category = category,
+                                InfoType = contactInfoType,
+                                Data = dataValue.Trim(),
+                                IsPrimary = isPrimary,
+                                ContactID = contact.ID
+                            }));
                         }
                     }
                 }
@@ -555,13 +559,14 @@ namespace ASC.Web.CRM.Controls.Contacts
                 int result;
                 var linkMessageId = int.TryParse(Request["linkMessageId"], out result) ? result : 0;
 
-                if (linkMessageId > 0) {
+                if (linkMessageId > 0)
+                {
                     try
                     {
                         LinkWithMessage(linkMessageId, contact.ID);
 
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         LogManager.GetLogger("ASC.CRM").Error(ex);
                     }
@@ -609,7 +614,7 @@ namespace ASC.Web.CRM.Controls.Contacts
 
             if (response != null)
             {
-                var responseObj =  JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(response)));
+                var responseObj = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(response)));
 
                 if (responseObj["statusCode"].Value<int>() != (int)HttpStatusCode.OK)
                 {
@@ -625,7 +630,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             var notifyContactManagers = false;
             bool value;
 
-            if(bool.TryParse(Request.Form["notifyContactManagers"], out value))
+            if (bool.TryParse(Request.Form["notifyContactManagers"], out value))
             {
                 notifyContactManagers = value;
             }

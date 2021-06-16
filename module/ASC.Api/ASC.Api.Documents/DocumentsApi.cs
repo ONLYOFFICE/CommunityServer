@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Exceptions;
@@ -39,14 +40,19 @@ using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Core.Compress;
+using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.HttpHandlers;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json.Linq;
+
 using FileShare = ASC.Files.Core.Security.FileShare;
 using FilesNS = ASC.Web.Files.Services.WCFService;
 using MimeMapping = ASC.Common.Web.MimeMapping;
@@ -80,12 +86,88 @@ namespace ASC.Api.Documents
         }
 
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <short>List of Sections</short>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <param name="withsubfolders"></param>
+        /// <param name="withoutTrash"></param>
+        /// <param name="withoutAdditionalFolder"></param>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
+        /// <category>Folders</category>
+        /// <returns></returns>
+        [Read("@root")]
+        public IEnumerable<FolderContentWrapper> GetRootFolders(Guid userIdOrGroupId, FilterType filterType, bool withsubfolders, bool withoutTrash, bool withoutAdditionalFolder)
+        {
+            var IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor();
+            var result = new SortedSet<object>();
+
+            if (!IsVisitor)
+            {
+                result.Add(Global.FolderMy);
+            }
+
+            if (!CoreContext.Configuration.Personal && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOutsider())
+            {
+                result.Add(Global.FolderShare);
+            }
+
+            if (!IsVisitor && !withoutAdditionalFolder)
+            {
+                if (FilesSettings.FavoritesSection)
+                {
+                    result.Add(Global.FolderFavorites);
+                }
+
+                if (FilesSettings.RecentSection)
+                {
+                    result.Add(Global.FolderRecent);
+                }
+
+                if (PrivacyRoomSettings.Available)
+                {
+                    result.Add(Global.FolderPrivacy);
+                }
+            }
+
+            if (!CoreContext.Configuration.Personal)
+            {
+                result.Add(Global.FolderCommon);
+            }
+
+            if (!IsVisitor
+               && !withoutAdditionalFolder
+               && FileUtility.ExtsWebTemplate.Any()
+               && FilesSettings.TemplatesSection)
+            {
+                result.Add(Global.FolderTemplates);
+            }
+
+            if (!IsVisitor
+               && !withoutTrash)
+            {
+                result.Add((int)Global.FolderTrash);
+            }
+
+            return result.Select(r => ToFolderContentWrapper(r, userIdOrGroupId, filterType));
+        }
 
         /// <summary>
         /// Returns the detailed list of files and folders located in the current user My section
         /// </summary>
         /// <short>Section My</short>
         /// <category>Folders</category>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>My folder contents</returns>
         [Read("@my")]
         public FolderContentWrapper GetMyFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -98,6 +180,11 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Projects</short>
         /// <category>Folders</category>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Projects folder contents</returns>
         [Read("@projects")]
         public FolderContentWrapper GetProjectsFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -111,6 +198,11 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Common</short>
         /// <category>Folders</category>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Common folder contents</returns>
         [Read("@common")]
         public FolderContentWrapper GetCommonFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -123,6 +215,11 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Shared</short>
         /// <category>Folders</category>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Shared folder contents</returns>
         [Read("@share")]
         public FolderContentWrapper GetShareFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -135,6 +232,13 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Recent</short>
         /// <category>Folders</category>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Recent contents</returns>
         [Read("@recent")]
         public FolderContentWrapper GetRecentFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -147,6 +251,13 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Favorite</short>
         /// <category>Folders</category>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Favorites contents</returns>
         [Read("@favorites")]
         public FolderContentWrapper GetFavoritesFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -159,6 +270,13 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Template</short>
         /// <category>Folders</category>
+        /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Templates contents</returns>
         [Read("@templates")]
         public FolderContentWrapper GetTemplatesFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -171,6 +289,11 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Section Trash</short>
         /// <category>Folders</category>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Trash folder contents</returns>
         [Read("@trash")]
         public FolderContentWrapper GetTrashFolder(Guid userIdOrGroupId, FilterType filterType)
@@ -187,7 +310,12 @@ namespace ASC.Api.Documents
         /// <category>Folders</category>
         /// <param name="folderId">Folder ID</param>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
-        /// <param name="filterType" optional="true" remark="Allowed values: None (0), FilesOnly (1), FoldersOnly (2), DocumentsOnly (3), PresentationsOnly (4), SpreadsheetsOnly (5) or ImagesOnly (7)">Filter type</param>
+        /// <param name="filterType" optional="true">Filter type</param>
+        /// <param name="sortBy" optional="true" remark="Allowed values: DateAndTime, AZ, Size, Author, Type, New, DateAndTimeCreation">Sort by field name.</param>
+        /// <param name="sortOrder" optional="true" remark="Allowed values: descending or ascending">Sorting direction</param>
+        /// <param name="startIndex" optional="true">The number of elements to be skipped in the beginning. Used for response data pagination.</param>
+        /// <param name="count" optional="true">Number of the elements returned.</param>
+        /// <param name="filterValue">Filter value.</param>
         /// <returns>Folder contents</returns>
         [Read("{folderId}")]
         public FolderContentWrapper GetFolder(String folderId, Guid userIdOrGroupId, FilterType filterType)
@@ -441,12 +569,30 @@ namespace ASC.Api.Documents
         /// <param name="doc" visible="false"></param>
         /// <category>Files</category>
         /// <returns>Configuration</returns>
-        [Read("file/{fileId}/openedit")]
+        [Read("file/{fileId}/openedit", false)] //NOTE: this method doesn't requires auth!!!
         public Configuration OpenEdit(String fileId, int version, String doc)
         {
             Configuration configuration;
             DocumentServiceHelper.GetParams(fileId, version, doc, true, true, true, out configuration);
             configuration.Type = Configuration.EditorType.External;
+
+            configuration.EditorConfig.CallbackUrl = DocumentServiceTracker.GetCallbackUrl(configuration.Document.Info.File.ID.ToString());
+
+            if (configuration.Document.Info.File.RootFolderType == FolderType.Privacy
+                && PrivacyRoomSettings.Enabled)
+            {
+                var keyPair = EncryptionKeyPair.GetKeyPair();
+                if (keyPair != null)
+                {
+                    configuration.EditorConfig.EncryptionKeys = new Configuration.EditorConfiguration.EncryptionKeysConfig
+                    {
+                        PrivateKeyEnc = keyPair.PrivateKeyEnc,
+                        PublicKey = keyPair.PublicKey,
+                    };
+                }
+            }
+
+            if (!configuration.Document.Info.File.Encrypted && !configuration.Document.Info.File.ProviderEntry) EntryManager.MarkAsRecent(configuration.Document.Info.File);
 
             configuration.Token = DocumentServiceHelper.GetSignature(configuration);
             return configuration;
@@ -465,7 +611,7 @@ namespace ASC.Api.Documents
         /// <param name="encrypted" visible="false"></param>
         /// <remarks>
         /// <![CDATA[
-        /// Each chunk can have different length but its important what length is multiple of <b>512</b> and greater or equal than <b>5 mb</b>. Last chunk can have any size.
+        /// Each chunk can have different length but its important what length is multiple of <b>512</b> and greater or equal than <b>10 mb</b>. Last chunk can have any size.
         /// After initial request respond with status 200 OK you must obtain value of 'location' field from the response. Send all your chunks to that location.
         /// Each chunk must be sent in strict order in which chunks appears in file.
         /// After receiving each chunk if no errors occured server will respond with current information about upload session.
@@ -496,10 +642,10 @@ namespace ASC.Api.Documents
 
                 var response = ChunkedUploaderHandler.ToResponseObject(session, true);
                 return new
-                    {
-                        success = true,
-                        data = response
-                    };
+                {
+                    success = true,
+                    data = response
+                };
             }
 
             var createSessionUrl = FilesLinkUtility.GetInitiateUploadSessionUrl(file.FolderID, file.ID, file.Title, file.ContentLength, encrypted);
@@ -1100,11 +1246,11 @@ namespace ASC.Api.Documents
             {
                 var list = new Web.Files.Services.WCFService.ItemList<AceWrapper>(share.Select(x => x.ToAceObject()));
                 var aceCollection = new AceCollection
-                    {
-                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "file_" + fileId },
-                        Aces = list,
-                        Message = sharingMessage
-                    };
+                {
+                    Entries = new Web.Files.Services.WCFService.ItemList<string> { "file_" + fileId },
+                    Aces = list,
+                    Message = sharingMessage
+                };
                 _fileStorageService.SetAceObject(aceCollection, notify);
             }
             return GetFileSecurityInfo(fileId);
@@ -1130,11 +1276,11 @@ namespace ASC.Api.Documents
             {
                 var list = new Web.Files.Services.WCFService.ItemList<AceWrapper>(share.Select(x => x.ToAceObject()));
                 var aceCollection = new AceCollection
-                    {
-                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderId },
-                        Aces = list,
-                        Message = sharingMessage
-                    };
+                {
+                    Entries = new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderId },
+                    Aces = list,
+                    Message = sharingMessage
+                };
                 _fileStorageService.SetAceObject(aceCollection, notify);
             }
 
@@ -1189,10 +1335,10 @@ namespace ASC.Api.Documents
                             }
                     };
                 var aceCollection = new AceCollection
-                    {
-                        Entries = new Web.Files.Services.WCFService.ItemList<string> { objectId },
-                        Aces = list
-                    };
+                {
+                    Entries = new Web.Files.Services.WCFService.ItemList<string> { objectId },
+                    Aces = list
+                };
                 _fileStorageService.SetAceObject(aceCollection, false);
                 sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectId }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
             }
@@ -1285,13 +1431,13 @@ namespace ASC.Api.Documents
             String providerId)
         {
             var thirdPartyParams = new ThirdPartyParams
-                {
-                    AuthData = new AuthData(url, login, password, token),
-                    Corporate = isCorporate,
-                    CustomerTitle = customerTitle,
-                    ProviderId = providerId,
-                    ProviderKey = providerKey,
-                };
+            {
+                AuthData = new AuthData(url, login, password, token),
+                Corporate = isCorporate,
+                CustomerTitle = customerTitle,
+                ProviderId = providerId,
+                ProviderKey = providerKey,
+            };
 
             var folder = _fileStorageService.SaveThirdParty(thirdPartyParams);
 
@@ -1488,6 +1634,18 @@ namespace ASC.Api.Documents
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="set"></param>
+        /// <category>Settings</category>
+        /// <returns></returns>
+        [Update(@"settings/downloadtargz")]
+        public ICompress ChangeDownloadZip(bool set)
+        {
+            return _fileStorageService.ChangeDownloadTarGz(set);
+        }
+
+        /// <summary>
         ///  Checking document service location
         /// </summary>
         /// <param name="docServiceUrl">Document editing service Domain</param>
@@ -1540,18 +1698,46 @@ namespace ASC.Api.Documents
             var dsVersion = DocumentServiceConnector.GetVersion();
 
             return new
+            {
+                version = dsVersion,
+                docServiceUrlApi = url,
+            };
+        }
+
+        /// <summary>
+        /// Create thumbnails for files with the IDs specified in the request
+        /// </summary>
+        /// <short>Create thumbnails</short>
+        /// <category>Files</category>
+        /// <param name="fileIds">File IDs</param>
+        /// <visible>false</visible>
+        /// <returns></returns>
+        [Create("thumbnails")]
+        public IEnumerable<String> CreateThumbnails(IEnumerable<String> fileIds)
+        {
+            try
+            {
+                using (var thumbnailBuilderServiceClient = new ThumbnailBuilderServiceClient())
                 {
-                    version = dsVersion,
-                    docServiceUrlApi = url,
-                };
+                    thumbnailBuilderServiceClient.BuildThumbnails(CoreContext.TenantManager.GetCurrentTenant().TenantId, fileIds);
+                }
+            }
+            catch (Exception e)
+            {
+                Common.Logging.LogManager.GetLogger("ASC.Api.Documents").Error("CreateThumbnails", e);
+            }
+            return fileIds;
         }
 
 
         private FolderContentWrapper ToFolderContentWrapper(object folderId, Guid userIdOrGroupId, FilterType filterType)
         {
+            OrderBy orderBy = null;
             SortedByType sortBy;
-            if (!Enum.TryParse(_context.SortBy, true, out sortBy))
-                sortBy = SortedByType.AZ;
+            if (Enum.TryParse(_context.SortBy, true, out sortBy))
+            {
+                orderBy = new OrderBy(sortBy, !_context.SortDescending);
+            }
             var startIndex = Convert.ToInt32(_context.StartIndex);
             return new FolderContentWrapper(_fileStorageService.GetFolderItems(folderId.ToString(),
                                                                                startIndex,
@@ -1562,7 +1748,7 @@ namespace ASC.Api.Documents
                                                                                _context.FilterValue,
                                                                                false,
                                                                                false,
-                                                                               new OrderBy(sortBy, !_context.SortDescending)),
+                                                                               orderBy),
                                             startIndex);
         }
 
@@ -1585,15 +1771,15 @@ namespace ASC.Api.Documents
 
                 blogInfo = jsonBlogInfo.ToString();
                 return new
-                    {
-                        success = true,
-                        data = blogInfo
-                    };
+                {
+                    success = true,
+                    data = blogInfo
+                };
             }
             return new
-                {
-                    success = false
-                };
+            {
+                success = false
+            };
         }
 
         /// <visible>false</visible>
@@ -1605,14 +1791,14 @@ namespace ASC.Api.Documents
             {
                 WordpressToken.DeleteToken(token);
                 return new
-                    {
-                        success = true
-                    };
+                {
+                    success = true
+                };
             }
             return new
-                {
-                    success = false
-                };
+            {
+                success = false
+            };
         }
 
         /// <visible>false</visible>
@@ -1622,9 +1808,9 @@ namespace ASC.Api.Documents
             if (code == "")
             {
                 return new
-                    {
-                        success = false
-                    };
+                {
+                    success = false
+                };
             }
             try
             {
@@ -1641,17 +1827,17 @@ namespace ASC.Api.Documents
 
                 blogInfo = jsonBlogInfo.ToString();
                 return new
-                    {
-                        success = true,
-                        data = blogInfo
-                    };
+                {
+                    success = true,
+                    data = blogInfo
+                };
             }
             catch (Exception)
             {
                 return new
-                    {
-                        success = false
-                    };
+                {
+                    success = false
+                };
             }
         }
 
@@ -1692,17 +1878,17 @@ namespace ASC.Api.Documents
             {
                 var citationList = EasyBibHelper.GetEasyBibCitationsList(source, data);
                 return new
-                    {
-                        success = true,
-                        citations = citationList
-                    };
+                {
+                    success = true,
+                    citations = citationList
+                };
             }
             catch (Exception)
             {
                 return new
-                    {
-                        success = false
-                    };
+                {
+                    success = false
+                };
             }
 
         }
@@ -1715,17 +1901,17 @@ namespace ASC.Api.Documents
             {
                 var data = EasyBibHelper.GetEasyBibStyles();
                 return new
-                    {
-                        success = true,
-                        styles = data
-                    };
+                {
+                    success = true,
+                    styles = data
+                };
             }
             catch (Exception)
             {
                 return new
-                    {
-                        success = false
-                    };
+                {
+                    success = false
+                };
             }
         }
 
@@ -1739,26 +1925,26 @@ namespace ASC.Api.Documents
                 if (citat != null)
                 {
                     return new
-                        {
-                            success = true,
-                            citation = citat
-                        };
+                    {
+                        success = true,
+                        citation = citat
+                    };
                 }
                 else
                 {
                     return new
-                        {
-                            success = false
-                        };
+                    {
+                        success = false
+                    };
                 }
 
             }
             catch (Exception)
             {
                 return new
-                    {
-                        success = false
-                    };
+                {
+                    success = false
+                };
             }
         }
 

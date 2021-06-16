@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,7 +116,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
 
     var loadingBanner = LoadingBanner,
         master = ASC.Resources.Master,
-        resource = master.Resource;
+        ResourceJS = master.ResourceJS;
     var operatorStatus = {
         online: 0,
         busy: 1,
@@ -597,15 +597,15 @@ ASC.CRM.Voip.PhoneView = (function($) {
 
         if (operator.status == operatorStatus.online) {
             $operatorStatus.removeClass('offline').addClass('online');
-            $operatorStatusSwitcher.text(resource.OnlineStatus);
+            $operatorStatusSwitcher.text(ResourceJS.OnlineStatus);
             $operatorStatusSwitcher.removeClass('lock');
         } else if (operator.status == operatorStatus.offline) {
             $operatorStatus.removeClass('online').addClass('offline');
-            $operatorStatusSwitcher.text(resource.OfflineStatus);
+            $operatorStatusSwitcher.text(ResourceJS.OfflineStatus);
             $operatorStatusSwitcher.removeClass('lock');
         } else if (operator.status == operatorStatus.busy) {
             $operatorStatus.removeClass('offline').addClass('online');
-            $operatorStatusSwitcher.text(resource.BusyStatus);
+            $operatorStatusSwitcher.text(ResourceJS.BusyStatus);
             $operatorStatusSwitcher.removeClass('lock');
             if (currentCallStatus != null) {
                 $operatorStatusSwitcher.addClass('lock');
@@ -1142,13 +1142,13 @@ ASC.CRM.Voip.PhoneView = (function($) {
                             incomingCallPlayer.play();
                         }
                         if (documentHidden) {
-                            spawnNotification(call.from, resource.CallIncoming);
+                            spawnNotification(call.from, ResourceJS.CallIncoming);
                             var focusTimer = setInterval(function () {
                                 if (window.closed) {
                                     clearInterval(focusTimer);
                                     return;
                                 }
-                                document.title = resource.CallIncoming + ":" + call.from;
+                                document.title = ResourceJS.CallIncoming + ":" + call.from;
                                 window.focus();
                             }, 1000);
 
@@ -1221,7 +1221,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
                     }
 
                     if (documentHidden) {
-                        spawnNotification(call.from, resource.CallMissed);
+                        spawnNotification(call.from, ResourceJS.CallMissed);
                     }
                 }
             });
@@ -1360,7 +1360,7 @@ ASC.CRM.Voip.PhoneView = (function($) {
     }
 
     function showErrorMessage() {
-        toastr.error(resource.CommonJSErrorMsg);
+        toastr.error(ResourceJS.CommonJSErrorMsg);
     }
 
     //#endregion

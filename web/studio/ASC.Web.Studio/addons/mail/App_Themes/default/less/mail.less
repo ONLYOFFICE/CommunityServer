@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1310,26 +1310,30 @@ input {
 
 @media screen and (max-height: 768px)
 {
-    .mail_wysiwyg_editor
-    {
-        min-height: 237px;
+    .mail_wysiwyg_editor {
+        min-height: 290px;
 
-        .cke_contents.cke_reset
-        {
+        .cke_contents.cke_reset {
             min-height: 237px;
+        }
+
+        #ckMailEditor {
+            height: 280px;
         }
     }
 }
 
-@media screen and (min-height: 768px)
+@media screen and (min-height: 769px)
 {
-    .mail_wysiwyg_editor
-    {
-        min-height: 400px;
+    .mail_wysiwyg_editor {
+        min-height: 453px;
 
-        .cke_contents.cke_reset
-        {
+        .cke_contents.cke_reset {
             min-height: 400px;
+        }
+
+        #ckMailEditor {
+            height: 443px
         }
     }
 }

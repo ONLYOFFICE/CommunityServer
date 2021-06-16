@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,18 @@
 using System;
 using System.Linq;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Management.SingleSignOnSettings;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json;
-using Resources;
 
 namespace ASC.Api.Settings
 {
@@ -47,7 +49,7 @@ namespace ASC.Api.Settings
 
             var settings = SsoSettingsV2.Load();
 
-            if(string.IsNullOrEmpty(settings.SpLoginLabel))
+            if (string.IsNullOrEmpty(settings.SpLoginLabel))
                 settings.SpLoginLabel = SsoSettingsV2.SSO_SP_LOGIN_LABEL;
 
             return settings;
@@ -79,14 +81,14 @@ namespace ASC.Api.Settings
         public object GetSsoSettingsV2Constants()
         {
             return new
-                {
-                    SsoNameIdFormatType = new SsoNameIdFormatType(),
-                    SsoBindingType = new SsoBindingType(),
-                    SsoSigningAlgorithmType = new SsoSigningAlgorithmType(),
-                    SsoEncryptAlgorithmType = new SsoEncryptAlgorithmType(),
-                    SsoSpCertificateActionType = new SsoSpCertificateActionType(),
-                    SsoIdpCertificateActionType = new SsoIdpCertificateActionType()
-                };
+            {
+                SsoNameIdFormatType = new SsoNameIdFormatType(),
+                SsoBindingType = new SsoBindingType(),
+                SsoSigningAlgorithmType = new SsoSigningAlgorithmType(),
+                SsoEncryptAlgorithmType = new SsoEncryptAlgorithmType(),
+                SsoSpCertificateActionType = new SsoSpCertificateActionType(),
+                SsoIdpCertificateActionType = new SsoIdpCertificateActionType()
+            };
         }
 
         /// <summary>
@@ -138,7 +140,7 @@ namespace ASC.Api.Settings
             if (!settings.Save())
                 throw new Exception(Resource.SsoSettingsCantSaveSettings);
 
-            if(!settings.EnableSso)
+            if (!settings.EnableSso)
                 ConverSsoUsersToOrdinary();
 
             var messageAction = settings.EnableSso ? MessageAction.SSOEnabled : MessageAction.SSODisabled;
@@ -176,7 +178,7 @@ namespace ASC.Api.Settings
         {
             var ssoUsers = CoreContext.UserManager.GetUsers().Where(u => u.IsSSO()).ToList();
 
-            if(!ssoUsers.Any())
+            if (!ssoUsers.Any())
                 return;
 
             foreach (var existingSsoUser in ssoUsers)
@@ -201,9 +203,8 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
-                (CoreContext.Configuration.Standalone &&
-                 !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
+            if ((!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) && !CoreContext.Configuration.Standalone) ||
+                !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Sso");
             }

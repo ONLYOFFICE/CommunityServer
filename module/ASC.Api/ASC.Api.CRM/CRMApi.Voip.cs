@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
+
 using ASC.Api.Attributes;
 using ASC.Api.CRM.Wrappers;
 using ASC.Api.Exceptions;
@@ -36,6 +37,7 @@ using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Utility;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.CRM
@@ -59,8 +61,8 @@ namespace ASC.Api.CRM
 
             if (string.IsNullOrEmpty(isoCountryCode)) throw new ArgumentException();
             return VoipProvider.GetAvailablePhoneNumbers(numberType, isoCountryCode);
-        }        
-        
+        }
+
         /// <summary>
         ///  
         /// </summary>
@@ -73,7 +75,7 @@ namespace ASC.Api.CRM
         {
             if (!CRMSecurity.IsAdmin) throw CRMSecurity.CreateSecurityException();
 
-            var listPhones =  VoipProvider.GetExistingPhoneNumbers();
+            var listPhones = VoipProvider.GetExistingPhoneNumbers();
             var buyedPhones = DaoFactory.VoipDao.GetNumbers();
 
             return listPhones.Where(r => buyedPhones.All(b => r.Id != b.Id)).ToList();
@@ -142,10 +144,10 @@ namespace ASC.Api.CRM
             const string path = "default/";
             var files = storage.ListFilesRelative("voip", path, "*.*", true)
                                .Select(filePath => new
-                                   {
-                                       path = CommonLinkUtility.GetFullAbsolutePath(storage.GetUri("voip", Path.Combine(path, filePath)).ToString()),
-                                       audioType = (AudioType)Enum.Parse(typeof (AudioType), Directory.GetParent(filePath).Name, true)
-                                   }).ToList();
+                               {
+                                   path = CommonLinkUtility.GetFullAbsolutePath(storage.GetUri("voip", Path.Combine(path, filePath)).ToString()),
+                                   audioType = (AudioType)Enum.Parse(typeof(AudioType), Directory.GetParent(filePath).Name, true)
+                               }).ToList();
 
             var audio = files.Find(r => r.audioType == AudioType.Greeting);
             newPhone.Settings.GreetingAudio = audio != null ? audio.path : "";
@@ -312,7 +314,7 @@ namespace ASC.Api.CRM
                 }
             }
 
-            return new {queue, pause};
+            return new { queue, pause };
         }
 
         /// <summary>
@@ -332,7 +334,7 @@ namespace ASC.Api.CRM
             var number = dao.GetNumbers().FirstOrDefault(r => r.Settings.Queue != null);
             if (number != null)
             {
-                return new {queue = number.Settings.Queue, pause = number.Settings.Pause};
+                return new { queue = number.Settings.Queue, pause = number.Settings.Pause };
             }
 
             var files = StorageFactory.GetStorage("", "crm").ListFiles("voip", "default/" + AudioType.Queue.ToString().ToLower(), "*.*", true);
@@ -354,9 +356,9 @@ namespace ASC.Api.CRM
 
             var result = new List<VoipUpload>();
 
-            foreach (var audioType in Enum.GetNames(typeof (AudioType)))
+            foreach (var audioType in Enum.GetNames(typeof(AudioType)))
             {
-                var type = (AudioType)Enum.Parse(typeof (AudioType), audioType);
+                var type = (AudioType)Enum.Parse(typeof(AudioType), audioType);
 
                 var path = audioType.ToLower();
                 var store = Global.GetStore();
@@ -403,11 +405,11 @@ namespace ASC.Api.CRM
             var store = Global.GetStore();
             var path = Path.Combine(audioType.ToString().ToLower(), fileName);
             var result = new VoipUpload
-                {
-                    AudioType = audioType,
-                    Name = fileName,
-                    Path = CommonLinkUtility.GetFullAbsolutePath(store.GetUri(path).ToString())
-                };
+            {
+                AudioType = audioType,
+                Name = fileName,
+                Path = CommonLinkUtility.GetFullAbsolutePath(store.GetUri(path).ToString())
+            };
 
             if (!store.IsFile("voip", path)) throw new ItemNotFoundException();
             store.Delete("voip", path);
@@ -601,8 +603,8 @@ namespace ASC.Api.CRM
             if (!number.Settings.Caller.AllowOutgoingCalls) throw new SecurityException(CRMErrorsResource.AccessDenied);
 
             var contactPhone = to.TrimStart('+');
-            var contact = string.IsNullOrEmpty(contactId) ? 
-                GetContactsByContactInfo(ContactInfoType.Phone, contactPhone, null, null).FirstOrDefault() : 
+            var contact = string.IsNullOrEmpty(contactId) ?
+                GetContactsByContactInfo(ContactInfoType.Phone, contactPhone, null, null).FirstOrDefault() :
                 GetContactByID(Convert.ToInt32(contactId));
 
             if (contact == null)
@@ -686,7 +688,7 @@ namespace ASC.Api.CRM
         public VoipCallWrapper SaveCall(string callId, string from, string to, Guid answeredBy, VoipCallStatus? status, string contactId, decimal? price)
         {
             var dao = DaoFactory.VoipDao;
-            
+
             var call = dao.GetCall(callId) ?? new VoipCall();
 
             call.Id = callId;
@@ -703,7 +705,7 @@ namespace ASC.Api.CRM
                     {
                         call.ContactId = Convert.ToInt32(contactId);
                     }
-                    else 
+                    else
                     {
                         new VoipEngine(DaoFactory).GetContact(call);
                     }
@@ -773,26 +775,26 @@ namespace ASC.Api.CRM
             var voipDao = DaoFactory.VoipDao;
 
             var filter = new VoipCallFilter
-                {
-                    Type = callType,
-                    FromDate = from != null ? from.UtcTime : (DateTime?)null,
-                    ToDate = to != null ? to.UtcTime.AddDays(1).AddMilliseconds(-1) : (DateTime?)null,
-                    Agent = agent,
-                    Client = client,
-                    ContactID = contactID,
-                    SortBy = _context.SortBy,
-                    SortOrder = !_context.SortDescending,
-                    SearchText = _context.FilterValue,
-                    Offset = _context.StartIndex,
-                    Max = _context.Count,
-                };
+            {
+                Type = callType,
+                FromDate = from != null ? from.UtcTime : (DateTime?)null,
+                ToDate = to != null ? to.UtcTime.AddDays(1).AddMilliseconds(-1) : (DateTime?)null,
+                Agent = agent,
+                Client = client,
+                ContactID = contactID,
+                SortBy = _context.SortBy,
+                SortOrder = !_context.SortDescending,
+                SearchText = _context.FilterValue,
+                Offset = _context.StartIndex,
+                Max = _context.Count,
+            };
 
             _context.SetDataPaginated();
             _context.SetDataFiltered();
             _context.SetDataSorted();
             _context.TotalCount = voipDao.GetCallsCount(filter);
 
-            var defaultSmallPhoto = ContactPhotoManager.GetSmallSizePhoto(-1, false);            
+            var defaultSmallPhoto = ContactPhotoManager.GetSmallSizePhoto(-1, false);
             var calls = voipDao.GetCalls(filter).Select(
                 r =>
                     {
@@ -800,14 +802,14 @@ namespace ASC.Api.CRM
                         if (r.ContactId != 0)
                         {
                             contact = r.ContactIsCompany
-                                          ? (ContactWrapper)new CompanyWrapper(r.ContactId) {DisplayName = r.ContactTitle}
-                                          : new PersonWrapper(r.ContactId) {DisplayName = r.ContactTitle};
+                                          ? (ContactWrapper)new CompanyWrapper(r.ContactId) { DisplayName = r.ContactTitle }
+                                          : new PersonWrapper(r.ContactId) { DisplayName = r.ContactTitle };
                             contact.SmallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(contact.ID, contact.IsCompany);
                         }
                         else
                         {
                             contact = new PersonWrapper(-1) { SmallFotoUrl = defaultSmallPhoto };
-                        }            
+                        }
                         return new VoipCallWrapper(r, contact);
                     }).ToList();
             return calls;
@@ -823,7 +825,7 @@ namespace ASC.Api.CRM
         public IEnumerable<VoipCallWrapper> GetMissedCalls()
         {
             var voipDao = DaoFactory.VoipDao;
-            var defaultSmallPhoto = ContactPhotoManager.GetSmallSizePhoto(-1, false);   
+            var defaultSmallPhoto = ContactPhotoManager.GetSmallSizePhoto(-1, false);
 
             var calls = voipDao.GetMissedCalls(SecurityContext.CurrentAccount.ID, 10, DateTime.UtcNow.AddDays(-7)).Select(
                 r =>
@@ -868,7 +870,7 @@ namespace ASC.Api.CRM
 
             var contact = GetContactByID(call.ContactId);
             contact = GetContactWithFotos(contact);
-            
+
             return new VoipCallWrapper(call, contact);
         }
 

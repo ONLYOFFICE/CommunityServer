@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using ASC.Core;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -76,7 +78,7 @@ namespace ASC.VoipService
             {
                 try
                 {
-                    var settings = JsonConvert.DeserializeObject<VoipSettings>(value, new JsonSerializerSettings {ContractResolver = CustomSerializeContractResolver.Instance });
+                    var settings = JsonConvert.DeserializeObject<VoipSettings>(value, new JsonSerializerSettings { ContractResolver = CustomSerializeContractResolver.Instance });
 
                     Operators = settings.Operators ?? new List<Agent>();
                     Name = settings.Name;
@@ -130,7 +132,7 @@ namespace ASC.VoipService
 
         public static VoipSettings GetSettings(string settings)
         {
-            return new VoipSettings {JsonSettings = settings};
+            return new VoipSettings { JsonSettings = settings };
         }
     }
 

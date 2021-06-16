@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Web;
+
 using ASC.Common.Logging;
 
 namespace ASC.Data.Storage
@@ -29,7 +30,7 @@ namespace ASC.Data.Storage
             {
                 return HttpContext.Current != null && Uri.UriSchemeHttps.Equals(HttpContext.Current.Request.GetUrlRewriter().Scheme, StringComparison.OrdinalIgnoreCase);
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 LogManager.GetLogger("ASC.Data.Storage.SecureHelper").Error(err);
                 return false;

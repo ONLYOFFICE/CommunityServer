@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,21 +126,3 @@ window.peopleActions = (function() {
         }
     };
 })();
-
-jq(function () {
-    var pathname = "/Products/People/";
-    jq("#groupList .menu-item-label").each(function (index, item) {
-        var id = jq(item).parents(".menu-sub-item").attr("data-id");
-        if (location.pathname != pathname) {
-            jq(item).attr("href", pathname + "#group=" + id);
-        }
-    });
-
-    if (location.pathname != pathname) {
-        jq("#defaultLinkPeople").attr("href", pathname);
-    }
-
-    jq(".people-import-banner_img").on("click", function () {
-        location.href = "/Products/People/Import.aspx";
-    });
-})

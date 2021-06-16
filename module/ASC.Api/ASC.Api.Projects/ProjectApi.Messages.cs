@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Documents;
 using ASC.Api.Employee;
@@ -26,9 +27,9 @@ using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
 using ASC.MessagingSystem;
 using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
 using ASC.Specific;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Projects.Engine;
 
 namespace ASC.Api.Projects
 {
@@ -157,7 +158,7 @@ namespace ASC.Api.Projects
         public MessageWrapperFull UpdateProjectMessage(int messageid, int projectid, string title, string content, string participants, bool? notify)
         {
             var messageEngine = EngineFactory.MessageEngine;
-            
+
             var discussion = messageEngine.GetByID(messageid).NotFoundIfNull();
             var project = EngineFactory.ProjectEngine.GetByID(projectid).NotFoundIfNull();
             ProjectSecurity.DemandEdit(discussion);
@@ -169,7 +170,7 @@ namespace ASC.Api.Projects
             messageEngine.SaveOrUpdate(discussion, notify.HasValue ? notify.Value : true, ToGuidList(participants));
             MessageService.Send(Request, MessageAction.DiscussionUpdated, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
 
-            return new MessageWrapperFull(this, discussion, new ProjectWrapperFull(this, discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)),  GetProjectMessageSubscribers(messageid));
+            return new MessageWrapperFull(this, discussion, new ProjectWrapperFull(this, discussion.Project, EngineFactory.FileEngine.GetRoot(discussion.Project.ID)), GetProjectMessageSubscribers(messageid));
         }
 
         ///<summary>
@@ -212,10 +213,10 @@ namespace ASC.Api.Projects
         public MessageWrapper DeleteProjectMessage(int messageid)
         {
             var discussionEngine = EngineFactory.MessageEngine;
-            
+
             var discussion = discussionEngine.GetByID(messageid).NotFoundIfNull();
             ProjectSecurity.DemandEdit(discussion);
-            
+
             discussionEngine.Delete(discussion);
             MessageService.Send(Request, MessageAction.DiscussionDeleted, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title);
 
@@ -247,7 +248,7 @@ namespace ASC.Api.Projects
             var subscribers = GetProjectMessageSubscribers(messageid);
             var files = EngineFactory.MessageEngine.GetFiles(discussion).Select(FileWrapperSelector);
             var comments = EngineFactory.CommentEngine.GetComments(discussion);
-            return new MessageWrapperFull(this, discussion, project, subscribers, files, comments.Where(r=>r.Parent.Equals(Guid.Empty)).Select(x => GetCommentInfo(comments, x, discussion)).ToList());
+            return new MessageWrapperFull(this, discussion, project, subscribers, files, comments.Where(r => r.Parent.Equals(Guid.Empty)).Select(x => GetCommentInfo(comments, x, discussion)).ToList());
         }
 
         ///<summary>
@@ -325,7 +326,7 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandReadFiles(discussion.Project);
 
             var file = EngineFactory.FileEngine.GetFile(fileid).NotFoundIfNull();
-            
+
             messageEngine.DetachFile(discussion, fileid);
             MessageService.Send(Request, MessageAction.DiscussionDetachedFile, MessageTarget.Create(discussion.ID), discussion.Project.Title, discussion.Title, file.Title);
 
@@ -437,7 +438,7 @@ namespace ASC.Api.Projects
             EngineFactory.CommentEngine.SaveOrUpdateComment(message, comment);
 
             MessageService.Send(Request, MessageAction.DiscussionCommentCreated, MessageTarget.Create(comment.ID), message.Project.Title, message.Title);
-            
+
             return new CommentWrapper(this, comment, message);
         }
 
@@ -504,8 +505,8 @@ namespace ASC.Api.Projects
 
             ProjectSecurity.DemandAuthentication();
 
-            return messageEngine.GetSubscribers(message).Select(r=> GetEmployeeWraperFull(new Guid(r.ID)))
-                .OrderBy(r=> r.DisplayName).ToList();
+            return messageEngine.GetSubscribers(message).Select(r => GetEmployeeWraperFull(new Guid(r.ID)))
+                .OrderBy(r => r.DisplayName).ToList();
         }
 
         ///<summary>

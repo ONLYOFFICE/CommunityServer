@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
 */
 
 
-using ASC.Common.Caching;
-using ASC.Core.Common.Settings;
-using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
+
+using ASC.Common.Caching;
+using ASC.Core.Tenants;
 
 namespace ASC.Core.Caching
 {
@@ -246,7 +246,7 @@ namespace ASC.Core.Caching
 
             internal void Clear()
             {
-                if(!CoreContext.Configuration.Standalone) return;
+                if (!CoreContext.Configuration.Standalone) return;
                 lock (locker)
                 {
                     byId.Clear();

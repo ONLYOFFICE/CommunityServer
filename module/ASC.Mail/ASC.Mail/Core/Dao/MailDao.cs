@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -37,7 +38,7 @@ namespace ASC.Mail.Core.Dao
 
         protected string CurrentUserId { get; private set; }
 
-        public MailDao(IDbManager dbManager, int tenant, string user) 
+        public MailDao(IDbManager dbManager, int tenant, string user)
             : base(table, dbManager, tenant)
         {
             CurrentUserId = user;
@@ -68,8 +69,8 @@ namespace ASC.Mail.Core.Dao
                 .InColumnValue(MailTable.Columns.IsAnswered, mail.IsAnswered)
                 .InColumnValue(MailTable.Columns.IsForwarded, mail.IsForwarded)
                 .InColumnValue(MailTable.Columns.Stream, mail.Stream)
-                .InColumnValue(MailTable.Columns.Folder, (int) mail.Folder)
-                .InColumnValue(MailTable.Columns.FolderRestore, (int) mail.FolderRestore)
+                .InColumnValue(MailTable.Columns.Folder, (int)mail.Folder)
+                .InColumnValue(MailTable.Columns.FolderRestore, (int)mail.FolderRestore)
                 .InColumnValue(MailTable.Columns.Spam, mail.Spam)
                 .InColumnValue(MailTable.Columns.MimeMessageId, mail.MimeMessageId)
                 .InColumnValue(MailTable.Columns.MimeInReplyTo, mail.MimeInReplyTo)
@@ -166,8 +167,8 @@ namespace ASC.Mail.Core.Dao
                 IsAnswered = Convert.ToBoolean(r[20]),
                 IsForwarded = Convert.ToBoolean(r[21]),
                 Stream = Convert.ToString(r[22]),
-                Folder = (FolderType) Convert.ToInt32(r[23]),
-                FolderRestore = (FolderType) Convert.ToInt32(r[24]),
+                Folder = (FolderType)Convert.ToInt32(r[23]),
+                FolderRestore = (FolderType)Convert.ToInt32(r[24]),
                 Spam = Convert.ToBoolean(r[25]),
                 IsRemoved = Convert.ToBoolean(r[26]),
                 TimeModified = Convert.ToDateTime(r[27]),

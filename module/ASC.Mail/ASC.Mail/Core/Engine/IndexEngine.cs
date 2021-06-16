@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+
 using ASC.Common.Logging;
 using ASC.ElasticSearch;
 using ASC.Mail.Data.Contracts;
@@ -49,7 +50,7 @@ namespace ASC.Mail.Core.Engine
                 Log.Info("[SKIP INDEX] IsIndexAvailable->FactoryIndexer<MailWrapper>.Support == false");
                 return false;
             }
-            
+
             if (!FactoryIndexer.CheckState(false))
             {
                 Log.Info("[SKIP INDEX] IsIndexAvailable->FactoryIndexer.CheckState(false) == false");

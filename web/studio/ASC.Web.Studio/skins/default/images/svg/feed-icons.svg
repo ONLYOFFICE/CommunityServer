@@ -58,5 +58,11 @@
 <symbol id="feedIconsmilestones" viewBox="0 0 16 16">
 <path d="M6 12h-0.99v-1.97l9-4.040-9-3.99h-1.010v10h-1v1h-1v1h5v-1h-1v-1z"></path>
 </symbol>
+<symbol id="feedIconsmessages" viewBox="0 0 16 16">
+<path d="M14 2h-12c-0.552 0-1 0.448-1 1v0 8c0 0.552 0.448 1 1 1v0h2v3l4-3h6c0.552 0 1-0.448 1-1v0-8c0-0.552-0.448-1-1-1v0zM9 11h-2v-2h2zM9 8h-2v-5h2z"></path>
+</symbol>
+<symbol id="feedIconsdiscussions" viewBox="0 0 16 16">
+<path d="M14 2h-12c-0.552 0-1 0.448-1 1v0 8c0 0.552 0.448 1 1 1v0h2v3l4-3h6c0.552 0 1-0.448 1-1v0-8c0-0.552-0.448-1-1-1v0zM9 11h-2v-2h2zM9 8h-2v-5h2z"></path>
+</symbol>
 </defs>
 </svg>

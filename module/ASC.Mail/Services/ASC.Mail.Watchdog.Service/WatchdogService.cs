@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,12 @@
 
 
 using System;
+using System.Configuration;
 using System.Linq;
+using System.ServiceModel;
 using System.ServiceProcess;
 using System.Threading;
-using System.Configuration;
+
 using ASC.Common.Logging;
 using ASC.Mail.Core;
 
@@ -37,6 +39,8 @@ namespace ASC.Mail.Watchdog.Service
         readonly TimeSpan _tsTasksTimeoutInterval;
 
         private readonly ManualResetEvent _mreStop;
+
+        private ServiceHost _healthCheckServiceHost;
 
         #endregion
 
@@ -83,6 +87,9 @@ namespace ASC.Mail.Watchdog.Service
             {
                 _log.Info("Start service\r\n");
                 _intervalTimer = new Timer(IntervalTimer_Elapsed, _mreStop, 0, Timeout.Infinite);
+
+                _healthCheckServiceHost = new ServiceHost(typeof(HealthCheckService));
+                _healthCheckServiceHost.Open();
             }
             catch (Exception)
             {
@@ -103,6 +110,12 @@ namespace ASC.Mail.Watchdog.Service
             _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
             _intervalTimer.Dispose();
             _intervalTimer = null;
+
+            if (_healthCheckServiceHost != null)
+            {
+                _healthCheckServiceHost.Close();
+                _healthCheckServiceHost = null;
+            }
         }
 
         #endregion

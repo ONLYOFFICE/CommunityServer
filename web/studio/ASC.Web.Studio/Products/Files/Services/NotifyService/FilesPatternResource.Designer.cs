@@ -19,7 +19,7 @@ namespace ASC.Web.Files.Services.NotifyService {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class FilesPatternResource {
@@ -61,9 +61,9 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1. All signers completed $Message
+        ///   Looks up a localized string similar to h1. All signers completed $DocumentTitle
         ///
-        ///This is a mail message to notify you that all signers completed &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;.
+        ///This is an email notification to inform you that all signers completed &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;.
         ///
         ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.^.
         /// </summary>
@@ -76,7 +76,7 @@ namespace ASC.Web.Files.Services.NotifyService {
         /// <summary>
         ///   Looks up a localized string similar to h1. $Message: $DocumentTitle
         ///
-        ///Watch your DocuSign account for more information.
+        ///Sign in to your DocuSign account for more information.
         ///
         ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal.^.
         /// </summary>
@@ -87,9 +87,9 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h1. &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;
+        ///   Looks up a localized string similar to h1. &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; mentioned you in the document comment
         ///
-        ///This is a mail message to notify you that you have mentioned by &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot;.
+        ///This is a mail message to notify that you have been mentioned by &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; in the comment to the &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot; document:
         ///
         ///$Message
         ///
@@ -104,7 +104,7 @@ namespace ASC.Web.Files.Services.NotifyService {
         /// <summary>
         ///   Looks up a localized string similar to h1. Mailing completed
         ///
-        ///This is a mail message to notify you that you have requested the mailing of $MailsCount messages and the process is now complete. $Message
+        ///This is an email notification to inform you that you have requested the mailing of $MailsCount messages and the process is now complete. $Message
         ///
         ///The successfully sent mail messages can be found in your &quot;Sent&quot;:&quot;$__VirtualRootPath/addons/mail/#sent&quot; folder of the Mail module.
         ///
@@ -130,9 +130,24 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h1. Access granted to the encrypted document:
+        ///
+        ///h1. $Image &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;
+        ///
+        ///This file is encrypted and can be opened through &quot;ONLYOFFICE Desktop Editors&quot;:&quot;https://www.onlyoffice.com/desktop.aspx&quot; only. For more details, you can refer to &quot;this instruction&quot;:&quot;https://helpcenter.onlyoffice.com/installation/desktop-private-room.aspx&quot;.
+        ///
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot; document with the following access rights: &quot;$AccessRi [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_ShareEncryptedDocument {
+            get {
+                return ResourceManager.GetString("pattern_ShareEncryptedDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h1. Access granted to folder: &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot;
         ///
-        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentURL&quot; folder with the following access rights: &quot;$AccessRights&quot;. 
+        ///$__DateTime &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; granted you the access to the &quot;$DocumentTitle&quot;:&quot;$DocumentURL&quot; folder with the following access rights: &quot;$AccessRights&quot;. 
         ///
         ///$Message.
         /// </summary>
@@ -166,7 +181,7 @@ namespace ASC.Web.Files.Services.NotifyService {
                 return ResourceManager.GetString("subject_DocuSignComplete", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Documents. All signers completed [$DocumentTitle]($DocumentURL).
         /// </summary>
@@ -195,6 +210,15 @@ namespace ASC.Web.Files.Services.NotifyService {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Documents. Mentioned in document: [$DocumentTitle]($DocumentURL).
+        /// </summary>
+        public static string subject_EditorMentions_tg {
+            get {
+                return ResourceManager.GetString("subject_EditorMentions_tg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents. Mailing is complete..
         /// </summary>
         public static string subject_MailMergeEnd {
@@ -211,7 +235,8 @@ namespace ASC.Web.Files.Services.NotifyService {
                 return ResourceManager.GetString("subject_ShareDocument", resourceCulture);
             }
         }
-
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents. Access granted to document: [$DocumentTitle]($DocumentURL).
         /// </summary>
         public static string subject_ShareDocument_tg {
@@ -219,7 +244,25 @@ namespace ASC.Web.Files.Services.NotifyService {
                 return ResourceManager.GetString("subject_ShareDocument_tg", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents. Access granted to the encrypted document: $DocumentTitle.
+        /// </summary>
+        public static string subject_ShareEncryptedDocument {
+            get {
+                return ResourceManager.GetString("subject_ShareEncryptedDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Documents. Access granted to the encrypted document: [$DocumentTitle]($DocumentURL).
+        /// </summary>
+        public static string subject_ShareEncryptedDocument_tg {
+            get {
+                return ResourceManager.GetString("subject_ShareEncryptedDocument_tg", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Documents. Access granted to folder: $DocumentTitle.
         /// </summary>
@@ -228,7 +271,7 @@ namespace ASC.Web.Files.Services.NotifyService {
                 return ResourceManager.GetString("subject_ShareFolder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Documents. Access granted to folder: [$DocumentTitle]($DocumentURL).
         /// </summary>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -137,6 +137,11 @@ ASC.Settings.AccessRights = new function() {
                 if (res.error != null) {
                     toastr.error(res.error.Message);
                     return;
+                }
+                if (!res.value.enable) {
+
+                    jq("#adminAdvancedSelector").addClass("disabled");
+                    jq("#ErrorNotAllowed").removeClass("display-none");
                 }
                 window.adminList.push(res.value);
                 jq("#adminTmpl").tmpl(res.value, { isRetina: jq.cookies.get("is_retina") }).appendTo("#adminTable tbody");

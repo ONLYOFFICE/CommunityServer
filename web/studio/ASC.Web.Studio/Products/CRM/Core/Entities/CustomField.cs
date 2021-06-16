@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,21 +19,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 
 #endregion
 
 namespace ASC.CRM.Core.Entities
 {
-    
+
     [DataContract]
     public class CustomField : DomainObject
     {
         [DataMember(Name = "entity_type")]
         public EntityType EntityType { get; set; }
-        
+
         [DataMember(Name = "entity_id")]
         public int EntityID { get; set; }
 
@@ -54,7 +52,7 @@ namespace ASC.CRM.Core.Entities
 
         public override int GetHashCode()
         {
-            return string.Format("{0}|{1}|{2}", GetType().FullName, Label, (int)FieldType).GetHashCode();
+            return string.Format("{0}|{1}|{2}|{3}|{4}", GetType().FullName, ID, EntityID, Label, (int)FieldType).GetHashCode();
         }
     }
 }

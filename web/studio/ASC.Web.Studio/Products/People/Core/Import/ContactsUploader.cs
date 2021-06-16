@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@
 using System;
 using System.Collections;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.PublicResources;
+
 using Newtonsoft.Json;
-using Resources;
 
 namespace ASC.Web.People.Core.Import
 {
@@ -49,7 +51,7 @@ namespace ASC.Web.People.Core.Import
                 if (file.ContentLength > maxFileSize)
                 {
                     result.Success = false;
-                    result.Message = String.Format(Resource.ImportContactsFromFileErrorTooLarge, (maxFileSize/1024));
+                    result.Message = String.Format(Resource.ImportContactsFromFileErrorTooLarge, (maxFileSize / 1024));
                     return result;
                 }
 
@@ -62,14 +64,14 @@ namespace ASC.Web.People.Core.Import
                 }
 
                 var param = new FileParameters
-                    {
-                        Encode = Convert.ToInt32(context.Request["enc"]),
-                        Separator = Convert.ToInt32(context.Request["sep"]),
-                        Delimiter = Convert.ToInt32(context.Request["del"]),
-                        Position = Convert.ToInt32(context.Request["pos"]),
-                        IsRaw = Convert.ToBoolean(context.Request["raw"]),
-                        UserHeader = context.Request["head"]
-                    };
+                {
+                    Encode = Convert.ToInt32(context.Request["enc"]),
+                    Separator = Convert.ToInt32(context.Request["sep"]),
+                    Delimiter = Convert.ToInt32(context.Request["del"]),
+                    Position = Convert.ToInt32(context.Request["pos"]),
+                    IsRaw = Convert.ToBoolean(context.Request["raw"]),
+                    UserHeader = context.Request["head"]
+                };
 
                 IUserImporter importer = new TextFileUserImporter(file.InputStream, param);
 

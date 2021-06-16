@@ -163,7 +163,6 @@ DIR=/var/www/%{package_sysname}
 APP_ROOT_DIR="$DIR/WebStudio";
 
 sed '/web\.talk/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
-sed '/web\.chat/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
 
 if systemctl is-active monoserve | grep -q "active"; then
 	systemctl restart monoserve
@@ -185,8 +184,8 @@ DOCUMENT_SERVER_HOST="localhost:8083";
 DOCUMENT_SERVER_HOST_PROXY="localhost\/ds-vpath";
 DOCUMENT_SERVER_API_URL="\/ds-vpath\/";
 
-DOCUMENT_SERVER_JWT_SECRET_FROM_DS=$(cat  /etc/onlyoffice/documentserver/local.json | jq -r '.services.CoAuthoring.secret.inbox.string')
-DOCUMENT_SERVER_JWT_HEADER_FROM_DS=$(cat  /etc/onlyoffice/documentserver/local.json | jq -r '.services.CoAuthoring.token.inbox.header')
+DOCUMENT_SERVER_JWT_SECRET_FROM_DS=$(cat  /etc/%{package_sysname}/documentserver/local.json | jq -r '.services.CoAuthoring.secret.inbox.string')
+DOCUMENT_SERVER_JWT_HEADER_FROM_DS=$(cat  /etc/%{package_sysname}/documentserver/local.json | jq -r '.services.CoAuthoring.token.inbox.header')
 DOCUMENT_SERVER_JWT_SECRET=${JWT_SECRET:-${DOCUMENT_SERVER_JWT_SECRET_FROM_DS:-"%{package_sysname}"}};
 DOCUMENT_SERVER_JWT_HEADER=${JWT_HEADER:-${DOCUMENT_SERVER_JWT_HEADER_FROM_DS:-"AuthorizationJwt"}};
 
@@ -228,10 +227,13 @@ EOF
 fi
 
 
-if systemctl is-active monoserve | grep -q "active"; then
-	systemctl restart monoserve
-fi
-
+for SVC in monoserve onlyofficeThumb onlyofficeThumbnailBuilder
+do
+	if systemctl is-active $SVC | grep -q "active"; then
+		systemctl restart $SVC
+	fi
+done
+		
 %post
 set -e
 
@@ -264,6 +266,11 @@ chown %{package_sysname}:%{nginx_user} /var/run/%{package_sysname}
 chmod g+s+w /var/run/%{package_sysname}
 chmod +x /usr/bin/communityserver-configure.sh
 
+# clear cache
+rm -dfr /tmp/%{package_sysname}*
+rm -dfr /var/run/%{package_sysname}/*
+rm -dfr /var/cache/nginx/%{package_sysname}/*
+
 if [ $1 -ge 2 ]; then
 	if [ -d "$DIR" ]; then
 		CONN_STR=$(grep -oP "Server=[^\"]*(?=\")" $DIR/WebStudio/web.connections.config | head -1)
@@ -278,8 +285,8 @@ if [ $1 -ge 2 ]; then
 		do
 			find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"$CONN_STR\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
 
-			if [ ! -z $CORE_MACHINEKEY ]; then
-				find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i '/core.\machinekey/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${CORE_MACHINEKEY}'\"!' {} \;			
+			if [ ! -z "$CORE_MACHINEKEY" ]; then
+				find "$DIR/${binDirs[$i]}" -type f -name "*.[cC]onfig" -exec sed -i "/core.machinekey/s!value=\".*\"!value=\"${CORE_MACHINEKEY}\"!g" {} \;			
 			fi				
 		done				
 
@@ -293,8 +300,8 @@ if [ $1 -ge 2 ]; then
 		sed "s!\"password\":.*,!\"password\":\"${MYSQL_SERVER_PASS//!/\\!}\",!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json
 		sed "s!\"database\":.*!\"database\":\"${MYSQL_SERVER_DB_NAME}\"!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json		
 
-		if [ ! -z $CORE_MACHINEKEY ]; then
-			sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\"!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json		
+		if [ ! -z "$CORE_MACHINEKEY" ]; then
+			sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\",!" -i ${SERVICES_DIR}/ASC.UrlShortener/config/config.json		
 		fi						
 
 		if ! mysqladmin ping -h ${MYSQL_SERVER_HOST} -u ${MYSQL_SERVER_USER} --password=${MYSQL_SERVER_PASS} --silent; then
@@ -303,10 +310,11 @@ if [ $1 -ge 2 ]; then
 		fi
 		
 		if [ ! -d "$APP_INDEX_DIR" ]; then		
+			systemctl stop god onlyofficeIndex elasticsearch
 			mysql --silent -h ${MYSQL_SERVER_HOST} -u ${MYSQL_SERVER_USER} --password=${MYSQL_SERVER_PASS} -D "$MYSQL_SERVER_DB_NAME" -e "TRUNCATE webstudio_index";
 		fi
 				
-		for i in $(ls $DIR/Sql/onlyoffice.upgrade*); do
+		for i in $(ls $DIR/Sql/%{package_sysname}.upgrade*); do
 				mysql --silent -h ${MYSQL_SERVER_HOST} -u ${MYSQL_SERVER_USER} --password=${MYSQL_SERVER_PASS} -D "$MYSQL_SERVER_DB_NAME" < ${i};
 		done
 	fi
@@ -379,7 +387,10 @@ if [ -d /etc/elasticsearch/ ]; then
 fi
 
 if systemctl is-active elasticsearch | grep -q "active"; then
-	systemctl restart elasticsearch.service	
+	#Checking that the elastic is not currently being updated
+	if [[ $(find /usr/share/elasticsearch/lib/ -name "elasticsearch-[0-99].[0-99].*" | wc -l) -eq 1 ]]; then
+		systemctl restart elasticsearch.service
+	fi
 fi
 
 if [ ! -f /proc/net/if_inet6 ]; then
@@ -396,7 +407,7 @@ if %{getenforce} >/dev/null 2>&1; then
 		PORTS+=('9865') # teamlabJabber
 		PORTS+=('9871') # teamlabNotify
 		PORTS+=('9882') # teamlabBackup
-		PORTS+=('9866') # teamlabSearcher    
+		PORTS+=('9866') # teamlabIndex    
 		PORTS+=('9899') # SocketIO 
 		PORTS+=('5280') # Jabber http-pool  
 	;;
@@ -413,11 +424,11 @@ if %{getenforce} >/dev/null 2>&1; then
 	done
 fi
 
+systemctl daemon-reload
 for SVC in %{package_services}; do
 	if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 		systemctl enable $SVC
-		systemctl stop $SVC
-		systemctl start $SVC || true
+		systemctl restart $SVC
 	fi
 done
 

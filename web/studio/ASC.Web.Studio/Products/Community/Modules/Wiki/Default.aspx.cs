@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,13 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using AjaxPro;
-using ASC.Common.Security.Authorizing;
+
 using ASC.Core;
 using ASC.ElasticSearch;
 using ASC.Notify.Recipients;
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Community.Search;
 using ASC.Web.Community.Wiki.Common;
@@ -39,7 +41,6 @@ using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Web.UserControls.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.UC;
 
 namespace ASC.Web.Community.Wiki
@@ -175,11 +176,11 @@ namespace ASC.Web.Community.Wiki
                 {
                     if (string.IsNullOrEmpty(anchors))
                     {
-                        Response.RedirectLC(string.Format(@"Default.aspx?page={0}", UserControls.Wiki.Resources.WikiUCResource.HelpPageCaption), this);
+                        Response.RedirectLC(string.Format(@"Default.aspx?page={0}", WikiUCResource.HelpPageCaption), this);
                     }
                     else
                     {
-                        Response.RedirectLC(string.Format(@"Default.aspx?page={0}#{1}", UserControls.Wiki.Resources.WikiUCResource.HelpPageCaption, anchors), this);
+                        Response.RedirectLC(string.Format(@"Default.aspx?page={0}#{1}", WikiUCResource.HelpPageCaption, anchors), this);
                     }
                 }
             }
@@ -714,8 +715,8 @@ namespace ASC.Web.Community.Wiki
 
             dictList.Sort(SortPageDict);
 
-            var countAll = dictList.Count*3 + result.Count; //1 letter is like 2 links to category
-            var perColumn = (int)(Math.Round((decimal)countAll/3));
+            var countAll = dictList.Count * 3 + result.Count; //1 letter is like 2 links to category
+            var perColumn = (int)(Math.Round((decimal)countAll / 3));
 
             var mainDictList = new List<List<PageDictionary>>();
 
@@ -974,21 +975,21 @@ namespace ASC.Web.Community.Wiki
         public CommentInfo GetCommentInfo(Comment comment)
         {
             var info = new CommentInfo
-                {
-                    CommentID = comment.Id.ToString(),
-                    UserID = comment.UserId,
-                    TimeStamp = comment.Date,
-                    TimeStampStr = comment.Date.Ago(),
-                    IsRead = true,
-                    Inactive = comment.Inactive,
-                    CommentBody = HtmlUtility.GetFull(comment.Body),
-                    UserFullName = DisplayUserSettings.GetFullUserName(comment.UserId),
-                    UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserId),
-                    UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserId),
-                    IsEditPermissions = CommunitySecurity.CheckPermissions(new WikiObjectsSecurityObject(comment), Common.Constants.Action_EditRemoveComment),
-                    IsResponsePermissions = CommunitySecurity.CheckPermissions(Common.Constants.Action_AddComment),
-                    UserPost = CoreContext.UserManager.GetUsers(comment.UserId).Title
-                };
+            {
+                CommentID = comment.Id.ToString(),
+                UserID = comment.UserId,
+                TimeStamp = comment.Date,
+                TimeStampStr = comment.Date.Ago(),
+                IsRead = true,
+                Inactive = comment.Inactive,
+                CommentBody = HtmlUtility.GetFull(comment.Body),
+                UserFullName = DisplayUserSettings.GetFullUserName(comment.UserId),
+                UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserId),
+                UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserId),
+                IsEditPermissions = CommunitySecurity.CheckPermissions(new WikiObjectsSecurityObject(comment), Common.Constants.Action_EditRemoveComment),
+                IsResponsePermissions = CommunitySecurity.CheckPermissions(Common.Constants.Action_AddComment),
+                UserPost = CoreContext.UserManager.GetUsers(comment.UserId).Title
+            };
 
             return info;
         }

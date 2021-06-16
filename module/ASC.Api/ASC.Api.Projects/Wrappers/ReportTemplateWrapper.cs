@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Specific;
@@ -57,13 +58,13 @@ namespace ASC.Api.Projects.Wrappers
         public static ReportTemplateWrapper GetSample()
         {
             return new ReportTemplateWrapper
-                {
-                    Id = 1233,
-                    Title = "Sample ReportTemplate",
-                    Description = "Sample description",
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                };
+            {
+                Id = 1233,
+                Title = "Sample ReportTemplate",
+                Description = "Sample description",
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+            };
         }
     }
 }

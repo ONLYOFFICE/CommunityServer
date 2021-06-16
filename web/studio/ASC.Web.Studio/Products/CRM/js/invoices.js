@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1190,7 +1190,7 @@ ASC.CRM.ListInvoiceView = (function () {
         ASC.CRM.ListInvoiceView.advansedFilter = jq("#invoiceAdvansedFilter")
             .advansedFilter({
                 anykey      : false,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxfilters  : -1,
                 colcount    : 2,
                 maxlength   : "100",
@@ -1342,13 +1342,6 @@ ASC.CRM.ListInvoiceView = (function () {
             jq(".containerBodyBlock").children(".loader-page").show();
 
             _initFilter();
-
-            /*tracking events*/
-            ASC.CRM.ListInvoiceView.advansedFilter.one("adv-ready", function () {
-                var crmAdvansedFilterContainer = jq("#invoiceAdvansedFilter .advansed-filter-list");
-                jq("#invoiceAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.invoice, ga_Actions.filterClick, "sort");
-                jq("#invoiceAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.invoice, ga_Actions.filterClick, "search_text", "enter");
-            });
 
             jq("#invoiceHeaderMenu").on("click", ".menuActionDelete.unlockAction", function () {
                 _showDeletePanel();

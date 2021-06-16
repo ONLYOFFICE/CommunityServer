@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,17 @@
 
 
 using System;
+
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
+
 using NotifySourceBase = ASC.Core.Notify.NotifySource;
 
 namespace ASC.Web.Files.Services.NotifyService
 {
     public class NotifySource : NotifySourceBase
     {
-        private static NotifySource instance = new NotifySource();
+        private static readonly NotifySource instance = new NotifySource();
 
         public static NotifySource Instance
         {

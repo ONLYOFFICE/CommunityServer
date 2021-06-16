@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Forum.Module {
+namespace ASC.Web.Community.Modules.Forum.Core.Module {
     using System;
     
     
@@ -66,8 +66,8 @@ namespace ASC.Forum.Module {
         ///
         ///  &lt;!--New Post in Forum Topic--&gt;
         ///  &lt;pattern id=&quot;new post in topic&quot; sender=&quot;email.sender&quot;&gt;
-        ///    &lt;subject resource=&quot;|subject_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Community.Forum&quot; /&gt;
-        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_PostInTopicEmailPattern|ASC.Web.Community.Forum.Core.Module.ForumPatternResource,ASC.Web.Com [rest of string was truncated]&quot;;.
+        ///    &lt;subject resource=&quot;|subject_PostInTopicEmailPattern|ASC.Web.Community.Modules.Forum.Core.Module.ForumPatternResource,ASC.Web.Community&quot; /&gt;
+        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_PostInTopicEmailPattern|ASC.Web.Community.Modules.Forum.Core.Module.ForumPatternResource,A [rest of string was truncated]&quot;;.
         /// </summary>
         public static string forum_patterns {
             get {

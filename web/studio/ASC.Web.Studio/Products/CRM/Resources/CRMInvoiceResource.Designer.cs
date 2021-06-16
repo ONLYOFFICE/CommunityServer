@@ -19,7 +19,7 @@ namespace ASC.Web.CRM.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CRMInvoiceResource {
@@ -241,20 +241,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Will be displayed on the invoice and in the letter body if you send the invoice per ONLYOFFICE™ Mail..
+        ///   Looks up a localized string similar to Use this field to express your gratitude to a customer for the purchase and/or to provide a special offer, for example, a 20% discount if the invoice is paid within 5 days..
         /// </summary>
         public static string ClientNotessHelpInfoText {
             get {
                 return ResourceManager.GetString("ClientNotessHelpInfoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Consignee.
-        /// </summary>
-        public static string Consignee {
-            get {
-                return ResourceManager.GetString("Consignee", resourceCulture);
             }
         }
         
@@ -808,7 +799,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The tax name already exist.
+        ///   Looks up a localized string similar to The tax name already exists.
         /// </summary>
         public static string ExistTaxNameError {
             get {
@@ -907,7 +898,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href=&quot;Settings.aspx?type=common&quot; target=&quot;_blank&quot;&gt;Common Settings&lt;/a&gt;.
+        ///   Looks up a localized string similar to Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href=&quot;settings.aspx?type=currency&quot; target=&quot;_blank&quot;&gt;Currency Settings&lt;/a&gt;.
         /// </summary>
         public static string InvoiceCurrencyHelpInfo {
             get {
@@ -1015,7 +1006,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoices.
+        ///   Looks up a localized string similar to Invoice.
         /// </summary>
         public static string Invoices {
             get {
@@ -1087,7 +1078,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can delete the tax category only in case it is not used in the Products&amp;Services section..
+        ///   Looks up a localized string similar to You can delete the tax category only in case it is not used in the Products &amp; Services section..
         /// </summary>
         public static string InvoiceTaxesDescriptionTextEditDelete {
             get {
@@ -1141,7 +1132,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your default CRM currency.&lt;br/&gt;To change it, please go to &lt;a href=&quot;?type=common&quot; target=&quot;_blank&quot;&gt;Common Settings&lt;/a&gt;.
+        ///   Looks up a localized string similar to Your default CRM currency.&lt;br/&gt;To change it, please go to &lt;a href=&quot;?type=currency&quot; target=&quot;_blank&quot;&gt;Currency Settings&lt;/a&gt;.
         /// </summary>
         public static string ItemCurrencyHelpInfo {
             get {
@@ -1470,15 +1461,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Subtotal {
             get {
                 return ResourceManager.GetString("Subtotal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tax.
-        /// </summary>
-        public static string Tax {
-            get {
-                return ResourceManager.GetString("Tax", resourceCulture);
             }
         }
         

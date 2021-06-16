@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
 
 
 using System.Collections.Generic;
+
 using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Core.DataInterfaces
 {
     public interface ISearchDao
     {
-         IEnumerable<DomainObject<int>> Search(string text, int projectId = 0);
+        IEnumerable<DomainObject<int>> Search(string text, int projectId = 0);
     }
 }

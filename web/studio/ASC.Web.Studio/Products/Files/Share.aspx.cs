@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Net;
 using System.Text;
 using System.Web;
+
 using ASC.Files.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
@@ -26,6 +27,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio;
+
 using Global = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Web.Files

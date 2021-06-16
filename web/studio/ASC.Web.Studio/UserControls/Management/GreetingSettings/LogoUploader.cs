@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
 */
 
 
+using System;
+using System.IO;
+using System.Web;
+
 using ASC.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
-using Resources;
-using System;
-using System.IO;
-using System.Web;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -43,7 +44,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     var data = new byte[logo.InputStream.Length];
 
                     var br = new BinaryReader(logo.InputStream);
-                    br.Read(data, 0, (int) logo.InputStream.Length);
+                    br.Read(data, 0, (int)logo.InputStream.Length);
                     br.Close();
 
                     var ap = UserPhotoManager.SaveTempPhoto(data, SetupInfo.MaxImageUploadSize, 250, 100);

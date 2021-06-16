@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,41 +16,43 @@
 
 
 using System.Collections.Generic;
+
 using AjaxPro;
+
 using ASC.Bookmarking.Pojo;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
-	[AjaxNamespace("SingleBookmarkUserControl")]
-	public partial class SingleBookmarkUserControl : BookmarkInfoBase
-	{
+    [AjaxNamespace("SingleBookmarkUserControl")]
+    public partial class SingleBookmarkUserControl : BookmarkInfoBase
+    {
 
-		/// <summary>
-		/// Init tags and added by list
-		/// </summary>
-		public override void InitUserControl()
-		{
-			if (Bookmark != null)
-			{
-				var tags = Bookmark.Tags;
-				if (tags != null && tags.Count > 0)
-				{
-					InitTagsRepeater(tags);
-				}
-			}			
-		}
+        /// <summary>
+        /// Init tags and added by list
+        /// </summary>
+        public override void InitUserControl()
+        {
+            if (Bookmark != null)
+            {
+                var tags = Bookmark.Tags;
+                if (tags != null && tags.Count > 0)
+                {
+                    InitTagsRepeater(tags);
+                }
+            }
+        }
 
-		private void InitTagsRepeater(IList<Tag> tags)
-		{
-			if (tags != null && tags.Count > 0)
-			{
-				TagsRepeater.DataSource = tags;
-				TagsRepeater.DataBind();
+        private void InitTagsRepeater(IList<Tag> tags)
+        {
+            if (tags != null && tags.Count > 0)
+            {
+                TagsRepeater.DataSource = tags;
+                TagsRepeater.DataBind();
 
-				UserTagsString = BookmarkingServiceHelper.ConvertTagsToString(tags);
-			}
-		}
+                UserTagsString = BookmarkingServiceHelper.ConvertTagsToString(tags);
+            }
+        }
 
-	}
+    }
 }

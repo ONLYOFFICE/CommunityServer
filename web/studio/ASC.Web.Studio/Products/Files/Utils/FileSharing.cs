@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -30,6 +31,7 @@ using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Studio.Utility;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Files.Utils
@@ -81,6 +83,7 @@ namespace ASC.Web.Files.Utils
                 var u = CoreContext.UserManager.GetUsers(r.Subject);
                 var isgroup = false;
                 var title = u.DisplayUserName(false);
+                var share = r.Share;
 
                 if (u.ID == Constants.LostUser.ID)
                 {
@@ -99,19 +102,24 @@ namespace ASC.Web.Files.Utils
                         continue;
                     }
                 }
+                else if (u.IsVisitor()
+                    && new FileShareRecord.ShareComparer().Compare(FileShare.Read, share) > 0)
+                {
+                    share = FileShare.Read;
+                }
 
                 var w = new AceWrapper
-                    {
-                        SubjectId = r.Subject,
-                        SubjectName = title,
-                        SubjectGroup = isgroup,
-                        Share = r.Share,
-                        Owner =
+                {
+                    SubjectId = r.Subject,
+                    SubjectName = title,
+                    SubjectGroup = isgroup,
+                    Share = share,
+                    Owner =
                             entry.RootFolderType == FolderType.USER
                                 ? entry.RootFolderCreator == r.Subject
                                 : entry.CreateBy == r.Subject,
-                        LockedRights = r.Subject == SecurityContext.CurrentAccount.ID
-                    };
+                    LockedRights = r.Subject == SecurityContext.CurrentAccount.ID
+                };
                 result.Add(w);
             }
 
@@ -121,13 +129,13 @@ namespace ASC.Web.Files.Utils
                 && (linkAccess != FileShare.Restrict || CoreContext.Configuration.Standalone || !TenantExtra.GetTenantQuota().Trial || FileUtility.CanWebView(entry.Title)))
             {
                 var w = new AceWrapper
-                    {
-                        SubjectId = FileConstant.ShareLinkId,
-                        Link = FileShareLink.GetLink((File)entry),
-                        SubjectGroup = true,
-                        Share = linkAccess,
-                        Owner = false
-                    };
+                {
+                    SubjectId = FileConstant.ShareLinkId,
+                    Link = FileShareLink.GetLink((File)entry),
+                    SubjectGroup = true,
+                    Share = linkAccess,
+                    Owner = false
+                };
                 result.Add(w);
             }
 
@@ -135,13 +143,13 @@ namespace ASC.Web.Files.Utils
             {
                 var ownerId = entry.RootFolderType == FolderType.USER ? entry.RootFolderCreator : entry.CreateBy;
                 var w = new AceWrapper
-                    {
-                        SubjectId = ownerId,
-                        SubjectName = Global.GetUserName(ownerId),
-                        SubjectGroup = false,
-                        Share = FileShare.ReadWrite,
-                        Owner = true
-                    };
+                {
+                    SubjectId = ownerId,
+                    SubjectName = Global.GetUserName(ownerId),
+                    SubjectGroup = false,
+                    Share = FileShare.ReadWrite,
+                    Owner = true
+                };
                 result.Add(w);
             }
 
@@ -155,27 +163,27 @@ namespace ASC.Web.Files.Utils
                 if (result.All(w => w.SubjectId != Constants.GroupAdmin.ID))
                 {
                     var w = new AceWrapper
-                        {
-                            SubjectId = Constants.GroupAdmin.ID,
-                            SubjectName = FilesCommonResource.Admin,
-                            SubjectGroup = true,
-                            Share = FileShare.ReadWrite,
-                            Owner = false,
-                            LockedRights = true,
-                        };
+                    {
+                        SubjectId = Constants.GroupAdmin.ID,
+                        SubjectName = FilesCommonResource.Admin,
+                        SubjectGroup = true,
+                        Share = FileShare.ReadWrite,
+                        Owner = false,
+                        LockedRights = true,
+                    };
                     result.Add(w);
                 }
                 if (result.All(w => w.SubjectId != Constants.GroupEveryone.ID))
                 {
                     var w = new AceWrapper
-                        {
-                            SubjectId = Constants.GroupEveryone.ID,
-                            SubjectName = FilesCommonResource.Everyone,
-                            SubjectGroup = true,
-                            Share = fileSecurity.DefaultCommonShare,
-                            Owner = false,
-                            DisableRemove = true
-                        };
+                    {
+                        SubjectId = Constants.GroupEveryone.ID,
+                        SubjectName = FilesCommonResource.Everyone,
+                        SubjectGroup = true,
+                        Share = fileSecurity.DefaultCommonShare,
+                        Owner = false,
+                        DisableRemove = true
+                    };
                     result.Add(w);
                 }
             }
@@ -268,7 +276,7 @@ namespace ASC.Web.Files.Utils
 
             if (entryType == FileEntryType.File)
             {
-                DocumentServiceHelper.CheckUsersForDrop((File) entry);
+                DocumentServiceHelper.CheckUsersForDrop((File)entry);
             }
 
             if (recipients.Any())

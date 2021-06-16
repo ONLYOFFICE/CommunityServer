@@ -3,7 +3,7 @@
 
 <%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/Community/Modules/News/News.Master" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.News.Default" %>
 
-<%@ Import Namespace="ASC.Web.Community.News.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.News.Resources" %>
 <%@ Import Namespace="ASC.Web.Community.News.Code" %>
 
 <%@ Register Src="Controls/FeedItem.ascx" TagName="FeedItem" TagPrefix="fc" %>

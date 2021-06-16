@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core;
 
@@ -51,7 +52,7 @@ namespace ASC.Web.Studio.HttpHandlers
                 var uri = Encoding.UTF8.GetString(Convert.FromBase64String(url));
 
                 /* Create an HttpWebRequest to send the URI on and process results. */
-                var proxyRequest = (HttpWebRequest) WebRequest.Create(uri);
+                var proxyRequest = (HttpWebRequest)WebRequest.Create(uri);
 
                 /* Set the appropriate values to the request methods. */
                 proxyRequest.Method = request.HttpMethod;
@@ -68,7 +69,7 @@ namespace ASC.Web.Studio.HttpHandlers
                      */
                     var bytes = new byte[request.InputStream.Length];
 
-                    request.InputStream.Read(bytes, 0, (int) request.InputStream.Length);
+                    request.InputStream.Read(bytes, 0, (int)request.InputStream.Length);
 
                     proxyRequest.ContentLength = bytes.Length;
 
@@ -131,7 +132,7 @@ namespace ASC.Web.Studio.HttpHandlers
                          */
                         using (var binReader = new BinaryReader(byteStream))
                         {
-                            binaryOutputs = binReader.ReadBytes((int) serverResponse.ContentLength);
+                            binaryOutputs = binReader.ReadBytes((int)serverResponse.ContentLength);
                             binReader.Close();
                         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -268,7 +268,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
         var newItemId;
         jq(users).each(function (j, user) {
             if (jq.inArray(user.id, selectedIds) != -1) {
-                addUserItem(user.id, user.title);
+                addUserItem(user);
                 newItemId = newItemId || user.id;
             }
         });
@@ -278,23 +278,29 @@ var SharingSettingsManager = function (elementId, sharingData) {
         jq(".sharing-empty").toggle(_workData.items.length <= 1);
     };
 
-    var addUserItem = function (userId, userName) {
+    var addUserItem = function (user) {
         changeStatus(true);
+
         var defAct = null;
-        for (var i = 0; i < _workData.actions.length; i++) {
-            if (_workData.actions[i].defaultUserAction) {
-                defAct = _workData.actions[i];
+        var actions = clone(_workData.actions);
+        for (var i = 0; i < actions.length; i++) {
+            if (actions[i].defaultUserAction) {
+                defAct = actions[i];
                 break;
             }
-            if (_workData.actions[i].defaultAction) {
-                defAct = _workData.actions[i];
+            if (actions[i].defaultAction) {
+                defAct = actions[i];
+            }
+            if (user.isVisitor && actions[i].hideForVisitor) {
+                actions[i].disabled = true;
             }
         }
-        var newItem = { id: userId, name: userName, selectedAction: defAct, isGroup: false, canEdit: true };
+
+        var newItem = { id: user.id, name: user.title, selectedAction: defAct, isGroup: false, canEdit: true };
         _workData.items.push(newItem);
 
-        jq("#sharingSettingsItems").append(jq.tmpl("sharingListTemplate", { items: [newItem], actions: _workData.actions }));
-        jq("#studio_sharingSettingsDialog .action select:last").tlcombobox();
+        jq("#sharingSettingsItems").append(jq.tmpl("sharingListTemplate", { items: [newItem], actions: actions }));
+        jq("#studio_sharingSettingsDialog .action select:last").tlcombobox({ parent: "#sharingSettingsItems" });
 
         var latUserLink = jq("#studio_sharingSettingsDialog .userLink:last");
         var id = latUserLink.attr("id");
@@ -355,7 +361,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
         _workData.items.push(newItem);
 
         jq("#sharingSettingsItems").append(jq.tmpl("sharingListTemplate", { items: [newItem], actions: _workData.actions }));
-        jq("#studio_sharingSettingsDialog .action select:last").tlcombobox();
+        jq("#studio_sharingSettingsDialog .action select:last").tlcombobox({ parent: "#sharingSettingsItems" });
 
         jq("#sharingSettingsItems div.sharingItem.tintMedium").removeClass("tintMedium");
         jq("#sharingSettingsItems div.sharingItem:even").addClass("tintMedium");
@@ -371,7 +377,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
         }
 
         jq("#studio_sharingSettingsDialog .action select").each(function () {
-            jq(this).tlcombobox();
+            jq(this).tlcombobox({ parent: "#sharingSettingsItems" });
         });
 
         shareUserSelector.useradvancedSelector("reset");

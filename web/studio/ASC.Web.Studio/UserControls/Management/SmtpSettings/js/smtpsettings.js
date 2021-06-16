@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -206,13 +206,13 @@ window.SmtpSettingsView = function ($) {
 
         AjaxPro.onError = function (e) {
             hideLoader();
-            LoadingBanner.showMesInfoBtn("#smtpSettingsView", e && e.Message ? e.Message : ASC.Resources.Master.Resource.OperationFailedMsg, "error");
+            LoadingBanner.showMesInfoBtn("#smtpSettingsView", e && e.Message ? e.Message : ASC.Resources.Master.ResourceJS.OperationFailedMsg, "error");
             console.error("SmtpSettingsView: AjaxPro.onError", e);
         }
 
         AjaxPro.onTimeout = function () {
             hideLoader();
-            LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.Resource.OperationFailedMsg, "error");
+            LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.ResourceJS.OperationFailedMsg, "error");
             console.error("SmtpSettingsView: AjaxPro.onTimeout", arguments);
         }
     }
@@ -486,7 +486,7 @@ window.SmtpSettingsView = function ($) {
             }
 
             if (!ASC.Mail.Utility.IsValidEmail(senderAddress)) {
-                $customSettingsBox.find(".email-address .requiredErrorText").text(ASC.Resources.Master.Resource.ErrorNotCorrectEmail);
+                $customSettingsBox.find(".email-address .requiredErrorText").text(ASC.Resources.Master.ResourceJS.ErrorNotCorrectEmail);
                 $customSettingsBox.find(".email-address").toggleClass("requiredFieldError", true);
                 settingsCorrected = false;
             } else
@@ -520,7 +520,7 @@ window.SmtpSettingsView = function ($) {
 
         if (checkRequired) {
             if (!login || !ASC.Mail.Utility.IsValidEmail(login + "@" + domain)) {
-                $mailserverSettingsBox.find(".email-address .requiredErrorText").text(ASC.Resources.Master.Resource.ErrorNotCorrectEmail);
+                $mailserverSettingsBox.find(".email-address .requiredErrorText").text(ASC.Resources.Master.ResourceJS.ErrorNotCorrectEmail);
                 $mailserverSettingsBox.find(".email-address").addClass("requiredFieldError");
                 settingsCorrected = false;
             }
@@ -637,7 +637,7 @@ window.SmtpSettingsView = function ($) {
             if (err) {
                 LoadingBanner.showMesInfoBtn("#smtpSettingsView", err, "error");
             } else {
-                LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.Resource.OperationSuccededMsg, "success");
+                LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.ResourceJS.OperationSuccededMsg, "success");
                 isDefault = false;
             }
 
@@ -717,7 +717,7 @@ window.SmtpSettingsView = function ($) {
             if (err) {
                 LoadingBanner.showMesInfoBtn("#smtpSettingsView", err, "error");
             } else {
-                LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.Resource.OperationSuccededMsg, "success");
+                LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.ResourceJS.OperationSuccededMsg, "success");
                 isDefault = false;
             }
 
@@ -767,7 +767,7 @@ window.SmtpSettingsView = function ($) {
             if (err) {
                 LoadingBanner.showMesInfoBtn("#smtpSettingsView", err, "error");
             } else {
-                LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.Resource.OperationSuccededMsg, "success");
+                LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.ResourceJS.OperationSuccededMsg, "success");
                 isDefault = true;
             }
 
@@ -791,7 +791,7 @@ window.SmtpSettingsView = function ($) {
             success: function (e, operation) {
 
                 if (!operation || !operation.id) {
-                    LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.Resource.OperationFailedMsg, "error");
+                    LoadingBanner.showMesInfoBtn("#smtpSettingsView", ASC.Resources.Master.ResourceJS.OperationFailedMsg, "error");
                     hideLoader();
                     return;
                 }
@@ -825,7 +825,7 @@ window.SmtpSettingsView = function ($) {
                         if (!data || typeof (data.completed) === "undefined") {
                             data = {
                                 completed: true,
-                                error: ASC.Resources.Master.Resource.OperationFailedMsg
+                                error: ASC.Resources.Master.ResourceJS.OperationFailedMsg
                             };
                         }
                     }
@@ -835,7 +835,7 @@ window.SmtpSettingsView = function ($) {
                             LoadingBanner.showMesInfoBtn("#smtpSettingsView", data.error, "error");
                         } else {
                             LoadingBanner.showMesInfoBtn("#smtpSettingsView",
-                                ASC.Resources.Master.Resource.OperationSuccededMsg,
+                                ASC.Resources.Master.ResourceJS.OperationSuccededMsg,
                                 "success");
                         }
                     }

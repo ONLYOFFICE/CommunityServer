@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Configuration;
+
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
@@ -37,9 +38,13 @@ namespace ASC.Web.People
 
         protected bool IsFreeTariff { get; private set; }
 
+        protected bool IsStandalone { get; private set; }
+
         protected bool DisplayPayments { get; private set; }
 
-        protected bool DisplayPaymentsFirst { get; private set; }
+        protected bool DisplayPaymentsFirstUser { get; private set; }
+
+        protected bool DisplayPaymentsFirstGuest { get; private set; }
 
         protected string HelpLink { get; set; }
 
@@ -53,17 +58,19 @@ namespace ASC.Web.People
 
             var quota = TenantExtra.GetTenantQuota();
             IsFreeTariff = quota.Free && !quota.Open;
+            IsStandalone = CoreContext.Configuration.Standalone;
 
-            DisplayPayments = TenantExtra.EnableTarrifSettings && (!CoreContext.Configuration.Standalone || quota.ActiveUsers != LicenseReader.MaxUserCount);
+            DisplayPayments = TenantExtra.EnableTariffSettings && (!CoreContext.Configuration.Standalone || quota.ActiveUsers != LicenseReader.MaxUserCount);
 
             if (DisplayPayments)
             {
                 int notifyCount;
                 int.TryParse(ConfigurationManagerExtension.AppSettings["web.tariff-notify.user"] ?? "5", out notifyCount);
-                DisplayPaymentsFirst = notifyCount > 0 && quota.ActiveUsers - TenantStatisticsProvider.GetUsersCount() < notifyCount;
+                DisplayPaymentsFirstUser = notifyCount > 0 && quota.ActiveUsers - TenantStatisticsProvider.GetUsersCount() < notifyCount;
+                DisplayPaymentsFirstGuest = !IsStandalone && notifyCount > 0 && quota.ActiveUsers * Constants.CoefficientOfVisitors - TenantStatisticsProvider.GetVisitorsCount() < notifyCount;
             }
 
-            var controlEmailChange = (UserEmailChange) LoadControl(UserEmailChange.Location);
+            var controlEmailChange = (UserEmailChange)LoadControl(UserEmailChange.Location);
             controlEmailChange.UserInfo = userInfo;
             controlEmailChange.RegisterStylesAndScripts = true;
             userEmailChange.Controls.Add(controlEmailChange);

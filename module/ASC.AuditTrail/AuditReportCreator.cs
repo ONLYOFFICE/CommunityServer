@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ namespace ASC.AuditTrail
             {
                 using (var stream = new MemoryStream())
                 using (var writer = new StreamWriter(stream, Encoding.UTF8))
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                using (var csv = new CsvWriter(writer, CultureInfo.CurrentCulture))
                 {
                     csv.Configuration.RegisterClassMap(new BaseEventMap<TEvent>());
 
@@ -53,9 +53,7 @@ namespace ASC.AuditTrail
                     var file = FileUploader.Exec(Global.FolderMy.ToString(), reportName, stream.Length, stream, true);
                     var fileUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl((int)file.ID));
 
-                    fileUrl += string.Format("&options={{\"delimiter\":{0},\"codePage\":{1}}}",
-                                             (int)FileUtility.CsvDelimiter.Comma,
-                                             Encoding.UTF8.CodePage);
+                    fileUrl += string.Format("&options={{\"codePage\":{0}}}", Encoding.UTF8.CodePage);
                     return fileUrl;
                 }
             }

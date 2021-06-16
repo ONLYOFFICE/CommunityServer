@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
 */
 
 
-using ASC.Core;
-using ASC.Web.UserControls.Bookmarking.Util;
 using System;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
+
+using ASC.Core;
+using ASC.Web.UserControls.Bookmarking.Util;
 
 namespace ASC.Web.Community.HttpHandlers
 {
@@ -34,8 +34,9 @@ namespace ASC.Web.Community.HttpHandlers
 
         public void ProcessRequest(HttpContext context)
         {
-            if (!SecurityContext.IsAuthenticated || !ThumbnailHelper.HasService 
-                || !context.Request.QueryString.AllKeys.Contains("url")) {
+            if (!SecurityContext.IsAuthenticated || !ThumbnailHelper.HasService
+                || !context.Request.QueryString.AllKeys.Contains("url"))
+            {
 
                 ProccessFail(context);
                 return;

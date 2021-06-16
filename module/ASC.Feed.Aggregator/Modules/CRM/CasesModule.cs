@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Core;
 using ASC.Web.Studio.Utility;
+
 using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.CRM
@@ -117,21 +119,21 @@ namespace ASC.Feed.Aggregator.Modules.CRM
         private static Cases ToCases(object[] r)
         {
             var cases = new Cases
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    Title = Convert.ToString(r[1]),
-                    IsClosed = Convert.ToBoolean(r[2]),
-                    CreateBy = new Guid(Convert.ToString(r[3])),
-                    CreateOn = Convert.ToDateTime(r[4]),
-                    LastModifedBy = new Guid(Convert.ToString(r[5])),
-                    LastModifedOn = Convert.ToDateTime(r[6])
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = Convert.ToString(r[1]),
+                IsClosed = Convert.ToBoolean(r[2]),
+                CreateBy = new Guid(Convert.ToString(r[3])),
+                CreateOn = Convert.ToDateTime(r[4]),
+                LastModifedBy = new Guid(Convert.ToString(r[5])),
+                LastModifedOn = Convert.ToDateTime(r[6])
+            };
 
             var members = Convert.ToString(r[7]);
             if (!string.IsNullOrEmpty(members))
             {
                 cases.Members = new HashSet<int>(
-                    members.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                    members.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                            .Select(x => Convert.ToInt32(x))
                     );
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,9 @@
     padding: 0;
 }
 
+.disable {
+    color: #787878;
+}
 #social {
     font-size: 14px;
     line-height: 30px;
@@ -34,15 +37,11 @@
 
         a {
             border-radius: 2px;
-            box-shadow: 0 2px 2px #c4c9cc;
+            box-shadow: 0 0.5px 1.5px #cdcdcd;
             display: inline-block;
             height: 31px;
             padding: 0px 8px 0 8px;
             text-decoration: none;
-
-            &:hover {
-                box-shadow: 0 2px 2px #a5acb0;
-            }
 
             &.disabled {
                 opacity: 0.5;
@@ -67,7 +66,7 @@
 
             .icon {
                 /*background-image: url("images/google.svg");*/
-                background-image: url("../../../../skins/default/images/svg/people/google.png");
+                background-image: url("../../../../skins/default/images/svg/people/google.svg");
                 background-size: auto;
                 height: 34px;
                 margin: 0;

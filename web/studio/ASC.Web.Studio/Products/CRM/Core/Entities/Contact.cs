@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,10 @@
 
 
 using System;
+
 using ASC.Common.Security;
-using ASC.Web.Core.Helpers;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Enums;
-using ASC.Web.CRM.Resources;
 
 namespace ASC.CRM.Core.Entities
 {

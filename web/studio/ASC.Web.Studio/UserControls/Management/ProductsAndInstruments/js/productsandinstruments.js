@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,7 +106,7 @@ ASC.Settings.ProductsAndInstruments = new function() {
                 },
                 success: function() {
                     ASC.Settings.ProductsAndInstruments.disableElements(false);
-                    ASC.Settings.ProductsAndInstruments.showInfoPanel(true, ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage);
+                    ASC.Settings.ProductsAndInstruments.showInfoPanel(true, ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage);
                     window.location.reload();
                 }
             });

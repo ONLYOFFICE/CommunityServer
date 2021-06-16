@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources {
+namespace ASC.Web.Studio.PublicResources {
     using System;
     
     
@@ -115,15 +115,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bookmark.
-        /// </summary>
-        public static string Bookmark {
-            get {
-                return ResourceManager.GetString("Bookmark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bookmark comment has been added.
         /// </summary>
         public static string BookmarkCommentedText {
@@ -169,15 +160,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Case.
-        /// </summary>
-        public static string Case {
-            get {
-                return ResourceManager.GetString("Case", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Case has been added.
         /// </summary>
         public static string CaseCreatedText {
@@ -214,15 +196,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Company.
-        /// </summary>
-        public static string Company {
-            get {
-                return ResourceManager.GetString("Company", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Company has been added.
         /// </summary>
         public static string CompanyCreatedText {
@@ -243,27 +216,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Contacts.
         /// </summary>
-        public static string Contacts {
-            get {
-                return ResourceManager.GetString("Contacts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contacts.
-        /// </summary>
         public static string ContactsModule {
             get {
                 return ResourceManager.GetString("ContactsModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Created by.
-        /// </summary>
-        public static string CreatedBy {
-            get {
-                return ResourceManager.GetString("CreatedBy", resourceCulture);
             }
         }
         
@@ -331,38 +286,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opportunity.
-        /// </summary>
-        public static string Deal {
-            get {
-                return ResourceManager.GetString("Deal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opportunity has been added.
         /// </summary>
         public static string DealCreatedText {
             get {
                 return ResourceManager.GetString("DealCreatedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        public static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discussion.
-        /// </summary>
-        public static string Discussion {
-            get {
-                return ResourceManager.GetString("Discussion", resourceCulture);
             }
         }
         
@@ -403,15 +331,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event.
-        /// </summary>
-        public static string Event {
-            get {
-                return ResourceManager.GetString("Event", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Events.
         /// </summary>
         public static string EventsModule {
@@ -426,15 +345,6 @@ namespace Resources {
         public static string FeedsReadedMsg {
             get {
                 return ResourceManager.GetString("FeedsReadedMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File.
-        /// </summary>
-        public static string File {
-            get {
-                return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
@@ -466,15 +376,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder.
-        /// </summary>
-        public static string Folder {
-            get {
-                return ResourceManager.GetString("Folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Folder has been added.
         /// </summary>
         public static string FolderCreatedText {
@@ -489,15 +390,6 @@ namespace Resources {
         public static string FoldersModule {
             get {
                 return ResourceManager.GetString("FoldersModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forum.
-        /// </summary>
-        public static string Forum {
-            get {
-                return ResourceManager.GetString("Forum", resourceCulture);
             }
         }
         
@@ -565,29 +457,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Me.
-        /// </summary>
-        public static string Me {
-            get {
-                return ResourceManager.GetString("Me", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
             get {
                 return ResourceManager.GetString("Members", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Milestone.
-        /// </summary>
-        public static string Milestone {
-            get {
-                return ResourceManager.GetString("Milestone", resourceCulture);
             }
         }
         
@@ -687,15 +561,6 @@ namespace Resources {
         public static string ParticipantCreatedText {
             get {
                 return ResourceManager.GetString("ParticipantCreatedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Person.
-        /// </summary>
-        public static string Person {
-            get {
-                return ResourceManager.GetString("Person", resourceCulture);
             }
         }
         
@@ -876,15 +741,6 @@ namespace Resources {
         public static string Size {
             get {
                 return ResourceManager.GetString("Size", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Task.
-        /// </summary>
-        public static string Task {
-            get {
-                return ResourceManager.GetString("Task", resourceCulture);
             }
         }
         

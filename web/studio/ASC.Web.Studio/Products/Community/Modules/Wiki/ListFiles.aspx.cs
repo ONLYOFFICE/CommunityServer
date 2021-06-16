@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Community.Wiki.Common;
 using ASC.Web.Core.Files;
-using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Web.UserControls.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.UC;
-using WikiResource = ASC.Web.UserControls.Wiki.Resources.WikiResource;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Core.Utility.Skins;
+
 
 namespace ASC.Web.Community.Wiki
 {
@@ -118,11 +118,11 @@ namespace ASC.Web.Community.Wiki
             else
             {
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
-                        Header = WikiResource.EmptyScreenWikiFilesCaption,
-                        Describe = WikiResource.EmptyScreenWikiFilesText,
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
+                    Header = WikiResource.EmptyScreenWikiFilesCaption,
+                    Describe = WikiResource.EmptyScreenWikiFilesText,
+                };
 
                 if (CanUpload)
                     emptyScreenControl.ButtonHTML = String.Format("<a class='link underline blue plus' href='javascript:ShowUploadFileBox();'>{0}</a>", WikiResource.menu_AddNewFile);

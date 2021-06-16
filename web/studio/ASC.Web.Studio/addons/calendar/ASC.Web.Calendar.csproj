@@ -68,16 +68,6 @@
     </Compile>
     <Compile Include="Notification\CalendarSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\CalendarJSResource.Designer.cs">
-      <DependentUpon>CalendarJSResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resources\CalendarAddonResource.Designer.cs">
-      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="UserControls\CalendarControl.ascx.cs">
       <DependentUpon>CalendarControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -115,15 +105,232 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\CalendarJSResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\CalendarJSResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarJSResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Resources</CustomToolNamespace>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\CalendarJSResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CalendarAddonResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarAddonResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\CalendarAddonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarJSResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>CalendarJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarAddonResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>CalendarAddonResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

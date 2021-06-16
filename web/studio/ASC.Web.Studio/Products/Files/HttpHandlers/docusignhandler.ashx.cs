@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Net;
 using System.Web;
 using System.Xml;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Web.Core.Files;
@@ -46,7 +47,7 @@ namespace ASC.Web.Files.HttpHandlers
         {
             if (TenantStatisticsProvider.IsNotPaid())
             {
-                context.Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                context.Response.StatusCode = (int)HttpStatusCode.PaymentRequired;
                 context.Response.StatusDescription = "Payment Required.";
                 return;
             }
@@ -62,12 +63,12 @@ namespace ASC.Web.Files.HttpHandlers
                         Webhook(context);
                         break;
                     default:
-                        throw new HttpException((int) HttpStatusCode.BadRequest, FilesCommonResource.ErrorMassage_BadRequest);
+                        throw new HttpException((int)HttpStatusCode.BadRequest, FilesCommonResource.ErrorMassage_BadRequest);
                 }
             }
             catch (InvalidOperationException e)
             {
-                throw new HttpException((int) HttpStatusCode.InternalServerError, FilesCommonResource.ErrorMassage_BadRequest, e);
+                throw new HttpException((int)HttpStatusCode.InternalServerError, FilesCommonResource.ErrorMassage_BadRequest, e);
             }
         }
 
@@ -177,7 +178,7 @@ namespace ASC.Web.Files.HttpHandlers
             {
                 Global.Logger.Error("DocuSign webhook", e);
 
-                throw new HttpException((int) HttpStatusCode.BadRequest, e.Message);
+                throw new HttpException((int)HttpStatusCode.BadRequest, e.Message);
             }
         }
 

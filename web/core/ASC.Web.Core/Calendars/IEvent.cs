@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +82,8 @@ namespace ASC.Web.Core.Calendars
         bool AllDayLong { get; }
         RecurrenceRule RecurrenceRule { get; }
         EventContext Context { get; }
-        SharingOptions SharingOptions { get;}
+        SharingOptions SharingOptions { get; }
         EventStatus Status { get; }
+        TimeZoneInfo TimeZone { get; }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Impl;
 using ASC.Core;
 using ASC.Core.Users;
@@ -246,32 +247,32 @@ namespace ASC.Api.Employee
         public new static EmployeeWraperFull GetSample()
         {
             return new EmployeeWraperFull
-                {
-                    Avatar = "url to big avatar",
-                    AvatarSmall = "url to small avatar",
-                    Contacts = new List<Contact> { Contact.GetSample() },
-                    Email = "my@domain.com",
-                    FirstName = "Mike",
-                    Id = Guid.Empty,
-                    IsAdmin = false,
-                    ListAdminModules = new List<string> {"projects", "crm"},
-                    UserName = "Mike.Zanyatski",
-                    LastName = "Zanyatski",
-                    Title = "Manager",
-                    Groups = new List<GroupWrapperSummary> { GroupWrapperSummary.GetSample() },
-                    AvatarMedium = "url to medium avatar",
-                    Birthday = ApiDateTime.GetSample(),
-                    Department = "Marketing",
-                    Location = "Palo Alto",
-                    Notes = "Notes to worker",
-                    Sex = "male",
-                    Status = EmployeeStatus.Active,
-                    WorkFrom = ApiDateTime.GetSample(),
-                    //Terminated = ApiDateTime.GetSample(),
-                    CultureName = "en-EN",
-                    IsLDAP = false,
-                    IsSSO = false
-                };
+            {
+                Avatar = "url to big avatar",
+                AvatarSmall = "url to small avatar",
+                Contacts = new List<Contact> { Contact.GetSample() },
+                Email = "my@domain.com",
+                FirstName = "Mike",
+                Id = Guid.Empty,
+                IsAdmin = false,
+                ListAdminModules = new List<string> { "projects", "crm" },
+                UserName = "Mike.Zanyatski",
+                LastName = "Zanyatski",
+                Title = "Manager",
+                Groups = new List<GroupWrapperSummary> { GroupWrapperSummary.GetSample() },
+                AvatarMedium = "url to medium avatar",
+                Birthday = ApiDateTime.GetSample(),
+                Department = "Marketing",
+                Location = "Palo Alto",
+                Notes = "Notes to worker",
+                Sex = "male",
+                Status = EmployeeStatus.Active,
+                WorkFrom = ApiDateTime.GetSample(),
+                //Terminated = ApiDateTime.GetSample(),
+                CultureName = "en-EN",
+                IsLDAP = false,
+                IsSSO = false
+            };
         }
     }
 }

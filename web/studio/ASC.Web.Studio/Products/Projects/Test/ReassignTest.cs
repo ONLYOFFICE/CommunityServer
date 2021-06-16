@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
 using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Core.Engine;
+
 using Autofac;
+
 using NUnit.Framework;
 
 namespace ASC.Web.Projects.Test
@@ -140,7 +143,7 @@ namespace ASC.Web.Projects.Test
         public void ReassignTask()
         {
             var task = DataGenerator.GenerateTask(Project);
-            task.Responsibles = new List<Guid> {From};
+            task.Responsibles = new List<Guid> { From };
             task = TaskEngine.SaveOrUpdate(task, new List<int>(), false);
 
             ProjectsReassign.Reassign(From, To);
@@ -154,7 +157,7 @@ namespace ASC.Web.Projects.Test
         public void ReassignSubtasks()
         {
             var task = DataGenerator.GenerateTask(Project);
-            task.Responsibles = new List<Guid> {Admin};
+            task.Responsibles = new List<Guid> { Admin };
             task = TaskEngine.SaveOrUpdate(task, new List<int>(), false);
 
             var subtask1 = DataGenerator.GenerateSubtask(task);

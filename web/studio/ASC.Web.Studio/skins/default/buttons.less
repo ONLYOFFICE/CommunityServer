@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,9 @@
     .borderRadius();
     .noneSelect();
 }
-
+.button:focus {
+    outline: none;
+}
 .button {
     &.display-none{
         display: none;
@@ -80,7 +82,15 @@
                 font-size: 16px;
                 color: @plusOnGrayBtn;
             }
+        }
 
+        .plus.disable {
+            padding-left: 15px;
+            position: relative;
+
+            &:after {
+                cursor: default;
+            }
         }
 
         &.plus {
@@ -139,7 +149,7 @@
 
         &:hover {
             background-color: #fff;
-        color: #333333;
+            color: #333333;
         }
     }
 
@@ -170,6 +180,7 @@
             background: url("@{img-change-url}btn_icons.png") no-repeat 0 -32px transparent;
             left: 10px;
         }
+
         &.__upload:after {
             background: url("@{img-change-url}btn_icons.png") no-repeat 0 -48px transparent;
             left: 10px;
@@ -180,7 +191,7 @@
         position: relative;
         height: 16px;
         width: 0;
-        
+
         &:after {
             content: "";
             height: 16px;

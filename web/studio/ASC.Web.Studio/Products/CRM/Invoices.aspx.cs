@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@
 
 using System;
 using System.Web;
+
+using ASC.CRM.Core;
 using ASC.MessagingSystem;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Studio.Utility;
-using ASC.CRM.Core;
 using ASC.Web.CRM.Controls.Invoices;
+using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
+using ASC.Web.Studio.Utility;
 
 #endregion
 
@@ -75,13 +76,15 @@ namespace ASC.Web.CRM
             }
             else
             {
-                if (String.Compare(UrlParameters.Action, "create", StringComparison.OrdinalIgnoreCase) == 0) {
+                if (String.Compare(UrlParameters.Action, "create", StringComparison.OrdinalIgnoreCase) == 0)
+                {
                     ExecInvoiceActionView(null, InvoiceActionType.Create);
                 }
                 //else if (String.Compare(UrlParameters.Action, "import", true) == 0) {
                 //    ExecImportView();
                 //}
-                else {
+                else
+                {
                     ExecListInvoiceView();
                 }
             }

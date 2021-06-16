@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,14 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+
 using ASC.Common.DependencyInjection;
+
 using Autofac;
+
 using log4net.Config;
 using log4net.Core;
-using log4net.Util;
+
 using NLog;
 
 namespace ASC.Common.Logging
@@ -119,7 +122,7 @@ namespace ASC.Common.Logging
 
         public void Trace(object message)
         {
-            if(IsTraceEnabled) loger.Logger.Log(GetType(), Level.Trace, message, null);
+            if (IsTraceEnabled) loger.Logger.Log(GetType(), Level.Trace, message, null);
         }
 
         public void TraceFormat(string message, object arg0)

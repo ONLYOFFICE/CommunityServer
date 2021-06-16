@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Configuration;
+
 using ASC.ElasticSearch.Config;
 
 namespace ASC.ElasticSearch.Service
@@ -32,7 +33,10 @@ namespace ASC.ElasticSearch.Service
                 Host = "localhost",
                 Port = 9200,
                 Period = 1,
-                MemoryLimit = 10 * 1024 * 1024L
+                MaxContentLength = 100 * 1024 * 1024L,
+                MaxFileSize = 10 * 1024 * 1024L,
+                Threads = 1,
+                HttpCompression = true
             };
 
 
@@ -45,7 +49,10 @@ namespace ASC.ElasticSearch.Service
                 Host = cfg.Host,
                 Port = cfg.Port,
                 Period = cfg.Period,
-                MemoryLimit = cfg.MemoryLimit
+                MaxContentLength = cfg.MaxContentLength,
+                MaxFileSize = cfg.MaxFileSize,
+                Threads = cfg.Threads,
+                HttpCompression = cfg.HttpCompression
             };
 
         }
@@ -58,7 +65,13 @@ namespace ASC.ElasticSearch.Service
 
         public int Period { get; set; }
 
-        public long MemoryLimit { get; set; }
+        public int Threads { get; set; }
+
+        public long MaxContentLength { get; set; }
+
+        public long MaxFileSize { get; set; }
+
+        public bool HttpCompression { get; set; }
 
         public static Settings Default
         {

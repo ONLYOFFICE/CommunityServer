@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,6 +131,32 @@ namespace ASC.Web.CRM.Classes
                 return !string.IsNullOrEmpty(FilesLinkUtility.DocServiceDocbuilderUrl) && CRMSecurity.IsAdmin;
             }
         }
+
+        #region Queue Settings
+
+        public static int GetQueueWorkerCount(string queueName)
+        {
+            int value;
+            var strValue = ConfigurationManagerExtension.AppSettings[string.Format("crm.queue.{0}.workercount", queueName)];
+            if (string.IsNullOrEmpty(strValue) || !int.TryParse(strValue, out value))
+            {
+                value = 1;
+            }
+            return value;
+        }
+
+        public static TimeSpan GetQueueWaitInterval(string queueName)
+        {
+            TimeSpan value;
+            var strValue = ConfigurationManagerExtension.AppSettings[string.Format("crm.queue.{0}.waitinterval", queueName)];
+            if (string.IsNullOrEmpty(strValue) || !TimeSpan.TryParse(strValue, out value))
+            {
+                value = TimeSpan.FromMinutes(1);
+            }
+            return value;
+        }
+
+        #endregion
 
         #region CRM Settings
 

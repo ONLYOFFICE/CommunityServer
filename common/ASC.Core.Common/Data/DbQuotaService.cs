@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -100,7 +101,7 @@ namespace ASC.Core.Data
         {
             if (row == null) throw new ArgumentNullException("row");
 
-            using(var db = GetDb())
+            using (var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
                 var counter = db.ExecuteScalar<long>(Query(tenants_quotarow, row.Tenant)
@@ -117,24 +118,14 @@ namespace ASC.Core.Data
             }
         }
 
-        public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(TenantQuotaRowQuery query)
+        public IEnumerable<TenantQuotaRow> FindTenantQuotaRows(int tenantId)
         {
-            if (query == null) throw new ArgumentNullException("query");
-
             var q = new SqlQuery(tenants_quotarow).Select("tenant", "path", "counter", "tag");
             var where = Exp.Empty;
 
-            if (query.Tenant != Tenant.DEFAULT_TENANT)
+            if (tenantId != Tenant.DEFAULT_TENANT)
             {
-                where &= Exp.Eq("tenant", query.Tenant);
-            }
-            if (!string.IsNullOrEmpty(query.Path))
-            {
-                where &= Exp.Eq("path", query.Path);
-            }
-            if (query.LastModified != default(DateTime))
-            {
-                where &= Exp.Ge("last_modified", query.LastModified);
+                where &= Exp.Eq("tenant", tenantId);
             }
 
             if (where != Exp.Empty)

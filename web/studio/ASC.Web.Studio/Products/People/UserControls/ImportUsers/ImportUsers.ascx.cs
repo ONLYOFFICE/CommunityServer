@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.People.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 
 namespace ASC.Web.People.UserControls
 {
@@ -46,6 +48,12 @@ namespace ASC.Web.People.UserControls
 
         protected string HelpLink { get; set; }
 
+        public int EnableUsers { get; set; }
+
+        public int EnableGuests { get; set; }
+
+        public bool IsStandalone { get; set; }
+
         protected bool EnableInviteLink = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -55,7 +63,11 @@ namespace ASC.Web.People.UserControls
                 Response.Redirect(CommonLinkUtility.GetDefault());
             }
 
-            var tariff = (ASC.Web.Studio.UserControls.Management.TariffLimitExceed)LoadControl(Studio.UserControls.Management.TariffLimitExceed.Location);
+            EnableUsers = TenantExtra.GetTenantQuota().ActiveUsers - TenantStatisticsProvider.GetUsersCount();
+            EnableGuests = Constants.CoefficientOfVisitors * TenantExtra.GetTenantQuota().ActiveUsers - TenantStatisticsProvider.GetVisitorsCount();
+            EnableGuests = EnableGuests >= 0 ? EnableGuests : 0;
+            IsStandalone = CoreContext.Configuration.Standalone;
+            var tariff = (Studio.UserControls.Management.TariffLimitExceed)LoadControl(Studio.UserControls.Management.TariffLimitExceed.Location);
             Tariff.Controls.Add(tariff);
             var quota = TenantExtra.GetTenantQuota();
 

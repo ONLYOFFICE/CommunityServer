@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
@@ -29,12 +30,12 @@ using ASC.Core.Users;
 namespace ASC.Forum
 {
     public enum PostTextFormatter
-    { 
+    {
         BBCode = 0,
-        FCKEditor =1
+        FCKEditor = 1
     }
 
-	public class Post : ISecurityObject
+    public class Post : ISecurityObject
     {
         public int ID { get; set; }
 
@@ -60,7 +61,7 @@ namespace ASC.Forum
 
         public DateTime EditDate { get; set; }
 
-        public int EditCount { get; set; }       
+        public int EditCount { get; set; }
 
         public bool IsApproved { get; set; }
 
@@ -81,7 +82,7 @@ namespace ASC.Forum
         {
             Attachments = new List<Attachment>();
             CreateDate = Core.Tenants.TenantUtil.DateTimeNow();
-            EditDate = DateTime.MinValue;            
+            EditDate = DateTime.MinValue;
             EditCount = 0;
             Formatter = PostTextFormatter.BBCode;
             PosterID = SecurityContext.CurrentAccount.ID;
@@ -91,7 +92,7 @@ namespace ASC.Forum
         {
             Attachments = new List<Attachment>();
             CreateDate = Core.Tenants.TenantUtil.DateTimeNow();
-            EditDate = DateTime.MinValue;            
+            EditDate = DateTime.MinValue;
             EditCount = 0;
             Subject = subject;
             Text = text;
@@ -125,7 +126,7 @@ namespace ASC.Forum
 
         public ISecurityObjectId InheritFrom(ISecurityObjectId objectId)
         {
-            return new Topic {ID = TopicID };
+            return new Topic { ID = TopicID };
         }
 
         public bool InheritSupported

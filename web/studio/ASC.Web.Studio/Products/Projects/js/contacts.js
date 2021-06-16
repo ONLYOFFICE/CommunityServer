@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 ASC.Projects.Contacts = (function($) {
     var baseObject = ASC.Projects,
         currentProjectId,
-        resources = baseObject.Resources.ProjectsJSResource,
+        ProjectsJSResource = baseObject.Resources.ProjectsJSResource,
         displayNoneClass = "display-none";
 
     var teamlab;
@@ -38,13 +38,13 @@ ASC.Projects.Contacts = (function($) {
             EntityID: 0,
 
             ShowOnlySelectorContent: true,
-            DescriptionText: resources.CRMDescrForSelector,
+            DescriptionText: ProjectsJSResource.CRMDescrForSelector,
             DeleteContactText: "",
             AddContactText: "",
             IsInPopup: false,
-            NewCompanyTitleWatermark: resources.CRMCompanyName,
-            NewContactFirstNameWatermark: resources.CRMFirstName,
-            NewContactLastNameWatermark: resources.CRMLastName,
+            NewCompanyTitleWatermark: ProjectsJSResource.CRMCompanyName,
+            NewContactFirstNameWatermark: ProjectsJSResource.CRMFirstName,
+            NewContactLastNameWatermark: ProjectsJSResource.CRMLastName,
 
             ShowChangeButton: false,
             ShowAddButton: false,

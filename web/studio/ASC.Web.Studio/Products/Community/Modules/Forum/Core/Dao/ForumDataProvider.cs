@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,18 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Web.Community.Forum;
 using ASC.Web.Community.Product;
-using ASC.Web.Studio.Utility;
-using ASC.ElasticSearch;
 using ASC.Web.Community.Search;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Forum
 {
@@ -120,7 +121,7 @@ namespace ASC.Forum
             foreach (var tvi in hash.Values)
             {
                 if (tvi == null || !(tvi is ThreadVisitInfo)) continue;
-                
+
                 var t = (tvi as ThreadVisitInfo);
                 if (result == DateTime.MinValue)
                     result = t.RecentVisitDate;
@@ -189,37 +190,37 @@ namespace ASC.Forum
                 if (categories.Find(c => c.ID == cid) == null)
                 {
                     categories.Add(new ThreadCategory
-                                       {
-                                           ID = cid,
-                                           TenantID = Convert.ToInt32(row[1]),
-                                           Title = Convert.ToString(row[2]),
-                                           Description = (row[3] != null ? Convert.ToString(row[3]) : ""),
-                                           SortOrder = Convert.ToInt32(row[4]),
-                                           CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
-                                           PosterID = new Guid(Convert.ToString(row[6]))
-                                       });
+                    {
+                        ID = cid,
+                        TenantID = Convert.ToInt32(row[1]),
+                        Title = Convert.ToString(row[2]),
+                        Description = (row[3] != null ? Convert.ToString(row[3]) : ""),
+                        SortOrder = Convert.ToInt32(row[4]),
+                        CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
+                        PosterID = new Guid(Convert.ToString(row[6]))
+                    });
                 }
 
                 if (row[7] != null)
                 {
                     threads.Add(new Thread
-                                    {
-                                        CategoryID = cid,
-                                        ID = Convert.ToInt32(row[7]),
-                                        TenantID = Convert.ToInt32(row[1]),
-                                        Title = Convert.ToString(row[8]),
-                                        Description = (row[9] != null ? Convert.ToString(row[9]) : ""),
-                                        SortOrder = Convert.ToInt32(row[10]),
-                                        TopicCount = Convert.ToInt32(row[11]),
-                                        PostCount = Convert.ToInt32(row[12]),
-                                        RecentPostID = Convert.ToInt32(row[13]),
-                                        RecentTopicID = Convert.ToInt32(row[14]),
-                                        IsApproved = Convert.ToBoolean(row[15]),
-                                        RecentTopicTitle = (row[16] != null ? Convert.ToString(row[16]) : ""),
-                                        RecentPostCreateDate = (row[17]) != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[17])) : DateTime.MinValue,
-                                        RecentPosterID = (row[18]) != null ? new Guid(Convert.ToString(row[18])) : Guid.Empty,
-                                        RecentTopicPostCount = (row[19]) != null ? Convert.ToInt32(row[19]) : 0
-                                    });
+                    {
+                        CategoryID = cid,
+                        ID = Convert.ToInt32(row[7]),
+                        TenantID = Convert.ToInt32(row[1]),
+                        Title = Convert.ToString(row[8]),
+                        Description = (row[9] != null ? Convert.ToString(row[9]) : ""),
+                        SortOrder = Convert.ToInt32(row[10]),
+                        TopicCount = Convert.ToInt32(row[11]),
+                        PostCount = Convert.ToInt32(row[12]),
+                        RecentPostID = Convert.ToInt32(row[13]),
+                        RecentTopicID = Convert.ToInt32(row[14]),
+                        IsApproved = Convert.ToBoolean(row[15]),
+                        RecentTopicTitle = (row[16] != null ? Convert.ToString(row[16]) : ""),
+                        RecentPostCreateDate = (row[17]) != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[17])) : DateTime.MinValue,
+                        RecentPosterID = (row[18]) != null ? new Guid(Convert.ToString(row[18])) : Guid.Empty,
+                        RecentTopicPostCount = (row[19]) != null ? Convert.ToInt32(row[19]) : 0
+                    });
                 }
             }
 
@@ -253,11 +254,11 @@ namespace ASC.Forum
                         if (thr != null)
                         {
                             thr.TopicLastUpdates.Add(new Thread.TopicLastUpdate
-                                                         {
-                                                             TopicID = Convert.ToInt32(row[1]),
-                                                             RecentPostID = Convert.ToInt32(row[2]),
-                                                             RecentPostCreateDate = (row[3]) != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[3])) : DateTime.MinValue
-                                                         });
+                            {
+                                TopicID = Convert.ToInt32(row[1]),
+                                RecentPostID = Convert.ToInt32(row[2]),
+                                RecentPostCreateDate = (row[3]) != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[3])) : DateTime.MinValue
+                            });
                         }
                     }
                 }
@@ -312,24 +313,24 @@ namespace ASC.Forum
 
             var row = data[0];
             return new Thread
-                       {
+            {
 
-                           ID = threadID,
-                           CategoryID = Convert.ToInt32(row[1]),
-                           TenantID = tenantID,
-                           Title = Convert.ToString(row[2]),
-                           Description = (row[3] != null ? Convert.ToString(row[3]) : ""),
-                           SortOrder = Convert.ToInt32(row[4]),
-                           TopicCount = Convert.ToInt32(row[5]),
-                           PostCount = Convert.ToInt32(row[6]),
-                           RecentPostID = Convert.ToInt32(row[7]),
-                           RecentTopicID = Convert.ToInt32(row[8]),
-                           IsApproved = Convert.ToBoolean(row[9]),
-                           RecentTopicTitle = (row[10] != null ? Convert.ToString(row[10]) : ""),
-                           RecentPostCreateDate = (row[11]) != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[11])) : DateTime.MinValue,
-                           RecentPosterID = (row[12]) != null ? new Guid(Convert.ToString(row[12])) : Guid.Empty,
-                           RecentTopicPostCount = (row[13] != null ? Convert.ToInt32(row[13]) : 0)
-                       };
+                ID = threadID,
+                CategoryID = Convert.ToInt32(row[1]),
+                TenantID = tenantID,
+                Title = Convert.ToString(row[2]),
+                Description = (row[3] != null ? Convert.ToString(row[3]) : ""),
+                SortOrder = Convert.ToInt32(row[4]),
+                TopicCount = Convert.ToInt32(row[5]),
+                PostCount = Convert.ToInt32(row[6]),
+                RecentPostID = Convert.ToInt32(row[7]),
+                RecentTopicID = Convert.ToInt32(row[8]),
+                IsApproved = Convert.ToBoolean(row[9]),
+                RecentTopicTitle = (row[10] != null ? Convert.ToString(row[10]) : ""),
+                RecentPostCreateDate = (row[11]) != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[11])) : DateTime.MinValue,
+                RecentPosterID = (row[12]) != null ? new Guid(Convert.ToString(row[12])) : Guid.Empty,
+                RecentTopicPostCount = (row[13] != null ? Convert.ToInt32(row[13]) : 0)
+            };
         }
 
         public static int CreateThreadCategory(int tenantID, string title, string description, int sortOrder)
@@ -416,7 +417,7 @@ namespace ASC.Forum
             SubscriberPresenter.UnsubscribeAllOnThread(threadID);
             topicIDs.ForEach(SubscriberPresenter.UnsubscribeAllOnTopic);
 
-            if(GetThreadCountInCategory(tenantID, thread.CategoryID) == 0)
+            if (GetThreadCountInCategory(tenantID, thread.CategoryID) == 0)
                 RemoveThreadCategory(tenantID, thread.CategoryID, out removedPostIDs);
 
         }
@@ -572,27 +573,27 @@ namespace ASC.Forum
                 if (q == null)
                 {
                     q = new Question
-                            {
-                                ID = Convert.ToInt32(row[0]),
-                                TopicID = Convert.ToInt32(row[1]),
-                                Type = (QuestionType) Convert.ToInt32(row[2]),
-                                Name = Convert.ToString(row[3]),
-                                CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[4])),
-                                TenantID = tenantID
+                    {
+                        ID = Convert.ToInt32(row[0]),
+                        TopicID = Convert.ToInt32(row[1]),
+                        Type = (QuestionType)Convert.ToInt32(row[2]),
+                        Name = Convert.ToString(row[3]),
+                        CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[4])),
+                        TenantID = tenantID
 
-                            };
+                    };
                 }
 
                 if (row[5] != null)
                 {
                     q.AnswerVariants.Add(new AnswerVariant
-                                             {
-                                                 ID = Convert.ToInt32(row[5]),
-                                                 Name = Convert.ToString(row[6]),
-                                                 SortOrder = Convert.ToInt32(row[7]),
-                                                 QuestionID = q.ID,
-                                                 AnswerCount = Convert.ToInt32(row[8])
-                                             });
+                    {
+                        ID = Convert.ToInt32(row[5]),
+                        Name = Convert.ToString(row[6]),
+                        SortOrder = Convert.ToInt32(row[7]),
+                        QuestionID = q.ID,
+                        AnswerCount = Convert.ToInt32(row[8])
+                    });
                 }
             }
 
@@ -890,12 +891,12 @@ where ");
                                                 .AddParameter("tid", tenantID).ExecuteList();
 
             return data.Select(row => new Tag
-                                          {
-                                              TenantID = tenantID,
-                                              ID = Convert.ToInt32(row[0]),
-                                              Name = Convert.ToString(row[1]),
-                                              IsApproved = Convert.ToBoolean(row[2]),
-                                          }).ToList();
+            {
+                TenantID = tenantID,
+                ID = Convert.ToInt32(row[0]),
+                Name = Convert.ToString(row[1]),
+                IsApproved = Convert.ToBoolean(row[2]),
+            }).ToList();
         }
 
         public static List<RankTag> GetTagCloud(int tenantID, int limitTagCount)
@@ -912,13 +913,13 @@ where ");
             foreach (var row in data)
             {
                 tags.Add(new RankTag
-                             {
-                                 TenantID = tenantID,
-                                 ID = Convert.ToInt32(row[0]),
-                                 Name = Convert.ToString(row[1]),
-                                 IsApproved = Convert.ToBoolean(row[2]),
-                                 Rank = Convert.ToInt32(row[3])
-                             });
+                {
+                    TenantID = tenantID,
+                    ID = Convert.ToInt32(row[0]),
+                    Name = Convert.ToString(row[1]),
+                    IsApproved = Convert.ToBoolean(row[2]),
+                    Rank = Convert.ToInt32(row[3])
+                });
             }
 
             tags.Sort((t1, t2) => String.Compare(t1.Name, t2.Name));
@@ -927,7 +928,7 @@ where ");
 
         private static Topic GetTagsForTopics(int tenantID, Topic topic)
         {
-            var topics = new List<Topic> {topic};
+            var topics = new List<Topic> { topic };
             return GetTagsForTopics(tenantID, topics)[0];
         }
 
@@ -945,12 +946,12 @@ where ");
                 var topicID = Convert.ToInt32(row[0]);
                 var topic = topics.Find(t => t.ID == topicID);
                 topic.Tags.Add(new Tag
-                                   {
-                                       TenantID = tenantID,
-                                       ID = Convert.ToInt32(row[1]),
-                                       Name = Convert.ToString(row[2]),
-                                       IsApproved = Convert.ToBoolean(row[3])
-                                   });
+                {
+                    TenantID = tenantID,
+                    ID = Convert.ToInt32(row[1]),
+                    Name = Convert.ToString(row[2]),
+                    IsApproved = Convert.ToBoolean(row[3])
+                });
             }
 
             return topics;
@@ -959,27 +960,27 @@ where ");
         private static Topic ParseTopic(object[] row, int tenantID)
         {
             return new Topic
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           TenantID = tenantID,
-                           ThreadID = Convert.ToInt32(row[1]),
-                           Title = Convert.ToString(row[2]),
-                           CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[3])),
-                           ViewCount = Convert.ToInt32(row[4]),
-                           PostCount = Convert.ToInt32(row[5]),
-                           RecentPostID = (row[6] != null ? Convert.ToInt32(row[6]) : 0),
-                           IsApproved = Convert.ToBoolean(row[7]),
-                           PosterID = new Guid(Convert.ToString(row[8])),
-                           Sticky = Convert.ToBoolean(row[9]),
-                           Closed = Convert.ToBoolean(row[10]),
-                           Type = (TopicType) Convert.ToInt32(row[11]),
-                           QuestionID = Convert.ToInt32(row[12]),
-                           RecentPostText = (row[13] != null ? Convert.ToString(row[13]) : ""),
-                           RecentPostAuthorID = (row[14] != null ? new Guid(Convert.ToString(row[14])) : Guid.Empty),
-                           RecentPostCreateDate = (row[15] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[15])) : DateTime.MinValue),
-                           RecentPostFormatter = (row[16] != null ? (PostTextFormatter) Convert.ToInt32(row[16]) : PostTextFormatter.FCKEditor),
-                           ThreadTitle = Convert.ToString(row[17])
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                TenantID = tenantID,
+                ThreadID = Convert.ToInt32(row[1]),
+                Title = Convert.ToString(row[2]),
+                CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[3])),
+                ViewCount = Convert.ToInt32(row[4]),
+                PostCount = Convert.ToInt32(row[5]),
+                RecentPostID = (row[6] != null ? Convert.ToInt32(row[6]) : 0),
+                IsApproved = Convert.ToBoolean(row[7]),
+                PosterID = new Guid(Convert.ToString(row[8])),
+                Sticky = Convert.ToBoolean(row[9]),
+                Closed = Convert.ToBoolean(row[10]),
+                Type = (TopicType)Convert.ToInt32(row[11]),
+                QuestionID = Convert.ToInt32(row[12]),
+                RecentPostText = (row[13] != null ? Convert.ToString(row[13]) : ""),
+                RecentPostAuthorID = (row[14] != null ? new Guid(Convert.ToString(row[14])) : Guid.Empty),
+                RecentPostCreateDate = (row[15] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[15])) : DateTime.MinValue),
+                RecentPostFormatter = (row[16] != null ? (PostTextFormatter)Convert.ToInt32(row[16]) : PostTextFormatter.FCKEditor),
+                ThreadTitle = Convert.ToString(row[17])
+            };
         }
 
         public static void ApproveTopic(int tenantID, int topicID)
@@ -1267,39 +1268,39 @@ where ");
                 if (post == null)
                 {
                     post = new Post
-                               {
-                                   TenantID = tenantID,
-                                   ID = Convert.ToInt32(row[0]),
-                                   TopicID = Convert.ToInt32(row[1]),
-                                   CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[2])),
-                                   PosterID = new Guid(Convert.ToString(row[3])),
-                                   Subject = Convert.ToString(row[4]),
-                                   Text = Convert.ToString(row[5]),
-                                   EditDate = (row[6] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[6])) : DateTime.MinValue),
-                                   EditCount = Convert.ToInt32(row[7]),
-                                   IsApproved = Convert.ToBoolean(row[8]),
-                                   ParentPostID = (row[9] != null ? Convert.ToInt32(row[9]) : 0),
-                                   Formatter = (PostTextFormatter) Convert.ToInt32(row[10]),
-                                   EditorID = (row[11] != null ? new Guid(Convert.ToString(row[11])) : Guid.Empty)
-                               };
+                    {
+                        TenantID = tenantID,
+                        ID = Convert.ToInt32(row[0]),
+                        TopicID = Convert.ToInt32(row[1]),
+                        CreateDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[2])),
+                        PosterID = new Guid(Convert.ToString(row[3])),
+                        Subject = Convert.ToString(row[4]),
+                        Text = Convert.ToString(row[5]),
+                        EditDate = (row[6] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[6])) : DateTime.MinValue),
+                        EditCount = Convert.ToInt32(row[7]),
+                        IsApproved = Convert.ToBoolean(row[8]),
+                        ParentPostID = (row[9] != null ? Convert.ToInt32(row[9]) : 0),
+                        Formatter = (PostTextFormatter)Convert.ToInt32(row[10]),
+                        EditorID = (row[11] != null ? new Guid(Convert.ToString(row[11])) : Guid.Empty)
+                    };
                     posts.Add(post);
                 }
 
                 if (row[12] != null)
                 {
                     post.Attachments.Add(new Attachment
-                                             {
-                                                 TenantID = tenantID,
-                                                 ID = Convert.ToInt32(row[12]),
-                                                 Name = Convert.ToString(row[13]),
-                                                 Size = Convert.ToInt32(row[14]),
-                                                 DownloadCount = Convert.ToInt32(row[15]),
-                                                 ContentType = (AttachmentContentType) Convert.ToInt32(row[16]),
-                                                 MIMEContentType = Convert.ToString(row[17]),
-                                                 CreateDate = (row[18] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[18])) : DateTime.MinValue),
-                                                 PostID = post.ID,
-                                                 OffsetPhysicalPath = Convert.ToString(row[19])
-                                             });
+                    {
+                        TenantID = tenantID,
+                        ID = Convert.ToInt32(row[12]),
+                        Name = Convert.ToString(row[13]),
+                        Size = Convert.ToInt32(row[14]),
+                        DownloadCount = Convert.ToInt32(row[15]),
+                        ContentType = (AttachmentContentType)Convert.ToInt32(row[16]),
+                        MIMEContentType = Convert.ToString(row[17]),
+                        CreateDate = (row[18] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[18])) : DateTime.MinValue),
+                        PostID = post.ID,
+                        OffsetPhysicalPath = Convert.ToString(row[19])
+                    });
                 }
 
             }
@@ -1531,11 +1532,12 @@ where ft.TenantID = @tid and fp.id = @postID")
                                   .Where(Exp.Eq("TenantID", tenantID) & Exp.Like("name", text, SqlLike.StartWith)));
 
             return data.Select(row => new Tag
-                                          {
-                                              TenantID = tenantID, ID = Convert.ToInt32(row[0]),
-                                              Name = Convert.ToString(row[1]),
-                                              IsApproved = Convert.ToBoolean(row[2])
-                                          }).ToList();
+            {
+                TenantID = tenantID,
+                ID = Convert.ToInt32(row[0]),
+                Name = Convert.ToString(row[1]),
+                IsApproved = Convert.ToBoolean(row[2])
+            }).ToList();
 
         }
 
@@ -1545,12 +1547,12 @@ where ft.TenantID = @tid and fp.id = @postID")
                                   .Where(Exp.Eq("TenantID", tenantID) & Exp.In("id", ids)));
 
             return data.Select(row => new Tag
-                                          {
-                                              TenantID = tenantID,
-                                              ID = Convert.ToInt32(row[0]),
-                                              Name = Convert.ToString(row[1]),
-                                              IsApproved = Convert.ToBoolean(row[2])
-                                          }).ToList();
+            {
+                TenantID = tenantID,
+                ID = Convert.ToInt32(row[0]),
+                Name = Convert.ToString(row[1]),
+                IsApproved = Convert.ToBoolean(row[2])
+            }).ToList();
         }
 
         public static Tag GetTagByID(int tenantID, int tagID)
@@ -1562,12 +1564,12 @@ where ft.TenantID = @tid and fp.id = @postID")
             {
                 var row = data[0];
                 return new Tag
-                           {
-                               TenantID = tenantID,
-                               ID = Convert.ToInt32(row[0]),
-                               Name = Convert.ToString(row[1]),
-                               IsApproved = Convert.ToBoolean(row[2])
-                           };
+                {
+                    TenantID = tenantID,
+                    ID = Convert.ToInt32(row[0]),
+                    Name = Convert.ToString(row[1]),
+                    IsApproved = Convert.ToBoolean(row[2])
+                };
             }
 
             return null;
@@ -1663,14 +1665,14 @@ where ft.TenantID = @tid and fp.id = @postID")
                 .Where(Exp.Between("p.create_date", from, to) & !Exp.EqColumns("p.poster_id", "t.poster_id") & Exp.Eq("p.TenantID", tenantId))
                 .OrderBy("p.create_date", false);
             return DbManager.ExecuteList(query).Select(x => new Post
-                                                                {
-                                                                    ID = Convert.ToInt32(x[0]),
-                                                                    CreateDate = Convert.ToDateTime(x[1]),
-                                                                    Subject = Convert.ToString(x[2]),
-                                                                    Text = Convert.ToString(x[3]),
-                                                                    EditDate = Convert.ToDateTime(x[4]),
-                                                                    PosterID = new Guid(Convert.ToString(x[5]))
-                                                                });
+            {
+                ID = Convert.ToInt32(x[0]),
+                CreateDate = Convert.ToDateTime(x[1]),
+                Subject = Convert.ToString(x[2]),
+                Text = Convert.ToString(x[3]),
+                EditDate = Convert.ToDateTime(x[4]),
+                PosterID = new Guid(Convert.ToString(x[5]))
+            });
         }
 
         public static IEnumerable<Topic> GetTopics(DateTime from, DateTime to, int tenantId)
@@ -1681,18 +1683,18 @@ where ft.TenantID = @tid and fp.id = @postID")
                 .Where(Exp.Between("t.create_date", from, to) & Exp.Eq("t.TenantId", tenantId))
                 .OrderBy("t.create_date", false);
             return DbManager.ExecuteList(query).Select(x => new Topic
-                                                                {
-                                                                    ID = Convert.ToInt32(x[0]),
-                                                                    Title = Convert.ToString(x[1]),
-                                                                    CreateDate = Convert.ToDateTime(x[2]),
-                                                                    PosterID = new Guid(Convert.ToString(x[3])),
-                                                                    RecentPostCreateDate = Convert.ToDateTime(x[4]),
-                                                                    ThreadTitle = Convert.ToString(x[5]),
-                                                                    Type =
+            {
+                ID = Convert.ToInt32(x[0]),
+                Title = Convert.ToString(x[1]),
+                CreateDate = Convert.ToDateTime(x[2]),
+                PosterID = new Guid(Convert.ToString(x[3])),
+                RecentPostCreateDate = Convert.ToDateTime(x[4]),
+                ThreadTitle = Convert.ToString(x[5]),
+                Type =
                                                                         Convert.ToInt32(x[6]) == 0
                                                                             ? TopicType.Informational
                                                                             : TopicType.Poll
-                                                                });
+            });
         }
 
         #endregion

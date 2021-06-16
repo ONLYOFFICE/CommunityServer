@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,20 @@
 
 
 using System;
+
 using ASC.Common.Security;
 using ASC.Core;
 using ASC.Forum.Module;
 using ASC.Web.Community.Product;
 
 namespace ASC.Forum
-{   
+{
 
     internal class SecurityActionPresenter : PresenterTemplate<ISecurityActionView>
     {
         protected override void RegisterView()
         {
-            _view.ValidateAccess+=new EventHandler<SecurityAccessEventArgs>(ValidateAccessHandler);
+            _view.ValidateAccess += new EventHandler<SecurityAccessEventArgs>(ValidateAccessHandler);
         }
 
         private void ValidateAccessHandler(object sender, SecurityAccessEventArgs e)
@@ -47,8 +48,8 @@ namespace ASC.Forum
 
                 case ForumAction.PostCreate:
                     if (topic == null || CommunitySecurity.CheckPermissions(topic, Constants.PostCreateAction))
-                    {   
-                        if(!topic.Closed)
+                    {
+                        if (!topic.Closed)
                             _view.IsAccessible = true;
 
                         else if (topic.Closed && CommunitySecurity.CheckPermissions(topic, Constants.TopicCloseAction))
@@ -61,7 +62,7 @@ namespace ASC.Forum
                         _view.IsAccessible = false;
 
                     break;
-                    
+
                 case ForumAction.ApprovePost:
                     _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.PostApproveAction);
                     break;
@@ -101,14 +102,14 @@ namespace ASC.Forum
                 case ForumAction.PollVote:
 
                     Question question = (Question)e.TargetObject;
-                    _view.IsAccessible = CommunitySecurity.CheckPermissions(new Topic() { ID = question.TopicID}, Constants.PollVoteAction);
+                    _view.IsAccessible = CommunitySecurity.CheckPermissions(new Topic() { ID = question.TopicID }, Constants.PollVoteAction);
                     break;
 
 
                 case ForumAction.TagCreate:
                     _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.TagCreateAction);
                     break;
-                
+
                 case ForumAction.AttachmentCreate:
                     _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.AttachmentCreateAction);
                     break;
@@ -116,7 +117,7 @@ namespace ASC.Forum
                 case ForumAction.AttachmentDelete:
                     _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.AttachmentDeleteAction);
                     break;
-               
+
                 case ForumAction.GetAccessForumEditor:
                     _view.IsAccessible = CommunitySecurity.CheckPermissions(securityObject, Constants.ForumManagementAction);
                     break;

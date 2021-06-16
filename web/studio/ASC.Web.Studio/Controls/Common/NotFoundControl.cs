@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ using System;
 using System.Text;
 using System.Web.UI;
 
+using ASC.Web.Studio.PublicResources;
+
 namespace ASC.Web.Studio.Controls.Common
 {
     public class NotFoundControl : LiteralControl
@@ -31,7 +33,7 @@ namespace ASC.Web.Studio.Controls.Common
 
         public NotFoundControl()
         {
-            Text = Resources.Resource.SearchNotFoundMessage;
+            Text = Resource.SearchNotFoundMessage;
         }
 
         protected override void Render(HtmlTextWriter output)

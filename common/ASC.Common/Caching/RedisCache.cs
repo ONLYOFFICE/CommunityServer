@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,7 +106,12 @@ namespace ASC.Common.Caching
                         }
                         catch (Exception ex)
                         {
-                            LogManager.GetLogger("ASC").Error("RedisCache HashGetAll", ex);
+                            if (!e.Value.IsNullOrEmpty)
+                            {
+                                LogManager.GetLogger("ASC").ErrorFormat("RedisCache HashGetAll value: {0}", e.Value);
+                            }
+
+                            LogManager.GetLogger("ASC").Error(string.Format("RedisCache HashGetAll key: {0}", key), ex);
                         }
 
                         return new { Key = (string)e.Name, Value = val };
@@ -124,7 +129,7 @@ namespace ASC.Common.Caching
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ASC").Error("RedisCache HashGet", ex);
+                LogManager.GetLogger("ASC").Error(string.Format("RedisCache HashGet key: {0}, field: {1}", key, field), ex);
                 return default(T);
             }
         }

@@ -3,7 +3,7 @@
 
 <%@ Register Assembly="ASC.Web.Studio" Namespace="ASC.Web.Studio.UserControls.Common.PollForm" TagPrefix="sc" %>
 
-<%@ Import Namespace="ASC.Web.UserControls.Forum.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Forum.UserControls.Resources" %>
 <%@ Import Namespace="ASC.Forum" %>
 
 <input type="hidden" id="forum_topicType" value="<%=((int)EditableTopic.Type).ToString()%>" />

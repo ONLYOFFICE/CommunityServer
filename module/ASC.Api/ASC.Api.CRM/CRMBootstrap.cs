@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 
 
 using System.Collections.Generic;
+
 using ASC.Api.Interfaces;
-using ASC.Core;
 using ASC.CRM.Core;
-using ASC.CRM.Core.Dao;
 using ASC.Web.Core;
 using ASC.Web.Core.Calendars;
 using ASC.Web.Files.Api;
@@ -40,7 +39,7 @@ namespace ASC.Api.CRM
                 {
                     if (WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID, userid))
                     {
-                        return new List<BaseCalendar> {new CRMCalendar(userid)};
+                        return new List<BaseCalendar> { new CRMCalendar(userid) };
                     }
                     return new List<BaseCalendar>();
                 });

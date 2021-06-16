@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+
 using ASC.Common.Logging;
+
 using Ionic.Zip;
+
 using Newtonsoft.Json;
+
 using TMResourceData.Model;
+
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace TMResourceData
@@ -73,7 +78,7 @@ namespace TMResourceData
                 {
                     Title = key,
                     ValueFrom = jsonObj[key],
-                    ResFile = new ResFile {FileID = fileID}
+                    ResFile = new ResFile { FileID = fileID }
                 };
                 if (culture != "Neutral")
                 {
@@ -81,7 +86,7 @@ namespace TMResourceData
                     {
                         Title = key,
                         ValueFrom = jsonObj[key],
-                        ResFile = new ResFile {FileID = fileID}
+                        ResFile = new ResFile { FileID = fileID }
                     };
 
                     ResourceData.GetValueByKey(neutralKey, "Neutral");
@@ -99,14 +104,14 @@ namespace TMResourceData
             {
                 var filter = new ResCurrent
                 {
-                    Project = new ResProject {Name = project},
-                    Module = new ResModule {Name = module}
+                    Project = new ResProject { Name = project },
+                    Module = new ResModule { Name = module }
                 };
 
                 var zipDirectory = Directory.CreateDirectory(exportPath + module);
                 foreach (var language in languages)
                 {
-                    filter.Language = new ResCulture {Title = language};
+                    filter.Language = new ResCulture { Title = language };
 
                     var words =
                         ResourceData.GetListResWords(filter, string.Empty).GroupBy(x => x.ResFile.FileID).ToList();

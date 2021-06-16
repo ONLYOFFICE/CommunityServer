@@ -312,36 +312,6 @@
     <Compile Include="Masters\ClientScripts\ClientTemplateResources.cs" />
     <Compile Include="Masters\ClientScripts\ClientSettingsResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\MailAdministrationResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\MailActionCompleteResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\MailApiErrorsResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\MailApiResource.Designer.cs">
-      <DependentUpon>MailApiResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resources\MailAttachmentsResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\MailResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\MailScriptResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -349,40 +319,688 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailAdministrationResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailAdministrationResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailAdministrationResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailActionCompleteResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MailActionCompleteResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailActionCompleteResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailActionCompleteResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailApiErrorsResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailApiErrorsResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailApiErrorsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailApiResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailApiResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailApiResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailApiResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailAttachmentsResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailAttachmentsResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailAttachmentsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailScriptResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailScriptResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailScriptResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailScriptResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailScriptResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAttachmentsResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailAttachmentsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailActionCompleteResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailActionCompleteResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailAdministrationResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailAdministrationResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailApiErrorsResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailApiErrorsResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,18 @@
 
 
 using System;
+using System.Collections.Generic;
+
+using ASC.Blogs.Core.Domain;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core.Users;
-using System.Collections.Generic;
-using ASC.Blogs.Core.Domain;
 
 namespace ASC.Blogs.Core.Security
 {
     public class PersonalBlogSecObject : SecurityObjectId, ISecurityObject
     {
-        private UserInfo blogOwner;
+        private readonly UserInfo blogOwner;
 
         public PersonalBlogSecObject()
             : base((int)BlogType.Personal, typeof(BlogType))

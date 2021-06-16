@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,23 +23,23 @@ namespace ASC.Web.Studio.Core.Import
         public string LastName { get; set; }
         public string Email { get; set; }
 
-		public override bool Equals(object obj)
-		{
-			try
-			{
-				if (obj is ContactInfo)
-				{
-					var o = obj as ContactInfo;
-					return Email.Equals(o.Email);
-				}
-			}
-			catch { }
-			return false;
-		}
+        public override bool Equals(object obj)
+        {
+            try
+            {
+                if (obj is ContactInfo)
+                {
+                    var o = obj as ContactInfo;
+                    return Email.Equals(o.Email);
+                }
+            }
+            catch { }
+            return false;
+        }
 
-		public override int GetHashCode()
-		{
-			return Email.GetHashCode();
-		}
+        public override int GetHashCode()
+        {
+            return Email.GetHashCode();
+        }
     }
 }

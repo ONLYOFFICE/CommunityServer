@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+
 using ASC.Api.Calendar.ExternalCalendars;
 using ASC.Api.Calendar.iCalParser;
 using ASC.Common.Data;
@@ -32,9 +34,9 @@ using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.BusinessObjects
 {
-    public class DataProvider:IDisposable
+    public class DataProvider : IDisposable
     {
-        private IDbManager db;
+        private readonly IDbManager db;
         private const string DBId = "calendar";
         private const string _calendarTable = "calendar_calendars cal";
         private const string _calendarItemTable = "calendar_calendar_item cal_itm";
@@ -75,20 +77,20 @@ namespace ASC.Api.Calendar.BusinessObjects
             foreach (var r in data)
             {
                 options.Add(new UserViewSettings()
-                    {
-                        CalendarId =
+                {
+                    CalendarId =
                             Convert.ToInt32(r[calId.Ind]) == 0
                                 ? Convert.ToString(r[extCalId.Ind])
                                 : Convert.ToString(r[calId.Ind]),
-                        UserId = usrId.Parse<Guid>(r),
-                        IsHideEvents = hideEvents.Parse<bool>(r),
-                        IsAccepted = isAccepted.Parse<bool>(r),
-                        TextColor = textColor.Parse<string>(r),
-                        BackgroundColor = background.Parse<string>(r),
-                        EventAlertType = (EventAlertType) alertType.Parse<int>(r),
-                        Name = calName.Parse<string>(r),
-                        TimeZone = timeZone.Parse<TimeZoneInfo>(r)
-                    });
+                    UserId = usrId.Parse<Guid>(r),
+                    IsHideEvents = hideEvents.Parse<bool>(r),
+                    IsAccepted = isAccepted.Parse<bool>(r),
+                    TextColor = textColor.Parse<string>(r),
+                    BackgroundColor = background.Parse<string>(r),
+                    EventAlertType = (EventAlertType)alertType.Parse<int>(r),
+                    Name = calName.Parse<string>(r),
+                    TimeZone = timeZone.Parse<TimeZoneInfo>(r)
+                });
             }
 
             return options;
@@ -119,7 +121,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 var tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId;
 
                 db.ExecuteNonQuery(new SqlDelete("calendar_todos").Where("id", todoId).Where("tenant", tenant));
-              
+
                 tr.Commit();
             }
         }
@@ -198,12 +200,29 @@ namespace ASC.Api.Calendar.BusinessObjects
             return CoreContext.TenantManager.GetCurrentTenant().TimeZone;
         }
 
-        public TimeZoneInfo GetTimeZoneForCalendar(Guid userId, int caledarId)
+        public TimeZoneInfo GetTimeZoneForCalendar(Guid userId, int calendarId)
         {
-            return db.ExecuteList(new SqlQuery(_calendarTable).Select("cal.time_zone", "cal_usr.time_zone")
-                                            .LeftOuterJoin(_calendarUserTable, Exp.EqColumns("cal.id", "cal_usr.calendar_id") & Exp.Eq("cal_usr.user_id", userId))
-                                            .Where(Exp.Eq("cal.id", caledarId)))
-                                            .Select(r => (r[1] == null || r[1] == DBNull.Value) ? TimeZoneConverter.GetTimeZone(Convert.ToString(r[0])) : TimeZoneConverter.GetTimeZone(Convert.ToString(r[1]))).First();
+            var timeZone = db.ExecuteList(new SqlQuery(_calendarUserTable).Select("cal_usr.time_zone")
+                                                        .Where(Exp.Eq("cal_usr.user_id", userId))
+                                                        .Where(Exp.Eq("cal_usr.calendar_id", calendarId)))
+                                                        .Select(r => (r[0] == null || r[0] == DBNull.Value) ? null : TimeZoneConverter.GetTimeZone(Convert.ToString(r[0])));
+
+            if (timeZone.Count() != 0 && timeZone.First() == null)
+            {
+                timeZone = db.ExecuteList(new SqlQuery(_calendarUserTable).Select("cal_usr.time_zone")
+                                                        .Where(Exp.Eq("cal_usr.user_id", GetCalendarById(calendarId).OwnerId))
+                                                        .Where(Exp.Eq("cal_usr.calendar_id", calendarId)))
+                                                        .Select(r => (r[0] == null || r[0] == DBNull.Value) ? null : TimeZoneConverter.GetTimeZone(Convert.ToString(r[0])));
+            }
+
+            if (timeZone.Count() == 0)
+            {
+                return GetCalendarById(calendarId).TimeZone;
+            }
+            else
+            {
+                return timeZone.First();
+            }
         }
         public List<object[]> GetCalendarIdByCaldavGuid(string caldavGuid)
         {
@@ -286,18 +305,18 @@ namespace ASC.Api.Calendar.BusinessObjects
                 if (calendar == null)
                 {
                     calendar = new Calendar
-                        {
-                            Id = calId.Parse<int>(r).ToString(),
-                            Name = calName.Parse<string>(r),
-                            Description = calDescription.Parse<string>(r),
-                            TenantId = calTenant.Parse<int>(r),
-                            OwnerId = calOwner.Parse<Guid>(r),
-                            EventAlertType = (EventAlertType) calAlertType.Parse<int>(r),
-                            TimeZone = calTimeZone.Parse<TimeZoneInfo>(r),
-                            iCalUrl = iCalUrl.Parse<string>(r),
-                            calDavGuid = calDavGuid.Parse<string>(r),
-                            IsTodo = isTodo.Parse<int>(r)
-                        };
+                    {
+                        Id = calId.Parse<int>(r).ToString(),
+                        Name = calName.Parse<string>(r),
+                        Description = calDescription.Parse<string>(r),
+                        TenantId = calTenant.Parse<int>(r),
+                        OwnerId = calOwner.Parse<Guid>(r),
+                        EventAlertType = (EventAlertType)calAlertType.Parse<int>(r),
+                        TimeZone = calTimeZone.Parse<TimeZoneInfo>(r),
+                        iCalUrl = iCalUrl.Parse<string>(r),
+                        calDavGuid = calDavGuid.Parse<string>(r),
+                        IsTodo = isTodo.Parse<int>(r)
+                    };
                     calendar.Context.HtmlTextColor = calTextColor.Parse<string>(r);
                     calendar.Context.HtmlBackgroundColor = calBackground.Parse<string>(r);
                     if (!String.IsNullOrEmpty(calendar.iCalUrl))
@@ -314,10 +333,10 @@ namespace ASC.Api.Calendar.BusinessObjects
                         if (String.Equals(_calId, calendar.Id, StringComparison.InvariantCultureIgnoreCase))
                         {
                             calendar.SharingOptions.PublicItems.Add(new SharingOptions.PublicItem
-                                {
-                                    Id = itemId.Parse<Guid>(row),
-                                    IsGroup = itemIsGroup.Parse<bool>(row)
-                                });
+                            {
+                                Id = itemId.Parse<Guid>(row),
+                                IsGroup = itemIsGroup.Parse<bool>(row)
+                            });
                         }
                     }
                 }
@@ -325,17 +344,17 @@ namespace ASC.Api.Calendar.BusinessObjects
                 if (!usrId.IsNull(r))
                 {
                     var uvs = new UserViewSettings
-                        {
-                            CalendarId = calendar.Id,
-                            UserId = usrId.Parse<Guid>(r),
-                            IsHideEvents = usrHideEvents.Parse<bool>(r),
-                            IsAccepted = usrIsAccepted.Parse<bool>(r),
-                            TextColor = usrTextColor.Parse<string>(r),
-                            BackgroundColor = usrBackground.Parse<string>(r),
-                            EventAlertType = (EventAlertType) usrAlertType.Parse<int>(r),
-                            Name = usrCalName.Parse<string>(r),
-                            TimeZone = usrTimeZone.Parse<TimeZoneInfo>(r)
-                        };
+                    {
+                        CalendarId = calendar.Id,
+                        UserId = usrId.Parse<Guid>(r),
+                        IsHideEvents = usrHideEvents.Parse<bool>(r),
+                        IsAccepted = usrIsAccepted.Parse<bool>(r),
+                        TextColor = usrTextColor.Parse<string>(r),
+                        BackgroundColor = usrBackground.Parse<string>(r),
+                        EventAlertType = (EventAlertType)usrAlertType.Parse<int>(r),
+                        Name = usrCalName.Parse<string>(r),
+                        TimeZone = usrTimeZone.Parse<TimeZoneInfo>(r)
+                    };
 
                     calendar.ViewSettings.Add(uvs);
                 }
@@ -369,7 +388,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                                 .InColumnValue("description", description)
                                                                 .InColumnValue("text_color", textColor)
                                                                 .InColumnValue("background_color", backgroundColor)
-                                                                .InColumnValue("alert_type", (int) eventAlertType)
+                                                                .InColumnValue("alert_type", (int)eventAlertType)
                                                                 .InColumnValue("time_zone", timeZone.Id)
                                                                 .InColumnValue("ical_url", iCalUrl)
                                                                 .InColumnValue("caldav_guid", calDavGuid)
@@ -398,7 +417,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                         .InColumnValue("is_accepted", view.IsAccepted)
                                                         .InColumnValue("text_color", view.TextColor)
                                                         .InColumnValue("background_color", view.BackgroundColor)
-                                                        .InColumnValue("alert_type", (int) view.EventAlertType)
+                                                        .InColumnValue("alert_type", (int)view.EventAlertType)
                                                         .InColumnValue("name", view.Name ?? "")
                                                         .InColumnValue("time_zone",
                                                                         view.TimeZone != null ? view.TimeZone.Id : null)
@@ -451,7 +470,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                         .Where("is_group", existCalendar.IsGroup));
                 }
 
-                
+
                 foreach (var item in publicItems)
                 {
                     db.ExecuteNonQuery(new SqlInsert("calendar_calendar_item")
@@ -487,7 +506,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                     .InColumnValue("is_accepted", view.IsAccepted)
                                                     .InColumnValue("text_color", view.TextColor)
                                                     .InColumnValue("background_color", view.BackgroundColor)
-                                                    .InColumnValue("alert_type", (int) view.EventAlertType)
+                                                    .InColumnValue("alert_type", (int)view.EventAlertType)
                                                     .InColumnValue("name", view.Name ?? "")
                                                     .InColumnValue("time_zone",
                                                                     view.TimeZone != null ? view.TimeZone.Id : null)
@@ -502,6 +521,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 var eAlertType = cc.RegistryColumn("e.alert_type");
                 var eRRule = cc.RegistryColumn("e.rrule");
                 var eIsAllDay = cc.RegistryColumn("e.all_day_long");
+                var eTimeZone = cc.RegistryColumn("e.time_zone");
 
                 var eventsData = db.ExecuteList(
                     new SqlQuery("calendar_events e")
@@ -513,9 +533,10 @@ namespace ASC.Api.Calendar.BusinessObjects
                 {
                     UpdateEventNotifications(eId.Parse<int>(r), calendarId,
                                                 eStartDate.Parse<DateTime>(r),
-                                                (EventAlertType) eAlertType.Parse<int>(r),
+                                                (EventAlertType)eAlertType.Parse<int>(r),
                                                 eRRule.Parse<RecurrenceRule>(r), null, publicItems,
-                                                eIsAllDay.Parse<bool>(r));
+                                                eIsAllDay.Parse<bool>(r),
+                                                eTimeZone.Parse<TimeZoneInfo>(r));
                 }
 
                 tr.Commit();
@@ -543,6 +564,8 @@ namespace ASC.Api.Calendar.BusinessObjects
             var eRRule = cc.RegistryColumn("e.rrule");
             var eCalId = cc.RegistryColumn("e.calendar_id");
             var eIsAllDay = cc.RegistryColumn("e.all_day_long");
+            var eTimeZone = cc.RegistryColumn("e.time_zone");
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
 
             int calendarId;
             if (int.TryParse(viewSettings.CalendarId, out calendarId))
@@ -554,7 +577,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                 .InColumnValue("text_color", viewSettings.TextColor)
                                                 .InColumnValue("background_color", viewSettings.BackgroundColor)
                                                 .InColumnValue("is_accepted", viewSettings.IsAccepted)
-                                                .InColumnValue("alert_type", (int) viewSettings.EventAlertType)
+                                                .InColumnValue("alert_type", (int)viewSettings.EventAlertType)
                                                 .InColumnValue("name", viewSettings.Name ?? "")
                                                 .InColumnValue("time_zone",
                                                                 viewSettings.TimeZone != null
@@ -562,23 +585,44 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                                     : null)
                     );
 
-
-
                 //update notifications
-                var eventsData = db.ExecuteList(
-                    new SqlQuery("calendar_events e")
-                        .Select(cc.SelectQuery)
-                        .Where("e.calendar_id", calendarId)
-                        .Where("e.tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId));
-
-                foreach (var r in eventsData)
+                var updateNotifications = new Task(() =>
                 {
-                    UpdateEventNotifications(eId.Parse<int>(r), calendarId,
-                                                eStartDate.Parse<DateTime>(r),
-                                                (EventAlertType) eAlertType.Parse<int>(r),
-                                                eRRule.Parse<RecurrenceRule>(r), null, null,
-                                                eIsAllDay.Parse<bool>(r));
-                }
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+                    try
+                    {
+                        using (var db = new DbManager(DBId))
+                        {
+                            using (var tr = db.BeginTransaction())
+                            {
+                                var eventsData = db.ExecuteList( new SqlQuery("calendar_events e")
+                                .Select(cc.SelectQuery)
+                                .Where("e.calendar_id", calendarId)
+                                .Where("e.tenant", tenant.TenantId));
+
+                                foreach (var r in eventsData)
+                                {
+                                    UpdateEventNotifications(eId.Parse<int>(r), calendarId,
+                                                                eStartDate.Parse<DateTime>(r),
+                                                                (EventAlertType)eAlertType.Parse<int>(r),
+                                                                eRRule.Parse<RecurrenceRule>(r), null, null,
+                                                                eIsAllDay.Parse<bool>(r),
+                                                                eTimeZone.Parse<TimeZoneInfo>(r), db);
+                                }
+                            }
+
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.GetLogger("ASC.Calendar").Error(ex);
+                    }
+                }, TaskCreationOptions.LongRunning);
+
+                updateNotifications.ConfigureAwait(false);
+                updateNotifications.Start();
+                
 
             }
             else
@@ -589,7 +633,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                 .InColumnValue("hide_events", viewSettings.IsHideEvents)
                                                 .InColumnValue("text_color", viewSettings.TextColor)
                                                 .InColumnValue("background_color", viewSettings.BackgroundColor)
-                                                .InColumnValue("alert_type", (int) viewSettings.EventAlertType)
+                                                .InColumnValue("alert_type", (int)viewSettings.EventAlertType)
                                                 .InColumnValue("is_accepted", viewSettings.IsAccepted)
                                                 .InColumnValue("name", viewSettings.Name ?? "")
                                                 .InColumnValue("time_zone",
@@ -601,31 +645,55 @@ namespace ASC.Api.Calendar.BusinessObjects
                 if (String.Equals(viewSettings.CalendarId, SharedEventsCalendar.CalendarId,
                                     StringComparison.InvariantCultureIgnoreCase))
                 {
+
                     //update notifications
-                    var groups =
-                        CoreContext.UserManager.GetUserGroups(viewSettings.UserId).Select(g => g.ID).ToList();
-                    groups.AddRange(
-                        CoreContext.UserManager.GetUserGroups(viewSettings.UserId,
-                                                                Core.Users.Constants.SysGroupCategoryId)
-                                    .Select(g => g.ID));
-
-                    var q = new SqlQuery("calendar_events e")
-                        .Select(cc.SelectQuery)
-                        .InnerJoin("calendar_event_item ei", Exp.EqColumns("ei.event_id", eId.Name))
-                        .Where("e.tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId)
-                        .Where((Exp.Eq("ei.is_group", false) & Exp.Eq("ei.item_id", viewSettings.UserId)) |
-                                (Exp.Eq("ei.is_group", true) & Exp.In("ei.item_id", groups.ToArray())));
-
-                    var eventsData = db.ExecuteList(q);
-
-                    foreach (var r in eventsData)
+                    var updateNotifications = new Task(() =>
                     {
-                        UpdateEventNotifications(eId.Parse<int>(r), eCalId.Parse<int>(r),
-                                                    eStartDate.Parse<DateTime>(r),
-                                                    (EventAlertType) eAlertType.Parse<int>(r),
-                                                    eRRule.Parse<RecurrenceRule>(r), null, null,
-                                                    eIsAllDay.Parse<bool>(r));
-                    }
+                        CoreContext.TenantManager.SetCurrentTenant(tenant);
+                        try
+                        {
+                            using (var db = new DbManager(DBId))
+                            {
+                                using (var tr = db.BeginTransaction())
+                                {
+                                    var groups =
+                                        CoreContext.UserManager.GetUserGroups(viewSettings.UserId).Select(g => g.ID).ToList();
+                                    groups.AddRange(
+                                        CoreContext.UserManager.GetUserGroups(viewSettings.UserId,
+                                                                                Core.Users.Constants.SysGroupCategoryId)
+                                                    .Select(g => g.ID));
+
+                                    var q = new SqlQuery("calendar_events e")
+                                        .Select(cc.SelectQuery)
+                                        .InnerJoin("calendar_event_item ei", Exp.EqColumns("ei.event_id", eId.Name))
+                                        .Where("e.tenant", tenant.TenantId)
+                                        .Where((Exp.Eq("ei.is_group", false) & Exp.Eq("ei.item_id", viewSettings.UserId)) |
+                                                (Exp.Eq("ei.is_group", true) & Exp.In("ei.item_id", groups.ToArray())));
+
+                                    var eventsData = db.ExecuteList(q);
+
+                                    foreach (var r in eventsData)
+                                    {
+                                        UpdateEventNotifications(eId.Parse<int>(r), eCalId.Parse<int>(r),
+                                                                    eStartDate.Parse<DateTime>(r),
+                                                                    (EventAlertType)eAlertType.Parse<int>(r),
+                                                                    eRRule.Parse<RecurrenceRule>(r), null, null,
+                                                                    eIsAllDay.Parse<bool>(r),
+                                                                    eTimeZone.Parse<TimeZoneInfo>(r), db);
+                                    }
+                                }
+
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.GetLogger("ASC.Calendar").Error(ex);
+                        }
+                    }, TaskCreationOptions.LongRunning);
+
+                    updateNotifications.ConfigureAwait(false);
+                    updateNotifications.Start();
                 }
             }
         }
@@ -677,7 +745,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         {
             using (var tr = db.BeginTransaction())
             {
-                db.ExecuteNonQuery(new SqlDelete("calendar_calendar_user").Where("ext_calendar_id",calendarId));
+                db.ExecuteNonQuery(new SqlDelete("calendar_calendar_user").Where("ext_calendar_id", calendarId));
                 tr.Commit();
             }
         }
@@ -732,7 +800,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             }
 
             return GetTodoById(int.Parse(id));
-            
+
         }
 
         public Todo CreateTodo(int calendarId,
@@ -744,8 +812,8 @@ namespace ASC.Api.Calendar.BusinessObjects
                                  DateTime completed)
         {
             int todoId;
-            
-            
+
+
             using (var tr = db.BeginTransaction())
             {
 
@@ -810,9 +878,9 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                    .Select(cc.SelectQuery)
                                                    .Where(Exp.In(tdId.Name, todoIds)));
                 }
-               
+
             }
-            
+
 
             //parsing           
             var todos = new List<Todo>();
@@ -835,14 +903,14 @@ namespace ASC.Api.Calendar.BusinessObjects
                         Completed = tdCompleted.Parse<DateTime>(r),
                         OwnerId = tdOwner.Parse<Guid>(r),
                         Uid = tdUid.Parse<string>(r)
-                        
+
                     };
                     todos.Add(td);
                 }
             }
             return todos;
         }
-       
+
         public List<Todo> LoadTodos(int calendarId, Guid userId, int tenantId, DateTime utcStartDate, DateTime utcEndDate)
         {
             var sqlQuery = new SqlQuery(_todoTable)
@@ -933,6 +1001,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             var eAlertType = cc.RegistryColumn("evt.alert_type");
             var eUid = cc.RegistryColumn("evt.uid");
             var eStatus = cc.RegistryColumn("evt.status");
+            var eTimeZone = cc.RegistryColumn("evt.time_zone");
 
             var data = new List<Object[]>();
 
@@ -956,9 +1025,9 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                                Exp.Eq("evt_usr.user_id", userId))
                                                 .Select(cc.SelectQuery)
                                                 .Where(Exp.In(eId.Name, evtIds)));
-                    
+
                 }
-                
+
             }
 
             var cc1 = new ColumnCollection();
@@ -985,25 +1054,26 @@ namespace ASC.Api.Calendar.BusinessObjects
                 if (ev == null)
                 {
                     ev = new Event
-                        {
-                            Id = eId.Parse<string>(r),
-                            Name = eName.Parse<string>(r),
-                            Description = eDescription.Parse<string>(r),
-                            TenantId = eTenant.Parse<int>(r),
-                            CalendarId = eCalId.Parse<string>(r),
-                            UtcStartDate = eStartDate.Parse<DateTime>(r),
-                            UtcEndDate = eEndDate.Parse<DateTime>(r),
-                            UtcUpdateDate = eUpdateDate.Parse<DateTime>(r),
-                            AllDayLong = eIsAllDay.Parse<bool>(r),
-                            OwnerId = eOwner.Parse<Guid>(r),
-                            AlertType =
+                    {
+                        Id = eId.Parse<string>(r),
+                        Name = eName.Parse<string>(r),
+                        Description = eDescription.Parse<string>(r),
+                        TenantId = eTenant.Parse<int>(r),
+                        CalendarId = eCalId.Parse<string>(r),
+                        UtcStartDate = eStartDate.Parse<DateTime>(r),
+                        UtcEndDate = eEndDate.Parse<DateTime>(r),
+                        UtcUpdateDate = eUpdateDate.Parse<DateTime>(r),
+                        AllDayLong = eIsAllDay.Parse<bool>(r),
+                        OwnerId = eOwner.Parse<Guid>(r),
+                        AlertType =
                                 (usrAlertType.IsNull(r))
-                                    ? (EventAlertType) eAlertType.Parse<int>(r)
-                                    : (EventAlertType) usrAlertType.Parse<int>(r),
-                            RecurrenceRule = eRRule.Parse<RecurrenceRule>(r),
-                            Uid = eUid.Parse<string>(r),
-                            Status = (EventStatus) eStatus.Parse<int>(r)
-                        };
+                                    ? (EventAlertType)eAlertType.Parse<int>(r)
+                                    : (EventAlertType)usrAlertType.Parse<int>(r),
+                        RecurrenceRule = eRRule.Parse<RecurrenceRule>(r),
+                        Uid = eUid.Parse<string>(r),
+                        Status = (EventStatus)eStatus.Parse<int>(r),
+                        TimeZone = eTimeZone.Parse<TimeZoneInfo>(r)
+                    };
                     events.Add(ev);
                 }
 
@@ -1012,10 +1082,10 @@ namespace ASC.Api.Calendar.BusinessObjects
                     if (String.Equals(evId.Parse<string>(row), ev.Id, StringComparison.InvariantCultureIgnoreCase))
                     {
                         ev.SharingOptions.PublicItems.Add(new SharingOptions.PublicItem
-                            {
-                                Id = itemId.Parse<Guid>(row),
-                                IsGroup = itemIsGroup.Parse<bool>(row)
-                            });
+                        {
+                            Id = itemId.Parse<Guid>(row),
+                            IsGroup = itemIsGroup.Parse<bool>(row)
+                        });
                     }
                 }
             }
@@ -1108,7 +1178,8 @@ namespace ASC.Api.Calendar.BusinessObjects
                                  List<SharingOptions.PublicItem> publicItems,
                                  string uid,
                                  EventStatus status,
-                                 DateTime createDate)
+                                 DateTime createDate,
+                                 TimeZoneInfo timeZone)
         {
             int eventId;
             using (var tr = db.BeginTransaction())
@@ -1131,9 +1202,10 @@ namespace ASC.Api.Calendar.BusinessObjects
                                                                             .InColumnValue("update_date", createDate.ToString("yyyy-MM-dd HH:mm:ss"))
                                                             .InColumnValue("all_day_long", isAllDayLong)
                                                             .InColumnValue("rrule", rrule.ToString())
-                                                            .InColumnValue("alert_type", (int) alertType)
+                                                            .InColumnValue("alert_type", (int)alertType)
                                                             .InColumnValue("uid", GetEventUid(uid))
-                                                            .InColumnValue("status", (int) status)
+                                                            .InColumnValue("status", (int)status)
+                                                            .InColumnValue("time_zone", timeZone?.Id)
                                                             .Identity(0, 0, true));
 
                 foreach (var item in publicItems)
@@ -1146,7 +1218,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 }
 
                 //update notifications
-                UpdateEventNotifications(eventId, calendarId, utcStartDate, alertType, rrule, publicItems, null, isAllDayLong);
+                UpdateEventNotifications(eventId, calendarId, utcStartDate, alertType, rrule, publicItems, null, isAllDayLong, timeZone);
 
                 tr.Commit();
             }
@@ -1166,7 +1238,8 @@ namespace ASC.Api.Calendar.BusinessObjects
             bool isAllDayLong,
             List<SharingOptions.PublicItem> publicItems,
             EventStatus status,
-            DateTime createDate
+            DateTime createDate,
+            TimeZoneInfo timeZone
             )
         {
             using (var tr = db.BeginTransaction())
@@ -1181,11 +1254,12 @@ namespace ASC.Api.Calendar.BusinessObjects
                     .Set("update_date", createDate.ToString("yyyy-MM-dd HH:mm:ss"))
                     .Set("all_day_long", isAllDayLong)
                     .Set("rrule", rrule.ToString())
-                    .Set("status", (int) status)
+                    .Set("status", (int)status)
+                    .Set("time_zone", timeZone?.Id)
                     .Where(Exp.Eq("id", eventId));
 
                 if (ownerId.Equals(SecurityContext.CurrentAccount.ID))
-                    query = query.Set("alert_type", (int) alertType);
+                    query = query.Set("alert_type", (int)alertType);
                 else
                     db.ExecuteNonQuery(new SqlInsert("calendar_event_user", true)
                                                     .InColumnValue("event_id", eventId)
@@ -1224,8 +1298,8 @@ namespace ASC.Api.Calendar.BusinessObjects
                 //update notifications
                 var baseAlertType =
                     db.ExecuteList(new SqlQuery("calendar_events").Select("alert_type").Where("id", eventId))
-                                .Select(r => (EventAlertType) Convert.ToInt32(r[0])).First();
-                UpdateEventNotifications(eventId, calendarId, utcStartDate, baseAlertType, rrule, publicItems, null, isAllDayLong);
+                                .Select(r => (EventAlertType)Convert.ToInt32(r[0])).First();
+                UpdateEventNotifications(eventId, calendarId, utcStartDate, baseAlertType, rrule, publicItems, null, isAllDayLong, timeZone);
 
 
                 tr.Commit();
@@ -1237,14 +1311,14 @@ namespace ASC.Api.Calendar.BusinessObjects
 
 
         public EventHistory GetEventHistory(string eventUid)
-        {           
+        {
             var sql = new SqlQuery("calendar_event_history h")
                 .Select("h.calendar_id")
                 .Select("h.event_uid")
                 .Select("h.event_id")
                 .Select("h.ics")
-                .InnerJoin("calendar_events e", Exp.EqColumns("e.uid", "h.event_uid"))
-                .InnerJoin("calendar_calendars c", Exp.EqColumns("c.id", "h.calendar_id"))
+                .InnerJoin("calendar_events e", Exp.EqColumns("e.uid", "h.event_uid") & Exp.EqColumns("e.tenant", "h.tenant"))
+                .InnerJoin("calendar_calendars c", Exp.EqColumns("c.id", "h.calendar_id") & Exp.EqColumns("c.tenant", "h.tenant"))
                 .Where("h.tenant", CoreContext.TenantManager.GetCurrentTenant().TenantId)
                 .Where("h.event_uid", eventUid)
                 .Where("e.owner_id", SecurityContext.CurrentAccount.ID)
@@ -1268,10 +1342,10 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             return db.ExecuteList(sql).ConvertAll(ToEventHistory);
         }
-        
+
         public EventHistory GetEventHistory(int eventId)
         {
-            var items = GetEventsHistory(new [] { eventId });
+            var items = GetEventsHistory(new[] { eventId });
             return items.Count > 0 ? items[0] : null;
         }
 
@@ -1389,7 +1463,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             return 0;
         }
 
-        private DateTime GetNextAlertDate(DateTime utcStartDate, RecurrenceRule rrule, EventAlertType eventAlertType, TimeZoneInfo timeZone, bool isAllDayLong)
+        private DateTime GetNextAlertDate(DateTime utcStartDate, RecurrenceRule rrule, EventAlertType eventAlertType, TimeZoneInfo timeZone, bool isAllDayLong, TimeZoneInfo eventTimeZone)
         {
             if (eventAlertType == EventAlertType.Never)
                 return DateTime.MinValue;
@@ -1397,7 +1471,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             var offset = timeZone.GetOffset();
             var localFromDate = DateTime.UtcNow.Add(offset);
             var localStartDate = isAllDayLong ? utcStartDate : utcStartDate.Add(offset);
-            var dates = rrule.GetDates(localStartDate, localFromDate, 3);
+            var dates = rrule.GetDates(localStartDate, eventTimeZone, isAllDayLong, localFromDate, 3);
             for (var i = 0; i < dates.Count; i++)
             {
                 dates[i] = dates[i].Subtract(offset);
@@ -1417,6 +1491,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         {
             public Guid UserId { get; set; }
             public EventAlertType AlertType { get; set; }
+            public EventAlertType AlertTypeCalendar { get; set; }
             public TimeZoneInfo TimeZone { get; set; }
 
 
@@ -1426,21 +1501,31 @@ namespace ASC.Api.Calendar.BusinessObjects
                 AlertType = alertType;
                 TimeZone = timeZone;
             }
+
+            public UserAlertType(Guid userId, EventAlertType alertType, TimeZoneInfo timeZone, EventAlertType alertTypeCalendar)
+            {
+                UserId = userId;
+                AlertType = alertType;
+                AlertTypeCalendar = alertTypeCalendar;
+                TimeZone = timeZone;
+            }
         }
 
         private void UpdateEventNotifications(int eventId, int calendarId, DateTime eventUtcStartDate, EventAlertType baseEventAlertType, RecurrenceRule rrule,
             IEnumerable<SharingOptions.PublicItem> eventPublicItems,
             IEnumerable<SharingOptions.PublicItem> calendarPublicItems,
-            bool isAllDayLong)
+            bool isAllDayLong, TimeZoneInfo eventTimeZone, IDbManager dbManager = null)
         {
+
+            dbManager = dbManager == null ? db : dbManager;
             var cc = new ColumnCollection();
             var userIdCol = cc.RegistryColumn("user_id");
             var alertTypeCol = cc.RegistryColumn("alert_type");
             var isUnsubscribeCol = cc.RegistryColumn("is_unsubscribe");
 
-            var eventUsersData = db.ExecuteList(new SqlQuery("calendar_event_user").Select(cc.SelectQuery).Where(Exp.Eq("event_id", eventId)));
+            var eventUsersData = dbManager.ExecuteList(new SqlQuery("calendar_event_user").Select(cc.SelectQuery).Where(Exp.Eq("event_id", eventId)));
 
-            var calendarData = db.ExecuteList(new SqlQuery("calendar_calendars").Select("alert_type", "owner_id", "time_zone").Where(Exp.Eq("id", calendarId)));
+            var calendarData = dbManager.ExecuteList(new SqlQuery("calendar_calendars").Select("alert_type", "owner_id", "time_zone").Where(Exp.Eq("id", calendarId)));
             var calendarAlertType = calendarData.Select(r => (EventAlertType)Convert.ToInt32(r[0])).First();
             var calendarOwner = calendarData.Select(r => new Guid(Convert.ToString(r[1]))).First();
             var calendarTimeZone = calendarData.Select(r => TimeZoneConverter.GetTimeZone(Convert.ToString(r[2]))).First();
@@ -1451,7 +1536,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             if (eventPublicItems == null)
             {
-                eventPublicItems = new List<SharingOptions.PublicItem>(db.ExecuteList(new SqlQuery("calendar_event_item").Select("item_id", "is_group").Where(Exp.Eq("event_id", eventId)))
+                eventPublicItems = new List<SharingOptions.PublicItem>(dbManager.ExecuteList(new SqlQuery("calendar_event_item").Select("item_id", "is_group").Where(Exp.Eq("event_id", eventId)))
                                                                         .Select(r => new SharingOptions.PublicItem { Id = new Guid(Convert.ToString(r[0])), IsGroup = Convert.ToBoolean(r[1]) }));
             }
 
@@ -1486,7 +1571,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             //remove and exec sharing calendar options
             if (eventUsers.Count > 0)
             {
-                var extCalendarAlertTypes = db.ExecuteList(new SqlQuery("calendar_calendar_user cu")
+                var extCalendarAlertTypes = dbManager.ExecuteList(new SqlQuery("calendar_calendar_user cu")
                                                         .Select("cu.user_id", "cu.alert_type", "cu.is_accepted", "cu.time_zone")
                                                         .Where(Exp.Eq("cu.ext_calendar_id", SharedEventsCalendar.CalendarId) & Exp.In("cu.user_id", eventUsers.Select(u => u.UserId).ToArray())));
 
@@ -1521,7 +1606,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             if (calendarPublicItems == null)
             {
-                calendarPublicItems = new List<SharingOptions.PublicItem>(db.ExecuteList(new SqlQuery("calendar_calendar_item").Select("item_id", "is_group").Where(Exp.Eq("calendar_id", calendarId)))
+                calendarPublicItems = new List<SharingOptions.PublicItem>(dbManager.ExecuteList(new SqlQuery("calendar_calendar_item").Select("item_id", "is_group").Where(Exp.Eq("calendar_id", calendarId)))
                                                                         .Select(r => new SharingOptions.PublicItem { Id = new Guid(Convert.ToString(r[0])), IsGroup = Convert.ToBoolean(r[1]) }));
             }
 
@@ -1535,7 +1620,13 @@ namespace ASC.Api.Calendar.BusinessObjects
                     calendarUsers.Add(new UserAlertType(item.Id, baseEventAlertType, calendarTimeZone));
             }
 
-            calendarUsers.Add(new UserAlertType(calendarOwner, baseEventAlertType, calendarTimeZone));
+            calendarUsers.Add(new UserAlertType(calendarOwner, baseEventAlertType, calendarTimeZone, calendarAlertType));
+
+            var users = dbManager.ExecuteList(new SqlQuery(_calendarUserTable).Select("cal_usr.user_id", "cal_usr.alert_type")
+                                                        .Where(Exp.Eq("cal_usr.calendar_id", calendarId))
+                                                        .Where(!Exp.Eq("cal_usr.user_id", calendarOwner)))
+                                                        .Select(r => new UserAlertType(new Guid(Convert.ToString(r[0])), baseEventAlertType, calendarTimeZone, (EventAlertType)Convert.ToInt32(r[1]))).ToList();
+            calendarUsers = calendarUsers.Concat(users).ToList();
 
             //remove event's users
             calendarUsers.RemoveAll(u => eventUsers.Exists(eu => eu.UserId.Equals(u.UserId)));
@@ -1554,7 +1645,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
                 }
 
-                var calendarAlertTypes = db.ExecuteList(new SqlQuery("calendar_calendar_user")
+                var calendarAlertTypes = dbManager.ExecuteList(new SqlQuery("calendar_calendar_user")
                                                         .Select("user_id", "alert_type", "is_accepted", "time_zone")
                                                         .Where(Exp.Eq("calendar_id", calendarId) & Exp.In("user_id", calendarUsers.Select(u => u.UserId).ToArray())));
 
@@ -1579,7 +1670,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 calendarUsers.ForEach(u =>
                 {
                     if (u.AlertType == EventAlertType.Default)
-                        u.AlertType = calendarAlertType;
+                        u.AlertType = u.AlertTypeCalendar;
                 });
             }
 
@@ -1587,17 +1678,17 @@ namespace ASC.Api.Calendar.BusinessObjects
 
 
             //clear notifications
-            db.ExecuteNonQuery(new SqlDelete("calendar_notifications").Where("event_id", eventId));
+            dbManager.ExecuteNonQuery(new SqlDelete("calendar_notifications").Where("event_id", eventId));
 
             eventUsers.AddRange(calendarUsers);
 
             foreach (var u in eventUsers)
             {
                 //todo: recount
-                var alertDate = GetNextAlertDate(eventUtcStartDate, rrule, u.AlertType, u.TimeZone, isAllDayLong);
+                var alertDate = GetNextAlertDate(eventUtcStartDate, rrule, u.AlertType, u.TimeZone, isAllDayLong, eventTimeZone ?? u.TimeZone);
                 if (!alertDate.Equals(DateTime.MinValue))
                 {
-                    db.ExecuteNonQuery(new SqlInsert("calendar_notifications", true).InColumnValue("user_id", u.UserId)
+                    dbManager.ExecuteNonQuery(new SqlInsert("calendar_notifications", true).InColumnValue("user_id", u.UserId)
                                                                                         .InColumnValue("event_id", eventId)
                                                                                         .InColumnValue("rrule", rrule.ToString())
                                                                                         .InColumnValue("alert_type", (int)u.AlertType)
@@ -1639,13 +1730,13 @@ namespace ASC.Api.Calendar.BusinessObjects
                 var events = GetEventsByIds(data.Select(d => (object)d.EventId).Distinct().ToArray(), Guid.Empty);
                 data.ForEach(d => d.Event = events.Find(e => String.Equals(e.Id, d.EventId.ToString(CultureInfo.InvariantCulture), StringComparison.InvariantCultureIgnoreCase)));
 
-                foreach (var d in data)   
+                foreach (var d in data)
                 {
                     if (d.RRule.Freq == Frequency.Never)
                         db.ExecuteNonQuery(new SqlDelete("calendar_notifications").Where(Exp.Eq("user_id", d.UserId) & Exp.Eq("event_id", d.EventId)));
                     else
                     {
-                        var alertDate = GetNextAlertDate(d.Event.UtcStartDate, d.RRule, d.AlertType, d.TimeZone, d.Event.AllDayLong);
+                        var alertDate = GetNextAlertDate(d.Event.UtcStartDate, d.RRule, d.AlertType, d.TimeZone, d.Event.AllDayLong, d.Event.TimeZone ?? d.TimeZone);
                         if (!alertDate.Equals(DateTime.MinValue))
                         {
                             db.ExecuteNonQuery(new SqlInsert("calendar_notifications", true).InColumnValue("user_id", d.UserId)

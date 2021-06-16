@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,15 @@
 using System;
 using System.Globalization;
 using System.Web;
+
+using ASC.Web.Community.Modules.News.Resources;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
-using ASC.Web.Community.News.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Studio;
 using ASC.Web.Studio.UserControls.Common.PollForm;
 using ASC.Web.Studio.Utility;
+
 using FeedNS = ASC.Web.Community.News.Code;
 
 namespace ASC.Web.Community.News
@@ -81,10 +83,10 @@ namespace ASC.Web.Community.News
                         foreach (var variant in question.Variants)
                         {
                             _pollMaster.AnswerVariants.Add(new PollFormMaster.AnswerViarint
-                                {
-                                    ID = variant.ID.ToString(CultureInfo.CurrentCulture),
-                                    Name = variant.Name
-                                });
+                            {
+                                ID = variant.ID.ToString(CultureInfo.CurrentCulture),
+                                Name = variant.Name
+                            });
                         }
                     }
                 }

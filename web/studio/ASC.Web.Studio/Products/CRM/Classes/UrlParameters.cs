@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,11 @@
 #region Import
 
 using System;
-using System.Globalization;
 using System.Web;
-using ASC.Core.Tenants;
-using ASC.Web.CRM.Resources;
 
 #endregion
 
-namespace ASC.Web.CRM.Classes   
+namespace ASC.Web.CRM.Classes
 {
 
     public static class UrlParameters
@@ -146,7 +143,7 @@ namespace ASC.Web.CRM.Classes
                 return int.TryParse(HttpContext.Current.Request[UrlConstant.ContactID], out result) ? result : 0;
             }
         }
- 
+
         public static String Type
         {
             get

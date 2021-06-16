@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,21 @@
 
 
 using System;
-using System.Web;
-using ASC.Core.Users;
-using ASC.Web.Core;
-using ASC.Web.Community.Product;
-using ASC.Core;
-using ASC.Web.Studio.Core;
 using System.Text;
+using System.Web;
+
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Web.Community.Modules.Wiki.Resources;
+using ASC.Web.Community.Product;
+using ASC.Web.Core;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
-using ASC.Web.Studio.UserControls.Common.Support;
-using Newtonsoft.Json.Linq;
-using ASC.Web.Studio.UserControls.Common.UserForum;
 using ASC.Web.Studio.UserControls.Common.InviteLink;
+using ASC.Web.Studio.UserControls.Common.Support;
+using ASC.Web.Studio.UserControls.Common.UserForum;
+
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.Community.Controls
 {
@@ -88,7 +91,7 @@ namespace ASC.Web.Community.Controls
             InitPermission();
             InitModulesState();
 
-            var help = (HelpCenter) LoadControl(HelpCenter.Location);
+            var help = (HelpCenter)LoadControl(HelpCenter.Location);
             help.IsSideBar = true;
             HelpHolder.Controls.Add(help);
             SupportHolder.Controls.Add(LoadControl(Support.Location));
@@ -97,7 +100,7 @@ namespace ASC.Web.Community.Controls
         }
 
         private void InitPermission()
-        {           
+        {
             foreach (var module in WebItemManager.Instance.GetSubItems(CommunityProduct.ID))
             {
                 switch (module.GetSysName())
@@ -182,7 +185,7 @@ namespace ASC.Web.Community.Controls
             }
             else if (currentPath.IndexOf("Modules/Bookmarking", StringComparison.OrdinalIgnoreCase) > 0)
             {
-                CurrentPage = "bookmarking";              
+                CurrentPage = "bookmarking";
                 if (currentPath.IndexOf("FavouriteBookmarks.aspx", StringComparison.OrdinalIgnoreCase) > 0)
                 {
                     CurrentPage = "bookmarkingfavourite";
@@ -216,10 +219,10 @@ namespace ASC.Web.Community.Controls
                 var page = Request["page"];
                 if (!string.IsNullOrEmpty(page))
                 {
-                    if(page.StartsWith("Category:"))
+                    if (page.StartsWith("Category:"))
                         CurrentPage = "wikicategories";
 
-                    if (page == UserControls.Wiki.Resources.WikiUCResource.HelpPageCaption)
+                    if (page == WikiUCResource.HelpPageCaption)
                         CurrentPage = "wikihelp";
                 }
             }
@@ -274,7 +277,7 @@ namespace ASC.Web.Community.Controls
                 apiServer = new Api.ApiServer();
                 apiResponse = apiServer.GetApiResponse(String.Format("{0}community/forum/topic/{1}.json", SetupInfo.WebApiBaseUrl, TopicID), "GET");
                 obj = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(apiResponse)));
-                if(obj["response"]!=null)
+                if (obj["response"] != null)
                 {
                     obj = JObject.Parse(obj["response"].ToString());
                     var status = 0;
@@ -286,7 +289,7 @@ namespace ASC.Web.Community.Controls
 
         protected string GetDefaultSettingsPageUrl()
         {
-            var defaultUrl = VirtualPathUtility.ToAbsolute("~/Management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights +"#community";
+            var defaultUrl = VirtualPathUtility.ToAbsolute("~/Management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights + "#community";
             if (IsForumsAvailable)
             {
                 defaultUrl = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Forum/ManagementCenter.aspx");

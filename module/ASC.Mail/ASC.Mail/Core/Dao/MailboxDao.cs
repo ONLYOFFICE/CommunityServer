@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -35,7 +36,7 @@ namespace ASC.Mail.Core.Dao
     {
         protected static ITable table = new MailTableFactory().Create<MailboxTable>();
 
-        public MailboxDao(IDbManager dbManager) : 
+        public MailboxDao(IDbManager dbManager) :
             base(table, dbManager, -1)
         {
         }
@@ -426,7 +427,7 @@ namespace ASC.Mail.Core.Dao
                 DateUserChecked = Convert.ToDateTime(r[26]),
                 UserOnline = Convert.ToBoolean(r[27]),
                 DateLoginDelayExpires = Convert.ToDateTime(r[28]),
-                DateAuthError = r[29] == null ? (DateTime?) null : Convert.ToDateTime(r[29])
+                DateAuthError = r[29] == null ? (DateTime?)null : Convert.ToDateTime(r[29])
             };
 
             string password = Convert.ToString(r[5]),

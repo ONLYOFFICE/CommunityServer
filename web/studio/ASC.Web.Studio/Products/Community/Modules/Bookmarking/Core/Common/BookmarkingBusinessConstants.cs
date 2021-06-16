@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,10 @@
 
 
 using System;
+
 using ASC.Notify.Model;
 using ASC.Web.Community.Product;
+
 using Action = ASC.Common.Security.Authorizing.Action;
 
 namespace ASC.Bookmarking.Common
@@ -35,7 +37,7 @@ namespace ASC.Bookmarking.Common
 
         #endregion
 
-        public const string BookmarkingActionPattern = "ASC.Web.Community.Bookmarking.Core.Patterns.action_pattern.xml";
+        public const string BookmarkingActionPattern = "ASC.Web.Community.Modules.Bookmarking.Core.Patterns.action_pattern.xml";
 
 
         public static INotifyAction NotifyActionNewBookmark = new NotifyAction(BookmarkCreatedID, "new-bookmark");

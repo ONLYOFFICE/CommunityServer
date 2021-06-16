@@ -4,7 +4,7 @@
     Inherits="ASC.Web.Community.Wiki.PageHistoryList" MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
 <%@ Import Namespace="ASC.Web.Community.Product" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Wiki.Resources" %>
 
 <asp:Content ContentPlaceHolderID="HeadContent" runat="Server">
 
@@ -17,9 +17,12 @@
     </script>
 
 </asp:Content>
-<asp:Content ContentPlaceHolderID="WikiContents" runat="Server">
+<asp:Content ContentPlaceHolderID="WikiTitleContent" runat="Server">
+    <div class="header-with-menu"><%=WikiResource.wikiHistoryCaption %></div>
     <%=WikiPageIn%>
     <a id="WikiPage" class="link underline gray" href="<%=WikiPageURL%>"><%=WikiPageTitle.HtmlEncode()%></a>
+</asp:Content>
+<asp:Content ContentPlaceHolderID="WikiContents" runat="Server">
     <div style="margin: 15px 0;">
 
     <asp:Repeater ID="rptPageHistory" runat="server">

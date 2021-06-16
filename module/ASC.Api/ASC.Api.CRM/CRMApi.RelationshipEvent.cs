@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.CRM.Wrappers;
@@ -35,6 +36,7 @@ using ASC.Specific;
 using ASC.Web.CRM.Services.NotifyService;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Utils;
+
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
 
 namespace ASC.Api.CRM
@@ -68,7 +70,8 @@ namespace ASC.Api.CRM
         {
             var entityTypeObj = ToEntityType(entityType);
 
-            switch (entityTypeObj) {
+            switch (entityTypeObj)
+            {
                 case EntityType.Contact:
                     var contact = DaoFactory.ContactDao.GetByID(entityId);
                     if (contact == null || !CRMSecurity.CanAccessTo(contact))
@@ -215,7 +218,7 @@ namespace ASC.Api.CRM
                 result = SaveFile(folderid, memStream, title);
             }
 
-            AttachFiles(entityType, entityid, new List<int> {(int)result.Id});
+            AttachFiles(entityType, entityid, new List<int> { (int)result.Id });
 
             return result;
         }
@@ -329,14 +332,16 @@ namespace ASC.Api.CRM
             var entityTypeObj = ToEntityType(entityType);
 
             var entityTitle = "";
-            if (contactId > 0) {
+            if (contactId > 0)
+            {
                 var contact = DaoFactory.ContactDao.GetByID(contactId);
                 if (contact == null || !CRMSecurity.CanAccessTo(contact))
                     throw new ArgumentException();
                 entityTitle = contact.GetTitle();
             }
 
-            if (entityTypeObj == EntityType.Case) {
+            if (entityTypeObj == EntityType.Case)
+            {
                 var cases = DaoFactory.CasesDao.GetByID(entityId);
                 if (cases == null || !CRMSecurity.CanAccessTo(cases))
                     throw new ArgumentException();
@@ -357,15 +362,15 @@ namespace ASC.Api.CRM
             }
 
             var relationshipEvent = new RelationshipEvent
-                {
-                    CategoryID = categoryId,
-                    EntityType = entityTypeObj,
-                    EntityID = entityId,
-                    Content = content,
-                    ContactID = contactId,
-                    CreateOn = created,
-                    CreateBy = Core.SecurityContext.CurrentAccount.ID
-                };
+            {
+                CategoryID = categoryId,
+                EntityType = entityTypeObj,
+                EntityID = entityId,
+                Content = content,
+                ContactID = contactId,
+                CreateOn = created,
+                CreateBy = Core.SecurityContext.CurrentAccount.ID
+            };
 
             var category = DaoFactory.ListItemDao.GetByID(categoryId);
             if (category == null) throw new ArgumentException();
@@ -508,7 +513,7 @@ namespace ASC.Api.CRM
             switch (entityTypeObj)
             {
                 case EntityType.Contact:
-                    return DaoFactory.RelationshipEventDao.GetAllFiles(new[] {entityid}, EntityType.Any, 0).ConvertAll(file => new FileWrapper(file));
+                    return DaoFactory.RelationshipEventDao.GetAllFiles(new[] { entityid }, EntityType.Any, 0).ConvertAll(file => new FileWrapper(file));
                 case EntityType.Opportunity:
                 case EntityType.Case:
                     return DaoFactory.RelationshipEventDao.GetAllFiles(null, entityTypeObj, entityid).ConvertAll(file => new FileWrapper(file));
@@ -613,11 +618,11 @@ namespace ASC.Api.CRM
                                           entityWrappers.Add(
                                               string.Format("{0}_{1}", (int)entityType, item.ID),
                                               new EntityWrapper
-                                                  {
-                                                      EntityId = item.ID,
-                                                      EntityTitle = item.Title,
-                                                      EntityType = "opportunity"
-                                                  });
+                                              {
+                                                  EntityId = item.ID,
+                                                  EntityTitle = item.Title,
+                                                  EntityType = "opportunity"
+                                              });
                                       });
                         break;
                     case EntityType.Case:
@@ -629,11 +634,11 @@ namespace ASC.Api.CRM
                                           entityWrappers.Add(
                                               string.Format("{0}_{1}", (int)entityType, item.ID),
                                               new EntityWrapper
-                                                  {
-                                                      EntityId = item.ID,
-                                                      EntityTitle = item.Title,
-                                                      EntityType = "case"
-                                                  });
+                                              {
+                                                  EntityId = item.ID,
+                                                  EntityTitle = item.Title,
+                                                  EntityType = "case"
+                                              });
                                       });
                         break;
                     default:
@@ -716,9 +721,9 @@ namespace ASC.Api.CRM
             if (entityID == 0) return null;
 
             var result = new EntityWrapper
-                {
-                    EntityId = entityID
-                };
+            {
+                EntityId = entityID
+            };
 
             switch (entityType)
             {

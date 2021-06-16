@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortsChecker.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PortsChecker" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <script id="portStatusTmpl" type="text/x-jquery-tmpl">
     {{if status == 0 }}

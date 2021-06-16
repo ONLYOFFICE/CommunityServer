@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Common.Security;
 
 #endregion
@@ -59,7 +60,7 @@ namespace ASC.CRM.Core.Entities
 
         [DataMember(Name = "bid_currency")]
         public string BidCurrency { get; set; }
-        
+
         [DataMember(Name = "per_period_value")]
         public int PerPeriodValue { get; set; }
 
@@ -79,10 +80,10 @@ namespace ASC.CRM.Core.Entities
                 return ActualCloseDate.Date == DateTime.MinValue.Date
                            ? string.Empty : ActualCloseDate.ToString(DateTimeExtension.DateFormatPattern);
             }
-            set { ; }
+            set {; }
         }
 
-        
+
         public DateTime ExpectedCloseDate { get; set; }
 
         [DataMember(Name = "expected_close_date")]
@@ -93,9 +94,9 @@ namespace ASC.CRM.Core.Entities
                 return ExpectedCloseDate.Date == DateTime.MinValue.Date
                            ? string.Empty : ExpectedCloseDate.ToString(DateTimeExtension.DateFormatPattern);
             }
-            set { ; }
+            set {; }
         }
-        
+
         public object SecurityId
         {
             get { return ID; }

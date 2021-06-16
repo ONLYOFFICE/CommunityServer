@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
 
   <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.AssemblyInfo" />
+  <UsingTask AssemblyFile="$(ASCDir)web\core\ASC.Web.Core.BuildTask\bin\$(Configuration)\ASC.Web.Core.BuildTask.dll" TaskName="ASC.Web.Core.BuildTask.ReplaceResources" />
 
   <PropertyGroup>
     <ASCDir>..\..\</ASCDir>
@@ -9,15 +10,32 @@
     <ConfigurationSites  Condition=" '$(ConfigurationSites)' == '' ">Debug</ConfigurationSites>
     <BuildTargets   Condition=" '$(BuildTargets)' == ''  ">Restore;Build</BuildTargets>
     <BuildTargets   Condition=" '$(BuildTargets)' == 'ReBuild'  ">Restore;ReBuild</BuildTargets>
-
+    <ReplaceResources Condition="$(ReplaceResources)==''">0</ReplaceResources>
     <DeploySites Condition="'$(DeploySites)' == ''">0</DeploySites>
   </PropertyGroup>
 
+  <Target Name="BuildTask">
+      <MSBuild
+		BuildInParallel="true"
+        Projects="$(ASCDir)web\core\ASC.Web.Core.sln"
+        Targets="Restore;Build"
+        Properties="Configuration=$(Configuration);AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants);Disable_CopyWebApplication=true"
+        StopOnFirstFailure="true"/>
+  </Target>
+  
+  <Target Name="ReplaceResources">
+	<CallTarget Targets="BuildTask" />
+    <ReplaceResources BaseFolder="$(ASCDir)" ResourceFile="$(ASCDir)build\sql\custom.resources.json" />
+  </Target>
+  
+  
   <Target Name="Build">
     <CreateItem Include="$(ASCDir)\build\msbuild\">
       <Output ItemName="AlToolPath" TaskParameter="Include"/>
     </CreateItem>
 
+	<CallTarget Targets="ReplaceResources" Condition=" '$(ReplaceResources)' == '1' "/>
+	
     <MSBuild
 		BuildInParallel="true"
         Projects="$(ASCDir)Studio.sln"
@@ -28,6 +46,7 @@
 
     <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.Socket.IO\" ContinueOnError="true"/>
     <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.Thumbnails\" ContinueOnError="true"/>
+    <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.SsoAuth\" ContinueOnError="true"/>
     <Exec Command="yarn install --frozen-lockfile" WorkingDirectory="$(ASCDir)module\ASC.UrlShortener\" ContinueOnError="true"/>
 
   </Target>

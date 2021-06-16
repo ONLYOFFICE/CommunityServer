@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using System.Runtime.Serialization;
 using System.Security;
 using System.Threading;
 using System.Web;
+
 using ASC.Common.Caching;
 using ASC.Common.Security.Authentication;
 using ASC.Core;
@@ -39,6 +40,7 @@ using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -119,7 +121,7 @@ namespace ASC.Web.Files.Utils
             var docKey = DocumentServiceHelper.GetDocKey(file);
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, file.ConvertedExtension, toExtension, docKey, null, null, null, false, out convertUri);
 
             if (WorkContext.IsMono && ServicePointManager.ServerCertificateValidationCallback == null)
             {
@@ -154,7 +156,7 @@ namespace ASC.Web.Files.Utils
 
             string convertUri;
             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, false, out convertUri);
+            DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, null, null, null, false, out convertUri);
 
             return SaveConvertedFile(file, convertUri);
         }
@@ -180,21 +182,21 @@ namespace ASC.Web.Files.Utils
                 }
 
                 var queueResult = new ConvertFileOperationResult
-                    {
-                        Source = String.Format("{{\"id\":\"{0}\", \"version\":\"{1}\"}}", file.ID, file.Version),
-                        OperationType = FileOperationType.Convert,
-                        Error = String.Empty,
-                        Progress = 0,
-                        Result = String.Empty,
-                        Processed = "",
-                        Id = String.Empty,
-                        TenantId = TenantProvider.CurrentTenantID,
-                        Account = SecurityContext.CurrentAccount,
-                        Delete = deleteAfter,
-                        StartDateTime = DateTime.Now,
-                        Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null,
-                        Password = password
-                    };
+                {
+                    Source = String.Format("{{\"id\":\"{0}\", \"version\":\"{1}\"}}", file.ID, file.Version),
+                    OperationType = FileOperationType.Convert,
+                    Error = String.Empty,
+                    Progress = 0,
+                    Result = String.Empty,
+                    Processed = "",
+                    Id = String.Empty,
+                    TenantId = TenantProvider.CurrentTenantID,
+                    Account = SecurityContext.CurrentAccount,
+                    Delete = deleteAfter,
+                    StartDateTime = DateTime.Now,
+                    Url = HttpContext.Current != null ? HttpContext.Current.Request.GetUrlRewriter().ToString() : null,
+                    Password = password
+                };
                 conversionQueue.Add(file, queueResult);
                 cache.Insert(GetKey(file), queueResult, TimeSpan.FromMinutes(10));
 
@@ -358,7 +360,7 @@ namespace ASC.Web.Files.Utils
                             var docKey = DocumentServiceHelper.GetDocKey(file);
 
                             fileUri = DocumentServiceConnector.ReplaceCommunityAdress(fileUri);
-                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, true, out convertedFileUrl);
+                            operationResultProgress = DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, docKey, password, null, null, true, out convertedFileUrl);
                         }
                         catch (Exception exception)
                         {
@@ -545,6 +547,7 @@ namespace ASC.Web.Files.Utils
                 newFile.Title = newFileTitle;
                 newFile.ConvertedType = null;
                 newFile.Comment = string.Format(FilesCommonResource.CommentConvert, file.Title);
+                newFile.ThumbnailStatus = Thumbnail.Waiting;
 
                 var req = (HttpWebRequest)WebRequest.Create(convertedFileUrl);
 

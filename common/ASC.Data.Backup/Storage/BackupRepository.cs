@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Tenants;
+
 using Newtonsoft.Json;
 
 namespace ASC.Data.Backup.Storage
@@ -49,7 +51,8 @@ namespace ASC.Data.Backup.Storage
                 .InColumnValue("storage_path", backupRecord.StoragePath)
                 .InColumnValue("created_on", backupRecord.CreatedOn)
                 .InColumnValue("expires_on", backupRecord.ExpiresOn)
-                .InColumnValue("storage_params", JsonConvert.SerializeObject(backupRecord.StorageParams));
+                .InColumnValue("storage_params", JsonConvert.SerializeObject(backupRecord.StorageParams))
+                .InColumnValue("hash", backupRecord.Hash);
 
             using (var db = GetDbManager())
             {
@@ -62,6 +65,19 @@ namespace ASC.Data.Backup.Storage
             var select = new SqlQuery("backup_backup")
                 .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params")
                 .Where("id", id);
+
+            using (var db = GetDbManager())
+            {
+                return db.ExecuteList(select).Select(ToBackupRecord).SingleOrDefault();
+            }
+        }
+
+        public BackupRecord GetBackupRecord(string hash, int tenant)
+        {
+            var select = new SqlQuery("backup_backup")
+                .Select("id", "tenant_id", "is_scheduled", "name", "storage_type", "storage_base_path", "storage_path", "created_on", "expires_on", "storage_params")
+                .Where("hash", hash)
+                .Where("tenant_id", tenant);
 
             using (var db = GetDbManager())
             {
@@ -174,32 +190,32 @@ namespace ASC.Data.Backup.Storage
         private static BackupRecord ToBackupRecord(object[] row)
         {
             return new BackupRecord
-                {
-                    Id = new Guid(Convert.ToString(row[0])),
-                    TenantId = Convert.ToInt32(row[1]),
-                    IsScheduled = Convert.ToBoolean(row[2]),
-                    FileName = Convert.ToString(row[3]),
-                    StorageType = (BackupStorageType)Convert.ToInt32(row[4]),
-                    StorageBasePath = Convert.ToString(row[5]),
-                    StoragePath = Convert.ToString(row[6]),
-                    CreatedOn = Convert.ToDateTime(row[7]),
-                    ExpiresOn = Convert.ToDateTime(row[8]),
-                    StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[9]))
-                };
+            {
+                Id = new Guid(Convert.ToString(row[0])),
+                TenantId = Convert.ToInt32(row[1]),
+                IsScheduled = Convert.ToBoolean(row[2]),
+                FileName = Convert.ToString(row[3]),
+                StorageType = (BackupStorageType)Convert.ToInt32(row[4]),
+                StorageBasePath = Convert.ToString(row[5]),
+                StoragePath = Convert.ToString(row[6]),
+                CreatedOn = Convert.ToDateTime(row[7]),
+                ExpiresOn = Convert.ToDateTime(row[8]),
+                StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[9]))
+            };
         }
 
         private static Schedule ToSchedule(object[] row)
         {
             return new Schedule(Convert.ToInt32(row[0]))
-                {
-                    BackupMail = Convert.ToBoolean(row[1]),
-                    Cron = Convert.ToString(row[2]),
-                    NumberOfBackupsStored = Convert.ToInt32(row[3]),
-                    StorageType = (BackupStorageType)Convert.ToInt32(row[4]),
-                    StorageBasePath = Convert.ToString(row[5]),
-                    LastBackupTime = Convert.ToDateTime(row[6]),
-                    StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[7]))
-                };
+            {
+                BackupMail = Convert.ToBoolean(row[1]),
+                Cron = Convert.ToString(row[2]),
+                NumberOfBackupsStored = Convert.ToInt32(row[3]),
+                StorageType = (BackupStorageType)Convert.ToInt32(row[4]),
+                StorageBasePath = Convert.ToString(row[5]),
+                LastBackupTime = Convert.ToDateTime(row[6]),
+                StorageParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(Convert.ToString(row[7]))
+            };
         }
 
         private IDbManager GetDbManager()

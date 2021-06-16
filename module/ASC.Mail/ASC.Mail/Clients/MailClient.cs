@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -131,11 +131,11 @@ namespace ASC.Mail.Clients
             {
                 Imap = new ImapClient(protocolLogger)
                 {
-                    ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                        certificatePermit ||
-                        MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                     Timeout = tcpTimeout
                 };
+
+                if (certificatePermit)
+                    Imap.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
 
                 Pop = null;
             }
@@ -143,11 +143,12 @@ namespace ASC.Mail.Clients
             {
                 Pop = new Pop3Client(protocolLogger)
                 {
-                    ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                        certificatePermit ||
-                        MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                     Timeout = tcpTimeout
                 };
+
+                if (certificatePermit)
+                    Pop.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+
                 Imap = null;
             }
 
@@ -164,21 +165,21 @@ namespace ASC.Mail.Clients
                     DeliveryStatusNotification.Failure |
                     DeliveryStatusNotification.Delay)
                 {
-                    ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                        certificatePermit ||
-                        MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                     Timeout = tcpTimeout
                 };
+
+                if (certificatePermit)
+                    Smtp.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
             }
             else
             {
                 Smtp = new SmtpClient(protocolLogger)
                 {
-                    ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                        certificatePermit ||
-                        MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                     Timeout = tcpTimeout
                 };
+
+                if (certificatePermit)
+                    Smtp.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
             }
         }
 

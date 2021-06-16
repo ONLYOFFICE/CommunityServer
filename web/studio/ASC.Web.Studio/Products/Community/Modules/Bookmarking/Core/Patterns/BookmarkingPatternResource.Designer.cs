@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Bookmarking.Core.Patterns {
+namespace ASC.Web.Community.Modules.Bookmarking.Core.Patterns {
     using System;
     
     
@@ -67,7 +67,9 @@ namespace ASC.Web.Community.Bookmarking.Core.Patterns {
         ///
         ///$CommentBody
         ///
-        ///&quot;Read More&quot;:&quot;$BookmarkUrl&quot;.
+        ///&quot;Read More&quot;:&quot;$BookmarkUrl&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new comments added to this bookmark, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
         /// </summary>
         public static string pattern_BookmarkCommentCreatedID {
             get {
@@ -80,7 +82,9 @@ namespace ASC.Web.Community.Bookmarking.Core.Patterns {
         ///
         ///$Date &quot;$__AuthorName&quot;:&quot;$__AuthorUrl&quot; has added a new bookmark:&quot;$BookmarkTitle&quot;:&quot;$BookmarkUrl&quot;
         ///
-        ///$BookmarkDescription.
+        ///$BookmarkDescription
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new bookmarks added, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
         /// </summary>
         public static string pattern_BookmarkCreatedID {
             get {

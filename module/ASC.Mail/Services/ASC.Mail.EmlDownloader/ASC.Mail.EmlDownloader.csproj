@@ -84,10 +84,10 @@
       <Version>2.0.8</Version>
     </PackageReference>
     <PackageReference Include="MailKit">
-      <Version>2.5.2</Version>
+      <Version>2.11.1</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.19</Version>
+      <Version>8.0.23</Version>
     </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.0</Version>

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FullTextSearch.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.FullTextSearch" %>
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="settingsContainer" class="clearFix">
     <div class="settings-block">

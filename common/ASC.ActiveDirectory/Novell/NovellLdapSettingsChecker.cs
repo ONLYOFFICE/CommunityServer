@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,15 @@
 
 
 using System;
-using System.Security;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security;
+
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.Novell.Exceptions;
+
 using Novell.Directory.Ldap.Rfc2251;
 
 namespace ASC.ActiveDirectory.Novell
@@ -31,7 +33,8 @@ namespace ASC.ActiveDirectory.Novell
     {
         public LdapCertificateConfirmRequest CertificateConfirmRequest { get; set; }
 
-        public LdapHelper LdapHelper {
+        public LdapHelper LdapHelper
+        {
             get { return LdapImporter.LdapHelper; }
         }
 

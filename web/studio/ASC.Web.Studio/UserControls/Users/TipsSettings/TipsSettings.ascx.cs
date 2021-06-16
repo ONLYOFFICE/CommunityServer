@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,6 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.UserControls.Users.TipsSettings
 {

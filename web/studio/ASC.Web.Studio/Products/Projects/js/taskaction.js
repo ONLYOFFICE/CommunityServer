@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ ASC.Projects.TaskAction = (function () {
         master = baseObject.Master,
         resources = baseObject.Resources,
         projectsJSResource = resources.ProjectsJSResource,
-        noneMilestone = { id: 0, title: resources.TasksResource.None, deadline: "" },
+        noneMilestone = { id: 0, title: resources.TaskResource.None, deadline: "" },
         common = baseObject.Common,
         loadingBanner = LoadingBanner,
         studioBlockUIManager = StudioBlockUIManager,
@@ -449,8 +449,8 @@ ASC.Projects.TaskAction = (function () {
             onechosen: true,
             inPopup: true,
             sortMethod: common.milestoneSort,
-            noresults: ASC.Resources.Master.Resource.MilestoneSelectorNoResult,
-            noitems: ASC.Resources.Master.Resource.MilestoneSelectorNoItems
+            noresults: ASC.Resources.Master.ResourceJS.MilestoneSelectorNoResult,
+            noitems: ASC.Resources.Master.ResourceJS.MilestoneSelectorNoItems
         };
 
         $taskMilestoneSelector.projectadvancedSelector(selectorObj);
@@ -712,7 +712,7 @@ ASC.Projects.TaskAction = (function () {
         //buttons and title
         var saveButton = $taskPopup.find('#saveTaskAction');
         var createNewButton = jq("#createTaskAndCreateNew");
-        var commonResource = resources.CommonResource;
+        var ProjectsCommonResource = resources.ProjectsCommonResource;
 
         if (updateTaskFlag === updateTaskFlagEnum.update) {
             createNewButton.hide();
@@ -720,7 +720,7 @@ ASC.Projects.TaskAction = (function () {
 
             $copyContainer.hide();
 
-            saveButton.html(commonResource.SaveChanges);
+            saveButton.html(ProjectsCommonResource.SaveChanges);
             $taskPopup.find('.containerHeaderBlock table td:first').html(projectsJSResource.EditThisTask);
         } else if (updateTaskFlag === updateTaskFlagEnum.add) {
             createNewButton.show();
@@ -728,10 +728,10 @@ ASC.Projects.TaskAction = (function () {
 
             $copyContainer.hide();
 
-            saveButton.html(commonResource.Save);
+            saveButton.html(ProjectsCommonResource.Save);
             $taskPopup.find('.containerHeaderBlock table td:first').html(projectsJSResource.CreateNewTask);
         } else if (updateTaskFlag === updateTaskFlagEnum.copy) {
-            createNewButton.html(commonResource.Replace);
+            createNewButton.html(ProjectsCommonResource.Replace);
             createNewButton.show();
             createNewButton.siblings(".splitter-buttons").show();
 
@@ -739,8 +739,8 @@ ASC.Projects.TaskAction = (function () {
             $copyFilesCheckbox.prop("checked", false);
             $copyContainer.show();
 
-            saveButton.html(commonResource.Copy);
-            $taskPopup.find('.containerHeaderBlock table td:first').html(resources.TasksResource.CopyTaskHeader);
+            saveButton.html(ProjectsCommonResource.Copy);
+            $taskPopup.find('.containerHeaderBlock table td:first').html(resources.TaskResource.CopyTaskHeader);
         }
 
         if (firstLoadFlag) {
@@ -800,7 +800,7 @@ ASC.Projects.TaskAction = (function () {
 
     function show(task, updateTaskFlagVal) {
         if (!isInitData) {
-            var tasksResource = resources.TasksResource;
+            var TaskResource = resources.TaskResource;
 
             jq("#addTaskPanel")
                 .html(jq.tmpl("common_containerTmpl",
@@ -811,19 +811,19 @@ ASC.Projects.TaskAction = (function () {
                         IsPopup: true
                     },
                     header: {
-                        data: { title: tasksResource.AddTask },
+                        data: { title: TaskResource.AddTask },
                         title: "projects_common_popup_header"
                     },
                     body: {
                         title: "projects_task_action",
                         data: {
                             title: {
-                                error: tasksResource.EachTaskMustHaveTitle,
-                                header: tasksResource.TaskTitle
+                                error: TaskResource.EachTaskMustHaveTitle,
+                                header: TaskResource.TaskTitle
                             },
-                            description: tasksResource.TaskDescription,
+                            description: TaskResource.TaskDescription,
                             project: {
-                                error: tasksResource.ChooseProject,
+                                error: TaskResource.ChooseProject,
                                 header: resources.ProjectResource.Project
                             }
                         }

@@ -4,10 +4,21 @@
 <%@ Master Language="C#" AutoEventWireup="true" MasterPageFile="~/Masters/BaseTemplate.master" CodeBehind="BasicTemplate.master.cs" Inherits="ASC.Web.Projects.Masters.BasicTemplate" %>
 
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 
 <asp:Content ContentPlaceHolderID="HeaderContent" runat="server">
     <asp:ContentPlaceHolder ID="BTHeaderContent" runat="server" />
+    <% if (!CoreContext.Configuration.CustomMode)
+       { %>
+    <% var uri = new UriBuilder(Request.GetUrlRewriter())
+       {
+           Path = "",
+           Query = "email=" + HttpUtility.UrlEncode(CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).Email),
+       };
+    %>
+    <meta name="apple-itunes-app" content="app-id=1353395928, app-argument=<%= HttpUtility.HtmlEncode(uri) %>" />
+    <% } %>
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="CreateButtonContent" runat="server">

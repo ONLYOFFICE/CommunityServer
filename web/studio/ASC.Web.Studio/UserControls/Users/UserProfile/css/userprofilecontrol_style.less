@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -346,11 +346,11 @@ body.media-width-0-1200 {
             color: #787878;
             display: block;
             margin: 8px 0 0;
-
             white-space: normal;
             word-wrap: break-word;
             -ms-word-wrap: break-word;
         }
+
         &.connected span {
             color: #116d9d;
         }
@@ -363,6 +363,11 @@ body.media-width-0-1200 {
             text-decoration: none;
         }
 
+        .disable {
+            border-bottom: 1px dotted #787878;
+            color: #787878;
+        }
+
         .icon {
             background-color: transparent;
             background-position: 0 0;
@@ -372,6 +377,11 @@ body.media-width-0-1200 {
             width: 105px;
             .borderRadius(3px);
         }
+
+        .opacity{
+            opacity:0.5;
+        }
+
         &.google .icon {
             background-image: url("../../../../skins/default/images/svg/people/google.png");
         }
@@ -413,7 +423,6 @@ body.media-width-0-1200 {
         }
     }
 }
-
 
 /* language */
 #LanguageSelector {
@@ -495,4 +504,8 @@ a {
         margin: 20px 0;
         font-size: 18px;
     }
+}
+
+.settings-help-block {
+    float: none;
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Core.Users;
 
 namespace ASC.Core
@@ -26,6 +27,8 @@ namespace ASC.Core
         IDictionary<Guid, UserInfo> GetUsers(int tenant, DateTime from);
 
         UserInfo GetUser(int tenant, Guid id);
+
+        UserInfo GetUser(int tenant, string email);
 
         UserInfo GetUserByPasswordHash(int tenant, string login, string passwordHash);
 

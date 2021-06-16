@@ -68,11 +68,6 @@
     <Compile Include="Models\ServiceStatus.cs" />
     <Compile Include="Models\XplatServiceController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\HealthCheckResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HealthCheckResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,10 +102,51 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\HealthCheckResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\HealthCheckResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HealthCheckResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\HealthCheckResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\HealthCheckResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\HealthCheckResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>HealthCheckResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -52,13 +53,13 @@ namespace ASC.Web.Mail.Configuration
                             var user_id = new Guid(Convert.ToString(r[0]));
                             var user = CoreContext.UserManager.GetUsers(user_id);
                             var item = new UsageSpaceStatItem
-                                {
-                                    Name = DisplayUserSettings.GetFullUserName(user, false),
-                                    ImgUrl = UserPhotoManager.GetSmallPhotoURL(user.ID),
-                                    Url = CommonLinkUtility.GetUserProfile(user.ID),
-                                    SpaceUsage = Convert.ToInt64(r[1]),
-                                    Disabled = user.Status == EmployeeStatus.Terminated
-                                };
+                            {
+                                Name = DisplayUserSettings.GetFullUserName(user, false),
+                                ImgUrl = UserPhotoManager.GetSmallPhotoURL(user.ID),
+                                Url = CommonLinkUtility.GetUserProfile(user.ID),
+                                SpaceUsage = Convert.ToInt64(r[1]),
+                                Disabled = user.Status == EmployeeStatus.Terminated
+                            };
                             return item;
                         })
                     .ToList();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -127,7 +127,7 @@ namespace ASC.Projects.Data.DAO
             Exp commentsWhere;
 
             List<int> commentIds;
-            if (FactoryIndexer<CommentsWrapper>.TrySelectIds(s => s.MatchAll(text).Where(r=> r.InActive, false), out commentIds))
+            if (FactoryIndexer<CommentsWrapper>.TrySelectIds(s => s.MatchAll(text).Where(r => r.InActive, false), out commentIds))
             {
                 commentsWhere = Exp.In("comment_id", commentIds);
             }
@@ -176,7 +176,7 @@ namespace ASC.Projects.Data.DAO
 
         private static IEnumerable<string> GetKeywords(string text)
         {
-            return text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+            return text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Where(k => 3 <= k.Trim().Length)
                 .ToArray();
 

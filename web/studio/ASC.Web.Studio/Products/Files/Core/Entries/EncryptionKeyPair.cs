@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -27,6 +28,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json;
 
 namespace ASC.Web.Files.Core.Entries
@@ -52,7 +54,8 @@ namespace ASC.Web.Files.Core.Entries
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
             if (!SecurityContext.IsAuthenticated || user.IsVisitor()) throw new System.Security.SecurityException();
 
-            var keyPair = new EncryptionKeyPair {
+            var keyPair = new EncryptionKeyPair
+            {
                 PrivateKeyEnc = privateKeyEnc,
                 PublicKey = publicKey,
                 UserId = user.ID,
@@ -93,7 +96,7 @@ namespace ASC.Web.Files.Core.Entries
                 {
                     var fileKeyPairString = EncryptionLoginProvider.GetKeys(share.SubjectId);
                     if (string.IsNullOrEmpty(fileKeyPairString)) return null;
-                    
+
                     var fileKeyPair = JsonConvert.DeserializeObject<EncryptionKeyPair>(fileKeyPairString);
                     if (fileKeyPair.UserId != share.SubjectId) return null;
 

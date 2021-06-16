@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
 using ASC.Common.Caching;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -88,6 +89,11 @@ namespace ASC.Core.Caching
                 users.TryGetValue(id, out u);
                 return u;
             }
+        }
+
+        public UserInfo GetUser(int tenant, string email)
+        {
+            return service.GetUser(tenant, email);
         }
 
         /// <summary>
@@ -198,6 +204,11 @@ namespace ASC.Core.Caching
 
         public IDictionary<string, UserGroupRef> GetUserGroupRefs(int tenant, DateTime from)
         {
+            if (CoreContext.Configuration.Personal)
+            {
+                return new Dictionary<string, UserGroupRef>();
+            }
+
             GetChangesFromDb();
 
             var key = GetRefCacheKey(tenant);

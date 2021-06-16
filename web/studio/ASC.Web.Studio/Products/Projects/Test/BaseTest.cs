@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@
 
 using ASC.Web.Core;
 using ASC.Web.Projects.Core;
+
 using Autofac;
+
 using NUnit.Framework;
 
 namespace ASC.Web.Projects.Test
@@ -25,6 +27,7 @@ namespace ASC.Web.Projects.Test
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using ASC.Core;
     using ASC.Projects.Core.Domain;
     using ASC.Projects.Engine;

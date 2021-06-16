@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -26,6 +25,7 @@ using ASC.Files.Core;
 using ASC.Web.Files.Api;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -80,11 +80,11 @@ namespace ASC.Projects.Engine
             //requet long operation
             try
             {
-                Global.FileStorageService.DeleteItems("delete", new ItemList<string> {"folder_" + folderId}, true);
+                Global.FileStorageService.DeleteItems("delete", new ItemList<string> { "folder_" + folderId }, true);
             }
             catch (Exception)
             {
-                
+
             }
         }
 

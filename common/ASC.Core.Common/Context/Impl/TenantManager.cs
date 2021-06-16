@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
 */
 
 
-using ASC.Core.Billing;
-using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +22,9 @@ using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Web;
+
+using ASC.Core.Billing;
+using ASC.Core.Tenants;
 
 
 namespace ASC.Core
@@ -202,20 +203,28 @@ namespace ASC.Core
 
         public TenantQuota GetTenantQuota(int tenant)
         {
-            // если в tenants_quota есть строка, с данным идентификатором портала, то в качестве квоты берется именно она
-            var q = quotaService.GetTenantQuota(tenant) ?? quotaService.GetTenantQuota(Tenant.DEFAULT_TENANT) ?? TenantQuota.Default;
-            if (q.Id != tenant && tariffService != null)
+            var defaultQuota = quotaService.GetTenantQuota(tenant) ?? quotaService.GetTenantQuota(Tenant.DEFAULT_TENANT) ?? TenantQuota.Default;
+            if (defaultQuota.Id != tenant && tariffService != null)
             {
-                var tariffQuota = quotaService.GetTenantQuota(tariffService.GetTariff(tenant).QuotaId);
-                if (tariffQuota != null)
+                var tariff = tariffService.GetTariff(tenant);
+                var currentQuota = quotaService.GetTenantQuota(tariff.QuotaId);
+                if (currentQuota != null)
                 {
-                    return tariffQuota;
+                    currentQuota = (TenantQuota)currentQuota.Clone();
+
+                    if (currentQuota.ActiveUsers == -1)
+                    {
+                        currentQuota.ActiveUsers = tariff.Quantity;
+                        currentQuota.MaxTotalSize *= currentQuota.ActiveUsers;
+                    }
+
+                    return currentQuota;
                 }
             }
-            return q;
+            return defaultQuota;
         }
 
-        public IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo(bool all = true)
+        public IDictionary<string, Dictionary<string, decimal>> GetProductPriceInfo(bool all = true)
         {
             var productIds = GetTenantQuotas(all)
                 .Select(p => p.AvangateId)
@@ -236,9 +245,9 @@ namespace ASC.Core
             quotaService.SetTenantQuotaRow(row, exchange);
         }
 
-        public List<TenantQuotaRow> FindTenantQuotaRows(TenantQuotaRowQuery query)
+        public List<TenantQuotaRow> FindTenantQuotaRows(int tenantId)
         {
-            return quotaService.FindTenantQuotaRows(query).ToList();
+            return quotaService.FindTenantQuotaRows(tenantId).ToList();
         }
     }
 }

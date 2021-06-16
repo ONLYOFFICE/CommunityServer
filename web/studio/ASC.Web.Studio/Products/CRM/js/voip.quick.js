@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,20 +124,20 @@ ASC.CRM.Voip.QuickView = (function ($) {
         $existingNumbersEmptyBox = $view.find('#existing-numbers-empty-box');
         $existingNumbersList = $view.find('#existing-numbers-list');
 
-        var resource = ASC.CRM.Resources.CRMVoipResource;
+        var CRMVoipResource = ASC.CRM.Resources.CRMVoipResource;
         var describe = [
-            Encoder.htmlEncode(resource.EmptyScreenNumberDescription1),
+            Encoder.htmlEncode(CRMVoipResource.EmptyScreenNumberDescription1),
             "<br/><br/>",
-            Encoder.htmlEncode(resource.EmptyScreenNumberDescription2)
+            Encoder.htmlEncode(CRMVoipResource.EmptyScreenNumberDescription2)
         ].join('');
 
         $existingNumbersEmptyBox.append(jq.tmpl("template-emptyScreen",
         {
             ID: "phones-empty-screen",
             ImgSrc: ASC.CRM.Data.EmptyScrImgs["empty_screen_phones"],
-            Header: resource.EmptyScreenNumberHeader,
+            Header: CRMVoipResource.EmptyScreenNumberHeader,
             Describe: describe,
-            ButtonHTML: jq.format("<a class='link dotline plus' id=\"empty-buy-phone-btn\">{0}</a><br/><a class='link dotline plus' id=\"empty-link-phone-btn\">{1}</a>", resource.BuyNumberBtn, resource.LinkNumberBtn)
+            ButtonHTML: jq.format("<a class='link dotline plus' id=\"empty-buy-phone-btn\">{0}</a><br/><a class='link dotline plus' id=\"empty-link-phone-btn\">{1}</a>", CRMVoipResource.BuyNumberBtn, CRMVoipResource.LinkNumberBtn)
         }));
 
         $emptyBuyPhoneBtn = $view.find('#empty-buy-phone-btn');
@@ -758,7 +758,7 @@ ASC.CRM.Voip.QuickView = (function ($) {
 
                 $cancelBuyPhoneBtn.removeClass('disable');
                 $.unblockUI();
-                toastr.success(ASC.Resources.Master.Resource.BuyNumberSuccessMsg);
+                toastr.success(ASC.Resources.Master.ResourceJS.BuyNumberSuccessMsg);
             },
             error: function() {
                 $cancelBuyPhoneBtn.removeClass('disable');
@@ -852,11 +852,11 @@ ASC.CRM.Voip.QuickView = (function ($) {
     };
 
     function showSuccessOpearationMessage() {
-        toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
+        toastr.success(ASC.Resources.Master.ResourceJS.ChangesSuccessfullyAppliedMsg);
     };
 
     function showErrorMessage() {
-        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+        toastr.error(ASC.Resources.Master.ResourceJS.CommonJSErrorMsg);
     }
 
     //#endregion

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
 */
 
 
+using ASC.Web.Studio.PublicResources;
+
 namespace ASC.Web.Studio.Utility
 {
     public static class TransferResourceHelper
@@ -25,10 +27,10 @@ namespace ASC.Web.Studio.Utility
 
             switch (region)
             {
-                case "eu": return Resources.Resource.EuServerRegion;
-                case "us": return Resources.Resource.UsServerRegion;
-                case "sg": return Resources.Resource.SgServerRegion;
-                case "org": return Resources.Resource.OrgServerRegion;
+                case "eu": return Resource.EuServerRegion;
+                case "us": return Resource.UsServerRegion;
+                case "sg": return Resource.SgServerRegion;
+                case "org": return Resource.OrgServerRegion;
             }
 
             return string.Empty;

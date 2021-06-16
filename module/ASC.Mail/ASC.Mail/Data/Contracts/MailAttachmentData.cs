@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization;
+
 using AjaxPro;
 
 namespace ASC.Mail.Data.Contracts
 {
     [DataContract(Name = "attachment", Namespace = "")]
-    public class MailAttachmentData: ICloneable
+    public class MailAttachmentData : ICloneable
     {
         private string _contentId;
         public MailAttachmentData()
@@ -45,10 +46,10 @@ namespace ASC.Mail.Data.Contracts
 
         [DataMember(Name = "fileName", EmitDefaultValue = false)]
         public string fileName { get; set; }
-        
+
         [DataMember(Name = "size", EmitDefaultValue = false)]
         public long size { get; set; }
-        
+
         [DataMember(Name = "contentType", EmitDefaultValue = false)]
         public string contentType { get; set; }
 
@@ -56,14 +57,15 @@ namespace ASC.Mail.Data.Contracts
         public bool needSaveToTemp { get; set; }
 
         [DataMember(Name = "contentId", EmitDefaultValue = false)]
-        public string contentId {
+        public string contentId
+        {
             get { return string.IsNullOrEmpty(_contentId) ? null : _contentId; }
             set { _contentId = value; }
         }
-        
+
         [DataMember(Name = "fileNumber", EmitDefaultValue = false)]
         public int fileNumber { get; set; }
-        
+
         [DataMember(Name = "storedName", EmitDefaultValue = false)]
         public string storedName { get; set; }
 
@@ -78,14 +80,15 @@ namespace ASC.Mail.Data.Contracts
 
         [IgnoreDataMember]
         [AjaxNonSerializable]
-        public bool isTemp {
+        public bool isTemp
+        {
             get { return !string.IsNullOrEmpty(tempStoredUrl); }
         }
 
         [IgnoreDataMember]
         [AjaxNonSerializable]
         public string storedFileUrl { get; set; }
-        
+
         [IgnoreDataMember]
         [AjaxNonSerializable]
         public byte[] data { get; set; }
@@ -104,7 +107,8 @@ namespace ASC.Mail.Data.Contracts
 
         [IgnoreDataMember]
         [AjaxNonSerializable]
-        public bool isEmbedded {
+        public bool isEmbedded
+        {
             get { return !string.IsNullOrEmpty(contentId) || !string.IsNullOrEmpty(contentLocation); }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,16 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json;
+
 using CommandMethod = ASC.Web.Core.Files.DocumentService.CommandMethod;
 
 namespace ASC.Web.Files.Services.DocumentService
@@ -44,6 +47,8 @@ namespace ASC.Web.Files.Services.DocumentService
                                           string toExtension,
                                           string documentRevisionId,
                                           string password,
+                                          Web.Core.Files.DocumentService.ThumbnailData thumbnail,
+                                          Web.Core.Files.DocumentService.SpreadsheetLayout spreadsheetLayout,
                                           bool isAsync,
                                           out string convertedDocumentUri)
         {
@@ -57,6 +62,8 @@ namespace ASC.Web.Files.Services.DocumentService
                     toExtension,
                     GenerateRevisionId(documentRevisionId),
                     password,
+                    thumbnail,
+                    spreadsheetLayout,
                     isAsync,
                     FileUtility.SignatureSecret,
                     out convertedDocumentUri);
@@ -199,7 +206,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     var fileUri = ReplaceCommunityAdress(url);
 
                     var key = GenerateRevisionId(Guid.NewGuid().ToString());
-                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, null, false, FileUtility.SignatureSecret, out convertedFileUri);
+                    Web.Core.Files.DocumentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, fileUri, fileExtension, toExtension, key, null, null, null, false, FileUtility.SignatureSecret, out convertedFileUri);
                 }
                 catch (Exception ex)
                 {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,16 @@
 using System;
 using System.Web;
 using System.Web.Hosting;
+
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Web.UserControls.Wiki.Resources;
 
 namespace ASC.Web.Community.Wiki.Common
 {

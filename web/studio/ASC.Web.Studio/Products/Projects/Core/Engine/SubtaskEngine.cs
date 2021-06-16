@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ namespace ASC.Projects.Engine
     {
         public IDaoFactory DaoFactory { get; set; }
 
-        public SubtaskEngine(bool disableNotifications): base(NotifyConstants.Event_NewCommentForTask, disableNotifications)
+        public SubtaskEngine(bool disableNotifications) : base(NotifyConstants.Event_NewCommentForTask, disableNotifications)
         {
         }
 
@@ -60,7 +60,7 @@ namespace ASC.Projects.Engine
             var tasks = DaoFactory.TaskDao.GetById(ids);
             foreach (var task in tasks)
             {
-                task.SubTasks.AddRange(subtasks.FindAll(r=> r.Task == task.ID));
+                task.SubTasks.AddRange(subtasks.FindAll(r => r.Task == task.ID));
             }
             return tasks;
         }
@@ -93,7 +93,7 @@ namespace ASC.Projects.Engine
             if (subtask.Status == newStatus) return subtask;
 
             ProjectSecurity.DemandEdit(task, subtask);
-           
+
             subtask.Status = newStatus;
             subtask.LastModifiedBy = SecurityContext.CurrentAccount.ID;
             subtask.LastModifiedOn = TenantUtil.DateTimeNow();

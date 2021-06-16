@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmTfa.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TfaActivation" %>
 <%@ Import Namespace="Google.Authenticator" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="tfa-panel">
     <div id="errorTfaActivate" class="errorBox" style="display: none;"></div>

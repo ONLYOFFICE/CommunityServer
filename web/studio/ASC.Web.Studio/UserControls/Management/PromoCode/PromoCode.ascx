@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PromoCode.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PromoCode" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix">
     <div id="promoCodeSettings" class="settings-block">

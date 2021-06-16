@@ -37,6 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.pasteFromWordRemoveFontStyles = false;
     config.image_previewText = ' ';
     config.disableNativeSpellChecker = false;
+    config.browserContextMenuOnCtrl = true;
 
     //--------toolbar settings
     this.getBaseConfig = function() {
@@ -180,5 +181,4 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.font_defaultLabel = 'Open Sans';
     config.fontSize_defaultLabel = '12';
-
 };

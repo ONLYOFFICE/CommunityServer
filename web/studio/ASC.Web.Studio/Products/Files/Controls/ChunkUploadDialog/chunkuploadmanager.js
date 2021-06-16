@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ window.ASC.Files.ChunkUploads = (function () {
 
         window.onbeforeunload = function () {
             if (ASC.Files.ChunkUploads.uploaderBusy) {
-                return (ASC.Files.FilesJSResources.ConfirmLeavePage || "Are you sure you want to leave the current page. Downloading files will be interrupted.");
+                return (ASC.Files.FilesJSResource.ConfirmLeavePage || "Are you sure you want to leave the current page. Downloading files will be interrupted.");
             }
         };
     };
@@ -86,7 +86,7 @@ window.ASC.Files.ChunkUploads = (function () {
     };
 
     var getUploadSession = function (file) {
-        var urlFormat = jq.format("{0}files/{1}/upload/create_session.json", ASC.Resources.Master.ApiPath, file.fid);
+        var uploadUrl = jq.format("{0}files/{1}/upload/create_session.json", ASC.Resources.Master.ApiPath, file.fid);
         var initResponse = null;
 
         jq.ajax({
@@ -97,7 +97,7 @@ window.ASC.Files.ChunkUploads = (function () {
                 relativePath: (file.relativePath || ""),
                 encrypted: file.encrypted
             },
-            url: jq.format(urlFormat, file.fid),
+            url: uploadUrl,
             async: false,
             success: function (data) {
                 initResponse = data.response;
@@ -147,6 +147,11 @@ window.ASC.Files.ChunkUploads = (function () {
 
             if (ASC.Files.Folders.folderContainer == "privacy"
                 && ASC.Desktop && ASC.Desktop.encryptionUploadDialog) {
+
+                if (chunkUploader.length && jq.isEmptyObject(chunkUploader.data())) {
+                    initFileuploadInput(false);
+                }
+
                 ASC.Desktop.encryptionUploadDialog(uploadEncryptedFile);
             } else {
                 jq("#" + id).click();
@@ -163,17 +168,7 @@ window.ASC.Files.ChunkUploads = (function () {
         });
     };
 
-    var activateUploader = function () {
-        changeQuotaText();
-
-        if (!jq("#buttonUpload").hasClass("not-ready") && !jq("#buttonFolderUpload").hasClass("not-ready")) {
-            return;
-        }
-
-        successfullyUploadedFiles = 0;
-
-        createFileuploadInput();
-
+    var initFileuploadInput = function (setBindings) {
         chunkUploader = jq("#fileupload").fileupload({
             url: null,
             autoUpload: false,
@@ -182,6 +177,8 @@ window.ASC.Files.ChunkUploads = (function () {
             maxChunkSize: ASC.Files.Constants.CHUNK_UPLOAD_SIZE,
             progressInterval: 1000
         });
+
+        if (!setBindings) return;
 
         chunkUploader
             .bind("fileuploadadd", onUploadAdd)
@@ -196,6 +193,20 @@ window.ASC.Files.ChunkUploads = (function () {
             .bind("fileuploadstart", onUploadStart)
             .bind("fileuploadstop", onUploadStop)
             .bind("fileuploaddrop", onUploadDrop);
+    };
+
+    var activateUploader = function () {
+        changeQuotaText();
+
+        if (!jq("#buttonUpload").hasClass("not-ready") && !jq("#buttonFolderUpload").hasClass("not-ready")) {
+            return;
+        }
+
+        successfullyUploadedFiles = 0;
+
+        createFileuploadInput();
+
+        initFileuploadInput(true);
 
         if (dragDropEnabled(true)) {
             jq(dropElement)
@@ -213,7 +224,7 @@ window.ASC.Files.ChunkUploads = (function () {
 
     //uploader custom events
     var onUploadStart = function () {
-        changeHeaderText(ASC.Files.FilesJSResources.Uploading);
+        changeHeaderText(ASC.Files.FilesJSResource.Uploading);
         showUploadDialod();
         ASC.Files.ChunkUploads.uploaderBusy = true;
         jq("#abortUploadigBtn").show();
@@ -221,11 +232,11 @@ window.ASC.Files.ChunkUploads = (function () {
 
     var onUploadStop = function () {
         if (successfullyUploadedFiles) {
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoUploadedSuccess.format(successfullyUploadedFiles));
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoUploadedSuccess.format(successfullyUploadedFiles));
         }
 
         ASC.Files.ChunkUploads.initTenantQuota();
-        changeHeaderText(ASC.Files.FilesJSResources.UploadComplete);
+        changeHeaderText(ASC.Files.FilesJSResource.UploadComplete);
         ASC.Files.ChunkUploads.uploaderBusy = false;
         jq("#abortUploadigBtn").hide();
 
@@ -333,7 +344,7 @@ window.ASC.Files.ChunkUploads = (function () {
             file.percent = parseInt(data.loaded / data.total * 100, 10);
             file.loaded = data.loaded;
 
-            if (file.actionText == ASC.Files.FilesJSResources.FileUploading) {
+            if (file.actionText == ASC.Files.FilesJSResource.FileUploading) {
                 updateFileRow(file);
                 changeHeaderText(null, data.session);
             }
@@ -409,8 +420,6 @@ window.ASC.Files.ChunkUploads = (function () {
                 updateFileRow(file);
             }
 
-            //track event
-            trackingGoogleAnalytics("documents", "upload", "file");
         } else {
             file.status = uploadStatus.FAILED;
             var error = fixErrorMessage(session.message);
@@ -497,7 +506,7 @@ window.ASC.Files.ChunkUploads = (function () {
         var errorMessage;
 
         if (ASC.Files.Constants.UPLOAD_FILTER && jq.inArray(posExt, ASC.Files.Utility.Resource.ExtsUploadable) == -1) {
-            errorMessage = ASC.Files.FilesJSResources.ErrorMassage_NotSupportedFormat;
+            errorMessage = ASC.Files.FilesJSResource.ErrorMassage_NotSupportedFormat;
             ASC.Files.UI.displayInfoPanel(errorMessage, true);
             return errorMessage;
         }
@@ -505,7 +514,7 @@ window.ASC.Files.ChunkUploads = (function () {
         var sizeF = file.size;
 
         if (sizeF <= 0) {
-            errorMessage = ASC.Files.FilesJSResources.ErrorMassage_EmptyFile;
+            errorMessage = ASC.Files.FilesJSResource.ErrorMassage_EmptyFile;
             ASC.Files.UI.displayInfoPanel(errorMessage, true);
             return errorMessage;
         }
@@ -518,7 +527,7 @@ window.ASC.Files.ChunkUploads = (function () {
             var visibleModals = jq(".popup-modal:visible").length != 0;
 
             if (ASC.Resources.Master.Personal && ASC.Files.ChunkUploads.tenantQuota.userStorageSize && ASC.Files.ChunkUploads.tenantQuota.userAvailableSize < sizeF) {
-                errorMessage = jq.format(ASC.Files.FilesJSResources.ErrorMassage_StorageSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.userAvailableSize));
+                errorMessage = jq.format(ASC.Files.FilesJSResource.ErrorMassage_StorageSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.userAvailableSize));
                 if (visibleModals || !ASC.Files.UI.displayPersonalLimitStorageExceed()) {
                     ASC.Files.UI.displayInfoPanel(errorMessage, true);
                 }
@@ -526,7 +535,7 @@ window.ASC.Files.ChunkUploads = (function () {
             }
 
             if (ASC.Files.ChunkUploads.tenantQuota.availableSize < sizeF) {
-                errorMessage = jq.format(ASC.Files.FilesJSResources.ErrorMassage_StorageSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.availableSize));
+                errorMessage = jq.format(ASC.Files.FilesJSResource.ErrorMassage_StorageSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.availableSize));
                 if (visibleModals || !ASC.Files.UI.displayTariffLimitStorageExceed()) {
                     ASC.Files.UI.displayInfoPanel(errorMessage, true);
                 }
@@ -534,7 +543,7 @@ window.ASC.Files.ChunkUploads = (function () {
             }
 
             if (ASC.Files.ChunkUploads.tenantQuota.maxFileSize < sizeF) {
-                errorMessage = jq.format("{0} ({1})", ASC.Files.FilesJSResources.ErrorMassage_FileSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.maxFileSize));
+                errorMessage = jq.format("{0} ({1})", ASC.Files.FilesJSResource.ErrorMassage_FileSize, FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.maxFileSize));
                 if (visibleModals || !ASC.Files.UI.displayTariffFileSizeExceed()) {
                     ASC.Files.UI.displayInfoPanel(errorMessage, true);
                 }
@@ -601,6 +610,12 @@ window.ASC.Files.ChunkUploads = (function () {
             return;
         }
 
+        var filterSettings;
+        if (ASC.Files.Filter && (filterSettings = ASC.Files.Filter.getFilterSettings()).isSet
+            && filterSettings.filter != ASC.Files.Constants.FilterType.FoldersOnly) {
+            return;
+        }
+
         relativePath = (relativePath || "").split("/")[0];
 
         var key = currentFolderId + "/" + relativePath;
@@ -641,7 +656,7 @@ window.ASC.Files.ChunkUploads = (function () {
 
     var fixErrorMessage = function (msg) {
         if ((msg = msg || "error") == "error" || msg.indexOf("NetworkError:") === 0) {
-            msg = ASC.Files.FilesJSResources.UnknownErrorText;
+            msg = ASC.Files.FilesJSResource.UnknownErrorText;
         }
         return msg;
     };
@@ -658,11 +673,11 @@ window.ASC.Files.ChunkUploads = (function () {
         file.showAnim = !progressEnanled;
 
         if (!isConverterRow) {
-            file.actionText = ASC.Files.FilesJSResources.FileUploading;
-            file.completeActionText = ASC.Files.FilesJSResources.FileUploaded;
+            file.actionText = ASC.Files.FilesJSResource.FileUploading;
+            file.completeActionText = ASC.Files.FilesJSResource.FileUploaded;
         } else {
-            file.actionText = ASC.Files.FilesJSResources.FileConverting;
-            file.completeActionText = ASC.Files.FilesJSResources.FileConverted;
+            file.actionText = ASC.Files.FilesJSResource.FileConverting;
+            file.completeActionText = ASC.Files.FilesJSResource.FileConverted;
         }
 
         var $newRow = jq("#fileUploaderRowTmpl").tmpl(file); //in bundle var $newRow = jq.tmpl("fileUploaderRowTmpl", file);
@@ -712,7 +727,7 @@ window.ASC.Files.ChunkUploads = (function () {
             .removeClass("canceled")
             .addClass("error");
 
-        jq("#" + fileId + " .popup_helper").text(errorText || ASC.Files.FilesJSResources.UnknownErrorText);
+        jq("#" + fileId + " .popup_helper").text(errorText || ASC.Files.FilesJSResource.UnknownErrorText);
     };
 
     var showFileUploadingCancel = function (fileId) {
@@ -750,9 +765,9 @@ window.ASC.Files.ChunkUploads = (function () {
             }
 
             if (percent > 0) {
-                text = ASC.Files.FilesJSResources.UploadingProgress.format(count, percent);
+                text = ASC.Files.FilesJSResource.UploadingProgress.format(count, percent);
             } else {
-                text = ASC.Files.FilesJSResources.Uploading;
+                text = ASC.Files.FilesJSResource.Uploading;
             }
         }
 
@@ -763,7 +778,7 @@ window.ASC.Files.ChunkUploads = (function () {
         var usedSize = window.FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.usedSize);
         var storageSize = window.FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.storageSize);
         jq("#chunkUploadDialog .upload-info-container .free-space").text(
-            ASC.Files.FilesJSResources.UsedSize.format(usedSize, storageSize)
+            ASC.Files.FilesJSResource.UsedSize.format(usedSize, storageSize)
         );
     };
 
@@ -920,12 +935,14 @@ window.ASC.Files.ChunkUploads = (function () {
         var entryData = fileData.convertedData ? fileData.convertedData : fileData.data;
 
         if (ASC.Files.MediaPlayer && (ASC.Files.MediaPlayer.canPlay(entryData.title) || ASC.Files.Utility.CanImageView(entryData.title))) {
-            var uploadedFiles = jq("#chunkUploadDialog .fu-row.done .ft_Image, #chunkUploadDialog .fu-row.done .ft_Video");
+            var uploadedFiles = jq("#chunkUploadDialog .fu-row.done").map(function (_, item) {
+                return getFileDataByObj(item);
+            });
 
             var mediaFiles = [];
             var pos;
             for (var i = 0; i < uploadedFiles.length; i++) {
-                var fData = getFileDataByObj(uploadedFiles[i]);
+                var fData = uploadedFiles[i];
                 var eData = fData.convertedData ? fData.convertedData : fData.data;
                 eData.uploadId = fData.id;
 
@@ -969,7 +986,7 @@ window.ASC.Files.ChunkUploads = (function () {
                         var f = mediaFiles.filter(function (e) {
                             return e.id === fileId;
                         });
-                        jq("#" + f[0].uploadId).remove();
+                        removeUploadItem(f[0].uploadId);
                         successfulDeletion();
                     });
                 }
@@ -992,6 +1009,36 @@ window.ASC.Files.ChunkUploads = (function () {
         jq("#fileupload").prop("disabled", disable);
     };
 
+    var removeUploadItem = function (uploadId) {
+        jq("#" + uploadId).remove();
+
+        var dialog = jq("#chunkUploadDialog");
+        if (!dialog.find("#uploadFilesTable tr").length) {
+            dialog.hide();
+        }
+    }
+
+    var removeUploadItemByFileId = function (fileId) {
+        if (!jq("#chunkUploadDialog").is(":visible")) {
+            return;
+        }
+
+        var uploadId = null;
+        for (var i = 0; i < uploadQueue.length; i++) {
+            var file = uploadQueue[i].files[0];
+            var data = file.data || null;
+            if (data && data.id == fileId) {
+                uploadId = file.id;
+                break;
+            }
+        }
+
+        if (!uploadId) {
+            return;
+        }
+
+        removeUploadItem(uploadId)
+    }
 
     //encryption
     var uploadEncryptedFile = function (encryptedFile, encrypted) {
@@ -1063,9 +1110,9 @@ window.ASC.Files.ChunkUploads = (function () {
 
     var onCheckConvertStatus = function (obj, params, errorMessage) {
         if (typeof obj !== "object" && typeof errorMessage != "undefined" || obj == null) {
-            errorMessage = errorMessage || ASC.Files.FilesJSResources.ErrorMassage_ErrorConvert;
+            errorMessage = errorMessage || ASC.Files.FilesJSResource.ErrorMassage_ErrorConvert;
         } else if (!obj.length) {
-            errorMessage = ASC.Files.FilesJSResources.ErrorMassage_ErrorConvert;
+            errorMessage = ASC.Files.FilesJSResource.ErrorMassage_ErrorConvert;
         }
 
         if (typeof errorMessage != "undefined") {
@@ -1264,6 +1311,8 @@ window.ASC.Files.ChunkUploads = (function () {
         createdSubfolders: createdSubfolders,
 
         hideDragHighlight: hideDragHighlight,
+
+        removeUploadItemByFileId: removeUploadItemByFileId
     };
 })();
 

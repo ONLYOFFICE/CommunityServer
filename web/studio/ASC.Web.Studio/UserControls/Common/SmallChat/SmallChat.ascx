@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SmallChat.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.SmallChat.SmallChat" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 
 <div class="small_chat_main_window" data-error="<%= ChatResource.ServerError %>">

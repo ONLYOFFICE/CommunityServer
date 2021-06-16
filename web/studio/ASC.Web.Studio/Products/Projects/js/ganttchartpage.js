@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2841,13 +2841,13 @@ ASC.Projects.GantChartPage = (function () {
             taskContextMenu.find(".edit").hide();
             taskContextMenu.find(".addlink").hide();
             jq("#taskResponsible").hide();
-            taskContextMenuStatus.removeAttr("class").addClass("open dropdown-item");
+            taskContextMenuStatus.removeAttr("class").addClass("-1 open dropdown-item");
             taskContextMenuStatus.text(taskContextMenuStatus.data("opentext"));
         } else {
             taskContextMenu.find(".edit").show();
             taskContextMenu.find(".addlink").show();
             jq("#taskResponsible").show();
-            taskContextMenuStatus.removeAttr("class").addClass("closed dropdown-item");
+            taskContextMenuStatus.removeAttr("class").addClass("-2 closed dropdown-item");
             taskContextMenuStatus.text(taskContextMenuStatus.data("closetext"));
         }
         showContextMenu(taskContextMenu, coords.left, coords.top);

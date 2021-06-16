@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,16 @@
 
 
 using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Web.People.Core.Import;
-using ASC.Web.People.Resources;
+using System.Web;
+
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.People.Classes;
+using ASC.Web.People.Core.Import;
+using ASC.Web.People.Resources;
 using ASC.Web.Studio.Core.Users;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.People.Masters.ClientScripts
 {
@@ -37,7 +38,7 @@ namespace ASC.Web.People.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            Func<ImportParameters, object> parametersTemplate = r => new {id = r.Id, title = r.Title()};
+            Func<ImportParameters, object> parametersTemplate = r => new { id = r.Id, title = r.Title() };
 
             return new List<KeyValuePair<string, object>>(3)
             {

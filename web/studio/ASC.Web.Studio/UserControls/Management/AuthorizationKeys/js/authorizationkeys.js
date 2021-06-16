@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ ASC.AuthorizationKeysManager = (function () {
                     toastr.error(result.error.Message);
                 } else {
                     if (result.value) {
-                        toastr.success(ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage);
+                        toastr.success(ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage);
                         jq("#switcherBtn" + itemName).toggleClass("on off");
                     }
                 }

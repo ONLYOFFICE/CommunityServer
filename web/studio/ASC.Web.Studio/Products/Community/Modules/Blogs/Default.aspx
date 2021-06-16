@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.Master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Blogs.Default" Title="Untitled Page" %>
 <%@ Import Namespace="ASC.Web.Core.Users" %>
-<%@ Import Namespace="ASC.Blogs.Core.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Blogs.Core.Resources" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility.HtmlUtility" %>

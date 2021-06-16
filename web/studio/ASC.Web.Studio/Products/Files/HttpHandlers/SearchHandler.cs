@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+
 using ASC.Common.Utils;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
@@ -97,35 +98,35 @@ namespace ASC.Web.Files.Configuration
             {
                 var result = SearchFiles(text)
                     .Select(r => new SearchResultItem
-                        {
-                            Name = r.Title ?? string.Empty,
-                            Description = string.Empty,
-                            URL = FilesLinkUtility.GetFileWebPreviewUrl(r.Title, r.ID),
-                            Date = r.ModifiedOn,
-                            Additional = new Dictionary<string, object>
+                    {
+                        Name = r.Title ?? string.Empty,
+                        Description = string.Empty,
+                        URL = FilesLinkUtility.GetFileWebPreviewUrl(r.Title, r.ID),
+                        Date = r.ModifiedOn,
+                        Additional = new Dictionary<string, object>
                                 {
                                     { "Author", r.CreateByString.HtmlEncode() },
                                     { "Path", FolderPathBuilder(EntryManager.GetBreadCrumbs(r.FolderID, folderDao)) },
                                     { "Size", FileSizeComment.FilesSizeToString(r.ContentLength) }
                                 }
-                        }
+                    }
                     );
 
                 var resultFolder = SearchFolders(text)
                     .Select(f =>
                             new SearchResultItem
-                                {
-                                    Name = f.Title ?? string.Empty,
-                                    Description = String.Empty,
-                                    URL = PathProvider.GetFolderUrl(f),
-                                    Date = f.ModifiedOn,
-                                    Additional = new Dictionary<string, object>
+                            {
+                                Name = f.Title ?? string.Empty,
+                                Description = String.Empty,
+                                URL = PathProvider.GetFolderUrl(f),
+                                Date = f.ModifiedOn,
+                                Additional = new Dictionary<string, object>
                                         {
                                             { "Author", f.CreateByString.HtmlEncode() },
                                             { "Path", FolderPathBuilder(EntryManager.GetBreadCrumbs(f.ID, folderDao)) },
                                             { "IsFolder", true }
                                         }
-                                });
+                            });
 
                 return result.Concat(resultFolder).ToArray();
             }

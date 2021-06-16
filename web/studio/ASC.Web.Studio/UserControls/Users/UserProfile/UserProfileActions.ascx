@@ -4,7 +4,7 @@
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <% if (HasActions)
    { %>

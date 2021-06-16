@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,15 @@
 
 
 using System;
+
 using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Masters;
 using ASC.Web.Studio;
-using ASC.Web.Projects.Core;
+
 using Autofac;
 
 namespace ASC.Web.Projects

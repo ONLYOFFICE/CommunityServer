@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,25 +19,5 @@ var PeopleManager = new function() {
     this.GroupHeader = '';
     this.SelectedCount = '';
     this.UserLimit = '';
+    this.GuestLimit = '';
 };
-
-
-// Google Analytics const
-var ga_Categories = {
-    people: "people_list"
-};
-
-var ga_Actions = {
-    filterClick: "filter-click",
-    createNew: "create-new",
-    remove: "remove",
-    edit: "edit",
-    view: "view",
-    changeStatus: "change-status",
-    next: "next",
-    userClick: "user-click",
-    actionClick: "action-click",
-    quickAction: "quick-action",
-    bannerClick: "banner-click"
-};
-// end Google Analytic

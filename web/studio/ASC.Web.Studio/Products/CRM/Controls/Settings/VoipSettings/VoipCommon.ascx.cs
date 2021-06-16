@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.Web.Core.Client.HttpHandlers;
-using ASC.Web.CRM.Configuration;
 using ASC.Web.Studio;
 
 namespace ASC.Web.CRM.Controls.Settings
@@ -61,7 +61,7 @@ namespace ASC.Web.CRM.Controls.Settings
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject(new { enabled = VoipNumberData.Allowed});
+            yield return RegisterObject(new { enabled = VoipNumberData.Allowed });
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 using Amazon;
@@ -32,6 +33,7 @@ using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Amazon.Util;
 
+using ASC.Common;
 using ASC.Core;
 using ASC.Data.Storage.Configuration;
 
@@ -196,9 +198,48 @@ namespace ASC.Data.Storage.S3
 
             if (0 < offset) request.ByteRange = new ByteRange(offset, int.MaxValue);
 
-            using (var client = GetClient())
+            try
             {
-                return new ResponseStreamWrapper(client.GetObject(request));
+                using (var client = GetClient())
+                {
+                    return new ResponseStreamWrapper(client.GetObject(request));
+                }
+            }
+            catch (AmazonS3Exception ex)
+            {
+                if (ex.ErrorCode == "NoSuchKey")
+                {
+                    throw new FileNotFoundException("File not found", path);
+                }
+
+                throw;
+            }
+        }
+        public override async Task<Stream> GetReadStreamAsync(string domain, string path, int offset)
+        {
+            var request = new GetObjectRequest
+            {
+                BucketName = _bucket,
+                Key = MakePath(domain, path)
+            };
+
+            if (0 < offset) request.ByteRange = new ByteRange(offset, int.MaxValue);
+
+            try
+            {
+                using (var client = GetClient())
+                {
+                    return new ResponseStreamWrapper(await client.GetObjectAsync(request));
+                }
+            }
+            catch (AmazonS3Exception ex)
+            {
+                if (ex.ErrorCode == "NoSuchKey")
+                {
+                    throw new FileNotFoundException("File not found", path);
+                }
+
+                throw;
             }
         }
 
@@ -206,7 +247,7 @@ namespace ASC.Data.Storage.S3
         {
             var contentDisposition = string.Format("attachment; filename={0};",
                                                    HttpUtility.UrlPathEncode(attachmentFileName));
-            if (attachmentFileName.Any(c => (int)c >= 0 && (int)c <= 127))
+            if (attachmentFileName.Any(c => c >= 0 && c <= 127))
             {
                 contentDisposition = string.Format("attachment; filename*=utf-8''{0};",
                                                    HttpUtility.UrlPathEncode(attachmentFileName));
@@ -596,7 +637,7 @@ namespace ASC.Data.Storage.S3
             }
         }
 
-        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath)
+        public override Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true)
         {
             using (var client = GetClient())
             {
@@ -619,7 +660,7 @@ namespace ASC.Data.Storage.S3
                 Delete(srcdomain, srcpath);
 
                 QuotaUsedDelete(srcdomain, size);
-                QuotaUsedAdd(newdomain, size);
+                QuotaUsedAdd(newdomain, size, quotaCheckFileSize);
 
                 return GetUri(newdomain, newpath);
             }
@@ -642,6 +683,7 @@ namespace ASC.Data.Storage.S3
         public override string SavePrivate(string domain, string path, Stream stream, DateTime expires)
         {
             using (var client = GetClient())
+            using (var uploader = new TransferUtility(client))
             {
                 var objectKey = MakePath(domain, path);
                 var buffered = stream.GetBuffered();
@@ -663,7 +705,7 @@ namespace ASC.Data.Storage.S3
 
                 request.Metadata.Add("private-expire", expires.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
 
-                new TransferUtility(client).Upload(request);
+                uploader.Upload(request);
 
                 //Get presigned url                
                 var pUrlRequest = new GetPreSignedUrlRequest
@@ -886,20 +928,56 @@ namespace ASC.Data.Storage.S3
         {
             using (var client = GetClient())
             {
-                var request = new ListObjectsRequest { BucketName = _bucket, Prefix = (MakePath(domain, path)) };
-                var response = client.ListObjects(request);
-                return response.S3Objects.Count > 0;
+                var a = new Amazon.S3.IO.S3FileInfo(client, _bucket, MakePath(domain, path));
+                return a.Exists;
+            }
+        }
+
+        public override async Task<bool> IsFileAsync(string domain, string path)
+        {
+            using (var client = GetClient())
+            {
+                try
+                {
+                    var getObjectMetadataRequest = new GetObjectMetadataRequest
+                    {
+                        BucketName = _bucket,
+                        Key = MakePath(domain, path)
+                    };
+
+                    await client.GetObjectMetadataAsync(getObjectMetadataRequest);
+
+                    return true;
+                }
+                catch (AmazonS3Exception ex)
+                {
+                    if (string.Equals(ex.ErrorCode, "NoSuchBucket"))
+                    {
+                        return false;
+                    }
+
+                    if (string.Equals(ex.ErrorCode, "NotFound"))
+                    {
+                        return false;
+                    }
+
+                    throw;
+                }
             }
         }
 
         public override bool IsDirectory(string domain, string path)
         {
-            return IsFile(domain, path);
+            using (var client = GetClient())
+            {
+                var a = new Amazon.S3.IO.S3DirectoryInfo(client, _bucket, MakePath(domain, path));
+                return a.Exists;
+            }
         }
 
         public override void DeleteDirectory(string domain, string path)
         {
-            DeleteFiles(domain, path, "*.*", true);
+            DeleteFiles(domain, path, "*", true);
         }
 
         public override long GetFileSize(string domain, string path)

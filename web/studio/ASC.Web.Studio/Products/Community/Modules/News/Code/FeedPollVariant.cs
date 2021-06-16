@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,35 +19,35 @@ using System;
 
 namespace ASC.Web.Community.News.Code
 {
-	[Serializable]
-	public class FeedPollVariant
-	{
-		public long ID
-		{
-			get;
-			set;
-		}
+    [Serializable]
+    public class FeedPollVariant
+    {
+        public long ID
+        {
+            get;
+            set;
+        }
 
-		public string Name
-		{
-			get;
-			set;
-		}
+        public string Name
+        {
+            get;
+            set;
+        }
 
-	    public override string ToString()
-		{
-			return Name;
-		}
+        public override string ToString()
+        {
+            return Name;
+        }
 
-		public override int GetHashCode()
-		{
-			return ID.GetHashCode();
-		}
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
 
-		public override bool Equals(object obj)
-		{
-			var v = obj as FeedPollVariant;
-			return v != null && ID == v.ID;
-		}
-	}
+        public override bool Equals(object obj)
+        {
+            var v = obj as FeedPollVariant;
+            return v != null && ID == v.ID;
+        }
+    }
 }

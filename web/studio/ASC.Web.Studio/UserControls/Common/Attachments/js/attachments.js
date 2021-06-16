@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -318,7 +318,7 @@ window.Attachments = (function () {
     };
     var createFile = function() {
         var hWindow = window.open("");
-        hWindow.document.write(ASC.Resources.Master.Resource.LoadingPleaseWait);
+        hWindow.document.write(ASC.Resources.Master.ResourceJS.LoadingPleaseWait);
         hWindow.document.close();
 
         var title = jq("#newDocTitle").val();

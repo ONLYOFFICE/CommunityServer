@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,11 +37,11 @@ namespace ASC.Web.Studio.Core.Notify
         public static readonly INotifyAction SendWhatsNew = new NotifyAction("send_whats_new", "send whats new");
         public static readonly INotifyAction BackupCreated = new NotifyAction("backup_created", "backup created");
         public static readonly INotifyAction RestoreStarted = new NotifyAction("restore_started", "restore_started");
-        public static readonly INotifyAction RestoreCompleted = new NotifyAction("restore_completed", "restore_completed");
+        public static readonly INotifyAction RestoreCompletedV115 = new NotifyAction("restore_completed_v115");
         public static readonly INotifyAction PortalDeactivate = new NotifyAction("portal_deactivate", "portal deactivate");
         public static readonly INotifyAction PortalDelete = new NotifyAction("portal_delete", "portal delete");
-        public static readonly INotifyAction PortalDeleteSuccessV10 = new NotifyAction("portal_delete_success_v10");
-        
+        public static readonly INotifyAction PortalDeleteSuccessV115 = new NotifyAction("portal_delete_success_v115");
+
         public static readonly INotifyAction ProfileDelete = new NotifyAction("profile_delete", "profile_delete");
         public static readonly INotifyAction ProfileHasDeletedItself = new NotifyAction("profile_has_deleted_itself", "profile_has_deleted_itself");
         public static readonly INotifyAction ReassignsCompleted = new NotifyAction("reassigns_completed", "reassigns_completed");
@@ -53,12 +53,12 @@ namespace ASC.Web.Studio.Core.Notify
 
         public static readonly INotifyAction ConfirmOwnerChange = new NotifyAction("owner_confirm_change", "owner_confirm_change");
         public static readonly INotifyAction ActivateEmail = new NotifyAction("activate_email", "activate_email");
-        public static readonly INotifyAction EmailChange = new NotifyAction("change_email", "change_email");
+        public static readonly INotifyAction EmailChangeV115 = new NotifyAction("change_email_v115", "change_email_v115");
         public static readonly INotifyAction PasswordChange = new NotifyAction("change_password", "change_password");
         public static readonly INotifyAction PhoneChange = new NotifyAction("change_phone", "change_phone");
         public static readonly INotifyAction TfaChange = new NotifyAction("change_tfa", "change_tfa");
         public static readonly INotifyAction MigrationPortalStart = new NotifyAction("migration_start", "migration start");
-        public static readonly INotifyAction MigrationPortalSuccess = new NotifyAction("migration_success", "migration success");
+        public static readonly INotifyAction MigrationPortalSuccessV115 = new NotifyAction("migration_success_v115");
         public static readonly INotifyAction MigrationPortalError = new NotifyAction("migration_error", "migration error");
         public static readonly INotifyAction MigrationPortalServerFailure = new NotifyAction("migration_server_failure", "migration_server_failure");
         public static readonly INotifyAction PortalRename = new NotifyAction("portal_rename", "portal_rename");
@@ -67,33 +67,33 @@ namespace ASC.Web.Studio.Core.Notify
         public static readonly INotifyAction MailboxWithoutSettingsCreated = new NotifyAction("mailbox_without_settings_created");
         public static readonly INotifyAction MailboxPasswordChanged = new NotifyAction("mailbox_password_changed");
 
-        public static readonly INotifyAction SaasAdminActivationV10 = new NotifyAction("saas_admin_activation_v10");
+        public static readonly INotifyAction SaasAdminActivationV115 = new NotifyAction("saas_admin_activation_v115");
         public static readonly INotifyAction EnterpriseAdminActivationV10 = new NotifyAction("enterprise_admin_activation_v10");
         public static readonly INotifyAction EnterpriseWhitelabelAdminActivationV10 = new NotifyAction("enterprise_whitelabel_admin_activation_v10");
         public static readonly INotifyAction OpensourceAdminActivationV11 = new NotifyAction("opensource_admin_activation_v11");
 
-        public static readonly INotifyAction SaasAdminWelcomeV10 = new NotifyAction("saas_admin_welcome_v10");
+        public static readonly INotifyAction SaasAdminWelcomeV115 = new NotifyAction("saas_admin_welcome_v115");
         public static readonly INotifyAction EnterpriseAdminWelcomeV10 = new NotifyAction("enterprise_admin_welcome_v10");
         public static readonly INotifyAction EnterpriseWhitelabelAdminWelcomeV10 = new NotifyAction("enterprise_whitelabel_admin_welcome_v10");
         public static readonly INotifyAction OpensourceAdminWelcomeV11 = new NotifyAction("opensource_admin_welcome_v11");
 
-        public static readonly INotifyAction SaasUserActivationV10 = new NotifyAction("saas_user_activation_v10");
+        public static readonly INotifyAction SaasUserActivationV115 = new NotifyAction("saas_user_activation_v115");
         public static readonly INotifyAction EnterpriseUserActivationV10 = new NotifyAction("enterprise_user_activation_v10");
         public static readonly INotifyAction EnterpriseWhitelabelUserActivationV10 = new NotifyAction("enterprise_whitelabel_user_activation_v10");
         public static readonly INotifyAction OpensourceUserActivationV11 = new NotifyAction("opensource_user_activation_v11");
 
-        public static readonly INotifyAction SaasUserWelcomeV10 = new NotifyAction("saas_user_welcome_v10");
+        public static readonly INotifyAction SaasUserWelcomeV115 = new NotifyAction("saas_user_welcome_v115");
         public static readonly INotifyAction EnterpriseUserWelcomeV10 = new NotifyAction("enterprise_user_welcome_v10");
         public static readonly INotifyAction EnterpriseWhitelabelUserWelcomeV10 = new NotifyAction("enterprise_whitelabel_user_welcome_v10");
         public static readonly INotifyAction EnterpriseWhitelabelUserWelcomeCustomMode = new NotifyAction("enterprise_whitelabel_user_welcome_custom_mode");
         public static readonly INotifyAction OpensourceUserWelcomeV11 = new NotifyAction("opensource_user_welcome_v11");
 
-        public static readonly INotifyAction SaasGuestActivationV10 = new NotifyAction("saas_guest_activation_v10");
+        public static readonly INotifyAction SaasGuestActivationV115 = new NotifyAction("saas_guest_activation_v115");
         public static readonly INotifyAction EnterpriseGuestActivationV10 = new NotifyAction("enterprise_guest_activation_v10");
         public static readonly INotifyAction EnterpriseWhitelabelGuestActivationV10 = new NotifyAction("enterprise_whitelabel_guest_activation_v10");
         public static readonly INotifyAction OpensourceGuestActivationV11 = new NotifyAction("opensource_guest_activation_v11");
 
-        public static readonly INotifyAction SaasGuestWelcomeV10 = new NotifyAction("saas_guest_welcome_v10");
+        public static readonly INotifyAction SaasGuestWelcomeV115 = new NotifyAction("saas_guest_welcome_v115");
         public static readonly INotifyAction EnterpriseGuestWelcomeV10 = new NotifyAction("enterprise_guest_welcome_v10");
         public static readonly INotifyAction EnterpriseWhitelabelGuestWelcomeV10 = new NotifyAction("enterprise_whitelabel_guest_welcome_v10");
         public static readonly INotifyAction OpensourceGuestWelcomeV11 = new NotifyAction("opensource_guest_welcome_v11");
@@ -113,22 +113,18 @@ namespace ASC.Web.Studio.Core.Notify
         public static readonly INotifyAction EnterpriseAdminPaymentWarningV10 = new NotifyAction("enterprise_admin_payment_warning_v10");
         public static readonly INotifyAction EnterpriseWhitelabelAdminPaymentWarningV10 = new NotifyAction("enterprise_whitelabel_admin_payment_warning_v10");
 
-        public static readonly INotifyAction SaasAdminInviteTeammatesV10 = new NotifyAction("saas_admin_invite_teammates_v10");
-        public static readonly INotifyAction SaasAdminWithoutActivityV10 = new NotifyAction("saas_admin_without_activity_v10");
-        public static readonly INotifyAction SaasAdminUserDocsTipsV10 = new NotifyAction("saas_admin_user_docs_tips_v10");
-        public static readonly INotifyAction SaasAdminUserComfortTipsV10 = new NotifyAction("saas_admin_user_comfort_tips_v10");
-        public static readonly INotifyAction SaasAdminUserAppsTipsV10 = new NotifyAction("saas_admin_user_apps_tips_v10");
+        public static readonly INotifyAction SaasAdminUserDocsTipsV115 = new NotifyAction("saas_admin_user_docs_tips_v115");
+        public static readonly INotifyAction SaasAdminComfortTipsV115 = new NotifyAction("saas_admin_comfort_tips_v115");
+        public static readonly INotifyAction SaasAdminUserAppsTipsV115 = new NotifyAction("saas_admin_user_apps_tips_v115");
 
-        public static readonly INotifyAction SaasAdminTrialWarningBefore5V10 = new NotifyAction("saas_admin_trial_warning_before5_v10");
-        public static readonly INotifyAction SaasAdminTrialWarningV10 = new NotifyAction("saas_admin_trial_warning_v10");
-        public static readonly INotifyAction SaasAdminTrialWarningAfter5V10 = new NotifyAction("saas_admin_trial_warning_after5_v10");
-        public static readonly INotifyAction SaasAdminTrialWarningAfter30V10 = new NotifyAction("saas_admin_trial_warning_after30_v10");
-        public static readonly INotifyAction SaasAdminTrialWarningAfterHalfYearV10 = new NotifyAction("saas_admin_trial_warning_after_half_year_v10");
+        public static readonly INotifyAction SaasAdminTrialWarningBefore5V115 = new NotifyAction("saas_admin_trial_warning_before5_v115");
+        public static readonly INotifyAction SaasAdminTrialWarningV115 = new NotifyAction("saas_admin_trial_warning_v115");
+        public static readonly INotifyAction SaasAdminTrialWarningAfter1V115 = new NotifyAction("saas_admin_trial_warning_after1_v115");
+        public static readonly INotifyAction SaasAdminTrialWarningAfterHalfYearV115 = new NotifyAction("saas_admin_trial_warning_after_half_year_v115");
 
-        public static readonly INotifyAction SaasAdminPaymentWarningBefore5V10 = new NotifyAction("saas_admin_payment_warning_before5_v10");
-        public static readonly INotifyAction SaasAdminPaymentWarningAfter1V10 = new NotifyAction("saas_admin_payment_warning_after1_v10");
+        public static readonly INotifyAction SaasAdminPaymentWarningEvery2MonthsV115 = new NotifyAction("saas_admin_payment_warning_every_2months_v115");
 
-        public static readonly INotifyAction SaasAdminPaymentAfterMonthlySubscriptionsV10 = new NotifyAction("saas_admin_payment_after_monthly_subscriptions_v10");
+        public static readonly INotifyAction SaasAdminModulesV115 = new NotifyAction("saas_admin_modules_v115");
 
         public static readonly INotifyAction OpensourceAdminDocsTipsV11 = new NotifyAction("opensource_admin_docs_tips_v11");
         public static readonly INotifyAction OpensourceUserDocsTipsV11 = new NotifyAction("opensource_user_docs_tips_v11");
@@ -141,14 +137,14 @@ namespace ASC.Web.Studio.Core.Notify
         public static readonly INotifyAction PersonalAfterRegistration28 = new NotifyAction("personal_after_registration28");
         public static readonly INotifyAction PersonalConfirmation = new NotifyAction("personal_confirmation");
         public static readonly INotifyAction PersonalPasswordChange = new NotifyAction("personal_change_password");
-        public static readonly INotifyAction PersonalEmailChange = new NotifyAction("personal_change_email");
+        public static readonly INotifyAction PersonalEmailChangeV115 = new NotifyAction("personal_change_email_v115");
         public static readonly INotifyAction PersonalProfileDelete = new NotifyAction("personal_profile_delete");
 
         public static readonly INotifyAction PersonalCustomModeAfterRegistration1 = new NotifyAction("personal_custom_mode_after_registration1");
         public static readonly INotifyAction PersonalCustomModeAfterRegistration7 = new NotifyAction("personal_custom_mode_after_registration7");
         public static readonly INotifyAction PersonalCustomModeConfirmation = new NotifyAction("personal_custom_mode_confirmation");
         public static readonly INotifyAction PersonalCustomModePasswordChange = new NotifyAction("personal_custom_mode_change_password");
-        public static readonly INotifyAction PersonalCustomModeEmailChange = new NotifyAction("personal_custom_mode_change_email");
+        public static readonly INotifyAction PersonalCustomModeEmailChangeV115 = new NotifyAction("personal_custom_mode_change_email_v115");
         public static readonly INotifyAction PersonalCustomModeProfileDelete = new NotifyAction("personal_custom_mode_profile_delete");
 
         public static readonly INotifyAction SaasCustomModeRegData = new NotifyAction("saas_custom_mode_reg_data");

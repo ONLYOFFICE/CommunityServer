@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,16 @@
 
 
 using System;
+
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio
 {
     public partial class ServerError : MainPage
     {
-        protected string ErrorCaption = Resources.Resource.ServerErrorTitle;
-        protected string ErrorText = Resources.Resource.ServerErrorText;
+        protected string ErrorCaption = Resource.ServerErrorTitle;
+        protected string ErrorText = Resource.ServerErrorText;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,8 +39,8 @@ namespace ASC.Web.Studio
                 switch (Convert.ToInt32(errorCode))
                 {
                     case 403:
-                        ErrorCaption = Resources.Resource.Error403Title;
-                        ErrorText = Resources.Resource.Error403Text;
+                        ErrorCaption = Resource.Error403Title;
+                        ErrorText = Resource.Error403Text;
                         break;
                     case 404:
                         Response.Redirect("~/error404.aspx");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,12 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Logging;
 using ASC.Core.Common.Configuration;
 using ASC.FederatedLogin.Helpers;
 using ASC.Web.Files.Classes;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.Files.Helpers
@@ -29,11 +31,11 @@ namespace ASC.Web.Files.Helpers
     {
         public static ILog Log = Global.Logger;
 
-        static string   searchBookUrl = "https://worldcat.citation-api.com/query?search=",
+        static readonly string searchBookUrl = "https://worldcat.citation-api.com/query?search=",
                         searchJournalUrl = "https://crossref.citation-api.com/query?search=",
                         searchWebSiteUrl = "https://web.citation-api.com/query?search=",
                         easyBibStyles = "https://api.citation-api.com/2.1/rest/styles";
-        
+
         public enum EasyBibSource
         {
             book = 0,
@@ -48,15 +50,15 @@ namespace ASC.Web.Files.Helpers
 
         public EasyBibHelper()
         {
-            
+
         }
 
-        public EasyBibHelper(string name, int order,  Dictionary<string, string> props, Dictionary<string, string> additional = null)
+        public EasyBibHelper(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null)
             : base(name, order, props, additional)
         {
         }
 
-        public static string GetEasyBibCitationsList(int source,  string data)
+        public static string GetEasyBibCitationsList(int source, string data)
         {
             var uri = "";
             switch (source)
@@ -76,7 +78,7 @@ namespace ASC.Web.Files.Helpers
             uri += data;
 
             const string method = "GET";
-            var headers = new Dictionary<string, string>(){};
+            var headers = new Dictionary<string, string>() { };
             try
             {
                 return RequestHelper.PerformRequest(uri, "", method, "", headers);
@@ -90,9 +92,9 @@ namespace ASC.Web.Files.Helpers
 
         public static string GetEasyBibStyles()
         {
-             
+
             const string method = "GET";
-            var headers = new Dictionary<string, string>(){};
+            var headers = new Dictionary<string, string>() { };
             try
             {
                 return RequestHelper.PerformRequest(easyBibStyles, "", method, "", headers);
@@ -119,14 +121,14 @@ namespace ASC.Web.Files.Helpers
                 var headers = new Dictionary<string, string>() { };
 
                 return RequestHelper.PerformRequest(uri, contentType, method, body, headers);
-                
+
             }
             catch (Exception)
             {
                 return null;
                 throw;
             }
-            
+
         }
     }
 }

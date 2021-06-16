@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LogHelper.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.LogHelper" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="monitoring-container clearFix">
     <div class="settings-block">

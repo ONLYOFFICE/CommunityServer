@@ -106,15 +106,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Closed tasks.
-        /// </summary>
-        public static string ClosedTasks {
-            get {
-                return ResourceManager.GetString("ClosedTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Link with contact.
         /// </summary>
         public static string ConnectWithAContact {
@@ -156,15 +147,6 @@ namespace ASC.Web.CRM.Resources {
         public static string CustomResponsibleFilter {
             get {
                 return ResourceManager.GetString("CustomResponsibleFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deadline.
-        /// </summary>
-        public static string DeadLine {
-            get {
-                return ResourceManager.GetString("DeadLine", resourceCulture);
             }
         }
         
@@ -241,15 +223,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find a company or a person by name.
-        /// </summary>
-        public static string FindContactByName {
-            get {
-                return ResourceManager.GetString("FindContactByName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A properly formed CSV file should be selected on your computer HDD. It must contain the fields or columns separated by the selected delimiter which will be used to import tasks. The files containing more than {0} rows should be divided into smaller parts for proper importing..
         /// </summary>
         public static string ImportFromCSVStepOneDescription {
@@ -318,15 +291,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ImportTasks {
             get {
                 return ResourceManager.GetString("ImportTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Tasks.
-        /// </summary>
-        public static string MyTasks {
-            get {
-                return ResourceManager.GetString("MyTasks", resourceCulture);
             }
         }
         
@@ -444,15 +408,6 @@ namespace ASC.Web.CRM.Resources {
         public static string SavingTask {
             get {
                 return ResourceManager.GetString("SavingTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show.
-        /// </summary>
-        public static string Show {
-            get {
-                return ResourceManager.GetString("Show", resourceCulture);
             }
         }
         
@@ -610,15 +565,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Task «{0}» is closed.
-        /// </summary>
-        public static string TaskIsOver {
-            get {
-                return ResourceManager.GetString("TaskIsOver", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assign to.
         /// </summary>
         public static string TaskResponsible {
@@ -750,15 +696,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Week {
             get {
                 return ResourceManager.GetString("Week", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nobody.
-        /// </summary>
-        public static string WithoutResponsible {
-            get {
-                return ResourceManager.GetString("WithoutResponsible", resourceCulture);
             }
         }
     }

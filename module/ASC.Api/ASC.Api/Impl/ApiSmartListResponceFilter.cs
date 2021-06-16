@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections;
+
 using ASC.Api.Collections;
 using ASC.Api.Interfaces;
 
@@ -51,7 +52,7 @@ namespace ASC.Api.Impl
                     }
                     catch (Exception)
                     {
-                        
+
                     }
                 }
                 if (smartList != null)
@@ -75,7 +76,7 @@ namespace ASC.Api.Impl
             smartList.FilterValue = context.FilterValues;
             smartList.UpdatedSince = context.UpdatedSince;
             smartList.FilterType = context.FilterToType;
-            var list= smartList.Transform(getTotalCount);
+            var list = smartList.Transform(getTotalCount);
             if (getTotalCount)
             {
                 context.TotalCount = smartList.TotalCount;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
-using ASC.MessagingSystem;
+
 using AjaxPro;
-using ASC.Web.Studio.Core.Notify;
+
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
+using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
@@ -62,11 +65,11 @@ namespace ASC.Web.Studio.UserControls.Users
                     MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentActivationInstructions, MessageTarget.Create(user.ID), user.DisplayUserName(false));
                 }
 
-                return new {status = 1, message = Resources.Resource.SuccessResendInvitesText};
+                return new { status = 1, message = Resource.SuccessResendInvitesText };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new {status = 0, message = e.Message.HtmlEncode()};
+                return new { status = 0, message = e.Message.HtmlEncode() };
             }
         }
 

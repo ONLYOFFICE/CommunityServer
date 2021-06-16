@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 
 namespace ASC.Api.Projects.Wrappers
 {
@@ -50,13 +50,13 @@ namespace ASC.Api.Projects.Wrappers
         public static ProjectWrapper GetSample()
         {
             return new ProjectWrapper
-                {
-                    Id = 10,
-                    Title = "Sample Title",
-                    Description = "Sample description",
-                    Responsible = EmployeeWraper.GetSample(),
-                    Status = (int)ProjectStatus.Open,
-                };
+            {
+                Id = 10,
+                Title = "Sample Title",
+                Description = "Sample description",
+                Responsible = EmployeeWraper.GetSample(),
+                Status = (int)ProjectStatus.Open,
+            };
         }
     }
 }

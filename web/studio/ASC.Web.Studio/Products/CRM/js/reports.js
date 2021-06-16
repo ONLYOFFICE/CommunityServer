@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,7 +154,6 @@ ASC.CRM.Reports = (function() {
                             ProgressDialog.close();
                             showCurrencyDialod(response.missingRates);
                         } else {
-                            trackGoogleAnalytics(data.type);
                             ProgressDialog.generate(data);
                         }
                     } else {
@@ -172,17 +171,6 @@ ASC.CRM.Reports = (function() {
         } else {
             LoadingBanner.hideLoaderBtn(".reports-content-container");
         }
-    }
-
-    function trackGoogleAnalytics(reportType) {
-        var reportTypeName = "";
-
-        for (var name in ASC.CRM.Data.ReportType) {
-            if (reportType == ASC.CRM.Data.ReportType[name])
-                reportTypeName = name;
-        }
-
-        trackingGoogleAnalytics(ga_Categories.reports, ga_Actions.generateNew, reportTypeName);
     }
 
     function setBindings(reportType, viewFiles) {

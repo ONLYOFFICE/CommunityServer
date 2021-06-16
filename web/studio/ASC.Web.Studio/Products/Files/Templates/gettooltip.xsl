@@ -2,20 +2,31 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" encoding="utf-8" standalone="yes" indent="yes" omit-xml-declaration="yes" media-type="text/xhtml" />
 
-  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
+  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="FilesCommonResource" />
 
   <xsl:template match="entryTooltip">
     <table cellpadding="0" cellspacing="0">
       <tbody>
+        <xsl:if test="thumbnail != 'false'">
+          <tr>
+            <td rowspan="6">
+              <img alt="">
+                <xsl:attribute name="src">
+                  <xsl:value-of select="thumbnail" />
+                </xsl:attribute>
+              </img>
+            </td>
+          </tr>
+        </xsl:if>
         <tr>
           <td>
             <xsl:choose>
               <xsl:when test="type = 'file'">
-                <resource name="fres.DocumentName" />:
+                <resource name="FilesCommonResource.DocumentName" />:
               </xsl:when>
 
               <xsl:when test="type = 'folder'">
-                <resource name="fres.FolderName" />:
+                <resource name="FilesCommonResource.FolderName" />:
               </xsl:when>
             </xsl:choose>
           </td>
@@ -27,7 +38,7 @@
           <xsl:when test="error = 'true'">
             <tr>
               <td>
-                <resource name="fres.ErrorEntry" />:
+                <resource name="FilesCommonResource.ErrorEntry" />:
               </td>
               <td>
                 <xsl:value-of select="error" />
@@ -38,7 +49,7 @@
           <xsl:otherwise>
             <tr>
               <td>
-                <resource name="fres.Author" />:
+                <resource name="FilesCommonResource.Author" />:
               </td>
               <td>
                 <span class="userLink">
@@ -50,16 +61,16 @@
               <td>
                 <xsl:choose>
                   <xsl:when test="date_type = 'upload'">
-                    <resource name="fres.TitleUploaded" />:
+                    <resource name="FilesCommonResource.TitleUploaded" />:
                   </xsl:when>
                   <xsl:when test="date_type = 'update'">
-                    <resource name="fres.TitleModified" />:
+                    <resource name="FilesCommonResource.TitleModified" />:
                   </xsl:when>
                   <xsl:when test="date_type = 'remove'">
-                    <resource name="fres.TitleRemoved" />:
+                    <resource name="FilesCommonResource.TitleRemoved" />:
                   </xsl:when>
                   <xsl:when test="date_type = 'create'">
-                    <resource name="fres.TitleCreated" />:
+                    <resource name="FilesCommonResource.TitleCreated" />:
                   </xsl:when>
                 </xsl:choose>
               </td>
@@ -72,7 +83,7 @@
               <xsl:when test="type = 'file'">
                 <tr>
                   <td>
-                    <resource name="fres.Size" />:
+                    <resource name="FilesCommonResource.Size" />:
                   </td>
                   <td>
                     <xsl:value-of select="length_string" />
@@ -82,7 +93,7 @@
                 <xsl:if test="comment and comment != ''">
                   <tr>
                     <td>
-                      <resource name="fres.Comment" />:
+                      <resource name="FilesCommonResource.Comment" />:
                     </td>
                     <td>
                       <xsl:value-of select="comment" />
@@ -94,7 +105,7 @@
               <xsl:when test="type = 'folder' and (not(provider_key) or provider_key = '')">
                 <tr>
                   <td>
-                    <resource name="fres.TitleFiles" />:
+                    <resource name="FilesCommonResource.TitleFiles" />:
                   </td>
                   <td>
                     <xsl:value-of select="total_files" />
@@ -102,7 +113,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <resource name="fres.TitleSubfolders" />:
+                    <resource name="FilesCommonResource.TitleSubfolders" />:
                   </td>
                   <td>
                     <xsl:value-of select="total_sub_folder" />

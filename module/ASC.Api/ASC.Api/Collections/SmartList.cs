@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+
 using ASC.Api.Interfaces;
 
 #endregion
@@ -78,17 +79,17 @@ namespace ASC.Api.Collections
         public object Clone()
         {
             return new SmartList<T>(_innerList)
-                       {
-                           FilterBy = FilterBy,
-                           FilterOp = FilterOp,
-                           FilterValue = FilterValue,
-                           IsDescending = IsDescending,
-                           SortBy = SortBy,
-                           StartIndex = StartIndex,
-                           TakeCount = TakeCount,
-                           FilterType = FilterType,
-                           UpdatedSince = UpdatedSince
-                       };
+            {
+                FilterBy = FilterBy,
+                FilterOp = FilterOp,
+                FilterValue = FilterValue,
+                IsDescending = IsDescending,
+                SortBy = SortBy,
+                StartIndex = StartIndex,
+                TakeCount = TakeCount,
+                FilterType = FilterType,
+                UpdatedSince = UpdatedSince
+            };
         }
 
         #endregion
@@ -298,7 +299,7 @@ namespace ASC.Api.Collections
         {
             if (StartIndex > 0)
             {
-                Operations = Operations.Skip((int) Math.Min(StartIndex,TotalCount));
+                Operations = Operations.Skip((int)Math.Min(StartIndex, TotalCount));
             }
         }
 
@@ -370,7 +371,7 @@ namespace ASC.Api.Collections
 
         protected bool ShouldFilter()
         {
-            return !string.IsNullOrEmpty(FilterBy) && FilterValue != null && FilterValue.All(x=>!string.IsNullOrEmpty(x));
+            return !string.IsNullOrEmpty(FilterBy) && FilterValue != null && FilterValue.All(x => !string.IsNullOrEmpty(x));
         }
 
         private static bool SatisfyFilter(T obj, IEnumerable<PropertyInfo> propertyChain, IEnumerable<string> filterValues, FilterOperation op)
@@ -430,7 +431,7 @@ namespace ASC.Api.Collections
                 }
                 catch (Exception)
                 {
-                    
+
                 }
             }
             return operation;

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessRightsSettings" xml:space="preserve">
     <value>Portal Access Rights</value>
@@ -128,9 +69,6 @@
   </data>
   <data name="AddDepartmentDlgTitle" xml:space="preserve">
     <value>Add {!group}</value>
-  </data>
-  <data name="AddImage" xml:space="preserve">
-    <value>Add Image</value>
   </data>
   <data name="AddMembers" xml:space="preserve">
     <value>Add members</value>
@@ -180,17 +118,11 @@
   <data name="ChangeTypeDialogToUser" xml:space="preserve">
     <value>Users with the '{!Guest}' type will be moved to '{!User}' type</value>
   </data>
-  <data name="ChooseUser" xml:space="preserve">
-    <value>Choose {!user}</value>
-  </data>
   <data name="ClearButton" xml:space="preserve">
     <value>Reset filter</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
-  </data>
-  <data name="CreateNewProfile" xml:space="preserve">
-    <value>Create New User</value>
   </data>
   <data name="DeleteBtnHint" xml:space="preserve">
     <value>Only users or guests with the 'Disabled' status can be deleted</value>
@@ -198,8 +130,17 @@
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
+    <value>Delete profile when reassignment is finished</value>
+  </data>
   <data name="DeleteUserProfiles" xml:space="preserve">
     <value>Delete the users from portal</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Personal documents of these users which are available to others will be deleted. To avoid this, you must start the data transfer process before deleting.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>The selected disabled users will be deleted from the portal.</value>
   </data>
   <data name="DepartmentMaster" xml:space="preserve">
     <value>{!Head}</value>
@@ -207,26 +148,17 @@
   <data name="DeselectAll" xml:space="preserve">
     <value>Deselect all</value>
   </data>
+  <data name="DisableImportAndCreateLink" xml:space="preserve">
+    <value>Maximum numbers of user and guest exceeded</value>
+  </data>
   <data name="DisableUserButton" xml:space="preserve">
     <value>Disable</value>
-  </data>
-  <data name="DisableUserHelp" xml:space="preserve">
-    <value>The {!user} will not be displayed in the list of active {!users}</value>
-  </data>
-  <data name="EditButton" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EditImage" xml:space="preserve">
-    <value>Edit Image</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="EnableUserButton" xml:space="preserve">
     <value>Enable</value>
-  </data>
-  <data name="EnableUserHelp" xml:space="preserve">
-    <value>The {!user} will be displayed as active again</value>
   </data>
   <data name="ErrorEmptyName" xml:space="preserve">
     <value>Enter a name</value>
@@ -243,29 +175,92 @@
   <data name="ErrorUnknownFileImageType" xml:space="preserve">
     <value>Unknown image file type</value>
   </data>
+  <data name="ExampleValues" xml:space="preserve">
+    <value>Example values</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>Fields in file</value>
+  </data>
+  <data name="FieldsOnPortal" xml:space="preserve">
+    <value>Fields on the ONLYOFFICE portal</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
-  </data>
-  <data name="Hide" xml:space="preserve">
-    <value>Hide</value>
   </data>
   <data name="HideSelectedUserList" xml:space="preserve">
     <value>Hide the selected users list</value>
   </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>Double quote</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>Single quote</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>From File</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
   <data name="ImportPeople" xml:space="preserve">
-    <value>Import People</value>
+    <value>Import users</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>Colon</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>Comma</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>Semicolon</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>Tab</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>Import contacts</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>Add to portal</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>Set up compliance</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>Edit сontacts</value>
   </data>
   <data name="InviteLink" xml:space="preserve">
-    <value>Invitation Link</value>
+    <value>Invite users</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
   </data>
   <data name="LblActive" xml:space="preserve">
     <value>Active</value>
-  </data>
-  <data name="LblByName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="LblByType" xml:space="preserve">
-    <value>Type</value>
   </data>
   <data name="LblCancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -277,7 +272,7 @@
     <value>Change password</value>
   </data>
   <data name="LblCreateNew" xml:space="preserve">
-    <value>Create New</value>
+    <value>Create</value>
   </data>
   <data name="LblDeleteProfile" xml:space="preserve">
     <value>Delete profile</value>
@@ -285,23 +280,14 @@
   <data name="LblEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="LblImportAccounts" xml:space="preserve">
-    <value>Import accounts</value>
-  </data>
-  <data name="LblMobilePhone" xml:space="preserve">
-    <value>Primary Mobile Phone</value>
-  </data>
   <data name="LblOKButton" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="LblOther" xml:space="preserve">
-    <value>Other</value>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Reassign data</value>
   </data>
-  <data name="LblPassword" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="LblPending" xml:space="preserve">
-    <value>Pending</value>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>Delete personal data</value>
   </data>
   <data name="LblResendInvites" xml:space="preserve">
     <value>Send invitations once again</value>
@@ -314,9 +300,6 @@
   </data>
   <data name="LblSendMessage" xml:space="preserve">
     <value>Send message</value>
-  </data>
-  <data name="LblStatus" xml:space="preserve">
-    <value>Status</value>
   </data>
   <data name="LblSubscriptions" xml:space="preserve">
     <value>Subscriptions</value>
@@ -336,6 +319,9 @@
   <data name="NotFoundTitle" xml:space="preserve">
     <value>No results matching your search could be found</value>
   </data>
+  <data name="NotImport" xml:space="preserve">
+    <value>Not import</value>
+  </data>
   <data name="OnTop" xml:space="preserve">
     <value>On top</value>
   </data>
@@ -343,6 +329,9 @@
     <value>Do the same as a user|Create profiles and groups|Import profiles|Invite users</value>
   </data>
   <data name="ProductDescription" xml:space="preserve">
+    <value>Add new users, invite or import them. Manage users and view their detailed information.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
     <value>Add new users, invite or import them. Manage users and view their detailed information.</value>
   </data>
   <data name="ProductName" xml:space="preserve">
@@ -354,101 +343,14 @@
   <data name="ReadAboutNonProfit" xml:space="preserve">
     <value>Or {0}read about non-profit usage{1}.</value>
   </data>
-  <data name="ReassignsReadMore" xml:space="preserve">
-    <value>More about data transfer</value>
-  </data>
-  <data name="ReassignsToUser" xml:space="preserve">
-    <value>Employee to whom the data will be transferred —</value>
-  </data>
-  <data name="ReassignsTransferedListHdr" xml:space="preserve">
-    <value>Will be transferred:</value>
-  </data>
-  <data name="ReassignsTransferedListItem1" xml:space="preserve">
-    <value>General documents and personal documents that are available to other portal users;</value>
-  </data>
-  <data name="ReassignsTransferedListItem2" xml:space="preserve">
-    <value>Open projects, milestones and tasks;</value>
-  </data>
-  <data name="ReassignsTransferedListItem3" xml:space="preserve">
-    <value>Contacts, open tasks, unclosed opportunities and CRM cases;</value>
-  </data>
-  <data name="ReassignmentData" xml:space="preserve">
-    <value>Reassignment of data</value>
-  </data>
-  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
-    <value>After the users confirm the invitation to the portal their status will change to 'Active'</value>
-  </data>
-  <data name="ResendInviteDialogHeader" xml:space="preserve">
-    <value>Send invitation once again</value>
-  </data>
-  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
-    <value>The invitation to the portal will be sent once again to the selected users with the 'Pending' status who are not disabled.</value>
-  </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="SelectedCount" xml:space="preserve">
-    <value>{0} selected</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Show" xml:space="preserve">
-    <value>Show</value>
-  </data>
-  <data name="ShowOnPage" xml:space="preserve">
-    <value>Show on page</value>
-  </data>
-  <data name="ShowSelectedUserList" xml:space="preserve">
-    <value>View the selected users list</value>
-  </data>
-  <data name="SocialProfiles" xml:space="preserve">
-    <value>Social Profiles</value>
-  </data>
-  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
-    <value>User has been successfully deleted</value>
-  </data>
-  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
-    <value>The instructions for your profile deletion have been sent to email address</value>
-  </data>
-  <data name="TariffActiveUserLimit" xml:space="preserve">
-    <value>Your current pricing plan allows you to add {0}{1} active users{2}.</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="TitleThumbnailPhoto" xml:space="preserve">
-    <value>Change Thumbnails</value>
-  </data>
-  <data name="TotalCount" xml:space="preserve">
-    <value>Total count</value>
-  </data>
-  <data name="WaitingForConfirmation" xml:space="preserve">
-    <value>Waiting for confirmation</value>
-  </data>
-  <data name="WriteButton" xml:space="preserve">
-    <value>Write Letter</value>
-  </data>
-  <data name="LblReassignData" xml:space="preserve">
-    <value>Reassign data</value>
-  </data>
-  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
-    <value>Personal documents of these users that are available to others will be deleted. To avoid this, you must start the data transfer process before deleting.</value>
-  </data>
-  <data name="DeleteUsersDescriptionText" xml:space="preserve">
-    <value>The selected disabled users will be deleted from the portal.</value>
-  </data>
-  <data name="ReassignButton" xml:space="preserve">
-    <value>Reassign</value>
-  </data>
   <data name="ReassignAbortButton" xml:space="preserve">
     <value>Abort transfer</value>
   </data>
   <data name="ReassignAbortToastrMsg" xml:space="preserve">
     <value>Data transfer aborted</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Reassign</value>
   </data>
   <data name="ReassignCrmModule" xml:space="preserve">
     <value>CRM</value>
@@ -457,7 +359,13 @@
     <value>Documents</value>
   </data>
   <data name="ReassignErrorToastrMsg" xml:space="preserve">
-    <value>Data transfer interrupted due to server error</value>
+    <value>Data transfer interrupted due to a server error</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Data reassignment</value>
   </data>
   <data name="ReassignProjectsModule" xml:space="preserve">
     <value>Projects</value>
@@ -469,7 +377,10 @@
     <value>You can close this page. When the process is completed, the administrator who runs it will be notified by mail.</value>
   </data>
   <data name="ReassignsProgressUserInfo" xml:space="preserve">
-    <value>The process of reassign data from user {0} to user {1} is started, it can take a considerable time.</value>
+    <value>The process of reassignment data from user {0} to user {1} started, it can take a considerable time.</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>More about data transfer</value>
   </data>
   <data name="ReassignStatusAborted" xml:space="preserve">
     <value>Interrupted, some data could be transferred</value>
@@ -478,10 +389,10 @@
     <value>Server error</value>
   </data>
   <data name="ReassignStatusFinished" xml:space="preserve">
-    <value>All data transfered</value>
+    <value>All data transferred</value>
   </data>
   <data name="ReassignStatusNotStarted" xml:space="preserve">
-    <value>Data was not transmitted</value>
+    <value>Data was not transferred</value>
   </data>
   <data name="ReassignStatusQueued" xml:space="preserve">
     <value>Queued</value>
@@ -489,17 +400,26 @@
   <data name="ReassignStatusStarted" xml:space="preserve">
     <value>Started</value>
   </data>
-  <data name="LblRemoveData" xml:space="preserve">
-    <value>Delete personal data</value>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Employee to whom the data will be transferred -</value>
   </data>
-  <data name="ReassignMailModule" xml:space="preserve">
-    <value>Mail</value>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Will be transferred:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>General and personal documents available to other portal users;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Open projects, milestones and tasks;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Contacts, open tasks, not closed opportunities and CRM cases;</value>
   </data>
   <data name="ReassignTalkModule" xml:space="preserve">
-    <value>Tak</value>
+    <value>Talk</value>
   </data>
   <data name="RemovingAbortButton" xml:space="preserve">
-    <value>Abort removing</value>
+    <value>Abort removal</value>
   </data>
   <data name="RemovingAbortToastrMsg" xml:space="preserve">
     <value>Data deletion aborted</value>
@@ -508,7 +428,7 @@
     <value>Deleting personal data</value>
   </data>
   <data name="RemovingErrorToastrMsg" xml:space="preserve">
-    <value>Data deletion interrupted due to server error</value>
+    <value>Data deletion interrupted due to a server error</value>
   </data>
   <data name="RemovingListHdr" xml:space="preserve">
     <value>Will be removed:</value>
@@ -526,10 +446,10 @@
     <value>Attached from Talk  files;</value>
   </data>
   <data name="RemovingProgressUserInfo" xml:space="preserve">
-    <value>The process of deleting personal data from user {0} is started, it can take a considerable time.</value>
+    <value>The process of deleting personal data for user {0} started, it can take a considerable time.</value>
   </data>
   <data name="RemovingReadMore" xml:space="preserve">
-    <value>More about deleting personal data</value>
+    <value>More about deleting the personal data</value>
   </data>
   <data name="RemovingRestartButton" xml:space="preserve">
     <value>Start removing again</value>
@@ -543,94 +463,40 @@
   <data name="RemovingStatusNotStarted" xml:space="preserve">
     <value>Data was not deleted</value>
   </data>
-  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
-    <value>Delete profile when reassignment will be finished</value>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>After the users confirm the invitation to the portal their status will change to 'Active'</value>
   </data>
-  <data name="ImportDelimiterDQ" xml:space="preserve">
-    <value>Double quote</value>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Send invitation once again</value>
   </data>
-  <data name="ImportDelimiterSQ" xml:space="preserve">
-    <value>Single quote</value>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>The invitation to the portal will be sent once again to the selected users with the 'Pending' status who are not disabled.</value>
   </data>
-  <data name="ImportEncodingASCII" xml:space="preserve">
-    <value>ASCII</value>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
   </data>
-  <data name="ImportEncodingUTF8" xml:space="preserve">
-    <value>UTF-8</value>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
-  <data name="ImportSeparatorColon" xml:space="preserve">
-    <value>Colon</value>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
   </data>
-  <data name="ImportSeparatorComma" xml:space="preserve">
-    <value>Comma</value>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>View the selected users list</value>
   </data>
-  <data name="ImportSeparatorSemicolon" xml:space="preserve">
-    <value>Semicolon</value>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>User has been successfully deleted</value>
   </data>
-  <data name="ImportSeparatorSpace" xml:space="preserve">
-    <value>Space</value>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
-  <data name="ImportSeparatorTab" xml:space="preserve">
-    <value>Tab</value>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Total count</value>
   </data>
-  <data name="ImportClear" xml:space="preserve">
-    <value>Clear</value>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Waiting for confirmation</value>
   </data>
-  <data name="ImportEncodingCP866" xml:space="preserve">
-    <value>CP-866</value>
-  </data>
-  <data name="ImportEncodingKOI8R" xml:space="preserve">
-    <value>KOI8-R</value>
-  </data>
-  <data name="ImportFromFile" xml:space="preserve">
-    <value>From File</value>
-  </data>
-  <data name="ImportFromGoogle" xml:space="preserve">
-    <value>Google</value>
-  </data>
-  <data name="ImportFromYahoo" xml:space="preserve">
-    <value>Yahoo</value>
-  </data>
-  <data name="ImportWizardFirstStep" xml:space="preserve">
-    <value>Import contacts</value>
-  </data>
-  <data name="ImportWizardFourthStep" xml:space="preserve">
-    <value>Add to portal</value>
-  </data>
-  <data name="ImportWizardSecondStep" xml:space="preserve">
-    <value>Setting up compliance</value>
-  </data>
-  <data name="ImportWizardThirdStep" xml:space="preserve">
-    <value>Edit Contacts</value>
-  </data>
-  <data name="ImportEncodingWindows1251" xml:space="preserve">
-    <value>Windows1251</value>
-  </data>
-  <data name="ExampleValues" xml:space="preserve">
-    <value>Example values</value>
-  </data>
-  <data name="FieldsInFile" xml:space="preserve">
-    <value>Fields in file</value>
-  </data>
-  <data name="FieldsOnPortal" xml:space="preserve">
-    <value>Fields on the portal OnlyOffice</value>
-  </data>
-  <data name="LastName" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
-  <data name="MainEmail" xml:space="preserve">
-    <value>Main Email</value>
-  </data>
-  <data name="NoSameValuesOptions" xml:space="preserve">
-    <value>Fields in the portal cannot have the same values!</value>
-  </data>
-  <data name="NotImport" xml:space="preserve">
-    <value>Not import</value>
-  </data>
-  <data name="ImportColumn" xml:space="preserve">
-    <value>Column</value>
-  </data>
-  <data name="ProductDescriptionEx" xml:space="preserve">
-    <value>Add new users, invite or import them. Manage users and view their detailed information.</value>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Send email</value>
   </data>
 </root>

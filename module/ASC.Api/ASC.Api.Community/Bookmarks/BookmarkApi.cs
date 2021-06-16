@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Bookmarks;
 using ASC.Api.Collections;
@@ -87,7 +88,7 @@ namespace ASC.Api.Community
         [Read("bookmark/@search/{query}")]
         public IEnumerable<BookmarkWrapper> SearchBookmarks(string query)
         {
-            var bookmarks = BookmarkingDao.SearchBookmarks(new List<string> {query}, (int)_context.StartIndex, (int)_context.Count);
+            var bookmarks = BookmarkingDao.SearchBookmarks(new List<string> { query }, (int)_context.StartIndex, (int)_context.Count);
             _context.SetDataPaginated();
             return bookmarks.Select(x => new BookmarkWrapper(x)).ToSmartList();
         }
@@ -270,14 +271,14 @@ namespace ASC.Api.Community
             if (bookmark == null) throw new ItemNotFoundException("bookmark not found");
 
             var comment = new Comment
-                {
-                    ID = Guid.NewGuid(),
-                    BookmarkID = id,
-                    Content = content,
-                    Datetime = DateTime.UtcNow,
-                    UserID = SecurityContext.CurrentAccount.ID,
-                    Parent = parentId.ToString()
-                };
+            {
+                ID = Guid.NewGuid(),
+                BookmarkID = id,
+                Content = content,
+                Datetime = DateTime.UtcNow,
+                UserID = SecurityContext.CurrentAccount.ID,
+                Parent = parentId.ToString()
+            };
             BookmarkingDao.AddComment(comment);
             return new BookmarkCommentWrapper(comment);
         }
@@ -303,7 +304,7 @@ namespace ASC.Api.Community
         ///<short>
         /// Add bookmark
         ///</short>
-        ///<param name="url">url of bookmarking page</param>
+        ///<param name="url">absolute url of bookmarking page</param>
         ///<param name="title">title to show</param>
         ///<param name="description">description</param>
         ///<param name="tags">tags. separated by semicolon</param>
@@ -313,22 +314,36 @@ namespace ASC.Api.Community
         /// Sending data in application/json:
         /// 
         /// {
-        ///     url:"www.teamlab.com",
+        ///     url:"https://www.teamlab.com",
         ///     title: "TeamLab",
         ///     description: "best site i've ever seen",
         ///     tags: "project management, collaboration"
         /// }
         /// 
         /// Sending data in application/x-www-form-urlencoded
-        /// url="www.teamlab.com"&title="TeamLab"&description="best site i've ever seen"&tags="project management, collaboration"
+        /// url="https://www.teamlab.com"&title="TeamLab"&description="best site i've ever seen"&tags="project management, collaboration"
         /// ]]>
         /// </example>
         /// <category>Bookmarks</category>
         [Create("bookmark")]
         public BookmarkWrapper AddBookmark(string url, string title, string description, string tags)
         {
-            var bookmark = new Bookmark(url, TenantUtil.DateTimeNow(), title, description) {UserCreatorID = SecurityContext.CurrentAccount.ID};
-            BookmarkingDao.AddBookmark(bookmark, !string.IsNullOrEmpty(tags) ? tags.Split(',').Select(x => new Tag {Name = x}).ToList() : new List<Tag>());
+            try
+            {
+                var uri = new Uri(url, UriKind.Absolute);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("invalid absolute url", "url");
+            }
+
+            if (string.IsNullOrEmpty(title))
+            {
+                throw new ArgumentException("title can't be empty", "title");
+            }
+
+            var bookmark = new Bookmark(url, TenantUtil.DateTimeNow(), title, description) { UserCreatorID = SecurityContext.CurrentAccount.ID };
+            BookmarkingDao.AddBookmark(bookmark, !string.IsNullOrEmpty(tags) ? tags.Split(',').Select(x => new Tag { Name = x }).ToList() : new List<Tag>());
             return new BookmarkWrapper(bookmark);
         }
 

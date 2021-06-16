@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,11 @@ var PortalRename = new function () {
     this.init = function () {
         jq.tmpl("template-blockUIPanel", {
             id: "portalRenameConfirmation",
-            headerTest: ASC.Resources.Master.Resource.PortalRenameConfirmationTitle,
+            headerTest: ASC.Resources.Master.ResourceJS.PortalRenameConfirmationTitle,
             questionText: '',
-            innerHtmlText: jq.format(ASC.Resources.Master.Resource.PortalRenameConfirmationPopup, "<p>", "</p>"),
-            OKBtn: ASC.Resources.Master.Resource.ContinueButton,
-            CancelBtn: ASC.Resources.Master.Resource.CancelButton
+            innerHtmlText: jq.format(ASC.Resources.Master.ResourceJS.PortalRenameConfirmationPopup, "<p>", "</p>"),
+            OKBtn: ASC.Resources.Master.ResourceJS.ContinueButton,
+            CancelBtn: ASC.Resources.Master.ResourceJS.CancelButton
         }).insertAfter("#studio_portalRename");
 
         jq("#portalRenameConfirmation").find(".button.blue").on("click", function () {
@@ -45,7 +45,7 @@ var PortalRename = new function () {
                 return;
             } else if (alias == jq("#studio_tenantAlias").attr("data-actualvalue")) {
                 jq("#studio_tenantAlias").addClass("with-error");
-                LoadingBanner.showMesInfoBtn("#studio_portalRename", ASC.Resources.Master.Resource.ErrorPortalNameWasNotChanged, "error");
+                LoadingBanner.showMesInfoBtn("#studio_portalRename", ASC.Resources.Master.ResourceJS.ErrorPortalNameWasNotChanged, "error");
                 return;
             }  else {
                 jq("#studio_tenantAlias").removeClass("with-error");
@@ -78,9 +78,9 @@ var PortalRename = new function () {
                     var error = jq.parseJSON(Encoder.htmlDecode(errTest)).errors[0];
 
                     switch (error) {
-                        case "portalNameExist": errTest = ASC.Resources.Master.Resource.ErrorPortalNameExist; break;
-                        case "tooShortError": errTest = ASC.Resources.Master.Resource.ErrorPortalNameTooShort; break;
-                        case "portalNameIncorrect": errTest = ASC.Resources.Master.Resource.ErrorPortalNameIncorrect; break;
+                        case "portalNameExist": errTest = ASC.Resources.Master.ResourceJS.ErrorPortalNameExist; break;
+                        case "tooShortError": errTest = ASC.Resources.Master.ResourceJS.ErrorPortalNameTooShort; break;
+                        case "portalNameIncorrect": errTest = ASC.Resources.Master.ResourceJS.ErrorPortalNameIncorrect; break;
                     }
                 }
                 catch (e) { }

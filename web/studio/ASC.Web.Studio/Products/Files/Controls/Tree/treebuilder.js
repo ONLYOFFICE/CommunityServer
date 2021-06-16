@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -187,10 +187,10 @@ window.ASC.Files.Tree = (function () {
 
             return true;
         } else {
-            var errorString = ASC.Files.FilesJSResources.ErrorMassage_SecurityException;
+            var errorString = ASC.Files.FilesJSResource.ErrorMassage_SecurityException;
             if (folderId == ASC.Files.Constants.FOLDER_ID_PROJECT
                 || folderId == ASC.Files.Constants.FOLDER_ID_SHARE) {
-                errorString = ASC.Files.FilesJSResources.ErrorMassage_SecurityException_PrivateRoot;
+                errorString = ASC.Files.FilesJSResource.ErrorMassage_SecurityException_PrivateRoot;
             }
             ASC.Files.UI.displayInfoPanel(errorString, true);
 

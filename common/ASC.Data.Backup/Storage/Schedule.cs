@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Tenants;
 using ASC.Notify.Cron;
-using ASC.Web.Studio.Core.Backup;
 
 namespace ASC.Data.Backup.Storage
 {
@@ -47,8 +47,6 @@ namespace ASC.Data.Backup.Storage
         {
             try
             {
-                if (BackupHelper.ExceedsMaxAvailableSize(TenantId)) throw new Exception("Backup file exceed " + TenantId);
-
                 var cron = new CronExpression(Cron);
                 var tenant = CoreContext.TenantManager.GetTenant(TenantId);
                 var tenantTimeZone = tenant.TimeZone;

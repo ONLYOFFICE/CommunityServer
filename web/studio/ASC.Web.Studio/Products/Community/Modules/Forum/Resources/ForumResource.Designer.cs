@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Forum.Resources {
+namespace ASC.Web.Community.Modules.Forum.Resources {
     using System;
     
     
@@ -57,15 +57,6 @@ namespace ASC.Web.Community.Forum.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string AddButton {
-            get {
-                return ResourceManager.GetString("AddButton", resourceCulture);
             }
         }
         
@@ -153,15 +144,6 @@ namespace ASC.Web.Community.Forum.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
-        public static string EditButton {
-            get {
-                return ResourceManager.GetString("EditButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
         public static string EditShortButton {
             get {
                 return ResourceManager.GetString("EditShortButton", resourceCulture);
@@ -205,7 +187,7 @@ namespace ASC.Web.Community.Forum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive..
+        ///   Looks up a localized string similar to Visit forums, take part in the discussions, comment with some interesting information..
         /// </summary>
         public static string EmptyScreenForumTextVisitor {
             get {
@@ -403,47 +385,11 @@ namespace ASC.Web.Community.Forum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string PleaseWaitMessage {
-            get {
-                return ResourceManager.GetString("PleaseWaitMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Posts.
         /// </summary>
         public static string PostCount {
             get {
                 return ResourceManager.GetString("PostCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Author.
-        /// </summary>
-        public static string PostedBy {
-            get {
-                return ResourceManager.GetString("PostedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter your question.
-        /// </summary>
-        public static string QuestionEmptyMessage {
-            get {
-                return ResourceManager.GetString("QuestionEmptyMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Latest Posts in Topic.
-        /// </summary>
-        public static string RecentPostFromTopic {
-            get {
-                return ResourceManager.GetString("RecentPostFromTopic", resourceCulture);
             }
         }
         
@@ -475,38 +421,11 @@ namespace ASC.Web.Community.Forum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nothing has been found..
-        /// </summary>
-        public static string SearchNotFoundMessage {
-            get {
-                return ResourceManager.GetString("SearchNotFoundMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Posts.
         /// </summary>
         public static string ShotPostCount {
             get {
                 return ResourceManager.GetString("ShotPostCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Attach.
-        /// </summary>
-        public static string StickyTopicButton {
-            get {
-                return ResourceManager.GetString("StickyTopicButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter the topic name.
-        /// </summary>
-        public static string SubjectEmptyMessage {
-            get {
-                return ResourceManager.GetString("SubjectEmptyMessage", resourceCulture);
             }
         }
         
@@ -543,24 +462,6 @@ namespace ASC.Web.Community.Forum.Resources {
         public static string SuccessfullyCreateForumMessage {
             get {
                 return ResourceManager.GetString("SuccessfullyCreateForumMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tag Name.
-        /// </summary>
-        public static string TagName {
-            get {
-                return ResourceManager.GetString("TagName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tags.
-        /// </summary>
-        public static string Tags {
-            get {
-                return ResourceManager.GetString("Tags", resourceCulture);
             }
         }
         
@@ -678,15 +579,6 @@ namespace ASC.Web.Community.Forum.Resources {
         public static string TypeCategoryName {
             get {
                 return ResourceManager.GetString("TypeCategoryName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unsubscribe from notification.
-        /// </summary>
-        public static string UnsubscribeButton {
-            get {
-                return ResourceManager.GetString("UnsubscribeButton", resourceCulture);
             }
         }
         

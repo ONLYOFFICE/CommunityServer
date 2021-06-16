@@ -151,7 +151,7 @@
     <ul class="account-links tabs-content">
         {{each(i, acc) infos}}
         <li class="${acc.Provider}{{if acc.Linked == true}} connected{{/if}} ${lang}">
-            <span class="icon"></span>
+            <span class="icon {{if disable == true}}opacity{{/if}}"></span>
             <span>
                 {{if acc.Linked == true}}
                     ${ASC.Resources.Master.TemplateResource.AssociateAccountConnected}
@@ -159,7 +159,7 @@
                     ${ASC.Resources.Master.TemplateResource.AssociateAccountNotConnected}
                 {{/if}}
             </span> 
-            <a href="${acc.Url}" class="popup{{if acc.Linked == true}} linked{{/if}}" id="${acc.Provider}">
+            <a {{if disable != true}}href="${acc.Url}"{{/if}}  class="popup{{if acc.Linked == true}} linked{{/if}} {{if disable == true}}disable{{/if}}" id="${acc.Provider}">
                 {{if acc.Linked == true}}
                     ${ASC.Resources.Master.TemplateResource.AssociateAccountDisconnect}
                 {{else}}

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Web.Optimization;
+
 using ASC.Common.Logging;
 using ASC.Data.Storage;
 
@@ -26,7 +27,7 @@ namespace ASC.Web.Core.Client.Bundling
 {
     class StorageTransform : IBundleTransform
     {
-        private static readonly ILog Log= LogManager.GetLogger("ASC.Web.Bundle.StorageTransform");
+        private static readonly ILog Log = LogManager.GetLogger("ASC.Web.Bundle.StorageTransform");
 
         public void Process(BundleContext context, BundleResponse response)
         {
@@ -40,8 +41,8 @@ namespace ASC.Web.Core.Client.Bundling
                     var fileName = Path.GetFileName(bundle.Path);
                     if (string.IsNullOrEmpty(fileName)) return;
                     var path = Path.Combine("App_Data", fileName);
-                    var relativePath = Path.GetTempFileName();
-                    
+                    var relativePath = TempPath.GetTempFileName();
+
                     File.WriteAllText(relativePath, response.Content, Encoding.UTF8);
 
                     StaticUploader.UploadFileAsync(path, relativePath, r =>

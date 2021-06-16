@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" CodeBehind="ServerError.aspx.cs" EnableViewState="false" Inherits="ASC.Web.Studio.ServerError" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="PageContent">
     <div class="header-base-big">

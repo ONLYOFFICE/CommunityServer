@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1573,7 +1573,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
           }
           if (!isMinimized) {
               ASC.TMTalk.dom.removeClass('talkRoomsContainer', 'minimized');
-              ASC.TMTalk.tabsContainer.setStatus('hint', { hint: ASC.TMTalk.Resources.HintSendInvite }, 2);
+              ASC.TMTalk.tabsContainer.setStatus('hint', { hint: ASC.TMTalk.TalkResource.HintSendInvite }, 2);
               var roomSeparator = ASC.TMTalk.dom.getElementsByClassName(room, 'room-separator');
               if (roomSeparator.length > 0) {
                   ASC.TMTalk.dom.removeClass(roomSeparator[0], 'hidden');

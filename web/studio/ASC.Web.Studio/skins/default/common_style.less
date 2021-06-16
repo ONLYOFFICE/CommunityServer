@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,6 @@ span.addUserLink {
     &:after {
         color: #83888d;
         content: "+";
-        cursor: pointer;
         display: block;
         font-size: 22px;
         font-weight: 800;
@@ -1178,6 +1177,17 @@ body.media-width-0-1200 .settings-help-block {
 .disable {
     .settings-help-block {
         background: url('imagescss/exclamation.png') no-repeat left top;
+
+        div, p, span {
+            color: #333;
+        }
+
+        a,
+        a:visited,
+        a:hover,
+        a:active {
+            color: #116d9d;
+        }
     }
 
     .settings-help-block::after {

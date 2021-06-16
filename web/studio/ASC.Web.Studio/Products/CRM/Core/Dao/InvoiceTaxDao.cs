@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
@@ -81,7 +81,7 @@ namespace ASC.CRM.Core.Dao
         {
             return Db.ExecuteScalar<bool>(
                     @"select exists(select 1 from crm_invoice_tax where tenant_id = @tid and id = @id)",
-                    new {tid = TenantID, id = invoiceTaxID});
+                    new { tid = TenantID, id = invoiceTaxID });
         }
 
         public Boolean IsExist(String invoiceName)
@@ -99,7 +99,7 @@ namespace ASC.CRM.Core.Dao
         {
             var count1 = Db.ExecuteScalar<int>(@"select count(*) from crm_invoice_item where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)",
                 new { tid = TenantID, id = invoiceTaxID });
-            var count2 = Db.ExecuteScalar<int>(@"select count(*) from crm_invoice_line where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)", 
+            var count2 = Db.ExecuteScalar<int>(@"select count(*) from crm_invoice_line where tenant_id = @tid and (invoice_tax1_id = @id or invoice_tax2_id = @id)",
                 new { tid = TenantID, id = invoiceTaxID });
 
             return count1 == 0 && count2 == 0;
@@ -202,8 +202,8 @@ namespace ASC.CRM.Core.Dao
 
             Db.ExecuteNonQuery(Delete("crm_invoice_tax").Where("id", invoiceTaxID));
 
-           /* _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceTaxCacheKey, String.Empty);*/
+            /* _cache.Remove(_invoiceItemCacheKey);
+             _cache.Insert(_invoiceTaxCacheKey, String.Empty);*/
             return invoiceTax;
         }
 
@@ -215,16 +215,16 @@ namespace ASC.CRM.Core.Dao
         private static InvoiceTax ToInvoiceTax(object[] row)
         {
             return new InvoiceTax
-                {
-                    ID = Convert.ToInt32(row[0]),
-                    Name = Convert.ToString(row[1]),
-                    Description = Convert.ToString(row[2]),
-                    Rate = Convert.ToDecimal(row[3]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[4].ToString())),
-                    CreateBy = ToGuid(row[5]),
-                    LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[6].ToString())),
-                    LastModifedBy = ToGuid(row[7])
-                };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Name = Convert.ToString(row[1]),
+                Description = Convert.ToString(row[2]),
+                Rate = Convert.ToDecimal(row[3]),
+                CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[4].ToString())),
+                CreateBy = ToGuid(row[5]),
+                LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[6].ToString())),
+                LastModifedBy = ToGuid(row[7])
+            };
         }
 
         private SqlQuery GetInvoiceTaxSqlQuery(Exp where)

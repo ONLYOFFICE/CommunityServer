@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
@@ -24,32 +25,53 @@ namespace ASC.Feed.Aggregator.Modules.Documents
 {
     public class DocumentsDbHelper
     {
+        private const char seporator = '|';
+
         public static SqlQuery GetRootFolderType(string parentFolderColumnName)
         {
             return new SqlQuery("files_folder d")
                 .From("files_folder_tree t")
-                .Select("concat(cast(d.folder_type as char), d.create_by, cast(d.id as char))")
+                .Select(string.Format("concat(cast(d.folder_type as char), '{0}', d.create_by, '{0}', cast(d.id as char))", seporator))
                 .Where(Exp.EqColumns("d.id", "t.parent_id") &
                        Exp.EqColumns("t.folder_id", "f." + parentFolderColumnName))
                 .OrderBy("level", false)
                 .SetMaxResults(1);
         }
 
+        private delegate bool TryParseHandler<T>(string value, out T result);
+
+        private static T TryParse<T>(object v, int index, TryParseHandler<T> handler)
+        {
+            var result = default(T);
+
+            if (v == null) return result;
+
+            var data = v.ToString().Split(seporator);
+
+            if (data.Length != 3) return result;
+
+            if (index < 0 || index > 2) return result;
+
+            if (string.IsNullOrEmpty(data[index])) return result;
+
+            handler(data[index], out result);
+
+            return result;
+        }
+
         public static FolderType ParseRootFolderType(object v)
         {
-            return v != null
-                       ? (FolderType)Enum.Parse(typeof(FolderType), v.ToString().Substring(0, 1))
-                       : default(FolderType);
+            return TryParse<FolderType>(v, 0, Enum.TryParse);
         }
 
         public static Guid ParseRootFolderCreator(object v)
         {
-            return v != null ? new Guid(v.ToString().Substring(1, 36)) : default(Guid);
+            return TryParse<Guid>(v, 1, Guid.TryParse);
         }
 
         public static int ParseRootFolderId(object v)
         {
-            return v != null ? int.Parse(v.ToString().Substring(1 + 36)) : default(int);
+            return TryParse<int>(v, 2, int.TryParse);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ if (typeof ASC.Mail === "undefined") {
 }
 if (typeof ASC.Mail.Utility === "undefined") {
     ASC.Mail.Utility = (function () {
-        var resources = ASC.Resources.Master.Resource;
+        var ResourceJS = ASC.Resources.Master.ResourceJS;
         var parseErrorTypes = {
                 None: 0,
                 EmptyRecipients: 1,
@@ -484,8 +484,8 @@ if (typeof ASC.Mail.Utility === "undefined") {
             switch (params.method) {
                 case "REQUEST":
                     info.action = params.isUpdate ?
-                        resources.MailIcsUpdateDescription :
-                        resources.MailIcsRequestDescription.format(
+                        ResourceJS.MailIcsUpdateDescription :
+                        ResourceJS.MailIcsRequestDescription.format(
                         (iCalInfo.organizerAddress.name || iCalInfo.organizerAddress.email) ||
                         (iCalInfo.currentAttendeeAddress.name || iCalInfo.currentAttendeeAddress.email));
                     break;
@@ -493,13 +493,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     var res;
                     switch (params.replyDecision) {
                         case "ACCEPTED":
-                            res = resources.MailIcsReplyYesDescription;
+                            res = ResourceJS.MailIcsReplyYesDescription;
                             break;
                         case "TENTATIVE":
-                            res = resources.MailIcsReplyMaybeDescription;
+                            res = ResourceJS.MailIcsReplyMaybeDescription;
                             break;
                         case "DECLINED":
-                            res = resources.MailIcsReplyNoDescription;
+                            res = ResourceJS.MailIcsReplyNoDescription;
                             break;
                         default:
                             throw "Unsupported attendee partstart";
@@ -508,7 +508,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         iCalInfo.currentAttendeeAddress.email);
                     break;
                 case "CANCEL":
-                    info.action = resources.MailIcsCancelDescription;
+                    info.action = ResourceJS.MailIcsCancelDescription;
                     break;
                 default:
                     break;
@@ -564,8 +564,8 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 var fromAddress = iCalInfo.organizerAddress;
 
                 var subject = params.isUpdate ?
-                    resources.MailIcsUpdateSubject.format(iCalInfo.event.summary) :
-                    resources.MailIcsRequestSubject.format(iCalInfo.event.summary);
+                    ResourceJS.MailIcsUpdateSubject.format(iCalInfo.event.summary) :
+                    ResourceJS.MailIcsRequestSubject.format(iCalInfo.event.summary);
 
                 message.from = fromAddress;
                 message.to = toAddresses;
@@ -605,13 +605,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 var subject;
                 switch (params.replyDecision) {
                     case "ACCEPTED":
-                        subject = resources.MailIcsReplyYesDescription;
+                        subject = ResourceJS.MailIcsReplyYesDescription;
                         break;
                     case "TENTATIVE":
-                        subject = resources.MailIcsReplyMaybeDescription;
+                        subject = ResourceJS.MailIcsReplyMaybeDescription;
                         break;
                     case "DECLINED":
-                        subject = resources.MailIcsReplyNoDescription;
+                        subject = ResourceJS.MailIcsReplyNoDescription;
                         break;
                     default:
                         throw "Unsupported attendee partstart";
@@ -628,7 +628,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 message.from = fromAddress;
                 message.to = [toAddress];
-                message.subject = resources.MailIcsReplySubject.format(subject);
+                message.subject = ResourceJS.MailIcsReplySubject.format(subject);
                 message.body = createBoby(params, iCalInfo);
                 message.calendarIcs = iCalInfo.comp.toString();
 
@@ -680,7 +680,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
             message.from = fromAddress;
             message.to = toAddresses;
-            message.subject = resources.MailIcsCancelSubject.format(iCalInfo.event.summary);
+            message.subject = ResourceJS.MailIcsCancelSubject.format(iCalInfo.event.summary);
             message.body = createBoby(params, iCalInfo);
             message.calendarIcs = iCalInfo.comp.toString();
 
@@ -1032,7 +1032,7 @@ if (typeof ASC.Mail.Utility === "undefined") {
                     var t = improveAddresses(message.to);
                     message.to = t.addresses;
 
-                    if (message.to.length === 0) {
+                    if (!message.to.length && !message.cc.length && !message.bcc.length) {
                         throw "To field is empty";
                     } else if (t.hasBad) {
                         throw "To field contains invalid recipients.";
@@ -1229,14 +1229,14 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 switch (state) {
                     case -1:
-                        toastr.error(resources.MailSendMessageError);
+                        toastr.error(ResourceJS.MailSendMessageError);
 
                         if (module === "mail" && window.mailAlerts) { // mail hook
                             window.mailAlerts.check(lastSentMessageId > 0 ? { showFailureOnlyMessageId: lastSentMessageId } : {});
                         }
                         break;
                     case 0:
-                        toastr.success(resources.MailSentMessageText);
+                        toastr.success(ResourceJS.MailSentMessageText);
                         if (module === "mail" && window.mailAlerts) { // mail hook
                             if (!ASC.Resources.Master.Hub.Url ||
                             (jq.connection && jq.connection.hub.state !== jq.connection.connectionState.connected)) {
@@ -1247,13 +1247,13 @@ if (typeof ASC.Mail.Utility === "undefined") {
                         }
                         break;
                     case 1:
-                        toastr.success(resources.MailSentIcalRequestText);
+                        toastr.success(ResourceJS.MailSentIcalRequestText);
                         break;
                     case 2:
-                        toastr.success(resources.MailSentIcalResponseText);
+                        toastr.success(ResourceJS.MailSentIcalResponseText);
                         break;
                     case 3:
-                        toastr.success(resources.MailSentIcalCancelText);
+                        toastr.success(ResourceJS.MailSentIcalCancelText);
                         break;
                     default:
                         break;
@@ -1281,16 +1281,16 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 if (dtStart.isSame(dtEnd, 'day')) {
                     if (allDayStart)
-                        dateEvent = "{0}, {1}".format(strStart, resources.MailIcsCalendarAllDayEventLabel);
+                        dateEvent = "{0}, {1}".format(strStart, ResourceJS.MailIcsCalendarAllDayEventLabel);
                     else
                         dateEvent = "{0}, {1} - {2} {3}".format(strStart, strStartTime, strEndTime, strTz);
                 } else {
                     if (allDayStart && allDayEnd) {
-                        dateEvent = "{0}, {1} - {2}, {1}".format(strStart, resources.MailIcsCalendarAllDayEventLabel, strEnd);
+                        dateEvent = "{0}, {1} - {2}, {1}".format(strStart, ResourceJS.MailIcsCalendarAllDayEventLabel, strEnd);
                     } else if (allDayStart && !allDayEnd) {
-                        dateEvent = "{0}, {1} - {2}, {3} {4}".format(strStart, resources.MailIcsCalendarAllDayEventLabel, strEnd, strEndTime, strTz);
+                        dateEvent = "{0}, {1} - {2}, {3} {4}".format(strStart, ResourceJS.MailIcsCalendarAllDayEventLabel, strEnd, strEndTime, strTz);
                     } else if (!allDayStart && allDayEnd) {
-                        dateEvent = "{0}, {1} {2} - {3}, {4}".format(strStart, strStartTime, strTz, strEnd, resources.MailIcsCalendarAllDayEventLabel);
+                        dateEvent = "{0}, {1} {2} - {3}, {4}".format(strStart, strStartTime, strTz, strEnd, ResourceJS.MailIcsCalendarAllDayEventLabel);
                     } else {
                         dateEvent = "{0}, {1} - {2}, {3} {4}".format(strStart, strStartTime, strEnd, strEndTime, strTz);
                     }
@@ -1308,67 +1308,67 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 function getText(id) {
                     switch (id.toLowerCase()) {
                         case "every":
-                            return resources.MailIcsRRuleEveryLabel;
+                            return ResourceJS.MailIcsRRuleEveryLabel;
                         case "until":
-                            return resources.MailIcsRRuleUntilLabel;
+                            return ResourceJS.MailIcsRRuleUntilLabel;
                         case "for":
-                            return resources.MailIcsRRuleForLabel;
+                            return ResourceJS.MailIcsRRuleForLabel;
                         case "times":
-                            return resources.MailIcsRRuleTimesLabel;
+                            return ResourceJS.MailIcsRRuleTimesLabel;
                         case "time":
-                            return resources.MailIcsRRuleTimeLabel;
+                            return ResourceJS.MailIcsRRuleTimeLabel;
                         case "(~ approximate)":
-                            return "(~ {0})".format(resources.MailIcsRRuleApproximateLabel);
+                            return "(~ {0})".format(ResourceJS.MailIcsRRuleApproximateLabel);
                         case "hours":
-                            return resources.MailIcsRRuleHoursLabel;
+                            return ResourceJS.MailIcsRRuleHoursLabel;
                         case "hour":
-                            return resources.MailIcsRRuleHourLabel;
+                            return ResourceJS.MailIcsRRuleHourLabel;
                         case "weekdays":
-                            return resources.MailIcsRRuleWeekdaysLabel;
+                            return ResourceJS.MailIcsRRuleWeekdaysLabel;
                         case "weekday":
-                            return resources.MailIcsRRuleWeekdayLabel;
+                            return ResourceJS.MailIcsRRuleWeekdayLabel;
                         case "days":
-                            return resources.MailIcsRRuleDaysLabel;
+                            return ResourceJS.MailIcsRRuleDaysLabel;
                         case "day":
-                            return resources.MailIcsRRuleDayLabel;
+                            return ResourceJS.MailIcsRRuleDayLabel;
                         case "weeks":
-                            return resources.MailIcsRRuleWeeksLabel;
+                            return ResourceJS.MailIcsRRuleWeeksLabel;
                         case "week":
-                            return resources.MailIcsRRuleWeekLabel;
+                            return ResourceJS.MailIcsRRuleWeekLabel;
                         case "months":
-                            return resources.MailIcsRRuleMonthsLabel;
+                            return ResourceJS.MailIcsRRuleMonthsLabel;
                         case "month":
-                            return resources.MailIcsRRuleMonthLabel;
+                            return ResourceJS.MailIcsRRuleMonthLabel;
                         case "years":
-                            return resources.MailIcsRRuleYearsLabel;
+                            return ResourceJS.MailIcsRRuleYearsLabel;
                         case "year":
-                            return resources.MailIcsRRuleYearLabel;
+                            return ResourceJS.MailIcsRRuleYearLabel;
                         case "on":
-                            return resources.MailIcsRRuleOnLabel;
+                            return ResourceJS.MailIcsRRuleOnLabel;
                         case "on the":
-                            return resources.MailIcsRRuleOnTheLabel;
+                            return ResourceJS.MailIcsRRuleOnTheLabel;
                         case "in":
-                            return resources.MailIcsRRuleInLabel;
+                            return ResourceJS.MailIcsRRuleInLabel;
                         case "at":
-                            return resources.MailIcsRRuleAtLabel;
+                            return ResourceJS.MailIcsRRuleAtLabel;
                         case "the":
-                            return resources.MailIcsRRuleTheLabel;
+                            return ResourceJS.MailIcsRRuleTheLabel;
                         case "and":
-                            return resources.MailIcsRRuleAndLabel;
+                            return ResourceJS.MailIcsRRuleAndLabel;
                         case "or":
-                            return resources.MailIcsRRuleOrLabel;
+                            return ResourceJS.MailIcsRRuleOrLabel;
                         case "last":
-                            return resources.MailIcsRRuleLastLabel;
+                            return ResourceJS.MailIcsRRuleLastLabel;
                         case "st":
-                            return resources.MailIcsRRuleStLabel;
+                            return ResourceJS.MailIcsRRuleStLabel;
                         case "nd":
-                            return resources.MailIcsRRuleNdLabel;
+                            return ResourceJS.MailIcsRRuleNdLabel;
                         case "rd":
-                            return resources.MailIcsRRuleRdLabel;
+                            return ResourceJS.MailIcsRRuleRdLabel;
                         case "th":
-                            return resources.MailIcsRRuleThLabel;
+                            return ResourceJS.MailIcsRRuleThLabel;
                         case "rrule error: unable to fully convert this rrule to text":
-                            return resources.MailIcsRRuleParseErrorLabel;
+                            return ResourceJS.MailIcsRRuleParseErrorLabel;
                         default:
                             return id;
                     }
@@ -1483,6 +1483,48 @@ if (typeof ASC.Mail.Utility === "undefined") {
                 url += "?files={0}".format(encodeURIComponent(JSON.stringify(fileIds)));
 
                 return url;
+            },
+
+            ParseMailTo: function (s) {
+                try {
+                    var r = {};
+
+                    var email = s.match(/mailto:([^\?]*)/);
+                    email = email && email[1] ? email[1] : false;
+
+                    var cc = s.match(/cc=([^&]+)/);
+                    cc = cc && cc[1] ? cc[1] : false;
+
+                    var bcc = s.match(/bcc=([^&]+)/);
+                    bcc = bcc && bcc[1] ? bcc[1] : false;
+
+                    var subject = s.match(/subject=([^&]+)/);
+                    subject = subject && subject[1] ? subject[1].replace(/\+/g, ' ') : false;
+
+                    var body = s.match(/body=([^&]+)/);
+                    body = body && body[1] ? body[1].replace(/\+/g, ' ') : false;
+
+                    if (email)
+                        r['email'] = email;
+
+                    if (cc)
+                        r['cc'] = cc;
+
+                    if (bcc)
+                        r['bcc'] = bcc;
+
+                    if (subject)
+                        r['subject'] = decodeURIComponent(subject);
+
+                    if (body)
+                        r['body'] = decodeURIComponent(body);
+
+                    return r;
+                } catch (e) {
+                    console.log("Failed ParseMailTo", e);
+                }
+
+                return null;
             }
         };
     })();

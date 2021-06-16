@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ namespace ASC.Common.Security
         private const int MBIG = int.MaxValue;
         private const int MSEED = 161803398;
         private const int MZ = 0;
-        private int[] seeds;
+        private readonly int[] seeds;
 
 
         public AscRandom() : this(Environment.TickCount)

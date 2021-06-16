@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,7 @@ window.ASC.Files.ImageViewer = (function () {
         imgRef.on("touchend", touchEndEvent);
         imgRef.on("load", imageOnLoad);
         imgRef.on("error", function () {
-            onError(ASC.Files.FilesJSResources.PreviewError.format(currentFileName));
+            onError(ASC.Files.FilesJSResource.PreviewError.format(currentFileName));
         });
 
         jq(window).bind("resize.ImageViewer", calculateDimensions);

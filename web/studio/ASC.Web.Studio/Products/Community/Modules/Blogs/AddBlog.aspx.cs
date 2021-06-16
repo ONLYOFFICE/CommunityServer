@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,23 @@
 */
 
 
-using AjaxPro;
-using ASC.Blogs.Core;
-using ASC.Blogs.Core.Domain;
-using ASC.Blogs.Core.Resources;
-using ASC.Blogs.Core.Security;
-using ASC.Core;
-using ASC.Web.Community.Blogs.Views;
-using ASC.Web.Community.Product;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+
+using AjaxPro;
+
+using ASC.Blogs.Core;
+using ASC.Blogs.Core.Domain;
+using ASC.Blogs.Core.Security;
+using ASC.Core;
+using ASC.Web.Community.Blogs.Views;
+using ASC.Web.Community.Modules.Blogs.Core.Resources;
+using ASC.Web.Community.Product;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Blogs
 {
@@ -42,7 +44,7 @@ namespace ASC.Web.Community.Blogs
         {
             if (!CommunitySecurity.CheckPermissions(Constants.Action_AddPost))
                 Response.Redirect(Constants.DefaultPageUrl, true);
-            
+
             if (CheckTitle(txtTitle.Text))
             {
                 mainContainer.Options.InfoMessageText = "";
@@ -75,7 +77,7 @@ namespace ASC.Web.Community.Blogs
             //Page.RegisterInlineScript("ckeditorConnector.load(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
             Page.RegisterInlineScript("ckeditorConnector.load(function () {" +
                                       "BlogsManager.blogsEditor = CKEDITOR.replace('ckEditor', { toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + "'});" +
-                                      "BlogsManager.blogsEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});"+
+                                      "BlogsManager.blogsEditor.on('change',  function() {if (this.getData() == '') {jq('#btnPreview').addClass('disable');} else {jq('#btnPreview').removeClass('disable');}});" +
                                        "});");
         }
 
@@ -137,12 +139,12 @@ namespace ASC.Web.Community.Blogs
                 Constants.Action_AddPost))
             {
                 var newPost = new Post
-                    {
-                        Content = (Request["blog_text"] ?? "")
-                    };
+                {
+                    Content = (Request["blog_text"] ?? "")
+                };
 
                 var dateNow = ASC.Core.Tenants.TenantUtil.DateTimeNow();
-                
+
                 newPost.Datetime = dateNow;
                 newPost.Title = GetLimitedText(txtTitle.Text);
                 newPost.UserID = authorId;
@@ -154,9 +156,9 @@ namespace ASC.Web.Community.Blogs
                         continue;
 
                     var tag = new Tag
-                        {
-                            Content = GetLimitedText(tagName.Trim())
-                        };
+                    {
+                        Content = GetLimitedText(tagName.Trim())
+                    };
                     newPost.TagList.Add(tag);
                 }
                 engine.SavePost(newPost, true, Request.Form["notify_comments"] == "on");
@@ -191,12 +193,12 @@ namespace ASC.Web.Community.Blogs
         private void InitPreviewTemplate()
         {
             var post = new Post
-                {
-                    Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
-                    Title = string.Empty,
-                    Content = string.Empty,
-                    UserID = SecurityContext.CurrentAccount.ID
-                };
+            {
+                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                Title = string.Empty,
+                Content = string.Empty,
+                UserID = SecurityContext.CurrentAccount.ID
+            };
 
             var control = (ViewBlogView)LoadControl("~/Products/Community/Modules/Blogs/Views/ViewBlogView.ascx");
             control.IsPreview = true;

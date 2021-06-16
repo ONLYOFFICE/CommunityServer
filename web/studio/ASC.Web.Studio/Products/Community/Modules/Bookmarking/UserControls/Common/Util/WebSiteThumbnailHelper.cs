@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using ASC.Data.Storage;
-using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;

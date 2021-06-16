@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
-using ASC.Core.Common.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio;
 using ASC.Web.Studio.PublicResources;
@@ -61,8 +61,9 @@ namespace ASC.Web.UserControls.WhiteLabel
                 isRetina = value;
             }
         }
-        protected string LogoText {
-        get
+        protected string LogoText
+        {
+            get
             {
                 var whiteLabelSettings = TenantWhiteLabelSettings.Load();
 

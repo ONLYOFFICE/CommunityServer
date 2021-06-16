@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,25 +24,26 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
+using AjaxPro;
+
 using ASC.Bookmarking;
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Pojo;
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
-using ASC.Web.UserControls.Bookmarking.Resources;
 using ASC.Web.UserControls.Bookmarking.Util;
-using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 
 using HtmlAgilityPack;
-using AjaxPro;
-using ASC.Common.Logging;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
@@ -98,10 +99,10 @@ namespace ASC.Web.UserControls.Bookmarking
                 var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("bookmarks_icon.png", BookmarkingSettings.ModuleId),
-                        Describe = currentUser.IsVisitor() ? BookmarkingUCResource.EmptyScreenTextVisitor : BookmarkingUCResource.EmptyScreenText
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("bookmarks_icon.png", BookmarkingSettings.ModuleId),
+                    Describe = currentUser.IsVisitor() ? BookmarkingUCResource.EmptyScreenTextVisitor : BookmarkingUCResource.EmptyScreenText
+                };
 
                 var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
 
@@ -491,13 +492,13 @@ namespace ASC.Web.UserControls.Bookmarking
                         }
                     }
 
-                    title = BookmarkingServiceHelper.EncodeUserData(title).Replace("<br/>", " ");
+                    title = BookmarkingServiceHelper.EncodeUserData(title);
                     description = BookmarkingServiceHelper.EncodeUserData(description);
 
                     return new[] { title, description };
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 LogManager.GetLogger("ASC.Web.Bookmarking").ErrorFormat("Url: {0} err: {1}", url, err);
             }

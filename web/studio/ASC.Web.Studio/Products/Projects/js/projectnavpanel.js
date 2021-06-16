@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ ASC.Projects.projectNavPanel = (function() {
         teamlab,
         loadingBanner,
         resources,
-        commonResource,
+        ProjectsCommonResource,
         project,
         handlers = [],
         projectInfoContainerClass = ".project-info-container",
@@ -44,7 +44,7 @@ ASC.Projects.projectNavPanel = (function() {
         teamlab = Teamlab;
         loadingBanner = LoadingBanner;
         resources = ASC.Projects.Resources;
-        commonResource = resources.CommonResource;
+        ProjectsCommonResource = resources.ProjectsCommonResource;
         currentProjectId = jq.getURLParam("PrjID");
 
         if (!isInit) {
@@ -58,52 +58,52 @@ ASC.Projects.projectNavPanel = (function() {
         if (!(Number(jq.getURLParam("id")) === 0 && jq.getURLParam("action") == null)) return;
         project = response;
 
-        var resourcesJS = resources.ProjectsJSResource,
+        var ProjectsJSResource = resources.ProjectsJSResource,
             Tab = ASC.Projects.ProjectTab.bind(null, project),
             onClick = ASC.Projects.navSidePanel.onClick;
 
-        overViewTab = new Tab(resourcesJS.OverviewModule,
+        overViewTab = new Tab(ProjectsJSResource.OverviewModule,
             function() { return 0; },
             "Projects.aspx",
             "overViewModule",
             onClick);
-        taskTab = new Tab(resourcesJS.TasksModule,
+        taskTab = new Tab(ProjectsJSResource.TasksModule,
             function() { return project.taskCount; },
             "Tasks.aspx",
             "tasksModule",
             onClick,
             function() { return true });
-        milestoneTab = new Tab(resourcesJS.MilestonesModule,
+        milestoneTab = new Tab(ProjectsJSResource.MilestonesModule,
             function() { return project.milestoneCount; },
             "Milestones.aspx",
             "milestonesModule",
             onClick,
             function() { return true });
-        messageTab = new Tab(resourcesJS.DiscussionsModule,
+        messageTab = new Tab(ProjectsJSResource.DiscussionsModule,
             function() { return project.discussionCount; },
             "Messages.aspx",
             "messagesModule",
             onClick,
             function() { return project.security.canReadMessages });
-        timeTrakingTab = new Tab(resourcesJS.TimeTrackingModule,
+        timeTrakingTab = new Tab(ProjectsJSResource.TimeTrackingModule,
             function() { return project.timeTrackingTotal; },
             "TimeTracking.aspx",
             "timetrackingModule",
             onClick,
             function() { return !teamlab.profile.isVisitor });
-        docsTab = new Tab(resourcesJS.DocumentsModule,
+        docsTab = new Tab(ProjectsJSResource.DocumentsModule,
             function() { return project.documentsCount; },
             "TMDocs.aspx",
             "tmdocsModule",
             null,
             function() { return project.security.canReadFiles });
-        contactsTab = new Tab(resourcesJS.ContactsModule,
+        contactsTab = new Tab(ProjectsJSResource.ContactsModule,
             function() { return project.contactsCount; },
             "Contacts.aspx",
             "contactsModule",
             null,
             function() { return project.security.canReadContacts });
-        teamTab = new Tab(resourcesJS.TeamModule,
+        teamTab = new Tab(ProjectsJSResource.TeamModule,
             function() { return project.participantCount; },
             "ProjectTeam.aspx",
             "projectteamModule",
@@ -135,11 +135,11 @@ ASC.Projects.projectNavPanel = (function() {
         var menuItems = [];
 
         if (project.canEdit) {
-            menuItems.push(new ASC.Projects.ActionMenuItem("pa_edit", commonResource.Edit, paEditHandler));
+            menuItems.push(new ASC.Projects.ActionMenuItem("pa_edit", ProjectsCommonResource.Edit, paEditHandler));
         }
 
         if (project.canDelete) {
-            menuItems.push(new ASC.Projects.ActionMenuItem("pa_delete", commonResource.Delete, paDeleteHandler));
+            menuItems.push(new ASC.Projects.ActionMenuItem("pa_delete", ProjectsCommonResource.Delete, paDeleteHandler));
         }
 
         var isInTeam = ASC.Projects.Master.Team.some(function (item) {
@@ -147,7 +147,7 @@ ASC.Projects.projectNavPanel = (function() {
         });
 
         if (!Teamlab.profile.isOutsider && !isInTeam) {
-            menuItems.push(new ASC.Projects.ActionMenuItem("pa_follow", project.isFollow ? commonResource.Unfollow : commonResource.Follow, paSubscribeHandler));
+            menuItems.push(new ASC.Projects.ActionMenuItem("pa_follow", project.isFollow ? ProjectsCommonResource.Unfollow : ProjectsCommonResource.Follow, paSubscribeHandler));
         }
 
         return { menuItems: menuItems };

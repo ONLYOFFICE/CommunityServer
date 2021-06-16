@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Resources;
+
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.Controls.Common
 {
@@ -94,8 +95,8 @@ namespace ASC.Web.Studio.Controls.Common
             Page.RegisterInlineScript(scriptNav, onReady: false);
 
 
-            _page_amount = Convert.ToInt32(Math.Ceiling(EntryCount/(EntryCountOnPage*1.0)));
-            _start_page = CurrentPageNumber - 1 - VisiblePageCount/2;
+            _page_amount = Convert.ToInt32(Math.Ceiling(EntryCount / (EntryCountOnPage * 1.0)));
+            _start_page = CurrentPageNumber - 1 - VisiblePageCount / 2;
 
             if (_start_page + VisiblePageCount > _page_amount)
                 _start_page = _page_amount - VisiblePageCount;
@@ -225,15 +226,15 @@ namespace ASC.Web.Studio.Controls.Common
         public object Clone()
         {
             return new PageNavigator
-                {
-                    CurrentPageNumber = this.CurrentPageNumber,
-                    EntryCountOnPage = this.EntryCountOnPage,
-                    EntryCount = this.EntryCount,
-                    VisibleOnePage = this.VisibleOnePage,
-                    VisiblePageCount = this.VisiblePageCount,
-                    PageUrl = this.PageUrl,
-                    ParamName = this.ParamName,
-                };
+            {
+                CurrentPageNumber = this.CurrentPageNumber,
+                EntryCountOnPage = this.EntryCountOnPage,
+                EntryCount = this.EntryCount,
+                VisibleOnePage = this.VisibleOnePage,
+                VisiblePageCount = this.VisiblePageCount,
+                PageUrl = this.PageUrl,
+                ParamName = this.ParamName,
+            };
         }
 
         #endregion

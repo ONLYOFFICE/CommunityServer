@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -29,6 +30,7 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
+
 using Box.V2.Models;
 
 namespace ASC.Files.Thirdparty.Box
@@ -180,25 +182,25 @@ namespace ASC.Files.Thirdparty.Box
             var isRoot = IsRoot(boxFolder);
 
             var folder = new Folder
-                {
-                    ID = MakeId(boxFolder.Id),
-                    ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(boxFolder)),
-                    CreateBy = BoxProviderInfo.Owner,
-                    CreateOn = isRoot ? BoxProviderInfo.CreateOn : (boxFolder.CreatedAt.HasValue ? boxFolder.CreatedAt.Value : default(DateTime)),
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = BoxProviderInfo.Owner,
-                    ModifiedOn = isRoot ? BoxProviderInfo.CreateOn : (boxFolder.ModifiedAt.HasValue ? boxFolder.ModifiedAt.Value : default(DateTime)),
-                    ProviderId = BoxProviderInfo.ID,
-                    ProviderKey = BoxProviderInfo.ProviderKey,
-                    RootFolderCreator = BoxProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = BoxProviderInfo.RootFolderType,
+            {
+                ID = MakeId(boxFolder.Id),
+                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(boxFolder)),
+                CreateBy = BoxProviderInfo.Owner,
+                CreateOn = isRoot ? BoxProviderInfo.CreateOn : (boxFolder.CreatedAt.HasValue ? boxFolder.CreatedAt.Value : default(DateTime)),
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = BoxProviderInfo.Owner,
+                ModifiedOn = isRoot ? BoxProviderInfo.CreateOn : (boxFolder.ModifiedAt.HasValue ? boxFolder.ModifiedAt.Value : default(DateTime)),
+                ProviderId = BoxProviderInfo.ID,
+                ProviderKey = BoxProviderInfo.ProviderKey,
+                RootFolderCreator = BoxProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = BoxProviderInfo.RootFolderType,
 
-                    Shareable = false,
-                    Title = MakeFolderTitle(boxFolder),
-                    TotalFiles = boxFolder.ItemCollection != null ? boxFolder.ItemCollection.Entries.Count(item => item is BoxFile) : 0,
-                    TotalSubFolders = boxFolder.ItemCollection != null ? boxFolder.ItemCollection.Entries.Count(item => item is BoxFolder) : 0,
-                };
+                Shareable = false,
+                Title = MakeFolderTitle(boxFolder),
+                TotalFiles = boxFolder.ItemCollection != null ? boxFolder.ItemCollection.Entries.Count(item => item is BoxFile) : 0,
+                TotalSubFolders = boxFolder.ItemCollection != null ? boxFolder.ItemCollection.Entries.Count(item => item is BoxFolder) : 0,
+            };
 
             if (folder.CreateOn != DateTime.MinValue && folder.CreateOn.Kind == DateTimeKind.Utc)
                 folder.CreateOn = TenantUtil.DateTimeFromUtc(folder.CreateOn);
@@ -218,45 +220,45 @@ namespace ASC.Files.Thirdparty.Box
         {
             if (boxFile == null) return null;
             return new File
-                {
-                    ID = MakeId(boxFile.ErrorId),
-                    CreateBy = BoxProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    ModifiedBy = BoxProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeNow(),
-                    ProviderId = BoxProviderInfo.ID,
-                    ProviderKey = BoxProviderInfo.ProviderKey,
-                    RootFolderCreator = BoxProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = BoxProviderInfo.RootFolderType,
-                    Title = MakeFileTitle(boxFile),
-                    Error = boxFile.Error
-                };
+            {
+                ID = MakeId(boxFile.ErrorId),
+                CreateBy = BoxProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeNow(),
+                ModifiedBy = BoxProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeNow(),
+                ProviderId = BoxProviderInfo.ID,
+                ProviderKey = BoxProviderInfo.ProviderKey,
+                RootFolderCreator = BoxProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = BoxProviderInfo.RootFolderType,
+                Title = MakeFileTitle(boxFile),
+                Error = boxFile.Error
+            };
         }
 
         private Folder ToErrorFolder(ErrorFolder boxFolder)
         {
             if (boxFolder == null) return null;
             return new Folder
-                {
-                    ID = MakeId(boxFolder.ErrorId),
-                    ParentFolderID = null,
-                    CreateBy = BoxProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = BoxProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeNow(),
-                    ProviderId = BoxProviderInfo.ID,
-                    ProviderKey = BoxProviderInfo.ProviderKey,
-                    RootFolderCreator = BoxProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = BoxProviderInfo.RootFolderType,
-                    Shareable = false,
-                    Title = MakeFolderTitle(boxFolder),
-                    TotalFiles = 0,
-                    TotalSubFolders = 0,
-                    Error = boxFolder.Error
-                };
+            {
+                ID = MakeId(boxFolder.ErrorId),
+                ParentFolderID = null,
+                CreateBy = BoxProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeNow(),
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = BoxProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeNow(),
+                ProviderId = BoxProviderInfo.ID,
+                ProviderKey = BoxProviderInfo.ProviderKey,
+                RootFolderCreator = BoxProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = BoxProviderInfo.RootFolderType,
+                Shareable = false,
+                Title = MakeFolderTitle(boxFolder),
+                TotalFiles = 0,
+                TotalSubFolders = 0,
+                Error = boxFolder.Error
+            };
         }
 
         public File ToFile(BoxFile boxFile)
@@ -270,26 +272,26 @@ namespace ASC.Files.Thirdparty.Box
             }
 
             return new File
-                {
-                    ID = MakeId(boxFile.Id),
-                    Access = FileShare.None,
-                    ContentLength = boxFile.Size.HasValue ? (long)boxFile.Size : 0,
-                    CreateBy = BoxProviderInfo.Owner,
-                    CreateOn = boxFile.CreatedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.CreatedAt.Value) : default(DateTime),
-                    FileStatus = FileStatus.None,
-                    FolderID = MakeId(GetParentFolderId(boxFile)),
-                    ModifiedBy = BoxProviderInfo.Owner,
-                    ModifiedOn = boxFile.ModifiedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.ModifiedAt.Value) : default(DateTime),
-                    NativeAccessor = boxFile,
-                    ProviderId = BoxProviderInfo.ID,
-                    ProviderKey = BoxProviderInfo.ProviderKey,
-                    Title = MakeFileTitle(boxFile),
-                    RootFolderId = MakeId(),
-                    RootFolderType = BoxProviderInfo.RootFolderType,
-                    RootFolderCreator = BoxProviderInfo.Owner,
-                    Shared = false,
-                    Version = 1
-                };
+            {
+                ID = MakeId(boxFile.Id),
+                Access = FileShare.None,
+                ContentLength = boxFile.Size.HasValue ? (long)boxFile.Size : 0,
+                CreateBy = BoxProviderInfo.Owner,
+                CreateOn = boxFile.CreatedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.CreatedAt.Value) : default(DateTime),
+                FileStatus = FileStatus.None,
+                FolderID = MakeId(GetParentFolderId(boxFile)),
+                ModifiedBy = BoxProviderInfo.Owner,
+                ModifiedOn = boxFile.ModifiedAt.HasValue ? TenantUtil.DateTimeFromUtc(boxFile.ModifiedAt.Value) : default(DateTime),
+                NativeAccessor = boxFile,
+                ProviderId = BoxProviderInfo.ID,
+                ProviderKey = BoxProviderInfo.ProviderKey,
+                Title = MakeFileTitle(boxFile),
+                RootFolderId = MakeId(),
+                RootFolderType = BoxProviderInfo.RootFolderType,
+                RootFolderCreator = BoxProviderInfo.Owner,
+                Shared = false,
+                Version = 1
+            };
         }
 
         public Folder GetRootFolder(object folderId)

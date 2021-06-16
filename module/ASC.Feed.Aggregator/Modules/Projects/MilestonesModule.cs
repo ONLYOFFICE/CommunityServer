@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,18 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using ASC.Web.Studio.Utility;
-using System.Linq;
-using ASC.Core.Users;
 using ASC.Web.Projects.Core;
+using ASC.Web.Studio.Utility;
+
 using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
@@ -102,34 +104,34 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         private static Milestone ToMilestone(object[] r)
         {
             return new Milestone
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = Convert.ToString(r[1]),
+                Description = Convert.ToString(r[2]),
+                DeadLine = Convert.ToDateTime(r[3]),
+                Responsible = new Guid(Convert.ToString(r[4])),
+                Status = (MilestoneStatus)Convert.ToInt32(r[5]),
+                StatusChangedOn = Convert.ToDateTime(r[6]),
+                IsKey = Convert.ToBoolean(r[7]),
+                CreateBy = new Guid(Convert.ToString(r[8])),
+                CreateOn = Convert.ToDateTime(r[9]),
+                LastModifiedBy = ToGuid(r[10]),
+                LastModifiedOn = Convert.ToDateTime(r[11]),
+                Project = new Project
                 {
-                    ID = Convert.ToInt32(r[0]),
-                    Title = Convert.ToString(r[1]),
-                    Description = Convert.ToString(r[2]),
-                    DeadLine = Convert.ToDateTime(r[3]),
-                    Responsible = new Guid(Convert.ToString(r[4])),
-                    Status = (MilestoneStatus)Convert.ToInt32(r[5]),
-                    StatusChangedOn = Convert.ToDateTime(r[6]),
-                    IsKey = Convert.ToBoolean(r[7]),
-                    CreateBy = new Guid(Convert.ToString(r[8])),
-                    CreateOn = Convert.ToDateTime(r[9]),
-                    LastModifiedBy = ToGuid(r[10]),
-                    LastModifiedOn = Convert.ToDateTime(r[11]),
-                    Project = new Project
-                        {
-                            ID = Convert.ToInt32(r[12]),
-                            Title = Convert.ToString(r[13]),
-                            Description = Convert.ToString(r[14]),
-                            Status = (ProjectStatus)Convert.ToInt32(15),
-                            StatusChangedOn = Convert.ToDateTime(r[16]),
-                            Responsible = new Guid(Convert.ToString(r[17])),
-                            Private = Convert.ToBoolean(r[18]),
-                            CreateBy = new Guid(Convert.ToString(r[19])),
-                            CreateOn = Convert.ToDateTime(r[20]),
-                            LastModifiedBy = ToGuid(r[21]),
-                            LastModifiedOn = Convert.ToDateTime(r[22])
-                        }
-                };
+                    ID = Convert.ToInt32(r[12]),
+                    Title = Convert.ToString(r[13]),
+                    Description = Convert.ToString(r[14]),
+                    Status = (ProjectStatus)Convert.ToInt32(15),
+                    StatusChangedOn = Convert.ToDateTime(r[16]),
+                    Responsible = new Guid(Convert.ToString(r[17])),
+                    Private = Convert.ToBoolean(r[18]),
+                    CreateBy = new Guid(Convert.ToString(r[19])),
+                    CreateOn = Convert.ToDateTime(r[20]),
+                    LastModifiedBy = ToGuid(r[21]),
+                    LastModifiedOn = Convert.ToDateTime(r[22])
+                }
+            };
         }
 
         private Feed ToFeed(Milestone milestone)
@@ -137,23 +139,23 @@ namespace ASC.Feed.Aggregator.Modules.Projects
             var itemUrl = "/Products/Projects/Milestones.aspx#project=" + milestone.Project.ID;
             var projectUrl = "/Products/Projects/Tasks.aspx?prjID=" + milestone.Project.ID;
             return new Feed(milestone.CreateBy, milestone.CreateOn)
-                {
-                    Item = item,
-                    ItemId = milestone.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = milestone.Title,
-                    Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(milestone.Description)),
-                    ExtraLocation = milestone.Project.Title,
-                    ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
-                    AdditionalInfo = Helper.GetUser(milestone.Responsible).DisplayUserName(),
-                    AdditionalInfo2 = milestone.DeadLine.ToString("MM.dd.yyyy"),
-                    Keywords = string.Format("{0} {1}", milestone.Title, milestone.Description),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = GetGroupId(item, milestone.CreateBy, milestone.Project.ID.ToString(CultureInfo.InvariantCulture))
-                };
+            {
+                Item = item,
+                ItemId = milestone.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                Product = Product,
+                Module = Name,
+                Title = milestone.Title,
+                Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(milestone.Description)),
+                ExtraLocation = milestone.Project.Title,
+                ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
+                AdditionalInfo = Helper.GetUser(milestone.Responsible).DisplayUserName(),
+                AdditionalInfo2 = milestone.DeadLine.ToString("MM.dd.yyyy"),
+                Keywords = string.Format("{0} {1}", milestone.Title, milestone.Description),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = GetGroupId(item, milestone.CreateBy, milestone.Project.ID.ToString(CultureInfo.InvariantCulture))
+            };
         }
     }
 }

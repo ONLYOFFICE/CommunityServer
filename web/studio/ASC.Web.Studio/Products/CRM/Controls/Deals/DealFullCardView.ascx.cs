@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,15 @@
 #region Import
 
 using System;
-using System.Web;
 using System.Collections.Generic;
+using System.Threading;
+using System.Web;
+
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Resources;
-using System.Threading;
 
 #endregion
 
@@ -51,7 +52,8 @@ namespace ASC.Web.CRM.Controls.Deals
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (TargetDeal.ContactID != 0) {
+            if (TargetDeal.ContactID != 0)
+            {
                 TargetDealContact = DaoFactory.ContactDao.GetByID(TargetDeal.ContactID);
             }
 

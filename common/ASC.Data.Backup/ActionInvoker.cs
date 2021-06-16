@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ namespace ASC.Data.Backup
     public static class ActionInvoker
     {
         public static void Try(
-            Action action, 
+            Action action,
             int maxAttempts,
             Action<Exception> onFailure = null,
             Action<Exception> onAttemptFailure = null,
@@ -60,8 +60,8 @@ namespace ASC.Data.Backup
                         if (onAttemptFailure != null)
                             onAttemptFailure(error);
 
-                        if (sleepMs > 0) 
-                            Thread.Sleep(isSleepExponential ? sleepMs*countAttempts : sleepMs);
+                        if (sleepMs > 0)
+                            Thread.Sleep(isSleepExponential ? sleepMs * countAttempts : sleepMs);
                     }
                     else if (onFailure != null)
                     {

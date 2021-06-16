@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Classes;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using EnumExtension = ASC.Web.CRM.Classes.EnumExtension;
 
 #endregion
@@ -62,8 +65,8 @@ namespace ASC.CRM.Core.Entities
 
         public CasesFilterObject(string base64String)
         {
-            if(string.IsNullOrEmpty(base64String)) return;
-            
+            if (string.IsNullOrEmpty(base64String)) return;
+
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64String));
 
             var jsonArray = json.Split(';');
@@ -377,7 +380,7 @@ namespace ASC.CRM.Core.Entities
         {
             ContactStage = -1;
             ContactType = -1;
-            
+
             if (string.IsNullOrEmpty(base64String)) return;
 
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64String));
@@ -505,7 +508,7 @@ namespace ASC.CRM.Core.Entities
 
                 var paramString = filterObj.Value<string>("params");
 
-                if(string.IsNullOrEmpty(paramString)) continue;
+                if (string.IsNullOrEmpty(paramString)) continue;
 
                 var filterParam = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(paramString)));
 

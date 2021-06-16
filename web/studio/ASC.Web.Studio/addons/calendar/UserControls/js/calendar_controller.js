@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -221,7 +221,7 @@ ASC.CalendarController = new function() {
         return prop;
     };
 
-    var getEventData = function (calendarId, name, description, sDate, eDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
+    var getEventData = function (calendarId, name, description, sDate, eDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset) {
 
         var startDate = new Date(sDate.getTime());
         var endDate = new Date(sDate.getTime());
@@ -247,9 +247,11 @@ ASC.CalendarController = new function() {
             alarm.addPropertyWithValue("TRIGGER", new ICAL.Duration(valarmObj).toICALString());
             alarm.addPropertyWithValue("ACTION", "DISPLAY");
             alarm.addPropertyWithValue("DESCRIPTION", "Reminder");
+        } else {
+            alarm = null;
         }
         
-        vevent.addPropertyWithValue("DTSTAMP", ICAL.Time.fromJSDate(new Date(), true).toICALString());
+        //vevent.addPropertyWithValue("DTSTAMP", ICAL.Time.fromJSDate(new Date(), true).toICALString());
         if (repeatType)
             vevent.addPropertyWithValue("RRULE", repeatType);
 
@@ -279,18 +281,26 @@ ASC.CalendarController = new function() {
         event.description = description;
         event.location = location || "";
 
+        var eventTimezone = ICAL.Timezone.utcTimezone;
+
         if (isAllDayLong) {
             endDate.setDate(endDate.getDate() + 1);
         } else {
-            startDate = new Date(startDate.getTime() + ((-1) * timeZone.offset * 60 * 1000));
-            endDate = new Date(endDate.getTime() + ((-1) * timeZone.offset * 60 * 1000));
+            if (repeatType) {
+                eventTimezone = new ICAL.Timezone({
+                    tzid: offset.timeZoneId
+                });
+            } else {
+                startDate = new Date(startDate.getTime() + ((-1) * offset.startOffset * 60 * 1000));
+                endDate = new Date(endDate.getTime() + ((-1) * offset.endOffset * 60 * 1000));
+            }
         }
 
         var dtstart = ICAL.Time.fromJSDate(startDate, false);
-        dtstart.zone = ICAL.Timezone.utcTimezone;
+        dtstart.zone = eventTimezone;
 
         var dtend = ICAL.Time.fromJSDate(endDate, false);
-        dtend.zone = ICAL.Timezone.utcTimezone;
+        dtend.zone = eventTimezone;
 
         dtstart.isDate = isAllDayLong;
         dtend.isDate = isAllDayLong;
@@ -298,7 +308,8 @@ ASC.CalendarController = new function() {
         event.startDate = dtstart;
         event.endDate = dtend;
 
-        vevent.addSubcomponent(alarm);
+        if (alarm != null)
+            vevent.addSubcomponent(alarm);
         comp.addSubcomponent(vevent);
 
         var ics = comp.toString();
@@ -883,8 +894,10 @@ ASC.CalendarController = new function() {
         //create
         if (params.action === 1) {
             edited = params.action;
-            _controller.CreateEvent(
+            _controller.GetOffsetAndExecute(
+                _controller.CreateEvent,
                 params.newSourceId,
+                undefined,
                 params.title,
                 params.description,
                 params.start,
@@ -907,7 +920,8 @@ ASC.CalendarController = new function() {
             var tz = params.source.timeZone;
             if (params.source.objectId != params.newSourceId)
                 tz = params.newTimeZone;
-            _controller.UpdateEvent(
+            _controller.GetOffsetAndExecute(
+                _controller.UpdateEvent,
                 params.newSourceId,
                 params.objectId,
                 params.title,
@@ -1016,12 +1030,12 @@ ASC.CalendarController = new function() {
         }
     }
 
-    this.CreateEvent = function(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
+    this.CreateEvent = function(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset) {
 
         action = null; //wtf???
 
         var url = _controller.ApiUrl + "/icsevent.json";
-        var postData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status);
+        var postData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset);
 
         jq.ajax({ type: 'post',
             url: url,
@@ -1045,12 +1059,12 @@ ASC.CalendarController = new function() {
         });
     }
 
-    this.UpdateEvent = function (calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
+    this.UpdateEvent = function (calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset) {
 
         action = null; //wtf???
 
         var url = _controller.ApiUrl + "/icsevent.json";
-        var putData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status);
+        var putData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset);
         putData.eventId = eventId;
 
         jq.ajax({ type: 'put',
@@ -1075,6 +1089,27 @@ ASC.CalendarController = new function() {
         });
     }
 
+    this.GetOffsetAndExecute = function (method, calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
+
+        if (isAllDayLong) {
+            method(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status);
+            return;
+        }
+
+        jq.ajax({
+            type: 'post',
+            url: _controller.ApiUrl + "/utcoffset.json",
+            data: {
+                timeZone: timeZone.id,
+                startDate: ASC.Api.TypeConverter.ClientTimeToServer(startDate, 0),
+                endDate: ASC.Api.TypeConverter.ClientTimeToServer(endDate, 0)
+            },
+            complete: function (result) {
+                var offset = result.responseJSON.response;
+                method(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status, offset);
+            }
+        });
+    }
 
     this.CreateTodo = function (calendarId, name, description, startDate, endDate, priority) {
         

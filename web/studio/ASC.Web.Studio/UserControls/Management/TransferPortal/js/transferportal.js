@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,17 +34,23 @@ TransferManager = new function() {
             names.push(jq($regionList[i]).val());
         }
 
-        jq("#transfer_region").on("change", function() {
-            var $select = jq(this).find("option:selected");
-            jq("#regionUrl").text($select.attr("data-url"));
-
-            if (jq(this).val() != jq(this).attr("data-value")
-               && jq.inArray(jq(this).attr("data-value"), names) != -1) {
+        var checkButtonState = function () {
+            if (jq("#transfer_region").val() != jq("#transfer_region").attr("data-value")
+                && jq.inArray(jq("#transfer_region").attr("data-value"), names) != -1 && jq("#understand").is(':checked')) {
                 jq("#transfer_button").removeClass("disable");
             } else {
                 jq("#transfer_button").addClass("disable");
             }
+        }
+
+        jq("#transfer_region").on("change", function () {
+            var $select = jq(this).find("option:selected");
+            jq("#regionUrl").text($select.attr("data-url"));
+            checkButtonState()
         });
+
+        jq("#understand").on("change", checkButtonState);
+
         jq("#transfer_button").on("click", function() {
             if (jq(this).hasClass("disable")) {
                 return;

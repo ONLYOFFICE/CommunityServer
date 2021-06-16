@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,12 @@
 */
 
 
-using ASC.Files.Core;
-using ASC.Files.Core.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Files.Core;
+using ASC.Files.Core.Security;
 
 namespace ASC.Files.Thirdparty.ProviderDao
 {
@@ -66,7 +67,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
             if (files.Any())
             {
-                var folderIds = files.Select(x => ((File) x).FolderID).Distinct();
+                var folderIds = files.Select(x => ((File)x).FolderID).Distinct();
                 foreach (var folderId in folderIds)
                 {
                     GetFoldersForShare(folderId, folders);

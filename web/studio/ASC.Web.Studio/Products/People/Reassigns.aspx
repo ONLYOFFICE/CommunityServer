@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Products/People/Masters/PeopleBaseTemplate.Master" CodeBehind="Reassigns.aspx.cs" Inherits="ASC.Web.People.Reassigns" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
     <div class="clearFix profile-title header-with-menu">

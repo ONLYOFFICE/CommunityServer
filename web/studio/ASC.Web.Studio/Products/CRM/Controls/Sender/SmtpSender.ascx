@@ -51,7 +51,7 @@
             <input type="hidden" id="requiredMessageBody"/>
             <textarea id="ckEditor" name="ckEditor" style="width: 100%;height: 400px;"></textarea>
         </div>
-        <% if (CompanyWhiteLabelSettings.Instance.IsDefault) { %>
+        <% if (CompanyWhiteLabelSettings.Instance.IsDefault && !ASC.Core.CoreContext.Configuration.CustomMode) { %>
         <div id="watermarkInfo" class="headerPanel-splitter">
             <span class="text-medium-describe">*<%: CRMContactResource.TeamlabWatermarkInfo %></span>
         </div>

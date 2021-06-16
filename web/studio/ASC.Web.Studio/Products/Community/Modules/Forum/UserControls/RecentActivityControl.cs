@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
+
 using ASC.Core.Users;
 using ASC.Forum;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 
 namespace ASC.Web.UserControls.Forum
-{   
-    public class RecentActivityControl: WebControl
-    {   
+{
+    public class RecentActivityControl : WebControl
+    {
         public Guid SettingsID { get; set; }
         public int MaxTopicCount { get; set; }
         public bool AutoInitView { get; set; }
-        
+
         private Settings _settings = null;
 
         public List<Topic> TopicList { get; set; }
@@ -43,20 +44,20 @@ namespace ASC.Web.UserControls.Forum
             AutoInitView = true;
             TopicList = new List<Topic>();
         }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             if (AutoInitView)
                 InitView();
-            
+
         }
 
         public void InitView()
         {
             _settings = Community.Forum.ForumManager.Settings;
             TopicList = ForumDataProvider.GetLastUpdateTopics(TenantProvider.CurrentTenantID, MaxTopicCount);
-        }    
+        }
 
         protected override void RenderContents(System.Web.UI.HtmlTextWriter writer)
         {
@@ -85,7 +86,7 @@ namespace ASC.Web.UserControls.Forum
                 }
 
             }
-            
+
             writer.Write(sb.ToString());
         }
     }

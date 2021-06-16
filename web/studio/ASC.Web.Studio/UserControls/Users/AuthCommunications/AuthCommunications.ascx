@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AuthCommunications.ascx.cs" Inherits="ASC.Web.Studio.UserControls.AuthCommunications" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <asp:Panel ID="_sendAdmin" runat="server" CssClass="signUpBlock message">
 
 <div class="overview">

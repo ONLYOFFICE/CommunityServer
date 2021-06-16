@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PrivacyRoom.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PrivacyRoom" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 
 <div class="clearFix">

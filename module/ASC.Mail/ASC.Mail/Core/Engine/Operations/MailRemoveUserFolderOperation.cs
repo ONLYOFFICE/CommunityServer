@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Common.Logging;
 using ASC.Common.Security.Authentication;
 using ASC.Core;
@@ -52,17 +53,17 @@ namespace ASC.Mail.Core.Engine.Operations
         {
             try
             {
-                SetProgress((int?) MailOperationRemoveUserFolderProgress.Init, "Setup tenant and user");
+                SetProgress((int?)MailOperationRemoveUserFolderProgress.Init, "Setup tenant and user");
 
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
 
                 SecurityContext.AuthenticateMe(CurrentUser);
 
-                SetProgress((int?) MailOperationRemoveUserFolderProgress.DeleteFolders, "Delete folders");
+                SetProgress((int?)MailOperationRemoveUserFolderProgress.DeleteFolders, "Delete folders");
 
                 _engineFactory.UserFolderEngine.Delete(_userFolderId);
 
-                SetProgress((int?) MailOperationRemoveUserFolderProgress.Finished);
+                SetProgress((int?)MailOperationRemoveUserFolderProgress.Finished);
             }
             catch (Exception e)
             {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+
 using ASC.Common.Logging;
 using ASC.Common.Security.Authentication;
 using ASC.Core;
@@ -77,7 +78,7 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 while (messages.Any())
                 {
-                    SetProgress((int?) MailOperationApplyFilterProgress.FilteringAndApplying, "Filtering and applying action");
+                    SetProgress((int?)MailOperationApplyFilterProgress.FilteringAndApplying, "Filtering and applying action");
 
                     var ids = messages.Select(m => m.Id).ToList();
 
@@ -86,7 +87,7 @@ namespace ASC.Mail.Core.Engine.Operations
                         Factory.FilterEngine.ApplyAction(ids, action);
                     }
 
-                    if(messages.Count < size)
+                    if (messages.Count < size)
                         break;
 
                     if (!Filter.Actions.Exists(a => a.Action == ActionType.DeleteForever || a.Action == ActionType.MoveTo))
@@ -97,7 +98,7 @@ namespace ASC.Mail.Core.Engine.Operations
                     messages = Factory.MessageEngine.GetFilteredMessages(Filter, page, size, out total);
                 }
 
-                SetProgress((int?) MailOperationApplyFilterProgress.Finished);
+                SetProgress((int?)MailOperationApplyFilterProgress.Finished);
             }
             catch (Exception e)
             {

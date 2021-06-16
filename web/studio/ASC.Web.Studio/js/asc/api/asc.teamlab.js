@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2320,18 +2320,6 @@ window.Teamlab = (function () {
         return true;
     };
 
-    var updatePortalAnalytics = function (params, enable, options) {
-        addRequest(
-            null,
-            params,
-            UPDATE,
-            'portal/portalanalytics.json',
-            { enable: enable },
-            options
-        );
-        return true;
-    };
-
 
     var addPrjProjectTeamPerson = function (params, id, data, options) {
         addRequest(
@@ -3021,6 +3009,32 @@ window.Teamlab = (function () {
         );
         return true;
     };
+
+    var createThumbnails = function (params, data, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'files/thumbnails.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var filesDownloadTarGz = function (set, options) {
+        return addRequest(
+            null,
+            null,
+            UPDATE,
+            "files/settings/downloadtargz.json",
+            {
+                set: set
+            },
+            options
+        );
+    };
+
     /* </documents> */
 
     /* <crm> */
@@ -7443,7 +7457,7 @@ window.Teamlab = (function () {
             params,
             ADD,
             'settings/ldap.json',
-            {settings: settings},
+            settings,
             options
         );
         return true;
@@ -7520,6 +7534,65 @@ window.Teamlab = (function () {
         );
         return true;
     };
+
+    //SSO
+
+    var ssoGenerateCert = function (complete, error, always) {
+        jq.ajax({
+            type: "get",
+            url: "sso/generatecert",
+            complete: complete,
+            error: error
+        }).always(always);
+    };
+
+    var ssoValidateCerts = function (data, complete, error, always) {
+        jq.ajax({
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "sso/validatecerts",
+            complete: complete,
+            error: error
+        }).always(always);
+    };
+
+    var ssoLoadMetadata = function (data, complete, error, always) {
+        jq.ajax({
+            type: "post",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "sso/loadmetadata",
+            complete: complete,
+            error: error
+        }).always(always);
+    };
+
+    var saveSsoSettings = function (params, settings, options) {
+        addRequest(
+            null,
+            params,
+            ADD,
+            'settings/ssov2.json',
+            settings,
+            options
+        );
+        return true;
+    };
+    var deleteSsoSettings = function (options) {
+        addRequest(
+            null,
+            null,
+            REMOVE,
+            'settings/ssov2.json',
+            null,
+            options
+        );
+        return true;
+    };
+
 
     var updateEmailActivationSettings = function (data, options) {
         return addRequest(
@@ -7941,6 +8014,7 @@ window.Teamlab = (function () {
             'portal/bar/tips.json',
             {
                 desktop: Boolean(isDesktop),
+                domain: window.location.hostname,
                 page: window.location.pathname + window.location.search + window.location.hash,
                 productAdmin: ASC.Resources.Master.IsProductAdmin
             },
@@ -8317,7 +8391,6 @@ window.Teamlab = (function () {
         fckeEditCommentComplete: fckeEditCommentComplete,
         getShortenLink: getShortenLink,
         updatePortalName: updatePortalName,
-        updatePortalAnalytics: updatePortalAnalytics,
 
         getPrjStatuses: getPrjStatuses,
         removePrjStatus: removePrjStatus,
@@ -8449,6 +8522,9 @@ window.Teamlab = (function () {
         filesDisplayTemplates: filesDisplayTemplates,
         addFilesTemplates: addFilesTemplates,
         removeFilesTemplates: removeFilesTemplates,
+        createThumbnails: createThumbnails,
+        filesDownloadTarGz: filesDownloadTarGz,
+        
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -8867,6 +8943,11 @@ window.Teamlab = (function () {
         getLdapDefaultSettings: getLdapDefaultSettings,
         getLdapStatus: getLdapStatus,
         syncLdap: syncLdap,
+        ssoGenerateCert: ssoGenerateCert,
+        ssoValidateCerts: ssoValidateCerts,
+        ssoLoadMetadata: ssoLoadMetadata,
+        saveSsoSettings: saveSsoSettings,
+        deleteSsoSettings: deleteSsoSettings,
         updateEmailActivationSettings: updateEmailActivationSettings,
 
         getSpaceUsageStatistics: getSpaceUsageStatistics,
@@ -8911,6 +8992,7 @@ window.Teamlab = (function () {
         getImportStatus: getImportStatus,
 
         markGiftAsReaded: markGiftAsReaded
+        
 
 };
 })();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
 
 
 using System;
-using System.Security;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
+
 using ASC.Api.Attributes;
-using ASC.Api.CRM.Wrappers;
 using ASC.Api.Collections;
+using ASC.Api.CRM.Wrappers;
 using ASC.Api.Exceptions;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -60,7 +61,7 @@ namespace ASC.Api.CRM
         [Read(@"{entityType:(contact|person|company|opportunity|case)}/{entityid:[0-9]+}/customfield")]
         public IEnumerable<CustomFieldBaseWrapper> GetCustomFieldForSubject(string entityType, int entityid)
         {
-            return DaoFactory.CustomFieldDao.GetEnityFields(ToEntityType(entityType), entityid, false).ConvertAll(ToCustomFieldBaseWrapper).ToItemList();
+            return DaoFactory.CustomFieldDao.GetEntityFields(ToEntityType(entityType), entityid, false).ConvertAll(ToCustomFieldBaseWrapper).ToItemList();
         }
 
         /// <summary>
@@ -229,14 +230,14 @@ namespace ASC.Api.CRM
             var entityTypeObj = ToEntityType(entityType);
 
             var customField = new CustomField
-                {
-                    EntityType = entityTypeObj,
-                    FieldType = (CustomFieldType)fieldType,
-                    ID = id,
-                    Mask = mask,
-                    Label = label,
-                    Position = position
-                };
+            {
+                EntityType = entityTypeObj,
+                FieldType = (CustomFieldType)fieldType,
+                ID = id,
+                Mask = mask,
+                Label = label,
+                Position = position
+            };
 
             DaoFactory.CustomFieldDao.EditItem(customField);
 
@@ -321,9 +322,9 @@ namespace ASC.Api.CRM
         private CustomFieldWrapper ToCustomFieldWrapper(CustomField customField)
         {
             var result = new CustomFieldWrapper(customField)
-                {
-                    RelativeItemsCount = DaoFactory.CustomFieldDao.GetContactLinkCount(customField.EntityType, customField.ID)
-                };
+            {
+                RelativeItemsCount = DaoFactory.CustomFieldDao.GetContactLinkCount(customField.EntityType, customField.ID)
+            };
             return result;
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
 */
 
 
-using ASC.Core.Tenants;
 using System;
 using System.Diagnostics;
+
+using ASC.Core.Tenants;
 
 namespace ASC.Core.Billing
 {
@@ -39,17 +40,20 @@ namespace ASC.Core.Billing
 
         public bool Prolongable { get; set; }
 
+        public int Quantity { get; set; }
+
 
         public static Tariff CreateDefault()
         {
             return new Tariff
-                {
-                    QuotaId = Tenant.DEFAULT_TENANT,
-                    State = TariffState.Paid,
-                    DueDate = DateTime.MaxValue,
-                    DelayDueDate = DateTime.MaxValue,
-                    LicenseDate = DateTime.MaxValue,
-                };
+            {
+                QuotaId = Tenant.DEFAULT_TENANT,
+                State = TariffState.Paid,
+                DueDate = DateTime.MaxValue,
+                DelayDueDate = DateTime.MaxValue,
+                LicenseDate = DateTime.MaxValue,
+                Quantity = 1
+            };
         }
 
 
@@ -62,6 +66,14 @@ namespace ASC.Core.Billing
         {
             var t = obj as Tariff;
             return t != null && t.QuotaId == QuotaId;
+        }
+
+        public bool EqualsByParams(Tariff t)
+        {
+            return t != null
+                && t.QuotaId == QuotaId
+                && t.DueDate == DueDate
+                && t.Quantity == Quantity;
         }
     }
 }

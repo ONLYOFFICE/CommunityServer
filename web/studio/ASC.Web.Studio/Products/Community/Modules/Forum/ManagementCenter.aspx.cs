@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Web.UI;
+
 using ASC.Web.Studio;
 using ASC.Web.UserControls.Forum.Common;
 
@@ -24,11 +25,11 @@ namespace ASC.Web.Community.Forum
 {
 
     public partial class ManagementCenter : MainPage
-    {      
+    {
         protected void Page_Load(object sender, EventArgs e)
         {
             ForumManager.Instance.SetCurrentPage(ForumPage.ManagementCenter);
-            Control managementControl = LoadControl(ForumManager.BaseVirtualPath + "/UserControls/ForumEditor.ascx");                   
+            Control managementControl = LoadControl(ForumManager.BaseVirtualPath + "/UserControls/ForumEditor.ascx");
             controlPanel.Controls.Add(managementControl);
         }
     }

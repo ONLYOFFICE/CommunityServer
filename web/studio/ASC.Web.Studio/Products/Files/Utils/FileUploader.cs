@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,14 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security;
+using System.Threading;
+using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -24,13 +32,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security;
-using System.Threading;
-using System.Web;
+
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -84,12 +86,13 @@ namespace ASC.Web.Files.Utils
                     file.Version++;
                     file.VersionGroup++;
                     file.Encrypted = false;
+                    file.ThumbnailStatus = Thumbnail.Waiting;
 
                     return file;
                 }
             }
 
-            return new File {FolderID = folderId, Title = fileName};
+            return new File { FolderID = folderId, Title = fileName };
         }
 
         public static File VerifyFileUpload(string folderId, string fileName, long fileSize, bool updateIfExists)
@@ -140,7 +143,7 @@ namespace ASC.Web.Files.Utils
 
                         if (folder == null)
                         {
-                            folderId = folderDao.SaveFolder(new Folder {Title = subFolderTitle, ParentFolderID = folderId});
+                            folderId = folderDao.SaveFolder(new Folder { Title = subFolderTitle, ParentFolderID = folderId });
 
                             folder = folderDao.GetFolder(folderId);
                             FilesMessageService.Send(folder, HttpContext.Current.Request, MessageAction.FolderCreated, folder.Title);
@@ -181,12 +184,12 @@ namespace ASC.Web.Files.Utils
                 fileId = null;
 
             var file = new File
-                {
-                    ID = fileId,
-                    FolderID = folderId,
-                    Title = fileName,
-                    ContentLength = contentLength
-                };
+            {
+                ID = fileId,
+                FolderID = folderId,
+                Title = fileName,
+                ContentLength = contentLength
+            };
 
             using (var dao = Global.DaoFactory.GetFileDao())
             {

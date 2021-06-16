@@ -5,6 +5,7 @@
 
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">
     <div class="clearFix profile-title header-with-menu">
@@ -14,11 +15,11 @@
         { %>
             <% if (ProfileHelper.UserInfo.IsLDAP())
             { %>
-            <span class="ldap-lock-big" title="<%= Resources.Resource.LdapUsersListLockTitle %>"></span>
+            <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
             <% }
             if (ProfileHelper.UserInfo.IsSSO())
             { %>
-            <span class="sso-lock-big" title="<%= Resources.Resource.SsoUsersListLockTitle %>"></span>
+            <span class="sso-lock-big" title="<%= Resource.SsoUsersListLockTitle %>"></span>
             <% } %>
         <% } %>
 
@@ -36,8 +37,8 @@
             <div class="tabs-section">
                 <span class="header-base"><%= PeopleResource.LblSubscriptions %></span>
                 <span id="switcherSubscriptionButton" class="toggle-button"
-                      data-switcher="1" data-showtext="<%= Resources.Resource.Show %>" data-hidetext="<%= Resources.Resource.Hide %>">
-                    <%= Resources.Resource.Show %>
+                      data-switcher="1" data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>">
+                    <%= Resource.Show %>
                 </span>
             </div>
             <div id="subscriptionContainer" style="display: none;" class="tabs-content">

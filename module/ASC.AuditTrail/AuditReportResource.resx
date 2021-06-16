@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,13 +53,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActionCol" xml:space="preserve">
     <value>Action</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Action ID</value>
   </data>
   <data name="ActionTypeCol" xml:space="preserve">
     <value>Action Type</value>
@@ -138,6 +82,9 @@
   <data name="AttachActionType" xml:space="preserve">
     <value>Attach</value>
   </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>Audit Lifetime Settings Updated</value>
+  </data>
   <data name="AuditTrailReportDownloaded" xml:space="preserve">
     <value>Audit Trail Report Downloaded</value>
   </data>
@@ -145,13 +92,10 @@
     <value>Audit Trail Report ({0}-{1})</value>
   </data>
   <data name="AuthorizationKeysSetting" xml:space="preserve">
-    <value>Third party authorization keys updated</value>
+    <value>Third-party authorization keys updated</value>
   </data>
   <data name="BrowserCol" xml:space="preserve">
     <value>Browser</value>
-  </data>
-  <data name="CaseAddedMember" xml:space="preserve">
-    <value>Cases [{0}]. Member Added: {1}</value>
   </data>
   <data name="CaseAttachedFiles" xml:space="preserve">
     <value>Cases [{0}]. Files Attached: {1}</value>
@@ -179,9 +123,6 @@
   </data>
   <data name="CaseDetachedFile" xml:space="preserve">
     <value>Cases [{0}]. File Detached: {1}</value>
-  </data>
-  <data name="CaseExcludedMember" xml:space="preserve">
-    <value>Cases [{0}]. Member Excluded: {1}</value>
   </data>
   <data name="CaseLinkedCompany" xml:space="preserve">
     <value>Cases [{0}]. Company Linked: {1}</value>
@@ -285,9 +226,6 @@
   <data name="CompanyLinkedProject" xml:space="preserve">
     <value>Companies [{0}]. Project Linked: {1}</value>
   </data>
-  <data name="CompanyUnlinkedOpportunity" xml:space="preserve">
-    <value>Companies [{0}]. Opportunity Unlinked: {1}</value>
-  </data>
   <data name="CompanyUnlinkedPerson" xml:space="preserve">
     <value>Companies [{0}]. Person Unlinked: {1}</value>
   </data>
@@ -357,9 +295,6 @@
   <data name="ContactsTagSettingsUpdated" xml:space="preserve">
     <value>Contacts Tag Settings Updated</value>
   </data>
-  <data name="ContactStatusesModule" xml:space="preserve">
-    <value>Contact Statuses</value>
-  </data>
   <data name="ContactTemperatureLevelCreated" xml:space="preserve">
     <value>Contact Temperature Level Created: {0}</value>
   </data>
@@ -408,6 +343,9 @@
   <data name="ContactUserFieldUpdated" xml:space="preserve">
     <value>Contact User Field Updated: {0}</value>
   </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Cookie Settings Updated</value>
+  </data>
   <data name="CopyActionType" xml:space="preserve">
     <value>Copy</value>
   </data>
@@ -426,9 +364,6 @@
   <data name="CrmFilesModule" xml:space="preserve">
     <value>CRM Files</value>
   </data>
-  <data name="CrmHistoryModule" xml:space="preserve">
-    <value>CRM History</value>
-  </data>
   <data name="CrmProduct" xml:space="preserve">
     <value>CRM</value>
   </data>
@@ -437,12 +372,6 @@
   </data>
   <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
     <value>SMTP Settings Updated</value>
-  </data>
-  <data name="CrmTagsModule" xml:space="preserve">
-    <value>CRM Tags</value>
-  </data>
-  <data name="CrmTaskCategories" xml:space="preserve">
-    <value>CRM Task Categories</value>
   </data>
   <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
     <value>CRM Task Categories Order Updated: {0}</value>
@@ -489,11 +418,8 @@
   <data name="CurrencyRateUpdated" xml:space="preserve">
     <value>Currency Rate Updated: {0} - {1}</value>
   </data>
-  <data name="CustomFieldsModule" xml:space="preserve">
-    <value>Custom Fields</value>
-  </data>
-  <data name="CustomTeamTemplateUpdated" xml:space="preserve">
-    <value>Custom Team Template Updated</value>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>Custom Navigation Settings Updated</value>
   </data>
   <data name="DateCol" xml:space="preserve">
     <value>Date</value>
@@ -543,17 +469,14 @@
   <data name="DocumentServiceLocationSetting" xml:space="preserve">
     <value>Document Service Location Updated</value>
   </data>
+  <data name="DocumentsForcesave" xml:space="preserve">
+    <value>Forcesave settings Updated</value>
+  </data>
   <data name="DocumentsModule" xml:space="preserve">
     <value>Documents</value>
   </data>
   <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
-    <value>Overwriting Settings Updated</value>
-  </data>
-  <data name="DocumentsForcesave" xml:space="preserve">
-    <value>Forcesave settings Updated</value>
-  </data>
-  <data name="DocumentsStoreForcesave" xml:space="preserve">
-    <value>Store forcesave settings Updated</value>
+    <value> Overwriting Settings Updated</value>
   </data>
   <data name="DocumentsProduct" xml:space="preserve">
     <value>Documents</value>
@@ -561,8 +484,11 @@
   <data name="DocumentsSettingsModule" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="DocumentsStoreForcesave" xml:space="preserve">
+    <value>Store forcesave settings Updated</value>
+  </data>
   <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
-    <value>Third Party Settings Updated</value>
+    <value>Third-Party Settings Updated</value>
   </data>
   <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
     <value>Uploading Formats Settings Updated</value>
@@ -572,6 +498,9 @@
   </data>
   <data name="ExportActionType" xml:space="preserve">
     <value>Export</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>Set owner of [{0}] to [{1}]</value>
   </data>
   <data name="FileConverted" xml:space="preserve">
     <value>File Converted to Internal Format: {0}</value>
@@ -621,20 +550,17 @@
   <data name="FileRestoreVersion" xml:space="preserve">
     <value>Files [{0}]. Revision: {1}. Version Restored</value>
   </data>
-  <data name="FileSendAccessLink" xml:space="preserve">
-    <value>Sent shared link to the [{0}] file. Recipients: [{1}]</value>
-  </data>
-  <data name="FileChangeOwner" xml:space="preserve">
-    <value>Set owner of [{0}] to [{1}]</value>
-  </data>
   <data name="FilesDocumentSigned" xml:space="preserve">
     <value>Document {1} signed via {0}</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>Sent shared link to the [{0}] file. Recipients: [{1}]</value>
   </data>
   <data name="FilesModule" xml:space="preserve">
     <value>Files</value>
   </data>
   <data name="FilesRequestSign" xml:space="preserve">
-    <value>Document {1} send to sign via {0}</value>
+    <value>Document {1} sent to sign via {0}</value>
   </data>
   <data name="FileUnlocked" xml:space="preserve">
     <value>File Unlocked: {0}</value>
@@ -719,9 +645,6 @@
   </data>
   <data name="GuestImported" xml:space="preserve">
     <value>Guest Imported: {0}</value>
-  </data>
-  <data name="HistoryCategoriesModule" xml:space="preserve">
-    <value>History Categories</value>
   </data>
   <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
     <value>History Events Categories. Order Updated: {0}</value>
@@ -831,20 +754,20 @@
   <data name="LoginFailViaApiSms" xml:space="preserve">
     <value>Failed Login via API &amp; SMS Code</value>
   </data>
-  <data name="LoginFailViaApiTfa" xml:space="preserve">
-    <value>Failed Login via API &amp; authenticator application</value>
-  </data>
   <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
     <value>Login via API &amp; Social Media Failed</value>
   </data>
-  <data name="LoginFailViaTfaApp" xml:space="preserve">
-    <value>Login via authenticator application Failed</value>
+  <data name="LoginFailViaApiTfa" xml:space="preserve">
+    <value>Failed Login via API &amp; authenticator application</value>
   </data>
   <data name="LoginFailViaSms" xml:space="preserve">
     <value>Login via SMS failed</value>
   </data>
   <data name="LoginFailViaSSO" xml:space="preserve">
     <value>Login via SSO Failed</value>
+  </data>
+  <data name="LoginFailViaTfaApp" xml:space="preserve">
+    <value>Login via authenticator application Failed</value>
   </data>
   <data name="LoginHistoryReportDownloaded" xml:space="preserve">
     <value>Login History Report Downloaded</value>
@@ -857,6 +780,9 @@
   </data>
   <data name="LoginSuccessSocialAccount" xml:space="preserve">
     <value>Login Via Social Account Success</value>
+  </data>
+  <data name="LoginSuccessSocialApp" xml:space="preserve">
+    <value>Successful login via social application</value>
   </data>
   <data name="LoginSuccessViaApi" xml:space="preserve">
     <value>Successful Login via API</value>
@@ -882,6 +808,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>Mail Service Settings Updated</value>
+  </data>
   <data name="MilestoneCreated" xml:space="preserve">
     <value>Projects [{0}]. Milestone Created: {1}</value>
   </data>
@@ -896,9 +825,6 @@
   </data>
   <data name="MilestoneUpdatedStatus" xml:space="preserve">
     <value>Projects [{0}]. Milestones [{1}]. Status Updated: {2}</value>
-  </data>
-  <data name="MobileCol" xml:space="preserve">
-    <value>Mobile</value>
   </data>
   <data name="ModuleCol" xml:space="preserve">
     <value>Module</value>
@@ -965,9 +891,6 @@
   </data>
   <data name="OpportunityStageDeleted" xml:space="preserve">
     <value>Opportunity Stage Deleted: {0}</value>
-  </data>
-  <data name="OpportunityStagesModule" xml:space="preserve">
-    <value>Opportunity Stages</value>
   </data>
   <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
     <value>Opportunity Stages Order Updated: {0}</value>
@@ -1126,10 +1049,10 @@
     <value>Portal Deleted</value>
   </data>
   <data name="PrivacyRoomDisable" xml:space="preserve">
-    <value>Privacy Room is disabled</value>
+    <value>Private Room is disabled</value>
   </data>
   <data name="PrivacyRoomEnable" xml:space="preserve">
-    <value>Privacy Room is enabled</value>
+    <value>Private Room is enabled</value>
   </data>
   <data name="ProductAccessOpened" xml:space="preserve">
     <value>Products [{0}]. Access Opened</value>
@@ -1224,6 +1147,9 @@
   <data name="ProjectUpdatedTeam" xml:space="preserve">
     <value>Projects [{0}]. Team Updated: {1}</value>
   </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>Reassigns</value>
+  </data>
   <data name="ReportsModule" xml:space="preserve">
     <value>Reports</value>
   </data>
@@ -1260,6 +1186,12 @@
   <data name="StartBackupSetting" xml:space="preserve">
     <value>Start backup</value>
   </data>
+  <data name="StartStorageDecryption" xml:space="preserve">
+    <value>Start storage decryption</value>
+  </data>
+  <data name="StartStorageEncryption" xml:space="preserve">
+    <value>Start storage encryption</value>
+  </data>
   <data name="StartTransferSetting" xml:space="preserve">
     <value>Start portal region migration</value>
   </data>
@@ -1277,6 +1209,9 @@
   </data>
   <data name="SystemAccount" xml:space="preserve">
     <value>System Account</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>Target ID</value>
   </data>
   <data name="TaskAttachedFiles" xml:space="preserve">
     <value>Projects [{0}]. Tasks [{1}]. Files Attached: {2}</value>
@@ -1357,7 +1292,16 @@
     <value>Time Zone Settings Updated</value>
   </data>
   <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
-    <value>Trusted Mail Domain Settings Updated</value>
+    <value>Trusted mail domain settings updated</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsDisabled" xml:space="preserve">
+    <value>Two-factor Authentication Settings Updated: Two-factor auth was disabled</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledBySms" xml:space="preserve">
+    <value>Two-factor Authentication Settings Updated: SMS confirmation was enabled</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledByTfaApp" xml:space="preserve">
+    <value>Two-factor Authentication Settings Updated: Authentication app was enabled</value>
   </data>
   <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
     <value>Two-factor Authentication Settings Updated</value>
@@ -1395,6 +1339,12 @@
   <data name="UserCreatedViaInvite" xml:space="preserve">
     <value>User Created Via Invite: {0}</value>
   </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Data Reassigned: from user {0} to user {1}</value>
+  </data>
+  <data name="UserDataRemoving" xml:space="preserve">
+    <value>User data for {0} has been deleted</value>
+  </data>
   <data name="UserDeleted" xml:space="preserve">
     <value>User Deleted: {0}</value>
   </data>
@@ -1409,12 +1359,6 @@
   </data>
   <data name="UserLinkedSocialAccount" xml:space="preserve">
     <value>Social Account Linked. Provider: {0}</value>
-  </data>
-  <data name="UserTfaGenerateCodes" xml:space="preserve">
-    <value>New backup codes for the authentication app are created</value>
-  </data>
-  <data name="UserTfaDisconnected" xml:space="preserve">
-    <value>Authenticator application disconnected: {0}</value>
   </data>
   <data name="UsersDeleted" xml:space="preserve">
     <value>Users Deleted: {0}</value>
@@ -1443,6 +1387,12 @@
   <data name="UsersUpdatedType" xml:space="preserve">
     <value>Users [{0}]. Updated Type</value>
   </data>
+  <data name="UserTfaDisconnected" xml:space="preserve">
+    <value>Authenticator application disconnected: {0}</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>New backup codes are created</value>
+  </data>
   <data name="UserUnlinkedSocialAccount" xml:space="preserve">
     <value>Social Account Unlinked. Provider: {0}</value>
   </data>
@@ -1466,50 +1416,5 @@
   </data>
   <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
     <value>Website Contact Form Key Updated</value>
-  </data>
-  <data name="CookieSettingsUpdated" xml:space="preserve">
-    <value>Cookie Settings Updated</value>
-  </data>
-  <data name="MailServiceSettingsUpdated" xml:space="preserve">
-    <value>Mail Service Settings Updated</value>
-  </data>
-  <data name="UserDataReassigns" xml:space="preserve">
-    <value>Data Reassigned: from user {0} to user {1}</value>
-  </data>
-  <data name="ReassignsActionType" xml:space="preserve">
-    <value>Reassigns</value>
-  </data>
-  <data name="TargetIdCol" xml:space="preserve">
-    <value>Target ID</value>
-  </data>
-  <data name="ActionIdCol" xml:space="preserve">
-    <value>Action ID</value>
-  </data>
-  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
-    <value>Custom Navigation Settings Updated</value>
-  </data>
-  <data name="UserDataRemoving" xml:space="preserve">
-    <value>User data for {0} has been deleted</value>
-  </data>
-  <data name="AuditSettingsUpdated" xml:space="preserve">
-    <value>Audit Lifetime Settings Updated</value>
-  </data>
-  <data name="LoginSuccessSocialApp" xml:space="preserve">
-    <value>Login Via Social Application Success</value>
-  </data>
-  <data name="TwoFactorAuthenticationSettingsDisabled" xml:space="preserve">
-    <value>Two-factor Authentication Settings Updated: Two-factor auth was disabled</value>
-  </data>
-  <data name="TwoFactorAuthenticationSettingsEnabledBySms" xml:space="preserve">
-    <value>Two-factor Authentication Settings Updated: SMS confirmation was enabled</value>
-  </data>
-  <data name="TwoFactorAuthenticationSettingsEnabledByTfaApp" xml:space="preserve">
-    <value>Two-factor Authentication Settings Updated: Authentication app was enabled</value>
-  </data>
-  <data name="StartStorageEncryption" xml:space="preserve">
-    <value>Start storage encryption</value>
-  </data>
-  <data name="StartStorageDecryption" xml:space="preserve">
-    <value>Start storage decryption</value>
   </data>
 </root>

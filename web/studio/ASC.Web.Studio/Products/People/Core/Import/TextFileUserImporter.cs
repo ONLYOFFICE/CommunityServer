@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,7 +118,7 @@ namespace ASC.Web.People.Core.Import
             {
                 using (var reader = new StreamReader(stream, Encoding))
                 {
-                    fileLines.AddRange(reader.ReadToEnd().Split(new[] { Environment.NewLine, "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries));
+                    fileLines.AddRange(reader.ReadToEnd().HtmlEncode().Split(new[] { Environment.NewLine, "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries));
                 }
             }
 
@@ -186,7 +186,7 @@ namespace ASC.Web.People.Core.Import
         protected virtual ContactInfo GetExportedUser(string line, IDictionary<int, PropertyInfo> mappedProperties, int fieldsCount)
         {
             var exportedUser = new ContactInfo();
-            var dataFields = GetDataFields(line);
+            var dataFields = GetDataFields(line.HtmlEncode());
             for (int j = 0; j < Math.Min(fieldsCount, dataFields.Length); j++)
             {
                 var propinfo = mappedProperties[j];
@@ -251,9 +251,9 @@ namespace ASC.Web.People.Core.Import
 
                     propertyField.Replace(" ", "");
 
-                    if (!string.IsNullOrEmpty(propertyField) 
-                        && !ExcludeList.Contains(propertyField) 
-                        &&(propertyField.Equals(PeopleResource.ResourceManager.GetString(title), StringComparison.OrdinalIgnoreCase)
+                    if (!string.IsNullOrEmpty(propertyField)
+                        && !ExcludeList.Contains(propertyField)
+                        && (propertyField.Equals(PeopleResource.ResourceManager.GetString(title), StringComparison.OrdinalIgnoreCase)
                             || propertyField.Equals(info.Name, StringComparison.OrdinalIgnoreCase)))
                     {
                         mappedProperties.Add(i, info);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Caching;
+
 using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Core.Users;
@@ -38,7 +39,9 @@ using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json.Linq;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -189,7 +192,7 @@ namespace ASC.Web.Files.Utils
             }
             else if (parent.FolderType == FolderType.Recent)
             {
-                var files = GetRecent(fileDao, filter, subjectGroup, subjectId, searchText, searchInContent);
+                var files = GetRecent(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent);
                 entries = entries.Concat(files);
 
                 parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalFiles : 1));
@@ -208,7 +211,7 @@ namespace ASC.Web.Files.Utils
             }
             else if (parent.FolderType == FolderType.Templates)
             {
-                var files = GetTemplates(fileDao, filter, subjectGroup, subjectId, searchText, searchInContent);
+                var files = GetTemplates(folderDao, fileDao, filter, subjectGroup, subjectId, searchText, searchInContent);
                 entries = entries.Concat(files);
 
                 parent.TotalFiles = entries.Aggregate(0, (a, f) => a + (f.FileEntryType == FileEntryType.Folder ? ((Folder)f).TotalFiles : 1));
@@ -283,7 +286,7 @@ namespace ASC.Web.Files.Utils
             return entries;
         }
 
-        public static IEnumerable<File> GetTemplates(IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
+        public static IEnumerable<File> GetTemplates(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
         {
             using (var tagDao = Global.DaoFactory.GetTagDao())
             {
@@ -295,6 +298,8 @@ namespace ASC.Web.Files.Utils
                 files = files.Where(file => file.RootFolderType != FolderType.TRASH).ToList();
 
                 files = Global.GetFilesSecurity().FilterRead(files).ToList();
+
+                CheckFolderId(folderDao, files);
 
                 return files;
             }
@@ -337,7 +342,7 @@ namespace ASC.Web.Files.Utils
             return folderList;
         }
 
-        public static IEnumerable<File> GetRecent(IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
+        public static IEnumerable<File> GetRecent(IFolderDao folderDao, IFileDao fileDao, FilterType filter, bool subjectGroup, Guid subjectId, String searchText, bool searchInContent)
         {
             using (var tagDao = Global.DaoFactory.GetTagDao())
             {
@@ -348,6 +353,8 @@ namespace ASC.Web.Files.Utils
                 files = files.Where(file => file.RootFolderType != FolderType.TRASH).ToList();
 
                 files = Global.GetFilesSecurity().FilterRead(files).ToList();
+
+                CheckFolderId(folderDao, files);
 
                 var listFileIds = fileIds.ToList();
                 files = files.OrderBy(file => listFileIds.IndexOf(file.ID)).ToList();
@@ -372,6 +379,8 @@ namespace ASC.Web.Files.Utils
                     folders = folders.Where(folder => folder.RootFolderType != FolderType.TRASH).ToList();
 
                     folders = fileSecurity.FilterRead(folders).ToList();
+
+                    CheckFolderId(folderDao, folders);
                 }
 
                 if (filter != FilterType.FoldersOnly)
@@ -381,6 +390,8 @@ namespace ASC.Web.Files.Utils
                     files = files.Where(file => file.RootFolderType != FolderType.TRASH).ToList();
 
                     files = fileSecurity.FilterRead(files).ToList();
+
+                    CheckFolderId(folderDao, files);
                 }
             }
         }
@@ -459,7 +470,7 @@ namespace ASC.Web.Files.Utils
                 case SortedByType.Author:
                     sorter = (x, y) =>
                              {
-                                 var cmp = c * string.Compare(x.ModifiedByString, y.ModifiedByString);
+                                 var cmp = c * string.Compare(x.CreateByString, y.CreateByString);
                                  return cmp == 0 ? x.Title.EnumerableComparer(y.Title) : cmp;
                              };
                     break;
@@ -523,25 +534,25 @@ namespace ASC.Web.Files.Utils
         {
             //Fake folder. Don't send request to third party
             return new Folder
-                {
-                    ParentFolderID = parentFolderId,
+            {
+                ParentFolderID = parentFolderId,
 
-                    ID = providerInfo.RootFolderId,
-                    CreateBy = providerInfo.Owner,
-                    CreateOn = providerInfo.CreateOn,
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = providerInfo.Owner,
-                    ModifiedOn = providerInfo.CreateOn,
-                    ProviderId = providerInfo.ID,
-                    ProviderKey = providerInfo.ProviderKey,
-                    RootFolderCreator = providerInfo.Owner,
-                    RootFolderId = providerInfo.RootFolderId,
-                    RootFolderType = providerInfo.RootFolderType,
-                    Shareable = false,
-                    Title = providerInfo.CustomerTitle,
-                    TotalFiles = 0,
-                    TotalSubFolders = 0
-                };
+                ID = providerInfo.RootFolderId,
+                CreateBy = providerInfo.Owner,
+                CreateOn = providerInfo.CreateOn,
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = providerInfo.Owner,
+                ModifiedOn = providerInfo.CreateOn,
+                ProviderId = providerInfo.ID,
+                ProviderKey = providerInfo.ProviderKey,
+                RootFolderCreator = providerInfo.Owner,
+                RootFolderId = providerInfo.RootFolderId,
+                RootFolderType = providerInfo.RootFolderType,
+                Shareable = false,
+                Title = providerInfo.CustomerTitle,
+                TotalFiles = 0,
+                TotalSubFolders = 0
+            };
         }
 
 
@@ -604,6 +615,24 @@ namespace ASC.Web.Files.Utils
             return breadCrumbs;
         }
 
+
+        public static void CheckFolderId(IFolderDao folderDao, IEnumerable<FileEntry> entries)
+        {
+            var fileSecurity = Global.GetFilesSecurity();
+            foreach (var entry in entries)
+            {
+                if (entry.RootFolderType == FolderType.USER
+                    && entry.RootFolderCreator != SecurityContext.CurrentAccount.ID)
+                {
+                    var folderId = entry is File ? ((File)entry).FolderID : ((Folder)entry).ParentFolderID;
+                    var folder = folderDao.GetFolder(folderId);
+                    if (!fileSecurity.CanRead(folder))
+                    {
+                        entry.FolderIdDisplay = Global.FolderShare;
+                    }
+                }
+            }
+        }
 
         public static void SetFileStatus(File file)
         {
@@ -733,7 +762,7 @@ namespace ASC.Web.Files.Utils
                         var path = FileConstant.NewDocPath + Thread.CurrentThread.CurrentCulture + "/";
                         if (!storeTemplate.IsDirectory(path))
                         {
-                            path = FileConstant.NewDocPath + "default/";
+                            path = FileConstant.NewDocPath + "en-US/";
                         }
                         path += "new" + FileUtility.GetInternalExtension(file.Title);
 
@@ -753,6 +782,7 @@ namespace ASC.Web.Files.Utils
                 file.Encrypted = encrypted;
 
                 file.ConvertedType = FileUtility.GetFileExtension(file.Title) != newExtension ? newExtension : null;
+                file.ThumbnailStatus = encrypted ? Thumbnail.NotRequired : Thumbnail.Waiting;
 
                 if (file.ProviderEntry && !newExtension.Equals(currentExt))
                 {
@@ -766,7 +796,7 @@ namespace ASC.Web.Files.Utils
                         }
 
                         var key = DocumentServiceConnector.GenerateRevisionId(downloadUri);
-                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, false, out downloadUri);
+                        DocumentServiceConnector.GetConvertedUri(downloadUri, newExtension, currentExt, key, null, null, null, false, out downloadUri);
 
                         stream = null;
                     }
@@ -912,13 +942,22 @@ namespace ASC.Web.Files.Utils
                         ModifiedOn = fromFile.ModifiedOn,
                         ConvertedType = fromFile.ConvertedType,
                         Comment = string.Format(FilesCommonResource.CommentRevert, fromFile.ModifiedOnString),
-                        Encrypted = fromFile.Encrypted,
+                        Encrypted = fromFile.Encrypted
                     };
 
                     using (var stream = fileDao.GetFileStream(fromFile))
                     {
                         newFile.ContentLength = stream.CanSeek ? stream.Length : fromFile.ContentLength;
                         newFile = fileDao.SaveFile(newFile, stream);
+                    }
+
+                    if (fromFile.ThumbnailStatus == Thumbnail.Created)
+                    {
+                        using (var thumb = fileDao.GetThumbnail(fromFile))
+                        {
+                            fileDao.SaveThumbnail(newFile, thumb);
+                        }
+                        newFile.ThumbnailStatus = Thumbnail.Created;
                     }
 
                     FileMarker.MarkAsNew(newFile);

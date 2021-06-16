@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.CRM.Core;
 using ASC.ElasticSearch;
 
@@ -103,7 +104,7 @@ namespace ASC.Web.CRM.Core.Search
             }
 
             IReadOnlyCollection<FieldsWrapper> personCustom;
-            if (FactoryIndexer<FieldsWrapper>.TrySelect(s => s.MatchAll(text).In(r => r.EntityType, new[] {0, 4, 5}), out personCustom))
+            if (FactoryIndexer<FieldsWrapper>.TrySelect(s => s.MatchAll(text).In(r => r.EntityType, new[] { 0, 4, 5 }), out personCustom))
             {
                 result.AddRange(personCustom.Select(r => r.EntityId).ToList());
                 success = true;

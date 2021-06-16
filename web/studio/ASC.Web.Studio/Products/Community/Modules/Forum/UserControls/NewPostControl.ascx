@@ -6,7 +6,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Web.UserControls.Forum" %>
 <%@ Import Namespace="ASC.Web.UserControls.Forum.Common" %>
-<%@ Import Namespace="ASC.Web.UserControls.Forum.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Forum.UserControls.Resources" %>
 
 <input id="forum_postType" name="forum_postType" type="hidden" value="<%=(int)PostType%>" />
 <input id="forum_attachments" name="forum_attachments" type="hidden" value="<%=_attachmentsString%>" />

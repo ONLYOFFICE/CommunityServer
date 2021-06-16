@@ -30,7 +30,7 @@
         <td class="trash">
             {{if canEdit || canLinkContact}}
                 <img src="${StudioManager.GetImage('unlink_16.png')}"
-                    title="${ASC.Projects.Resources.CommonResource.UnlinkProjects}" class="trash_delete" />
+                    title="${ASC.Projects.Resources.ProjectsCommonResource.UnlinkProjects}" class="trash_delete" />
                 <div class="trash_progress loader-middle" title=""></div>
             {{/if}}
         </td>
@@ -82,7 +82,7 @@
 
         <td class="menupoint-container">
             {{if !(isVisitor && isMe)}}
-            <div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
+            <div class="entity-menu" title="${ASC.Projects.Resources.ProjectsCommonResource.Actions}"></div>
             {{/if}}
         </td>
         </tr>
@@ -136,7 +136,7 @@
 <script id="projectParticipant" type="text/x-jquery-tmpl">
     <li class="items-display-list_i" participantid="${id}">
         <span class="item-name"><a class="link" href="${profileUrl}" target="_blank">${title}</a></span>
-        <div class="reset-action" data-userid="${id}" title="$ASC.Projects.Resources.CommonResource.Delete"></div>
+        <div class="reset-action" data-userid="${id}" title="$ASC.Projects.Resources.ProjectsCommonResource.Delete"></div>
     </li>
 </script>
 
@@ -168,17 +168,17 @@
             </div>
             <div class="popup_helper" id="AnswerForPrivateProjectTeam">
                 <p>
-                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerPrivateProjectTeam), "<br/>", "<b>", "</b>")}}
+                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerPrivateProjectTeam), "<br/>", "<b>", "</b>")}}
                     {{if ASC.Resources.Master.HelpLink}}
-                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.ProjectsCommonResource.LearnMoreLink}</a>
                     {{/if}}
                 </p>
             </div>
             <div class="popup_helper" id="AnswerForRestrictAccessTeam">
                 <p>
-                    {{html Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerRestrictAccessTeam)}}
+                    {{html Encoder.htmlEncode(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerRestrictAccessTeam)}}
                     {{if ASC.Resources.Master.HelpLink}}
-                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.ProjectsCommonResource.LearnMoreLink}</a>
                     {{/if}}
                 </p>
             </div>

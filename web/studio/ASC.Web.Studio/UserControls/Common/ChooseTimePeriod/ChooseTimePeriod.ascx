@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ChooseTimePeriod.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.ChooseTimePeriod.ChooseTimePeriod" %>
 
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Common.ChooseTimePeriod" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="select-time-period">
     <select id="generatedTimePeriod" class="comboBox select-time-period-every">

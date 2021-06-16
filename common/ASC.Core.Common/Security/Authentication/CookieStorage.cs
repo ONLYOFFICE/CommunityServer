@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@
 using System;
 using System.Globalization;
 using System.Web;
+
 using ASC.Common.Logging;
-using ASC.Security.Cryptography;
 using ASC.Core.Tenants;
+using ASC.Security.Cryptography;
 
 namespace ASC.Core.Security.Authentication
 {
@@ -54,7 +55,7 @@ namespace ASC.Core.Security.Authentication
 
                 return true;
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 LogManager.GetLogger("ASC.Core").ErrorFormat("Authenticate error: cookie {0}, tenant {1}, userid {2}, indexTenant {3}, expire {4}: {5}",
                     cookie, tenant, userid, indexTenant, expire.ToString(DateTimeFormat), err);

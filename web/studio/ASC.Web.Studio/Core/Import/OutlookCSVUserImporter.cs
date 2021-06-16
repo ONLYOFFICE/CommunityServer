@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ namespace ASC.Web.Studio.Core.Import
                                   {"Name", ""},
                                   {"Nickname", ""},
                                   {"E-mail Address", "Email"},
-								  {"Email", "Email"},
+                                  {"Email", "Email"},
                                   {"Home Street", "PrimaryAddress"},
                                   {"Home City", ""},
                                   {"Home Postal Code", "PostalCode"},

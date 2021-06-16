@@ -38,7 +38,7 @@
                 <div class="comment-list">
                     <a href="${commentsUrl}">${ASC.Projects.Resources.MessageResource.Comments}: ${commentsCount}</a>
                     {{if canComment}}
-                    <a href="${writeCommentUrl}">${ASC.Projects.Resources.CommonResource.WriteComment}</a>
+                    <a href="${writeCommentUrl}">${ASC.Projects.Resources.ProjectsCommonResource.WriteComment}</a>
                     {{/if}}
                 </div>
         </div>
@@ -75,14 +75,14 @@
 
 <script id="projects_discussionTab" type="text/x-jquery-tmpl">
     <div id="discussionParticipantsContainer" class="participantsContainer display-none">
-        <div id="manageParticipantsSelector" class="link dotline plus">${ASC.Projects.Resources.CommonResource.AddParticipants}</div>
+        <div id="manageParticipantsSelector" class="link dotline plus">${ASC.Projects.Resources.ProjectsCommonResource.AddParticipants}</div>
         <ul id="discussionParticipantsTable" class="items-display-list">
             {{tmpl 'projects_subscribedUsers'}}
         </ul>
         <div style="clear: both;"></div>
     </div>
     <div class="popup_helper" id="hintSubscribersPrivateProject">
-        <p>${ASC.Projects.Resources.CommonResource.hintSubscribersPrivateProject}</p>
+        <p>${ASC.Projects.Resources.ProjectsCommonResource.hintSubscribersPrivateProject}</p>
     </div>
 </script>
 
@@ -107,11 +107,11 @@
 <script id="projects_tabs" type="text/x-jquery-tmpl">
     <div class="tabs-section" id="${id}">
         <span class="header-base">${title}{{if count}} (${count}){{/if}}</span>
-        <span id="switcher${id}" class="toggle-button" data-switcher="${state}" data-showtext="${ASC.Projects.Resources.CommonResource.Show}" data-hidetext="${ASC.Projects.Resources.CommonResource.Hide}">
+        <span id="switcher${id}" class="toggle-button" data-switcher="${state}" data-showtext="${ASC.Projects.Resources.ProjectsCommonResource.Show}" data-hidetext="${ASC.Projects.Resources.ProjectsCommonResource.Hide}">
             {{if state === 0}}
-            ${ASC.Projects.Resources.CommonResource.Hide}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Hide}
             {{else}}
-            ${ASC.Projects.Resources.CommonResource.Show}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Show}
             {{/if}}
         </span>
     </div>
@@ -121,8 +121,8 @@
     <div id="discussionButtonsContainer" class="big-button-container">
         <a id='discussionActionButton' class='button blue big'>${action}</a>
         <span class="splitter-buttons"></span>
-        <a id='discussionPreviewButton' class='button blue big ${disable}'>${ASC.Projects.Resources.CommonResource.Preview}</a>
+        <a id='discussionPreviewButton' class='button blue big ${disable}'>${ASC.Projects.Resources.ProjectsCommonResource.Preview}</a>
         <span class="splitter-buttons"></span>
-        <a id='discussionCancelButton' class='button gray big'>${ASC.Projects.Resources.CommonResource.Cancel}</a>
+        <a id='discussionCancelButton' class='button gray big'>${ASC.Projects.Resources.ProjectsCommonResource.Cancel}</a>
     </div>
 </script>

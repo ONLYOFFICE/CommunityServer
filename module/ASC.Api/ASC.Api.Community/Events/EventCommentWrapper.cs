@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Specific;
 using ASC.Web.Community.News.Code;
@@ -31,7 +31,7 @@ namespace ASC.Api.Events
         {
             CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(new Guid(comment.Creator)));
             Updated = Created = (ApiDateTime)comment.Date;
-           
+
             Id = comment.Id;
             Text = comment.Comment;
             ParentId = comment.ParentId;

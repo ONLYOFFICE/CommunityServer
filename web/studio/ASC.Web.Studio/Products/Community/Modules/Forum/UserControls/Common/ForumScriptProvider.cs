@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,11 @@
 
 
 using System;
+using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Text;
-using ASC.Data.Storage;
+
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 
 namespace ASC.Web.UserControls.Forum.Common
 {
@@ -39,21 +40,21 @@ namespace ASC.Web.UserControls.Forum.Common
 
             var script = new StringBuilder();
             script.Append("if (typeof(ForumManager)=== 'undefined'){ForumManager = {};}");
-            script.Append("ForumManager.QuestionEmptyMessage = '" + Resources.ForumUCResource.QuestionEmptyMessage + "';");
-            script.Append("ForumManager.SubjectEmptyMessage = '" + Resources.ForumUCResource.SubjectEmptyMessage + "';");
-            script.Append("ForumManager.ApproveTopicButton = '" + Resources.ForumUCResource.ApproveButton + "';");
-            script.Append("ForumManager.OpenTopicButton = '" + Resources.ForumUCResource.OpenTopicButton + "';");
-            script.Append("ForumManager.CloseTopicButton = '" + Resources.ForumUCResource.CloseTopicButton + "';");
-            script.Append("ForumManager.StickyTopicButton = '" + Resources.ForumUCResource.StickyTopicButton + "';");
-            script.Append("ForumManager.ClearStickyTopicButton = '" + Resources.ForumUCResource.ClearStickyTopicButton + "';");
-            script.Append("ForumManager.DeleteTopicButton = '" + Resources.ForumUCResource.DeleteButton + "';");
-            script.Append("ForumManager.EditTopicButton = '" + Resources.ForumUCResource.EditButton + "';");
-            script.Append("ForumManager.ConfirmMessage = '" + Resources.ForumUCResource.ConfirmMessage + "';");
-            script.Append("ForumManager.NameEmptyString = '" + Resources.ForumUCResource.NameEmptyString + "';");
-            script.Append("ForumManager.SaveButton = '" + Resources.ForumUCResource.SaveButton + "';");
-            script.Append("ForumManager.CancelButton = '" + Resources.ForumUCResource.CancelButton + "';");
+            script.Append("ForumManager.QuestionEmptyMessage = '" + ForumUCResource.QuestionEmptyMessage + "';");
+            script.Append("ForumManager.SubjectEmptyMessage = '" + ForumUCResource.SubjectEmptyMessage + "';");
+            script.Append("ForumManager.ApproveTopicButton = '" + ForumUCResource.ApproveButton + "';");
+            script.Append("ForumManager.OpenTopicButton = '" + ForumUCResource.OpenTopicButton + "';");
+            script.Append("ForumManager.CloseTopicButton = '" + ForumUCResource.CloseTopicButton + "';");
+            script.Append("ForumManager.StickyTopicButton = '" + ForumUCResource.StickyTopicButton + "';");
+            script.Append("ForumManager.ClearStickyTopicButton = '" + ForumUCResource.ClearStickyTopicButton + "';");
+            script.Append("ForumManager.DeleteTopicButton = '" + ForumUCResource.DeleteButton + "';");
+            script.Append("ForumManager.EditTopicButton = '" + ForumUCResource.EditButton + "';");
+            script.Append("ForumManager.ConfirmMessage = '" + ForumUCResource.ConfirmMessage + "';");
+            script.Append("ForumManager.NameEmptyString = '" + ForumUCResource.NameEmptyString + "';");
+            script.Append("ForumManager.SaveButton = '" + ForumUCResource.SaveButton + "';");
+            script.Append("ForumManager.CancelButton = '" + ForumUCResource.CancelButton + "';");
             script.Append("ForumManager.SettingsID = '" + SettingsID + "';");
-            script.Append("ForumManager.TextEmptyMessage = '" + Resources.ForumUCResource.TextEmptyMessage + "';");
+            script.Append("ForumManager.TextEmptyMessage = '" + ForumUCResource.TextEmptyMessage + "';");
 
             Page.RegisterInlineScript(script.ToString());
 

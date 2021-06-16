@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,22 @@
 
 
 using System;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
 
 using ASC.Common.Caching;
+using ASC.Common.Logging;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Data.Storage;
+using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.Services.NotifyService;
 using ASC.Web.Studio.Utility;
-using ASC.Common.Logging;
-using ASC.Web.CRM.Core;
+
 using Autofac;
 
 namespace ASC.Web.CRM.Classes
@@ -64,7 +65,7 @@ namespace ASC.Web.CRM.Classes
             return Cache.Get<ImportDataOperation>(GetStateCacheKey(entityType));
         }
 
-        public static void Insert(EntityType entityType,ImportDataOperation data)
+        public static void Insert(EntityType entityType, ImportDataOperation data)
         {
             Cache.Insert(GetStateCacheKey(entityType), data, TimeSpan.FromMinutes(1));
         }
@@ -209,7 +210,7 @@ namespace ASC.Web.CRM.Classes
             _log.Debug("Import is completed");
 
             _notifyClient.SendAboutImportCompleted(_author.ID, _entityType);
-                       
+
             ImportDataCache.Insert(_entityType, (ImportDataOperation)Clone());
         }
 
@@ -228,7 +229,7 @@ namespace ASC.Web.CRM.Classes
                     System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
                     System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
 
-                    ImportDataCache.Insert(_entityType, (ImportDataOperation) Clone());
+                    ImportDataCache.Insert(_entityType, (ImportDataOperation)Clone());
 
                     switch (_entityType)
                     {

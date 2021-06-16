@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.Common.Threading;
@@ -125,7 +126,8 @@ namespace ASC.Mail.Core.Engine
             Log.Debug("End ClearMailGarbage()\r\n");
         }
 
-        public void RemoveUselessMsDomains() {
+        public void RemoveUselessMsDomains()
+        {
             Log.Debug("Start RemoveUselessMsDomains()\r\n");
 
             try
@@ -150,7 +152,7 @@ namespace ASC.Mail.Core.Engine
 
                     if (mailboxes.Any())
                     {
-                        Log.WarnFormat("Domain's '{0}' Tenant={1} is removed, but it has unremoved server mailboxes (count={2}). Skip it.", 
+                        Log.WarnFormat("Domain's '{0}' Tenant={1} is removed, but it has unremoved server mailboxes (count={2}). Skip it.",
                             domain.Name, domain.Tenant, mailboxes.Count);
 
                         continue;
@@ -179,7 +181,8 @@ namespace ASC.Mail.Core.Engine
             Log.Debug("End RemoveUselessMsDomains()\r\n");
         }
 
-        public TenantStatus GetTenantStatus(int tenant) {
+        public TenantStatus GetTenantStatus(int tenant)
+        {
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(tenant);

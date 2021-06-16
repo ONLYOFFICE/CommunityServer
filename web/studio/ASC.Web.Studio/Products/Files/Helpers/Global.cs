@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
 using ASC.Web.Core;
+using ASC.Web.Core.Files;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Core;
 using ASC.Web.Files.Resources;
@@ -93,6 +94,8 @@ namespace ASC.Web.Files.Classes
                         ClearCache();
                     }
 
+                    ThumbnailExtension = ConfigurationManagerExtension.AppSettings["files.thumbnail.exts"] ?? "png";
+
                     isInit = true;
                 }
             }
@@ -139,6 +142,8 @@ namespace ASC.Web.Files.Classes
         public const int MaxTitle = 170;
 
         public static readonly Regex InvalidTitleChars = new Regex("[\t*\\+:\"<>?|\\\\/\\p{Cs}]");
+
+        public static string ThumbnailExtension;
 
         public static bool EnableUploadFilter
         {
@@ -519,7 +524,7 @@ namespace ASC.Web.Files.Classes
                             var path = FileConstant.StartDocPath + culture + "/";
 
                             if (!storeTemplate.IsDirectory(path))
-                                path = FileConstant.StartDocPath + "default/";
+                                path = FileConstant.StartDocPath + "en-US/";
                             path += my ? "my/" : "corporate/";
 
                             SaveStartDocument(folderDao, fileDao, id, path, storeTemplate);
@@ -556,27 +561,41 @@ namespace ASC.Web.Files.Classes
 
         private static void SaveFile(IFileDao fileDao, object folder, string filePath, IDataStore storeTemp)
         {
-            using (var stream = storeTemp.GetReadStream("", filePath))
+            try
             {
+                if (FileUtility.GetFileExtension(filePath) == "." + ThumbnailExtension
+                    && storeTemp.IsFile("", Regex.Replace(filePath, "\\." + ThumbnailExtension + "$", "")))
+                    return;
+
                 var fileName = Path.GetFileName(filePath);
                 var file = new File
                 {
                     Title = fileName,
-                    ContentLength = stream.CanSeek ? stream.Length : storeTemp.GetFileSize("", filePath),
                     FolderID = folder,
                     Comment = FilesCommonResource.CommentCreate,
                 };
-                stream.Position = 0;
-                try
-                {
-                    file = fileDao.SaveFile(file, stream);
 
-                    FileMarker.MarkAsNew(file);
-                }
-                catch (Exception ex)
+                using (var stream = storeTemp.GetReadStream("", filePath))
                 {
-                    Logger.Error(ex);
+                    file.ContentLength = stream.CanSeek ? stream.Length : storeTemp.GetFileSize("", filePath);
+                    file = fileDao.SaveFile(file, stream);
                 }
+
+                var pathThumb = filePath + "." + ThumbnailExtension;
+                if (storeTemp.IsFile("", pathThumb))
+                {
+                    using (var streamThumb = storeTemp.GetReadStream("", pathThumb))
+                    {
+                        fileDao.SaveThumbnail(file, streamThumb);
+                    }
+                    file.ThumbnailStatus = Thumbnail.Created;
+                }
+
+                FileMarker.MarkAsNew(file);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
             }
         }
 

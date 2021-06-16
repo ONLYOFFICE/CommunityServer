@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Mail.Core.Engine;
 using ASC.Mail.Core.Entities;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
 using ASC.Web.Studio.Utility;
+
 using ContactInfo = ASC.Mail.Data.Contracts.ContactInfo;
 
 namespace ASC.Mail.Extensions
@@ -91,7 +93,7 @@ namespace ASC.Mail.Extensions
                     QuotaError = false,
                     Signature = new MailSignatureData(-1, account.Signature.Tenant, "", false),
                     Autoreply = new MailAutoreplyData(-1, account.Signature.Tenant, false, false,
-                        false, DateTime.MinValue, DateTime.MinValue, String.Empty, String.Empty), 
+                        false, DateTime.MinValue, DateTime.MinValue, String.Empty, String.Empty),
                     EMailInFolder = "",
                     IsAlias = false,
                     IsGroup = true,
@@ -123,11 +125,11 @@ namespace ASC.Mail.Extensions
 
             foreach (var contact in contactCard.ContactItems)
             {
-                if (contact.Type == (int) ContactInfoType.Email)
+                if (contact.Type == (int)ContactInfoType.Email)
                 {
                     if (contact.IsPrimary)
                         emails.Insert(0,
-                            new ContactInfo {Id = contact.Id, Value = contact.Data, IsPrimary = contact.IsPrimary});
+                            new ContactInfo { Id = contact.Id, Value = contact.Data, IsPrimary = contact.IsPrimary });
                     else
                         emails.Add(new ContactInfo
                         {
@@ -136,11 +138,11 @@ namespace ASC.Mail.Extensions
                             IsPrimary = contact.IsPrimary
                         });
                 }
-                else if (contact.Type == (int) ContactInfoType.Phone)
+                else if (contact.Type == (int)ContactInfoType.Phone)
                 {
                     if (contact.IsPrimary)
                         phones.Insert(0,
-                            new ContactInfo {Id = contact.Id, Value = contact.Data, IsPrimary = contact.IsPrimary});
+                            new ContactInfo { Id = contact.Id, Value = contact.Data, IsPrimary = contact.IsPrimary });
                     else
                         phones.Add(new ContactInfo
                         {
@@ -158,7 +160,7 @@ namespace ASC.Mail.Extensions
                 Description = contactCard.ContactInfo.Description,
                 Emails = emails,
                 PhoneNumbers = phones,
-                Type = (int) contactCard.ContactInfo.Type,
+                Type = (int)contactCard.ContactInfo.Type,
                 SmallFotoUrl =
                     string.Format("{0}HttpHandlers/contactphoto.ashx?cid={1}&ps=1", baseAbsolutePath, contactCard.ContactInfo.Id)
                         .ToLower(),
@@ -225,26 +227,26 @@ namespace ASC.Mail.Extensions
         public static MailFolderData ToFolderData(this FolderEngine.MailFolderInfo folder)
         {
             return new MailFolderData
-                {
-                    Id = folder.id,
-                    UnreadCount = folder.unread,
-                    UnreadMessagesCount = folder.unreadMessages,
-                    TotalCount = folder.total,
-                    TotalMessgesCount = folder.totalMessages,
-                    TimeModified = folder.timeModified
-                };
+            {
+                Id = folder.id,
+                UnreadCount = folder.unread,
+                UnreadMessagesCount = folder.unreadMessages,
+                TotalCount = folder.total,
+                TotalMessgesCount = folder.totalMessages,
+                TimeModified = folder.timeModified
+            };
         }
 
         public static MailTagData ToTagData(this Tag tag)
         {
             return new MailTagData
-                {
-                    Id = tag.Id,
-                    Name = tag.TagName,
-                    Style = tag.Style,
-                    Addresses = new MailTagData.AddressesList<string>(tag.Addresses.Split(';')),
-                    LettersCount = tag.Count
-                };
+            {
+                Id = tag.Id,
+                Name = tag.TagName,
+                Style = tag.Style,
+                Addresses = new MailTagData.AddressesList<string>(tag.Addresses.Split(';')),
+                LettersCount = tag.Count
+            };
         }
 
         public static List<MailTagData> ToTagData(this List<Tag> tags)

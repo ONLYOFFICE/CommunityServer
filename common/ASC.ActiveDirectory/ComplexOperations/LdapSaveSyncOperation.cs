@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using ASC.ActiveDirectory.Base;
+
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations.Data;
 using ASC.ActiveDirectory.Novell.Exceptions;
@@ -75,7 +75,8 @@ namespace ASC.ActiveDirectory.ComplexOperations
                         sb.AppendLine("LoginAttr: " + LDAPSettings.LoginAttribute);
                         sb.AppendLine("UserFilter: " + LDAPSettings.UserFilter);
                         sb.AppendLine("Groups: " + LDAPSettings.GroupMembership);
-                        if (LDAPSettings.GroupMembership) {
+                        if (LDAPSettings.GroupMembership)
+                        {
                             sb.AppendLine("GroupDN: " + LDAPSettings.GroupDN);
                             sb.AppendLine("UserAttr: " + LDAPSettings.UserAttribute);
                             sb.AppendLine("GroupFilter: " + LDAPSettings.GroupFilter);
@@ -285,8 +286,8 @@ namespace ASC.ActiveDirectory.ComplexOperations
                 {
                     SetProgress((int)(currentPercent += step),
                         string.Format("{0}: {1}", Resource.LdapSettingsStatusSavingUserPhoto, UserFormatter.GetUserName(user, DisplayUserNameFormat.Default)));
-                    UserPhotoManager.ResetThumbnailSettings(user.ID);
-                    UserPhotoManager.SaveOrUpdatePhoto(user.ID, (byte[])image);
+
+                    UserPhotoManager.SyncPhoto(user.ID, (byte[])image);
 
                     if (photoSettings.CurrentPhotos.ContainsKey(user.ID))
                     {
@@ -421,7 +422,8 @@ namespace ASC.ActiveDirectory.ComplexOperations
                                     }
                                 }
 
-                                if (cleared) {
+                                if (cleared)
+                                {
                                     Logger.DebugFormat("GiveUsersRights() Cleared manually added user rights for '{0}'", user.DisplayUserName());
                                 }
                             }
@@ -665,8 +667,8 @@ namespace ASC.ActiveDirectory.ComplexOperations
                                      where dbUser == null
                                      select SearchDbUserBySid(ldapGroupUser.Sid)
                                          into userBySid
-                                         where !Equals(userBySid, Constants.LostUser)
-                                         select userBySid)
+                                     where !Equals(userBySid, Constants.LostUser)
+                                     select userBySid)
                 .ToList();
 
             switch (OperationType)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Api.Calendar.ExternalCalendars;
 using ASC.Common.Security;
 using ASC.Core;
@@ -29,29 +30,27 @@ namespace ASC.Api.Calendar.Wrappers
 {
     [DataContract(Name = "event", Namespace = "")]
     public class EventWrapper
-    {        
-        private TimeZoneInfo _timeZone;
+    {
+        private readonly TimeZoneInfo _timeZone;
         public Guid UserId { get; private set; }
 
         protected IEvent _baseEvent;
 
-        private DateTime _utcStartDate = DateTime.MinValue;
-        private DateTime _utcEndDate = DateTime.MinValue;
-        private DateTime _utcUpdateDate = DateTime.MinValue;
+        private readonly DateTime _utcStartDate = DateTime.MinValue;
+        private readonly DateTime _utcEndDate = DateTime.MinValue;
 
-        private EventWrapper(IEvent baseEvent, Guid userId, TimeZoneInfo timeZone, DateTime utcStartDate, DateTime utcEndDate, DateTime utcUpdateDate)
-            :this(baseEvent, userId, timeZone)
+        private EventWrapper(IEvent baseEvent, Guid userId, TimeZoneInfo timeZone, DateTime utcStartDate, DateTime utcEndDate)
+            : this(baseEvent, userId, timeZone)
         {
             _utcStartDate = utcStartDate;
             _utcEndDate = utcEndDate;
-            _utcUpdateDate = utcUpdateDate;
-        } 
+        }
 
         public EventWrapper(IEvent baseEvent, Guid userId, TimeZoneInfo timeZone)
         {
             _timeZone = timeZone;
             _baseEvent = baseEvent;
-            this.UserId = userId;            
+            this.UserId = userId;
         }
 
         public List<EventWrapper> GetList(DateTime utcStartDate, DateTime utcEndDate)
@@ -74,7 +73,7 @@ namespace ASC.Api.Calendar.Wrappers
             }
             else
             {
-                recurenceDates = _baseEvent.RecurrenceRule.GetDates(_baseEvent.UtcStartDate, utcStartDate, utcEndDate);
+                recurenceDates = _baseEvent.RecurrenceRule.GetDates(_baseEvent.UtcStartDate, _baseEvent.TimeZone ?? _timeZone, _baseEvent.AllDayLong, utcStartDate, utcEndDate);
             }
 
             foreach (var d in recurenceDates)
@@ -83,12 +82,12 @@ namespace ASC.Api.Calendar.Wrappers
                 if (!_baseEvent.UtcEndDate.Equals(DateTime.MinValue))
                     endDate = d + difference;
 
-                list.Add(new EventWrapper(_baseEvent, this.UserId, _timeZone, d, endDate, _baseEvent.UtcUpdateDate));
+                list.Add(new EventWrapper(_baseEvent, this.UserId, _timeZone, d, endDate));
             }
 
             return list;
         }
-        
+
         [DataMember(Name = "objectId", Order = 0)]
         public string Id { get { return _baseEvent.Id; } }
 
@@ -117,21 +116,13 @@ namespace ASC.Api.Calendar.Wrappers
             get
             {
                 var startD = _utcStartDate != DateTime.MinValue ? _utcStartDate : _baseEvent.UtcStartDate;
-                startD =new DateTime(startD.Ticks, DateTimeKind.Utc);
-               
-                var updateD = _utcUpdateDate != DateTime.MinValue ? _utcUpdateDate : _baseEvent.UtcStartDate;
-                
+                startD = new DateTime(startD.Ticks, DateTimeKind.Utc);
+
                 if (_baseEvent.AllDayLong && _baseEvent.GetType().GetCustomAttributes(typeof(AllDayLongUTCAttribute), true).Length > 0)
                     return new ApiDateTime(startD, TimeZoneInfo.Utc);
 
-                if(_baseEvent is iCalParser.iCalEvent)
-                    if (_baseEvent.AllDayLong)
-                        return new ApiDateTime(startD, TimeZoneInfo.Utc);
-                    else
-                        return new ApiDateTime(startD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
-
-                if (_baseEvent.GetType().Namespace == new BusinessObjects.Event().GetType().Namespace)
-                    return new ApiDateTime(startD, _timeZone.GetOffset(false, updateD));
+                if (_baseEvent.AllDayLong && _baseEvent is iCalParser.iCalEvent)
+                    return new ApiDateTime(startD, TimeZoneInfo.Utc);
 
                 return new ApiDateTime(startD, _timeZone);
             }
@@ -142,22 +133,14 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                var endD = _utcEndDate!= DateTime.MinValue? _utcEndDate : _baseEvent.UtcEndDate;
+                var endD = _utcEndDate != DateTime.MinValue ? _utcEndDate : _baseEvent.UtcEndDate;
                 endD = new DateTime(endD.Ticks, DateTimeKind.Utc);
-
-                var updateD = _utcUpdateDate != DateTime.MinValue ? _utcUpdateDate : _baseEvent.UtcStartDate;
 
                 if (_baseEvent.AllDayLong && _baseEvent.GetType().GetCustomAttributes(typeof(AllDayLongUTCAttribute), true).Length > 0)
                     return new ApiDateTime(endD, TimeZoneInfo.Utc);
 
-                if (_baseEvent is iCalParser.iCalEvent)
-                    if (_baseEvent.AllDayLong)
-                        return new ApiDateTime(endD, TimeZoneInfo.Utc);
-                    else
-                        return new ApiDateTime(endD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
-
-                if (_baseEvent.GetType().Namespace == new BusinessObjects.Event().GetType().Namespace)
-                    return new ApiDateTime(endD, _timeZone.GetOffset(false, updateD));
+                if (_baseEvent.AllDayLong && _baseEvent is iCalParser.iCalEvent)
+                    return new ApiDateTime(endD, TimeZoneInfo.Utc);
 
                 return new ApiDateTime(endD, _timeZone);
             }
@@ -269,7 +252,7 @@ namespace ASC.Api.Calendar.Wrappers
                 title = "Event Name",
                 objectId = "1",
                 sourceId = "calendarID",
-                status = (int) EventStatus.Tentative
+                status = (int)EventStatus.Tentative
             };
         }
     }

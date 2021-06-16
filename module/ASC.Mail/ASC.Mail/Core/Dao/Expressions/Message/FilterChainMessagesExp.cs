@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql.Expressions;
 using ASC.ElasticSearch;
 using ASC.Mail.Core.DbSchema.Tables;
@@ -31,7 +32,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
     public class FilterChainMessagesExp : FilterMessagesExp
     {
         public FilterChainMessagesExp(MailSearchFilterData filter, int tenant, string user, List<int> ids = null)
-            : base(ids ?? new List<int>() , tenant, user, filter)
+            : base(ids ?? new List<int>(), tenant, user, filter)
         {
         }
 
@@ -58,7 +59,8 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                     : Exp.Ge(MailTable.Columns.ChainDate.Prefix(MM_ALIAS), Filter.FromDate.Value);
                 }
 
-                if (prevFlag) {
+                if (prevFlag)
+                {
                     OrderAsc = string.IsNullOrEmpty(Filter.SortOrder)
                     ? (bool?)null
                     : !OrderAsc.Value;
@@ -128,7 +130,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             if (selector == null)
                 selector = new Selector<MailWrapper>();
 
-            selector.Where(r => r.Folder, (int) filter.PrimaryFolder);
+            selector.Where(r => r.Folder, (int)filter.PrimaryFolder);
 
             if (filter.MailboxId.HasValue)
             {
@@ -152,7 +154,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
 
             if (filter.PrimaryFolder == FolderType.UserFolder && filter.UserFolderId.HasValue)
             {
-                selector.InAll(s => s.UserFolders.Select(f => f.Id), new[] {filter.UserFolderId.Value});
+                selector.InAll(s => s.UserFolders.Select(f => f.Id), new[] { filter.UserFolderId.Value });
             }
 
             if (filter.WithCalendar.HasValue)
@@ -182,7 +184,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                 }
                 else
                 {
-                    if(prevFlag)
+                    if (prevFlag)
                     {
                         selector.Le(r => r.ChainDate, filter.FromDate.Value);
                     }
@@ -219,7 +221,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
 
             IReadOnlyCollection<MailWrapper> result;
 
-            if (!FactoryIndexer<MailWrapper>.TrySelect(s => selector, out result)) 
+            if (!FactoryIndexer<MailWrapper>.TrySelect(s => selector, out result))
                 return false;
 
             mailWrappers = result.ToList();

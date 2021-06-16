@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,12 +34,11 @@ using ASC.Geolocation;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
 using PhoneNumbers;
-
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -66,6 +65,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected RegionInfo RegionDefault = new RegionInfo("US");
         protected RegionInfo CurrentRegion;
         protected string PhoneCountry = "US";
+        private string CurrentOwnerId = null;
 
         protected List<RegionInfo> Regions = new List<RegionInfo>();
 
@@ -100,7 +100,7 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         private string _currencyFormat = "{currency}{price}";
-        private IDictionary<string, IEnumerable<Tuple<string, decimal>>> _priceInfo;
+        private IDictionary<string, Dictionary<string, decimal>> _priceInfo;
 
         private IEnumerable<TenantQuota> _quotaList;
         protected List<TenantQuota> QuotasYear;
@@ -175,6 +175,7 @@ namespace ASC.Web.Studio.UserControls.Management
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
             CurrencyCheck();
+            CurrentOwnerId = CoreContext.TenantManager.GetCurrentTenant().OwnerId.ToString();
         }
 
         private void CurrencyCheck()
@@ -206,7 +207,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             _priceInfo = CoreContext.TenantManager.GetProductPriceInfo(false);
-            if (!_priceInfo.Values.Any(value => value.Any(item => item.Item1 == CurrentRegion.ISOCurrencySymbol)))
+            if (!_priceInfo.Values.Any(value => value.ContainsKey(CurrentRegion.ISOCurrencySymbol)))
             {
                 Regions.Remove(CurrentRegion);
                 CurrentRegion = RegionDefault;
@@ -398,15 +399,23 @@ namespace ASC.Web.Studio.UserControls.Management
             var uri = string.Empty;
             if (quota != null)
             {
-                var ownerId = CoreContext.TenantManager.GetCurrentTenant().OwnerId.ToString();
-                var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id, true, null, CurrentRegion.ISOCurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName, ownerId);
-                if (link == null)
+                try
                 {
-                    LogManager.GetLogger("ASC.Web.Billing").Error(string.Format("GetShoppingUri return null for tenant {0} and quota {1}", TenantProvider.CurrentTenantID, quota.Id));
+                    var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id, true, null, CurrentRegion.ISOCurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName, CurrentOwnerId);
+                    if (link == null)
+                    {
+                        LogManager.GetLogger("ASC.Web.Billing").Info(string.Format("GetShoppingUri return null for tenant {0} and quota {1}", TenantProvider.CurrentTenantID, quota.Id));
+                    }
+                    else
+                    {
+                        uri = link.ToString();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    uri = link.ToString();
+                    LogManager.GetLogger("ASC").Info(string.Format("GetShoppingUri: {0} tenant {1} quota {2} currency {3} Language {4}",
+                        ex.Message, TenantProvider.CurrentTenantID, quota.Id, CurrentRegion.ISOCurrencySymbol, Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName),
+                        ex);
                 }
             }
             return uri;
@@ -491,10 +500,9 @@ namespace ASC.Web.Studio.UserControls.Management
             if (!string.IsNullOrEmpty(quota.AvangateId) && _priceInfo.ContainsKey(quota.AvangateId))
             {
                 var prices = _priceInfo[quota.AvangateId];
-                var price = prices.FirstOrDefault(p => p.Item1 == CurrentRegion.ISOCurrencySymbol);
-                if (price != null)
+                if (prices.ContainsKey(CurrentRegion.ISOCurrencySymbol))
                 {
-                    return GetPriceString(price.Item2, false);
+                    return GetPriceString(prices[CurrentRegion.ISOCurrencySymbol], false);
                 }
                 return GetPriceString(quota.Price, false, RegionDefault.CurrencySymbol);
             }
@@ -506,10 +514,9 @@ namespace ASC.Web.Studio.UserControls.Management
             if (!string.IsNullOrEmpty(quota.AvangateId) && _priceInfo.ContainsKey(quota.AvangateId))
             {
                 var prices = _priceInfo[quota.AvangateId];
-                var price = prices.FirstOrDefault(p => p.Item1 == CurrentRegion.ISOCurrencySymbol);
-                if (price != null)
+                if (prices.ContainsKey(CurrentRegion.ISOCurrencySymbol))
                 {
-                    return price.Item2;
+                    return prices[CurrentRegion.ISOCurrencySymbol];
                 }
                 return quota.Price;
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ namespace ASC.Mail.Exceptions
         }
         public Types ErrorType { get; set; }
 
-        public AttachmentsException(Types type, string message) : base(message) 
+        public AttachmentsException(Types type, string message) : base(message)
         {
             ErrorType = type;
         }

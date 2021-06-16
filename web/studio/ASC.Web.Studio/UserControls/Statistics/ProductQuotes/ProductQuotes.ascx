@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProductQuotes.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Statistics.ProductQuotes" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 

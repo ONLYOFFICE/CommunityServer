@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,15 @@ using System.Linq;
 using System.Net;
 using System.Security;
 using System.Text.RegularExpressions;
+
+using ASC.Common;
 using ASC.Common.Caching;
 using ASC.Core.Tenants;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
+
 using Microsoft.SharePoint.Client;
+
 using File = Microsoft.SharePoint.Client.File;
 using Folder = Microsoft.SharePoint.Client.Folder;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -115,10 +119,10 @@ namespace ASC.Files.Thirdparty.SharePoint
             }
 
             clientContext = new ClientContext(authUrl)
-                {
-                    AuthenticationMode = ClientAuthenticationMode.Default,
-                    Credentials = credentials
-                };
+            {
+                AuthenticationMode = ClientAuthenticationMode.Default,
+                Credentials = credentials
+            };
         }
 
         #region Files
@@ -168,7 +172,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             var fileInfo = File.OpenBinaryDirect(clientContext, (string)id);
             clientContext.ExecuteQuery();
 
-            var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+            var tempBuffer = TempStream.Create();
             using (var str = fileInfo.Stream)
             {
                 if (str != null)
@@ -184,14 +188,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public File CreateFile(string id, Stream stream)
         {
-            byte[] b;
-
-            using (var br = new BinaryReader(stream))
-            {
-                b = br.ReadBytes((int)stream.Length);
-            }
-
-            var file = clientContext.Web.RootFolder.Files.Add(new FileCreationInformation { Content = b, Url = id, Overwrite = true });
+            var file = clientContext.Web.RootFolder.Files.Add(new FileCreationInformation { ContentStream = stream, Url = id, Overwrite = true });
             clientContext.Load(file);
             clientContext.Load(file.ListItemAllFields);
             clientContext.ExecuteQuery();
@@ -269,43 +266,43 @@ namespace ASC.Files.Thirdparty.SharePoint
             var errorFile = file as SharePointFileErrorEntry;
             if (errorFile != null)
                 return new Core.File
-                    {
-                        ID = MakeId(errorFile.ID),
-                        FolderID = MakeId(GetParentFolderId(errorFile.ID)),
-                        CreateBy = Owner,
-                        CreateOn = DateTime.UtcNow,
-                        ModifiedBy = Owner,
-                        ModifiedOn = DateTime.UtcNow,
-                        ProviderId = ID,
-                        ProviderKey = ProviderKey,
-                        RootFolderCreator = Owner,
-                        RootFolderId = MakeId(RootFolder.ServerRelativeUrl),
-                        RootFolderType = RootFolderType,
-                        Title = MakeTitle(GetTitleById(errorFile.ID)),
-                        Error = errorFile.Error
-                    };
-
-            var result = new Core.File
                 {
-                    ID = MakeId(file.ServerRelativeUrl),
-                    Access = Core.Security.FileShare.None,
-                    //ContentLength = file.Length,
+                    ID = MakeId(errorFile.ID),
+                    FolderID = MakeId(GetParentFolderId(errorFile.ID)),
                     CreateBy = Owner,
-                    CreateOn = file.TimeCreated.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(file.TimeCreated) : file.TimeCreated,
-                    FileStatus = FileStatus.None,
-                    FolderID = MakeId(GetParentFolderId(file.ServerRelativeUrl)),
+                    CreateOn = DateTime.UtcNow,
                     ModifiedBy = Owner,
-                    ModifiedOn = file.TimeLastModified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(file.TimeLastModified) : file.TimeLastModified,
-                    NativeAccessor = file,
+                    ModifiedOn = DateTime.UtcNow,
                     ProviderId = ID,
                     ProviderKey = ProviderKey,
-                    Title = MakeTitle(file.Name),
-                    RootFolderId = MakeId(SpRootFolderId),
-                    RootFolderType = RootFolderType,
                     RootFolderCreator = Owner,
-                    Shared = false,
-                    Version = 1
+                    RootFolderId = MakeId(RootFolder.ServerRelativeUrl),
+                    RootFolderType = RootFolderType,
+                    Title = MakeTitle(GetTitleById(errorFile.ID)),
+                    Error = errorFile.Error
                 };
+
+            var result = new Core.File
+            {
+                ID = MakeId(file.ServerRelativeUrl),
+                Access = Core.Security.FileShare.None,
+                //ContentLength = file.Length,
+                CreateBy = Owner,
+                CreateOn = file.TimeCreated.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(file.TimeCreated) : file.TimeCreated,
+                FileStatus = FileStatus.None,
+                FolderID = MakeId(GetParentFolderId(file.ServerRelativeUrl)),
+                ModifiedBy = Owner,
+                ModifiedOn = file.TimeLastModified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(file.TimeLastModified) : file.TimeLastModified,
+                NativeAccessor = file,
+                ProviderId = ID,
+                ProviderKey = ProviderKey,
+                Title = MakeTitle(file.Name),
+                RootFolderId = MakeId(SpRootFolderId),
+                RootFolderType = RootFolderType,
+                RootFolderCreator = Owner,
+                Shared = false,
+                Version = 1
+            };
 
             if (file.IsPropertyAvailable("Length"))
             {
@@ -367,7 +364,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             {
                 Notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
                 var serverException = (ServerException)ex;
-                if (serverException.ServerErrorTypeName == (typeof (FileNotFoundException)).ToString())
+                if (serverException.ServerErrorTypeName == (typeof(FileNotFoundException)).ToString())
                 {
                     return null;
                 }
@@ -485,46 +482,46 @@ namespace ASC.Files.Thirdparty.SharePoint
             var errorFolder = folder as SharePointFolderErrorEntry;
             if (errorFolder != null)
                 return new Core.Folder
-                    {
-                        ID = MakeId(errorFolder.ID),
-                        ParentFolderID = null,
-                        CreateBy = Owner,
-                        CreateOn = DateTime.UtcNow,
-                        FolderType = FolderType.DEFAULT,
-                        ModifiedBy = Owner,
-                        ModifiedOn = DateTime.UtcNow,
-                        ProviderId = ID,
-                        ProviderKey = ProviderKey,
-                        RootFolderCreator = Owner,
-                        RootFolderId = MakeId(SpRootFolderId),
-                        RootFolderType = RootFolderType,
-                        Shareable = false,
-                        Title = MakeTitle(GetTitleById(errorFolder.ID)),
-                        TotalFiles = 0,
-                        TotalSubFolders = 0,
-                        Error = errorFolder.Error
-                    };
-
-            var isRoot = folder.ServerRelativeUrl == SpRootFolderId;
-            return new Core.Folder
                 {
-                    ID = MakeId(isRoot ? "" : folder.ServerRelativeUrl),
-                    ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(folder.ServerRelativeUrl)),
+                    ID = MakeId(errorFolder.ID),
+                    ParentFolderID = null,
                     CreateBy = Owner,
-                    CreateOn = CreateOn,
+                    CreateOn = DateTime.UtcNow,
                     FolderType = FolderType.DEFAULT,
                     ModifiedBy = Owner,
-                    ModifiedOn = CreateOn,
+                    ModifiedOn = DateTime.UtcNow,
                     ProviderId = ID,
                     ProviderKey = ProviderKey,
                     RootFolderCreator = Owner,
-                    RootFolderId = MakeId(RootFolder.ServerRelativeUrl),
+                    RootFolderId = MakeId(SpRootFolderId),
                     RootFolderType = RootFolderType,
                     Shareable = false,
-                    Title = isRoot ? CustomerTitle : MakeTitle(folder.Name),
+                    Title = MakeTitle(GetTitleById(errorFolder.ID)),
                     TotalFiles = 0,
                     TotalSubFolders = 0,
+                    Error = errorFolder.Error
                 };
+
+            var isRoot = folder.ServerRelativeUrl == SpRootFolderId;
+            return new Core.Folder
+            {
+                ID = MakeId(isRoot ? "" : folder.ServerRelativeUrl),
+                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(folder.ServerRelativeUrl)),
+                CreateBy = Owner,
+                CreateOn = CreateOn,
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = Owner,
+                ModifiedOn = CreateOn,
+                ProviderId = ID,
+                ProviderKey = ProviderKey,
+                RootFolderCreator = Owner,
+                RootFolderId = MakeId(RootFolder.ServerRelativeUrl),
+                RootFolderType = RootFolderType,
+                Shareable = false,
+                Title = isRoot ? CustomerTitle : MakeTitle(folder.Name),
+                TotalFiles = 0,
+                TotalSubFolders = 0,
+            };
         }
 
         #endregion

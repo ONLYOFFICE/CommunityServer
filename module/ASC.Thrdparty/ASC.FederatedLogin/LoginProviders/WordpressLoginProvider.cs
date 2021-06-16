@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
 
@@ -25,8 +26,8 @@ namespace ASC.FederatedLogin.LoginProviders
 {
     public class WordpressLoginProvider : BaseLoginProvider<WordpressLoginProvider>
     {
-        public const string WordpressMeInfoUrl      = "https://public-api.wordpress.com/rest/v1/me";
-        public const string WordpressSites          = "https://public-api.wordpress.com/rest/v1.2/sites/";
+        public const string WordpressMeInfoUrl = "https://public-api.wordpress.com/rest/v1/me";
+        public const string WordpressSites = "https://public-api.wordpress.com/rest/v1.2/sites/";
 
         public WordpressLoginProvider()
         {

@@ -97,7 +97,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Domain is already in use..
+        ///   Looks up a localized string similar to The domain is already in use..
         /// </summary>
         public static string ErrorDuplicateDomain {
             get {
@@ -115,7 +115,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You want to create a mailbox with already existing address..
+        ///   Looks up a localized string similar to You want to create a mailbox with an already existing address..
         /// </summary>
         public static string ErrorDuplicateMailbox {
             get {
@@ -214,7 +214,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid operation for shared domain.
+        ///   Looks up a localized string similar to Invalid operation for a shared domain.
         /// </summary>
         public static string InvalidOpearationForSharedDomain {
             get {

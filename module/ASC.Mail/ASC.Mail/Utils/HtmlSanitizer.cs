@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using ASC.Mail.Data.Storage;
+
 using HtmlAgilityPack;
 
 namespace ASC.Mail.Utils
@@ -63,7 +65,7 @@ namespace ASC.Mail.Utils
         private static readonly Regex UrlStylePattern = new Regex("(?i).*\\b\\s*url\\s*\\(([^)]*)\\)"); // url('....')
 
         private static readonly Regex EmbeddedImagesPattern = new Regex("data:([\\w/]+);(\\w+),([^\"^)\\s]+)");
-            // For embedded images <img src="data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7" width="16" height="14" alt="���������� ������ �����"/>
+        // For embedded images <img src="data:image/gif;base64,R0lGODlhEAAOALMAAOazToeHh0tLS/7LZv/0jvb29t/f3//Ub//ge8WSLf/rhf/3kdbW1mxsbP//mf///yH5BAAAAAAALAAAAAAQAA4AAARe8L1Ekyky67QZ1hLnjM5UUde0ECwLJoExKcppV0aCcGCmTIHEIUEqjgaORCMxIC6e0CcguWw6aFjsVMkkIr7g77ZKPJjPZqIyd7sJAgVGoEGv2xsBxqNgYPj/gAwXEQA7" width="16" height="14" alt="���������� ������ �����"/>
 
         private static readonly Regex ForbiddenStylePattern =
             new Regex("(?:(expression|eval|javascript|vbscript))\\s*(\\(|:)"); // expression(....)
@@ -81,7 +83,7 @@ namespace ASC.Mail.Utils
             RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
         private static bool _imagesAreBlocked;
-        
+
         private static Dictionary<string, string> _styleClassesNames;
 
         private static Options _options;
@@ -155,7 +157,7 @@ namespace ASC.Mail.Utils
                         continue;
 
                     var classesNames = cssClass.Groups[1].Value
-                        .Split(new[] {" ", ","}, StringSplitOptions.RemoveEmptyEntries)
+                        .Split(new[] { " ", "," }, StringSplitOptions.RemoveEmptyEntries)
                         .ToList();
 
                     classesNames
@@ -331,7 +333,7 @@ namespace ASC.Mail.Utils
                     // must change css classes 
                     var splittedClasses =
                         attribute.Value
-                            .Split(new[] {" "},
+                            .Split(new[] { " " },
                                 StringSplitOptions.RemoveEmptyEntries)
                             .ToList();
 
@@ -395,7 +397,7 @@ namespace ASC.Mail.Utils
             var cleanStyle = string.Empty;
             var needChangeStyle = false;
             const string embedded_marker = @"http://marker-for-quick-parse.com/without-embedded-image-data";
-                // hack for right url parse if embedded image exists
+            // hack for right url parse if embedded image exists
 
             var embeddedImage = EmbeddedImagesPattern.Match(styleString);
             if (embeddedImage.Success)
@@ -516,17 +518,17 @@ namespace ASC.Mail.Utils
 
         private static string HtmlEncodeApexes(string text)
         {
-            return text != null ? ReplaceAllNoRegex(text, new[] {"\"", "'"}, new[] {"&quot;", "&#39;"}) : null;
+            return text != null ? ReplaceAllNoRegex(text, new[] { "\"", "'" }, new[] { "&quot;", "&#39;" }) : null;
         }
 
         private static string HtmlEncodeTag(string text)
         {
-            return text != null ? ReplaceAllNoRegex(text, new[] {"<", ">"}, new[] {"&lt;", "&gt;"}) : null;
+            return text != null ? ReplaceAllNoRegex(text, new[] { "<", ">" }, new[] { "&lt;", "&gt;" }) : null;
         }
 
         private static string ConvertLineFeedToBr(string text)
         {
-            return text != null ? ReplaceAllNoRegex(text, new[] {"\n", "\f", "\r"}, new[] {"<br>", "<br>", " "}) : null;
+            return text != null ? ReplaceAllNoRegex(text, new[] { "\n", "\f", "\r" }, new[] { "<br>", "<br>", " " }) : null;
         }
 
         private static string ReplaceAllNoRegex(string source, string[] searches, string[] replaces)
@@ -559,7 +561,7 @@ namespace ASC.Mail.Utils
 
                 foreach (var attribute in attributes)
                 {
-                    var splited = attribute.Value.Split(new[] {baseHandlerUrl},
+                    var splited = attribute.Value.Split(new[] { baseHandlerUrl },
                         StringSplitOptions.RemoveEmptyEntries);
 
                     if (!splited.Any())
@@ -567,7 +569,7 @@ namespace ASC.Mail.Utils
 
                     var raw = splited.Length > 1 ? splited[1] : splited[0];
 
-                    var end = raw.IndexOfAny(new[] {'\"', ')'});
+                    var end = raw.IndexOfAny(new[] { '\"', ')' });
 
                     var encodedUrl = end == -1 ? raw : raw.Substring(0, end);
 

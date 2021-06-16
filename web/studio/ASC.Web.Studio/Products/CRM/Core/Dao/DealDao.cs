@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Globalization;
 
 using ASC.Collections;
 using ASC.Common.Data.Sql;
@@ -29,8 +29,9 @@ using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.ElasticSearch;
 using ASC.Files.Core;
-using ASC.Web.Files.Api;
 using ASC.Web.CRM.Core.Search;
+using ASC.Web.Files.Api;
+
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
 
 namespace ASC.CRM.Core.Dao
@@ -274,7 +275,7 @@ namespace ASC.CRM.Core.Dao
                 {
                     if (!BundleSearch.TrySelectOpportunity(searchText, out ids))
                     {
-                        conditions.Add(BuildLike(new[] {"tblDeal.title", "tblDeal.description"}, keywords));
+                        conditions.Add(BuildLike(new[] { "tblDeal.title", "tblDeal.description" }, keywords));
                     }
                     else if (ids.Count == 0) return null;
                 }
@@ -760,23 +761,23 @@ namespace ASC.CRM.Core.Dao
         private static Deal ToDeal(object[] row)
         {
             return new Deal
-                {
-                    ID = Convert.ToInt32(row[0]),
-                    Title = Convert.ToString(row[1]),
-                    Description = Convert.ToString(row[2]),
-                    ResponsibleID = ToGuid(row[3]),
-                    ContactID = Convert.ToInt32(row[4]),
-                    BidCurrency = Convert.ToString(row[5]),
-                    BidValue = Convert.ToDecimal(row[6]),
-                    BidType = (BidType)Convert.ToInt32(row[7]),
-                    DealMilestoneID = Convert.ToInt32(row[8]),
-                    ExpectedCloseDate = Convert.ToDateTime(row[9]) == DateTime.MinValue ? DateTime.MinValue : TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[9])),
-                    PerPeriodValue = Convert.ToInt32(row[10]),
-                    DealMilestoneProbability = Convert.ToInt32(row[11]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[12])),
-                    CreateBy = ToGuid(row[13]),
-                    ActualCloseDate = Convert.ToDateTime(row[14]) == DateTime.MinValue ? DateTime.MinValue : TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[14]))
-                };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Title = Convert.ToString(row[1]),
+                Description = Convert.ToString(row[2]),
+                ResponsibleID = ToGuid(row[3]),
+                ContactID = Convert.ToInt32(row[4]),
+                BidCurrency = Convert.ToString(row[5]),
+                BidValue = Convert.ToDecimal(row[6]),
+                BidType = (BidType)Convert.ToInt32(row[7]),
+                DealMilestoneID = Convert.ToInt32(row[8]),
+                ExpectedCloseDate = Convert.ToDateTime(row[9]) == DateTime.MinValue ? DateTime.MinValue : TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[9])),
+                PerPeriodValue = Convert.ToInt32(row[10]),
+                DealMilestoneProbability = Convert.ToInt32(row[11]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[12])),
+                CreateBy = ToGuid(row[13]),
+                ActualCloseDate = Convert.ToDateTime(row[14]) == DateTime.MinValue ? DateTime.MinValue : TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[14]))
+            };
         }
 
         private SqlQuery GetDealSqlQuery(Exp where)
@@ -825,7 +826,7 @@ namespace ASC.CRM.Core.Dao
                             0,
                             null,
                             0,
-                            DealMilestoneStatus.Open, 
+                            DealMilestoneStatus.Open,
                             null,
                             DateTime.MinValue,
                             DateTime.MinValue,

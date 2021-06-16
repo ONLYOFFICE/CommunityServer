@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,42 +25,42 @@ namespace ASC.Data.Storage.Configuration
         [ConfigurationProperty(Schema.NAME, IsRequired = true, IsKey = true)]
         public string Name
         {
-            get { return (string) this[Schema.NAME]; }
+            get { return (string)this[Schema.NAME]; }
             set { this[Schema.NAME] = value; }
         }
 
         [ConfigurationProperty(Schema.TYPE)]
         public string Type
         {
-            get { return (string) this[Schema.TYPE]; }
+            get { return (string)this[Schema.TYPE]; }
             set { this[Schema.TYPE] = value; }
         }
 
         [ConfigurationProperty(Schema.PATH)]
         public string Path
         {
-            get { return (string) this[Schema.PATH]; }
+            get { return (string)this[Schema.PATH]; }
             set { this[Schema.PATH] = value; }
         }
 
         [ConfigurationProperty(Schema.DATA)]
         public string Data
         {
-            get { return (string) this[Schema.DATA]; }
+            get { return (string)this[Schema.DATA]; }
             set { this[Schema.DATA] = value; }
         }
 
         [ConfigurationProperty(Schema.VIRTUALPATH)]
         public string VirtualPath
         {
-            get { return (string) this[Schema.VIRTUALPATH]; }
+            get { return (string)this[Schema.VIRTUALPATH]; }
             set { this[Schema.VIRTUALPATH] = value; }
         }
 
         [ConfigurationProperty(Schema.ACL, DefaultValue = ACL.Read)]
         public ACL Acl
         {
-            get { return (ACL) this[Schema.ACL]; }
+            get { return (ACL)this[Schema.ACL]; }
             set { this[Schema.ACL] = value; }
         }
 
@@ -78,7 +78,7 @@ namespace ASC.Data.Storage.Configuration
         [ConfigurationProperty(Schema.VISIBLE, DefaultValue = true)]
         public bool Visible
         {
-            get { return (bool) this[Schema.VISIBLE]; }
+            get { return (bool)this[Schema.VISIBLE]; }
             set { this[Schema.VISIBLE] = value; }
         }
 

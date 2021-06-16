@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@
                 mailBox.unmarkAllPanels();
                 ASC.Controls.AnchorController.move(TMMail.sysfolders.inbox.name);
             }
-            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
             mailAlerts.check();
         });
 
@@ -99,30 +99,6 @@
                 $settingsPanel.addClass('open');
             }
         });
-
-        var foldersContainer = $('#foldersContainer');
-        var messagesListGroupButtons = $('#MessagesListGroupButtons');
-
-        foldersContainer.find('a[folderid="1"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "inbox");
-        foldersContainer.find('a[folderid="2"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "sent");
-        foldersContainer.find('a[folderid="3"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "drafts");
-        foldersContainer.find('a[folderid="4"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "trash");
-        foldersContainer.find('a[folderid="5"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "spam");
-        foldersContainer.find('a[folderid="7"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "templates");
-        $('#teamlab').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "teamlab-contacts");
-        $('#crm').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "crm-contacts");
-        $('#accountsSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "accounts-settings");
-        $('#tagsSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "tags-settings");
-        $('#foldersettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "folder-settings");
-        $('#filtersettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "filter-settings");
-        $('#commonSettings').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "common-settings");
-        messagesListGroupButtons.find('.menuActionDelete').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "delete");
-        messagesListGroupButtons.find('.menuActionSpam').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "spam");
-        messagesListGroupButtons.find('.menuActionRead').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "read");
-        messagesListGroupButtons.find('.menuActionImportant').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "important");
-        messagesListGroupButtons.find('.menuActionNotSpam').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "not-spam");
-        messagesListGroupButtons.find('.menuActionRestore').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "not-spam");
-        messagesListGroupButtons.find('.menuActionMoveTo').trackEvent(ga_Categories.folder, ga_Actions.buttonClick, "move-to");
 
         mailBox.groupButtonsMenuHandlers();
 

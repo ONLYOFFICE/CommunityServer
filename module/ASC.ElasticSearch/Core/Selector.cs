@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+
 using Nest;
 
 namespace ASC.ElasticSearch
@@ -32,7 +33,7 @@ namespace ASC.ElasticSearch
 
         public Selector<T> Where<TProperty>(Expression<Func<T, TProperty>> selector, TProperty value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w,r)=> r.Term(w, value));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.Term(w, value));
             return this;
         }
 
@@ -44,43 +45,43 @@ namespace ASC.ElasticSearch
 
         public Selector<T> Gt(Expression<Func<T, object>> selector, double? value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w, r)=> r.Range(a => a.Field(w).GreaterThan(value)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.Range(a => a.Field(w).GreaterThan(value)));
             return this;
         }
 
         public Selector<T> Lt(Expression<Func<T, object>> selector, double? value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w, r)=> r.Range(a => a.Field(w).LessThan(value)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.Range(a => a.Field(w).LessThan(value)));
             return this;
         }
 
         public Selector<T> Gt(Expression<Func<T, object>> selector, DateTime? value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w,r) => r.DateRange(a => a.Field(w).GreaterThan(value)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.DateRange(a => a.Field(w).GreaterThan(value)));
             return this;
         }
 
         public Selector<T> Ge(Expression<Func<T, object>> selector, DateTime? value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w,r) => r.DateRange(a => a.Field(w).GreaterThanOrEquals(value)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.DateRange(a => a.Field(w).GreaterThanOrEquals(value)));
             return this;
         }
 
         public Selector<T> Lt(Expression<Func<T, object>> selector, DateTime? value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w,r) => r.DateRange(a => a.Field(w).LessThan(value)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.DateRange(a => a.Field(w).LessThan(value)));
             return this;
         }
 
         public Selector<T> Le(Expression<Func<T, object>> selector, DateTime? value)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w,r) => r.DateRange(a => a.Field(w).LessThanOrEquals(value)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.DateRange(a => a.Field(w).LessThanOrEquals(value)));
             return this;
         }
 
         public Selector<T> In<TValue>(Expression<Func<T, object>> selector, TValue[] values)
         {
-            queryContainer = queryContainer && +Wrap(selector, (w,r) => r.Terms(a => a.Field(w).Terms(values)));
+            queryContainer = queryContainer && +Wrap(selector, (w, r) => r.Terms(a => a.Field(w).Terms(values)));
 
             return this;
         }
@@ -101,11 +102,11 @@ namespace ASC.ElasticSearch
 
             if (IsExactlyPhrase(value))
             {
-                queryContainer = queryContainer & Wrap(selector, (a,w) => w.MatchPhrase(r => r.Field(a).Query(value.TrimQuotes())));
+                queryContainer = queryContainer & Wrap(selector, (a, w) => w.MatchPhrase(r => r.Field(a).Query(value.TrimQuotes())));
             }
             else if (value.HasOtherLetter() || IsExactly(value))
             {
-                queryContainer = queryContainer & Wrap(selector, (a,w) => w.Match(r => r.Field(a).Query(value.TrimQuotes())));
+                queryContainer = queryContainer & Wrap(selector, (a, w) => w.Match(r => r.Field(a).Query(value.TrimQuotes())));
             }
             else
             {
@@ -115,19 +116,19 @@ namespace ASC.ElasticSearch
                     foreach (var p in phrase)
                     {
                         var p1 = p;
-                        queryContainer = queryContainer & Wrap(selector, (a,w) => w.Wildcard(r => r.Field(a).Value(p1.WrapAsterisk())));
+                        queryContainer = queryContainer & Wrap(selector, (a, w) => w.Wildcard(r => r.Field(a).Value(p1.WrapAsterisk())));
                     }
                 }
                 else
                 {
-                    queryContainer = queryContainer & Wrap(selector, (a,w) =>w.Wildcard(r => r.Field(a).Value(value.WrapAsterisk())));
+                    queryContainer = queryContainer & Wrap(selector, (a, w) => w.Wildcard(r => r.Field(a).Value(value.WrapAsterisk())));
                 }
 
             }
 
             if (IsExactly(value))
             {
-                queryContainer = queryContainer | Wrap(selector, (a,w) => w.MatchPhrase(r => r.Field(a).Query(value)));
+                queryContainer = queryContainer | Wrap(selector, (a, w) => w.MatchPhrase(r => r.Field(a).Query(value)));
             }
 
             return this;
@@ -306,13 +307,13 @@ namespace ASC.ElasticSearch
             };
         }
 
-        private QueryContainer Wrap(Field fieldSelector, Func<Field,QueryContainerDescriptor<T>, QueryContainer> selector)
+        private QueryContainer Wrap(Field fieldSelector, Func<Field, QueryContainerDescriptor<T>, QueryContainer> selector)
         {
             var path = IsNested(fieldSelector);
 
-            if (string.IsNullOrEmpty(path) && 
+            if (string.IsNullOrEmpty(path) &&
                 !string.IsNullOrEmpty(fieldSelector.Name) &&
-                fieldSelector.Name.StartsWith(JoinTypeEnum.Sub + ":") && 
+                fieldSelector.Name.StartsWith(JoinTypeEnum.Sub + ":") &&
                 fieldSelector.Name.IndexOf(".", StringComparison.InvariantCulture) > 0)
             {
                 var splitted = fieldSelector.Name.Split(':')[1];
@@ -435,7 +436,7 @@ namespace ASC.ElasticSearch
 
         public static string PrepareToSearch(this string value)
         {
-            return value.ReplaceBackslash().ToLowerInvariant().Replace('ё','е').Replace('Ё', 'Е');
+            return value.ReplaceBackslash().ToLowerInvariant().Replace('ё', 'е').Replace('Ё', 'Е');
         }
     }
 }

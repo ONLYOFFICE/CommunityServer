@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ var AuditTrailView = function() {
             createReport();
             return;
         }
-
         getAuditSettings();
         getEvents();
     }
@@ -112,6 +111,9 @@ var AuditTrailView = function() {
     }
 
     function saveSettings() {
+        if (jq(this).hasClass("disable")) {
+            return;
+        }
         var val = parseInt($lifetimeInput.val());
 
         if (isNaN(val) || val <= 0 || val > auditSettings.maxLifeTime) {
@@ -130,6 +132,9 @@ var AuditTrailView = function() {
     }
 
     function createReport() {
+        if (jq(this).hasClass("disable")) {
+            return false;
+        }
         $generateText.show();
         showLoader();
 
@@ -145,7 +150,7 @@ var AuditTrailView = function() {
         $generateText.hide();
         hideLoader();
 
-        toastr.error(ASC.Resources.Master.Resource.CreateReportError);
+        toastr.error(ASC.Resources.Master.ResourceJS.CreateReportError);
     }
 
     function showLoader() {
@@ -157,11 +162,11 @@ var AuditTrailView = function() {
     }
 
     function showSuccessMessage() {
-        toastr.success(ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage);
+        toastr.success(ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage);
     }
 
     function showErrorMessage() {
-        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+        toastr.error(ASC.Resources.Master.ResourceJS.CommonJSErrorMsg);
     }
 
     init();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -207,6 +207,14 @@ window.ASC.Files.ServiceManager = (function () {
                 messageNode = null,
                 innerNode;
             var innerMessageNode = null;
+
+            if (!xmlHttpRequest.responseXML
+                && xmlHttpRequest.responseText.indexOf("<error") == 0) {
+                try {
+                    xmlHttpRequest.responseXML = ASC.Files.TemplateManager.createXML(xmlHttpRequest.responseText);
+                } catch (e) {
+                }
+            }
 
             if (xmlHttpRequest.responseXML) {
                 messageNode = xmlHttpRequest.responseXML.getElementsByTagName("message")[0];
@@ -420,6 +428,8 @@ window.ASC.Files.ServiceManager = (function () {
 
         MarkAsRead: "markasread",
         GetNews: "getnews",
+
+        ToggleFavorite: "togglefavorite",
         GetTemplates: "gettemplates",
 
         ChangeOwner: "changeowner",
@@ -690,6 +700,10 @@ window.ASC.Files.ServiceManager = (function () {
         request("get", "xml", eventType, params, "folders-files-lock?fileId=" + encodeURIComponent(params.fileId) + "&lockfile=" + (params.lock === true));
     };
 
+    var toggleFavorite = function (eventType, params) {
+        request("get", "json", eventType, params, "file-favorite?fileId=" + encodeURIComponent(params.fileId) + "&favorite=" + (params.favorite === true));
+    };
+
     var getEditHistory  = function (eventType, params) {
         request("get", "json", eventType, params, "edit-history?fileId=" + encodeURIComponent(params.fileID) + params.shareLinkParam);
     };
@@ -784,6 +798,7 @@ window.ASC.Files.ServiceManager = (function () {
         getTemplates: getTemplates,
 
         lockFile: lockFile,
+        toggleFavorite: toggleFavorite,
 
         getEditHistory: getEditHistory,
         getDiffUrl: getDiffUrl,

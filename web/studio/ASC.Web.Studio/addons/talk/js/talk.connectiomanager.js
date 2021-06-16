@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -138,14 +138,14 @@ window.ASC.TMTalk.connectionManager = (function () {
       connectionManager = new Strophe.Connection(servicePath);
     }
 
-    if (ASC.TMTalk.Resources.hasOwnProperty('statusTitles') && typeof ASC.TMTalk.Resources.StatusTitles === 'object') {
+    if (ASC.TMTalk.TalkResource.hasOwnProperty('statusTitles') && typeof ASC.TMTalk.TalkResource.StatusTitles === 'object') {
       var
         status = null,
         statusesInd = statuses.length;
       while (statusesInd--) {
         status = statuses[statusesInd];
-        if (ASC.TMTalk.Resources.StatusTitles.hasOwnProperty(status.show)) {
-            statuses[statusesInd].title = ASC.TMTalk.Resources.StatusTitles[status.show];
+        if (ASC.TMTalk.TalkResource.StatusTitles.hasOwnProperty(status.show)) {
+            statuses[statusesInd].title = ASC.TMTalk.TalkResource.StatusTitles[status.show];
         }
       }
     }

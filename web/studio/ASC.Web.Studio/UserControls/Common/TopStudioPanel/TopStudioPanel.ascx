@@ -9,7 +9,7 @@
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Statistics" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <div class="studio-top-panel mainPageLayout  <% if (CoreContext.Configuration.Personal)
@@ -26,17 +26,12 @@
                 if (!CoreContext.Configuration.CustomMode)
                 { %>
                     <div class="personal-languages">
-                        <div class="personal-languages_select <%= CultureInfo.CurrentUICulture.Name %>" data-lang="<%= CultureInfo.CurrentUICulture.TwoLetterISOLanguageName %>">
+                        <div class="personal-languages_select <%= CultureInfo.CurrentUICulture.Name %>" data-lang="<%= CultureInfo.CurrentUICulture.Name %>">
                             <span><%= CultureInfo.CurrentUICulture.DisplayName %></span>
                         </div>
                         <div id="AuthFormLanguagesPanel" class="studio-action-panel">
                             <ul class="personal-languages_list dropdown-content">
-                                <% foreach (var ci in SetupInfo.EnabledCulturesPersonal)
-                                    { %>
-                                <li class="dropdown-item <%= ci.Name %>">
-                                    <a href="<%= Request.Path %>?lang=<%= ci.TwoLetterISOLanguageName %>"><%= ci.DisplayName %></a>
-                                </li>
-                                <% } %>
+                                <% foreach (var item in SetupInfo.PersonalCultures) { %><li class="dropdown-item <%= item.Value.Name %>"><a href="<%= Request.Path %>?lang=<%= item.Key %>"><%= item.Value.DisplayName %></a></li><% } %>
                             </ul>
                         </div>
                     </div>
@@ -101,6 +96,9 @@
         <% if (!DisableTariff)
            { %>
             <li class="top-item-box tariffs <%= DisplayTrialCountDays ? "has-led" : "" %>">
+                <% if (Startup) { %>
+                <a class="button green" href="<%= TenantExtra.GetTariffPageLink() %>"><%= UserControlsCommonResource.SaasTariffReActivateBusiness %></a>
+                <% } else { %>
                 <a class="inner-text" href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>">
                     <svg><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenupayments<%= CoreContext.Configuration.CustomMode ? "Rub" : "" %>"></use></svg>
                     <% if (DisplayTrialCountDays)
@@ -108,6 +106,7 @@
                         <span class="inner-label"><%= CoreContext.Configuration.CustomMode ? Resource.Trial.ToLower() : "trial" %> <%= TariffDays %></span>
                     <% } %>
                 </a>
+                <% } %>
             </li>
         <% } %>
 
@@ -285,6 +284,14 @@
                     </li>
                 <% } %>
 
+                <% if (EnableAppServer)
+                    {%>
+                    <li id="switchToMobileBtn">
+                        <a class="dropdown-item" href="/?desktop_view=false" target="_self" onClick="jQuery.cookies.del('desktop_view'); window.location.reload(true);">
+                             <%= Resource.TurnOnMobileVersion %>
+                        </a>
+                    </li>
+                <%} %>
                 <li>
                     <span class="dropdown-item dropdown-about-btn"><%= Resource.AboutCompanyTitle %> </span>
 
@@ -330,7 +337,7 @@
                             <% } %>
                         </ul>
 
-                        <% if (TenantExtra.Opensource)
+                        <% if (TenantExtra.Opensource && !CoreContext.Configuration.CustomMode)
                            { %>
                         <br />
                         <div><%= string.Format(UserControlsCommonResource.LicensedUnderApache, "<a href=\"http://www.apache.org/licenses/LICENSE-2.0\" class=\"link underline\" target=\"_blank\">", "</a>") %></div>

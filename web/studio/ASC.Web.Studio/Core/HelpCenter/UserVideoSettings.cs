@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using AjaxPro;
+
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.Core.HelpCenter
@@ -40,9 +42,9 @@ namespace ASC.Web.Studio.Core.HelpCenter
         public override ISettings GetDefault()
         {
             return new UserVideoSettings
-                {
-                    VideoGuides = new List<string>()
-                };
+            {
+                VideoGuides = new List<string>()
+            };
         }
 
         public static List<string> GetUserVideoGuide()

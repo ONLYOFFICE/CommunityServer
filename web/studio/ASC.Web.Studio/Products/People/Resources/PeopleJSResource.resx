@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChooseUser" xml:space="preserve">
     <value>Choose user</value>
@@ -126,35 +67,8 @@
   <data name="ErrorMessage_SaveImageError" xml:space="preserve">
     <value>An error occurred while uploading the image to the server</value>
   </data>
-  <data name="HelpContentAccessRights" xml:space="preserve">
-    <value>Open the portal Settings page if you need to restrict the access to the People module and give some users administrator privileges.</value>
-  </data>
-  <data name="HelpContentAddMore" xml:space="preserve">
-    <value>Add several users at once using the contact information from Google, Yahoo, Windows Live, from a CSV file or an email client contact book.</value>
-  </data>
-  <data name="HelpContentEditProfile" xml:space="preserve">
-    <value>Modify your personal information, change your email and password, select a portal language, manage your subscriptions.</value>
-  </data>
-  <data name="HelpContentViewUser" xml:space="preserve">
-    <value>Click the user you wish to view the personal information: first name, last name, email, location etc.</value>
-  </data>
-  <data name="HelpTitleAccessRights" xml:space="preserve">
-    <value>Manage Access Rights</value>
-  </data>
-  <data name="HelpTitleAddMore" xml:space="preserve">
-    <value>Add More Users at Once</value>
-  </data>
-  <data name="HelpTitleEditProfile" xml:space="preserve">
-    <value>Edit Your Profile</value>
-  </data>
-  <data name="HelpTitleViewUser" xml:space="preserve">
-    <value>View User Profile</value>
-  </data>
   <data name="LblActive" xml:space="preserve">
     <value>Active</value>
-  </data>
-  <data name="LblByName" xml:space="preserve">
-    <value>Name</value>
   </data>
   <data name="LblByType" xml:space="preserve">
     <value>Type</value>
@@ -187,9 +101,12 @@
     <value>The invitation was successfully sent</value>
   </data>
   <data name="TariffActiveUserLimit" xml:space="preserve">
-    <value>Your current pricing plan allows you to add {0}{1} active users{2}.</value>
+    <value>Your current pricing plan allows you to add {0}{1} more active users{2}.</value>
   </data>
   <data name="TariffActiveUserLimitExcludingGuests" xml:space="preserve">
     <value>Your current pricing plan allows you to add {0}{1} active users{2} (guests are not taken into consideration).</value>
+  </data>
+  <data name="TariffGuestLimit" xml:space="preserve">
+    <value>Your current pricing plan allows you to add {0}{1} guests{2}.</value>
   </data>
 </root>

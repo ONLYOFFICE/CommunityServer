@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -393,7 +393,7 @@ ASC.People.PeopleController = (function() {
                         var needActiveFilterAsDefault = false;
                         var users = window.UserManager.getAllUsers(true);
                         for (var userId in users) {
-                            if (!users.hasOwnProperty(users)) continue;
+                            if (!users.hasOwnProperty(userId)) continue;
                             var user = users[userId];
                             if (user.isActivated === true && user.isOwner === false) {
                                 needActiveFilterAsDefault = true;
@@ -1177,7 +1177,7 @@ ASC.People.PeopleController = (function() {
         initChangeTypeDialog(type);
         StudioBlockUIManager.blockUI("#changeTypeDialog", 500);
         PopupKeyUpActionProvider.ClearActions();
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#changeTypeDialogOk\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\".changeTypeDialogOk\").click();";
     };
 
     var initChangeTypeDialog = function(type) {
@@ -1189,20 +1189,19 @@ ASC.People.PeopleController = (function() {
         unlockDialog(dialog);
         hideError(dialog);
         renderSelectedUserList(users, container);
-
-        jq("#changeTypeDialogTariff").hide();
-        jq("#changeTypeDialogOk").removeClass("gray").addClass("blue");
+       
+        jq(".changeTypeDialogTariff").hide();
         jq("#userTypeInfo .action-info").removeClass("display-none");
         jq("#changeTypeDialog .selected-users-info").removeClass("display-none");
-
         if (_selectedType == 1) {
+            jq(".visitorContainer").addClass("display-none");
+            jq(".userContainer").removeClass("display-none");
             jq("#userTypeInfo").removeClass("display-none");
             jq("#visitorTypeInfo").addClass("display-none");
 
-            if (jq("#changeTypeDialogTariff").length) {
-                jq("#changeTypeDialogTariff").show();
-                if (jq("#changeTypeDialogTariff~#changeTypeDialogOk").length) {
-                    jq("#changeTypeDialogOk").removeClass("blue").addClass("gray");
+            if (jq(".changeTypeDialogTariff").length) {
+                jq(".changeTypeDialogTariff").show();
+                if (jq(".changeTypeDialogTariff~.changeTypeDialogOk").length) {
                 }
             }
 
@@ -1210,20 +1209,36 @@ ASC.People.PeopleController = (function() {
             var quota = _tenantQuota.availableUsersCount;
             jq("#userTypeInfo .tariff-limit").html(jq.format(PeopleManager.UserLimit, "<b>", quota, "</b>"));
             updateUserListToChangeTypeByQuota(container, quota);
-
             if (quota == 0) {
                 jq("#userTypeInfo .action-info").addClass("display-none");
                 jq("#changeTypeDialog .selected-users-info").addClass("display-none");
             }
         } else if (_selectedType == 2) {
-            jq("#userTypeInfo").addClass("display-none");
+            jq(".userContainer").addClass("display-none");
+            jq(".visitorContainer").removeClass("display-none");
             jq("#visitorTypeInfo").removeClass("display-none");
-        }
+            jq("#userTypeInfo").addClass("display-none");
+            if (jq(".changeTypeDialogTariff").length) {
+                jq(".changeTypeDialogTariff").show();
+                if (jq(".changeTypeDialogTariff~.changeTypeDialogOk").length) {
+                }
+            }
 
+            //GET QUOTA & SET TO INTERFACE
+            var quota = _tenantQuota.maxVisitors - _tenantQuota.visitorsCount;
+            jq("#visitorTypeInfo .tariff-limit").html(jq.format(PeopleManager.GuestLimit, "<b>", quota, "</b>"));
+            if (_tenantQuota.maxVisitors != -1) {
+                updateUserListToChangeTypeByQuota(container, quota);
+            }
+            if (quota == 0) {
+                jq("#userTypeInfo .action-info").addClass("display-none");
+                jq("#changeTypeDialog .selected-users-info").addClass("display-none");
+            }
+        }
         if (dialog.find("input[disabled]").length == dialog.find("input").length) {
-            jq("#changeTypeDialogOk").addClass("disable");
+            jq(".changeTypeDialogOk").addClass("disable");
         } else {
-            jq("#changeTypeDialogOk").removeClass("disable");
+            jq(".changeTypeDialogOk").removeClass("disable");
         }
     };
 
@@ -1878,8 +1893,8 @@ ASC.People.PeopleController = (function() {
             hintDefaultDisable: true,
             sorters:
             [
-                { id: "firstname", title: ASC.Resources.Master.Resource.FirstName, dsc: false, def: ASC.People.Data.userDisplayFormat == 1 },
-                { id: "lastname", title: ASC.Resources.Master.Resource.LastName, dsc: false, def: ASC.People.Data.userDisplayFormat == 2 }
+                { id: "firstname", title: ASC.Resources.Master.ResourceJS.FirstName, dsc: false, def: ASC.People.Data.userDisplayFormat == 1 },
+                { id: "lastname", title: ASC.Resources.Master.ResourceJS.LastName, dsc: false, def: ASC.People.Data.userDisplayFormat == 2 }
             ],
             filters: filters
         })
@@ -1889,23 +1904,8 @@ ASC.People.PeopleController = (function() {
 
         PeopleManager.SelectedCount = ASC.People.Resources.PeopleJSResource.SelectedCount;
         PeopleManager.UserLimit = ASC.People.Resources.PeopleJSResource.TariffActiveUserLimit;
+        PeopleManager.GuestLimit = ASC.People.Resources.PeopleJSResource.TariffGuestLimit;
         PeopleManager.UserLimitExcludingGuests = ASC.People.Resources.PeopleJSResource.TariffActiveUserLimitExcludingGuests;
-
-        ASC.People.PeopleController.advansedFilter.one("adv-ready", function() {
-            var peopleAdvansedFilterContainer = jq("#peopleFilter .advansed-filter-list");
-            peopleAdvansedFilterContainer.find("li[data-id='selected-status-active'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'status_active');
-            peopleAdvansedFilterContainer.find("li[data-id='selected-status-disabled'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'status_disabled');
-            peopleAdvansedFilterContainer.find("li[data-id='selected-status-pending'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'status_pending');
-            peopleAdvansedFilterContainer.find("li[data-id='selected-type-admin'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'type_admin');
-            peopleAdvansedFilterContainer.find("li[data-id='selected-type-user'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'type_user');
-            peopleAdvansedFilterContainer.find("li[data-id='selected-type-visitor'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'type_visitor');
-            peopleAdvansedFilterContainer.find("li[data-id='selected-group'] .inner-text").trackEvent(ga_Categories.people, ga_Actions.filterClick, 'group');
-        });
-
-        jq(".people-import-banner_img").trackEvent(ga_Categories.people, ga_Actions.bannerClick, "import-people");
-        jq("#peopleFilter .btn-toggle-sorter").trackEvent(ga_Categories.people, ga_Actions.filterClick, "sort");
-        jq("#peopleFilter .advansed-filter-input").trackEvent(ga_Categories.people, ga_Actions.filterClick, "search_text", "enter");
-
     };
 
     var initTenantQuota = function() {
@@ -1984,12 +1984,12 @@ ASC.People.PeopleController = (function() {
             return false;
         });
 
-        jq("#changeTypeDialog").on("click", "#changeTypeDialogOk:not(.disable)", function () {
+        jq("#changeTypeDialog").on("click", ".changeTypeDialogOk:not(.disable)", function () {
             changeUserType();
             return false;
         });
 
-        jq("#changeTypeDialog").on("click", "#changeTypeDialogCancel:not(.disable)", function () {
+        jq("#changeTypeDialog").on("click", ".changeTypeDialogCancel:not(.disable)", function () {
             jq.unblockUI();
             return false;
         });

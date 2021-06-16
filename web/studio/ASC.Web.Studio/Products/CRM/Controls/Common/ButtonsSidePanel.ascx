@@ -5,6 +5,7 @@
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 
 <div class="page-menu">
@@ -13,7 +14,7 @@
             <span class="main-button-text"><%= CRMCommonResource.CreateNew %></span>
             <span class="white-combobox"></span>
         </li>
-        <li id="menuOtherActionsButton" class="menu-gray-button" title="<%= Resources.Resource.MoreActions %>">
+        <li id="menuOtherActionsButton" class="menu-gray-button" title="<%= Resource.MoreActions %>">
             <span class="btn_other-actions">...</span>
         </li>
     </ul>

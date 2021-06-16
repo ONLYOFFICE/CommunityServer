@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ namespace ASC.Common.Security.Authorizing
             if (currSecObjProvider == null && currObjId is ISecurityObjectProvider)
             {
                 currObjIdAsProvider = true;
-                currSecObjProvider = (ISecurityObjectProvider) currObjId;
+                currSecObjProvider = (ISecurityObjectProvider)currObjId;
             }
             callContext = new SecurityCallContext();
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Novell.Extensions;
 using ASC.Common.Logging;
+
 using Novell.Directory.Ldap;
 
 namespace ASC.ActiveDirectory.Novell.Data
@@ -29,7 +31,7 @@ namespace ASC.ActiveDirectory.Novell.Data
     /// <summary>
     /// Novell LDAP object class
     /// </summary>
-    public class NovellLdapObject: LdapObject
+    public class NovellLdapObject : LdapObject
     {
         private readonly LdapEntry _ldapEntry;
         private readonly ILog _log;
@@ -84,12 +86,12 @@ namespace ASC.ActiveDirectory.Novell.Data
         public override bool IsDisabled
         {
             get
-            {               
+            {
                 var userAccauntControl = LdapConstants.UserAccountControl.EMPTY;
                 try
                 {
                     var uac = Convert.ToInt32(GetValue(LdapConstants.ADSchemaAttributes.USER_ACCOUNT_CONTROL));
-                    userAccauntControl = (LdapConstants.UserAccountControl) uac;
+                    userAccauntControl = (LdapConstants.UserAccountControl)uac;
                 }
                 catch (Exception e)
                 {

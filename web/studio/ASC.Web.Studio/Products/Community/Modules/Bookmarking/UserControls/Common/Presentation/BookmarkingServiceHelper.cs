@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,15 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Security;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+
 using ASC.Bookmarking;
 using ASC.Bookmarking.Business;
 using ASC.Bookmarking.Common;
@@ -24,6 +33,7 @@ using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Notify.Model;
+using ASC.Web.Community.Product;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
@@ -33,15 +43,7 @@ using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
 using ASC.Web.UserControls.Bookmarking.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
-using ASC.Web.Community.Product;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
@@ -182,7 +184,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             return GetLimitedText(text, maxLenght);
         }
 
-        public static string EncodeUserData(string text, bool removeSlashes)
+        public static string EncodeUserData(string text, bool removeSlashes, bool htmlEncode = true)
         {
             if (string.IsNullOrEmpty(text))
             {
@@ -202,15 +204,17 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             text = text.Replace("\"", "'");
             text = text.ReplaceSingleQuote();
 
-            text = HttpUtility.HtmlEncode(text);
-
-            text = text.Replace("\n", "<br/>");
+            if (htmlEncode)
+            {
+                text = HttpUtility.HtmlEncode(text);
+                text = text.Replace("\n", "<br/>");
+            }
             return text;
         }
 
         public static string EncodeUserData(string text)
         {
-            return EncodeUserData(text, true);
+            return EncodeUserData(text, true, false);
         }
 
         private UserBookmark UserBookmarkInit(string bookmarkUrl, string bookmarkName, string bookmarkDescription, IList<Tag> tags)
@@ -221,11 +225,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             }
 
             var userBookmark = GetCurrentUserBookmark(BookmarkToAdd) ?? new UserBookmark
-                {
-                    BookmarkID = BookmarkToAdd.ID,
-                    UserID = GetCurrentUserID(),
-                    Raiting = 1
-                };
+            {
+                BookmarkID = BookmarkToAdd.ID,
+                UserID = GetCurrentUserID(),
+                Raiting = 1
+            };
 
             userBookmark.DateAdded = ASC.Core.Tenants.TenantUtil.DateTimeNow();
             userBookmark.Name = bookmarkName;
@@ -241,9 +245,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             var date = ASC.Core.Tenants.TenantUtil.DateTimeNow();
 
             var bookmark = new Bookmark(bookmarkUrl, date, bookmarkName, bookmarkDescription)
-                {
-                    UserCreatorID = currentUserID
-                };
+            {
+                UserCreatorID = currentUserID
+            };
 
             return bookmark;
         }
@@ -1032,7 +1036,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             {
                 CurrentPageNumber = 1;
             }
-            FirstResult = (CurrentPageNumber - 1)*MaxResults;
+            FirstResult = (CurrentPageNumber - 1) * MaxResults;
             BookmarkingServiceHelper.UpdateCurrentInstanse(this);
         }
 
@@ -1043,7 +1047,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         public void InitPageNavigator(PageNavigator pagination, long itemsCount, int BookmarkPageCounter)
         {
-            var visiblePageCount = (int)itemsCount/BookmarkPageCounter + 1;
+            var visiblePageCount = (int)itemsCount / BookmarkPageCounter + 1;
             visiblePageCount = visiblePageCount > BookmarkingSettings.VisiblePageCount ? BookmarkingSettings.VisiblePageCount : visiblePageCount;
             PageCounter = BookmarkPageCounter;
             BookmarkingServiceHelper.UpdateCurrentInstanse(this);
@@ -1278,12 +1282,12 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             {
                 var url = VirtualPathUtility.ToAbsolute(BookmarkingRequestConstants.BookmarkingBasePath) + "/" + GenerateBookmarkInfoUrl(b.URL);
                 searchResultItems.Add(new SearchResultItem()
-                    {
-                        Name = b.Name,
-                        Description = HtmlUtil.GetText(b.Description, 120),
-                        URL = url,
-                        Date = b.Date
-                    });
+                {
+                    Name = b.Name,
+                    Description = HtmlUtil.GetText(b.Description, 120),
+                    URL = url,
+                    Date = b.Date
+                });
             }
             return searchResultItems.ToArray();
         }

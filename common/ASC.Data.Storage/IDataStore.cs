@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+
 using ASC.Data.Storage.Configuration;
 
 namespace ASC.Data.Storage
@@ -90,6 +92,8 @@ namespace ASC.Data.Storage
         ///<returns></returns>
         Stream GetReadStream(string domain, string path, int offset);
 
+        Task<Stream> GetReadStreamAsync(string domain, string path, int offset);
+
         ///<summary>
         /// Saves the contents of the stream in the repository.
         ///</ Summary>
@@ -139,7 +143,7 @@ namespace ASC.Data.Storage
         /// <param name="contentEncoding"></param>
         /// <param name="cacheDays"></param>
         /// <returns></returns>
-         Uri Save(string domain, string path, Stream stream, string contentEncoding, int cacheDays);
+        Uri Save(string domain, string path, Stream stream, string contentEncoding, int cacheDays);
 
         string InitiateChunkedUpload(string domain, string path);
 
@@ -202,7 +206,7 @@ namespace ASC.Data.Storage
         ///<param name="newdomain"></param>
         ///<param name="newpath"></param>
         ///<returns></returns>
-        Uri Move(string srcdomain, string srcpath, string newdomain, string newpath);
+        Uri Move(string srcdomain, string srcpath, string newdomain, string newpath, bool quotaCheckFileSize = true);
 
         ///<summary>
         /// Saves the file in the temp. In fact, almost no different from the usual Save except that generates the file name itself. An inconvenient thing.
@@ -249,6 +253,8 @@ namespace ASC.Data.Storage
         ///<param name="path"></param>
         ///<returns></returns>
         bool IsFile(string domain, string path);
+
+        Task<bool> IsFileAsync(string domain, string path);
 
         ///<summary>
         /// Checks whether a directory exists. On s3 it took long time.

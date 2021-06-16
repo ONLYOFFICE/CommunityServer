@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,28 +37,22 @@
 .personal-footer_rights {
     float: right;
 }
-.personal-footer_inst{
-	width: 16px;
-    height: 16px;
-    float: right;
-    display: inline-block;
-    background: url(images/instagram_icon.png) no-repeat transparent;
-    margin-right: 4px;
-    margin-left: 20px;
-}
 .personal-languages {
     float: left;
     margin-right: 40px;
 }
 .personal-languages_select {
-    background: url("images/flags.png") no-repeat left 2px transparent;
+    background: url("images/flags.svg") no-repeat left 2px transparent;
     cursor: pointer;
     line-height: 16px;
-    padding-left: 25px;
+    padding-left: 24px;
+    padding-top: 8px;
     position: relative;
+
     span {
-      border-bottom: 1px dotted #666;
-   }
+        border-bottom: 1px dotted #666;
+    }
+
     &:after {
         content: "";
         border-top: 4px solid #666;
@@ -69,81 +63,93 @@
         right: -15px;
     }
 }
-.studio-action-panel{
-	border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-}
-.personal-languages_list{
-	li{
-	    padding-left: 0!important;
-		height: 16px;
-		color: transparent!important;
-		padding-right: 0!important;
-		margin-top: 5px!important;
+#AuthFormLanguagesPanel.studio-action-panel {
+    padding: 16px 0px;
 
-		&:first-of-type{
-			margin-top: 0!important;
-		}
-		a{
-			background-image: url(images/flags.png)!important;
-			background-repeat: no-repeat!important;
-			padding-left: 27px!important;
-			height: 16px;
-			width: 18px;
-			line-height: 17px !important;
-			padding: 0!important;
-			color: transparent!important;
-		}
-		a:hover {
-            text-decoration: underline;
-		    background-color: #ffffff!important;
+    .dropdown-content {
+        width: 740px;
+        column-count: 3;
+
+        .dropdown-item {
+            padding: 0;
+            margin: 8px 21px;
+            width: 204px;
+            display: inline-block;
+
+            &:hover {
+                background-color: transparent;
+            }
+
+            a {
+                background-image: url(images/flags.svg);
+                background-repeat: no-repeat;
+                padding: 0 0 0 28px;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
+
+            &.az-Latn-AZ a { background-position: left 0; }
+            &.bg-BG a { background-position: left -28px; }
+            &.zh-CN a { background-position: left -56px; }
+            &.cs-CZ a { background-position: left -84px; }
+            &.nl-NL a { background-position: left -112px; }
+            &.en-GB a { background-position: left -140px; }
+            &.en-US a { background-position: left -168px; }
+            &.fi-FI a { background-position: left -196px; }
+            &.fr-FR a { background-position: left -224px; }
+            &.de-DE a { background-position: left -252px; }
+            &.de-CH a { background-position: left -280px; }
+            &.el-GR a { background-position: left -308px; }
+            &.it-IT a { background-position: left -336px; }
+            &.ja-JP a { background-position: left -364px; }
+            &.ko-KR a { background-position: left -392px; }
+            &.lv-LV a { background-position: left -420px; }
+            &.pl-PL a { background-position: left -448px; }
+            &.pt-BR a { background-position: left -476px; }
+            &.pt-PT a { background-position: left -504px; }
+            &.ru-RU a { background-position: left -532px; }
+            &.sk-SK a { background-position: left -560px; }
+            &.sl-SI a { background-position: left -588px; }
+            &.es-MX a { background-position: left -616px; }
+            &.es-ES a { background-position: left -644px; }
+            &.tr-TR a { background-position: left -672px; }
+            &.uk-UA a { background-position: left -700px; }
+            &.vi-VN a { background-position: left -728px; }
         }
-	}
+    }
 }
-.personal-languages_select.cs-CZ {background-position: left 1px;}
-.personal-languages_select.de-DE {background-position: left -16px;}
-.personal-languages_select.el-GR {background-position: left -31px;}
-.personal-languages_select.en-GB {background-position: left -63px;}
-.personal-languages_select.en-US {background-position: left -80px;}
-.personal-languages_select.es-ES {background-position: left -95px;}
-.personal-languages_select.fi-FI {background-position: left -110px;}
-.personal-languages_select.fr-FR {background-position: left -128px;}
-.personal-languages_select.it-IT {background-position: left -142px;}
-.personal-languages_select.lv-LV {background-position: left -159px;}
-.personal-languages_select.pl-PL {background-position: left -175px;}
-.personal-languages_select.pt-BR {background-position: left -191px;}
-.personal-languages_select.pt-PT {background-position: left -287px;}
-.personal-languages_select.ru-RU {background-position: left -207px;}
-.personal-languages_select.tr-TR {background-position: left -222px;}
-.personal-languages_select.uk-UA {background-position: left -239px;}
-.personal-languages_select.vi-VN {background-position: left -254px;}
-.personal-languages_select.zh-CN {background-position: left -270px;}
-.personal-languages_select.az-Latn-AZ {background-position: left -302px;}
-.personal-languages_select.ko-KR {background-position: left -318px;}
-.personal-languages_select.ja-JP {background-position: left -334px;}
 
-.personal-languages_list li.cs-CZ a{background-position: left 2px!important;}
-.personal-languages_list li.de-DE a{background-position: left -15px!important;}
-.personal-languages_list li.el-GR a{background-position: left -31px!important;}
-.personal-languages_list li.en-GB a{background-position: left -63px!important;}
-.personal-languages_list li.en-US a{background-position: left -79px!important;}
-.personal-languages_list li.es-ES a{background-position: left -95px!important;}
-.personal-languages_list li.fi-FI a{background-position: left -110px!important;}
-.personal-languages_list li.fr-FR a{background-position: left -127px!important;}
-.personal-languages_list li.it-IT a{background-position: left -142px!important;}
-.personal-languages_list li.lv-LV a{background-position: left -159px!important;}
-.personal-languages_list li.pl-PL a{background-position: left -175px!important;}
-.personal-languages_list li.pt-BR a{background-position: left -191px!important;}
-.personal-languages_list li.pt-PT a{background-position: left -287px!important;}
-.personal-languages_list li.ru-RU a{background-position: left -207px!important;}
-.personal-languages_list li.tr-TR a{background-position: left -223px!important;}
-.personal-languages_list li.uk-UA a{background-position: left -239px!important;}
-.personal-languages_list li.vi-VN a{background-position: left -254px!important;}
-.personal-languages_list li.zh-CN a{background-position: left -270px!important;}
-.personal-languages_list li.az-Latn-AZ a{background-position: left -302px!important;}
-.personal-languages_list li.ko-KR a{background-position: left -318px!important;}
-.personal-languages_list li.ja-JP a{background-position: left -334px!important;}
+.personal-languages_select {
+    &.az-Latn-AZ { background-position: left 0; }
+    &.bg-BG { background-position: left -28px; }
+    &.zh-CN { background-position: left -56px; }
+    &.cs-CZ { background-position: left -84px; }
+    &.nl-NL { background-position: left -112px; }
+    &.en-GB { background-position: left -140px; }
+    &.en-US { background-position: left -168px; }
+    &.fi-FI { background-position: left -196px; }
+    &.fr-FR { background-position: left -224px; }
+    &.de-DE { background-position: left -252px; }
+    &.de-CH { background-position: left -280px; }
+    &.el-GR { background-position: left -308px; }
+    &.it-IT { background-position: left -336px; }
+    &.ja-JP { background-position: left -364px; }
+    &.ko-KR { background-position: left -392px; }
+    &.lv-LV { background-position: left -420px; }
+    &.pl-PL { background-position: left -448px; }
+    &.pt-BR { background-position: left -476px; }
+    &.pt-PT { background-position: left -504px; }
+    &.ru-RU { background-position: left -532px; }
+    &.sk-SK { background-position: left -560px; }
+    &.sl-SI { background-position: left -588px; }
+    &.es-MX { background-position: left -616px; }
+    &.es-ES { background-position: left -644px; }
+    &.tr-TR { background-position: left -672px; }
+    &.uk-UA { background-position: left -700px; }
+    &.vi-VN { background-position: left -728px; }
+}
 
 .personal-footer-links {
     list-style: none;
@@ -156,6 +162,17 @@
 
         a:hover {
             text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #AuthFormLanguagesPanel.studio-action-panel .dropdown-content {
+        width: 320px;
+        column-count: auto;
+
+        .dropdown-item {
+            margin: 8px 20px 0 20px;
         }
     }
 }

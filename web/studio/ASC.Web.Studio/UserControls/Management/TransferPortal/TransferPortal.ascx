@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransferPortal.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TransferPortal" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Management" %>
@@ -10,27 +10,18 @@
    { %>
 <div id="migrationPortal" class="clearFix <%= PaidMigration && OwnerMigration ? "" : "disable" %>">
     <div class="settings-block transfer-portal">
-        <div class="header-base">
-            <%= Resource.TransferPortalTitle %>
-        </div>        
-        <div class="header-base-small">
-            <%= Resource.ServerRegion %>:
-        </div>        
+        <div class="header-base"><%= Resource.TransferPortalTitle %></div>
+        <div class="header-base-small"><%= Resource.ServerRegion %>:</div>
         <select id="transfer_region" data-value="<%= CurrentRegion %>" class="comboBox">
             <% foreach (var item in TransferRegions)
                {%>
-                <option <%= item.IsCurrentRegion ? "selected=\"selected\"" : "" %> value="<%= item.Name %>" data-url=".<%= item.BaseDomain %>">
-                    <%= item.GetFullName() %>
-                </option>            
+                <option <%= item.IsCurrentRegion ? "selected=\"selected\"" : "" %> value="<%= item.Name %>" data-url=".<%= item.BaseDomain %>"><%= item.GetFullName() %></option>
             <% } %>
         </select>
-
-        <div class="header-base-small">
-            <%= Resource.PortalName %>:
-        </div>
+        <div class="header-base-small"><%= Resource.PortalName %>:</div>
         <div>
-            <span id="regionDomain">
-                <%= CoreContext.TenantManager.GetCurrentTenant().TenantAlias %></span><span id="regionUrl">.<%= BaseDomain %></span>
+            <span id="regionDomain"><%= CoreContext.TenantManager.GetCurrentTenant().TenantAlias %></span>
+            <span id="regionUrl">.<%= BaseDomain %></span>
         </div>
         <div class="clearFix notify-migration">
             <div>
@@ -39,15 +30,18 @@
             </div>
             <div>
                 <input id="notifyAboutMigration" type="checkbox" checked="checked" />
-                <label for="notifyAboutMigration">
-                    <%= CustomNamingPeople.Substitute<Resource>("NotifyPortalMigration").HtmlEncode() %></label>
+                <label for="notifyAboutMigration"><%= CustomNamingPeople.Substitute<Resource>("NotifyPortalMigration").HtmlEncode() %></label>
             </div>
         </div>
         <div class="header-base red-text"><%= Resource.Warning %></div>
         <div><%: Resource.TransferPortalWarning %></div>
-        <div class="middle-button-container">
-            <a id="transfer_button" class="button blue disable" href="javascript:void(0);">
-                <%= Resource.TransferPortalButton %></a>
+        <div class="indent"><%: Resource.TransferPortalWarning2 %></div>
+        <div class="clearFix">
+            <input id="understand" type="checkbox" />
+            <label for="understand"><%= Resource.IUnderstand %></label>
+        </div>
+        <div class="small-button-container">
+            <a id="transfer_button" class="button blue disable"><%= Resource.TransferPortalButton %></a>
         </div>
         <div class="edition-block">
             <div id="transfer_error" class="errorText display-none"></div>
@@ -70,7 +64,7 @@
     </div>
 </div>
 <div id="popupTransferStart" class="display-none">
-    <sc:Container runat="server" id="popupTransferStart">
+    <sc:Container runat="server" id="PopupTransferStartContainer">
         <Header>
             <div><%: Resource.TransferPortalTitlePopup%></div>
         </Header>

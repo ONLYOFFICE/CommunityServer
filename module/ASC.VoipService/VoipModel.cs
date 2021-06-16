@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ namespace ASC.VoipService
         public string WaitUrl { get; set; }
         public int WaitTime { get; set; }
 
-        public Queue(){}
+        public Queue() { }
 
         public Queue(string id, string name, int size, string waitUrl, int waitTime)
         {
@@ -87,7 +87,7 @@ namespace ASC.VoipService
         public TimeSpan? From { get; set; }
         public TimeSpan? To { get; set; }
 
-        public WorkingHours(){}
+        public WorkingHours() { }
 
         public WorkingHours(TimeSpan from, TimeSpan to)
         {

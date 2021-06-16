@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TopicListControl.ascx.cs" Inherits="ASC.Web.UserControls.Forum.TopicListControl" %>
 
-<%@ Import Namespace="ASC.Web.UserControls.Forum.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Forum.UserControls.Resources" %>
 
 
 <div class="forum_columnHeader">

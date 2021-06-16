@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,30 +18,31 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Api.Calendar.BusinessObjects;
+using ASC.Api.Calendar.ExternalCalendars;
+using ASC.Common.Security;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Calendars;
-using ASC.Api.Calendar.ExternalCalendars;
-using ASC.Common.Security;
 
 namespace ASC.Api.Calendar.Wrappers
 {
     [DataContract(Name = "calendar", Namespace = "")]
     public class CalendarWrapper
-    {        
-        public BaseCalendar UserCalendar{get; private set;}
+    {
+        public BaseCalendar UserCalendar { get; private set; }
         protected UserViewSettings _userViewSettings;
         protected Guid _userId;
 
-        public CalendarWrapper(BaseCalendar calendar) : this(calendar, null){}
+        public CalendarWrapper(BaseCalendar calendar) : this(calendar, null) { }
         public CalendarWrapper(BaseCalendar calendar, UserViewSettings userViewSettings)
         {
             _userViewSettings = userViewSettings;
             if (_userViewSettings == null && calendar is ASC.Api.Calendar.BusinessObjects.Calendar)
-            { 
+            {
                 _userViewSettings = (calendar as ASC.Api.Calendar.BusinessObjects.Calendar)
-                                    .ViewSettings.Find(s=> s.UserId == SecurityContext.CurrentAccount.ID);
+                                    .ViewSettings.Find(s => s.UserId == SecurityContext.CurrentAccount.ID);
             }
 
             if (_userViewSettings == null)
@@ -171,7 +172,7 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                return String.IsNullOrEmpty(UserCalendar.Context.HtmlTextColor)? BusinessObjects.Calendar.DefaultTextColor:
+                return String.IsNullOrEmpty(UserCalendar.Context.HtmlTextColor) ? BusinessObjects.Calendar.DefaultTextColor :
                     UserCalendar.Context.HtmlTextColor;
             }
             set { }
@@ -194,15 +195,15 @@ namespace ASC.Api.Calendar.Wrappers
         [DataMember(Name = "title", Order = 30)]
         public string Title
         {
-            get{return UserCalendar.Name;}
-            set{}
-        } 
+            get { return UserCalendar.Name; }
+            set { }
+        }
 
         [DataMember(Name = "objectId", Order = 0)]
         public string Id
         {
-            get{return UserCalendar.Id;}
-            set{}
+            get { return UserCalendar.Id; }
+            set { }
         }
 
         [DataMember(Name = "isTodo", Order = 0)]
@@ -224,7 +225,7 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                var owner = new UserParams() { Id = UserCalendar.OwnerId , Name = ""};
+                var owner = new UserParams() { Id = UserCalendar.OwnerId, Name = "" };
                 if (UserCalendar.OwnerId != Guid.Empty)
                     owner.Name = CoreContext.UserManager.GetUsers(UserCalendar.OwnerId).DisplayUserName();
 
@@ -237,7 +238,7 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                return  _userViewSettings == null || _userViewSettings.IsAccepted;
+                return _userViewSettings == null || _userViewSettings.IsAccepted;
             }
             set { }
         }
@@ -251,25 +252,27 @@ namespace ASC.Api.Calendar.Wrappers
         [DataMember(Name = "defaultAlert", Order = 160)]
         public EventAlertWrapper DefaultAlertType
         {
-            get{
-                return EventAlertWrapper.ConvertToTypeSurrogated(UserCalendar.EventAlertType);            
+            get
+            {
+                return EventAlertWrapper.ConvertToTypeSurrogated(UserCalendar.EventAlertType);
             }
             set { }
         }
-        
+
         [DataMember(Name = "timeZone", Order = 160)]
         public TimeZoneWrapper TimeZoneInfo
         {
-            get {
+            get
+            {
                 return new TimeZoneWrapper(UserCalendar.TimeZone);
             }
-            set{}
+            set { }
         }
 
         [DataMember(Name = "canEditTimeZone", Order = 160)]
         public bool CanEditTimeZone
         {
-            get { return UserCalendar.Context.CanChangeTimeZone;}
+            get { return UserCalendar.Context.CanChangeTimeZone; }
             set { }
         }
 

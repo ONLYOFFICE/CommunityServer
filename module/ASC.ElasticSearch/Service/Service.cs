@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using ASC.Core;
+using ASC.Core.Common.Contracts;
 using ASC.ElasticSearch.Core;
+
 using Autofac;
 
 namespace ASC.ElasticSearch.Service
 {
-    public class Service : IService
+    public class Service : IService, IHealthCheckService
     {
         public bool Support(string table)
         {
@@ -61,6 +64,31 @@ namespace ASC.ElasticSearch.Service
                 Indexing = Launcher.Indexing,
                 LastIndexed = Launcher.LastIndexed
             };
+        }
+
+        public Dictionary<string, long> GetCount()
+        {
+            var result = new Dictionary<string, long>();
+
+            var allItems = FactoryIndexer.Builder.Resolve<IEnumerable<Wrapper>>().ToList();
+
+            foreach (var item in allItems)
+            {
+                var generic = typeof(BaseIndexer<>);
+                var instance = (IIndexer)Activator.CreateInstance(generic.MakeGenericType(item.GetType()), item);
+                result.Add(item.IndexName, instance.Count());
+            }
+
+            return result;
+        }
+
+        public HealthCheckResponse CheckHealth()
+        {
+            return HealthCheckResult.ToResponse(new HealthCheckResult
+            {
+                Message = $"Service Index is OK! Warning: Method is not implement. Always return the Healthy status",
+                Status = HealthStatus.Healthy
+            }); ;
         }
     }
 }

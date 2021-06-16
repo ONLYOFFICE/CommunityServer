@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 
 namespace ASC.Api.Settings
@@ -43,19 +44,19 @@ namespace ASC.Api.Settings
         public static SecurityWrapper GetSample()
         {
             return new SecurityWrapper
-                {
-                    WebItemId = Guid.Empty.ToString(),
-                    Enabled = true,
-                    IsSubItem = false,
-                    Groups = new List<GroupWrapperSummary>
+            {
+                WebItemId = Guid.Empty.ToString(),
+                Enabled = true,
+                IsSubItem = false,
+                Groups = new List<GroupWrapperSummary>
                         {
                             GroupWrapperSummary.GetSample()
                         },
-                    Users = new List<EmployeeWraper>
+                Users = new List<EmployeeWraper>
                         {
                             EmployeeWraper.GetSample()
                         }
-                };
+            };
         }
     }
 }

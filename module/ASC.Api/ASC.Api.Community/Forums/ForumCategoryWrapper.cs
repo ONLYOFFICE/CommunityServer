@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 */
 
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Forum;
 using ASC.Specific;
 
@@ -64,14 +64,14 @@ namespace ASC.Api.Forums
         public static ForumCategoryWrapper GetSample()
         {
             return new ForumCategoryWrapper()
-                       {
-                           Id = 0,
-                           Created = ApiDateTime.GetSample(), 
-                           Description = "Sample category", 
-                           Title = "Sample title",
-                           Updated = ApiDateTime.GetSample(),
-                           Threads = new List<ForumThreadWrapper> { ForumThreadWrapper.GetSample()}
-                       };
+            {
+                Id = 0,
+                Created = ApiDateTime.GetSample(),
+                Description = "Sample category",
+                Title = "Sample title",
+                Updated = ApiDateTime.GetSample(),
+                Threads = new List<ForumThreadWrapper> { ForumThreadWrapper.GetSample() }
+            };
         }
     }
 }

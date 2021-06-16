@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
+using ASC.Common;
 using ASC.FederatedLogin;
+
 using Dropbox.Api;
 using Dropbox.Api.Files;
 
@@ -32,7 +35,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
         public bool IsOpened { get; private set; }
 
-        public long MaxChunkedUploadFileSize = 20L*1024L*1024L*1024L;
+        public long MaxChunkedUploadFileSize = 20L * 1024L * 1024L * 1024L;
 
         public void Open(OAuth20Token token)
         {
@@ -118,7 +121,7 @@ namespace ASC.Files.Thirdparty.Dropbox
 
             using (var response = _dropboxClient.Files.DownloadAsync(filePath).Result)
             {
-                var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+                var tempBuffer = TempStream.Create();
                 using (var str = response.GetContentAsStreamAsync().Result)
                 {
                     if (str != null)

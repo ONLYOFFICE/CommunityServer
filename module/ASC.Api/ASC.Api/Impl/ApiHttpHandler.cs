@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,17 @@
 */
 
 
-using System.Security;
-using ASC.Api.Exceptions;
 using System;
 using System.Net;
 using System.Reflection;
+using System.Security;
 using System.Threading;
 using System.Web;
 using System.Web.Routing;
+
+using ASC.Api.Exceptions;
 using ASC.Api.Interfaces;
+
 using Autofac;
 
 namespace ASC.Api.Impl
@@ -69,7 +71,7 @@ namespace ASC.Api.Impl
                     var responce = ApiManager.InvokeMethod(Method, ApiContext, instance);
                     if (responce is Exception)
                     {
-                        SetError(context, (Exception) responce, HttpStatusCode.InternalServerError);
+                        SetError(context, (Exception)responce, HttpStatusCode.InternalServerError);
                     }
                     else
                     {

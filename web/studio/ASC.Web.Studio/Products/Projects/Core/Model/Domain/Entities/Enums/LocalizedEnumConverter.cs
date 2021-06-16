@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 
+using ASC.Web.Projects.Core.Model.Resources;
+
 #endregion
 
 namespace ASC.Projects.Core.Domain
@@ -42,8 +44,8 @@ namespace ASC.Projects.Core.Domain
     /// </remarks>
     public class LocalizedEnumConverter : EnumConverter
     {
-        private class LookupTable : Dictionary<string, object> {}
-        
+        private class LookupTable : Dictionary<string, object> { }
+
         private readonly Dictionary<CultureInfo, LookupTable> lookupTables = new Dictionary<CultureInfo, LookupTable>();
         private readonly System.Resources.ResourceManager resourceManager;
         private readonly bool isFlagEnum;
@@ -75,7 +77,8 @@ namespace ASC.Projects.Core.Domain
                         {
                             result.Add(text, value);
                         }
-                    }}
+                    }
+                }
                 lookupTables.Add(culture, result);
             }
             return result;
@@ -188,7 +191,7 @@ namespace ASC.Projects.Core.Domain
         public LocalizedEnumConverter(Type type)
             : base(type)
         {
-            resourceManager = Resources.ProjectsEnumResource.ResourceManager;
+            resourceManager = ProjectsEnumResource.ResourceManager;
             var flagAttributes = type.GetCustomAttributes(typeof(FlagsAttribute), true);
             isFlagEnum = flagAttributes.Length > 0;
             if (isFlagEnum)
@@ -209,7 +212,7 @@ namespace ASC.Projects.Core.Domain
             var text = value as string;
             if (text != null)
             {
-                return ((isFlagEnum)? GetFlagValue(culture, text) : GetValue(culture, text)) ??
+                return ((isFlagEnum) ? GetFlagValue(culture, text) : GetValue(culture, text)) ??
                                 base.ConvertFrom(context, culture, value);
             }
             return base.ConvertFrom(context, culture, value);

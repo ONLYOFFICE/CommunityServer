@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@
 using System;
 using System.Linq;
 using System.ServiceProcess;
+
 using ASC.Common.Logging;
+
 using CommandLine;
 
 namespace ASC.Mail.Aggregator.CollectionService
@@ -29,13 +31,13 @@ namespace ASC.Mail.Aggregator.CollectionService
         {
             AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 
-             var options = new Options();
+            var options = new Options();
 
             if (args.Any())
             {
-               Parser.Default.ParseArgumentsStrict(args, options,
-                                                                () =>
-                                                                Console.WriteLine(@"Bad command line parameters."));
+                Parser.Default.ParseArgumentsStrict(args, options,
+                                                                 () =>
+                                                                 Console.WriteLine(@"Bad command line parameters."));
             }
 
             if (Environment.UserInteractive || options.IsConsole)

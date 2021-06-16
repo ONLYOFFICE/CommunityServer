@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -899,7 +899,7 @@ ASC.CRM.Common = (function() {
         bindOnbeforeUnloadEvent: function () {
             if (window.onbeforeunload == null) {
                 window.onbeforeunload = function (e) {
-                    return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
+                    return ASC.Resources.Master.ResourceJS.WarningMessageBeforeUnload;
                 };
             }
         },
@@ -1414,7 +1414,7 @@ ASC.CRM.HistoryView = (function () {
         ASC.CRM.HistoryView.advansedFilter = jq("#eventsAdvansedFilter")
                 .advansedFilter({
                     anykey: false,
-                    hintDefaultDisable: true,
+                    hintDefaultDisable: false,
                     maxfilters: -1,
                     maxlength: "100",
                     store: false,
@@ -3964,29 +3964,6 @@ ASC.CRM.UserSelectorListView = new function() {
 
         return this;
     };
-};
-
-var ga_Categories = {
-    contacts: "crm_contacts",
-    cases: "crm_cases",
-    deals: "crm_deals",
-    tasks: "crm_tasks",
-    sender: "crm_sender",
-    reports: "crm_reports"
-};
-
-var ga_Actions = {
-    filterClick: "filter-click",
-    createNew: "create-new",
-    remove: "remove",
-    edit: "edit",
-    view: "view",
-    changeStatus: "change-status",
-    next: "next",
-    userClick: "user-click",
-    actionClick: "action-click",
-    quickAction: "quick-action",
-    generateNew: "generate-new"
 };
 
 

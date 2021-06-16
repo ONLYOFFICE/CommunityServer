@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -230,7 +230,7 @@ namespace ASC.ElasticSearch
                 .Select(r => ToLowerCamelCase(r.Name))
                 .ToList();
 
-            if (this is WrapperWithDoc)
+            if (this is WrapperWithDoc && SearchSettings.CanSearchByContent(GetType()))
             {
                 result.Add("document.attachment.content");
             }

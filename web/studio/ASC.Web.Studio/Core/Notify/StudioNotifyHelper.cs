@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -139,26 +139,6 @@ namespace ASC.Web.Studio.Core.Notify
             return res.ToArray();
         }
 
-
-        public static string GetNotifyAnalytics(int tenantId, INotifyAction action, bool toowner, bool toadmins,
-                                                bool tousers, bool toguests)
-        {
-            if (string.IsNullOrEmpty(SetupInfo.NotifyAnalyticsUrl))
-                return string.Empty;
-
-            var target = "";
-
-            if (toowner) target = "owner";
-            if (toadmins) target += string.IsNullOrEmpty(target) ? "admin" : "-admin";
-            if (tousers) target += string.IsNullOrEmpty(target) ? "user" : "-user";
-            if (toguests) target += string.IsNullOrEmpty(target) ? "guest" : "-guest";
-
-            return string.Format("<img src=\"{0}\" width=\"1\" height=\"1\"/>",
-                                 string.Format(SetupInfo.NotifyAnalyticsUrl,
-                                               tenantId,
-                                               target,
-                                               action.ID));
-        }
 
         public static string GetNotificationImageUrl(string imageFileName)
         {

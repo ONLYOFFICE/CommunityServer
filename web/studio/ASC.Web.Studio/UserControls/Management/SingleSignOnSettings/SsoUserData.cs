@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -102,7 +103,7 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
                 if (string.IsNullOrEmpty(Phone))
                     return userInfo;
 
-                var contacts = new List<string> {EXT_MOB_PHONE, Phone};
+                var contacts = new List<string> { EXT_MOB_PHONE, Phone };
                 userInfo.Contacts = contacts;
             }
             else

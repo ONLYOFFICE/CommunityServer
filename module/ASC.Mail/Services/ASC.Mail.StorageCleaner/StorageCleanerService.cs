@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,11 @@
 
 using System;
 using System.Configuration;
+using System.ServiceModel;
 using System.ServiceProcess;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ASC.Common.Logging;
 using ASC.Mail.Core.Engine;
 
@@ -35,6 +37,7 @@ namespace ASC.Mail.StorageCleaner
         private MailGarbageEngine _eraser;
         private readonly TimeSpan _tsInterval;
         private readonly CancellationTokenSource _cancelTokenSource;
+        private ServiceHost _healthCheckServiceHost;
 
         #endregion
 
@@ -77,6 +80,9 @@ namespace ASC.Mail.StorageCleaner
                 _log.Info("Start service\r\n");
 
                 base.OnStart(args);
+
+                _healthCheckServiceHost = new ServiceHost(typeof(HealthCheckService));
+                _healthCheckServiceHost.Open();
 
                 StartTimer(true);
             }
@@ -124,6 +130,12 @@ namespace ASC.Mail.StorageCleaner
             finally
             {
                 base.OnStop();
+
+                if (_healthCheckServiceHost != null)
+                {
+                    _healthCheckServiceHost.Close();
+                    _healthCheckServiceHost = null;
+                }
             }
 
             _log.Info("Stop service\r\n");

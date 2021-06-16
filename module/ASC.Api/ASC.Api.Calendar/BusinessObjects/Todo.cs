@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
-using ASC.Api.Calendar.Wrappers;
 using ASC.Web.Core.Calendars;
-using ASC.Core.Tenants;
 
 namespace ASC.Api.Calendar.BusinessObjects
-{    
+{
     [AllDayLongUTCAttribute]
     public class Todo : BaseTodo, ISecurityObject
     {
         public Todo()
-        {            
+        {
         }
 
         public int TenantId { get; set; }
@@ -81,7 +79,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         }
 
         #endregion
-       
+
     }
 
 }

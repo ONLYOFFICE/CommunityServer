@@ -58,6 +58,7 @@ function writeText() {
     sRange.SetFontSize(smallFontSize);
     sRange.SetFontColor(grayFontColor);
     sRange.SetAlignHorizontal("left");
+    sRange.SetNumberFormat("@");
     sRange.SetValue(reportData.resource.dateRangeValue);
 
     sRange = oWorksheet.GetRange("B53");

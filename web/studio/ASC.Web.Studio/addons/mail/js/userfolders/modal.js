@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,10 @@ window.userFoldersModal = (function($) {
     function save() {
         if (!wnd) return;
 
-        jq('#userFolderWnd .containerBodyBlock .buttons .button.blue:visible').click();
+        var button = wnd.find('.containerBodyBlock .buttons .button.blue:visible');
+
+        if (button && button.length === 1)
+            button[0].click();
     }
 
     function showCreate(folder, parentFolder, options) {

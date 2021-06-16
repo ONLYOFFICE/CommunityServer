@@ -67,7 +67,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignatureTest.cs" />
     <Compile Include="TariffServiceTest.cs" />
-    <Compile Include="TariffSyncServiceTest.cs" />
     <Compile Include="TopSubscriptionProviderTest.cs" />
     <Compile Include="UserManagerTest.cs" />
   </ItemGroup>

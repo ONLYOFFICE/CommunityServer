@@ -13,9 +13,14 @@
     <% if (IsBlank)
        { %>
         <style type="text/css">
+            body,
+            #studioPageContent .page-content {
+                overflow: visible;
+            }
             #studioPageContent .studio-top-panel.mainPageLayout,
             #studioPageContent .mainPageLayout,
             #studioPageContent .mainPageTableSidePanel,
+            #studioPageContent .bar-content,
             #studioPageContent .borderBase {
                 display: none;
             }

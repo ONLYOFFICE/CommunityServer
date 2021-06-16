@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
+using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.UserForum;
-using ASC.Web.Studio.UserControls.Common.InviteLink;
 
 
 namespace ASC.Web.Projects.Controls.Common
@@ -87,7 +87,7 @@ namespace ASC.Web.Projects.Controls.Common
 
         private void RenderFolderTree()
         {
-            var tree = (Files.Controls.TreeBuilder) LoadControl(Files.Controls.TreeBuilder.Location);
+            var tree = (Files.Controls.TreeBuilder)LoadControl(Files.Controls.TreeBuilder.Location);
             tree.FolderIDCurrentRoot = Files.Classes.Global.FolderProjects;
             placeHolderFolderTree.Controls.Add(tree);
         }

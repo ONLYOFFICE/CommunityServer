@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,14 @@
 */
 
 
-using ASC.Files.Core;
-using ASC.Web.Files.Classes;
 using System;
 using System.IO;
+
 using ASC.Core.ChunkedUploader;
+using ASC.Files.Core;
+using ASC.Web.Files.Classes;
 using ASC.Web.Studio.Core;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Utils
@@ -81,7 +83,7 @@ namespace ASC.Web.Files.Utils
 
         public static void Move(ChunkedUploadSession chunkedUploadSession, string newPath)
         {
-            CommonSessionHolder().Move(chunkedUploadSession, newPath);
+            CommonSessionHolder().Move(chunkedUploadSession, newPath, chunkedUploadSession.CheckQuota);
         }
 
         public static void AbortUploadSession(ChunkedUploadSession uploadSession)

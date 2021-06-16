@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,15 @@
 */
 
 
+using System;
+using System.IO;
+
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
-using System;
-using System.IO;
-using System.Net;
+using ASC.Web.Studio.Core;
+
 using File = ASC.Files.Core.File;
 using IoFile = System.IO.File;
 
@@ -59,16 +61,31 @@ namespace ASC.Data.Backup.Storage
                 {
                     throw new FileNotFoundException("Folder not found.");
                 }
+
                 using (var source = IoFile.OpenRead(localPath))
                 {
-                    var file = fileDao.SaveFile(
-                        new File
-                            {
-                                Title = Path.GetFileName(localPath),
-                                FolderID = folder.ID,
-                                ContentLength = source.Length
-                            },
-                        source);
+                    var newFile = new File
+                    {
+                        Title = Path.GetFileName(localPath),
+                        FolderID = folder.ID,
+                        ContentLength = source.Length
+                    };
+                    File file = null;
+                    var buffer = new byte[SetupInfo.ChunkUploadSize];
+                    var chunkedUploadSession = fileDao.CreateUploadSession(newFile, source.Length);
+                    chunkedUploadSession.CheckQuota = false;
+
+                    var bytesRead = 0;
+
+                    while ((bytesRead = source.Read(buffer, 0, (int)SetupInfo.ChunkUploadSize)) > 0)
+                    {
+                        using (var theMemStream = new MemoryStream())
+                        {
+                            theMemStream.Write(buffer, 0, bytesRead);
+                            theMemStream.Position = 0;
+                            file = fileDao.UploadChunk(chunkedUploadSession, theMemStream, bytesRead);
+                        }
+                    }
 
                     return Convert.ToString(file.ID);
                 }
@@ -88,7 +105,7 @@ namespace ASC.Data.Backup.Storage
                 using (var source = fileDao.GetFileStream(file))
                 using (var destination = IoFile.OpenWrite(targetLocalPath))
                 {
-                    source.StreamCopyTo(destination);
+                    source.CopyTo(destination);
                 }
             }
         }

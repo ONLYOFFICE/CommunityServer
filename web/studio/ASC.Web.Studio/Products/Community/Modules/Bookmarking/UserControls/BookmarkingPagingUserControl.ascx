@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BookmarkingPagingUserControl.ascx.cs" Inherits="ASC.Web.UserControls.Bookmarking.BookmarkingPagingUserControl" %>
 
-<%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Bookmarking.UserControls.Resources" %>
 
 
 <% if (!SingleBookmark && ItemCounter > 20) { %>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,7 +141,7 @@ namespace ASC.Api.Utils
                     var value = GetValue(GetName(propertyInfo), values, prefix);
                     if (value != null)
                     {
-                        propertyInfo.SetValue(binded, ConvertUtils.GetConverted(value,propertyInfo), null);
+                        propertyInfo.SetValue(binded, ConvertUtils.GetConverted(value, propertyInfo), null);
                         isBinded = true;
                     }
                 }
@@ -159,6 +159,7 @@ namespace ASC.Api.Utils
                             if (result != null)
                             {
                                 propertyInfo.SetValue(binded, result, null);
+                                isBinded = true;
                                 break;
                             }
                         }
@@ -182,7 +183,7 @@ namespace ASC.Api.Utils
         {
             return new[]
                        {
-                           name, 
+                           name,
                            StringUtils.ToCamelCase(name),
                            name.ToLower()
                        };
@@ -248,7 +249,7 @@ namespace ASC.Api.Utils
                         {
                             foreach (var collectionValue in collectionValues)
                             {
-                                collection.Add(ConvertUtils.GetConverted(collectionValue,genericType));
+                                collection.Add(ConvertUtils.GetConverted(collectionValue, genericType));
                             }
                         }
 

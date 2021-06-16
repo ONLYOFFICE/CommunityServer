@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
+
 using ASC.Core.Tenants;
 using ASC.Data.Backup.Tasks.Data;
 
@@ -86,7 +86,7 @@ namespace ASC.Data.Backup.Tasks.Modules
         protected override bool TryPrepareValue(DbConnection connection, ColumnMapper columnMapper, TableInfo table, string columnName, ref object value)
         {
             //we insert tenant as suspended so it can't be accessed before restore operation is finished
-            if (table.Name.Equals("tenants_tenants", StringComparison.InvariantCultureIgnoreCase) && 
+            if (table.Name.Equals("tenants_tenants", StringComparison.InvariantCultureIgnoreCase) &&
                 columnName.Equals("status", StringComparison.InvariantCultureIgnoreCase))
             {
                 value = (int)TenantStatus.Restoring;

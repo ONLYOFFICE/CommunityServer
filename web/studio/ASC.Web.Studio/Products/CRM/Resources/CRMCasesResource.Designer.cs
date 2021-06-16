@@ -151,24 +151,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Closed.
-        /// </summary>
-        public static string CaseStatusClosed {
-            get {
-                return ResourceManager.GetString("CaseStatusClosed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open.
-        /// </summary>
-        public static string CaseStatusOpened {
-            get {
-                return ResourceManager.GetString("CaseStatusOpened", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Case title.
         /// </summary>
         public static string CaseTitle {

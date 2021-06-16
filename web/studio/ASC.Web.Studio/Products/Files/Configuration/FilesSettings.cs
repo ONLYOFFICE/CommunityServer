@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Files.Core;
@@ -69,25 +70,29 @@ namespace ASC.Web.Files.Classes
         [DataMember(Name = "HideTemplates")]
         public bool HideTemplatesSetting { get; set; }
 
+        [DataMember(Name = "DownloadZip")]
+        private bool DownloadTarGzSetting { get; set; }
+
         public override ISettings GetDefault()
         {
             return new FilesSettings
-                {
-                    FastDeleteSetting = false,
-                    EnableThirdpartySetting = true,
-                    StoreOriginalFilesSetting = true,
-                    UpdateIfExistSetting = false,
-                    ConvertNotifySetting = true,
-                    DefaultSortedBySetting = SortedByType.DateAndTime,
-                    DefaultSortedAscSetting = false,
-                    HideConfirmConvertSaveSetting = false,
-                    HideConfirmConvertOpenSetting = false,
-                    ForcesaveSetting = false,
-                    StoreForcesaveSetting = false,
-                    HideFavoritesSetting = false,
-                    HideRecentSetting = false,
-                    HideTemplatesSetting = false,
-                };
+            {
+                FastDeleteSetting = false,
+                EnableThirdpartySetting = true,
+                StoreOriginalFilesSetting = true,
+                UpdateIfExistSetting = false,
+                ConvertNotifySetting = true,
+                DefaultSortedBySetting = SortedByType.DateAndTime,
+                DefaultSortedAscSetting = false,
+                HideConfirmConvertSaveSetting = false,
+                HideConfirmConvertOpenSetting = false,
+                ForcesaveSetting = false,
+                StoreForcesaveSetting = false,
+                HideFavoritesSetting = false,
+                HideRecentSetting = false,
+                HideTemplatesSetting = false,
+                DownloadTarGzSetting = false,
+            };
         }
 
         public override Guid ID
@@ -242,6 +247,17 @@ namespace ASC.Web.Files.Classes
                 setting.SaveForCurrentUser();
             }
             get { return !LoadForCurrentUser().HideTemplatesSetting; }
+        }
+
+        public static bool DownloadTarGz
+        {
+            set
+            {
+                var setting = LoadForCurrentUser();
+                setting.DownloadTarGzSetting = value;
+                setting.SaveForCurrentUser();
+            }
+            get => LoadForCurrentUser().DownloadTarGzSetting;
         }
     }
 }

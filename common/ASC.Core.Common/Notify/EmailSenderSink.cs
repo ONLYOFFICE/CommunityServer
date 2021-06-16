@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Core.Notify.Senders;
@@ -94,7 +95,7 @@ namespace ASC.Core.Notify
 
             var from = MailAddressUtils.Create(CoreContext.Configuration.SmtpSettings.SenderAddress, CoreContext.Configuration.SmtpSettings.SenderDisplayName);
             var fromTag = message.Arguments.FirstOrDefault(x => x.Tag.Equals("MessageFrom"));
-            if ((CoreContext.Configuration.SmtpSettings.IsDefaultSettings || string.IsNullOrEmpty(CoreContext.Configuration.SmtpSettings.SenderDisplayName)) && 
+            if ((CoreContext.Configuration.SmtpSettings.IsDefaultSettings || string.IsNullOrEmpty(CoreContext.Configuration.SmtpSettings.SenderDisplayName)) &&
                 fromTag != null && fromTag.Value != null)
             {
                 try

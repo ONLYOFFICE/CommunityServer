@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
+using ASC.Api.Documents;
 using ASC.Api.Employee;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Specific;
-using ASC.Api.Documents;
 
 namespace ASC.Api.CRM.Wrappers
 {
@@ -41,11 +42,11 @@ namespace ASC.Api.CRM.Wrappers
         public static EntityWrapper GetSample()
         {
             return new EntityWrapper
-                {
-                    EntityId = 123445,
-                    EntityType = "opportunity",
-                    EntityTitle = "Household appliances internet shop"
-                };
+            {
+                EntityId = 123445,
+                EntityType = "opportunity",
+                EntityTitle = "Household appliances internet shop"
+            };
         }
     }
 
@@ -96,16 +97,16 @@ namespace ASC.Api.CRM.Wrappers
         public static RelationshipEventWrapper GetSample()
         {
             return new RelationshipEventWrapper
-                {
-                    CanEdit = true,
-                    Category = HistoryCategoryBaseWrapper.GetSample(),
-                    Entity = EntityWrapper.GetSample(),
-                    Contact = ContactBaseWrapper.GetSample(),
-                    Created = ApiDateTime.GetSample(),
-                    CreateBy = EmployeeWraper.GetSample(),
-                    Files = new[] {FileWrapper.GetSample()},
-                    Content = @"Agreed to meet at lunch and discuss the client commercial offer"
-                };
+            {
+                CanEdit = true,
+                Category = HistoryCategoryBaseWrapper.GetSample(),
+                Entity = EntityWrapper.GetSample(),
+                Contact = ContactBaseWrapper.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                CreateBy = EmployeeWraper.GetSample(),
+                Files = new[] { FileWrapper.GetSample() },
+                Content = @"Agreed to meet at lunch and discuss the client commercial offer"
+            };
         }
     }
 }

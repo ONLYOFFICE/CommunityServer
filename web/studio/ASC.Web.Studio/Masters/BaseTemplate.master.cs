@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,25 +21,23 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WebZones;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.ThirdPartyBanner;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using Resources;
-using ASC.Web.Core.Utility.Skins;
 
 namespace ASC.Web.Studio.Masters
 {
@@ -77,7 +75,7 @@ namespace ASC.Web.Studio.Masters
             MetaDescriptionOG.Content = Resource.MetaDescription.HtmlEncode();
             MetaTitleOG.Content = (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode();
             CanonicalURLOG.Content = HttpContext.Current.Request.Url.Scheme + "://" + Request.GetUrlRewriter().Host;
-            MetaImageOG.Content = WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/fb_icon_325x325.jpg");
+            MetaImageOG.Content = WebImageSupplier.GetAbsoluteWebPath("logo/fb_icon_325x325.jpg");
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -142,38 +140,6 @@ namespace ASC.Web.Studio.Masters
                     AddBodyScripts(ResolveUrl, "~/js/asc/core/collaborators.js");
                 }
             }
-
-
-            #region third-party scripts
-
-            if (TenantExtra.Saas)
-            {
-                if (SetupInfo.CustomScripts.Length != 0)
-                {
-                    if (CoreContext.Configuration.Personal)
-                    {
-                        if (TenantAnalyticsSettings.LoadForCurrentUser().Analytics)
-                        {
-                            GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptPersonal.ascx"));
-                        }
-                    }
-                    else
-                    {
-                        if (TenantAnalyticsSettings.Load().Analytics)
-                        {
-                            GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx"));
-                        }
-                    }
-                }
-            }
-            else if (TenantExtra.Opensource
-                     && WizardSettings.Load().Analytics
-                     && SecurityContext.IsAuthenticated)
-            {
-                GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl("~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScriptOpenSource.ascx"));
-            }
-
-            #endregion
         }
 
         protected string RenderStatRequest()
@@ -182,18 +148,6 @@ namespace ASC.Web.Studio.Masters
 
             var page = HttpUtility.UrlEncode(Page.AppRelativeVirtualPath.Replace("~", ""));
             return String.Format("<img style=\"display:none;\" src=\"{0}\"/>", SetupInfo.StatisticTrackURL + "&page=" + page);
-        }
-
-        protected string RenderCustomScript()
-        {
-            var sb = new StringBuilder();
-            //custom scripts
-            foreach (var script in SetupInfo.CustomScripts.Where(script => !String.IsNullOrEmpty(script)))
-            {
-                sb.AppendFormat("<script language=\"javascript\" src=\"{0}\" type=\"text/javascript\"></script>", script);
-            }
-
-            return sb.ToString();
         }
 
         protected bool EmailActivated
@@ -244,11 +198,16 @@ namespace ASC.Web.Studio.Masters
 
         private void InitProductSettingsInlineScript()
         {
-            var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
+            var isAdmin = false;
 
-            if (!isAdmin)
+            if (!CoreContext.Configuration.Personal)
             {
-                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
+                isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
+
+                if (!isAdmin)
+                {
+                    isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetAddonID(), SecurityContext.CurrentAccount.ID);
+                }
             }
 
             RegisterInlineScript(string.Format("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant()), true, false);

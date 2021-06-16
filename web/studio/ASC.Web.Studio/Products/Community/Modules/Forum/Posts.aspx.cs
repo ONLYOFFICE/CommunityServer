@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,16 @@
 
 using System;
 using System.Text;
+
 using AjaxPro;
+
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
+using ASC.Web.Community.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum;
 using ASC.Web.UserControls.Forum.Common;
-using ASC.Web.Community.Resources;
 
 namespace ASC.Web.Community.Forum
 {
@@ -72,8 +75,8 @@ namespace ASC.Web.Community.Forum
             postListControl.Topic = topic;
             postListControl.PaggingHolder = PagingHolder;
             postListHolder.Controls.Add(postListControl);
-            Utility.RegisterTypeForAjax(typeof (TopicControl), Page);
-            Utility.RegisterTypeForAjax(typeof (Subscriber));
+            Utility.RegisterTypeForAjax(typeof(TopicControl), Page);
+            Utility.RegisterTypeForAjax(typeof(Subscriber));
             var subscriber = new Subscriber();
 
             var isTopicSubscribe = subscriber.IsTopicSubscribe(topic.ID);
@@ -86,7 +89,7 @@ namespace ASC.Web.Community.Forum
             ForumPageParentIn = CommunityResource.InForParentPage;
             ForumPageParentURL = "topics.aspx?f=" + topic.ThreadID.ToString();
             ForumPageTitle = topic.Title;
-            Title = HeaderStringHelper.GetPageTitle((Master as ForumMasterPage).CurrentPageCaption ?? Resources.ForumResource.AddonName);
+            Title = HeaderStringHelper.GetPageTitle((Master as ForumMasterPage).CurrentPageCaption ?? ForumResource.AddonName);
             SubscribeStatus = isTopicSubscribe ? "subscribed" : "unsubscribed";
 
             RenderModeratorFunctionsHeader();
@@ -118,7 +121,7 @@ namespace ASC.Web.Community.Forum
 
             if (bitMask > 0)
             {
-                sb.Append("<span class=\"menu-small\" onclick=\"javascript:ForumManager.ShowModeratorFunctions('" + Topic.ID + "'," + bitMask + "," + (int) Topic.Status + ",'" + _settings.EditTopic(Topic.ID) + "');\"></span>");
+                sb.Append("<span class=\"menu-small\" onclick=\"javascript:ForumManager.ShowModeratorFunctions('" + Topic.ID + "'," + bitMask + "," + (int)Topic.Status + ",'" + _settings.EditTopic(Topic.ID) + "');\"></span>");
             }
 
             menuToggle.Text = sb.ToString();

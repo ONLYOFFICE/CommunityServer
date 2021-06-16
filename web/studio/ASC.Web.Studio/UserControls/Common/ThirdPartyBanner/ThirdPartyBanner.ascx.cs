@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.Core;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.VoipService.Dao;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
 {
@@ -81,10 +83,10 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
                 if ((currentProductId == WebItemManager.CRMProductID
                      || currentProductId == WebItemManager.PeopleProductID)
                     && !ThirdPartyBannerSettings.CheckClosed("social")
-                    && 
-                    (!TwitterLoginProvider.Instance.IsEnabled || 
-                    !FacebookLoginProvider.Instance.IsEnabled || 
-                    !LinkedInLoginProvider.Instance.IsEnabled || 
+                    &&
+                    (!TwitterLoginProvider.Instance.IsEnabled ||
+                    !FacebookLoginProvider.Instance.IsEnabled ||
+                    !LinkedInLoginProvider.Instance.IsEnabled ||
                     !GoogleLoginProvider.Instance.IsEnabled))
                 {
                     yield return new Tuple<string, string>("social", UserControlsCommonResource.BannerSocial);
@@ -103,7 +105,7 @@ namespace ASC.Web.Studio.UserControls.Common.ThirdPartyBanner
                     && !VoipDao.ConfigSettingsExist
                     && VoipDao.Consumer.CanSet)
                 {
-                    if(!ThirdPartyBannerSettings.CheckClosed("twilio2"))
+                    if (!ThirdPartyBannerSettings.CheckClosed("twilio2"))
                         yield return new Tuple<string, string>("twilio2", UserControlsCommonResource.BannerTwilio2);
                 }
             }

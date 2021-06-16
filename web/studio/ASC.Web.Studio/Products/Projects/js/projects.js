@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,10 +99,10 @@ ASC.Projects.Description = (function () {
 
         baseProjects.DescriptionTab
             .init()
-            .push(resources.CommonResource.ProjectName, formatDescription(project.title))
+            .push(resources.ProjectsCommonResource.ProjectName, formatDescription(project.title))
             .push(projectResource.ProjectLeader, project.responsible.displayName)
             .push(resources.ProjectsFilterResource.ByCreateDate, project.displayDateCrtdate)
-            .push(resources.CommonResource.Description, jq.linksParser(formatDescription(project.description)))
+            .push(resources.ProjectsCommonResource.Description, jq.linksParser(formatDescription(project.description)))
             .push(projectResource.Tags, formatDescription(tags))
             .setStatuses(statuses)
             .setCurrentStatus(currentStatus)
@@ -129,8 +129,8 @@ ASC.Projects.AllProject = (function () {
         $projectsTable = null,
         self,
         baseObject,
-        resources,
-        prjResources,
+        ProjectsFilterResource,
+        ProjectsJSResource,
         $projectsTableBody,
         currentUserId,
         isSimpleView,
@@ -160,7 +160,7 @@ ASC.Projects.AllProject = (function () {
                 var actions = [
                     {
                         id: "gaDelete",
-                        title: res.CommonResource.Delete,
+                        title: res.ProjectsCommonResource.Delete,
                         handler: gaRemoveHandler,
                         checker: function(project) {
                             return project.canDelete;
@@ -226,7 +226,7 @@ ASC.Projects.AllProject = (function () {
                     }
                 },
                 filterEmptyScreen: {
-                    header: res ? res.CommonResource.Filter_NoProjects : "",
+                    header: res ? res.ProjectsCommonResource.Filter_NoProjects : "",
                     description: res ? res.ProjectResource.DescrEmptyListProjFilter : ""
                 },
                 groupMenu: groupMenu
@@ -240,15 +240,15 @@ ASC.Projects.AllProject = (function () {
         
         if (!isSimpleView) {
             baseObject = ASC.Projects,
-                resources = baseObject.Resources.ProjectsFilterResource,
-                prjResources = baseObject.Resources.ProjectsJSResource;
+                ProjectsFilterResource = baseObject.Resources.ProjectsFilterResource,
+                ProjectsJSResource = baseObject.Resources.ProjectsJSResource;
 
             projectsAdvansedFilter = baseObject.ProjectsAdvansedFilter;
             projectsAdvansedFilter.createAdvansedFilterForProjects(self);
 
             self.baseInit({
-                moduleTitle: prjResources.ProjectsModule,
-                elementNotFoundError: prjResources.ProjectNotFound
+                moduleTitle: ProjectsJSResource.ProjectsModule,
+                elementNotFoundError: ProjectsJSResource.ProjectNotFound
             },
             {
                 pagination: "projectsKeyForPagination"
@@ -257,9 +257,9 @@ ASC.Projects.AllProject = (function () {
                 handler: changeStatus,
                 getItem: getProjectByTarget,
                 statuses: [
-                    { cssClass: "open", text: prjResources.StatusOpenProject, id: 0 },
-                    { cssClass: "paused", text: prjResources.StatusSuspendProject, id: 2 },
-                    { cssClass: "closed", text: prjResources.StatusClosedProject, id: 1 }
+                    { cssClass: "open", text: ProjectsJSResource.StatusOpenProject, id: 0 },
+                    { cssClass: "paused", text: ProjectsJSResource.StatusSuspendProject, id: 2 },
+                    { cssClass: "closed", text: ProjectsJSResource.StatusClosedProject, id: 1 }
                 ]
             },
             undefined,
@@ -300,7 +300,7 @@ ASC.Projects.AllProject = (function () {
                     }
                     self.showOrHideData(currentListProjects, filterProjCount);
                     loadingBanner.hideLoading();
-                    baseObject.Common.displayInfoPanel(prjResources.ProjectsRemoved);
+                    baseObject.Common.displayInfoPanel(ProjectsJSResource.ProjectsRemoved);
                 }
             });
             jq.unblockUI();

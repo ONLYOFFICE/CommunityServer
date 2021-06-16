@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,15 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
+using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.WhiteLabel;
-using ASC.Web.Studio.Utility;
-using AjaxPro;
-using ASC.Core;
 using ASC.Web.Studio.Core;
-using Resources;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
@@ -58,7 +60,7 @@ namespace ASC.Web.Studio.UserControls.Users
             {
                 var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
                 var curLng = user.CultureName;
-                
+
                 var changelng = false;
                 if (SetupInfo.EnabledCultures.Find(c => String.Equals(c.Name, lng, StringComparison.InvariantCultureIgnoreCase)) != null)
                 {
@@ -80,12 +82,12 @@ namespace ASC.Web.Studio.UserControls.Users
                         MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedLanguage);
                     }
                 }
-                
-                return new {Status = changelng ? 1 : 2, Message = Resource.SuccessfullySaveSettingsMessage};
+
+                return new { Status = changelng ? 1 : 2, Message = Resource.SuccessfullySaveSettingsMessage };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
+                return new { Status = 0, Message = e.Message.HtmlEncode() };
             }
         }
     }

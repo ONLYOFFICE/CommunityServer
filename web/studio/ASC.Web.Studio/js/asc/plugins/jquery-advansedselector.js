@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,6 +103,10 @@
         that.$advancedSelector.find(".advanced-selector-block-list .advanced-selector-all-select").on('click', showAllGroups.bind(that));
 
         that.$advancedSelector.find(".advanced-selector-search-field").on('keyup', onSearchInputKeyup.bind(that));
+        that.$advancedSelector.find(".advanced-selector-search-field").on('mousedown', function () { jq(this).addClass("selection") });
+        that.$advancedSelector.find(".advanced-selector-search-field").on('mouseup', function () { jq(this).removeClass("selection") });
+        that.$advancedSelector.find(".advanced-selector-search-field").on('blur', function () { jq(this).removeClass("selection") });
+
         that.$advancedSelector.find(".advanced-selector-search-btn").on('click', that.options.isTempLoad? that.onSearchItemsTempLoad.bind(that) : that.onSearchItems.bind(that));
         that.$advancedSelector.find(".advanced-selector-reset-btn").on('click', onSearchReset.bind(that));
 
@@ -143,6 +147,13 @@
 
         if ($target.closest(that.$advancedSelector).length === 0 && that.$advancedSelector.is(":visible")
             && $target.closest(that.$element).siblings(".advanced-selector-container").length === 0) {
+
+            var searchField = that.$advancedSelector.find(".advanced-selector-search-field.selection");
+            if (searchField.length) {
+                searchField.removeClass("selection");
+                return;
+            }
+
             hideSelectorContainer.call(that);
         }
     }
@@ -614,7 +625,7 @@
             $countBox = $itemList.parents(".advanced-selector-block").find(".advanced-selector-selected-count");
 
         if (selectedCount > 0) {
-            $countBox.text(selectedCount + " " + ASC.Resources.Master.Resource.SelectorSelectedItems).show();
+            $countBox.text(selectedCount + " " + ASC.Resources.Master.ResourceJS.SelectorSelectedItems).show();
         } else {
             $countBox.text("").hide();
         }
@@ -1120,7 +1131,7 @@
             for (var i = 0, length = itemsDisplay.length; i < length; i++) {
                 if (itemsDisplay[i].id == Teamlab.profile.id) {
                     user = itemsDisplay[i];
-                    user.title = ASC.Resources.Master.Resource.MeLabel;
+                    user.title = ASC.Resources.Master.ResourceJS.MeLabel;
                     itemsDisplay.splice(i, 1);
                     itemsDisplay.unshift(user);
                     break;
@@ -1149,7 +1160,7 @@
             //data-id, data-cnt
             if (item.status) {
                 li.title += jq.format(" ({0})", item.status);
-                if (item.status === ASC.Resources.Master.Resource.UserPending) {
+                if (item.status === ASC.Resources.Master.ResourceJS.UserPending) {
                     className += " pending";
                 }
             }
@@ -1473,7 +1484,7 @@
 
 
                 if (data[i].hasOwnProperty("isPending")) {
-                    newObj.status = data[i].isPending || data[i].isActivated === false ? ASC.Resources.Master.Resource.UserPending : "";
+                    newObj.status = data[i].isPending || data[i].isActivated === false ? ASC.Resources.Master.ResourceJS.UserPending : "";
                 }
                 if (data[i].hasOwnProperty("groups") || data[i].hasOwnProperty("projectId")) {
                     newObj.groups = data[i].groups || [{ id: data[i].projectId.toString() }];

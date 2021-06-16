@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ namespace ASC.Api.Client
         public ApiClient(string host, ApiClientConfiguration config)
             : this(host, config.ApiRoot, config.UriScheme)
         {
-            
+
         }
 
         public ApiClient(string host, string apiRoot, UriScheme uriScheme)
@@ -76,7 +76,7 @@ namespace ASC.Api.Client
 
             var tokenElement = xml.Element("token");
             var token = tokenElement != null ? tokenElement.Value : null;
-            
+
             if (string.IsNullOrEmpty(token))
             {
                 throw new AuthenticationException("No authorization token returned from server.");
@@ -130,13 +130,13 @@ namespace ASC.Api.Client
 
         private HttpWebRequest CreateWebRequest(ApiRequest request)
         {
-            var uri = new UriBuilder(UriScheme.ToString().ToLower(), Host) {Path = CreatePath(request)};
+            var uri = new UriBuilder(UriScheme.ToString().ToLower(), Host) { Path = CreatePath(request) };
 
             if (request.Method == HttpMethod.Get || request.Method == HttpMethod.Delete)
             {
                 uri.Query = CreateQuery(request);
             }
-            
+
             var httpRequest = (HttpWebRequest)WebRequest.Create(uri.ToString());
             httpRequest.Method = request.Method.ToString().ToUpper();
             httpRequest.AllowAutoRedirect = true;
@@ -175,9 +175,9 @@ namespace ASC.Api.Client
                 sb.AppendFormat("{0}={1}&", parameter.Name, parameter.Value);
             }
 
-            if (sb.Length > 0) 
+            if (sb.Length > 0)
                 sb.Remove(sb.Length - 1, 1);
-            
+
             return sb.ToString();
         }
 
@@ -237,12 +237,12 @@ namespace ASC.Api.Client
                 {
                     foreach (var value in enumerable)
                     {
-                        yield return new RequestParameter {Name = parameter.Name + "[]", Value = value};
+                        yield return new RequestParameter { Name = parameter.Name + "[]", Value = value };
                     }
                 }
                 else if (parameter.Value is DateTime)
                 {
-                    yield return new RequestParameter {Name = parameter.Name, Value = ((DateTime)parameter.Value).ToString("o")};
+                    yield return new RequestParameter { Name = parameter.Name, Value = ((DateTime)parameter.Value).ToString("o") };
                 }
                 else
                 {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ using System.Web.Hosting;
 
 namespace ASC.Api.Batch
 {
-    public class ApiWorkerRequest:SimpleWorkerRequest
+    public class ApiWorkerRequest : SimpleWorkerRequest
     {
         private readonly TextWriter _output;
         private readonly HttpContextBase _context;
@@ -36,11 +36,11 @@ namespace ASC.Api.Batch
         public byte[] EntityBody { get; set; }
 
         public int HttpStatus { get; private set; }
-        public string HttpStatusDescription { get;private set; }
+        public string HttpStatusDescription { get; private set; }
 
         public NameValueCollection ResponseHeaders { get; private set; }
 
-        public ApiWorkerRequest(string lookupDir, string page, string query, TextWriter output, HttpContextBase context, ContentType contentType):base("/",lookupDir, page,query,output)
+        public ApiWorkerRequest(string lookupDir, string page, string query, TextWriter output, HttpContextBase context, ContentType contentType) : base("/", lookupDir, page, query, output)
         {
             if (context == null) throw new ArgumentNullException("context");
             _output = output;
@@ -49,7 +49,7 @@ namespace ASC.Api.Batch
             ResponseHeaders = new NameValueCollection();
         }
 
-        public ApiWorkerRequest(string page, string query, TextWriter output, HttpContextBase context, ContentType contentType):base(page,query,output)
+        public ApiWorkerRequest(string page, string query, TextWriter output, HttpContextBase context, ContentType contentType) : base(page, query, output)
         {
             if (context == null) throw new ArgumentNullException("context");
             _output = output;
@@ -61,7 +61,7 @@ namespace ASC.Api.Batch
         public override string GetServerVariable(string name)
         {
             if (!string.IsNullOrEmpty(name))
-                return _context.Request.ServerVariables[name]??string.Empty;
+                return _context.Request.ServerVariables[name] ?? string.Empty;
             return string.Empty;
         }
 
@@ -88,10 +88,10 @@ namespace ASC.Api.Batch
 
         public override int ReadEntityBody(byte[] buffer, int size)
         {
-            if (EntityBody!=null)
+            if (EntityBody != null)
             {
                 var resize = size <= EntityBody.Length ? size : EntityBody.Length;
-                Buffer.BlockCopy(EntityBody,0,buffer,0,resize);
+                Buffer.BlockCopy(EntityBody, 0, buffer, 0, resize);
                 return resize;
             }
             return base.ReadEntityBody(buffer, size);
@@ -114,11 +114,11 @@ namespace ASC.Api.Batch
 
         public override string GetKnownRequestHeader(int index)
         {
-            if (index==HeaderContentType && _contentType!=null)
+            if (index == HeaderContentType && _contentType != null)
             {
                 return _contentType.ToString();
             }
-            if (index==HeaderContentLength && EntityBody!=null)
+            if (index == HeaderContentLength && EntityBody != null)
             {
                 return EntityBody.Length.ToString();
             }
@@ -161,7 +161,7 @@ namespace ASC.Api.Batch
 
         public override void SendCalculatedContentLength(int contentLength)
         {
-            SendKnownResponseHeader(HeaderContentLength,contentLength.ToString());
+            SendKnownResponseHeader(HeaderContentLength, contentLength.ToString());
         }
 
         public override void SendStatus(int statusCode, string statusDescription)

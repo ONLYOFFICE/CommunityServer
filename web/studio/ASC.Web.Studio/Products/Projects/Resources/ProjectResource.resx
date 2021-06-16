@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,22 +53,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Access" xml:space="preserve">
-    <value>Access</value>
-  </data>
   <data name="AccessRightSettings" xml:space="preserve">
     <value>Portal Access Rights</value>
-  </data>
-  <data name="ActiveProject" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="ActiveProjects" xml:space="preserve">
-    <value>Active Projects</value>
   </data>
   <data name="AddMilestone" xml:space="preserve">
     <value>Add milestone</value>
@@ -140,12 +72,6 @@
   </data>
   <data name="AddTask" xml:space="preserve">
     <value>Add Task</value>
-  </data>
-  <data name="AllProjects" xml:space="preserve">
-    <value>All Projects</value>
-  </data>
-  <data name="ClosedProject" xml:space="preserve">
-    <value>Closed</value>
   </data>
   <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
     <value>Project Manager can</value>
@@ -171,26 +97,23 @@
   <data name="CloseProject" xml:space="preserve">
     <value>Close Project</value>
   </data>
-  <data name="Comments" xml:space="preserve">
-    <value>Comments</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Create</value>
-  </data>
   <data name="CreateFirstProject" xml:space="preserve">
     <value>Create the First Project</value>
   </data>
   <data name="CreateNewProject" xml:space="preserve">
     <value>Create new project</value>
   </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
-  </data>
   <data name="DeleteProject" xml:space="preserve">
     <value>Delete project</value>
   </data>
   <data name="DeleteProjectPopup" xml:space="preserve">
     <value>Are you sure you want to delete this project?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Delete projects</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Are you sure you want to delete these projects?</value>
   </data>
   <data name="DescrEmptyListProjFilter" xml:space="preserve">
     <value>No projects matching your filter can be displayed in this section</value>
@@ -201,20 +124,14 @@
   <data name="EmptyListProjDescribe" xml:space="preserve">
     <value>Create the projects and work effectively</value>
   </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Use the projects to work effectively</value>
+  </data>
   <data name="EmptyListProjHeader" xml:space="preserve">
     <value>The Projects list is empty</value>
   </data>
-  <data name="EnterTheTags" xml:space="preserve">
-    <value>Enter the needed tags separating them with commas</value>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>Files</value>
-  </data>
   <data name="FollowingProjects" xml:space="preserve">
     <value>Follow this project</value>
-  </data>
-  <data name="FollowProjects" xml:space="preserve">
-    <value>Follow Projects</value>
   </data>
   <data name="GanttAddTask" xml:space="preserve">
     <value>Add task to milestone</value>
@@ -375,17 +292,8 @@
   <data name="HiddenProject" xml:space="preserve">
     <value>Private Project</value>
   </data>
-  <data name="IUnerstand" xml:space="preserve">
-    <value>I understand it - DELETE this project.</value>
-  </data>
   <data name="IUnerstandForEditHidden" xml:space="preserve">
     <value>Save this project as private</value>
-  </data>
-  <data name="LoadingProcessing" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="LoadingWait" xml:space="preserve">
-    <value>Please wait...</value>
   </data>
   <data name="ManagmentTeam" xml:space="preserve">
     <value>Manage Team</value>
@@ -393,35 +301,17 @@
   <data name="ManualTimeInput" xml:space="preserve">
     <value>Manual Time Input</value>
   </data>
-  <data name="Me" xml:space="preserve">
-    <value>Me</value>
-  </data>
-  <data name="Milestones" xml:space="preserve">
-    <value>milestone(s)</value>
-  </data>
-  <data name="My" xml:space="preserve">
-    <value>Me</value>
-  </data>
-  <data name="MyProjects" xml:space="preserve">
-    <value>My Projects</value>
-  </data>
   <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
     <value>You cannot close a project with active milestones.</value>
   </data>
   <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
     <value>You cannot close a project with open tasks.</value>
   </data>
-  <data name="NotifyProjectLeader" xml:space="preserve">
-    <value>Notify project manager by email</value>
-  </data>
   <data name="NotifyProjectManager" xml:space="preserve">
     <value>Notify project manager by email</value>
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>OK</value>
-  </data>
-  <data name="PausedProject" xml:space="preserve">
-    <value>Paused</value>
   </data>
   <data name="Project" xml:space="preserve">
     <value>Project</value>
@@ -456,26 +346,17 @@
   <data name="RefreshChart" xml:space="preserve">
     <value>Refresh chart</value>
   </data>
-  <data name="Responsibles" xml:space="preserve">
-    <value>responsible users</value>
-  </data>
   <data name="SaveProject" xml:space="preserve">
     <value>Save Project</value>
   </data>
   <data name="SelectProjectTemplate" xml:space="preserve">
     <value>Select project template</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Project Settings</value>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Select</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
-  </data>
-  <data name="Tasks" xml:space="preserve">
-    <value>task(s)</value>
-  </data>
-  <data name="Team" xml:space="preserve">
-    <value>Team</value>
   </data>
   <data name="TitleMilestoneClosedTasks" xml:space="preserve">
     <value>Closed tasks. Click to open the whole list for the current milestone.</value>
@@ -509,17 +390,5 @@
   </data>
   <data name="ViewActiveTasks" xml:space="preserve">
     <value>View Open Tasks</value>
-  </data>
-  <data name="SelectTags" xml:space="preserve">
-    <value>Select</value>
-  </data>
-  <data name="DeleteProjects" xml:space="preserve">
-    <value>Delete projects</value>
-  </data>
-  <data name="DeleteProjectsPopup" xml:space="preserve">
-    <value>Are you sure you want to delete these projects?</value>
-  </data>
-  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
-    <value>Create the projects and work effectively</value>
   </data>
 </root>

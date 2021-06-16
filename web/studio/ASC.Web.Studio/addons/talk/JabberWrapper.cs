@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,9 @@
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+
 using ASC.Core;
 using ASC.ElasticSearch;
 using ASC.ElasticSearch.Core;
@@ -84,6 +86,11 @@ namespace ASC.Web.Talk
             }
 
             return new MemoryStream(new byte[0]);
+        }
+
+        protected override Task<Stream> GetDocumentStreamAsync()
+        {
+            return Task.FromResult(GetDocumentStream());
         }
 
         public override string SettingsTitle

@@ -73,7 +73,14 @@
         <label for="cbxDeleteConfirm">
             <%= FilesUCResource.ConfirmDelete %>
         </label>
-
+        
+        <br />
+        <br />
+        <input type="checkbox" id="cbxDownloadTarGz" class="on-off-checkbox" <%= FilesSettings.DownloadTarGz ? "checked=\"checked\"" : string.Empty %> />
+        <label for="cbxDownloadTarGz">
+            <%= FilesUCResource.DownloadTarGz %>
+        </label>
+       
         <% if (!CurrentUser.IsVisitor())
            { %>
         <br />
@@ -108,6 +115,7 @@
         <label for="cbxRecent">
             <%= FilesUCResource.SettingRecent %>
         </label>
+
         <% if (FileUtility.ExtsWebTemplate.Any())
            { %>
         <br />

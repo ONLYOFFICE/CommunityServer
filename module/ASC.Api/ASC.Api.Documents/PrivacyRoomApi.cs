@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
 using ASC.Common.Logging;
@@ -26,7 +27,7 @@ using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Files.Core.Entries;
 using ASC.Web.Studio.Core;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Api.Documents
 {
@@ -43,7 +44,7 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <visible>false</visible>
         [Update("keys")]
-        public object SetKeys(string publicKey, string privateKeyEnc)
+        public object SetKeys(string publicKey, string privateKeyEnc, bool update = false)
         {
             SecurityContext.DemandPermissions(new UserSecurityProvider(SecurityContext.CurrentAccount.ID), Core.Users.Constants.Action_EditUser);
 
@@ -52,7 +53,8 @@ namespace ASC.Api.Documents
             var keyPair = EncryptionKeyPair.GetKeyPair();
             if (keyPair != null)
             {
-                if (!string.IsNullOrEmpty(keyPair.PublicKey))
+                if (!string.IsNullOrEmpty(keyPair.PublicKey)
+                    && !update)
                 {
                     return new { isset = true };
                 }
@@ -63,8 +65,8 @@ namespace ASC.Api.Documents
             EncryptionKeyPair.SetKeyPair(publicKey, privateKeyEnc);
 
             return new
-                {
-                    isset = true
+            {
+                isset = true
             };
         }
 

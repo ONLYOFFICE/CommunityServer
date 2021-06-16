@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,10 @@
 using System;
 using System.Linq;
 using System.Threading;
+
 using ASC.Common.Logging;
 using ASC.Data.Backup.Storage;
+using ASC.Files.Core;
 
 namespace ASC.Data.Backup.Service
 {
@@ -71,9 +73,9 @@ namespace ASC.Data.Backup.Service
                 try
                 {
                     log.Debug("started to clean expired backups");
-                    
+
                     var backupRepository = BackupStorageFactory.GetBackupRepository();
-                    
+
                     var backupsToRemove = backupRepository.GetExpiredBackupRecords();
                     log.DebugFormat("found {0} backups which are expired", backupsToRemove.Count);
 
@@ -109,15 +111,23 @@ namespace ASC.Data.Backup.Service
 
                             backupRepository.DeleteBackupRecord(backupRecord.Id);
                         }
+                        catch (ProviderInfoArgumentException error)
+                        {
+                            log.Warn("can't remove backup record " + backupRecord.Id, error);
+                            if (DateTime.UtcNow > backupRecord.CreatedOn.AddMonths(6))
+                            {
+                                backupRepository.DeleteBackupRecord(backupRecord.Id);
+                            }
+                        }
                         catch (Exception error)
                         {
-                            log.Warn("can't remove backup record: {0}", error);
+                            log.Warn("can't remove backup record " + backupRecord.Id, error);
                         }
                     }
                 }
                 catch (Exception error)
                 {
-                    log.Error("error while cleaning expired backup records: {0}", error);
+                    log.Error("error while cleaning expired backup records", error);
                 }
                 finally
                 {

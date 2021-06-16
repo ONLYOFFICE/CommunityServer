@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,18 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using ASC.Web.Studio.Utility;
-using System.Linq;
-using ASC.Core.Users;
 using ASC.Web.Projects.Core;
+using ASC.Web.Studio.Utility;
+
 using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
@@ -97,39 +99,39 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         private static Project ToProject(object[] r)
         {
             return new Project
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    Title = Convert.ToString(r[1]),
-                    Description = Convert.ToString(r[2]),
-                    Status = (ProjectStatus)Convert.ToInt32(3),
-                    StatusChangedOn = Convert.ToDateTime(r[4]),
-                    Responsible = new Guid(Convert.ToString(r[5])),
-                    Private = Convert.ToBoolean(r[6]),
-                    CreateBy = new Guid(Convert.ToString(r[7])),
-                    CreateOn = Convert.ToDateTime(r[8]),
-                    LastModifiedBy = ToGuid(r[9]),
-                    LastModifiedOn = Convert.ToDateTime(r[10])
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = Convert.ToString(r[1]),
+                Description = Convert.ToString(r[2]),
+                Status = (ProjectStatus)Convert.ToInt32(3),
+                StatusChangedOn = Convert.ToDateTime(r[4]),
+                Responsible = new Guid(Convert.ToString(r[5])),
+                Private = Convert.ToBoolean(r[6]),
+                CreateBy = new Guid(Convert.ToString(r[7])),
+                CreateOn = Convert.ToDateTime(r[8]),
+                LastModifiedBy = ToGuid(r[9]),
+                LastModifiedOn = Convert.ToDateTime(r[10])
+            };
         }
 
         private Feed ToFeed(Project project)
         {
             var itemUrl = "/Products/Projects/Tasks.aspx?prjID=" + project.ID;
             return new Feed(project.CreateBy, project.CreateOn)
-                {
-                    Item = item,
-                    ItemId = project.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = project.Title,
-                    Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(project.Description)),
-                    AdditionalInfo = Helper.GetUser(project.Responsible).DisplayUserName(),
-                    Keywords = string.Format("{0} {1}", project.Title, project.Description),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = string.Format("{0}_{1}", item, project.ID)
-                };
+            {
+                Item = item,
+                ItemId = project.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                Product = Product,
+                Module = Name,
+                Title = project.Title,
+                Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(project.Description)),
+                AdditionalInfo = Helper.GetUser(project.Responsible).DisplayUserName(),
+                Keywords = string.Format("{0} {1}", project.Title, project.Description),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = string.Format("{0}_{1}", item, project.ID)
+            };
         }
     }
 }

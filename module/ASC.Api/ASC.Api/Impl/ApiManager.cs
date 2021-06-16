@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using ASC.Api.Exceptions;
 using ASC.Api.Interfaces;
 using ASC.Api.Utils;
 using ASC.Common.Logging;
+
 using Autofac;
 
 namespace ASC.Api.Impl
@@ -76,7 +78,7 @@ namespace ASC.Api.Impl
                 {
                     //Pre call filter
                     methodToCall.Filters.ToList().ForEach(x => x.PreMethodCall(methodToCall, apicontext, callArg));
-                    if (apicontext.RequestContext.HttpContext.Response.StatusCode/100 != 2)
+                    if (apicontext.RequestContext.HttpContext.Response.StatusCode / 100 != 2)
                     {
                         return new HttpException(apicontext.RequestContext.HttpContext.Response.StatusCode,
                             apicontext.RequestContext.HttpContext.Response.StatusDescription);

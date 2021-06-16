@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using System.Web.Http;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Configuration;
@@ -32,6 +33,7 @@ using ASC.Web.CRM.Masters.ClientScripts;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.Services.NotifyService;
 using ASC.Web.Files.Api;
+
 using Autofac;
 
 
@@ -104,9 +106,9 @@ namespace ASC.Web.CRM.Configuration
             SearchHandlerManager.Registry(new SearchHandler());
 
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(
-                name: "Twilio", 
-                routeTemplate: "twilio/{action}", 
-                defaults: new {controller = "Twilio", action = "index" });
+                name: "Twilio",
+                routeTemplate: "twilio/{action}",
+                defaults: new { controller = "Twilio", action = "index" });
 
             ClientScriptLocalization = new ClientLocalizationResources();
             DIHelper.Register();
@@ -218,14 +220,14 @@ namespace ASC.Web.CRM.Configuration
                     });
 
                     // Contact Status
-                    listItemDao.CreateItem(ListType.ContactStatus, new ListItem {Title = CRMContactResource.ContactStatus_Cold, Color = "#8a98d8", SortOrder = 1});
-                    listItemDao.CreateItem(ListType.ContactStatus, new ListItem {Title = CRMContactResource.ContactStatus_Warm, Color = "#ffd267", SortOrder = 2});
-                    listItemDao.CreateItem(ListType.ContactStatus, new ListItem {Title = CRMContactResource.ContactStatus_Hot, Color = "#df7895", SortOrder = 3});
-                        // Contact Type
-                    listItemDao.CreateItem(ListType.ContactType, new ListItem {Title = CRMContactResource.ContactType_Client, SortOrder = 1});
-                    listItemDao.CreateItem(ListType.ContactType, new ListItem {Title = CRMContactResource.ContactType_Supplier, SortOrder = 2});
-                    listItemDao.CreateItem(ListType.ContactType, new ListItem {Title = CRMContactResource.ContactType_Partner, SortOrder = 3});
-                    listItemDao.CreateItem(ListType.ContactType, new ListItem {Title = CRMContactResource.ContactType_Competitor, SortOrder = 4});
+                    listItemDao.CreateItem(ListType.ContactStatus, new ListItem { Title = CRMContactResource.ContactStatus_Cold, Color = "#8a98d8", SortOrder = 1 });
+                    listItemDao.CreateItem(ListType.ContactStatus, new ListItem { Title = CRMContactResource.ContactStatus_Warm, Color = "#ffd267", SortOrder = 2 });
+                    listItemDao.CreateItem(ListType.ContactStatus, new ListItem { Title = CRMContactResource.ContactStatus_Hot, Color = "#df7895", SortOrder = 3 });
+                    // Contact Type
+                    listItemDao.CreateItem(ListType.ContactType, new ListItem { Title = CRMContactResource.ContactType_Client, SortOrder = 1 });
+                    listItemDao.CreateItem(ListType.ContactType, new ListItem { Title = CRMContactResource.ContactType_Supplier, SortOrder = 2 });
+                    listItemDao.CreateItem(ListType.ContactType, new ListItem { Title = CRMContactResource.ContactType_Partner, SortOrder = 3 });
+                    listItemDao.CreateItem(ListType.ContactType, new ListItem { Title = CRMContactResource.ContactType_Competitor, SortOrder = 4 });
 
                     // History Category
                     listItemDao.CreateItem(ListType.HistoryCategory, new ListItem(CRMCommonResource.HistoryCategory_Note, "event_category_note.png"));
@@ -262,7 +264,7 @@ namespace ASC.Web.CRM.Configuration
                         if (!string.IsNullOrEmpty(smtp.HostLogin) && !string.IsNullOrEmpty(smtp.HostPassword))
                         {
                             newSettings.SetCredentials(smtp.HostLogin, smtp.HostPassword);
-        }
+                        }
 
                         CoreContext.Configuration.SmtpSettings = newSettings;
                     }
@@ -282,7 +284,7 @@ namespace ASC.Web.CRM.Configuration
             if (registered)
             {
                 NotifyClient.Instance.Client.UnregisterSendMethod(NotifyClient.SendAutoReminderAboutTask);
-              
+
             }
         }
 

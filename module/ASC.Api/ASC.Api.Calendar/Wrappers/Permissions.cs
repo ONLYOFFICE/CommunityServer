@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 
 namespace ASC.Api.Calendar.Wrappers
@@ -36,7 +34,7 @@ namespace ASC.Api.Calendar.Wrappers
 
         public static object GetSample()
         {
-            return new { users = new List<object>(){ ASC.Api.Calendar.Wrappers.UserParams.GetSample() } };
+            return new { users = new List<object>() { ASC.Api.Calendar.Wrappers.UserParams.GetSample() } };
         }
     }
 
@@ -55,11 +53,11 @@ namespace ASC.Api.Calendar.Wrappers
     [DataContract(Name = "userparams", Namespace = "")]
     public class UserParams
     {
-        [DataMember(Name="objectId")]
-        public Guid Id{get; set;}
+        [DataMember(Name = "objectId")]
+        public Guid Id { get; set; }
 
-        [DataMember(Name="name")]
-        public string Name{get; set;}
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         public static object GetSample()
         {

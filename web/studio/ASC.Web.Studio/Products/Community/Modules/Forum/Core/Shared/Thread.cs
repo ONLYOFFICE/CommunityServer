@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,14 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Web.Community.Product;
 
 namespace ASC.Forum
 {
-	public class Thread : ISecurityObject
+    public class Thread : ISecurityObject
     {
         public virtual int ID { get; set; }
 
@@ -31,7 +32,7 @@ namespace ASC.Forum
 
         public virtual string Description { get; set; }
 
-        public virtual int SortOrder{get; set;}
+        public virtual int SortOrder { get; set; }
 
         public virtual int PostCount { get; set; }
 
@@ -63,9 +64,9 @@ namespace ASC.Forum
             TopicLastUpdates = new List<TopicLastUpdate>();
         }
 
-        public virtual bool Visible 
+        public virtual bool Visible
         {
-            get 
+            get
             {
                 return CommunitySecurity.CheckPermissions(this, Module.Constants.ReadPostsAction);
             }
@@ -104,19 +105,19 @@ namespace ASC.Forum
             {
                 if (tvi.TopicViewRecentPostIDs.ContainsKey(topicLastUpdate.TopicID))
                 {
-                    if(tvi.TopicViewRecentPostIDs[topicLastUpdate.TopicID] < topicLastUpdate.RecentPostID)
-                        return true;                                    
+                    if (tvi.TopicViewRecentPostIDs[topicLastUpdate.TopicID] < topicLastUpdate.RecentPostID)
+                        return true;
                 }
 
                 else if (tvi.RecentVisitDate != DateTime.MinValue)
                 {
-                    if(tvi.RecentVisitDate.CompareTo(topicLastUpdate.RecentPostCreateDate) < 0)                
-                        return true;                    
+                    if (tvi.RecentVisitDate.CompareTo(topicLastUpdate.RecentPostCreateDate) < 0)
+                        return true;
                 }
-                
-                else                
-                    return true;                    
-                
+
+                else
+                    return true;
+
             }
 
             return false;
@@ -125,13 +126,13 @@ namespace ASC.Forum
 
         #region ISecurityObjectId Members
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public object SecurityId
         {
             get { return this.ID; }
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public System.Type ObjectType
         {
             get { return this.GetType(); }
@@ -141,25 +142,25 @@ namespace ASC.Forum
 
         #region ISecurityObjectProvider Members
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public IEnumerable<IRole> GetObjectRoles(ISubject account, ISecurityObjectId objectId, SecurityCallContext callContext)
-        {            
+        {
             return new IRole[0];
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public ISecurityObjectId InheritFrom(ISecurityObjectId objectId)
         {
-            return new ThreadCategory() {ID = this.CategoryID};
+            return new ThreadCategory() { ID = this.CategoryID };
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public bool InheritSupported
         {
             get { return true; }
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public bool ObjectRolesSupported
         {
             get { return true; }

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddEmailError" xml:space="preserve">
     <value>Ошибка при добавлении почтового адреса</value>
@@ -135,6 +76,12 @@
   <data name="AlreadyContainsPhone" xml:space="preserve">
     <value>Этот номер телефона уже был добавлен</value>
   </data>
+  <data name="AutoreplyServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Autoreply</value>
+  </data>
+  <data name="BackupServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Backup</value>
+  </data>
   <data name="BackupServiceWorksIncorrectMsg" xml:space="preserve">
     <value>Сервис бэкапа работает некорректно</value>
   </data>
@@ -143,6 +90,9 @@
   </data>
   <data name="CacheClearError" xml:space="preserve">
     <value>Ошибка при очистке кеша</value>
+  </data>
+  <data name="CoAuthoringServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Editors CoAuthoring</value>
   </data>
   <data name="DownloadLogError" xml:space="preserve">
     <value>Ошибка при скачивании логов</value>
@@ -164,6 +114,12 @@
   </data>
   <data name="FeedService_NewsGenerationError" xml:space="preserve">
     <value>Новости для ленты не генерируются</value>
+  </data>
+  <data name="FeedServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Feed</value>
+  </data>
+  <data name="FileConverterServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Editors File Converter</value>
   </data>
   <data name="FullTextIndexServiceWorksCorrectMsg" xml:space="preserve">
     <value>Сервис полнотекстового поиска работает корректно</value>
@@ -201,16 +157,25 @@
   <data name="ImapsDescription" xml:space="preserve">
     <value>Используется для сбора почты сервисами OnlyOffice Mail по протоколу IMAPS</value>
   </data>
-  <data name="KeyElementError" xml:space="preserve">
-    <value>Ключ {0} не найден в конфигурационном файле</value>
+  <data name="IndexServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Index</value>
+  </data>
+  <data name="JabberServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Jabber</value>
+  </data>
+  <data name="MailAggregatorServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Mail Aggregator</value>
+  </data>
+  <data name="MailWatchdogServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Mail Watchdog</value>
   </data>
   <data name="MegaByte" xml:space="preserve">
     <value>{0} Мб</value>
   </data>
-  <data name="MonoServeRestartError" xml:space="preserve">
-    <value>Service monoserve restart error: {0}</value>
+  <data name="MiniChatServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Minichat</value>
   </data>
-  <data name="NginxRestartError" xml:space="preserve">
+  <data name="MonoServeRestartError" xml:space="preserve">
     <value>Service monoserve restart error: {0}</value>
   </data>
   <data name="NoSuchEmailAddress" xml:space="preserve">
@@ -224,6 +189,9 @@
   </data>
   <data name="NotExpectedState" xml:space="preserve">
     <value>Не ожидаемое состояние сервиса</value>
+  </data>
+  <data name="NotifyServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Notify</value>
   </data>
   <data name="Pop3Description" xml:space="preserve">
     <value>Используется для сбора почты сервисами OnlyOffice Mail по протоколу POP3</value>
@@ -261,32 +229,11 @@
   <data name="ServerError" xml:space="preserve">
     <value>Ошибка сервера</value>
   </data>
-  <data name="ServiceAlreadyRun" xml:space="preserve">
-    <value>Cервис уже запущен</value>
-  </data>
-  <data name="ServiceAlreadyStop" xml:space="preserve">
-    <value>Сервис уже остановлен</value>
-  </data>
-  <data name="ServiceCheckAlreadyRun" xml:space="preserve">
-    <value>Проверка сервиса уже включена</value>
-  </data>
-  <data name="ServiceCheckAlreadyStop" xml:space="preserve">
-    <value>Проверка сервиса уже отключена</value>
-  </data>
   <data name="ServiceCheckFailed" xml:space="preserve">
     <value>Ошибка при проверке сервиса</value>
   </data>
-  <data name="ServiceCheckRun" xml:space="preserve">
-    <value>Проверка сервиса включена</value>
-  </data>
-  <data name="ServiceCheckStop" xml:space="preserve">
-    <value>Проверка сервиса отключена</value>
-  </data>
   <data name="ServiceError" xml:space="preserve">
     <value>Ошибка сервиса</value>
-  </data>
-  <data name="ServiceGetStatusError" xml:space="preserve">
-    <value>Ошибка при получении статуса сервиса</value>
   </data>
   <data name="ServiceNotFound" xml:space="preserve">
     <value>Сервис не найден на локальной машине</value>
@@ -324,6 +271,9 @@
   <data name="SetNotifySettingsError" xml:space="preserve">
     <value>Ошибка при сохранении настроек уведомления</value>
   </data>
+  <data name="SignalRServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE SignalR</value>
+  </data>
   <data name="SmallDriveSpace" xml:space="preserve">
     <value>Заканчивается свободное дисковое пространство</value>
   </data>
@@ -332,6 +282,9 @@
   </data>
   <data name="SmtpsDescription" xml:space="preserve">
     <value>Используется для защищенной отправки сообщений через web-client OnlyOffice Mail</value>
+  </data>
+  <data name="SpellCheckerServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Editors Spellchecker</value>
   </data>
   <data name="StatusServiceError" xml:space="preserve">
     <value>Ошибка</value>
@@ -362,44 +315,5 @@
   </data>
   <data name="XmppDescription" xml:space="preserve">
     <value>Используется Jabber-сервером для установки соединений и передачи данных</value>
-  </data>
-  <data name="AutoreplyServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Autoreply</value>
-  </data>
-  <data name="BackupServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Backup</value>
-  </data>
-  <data name="CoAuthoringServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Editors CoAuthoring</value>
-  </data>
-  <data name="FeedServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Feed</value>
-  </data>
-  <data name="FileConverterServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Editors File Converter</value>
-  </data>
-  <data name="IndexServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Index</value>
-  </data>
-  <data name="JabberServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Jabber</value>
-  </data>
-  <data name="MailAggregatorServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Mail Aggregator</value>
-  </data>
-  <data name="MailWatchdogServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Mail Watchdog</value>
-  </data>
-  <data name="MiniChatServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Minichat</value>
-  </data>
-  <data name="NotifyServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Notify</value>
-  </data>
-  <data name="SignalRServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE SignalR</value>
-  </data>
-  <data name="SpellCheckerServiceTitle" xml:space="preserve">
-    <value>ONLYOFFICE Editors Spellchecker</value>
   </data>
 </root>

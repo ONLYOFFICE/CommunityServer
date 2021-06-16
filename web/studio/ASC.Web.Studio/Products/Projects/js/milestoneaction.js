@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,6 @@ ASC.Projects.MilestoneAction = (function() {
     function initMilestoneFormElementsAndConstants() {
         if (isInitMilestoneForm) return;
         isInitMilestoneForm = true;
-        var milesoneResource = resources.MilestoneResource;
 
         jq("#milestoneActionPanel")
             .html(jq.tmpl("common_containerTmpl",
@@ -81,13 +80,13 @@ ASC.Projects.MilestoneAction = (function() {
                     title: "projects_milestone_action",
                     data: {
                         title: {
-                            error: milesoneResource.NoTitleMessage,
-                            header: milesoneResource.Title
+                            error: resources.MilestoneResource.NoTitleMessage,
+                            header: resources.MilestoneResource.Title
                         },
-                        description: milesoneResource.Description,
+                        description: resources.MilestoneResource.Description,
                         project: {
                             header: resources.ProjectResource.Project,
-                            error: milesoneResource.ChooseProject
+                            error: resources.MilestoneResource.ChooseProject
                         }
                     }
                 }
@@ -292,7 +291,7 @@ ASC.Projects.MilestoneAction = (function() {
         var selectorObj = {
             onechosen: true,
             inPopup: true,
-            noresults: ASC.Resources.Master.Resource.UserSelectorNoResults
+            noresults: ASC.Resources.Master.ResourceJS.UserSelectorNoResults
         };
         currentProjectId = jq.getURLParam('prjID');
         if (currentProjectId) {
@@ -521,7 +520,7 @@ ASC.Projects.MilestoneAction = (function() {
                 return !item.isVisitor;
             })
             .map(function (item) {
-                return { id: item.id, title: item.id == teamlab.profile.id ? ASC.Resources.Master.Resource.MeLabel : item.displayName };
+                return { id: item.id, title: item.id == teamlab.profile.id ? ASC.Resources.Master.ResourceJS.MeLabel : item.displayName };
             });
         
         var mileResp = participants.find(function(item) {
@@ -537,7 +536,7 @@ ASC.Projects.MilestoneAction = (function() {
             if (!participants.length) {
                 $noActiveParticipantsMilNote.removeClass(displayNoneClass);
                 $milestoneActionButton.addClass(disableClass);
-                respSelected = [{ id: "", title: resources.CommonResource.Select }];
+                respSelected = [{ id: "", title: resources.ProjectsCommonResource.Select }];
             } else {
                 var currentProject = common.getProjectById(selectedPrjId);
                 $noActiveParticipantsMilNote.addClass(displayNoneClass);

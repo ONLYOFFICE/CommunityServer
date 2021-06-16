@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,6 +141,7 @@ ASC.Feed = (function() {
         $('#feed-filter').advansedFilter(
             {
                 store: false,
+                hintDefaultDisable: false,
                 anykey: true,
                 colcount: 2,
                 anykeytimeout: 1000,
@@ -478,6 +479,7 @@ ASC.Feed = (function() {
             case 'poll':
                 template.itemClass = 'events';
                 break;
+            case 'forum':
             case 'forumTopic':
             case 'forumPoll':
             case 'forumPost':
@@ -1008,7 +1010,7 @@ ASC.Feed = (function() {
     }
 
     function showErrorMessage() {
-        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+        toastr.error(ASC.Resources.Master.ResourceJS.CommonJSErrorMsg);
     }
 
     return jq.extend({

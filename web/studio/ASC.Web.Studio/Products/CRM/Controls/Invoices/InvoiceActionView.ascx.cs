@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,22 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Web;
 using System.Web.UI.WebControls;
-using ASC.CRM.Core.Entities;
+
+using ASC.Common.Logging;
 using ASC.Core;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.CRM.Core;
-using ASC.Web.Studio.Core;
-using System.Web;
-using ASC.Common.Logging;
-using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Core;
+using ASC.Web.CRM.Resources;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+
 using Autofac;
-using Newtonsoft.Json;
 
 namespace ASC.Web.CRM.Controls.Invoices
 {
@@ -160,9 +160,9 @@ namespace ASC.Web.CRM.Controls.Invoices
                 if (cookie == null)
                 {
                     cookie = new HttpCookie(ErrorCookieKey)
-                        {
-                            Value = ex.Message
-                        };
+                    {
+                        Value = ex.Message
+                    };
                     HttpContext.Current.Response.Cookies.Add(cookie);
                 }
             }

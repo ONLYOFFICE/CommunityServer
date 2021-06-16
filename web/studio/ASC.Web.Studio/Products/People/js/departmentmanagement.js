@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -107,7 +107,7 @@ var DepartmentManagement = new function () {
         jq("#membersAdvancedSelector").useradvancedSelector("reset");
         this._groupId = null;
         jq("#studio_departmentAddDialog .grouptitle").html(ASC.Resources.Master.AddDepartmentHeader);
-        jq("#studio_departmentAddDialog .middle-button-container a.blue").html(ASC.Resources.Master.Resource.AddButton);
+        jq("#studio_departmentAddDialog .middle-button-container a.blue").html(ASC.Resources.Master.ResourceJS.AddButton);
 
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = 'DepartmentManagement.AddDepartmentCallback()';
@@ -126,7 +126,7 @@ var DepartmentManagement = new function () {
 
         this._groupId = id;
         jq("#studio_departmentAddDialog .grouptitle").html(ASC.Resources.Master.EditDepartmentHeader);
-        jq("#studio_departmentAddDialog .middle-button-container .blue").html(ASC.Resources.Master.Resource.EditButton);
+        jq("#studio_departmentAddDialog .middle-button-container .blue").html(ASC.Resources.Master.ResourceJS.EditButton);
         jq("#studio_newDepName").val(gName);
 
         var $headAdvancedSelector = jq("#headAdvancedSelector"),
@@ -143,7 +143,7 @@ var DepartmentManagement = new function () {
         var $memberList = jq(".members-dep-list");
 
         jq("#membersDepartmentList").html("");
-        $memberList.append("<div class=\"loading-link\">" + ASC.Resources.Master.Resource.LoadingPleaseWait + "</div>");
+        $memberList.append("<div class=\"loading-link\">" + ASC.Resources.Master.ResourceJS.LoadingPleaseWait + "</div>");
 
         if (gMembers.length) {
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,13 @@
 */
 
 
+using System;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
+using System.Web;
+
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Core.Users;
@@ -23,12 +29,6 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
-using System;
-using System.Drawing;
-using System.IO;
-using System.Web;
-using ASC.Common.Logging;
 
 namespace ASC.Web.Studio.UserControls.CustomNavigation
 {
@@ -57,7 +57,7 @@ namespace ASC.Web.Studio.UserControls.CustomNavigation
                     var data = new byte[logo.InputStream.Length];
 
                     var reader = new BinaryReader(logo.InputStream);
-                    reader.Read(data, 0, (int) logo.InputStream.Length);
+                    reader.Read(data, 0, (int)logo.InputStream.Length);
                     reader.Close();
 
                     using (var stream = new MemoryStream(data))

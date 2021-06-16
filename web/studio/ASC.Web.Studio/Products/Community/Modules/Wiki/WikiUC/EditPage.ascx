@@ -2,7 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditPage.ascx.cs" Inherits="ASC.Web.UserControls.Wiki.UC.EditPage" %>
 <%@ Register Src="MiniToolbar.ascx" TagPrefix="uc" TagName="ToolBar" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Wiki.Resources" %>
 
 <script language="javascript" type="text/javascript">
     var WikiPlugName = 'fck_wysiwyg';

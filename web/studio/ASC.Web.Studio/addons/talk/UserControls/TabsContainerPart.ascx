@@ -11,10 +11,6 @@
         <a title="" href=""><div class="talk-top-logo-label" ><%=TalkResource.Chat%></div></a>
     </div>
   <ul class="tabs">
-   <!--<li class ="studio-top-logo" </li>
-    <a class="top-logo" title="ONLYOFFICE" href="#">
-       <img alt="" src="https://d3b5653v7ash7c.cloudfront.net/studio/tag/nct.8.9.0/skins/default/images/onlyoffice_logo/light_small_general.png">
-    </a> -->
     <li class="tab default" unselectable="on">
       <div class="background" unselectable="on"><div class="helper" unselectable="on"></div></div>
       <div class="left-side" unselectable="on"></div>

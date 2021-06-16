@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Files.Core.Security;
 using ASC.Mail.Enums;
 using ASC.Mail.Exceptions;
@@ -46,7 +47,7 @@ namespace ASC.Mail.Data.Contracts.Base
             MimeReplyToId = mimeReplyToId;
             Important = important;
             Labels = tags;
-            HtmlBody = body ?? "";
+            HtmlBody = string.IsNullOrEmpty(body) ? "<p>&nbsp;</p>" : body;
             StreamId = streamId;
 
             var distinct = attachments == null ? new List<MailAttachmentData>() : attachments.Distinct().ToList();
@@ -58,7 +59,7 @@ namespace ASC.Mail.Data.Contracts.Base
             Attachments = distinct;
             AttachmentsEmbedded = new List<MailAttachmentData>();
 
-            if (string.IsNullOrEmpty(calendarIcs)) 
+            if (string.IsNullOrEmpty(calendarIcs))
                 return;
 
             _calendarIcs = calendarIcs;
@@ -107,21 +108,25 @@ namespace ASC.Mail.Data.Contracts.Base
 
         public FileShare FileLinksShareMode { get; set; }
 
-        public bool AccountChanged {
+        public bool AccountChanged
+        {
             get { return Mailbox.MailBoxId != PreviousMailboxId; }
         }
 
         public int PreviousMailboxId { get; set; }
 
-        public string CalendarIcs {
+        public string CalendarIcs
+        {
             get { return _calendarIcs; }
         }
 
-        public string CalendarEventUid {
+        public string CalendarEventUid
+        {
             get { return _calendarEventUid; }
         }
 
-        public string CalendarMethod {
+        public string CalendarMethod
+        {
             get { return _calendarMethod; }
         }
     }

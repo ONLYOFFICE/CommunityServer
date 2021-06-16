@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using System.Linq;
+
 using ASC.Core.Billing;
 using ASC.Data.Backup.Tasks.Data;
 
@@ -67,7 +67,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new TableInfo("feed_users") {InsertMethod = InsertMethod.None},
                 new TableInfo("backup_backup", "tenant_id", "id", IdType.Guid),
                 new TableInfo("backup_schedule", "tenant_id"),
-                new TableInfo("core_settings", "tenant") 
+                new TableInfo("core_settings", "tenant")
             };
 
         private readonly RelationInfo[] _tableRelations = new[]
@@ -161,7 +161,7 @@ namespace ASC.Data.Backup.Tasks.Modules
 
         protected override string GetSelectCommandConditionText(int tenantId, TableInfo table)
         {
-            
+
             if (table.Name == "feed_users")
                 return "inner join core_user t1 on t1.id = t.user_id where t1.tenant = " + tenantId;
 

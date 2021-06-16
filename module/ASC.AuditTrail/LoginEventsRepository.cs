@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using ASC.AuditTrail.Mappers;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
-using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+
 using Newtonsoft.Json;
 
 namespace ASC.AuditTrail.Data
@@ -102,27 +104,27 @@ namespace ASC.AuditTrail.Data
             try
             {
                 var evt = new LoginEvent
-                    {
-                        Id = Convert.ToInt32(row[0]),
-                        IP = Convert.ToString(row[1]),
-                        Login = Convert.ToString(row[2]),
-                        Browser = Convert.ToString(row[3]),
-                        Platform = Convert.ToString(row[4]),
-                        Date = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
-                        TenantId = Convert.ToInt32(row[6]),
-                        UserId = Guid.Parse(Convert.ToString(row[7])),
-                        Page = Convert.ToString(row[8]),
-                        Action = Convert.ToInt32(row[9])
-                    };
+                {
+                    Id = Convert.ToInt32(row[0]),
+                    IP = Convert.ToString(row[1]),
+                    Login = Convert.ToString(row[2]),
+                    Browser = Convert.ToString(row[3]),
+                    Platform = Convert.ToString(row[4]),
+                    Date = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
+                    TenantId = Convert.ToInt32(row[6]),
+                    UserId = Guid.Parse(Convert.ToString(row[7])),
+                    Page = Convert.ToString(row[8]),
+                    Action = Convert.ToInt32(row[9])
+                };
 
                 if (row[10] != null)
                 {
                     evt.Description = JsonConvert.DeserializeObject<IList<string>>(
                         Convert.ToString(row[10]),
                         new JsonSerializerSettings
-                            {
-                                DateTimeZoneHandling = DateTimeZoneHandling.Utc
-                            });
+                        {
+                            DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                        });
                 }
                 evt.UserName = (row[11] != null && row[12] != null)
                                    ? UserFormatter.GetUserName(Convert.ToString(row[11]), Convert.ToString(row[12]))
@@ -136,7 +138,7 @@ namespace ASC.AuditTrail.Data
 
                 return evt;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //log.Error("Error while forming event from db: " + ex);
                 return null;

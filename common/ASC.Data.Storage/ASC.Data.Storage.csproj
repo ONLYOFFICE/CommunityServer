@@ -77,15 +77,9 @@
     <Compile Include="DataStoreCache.cs" />
     <Compile Include="DiscStorage\DiscDataStore.cs" />
     <Compile Include="DiscStorage\DiscDataHandler.cs" />
-    <Compile Include="Encryption\Crypt.cs" />
-    <Compile Include="Encryption\EncryprtionStatus.cs" />
-    <Compile Include="Encryption\StreamWrapper.cs" />
+    <Compile Include="Encryption\FakeCrypt.cs" />
     <Compile Include="Encryption\EncryptionFactory.cs" />
-    <Compile Include="Encryption\IMetadata.cs" />
-    <Compile Include="Encryption\IntegrityProtectionException.cs" />
     <Compile Include="DiscStorage\MappedPath.cs" />
-    <Compile Include="Encryption\Metadata.cs" />
-    <Compile Include="Encryption\CryptoStreamWrapper.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GoogleCloud\GoogleCloudStorage.cs" />
     <Compile Include="IDataStore.cs" />
@@ -106,10 +100,8 @@
     <Compile Include="StorageUploader.cs" />
     <Compile Include="TenantPath.cs" />
     <Compile Include="TenantQuotaController.cs" />
-    <Compile Include="Encryption\ICrypt.cs" />
     <Compile Include="Encryption\IEncryptionService.cs" />
     <Compile Include="Encryption\EncryptionServiceClient.cs" />
-    <Compile Include="Encryption\EncryptionSettings.cs" />
     <Compile Include="Wildcard.cs" />
     <Compile Include="StorageFactory.cs" />
     <Compile Include="WebPath.cs" />
@@ -134,6 +126,10 @@
     <ProjectReference Include="..\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Data.Encryption\ASC.Data.Encryption.csproj">
+      <Project>{448851d4-e525-4acc-9ae4-7aec289445bc}</Project>
+      <Name>ASC.Data.Encryption</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

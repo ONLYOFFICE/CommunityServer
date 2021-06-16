@@ -1,28 +1,28 @@
 ﻿<script id="projects_settings" type="text/x-jquery-tmpl">
     {{if ASC.Projects.Master.IsModuleAdmin}}
-    <span class="header-base">${ASC.Projects.Resources.CommonResource.CommonSettings}</span>
+    <span class="header-base">${ASC.Projects.Resources.ProjectsCommonResource.CommonSettings}</span>
     <div class="settings-box">
         <input id="cbxEnableSettings" class="on-off-checkbox" {{if everebodyCanCreate}}checked="checked"{{/if}} type="checkbox">
         <label for="cbxEnableSettings">
-            ${ASC.Projects.Resources.CommonResource.SettingsWhoCanCreateProject}
+            ${ASC.Projects.Resources.ProjectsCommonResource.SettingsWhoCanCreateProject}
         </label>
     </div>
     <div class="settings-box">
         <input id="cbxHideSettings" class="on-off-checkbox" {{if hideEntitiesInPausedProjects}} checked="checked"{{/if}} type="checkbox">
         <label for="cbxHideSettings">
-            ${ASC.Projects.Resources.CommonResource.HideEntitiesInPausedProjects}
+            ${ASC.Projects.Resources.ProjectsCommonResource.HideEntitiesInPausedProjects}
         </label>
     </div>
     {{/if}}
     <div {{if ASC.Projects.Master.IsModuleAdmin}} class="settings-box" {{/if}}>
-        <span class="header-base">${ASC.Projects.Resources.CommonResource.PersonalSettings}</span>
+        <span class="header-base">${ASC.Projects.Resources.ProjectsCommonResource.PersonalSettings}</span>
         <div class="settings-box">
-            <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.StartPage}</div>
+            <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.ProjectsCommonResource.StartPage}</div>
             <span id="startModule" class="top-align link dotline">${startModuleTitle}</span>
         </div>
         {{if !Teamlab.profile.isVisitor}}
         <div class="settings-box folderSelectorBox">
-            <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.CommonResource.ReportFolder}</div>
+            <div class="header-base-small headerPanelSmall">${ASC.Projects.Resources.ProjectsCommonResource.ReportFolder}</div>
             <input type="text" class="folderSelector textEdit" readonly="readonly"/>
             <div class="button gray middle">${ASC.Resources.Master.TemplateResource.Choose}</div>
         </div>
@@ -31,10 +31,10 @@
 </script>
 
 <script id="projects_settings_custom_statuses_box" type="text/x-jquery-tmpl">
-    <div>${ASC.Projects.Resources.CommonResource.CustomStatusDescriptionBox}</div>
+    <div>${ASC.Projects.Resources.ProjectsCommonResource.CustomStatusDescriptionBox}</div>
     <div class="settings-box">
         <a id="newStatus" class="button gray">
-            <span class="plus">${ASC.Projects.Resources.CommonResource.CustomStatusNew}</span>
+            <span class="plus">${ASC.Projects.Resources.ProjectsCommonResource.CustomStatusNew}</span>
         </a>
         {{each customStatuses}}
         {{tmpl($item.data.customStatuses[$index]) 'projects_settings_custom_statuses'}}
@@ -48,7 +48,7 @@
         {{if state.can}}
         <div class="settings-box">
             <input id="cbxAvailable${id}" class="on-off-checkbox" {{if state.on}} checked="checked" {{/if}} {{if !state.enabled}} disabled="disabled" {{/if}} type="checkbox">
-            <label for="cbxAvailable${id}">${ASC.Projects.Resources.CommonResource.ChangeCustomStatusAvailable}</label>
+            <label for="cbxAvailable${id}">${ASC.Projects.Resources.ProjectsCommonResource.ChangeCustomStatusAvailable}</label>
         </div>
         {{/if}}
         <div class="settings-box">
@@ -72,7 +72,7 @@
             <span>${description}</span>
         </div>
         <div class="with-entity-menu">
-            <div class="entity-menu " title="${ASC.Projects.Resources.CommonResource.Actions}">
+            <div class="entity-menu " title="${ASC.Projects.Resources.ProjectsCommonResource.Actions}">
             </div>
         </div>
     </div>
@@ -83,37 +83,37 @@
         <div class="block-cnt-splitter">
             <div id="changeIcon">
                 <img src="data:${imageType};base64,${image}"/>
-                <span class="baseLinkAction">${ASC.Projects.Resources.CommonResource.ChangeIconCustomStatus}</span>
+                <span class="baseLinkAction">${ASC.Projects.Resources.ProjectsCommonResource.ChangeIconCustomStatus}</span>
             </div>
             <div id="changeColor">
                 <div style="background-color:${color}"></div>
-                <span class="baseLinkAction">${ASC.Projects.Resources.CommonResource.ChangeColorCustomStatus}</span>
+                <span class="baseLinkAction">${ASC.Projects.Resources.ProjectsCommonResource.ChangeColorCustomStatus}</span>
             </div>
         </div>
         <div class="block-cnt-splitter titlePanel requiredField">
-            <span class="requiredErrorText title">${ASC.Projects.Resources.CommonResource.EmptyStatusTitle}</span>
+            <span class="requiredErrorText title">${ASC.Projects.Resources.ProjectsCommonResource.EmptyStatusTitle}</span>
             <div class="headerPanelSmall">
-                ${ASC.Projects.Resources.CommonResource.CustomStatusTitle}:
+                ${ASC.Projects.Resources.ProjectsCommonResource.CustomStatusTitle}:
             </div>
             <input class="textEdit" maxlength="250" value="${title}"/>
         </div>
         <div class="block-cnt-splitter">
             <div class="headerPanelSmall">
-                ${ASC.Projects.Resources.CommonResource.CustomStatusDescription}:
+                ${ASC.Projects.Resources.ProjectsCommonResource.CustomStatusDescription}:
             </div>
             <textarea cols="22" rows="3">${description}</textarea>
         </div>
         {{if !isDefault }}
         <div class="block-cnt-splitter">
-            <span>${ASC.Projects.Resources.CommonResource.CustomStatusCategory}:</span>
+            <span>${ASC.Projects.Resources.ProjectsCommonResource.CustomStatusCategory}:</span>
             <span id="changeCategory" class="baseLinkAction">${category}</span>
         </div>
         {{/if}}
         <div class="errorBox display-none"></div>
         <div class="middle-button-container">
-            <a class="button blue middle">${ASC.Projects.Resources.CommonResource.Save}</a>
+            <a class="button blue middle">${ASC.Projects.Resources.ProjectsCommonResource.Save}</a>
             <span class="splitter-buttons"></span>
-            <a class="button gray middle cancel">${ASC.Projects.Resources.CommonResource.Cancel}</a>
+            <a class="button gray middle cancel">${ASC.Projects.Resources.ProjectsCommonResource.Cancel}</a>
         </div>
     </div>
     <div id="popup_iconPanel" class="studio-action-panel">

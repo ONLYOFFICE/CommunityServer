@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
@@ -31,10 +33,10 @@ namespace ASC.FederatedLogin.LoginProviders
         //https://developers.google.com/gmail/imap/xoauth2-protocol
         public const string GoogleScopeMail = "https://mail.google.com/";
 
-        public const string GoogleUrlContacts = "https://www.google.com/m8/feeds/contacts/default/full/";
         public const string GoogleUrlFile = "https://www.googleapis.com/drive/v3/files/";
         public const string GoogleUrlFileUpload = "https://www.googleapis.com/upload/drive/v3/files";
         public const string GoogleUrlProfile = "https://people.googleapis.com/v1/people/me";
+        public const string GoogleUrlContacts = "https://people.googleapis.com/v1/people/me/connections?personFields=names%2CemailAddresses&pageSize=1000";
 
         public static readonly string[] GoogleDriveExt = new[] { ".gdoc", ".gsheet", ".gslides", ".gdraw" };
         public static string GoogleDriveMimeTypeFolder = "application/vnd.google-apps.folder";
@@ -83,10 +85,10 @@ namespace ASC.FederatedLogin.LoginProviders
             if (jProfile == null) throw new Exception("Failed to correctly process the response");
 
             var profile = new LoginProfile
-                {
-                    Id = jProfile.Value<string>("resourceName").Replace("people/", ""),
-                    Provider = ProviderConstants.Google,
-                };
+            {
+                Id = jProfile.Value<string>("resourceName").Replace("people/", ""),
+                Provider = ProviderConstants.Google,
+            };
 
             var emailsArr = jProfile.Value<JArray>("emailAddresses");
             if (emailsArr != null)

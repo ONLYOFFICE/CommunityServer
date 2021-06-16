@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Wiki.Wrappers;
 using ASC.Core;
@@ -30,6 +31,7 @@ using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
+
 using File = ASC.Web.UserControls.Wiki.Data.File;
 
 namespace ASC.Api.Community
@@ -80,7 +82,7 @@ namespace ASC.Api.Community
         [Read("wiki/{name}")]
         public PageWrapper GetPage(string name, int? version)
         {
-            if(string.IsNullOrEmpty(name)) throw new ArgumentException();
+            if (string.IsNullOrEmpty(name)) throw new ArgumentException();
 
             var page = version != null ? _engine.GetPage(name, (int)version) : _engine.GetPage(name);
 

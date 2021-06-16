@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -183,8 +183,6 @@ window.contactsPage = (function($) {
             }
             if (isChange) {
                 ASC.Controls.AnchorController.move(getAnchorByType(filter.ContactsStore) + toAnchor());
-
-                window.ASC.Mail.ga_track(ga_Categories.crmContacts, ga_Actions.filterClick, params.id);
             }
         }
     }
@@ -217,9 +215,6 @@ window.contactsPage = (function($) {
             }
             if (isChange) {
                 ASC.Controls.AnchorController.move(getAnchorByType(filter.ContactsStore) + toAnchor());
-
-                //google analytics
-                window.ASC.Mail.ga_track(ga_Categories.teamlabContacts, ga_Actions.filterClick, params.id);
             }
         }
 
@@ -259,9 +254,6 @@ window.contactsPage = (function($) {
             }
             if (isChange) {
                 ASC.Controls.AnchorController.move(getAnchorByType(filter.ContactsStore) + toAnchor());
-
-                //google analytics
-                window.ASC.Mail.ga_track(ga_Categories.teamlabContacts, ga_Actions.filterClick, params.id);
             }
         }
 
@@ -517,15 +509,6 @@ window.contactsPage = (function($) {
         pageActionContainer.find('.menuActionSendEmail').click(function () {
             if ($(this).hasClass('unlockAction')) {
                 massMailing();
-
-                var category = ga_Categories.crmContacts;
-                if (TMMail.pageIs('tlContact')) {
-                    category = ga_Categories.teamlabContacts;
-                }
-                else if (TMMail.pageIs('personalContact')) {
-                    category = ga_Categories.personalContacts;
-                }
-                window.ASC.Mail.ga_track(category, ga_Actions.buttonClick, "write_letter");
             }
         });
 
@@ -820,15 +803,6 @@ window.contactsPage = (function($) {
 
     function actionPanelSelectAll() {
 
-        var category = ga_Categories.crmContacts;
-        if (TMMail.pageIs('tlContact')) {
-            category = ga_Categories.teamlabContacts;
-        }
-        else if (TMMail.pageIs('personalContact')) {
-            category = ga_Categories.personalContacts;
-        }
-        window.ASC.Mail.ga_track(category, ga_Actions.actionClick, "all_select");
-
         $('#ContactsList .row').each(function() {
             if ($(this).find('input[type="checkbox"]').hasClass('disable')) {
                 return true;
@@ -841,15 +815,6 @@ window.contactsPage = (function($) {
     }
 
     function actionPanelSelectNone() {
-
-        var category = ga_Categories.crmContacts;
-        if (TMMail.pageIs('tlContact')) {
-            category = ga_Categories.teamlabContacts;
-        }
-        else if (TMMail.pageIs('personalContact')) {
-            category = ga_Categories.personalContacts;
-        }
-        window.ASC.Mail.ga_track(category, ga_Actions.actionClick, "none_select");
 
         clearCurrentPageSelection();
 
@@ -933,8 +898,6 @@ window.contactsPage = (function($) {
 
     function actionPanelSelectWithTags() {
 
-        window.ASC.Mail.ga_track(ga_Categories.crmContacts, ga_Actions.actionClick, "whith_tag_select");
-
         clearCurrentPageSelection();
         $('#ContactsList .row').each(function() {
             var $row = $(this);
@@ -947,8 +910,6 @@ window.contactsPage = (function($) {
     }
 
     function actionPanelSelectWithoutTags() {
-
-        window.ASC.Mail.ga_track(ga_Categories.crmContacts, ga_Actions.actionClick, "without_select");
 
         clearCurrentPageSelection();
         $('#ContactsList .row').each(function() {
@@ -1120,7 +1081,7 @@ window.contactsPage = (function($) {
                     window.toastr.error(window.MailApiErrorsResource.ErrorDeleteContact);
                     console.error(error);
                 }
-            }, ASC.Resources.Master.Resource.LoadingProcessing);
+            }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
             popup.hide();
         });
 
@@ -1363,7 +1324,7 @@ window.contactsPage = (function($) {
 
             serviceManager.getCrmContacts({ Page: getPageFromFilter(), ContactsStore: filter.ContactsStore },
                 { filter: filterData, success: onGetCrmContacts },
-                ASC.Resources.Master.Resource.LoadingProcessing);
+                ASC.Resources.Master.ResourceJS.LoadingProcessing);
 
         } else if ('teamlab' == type) {
             filterData.StartIndex = filter.StartIndex;
@@ -1384,7 +1345,7 @@ window.contactsPage = (function($) {
             var options = { filter: filterData, success: onGetTlContacts };
 
             serviceManager.getProfilesByFilter({ Page: getPageFromFilter(), ContactsStore: filter.ContactsStore },
-                options, ASC.Resources.Master.Resource.LoadingProcessing);
+                options, ASC.Resources.Master.ResourceJS.LoadingProcessing);
         } else if ('custom' == type) {
             filterData.sortorder = filter.CustomSortOrder;
             filterData.fromIndex = filter.StartIndex;
@@ -1395,7 +1356,7 @@ window.contactsPage = (function($) {
             }
 
             serviceManager.getMailContacts(filterData, { Page: getPageFromFilter(), ContactsStore: filter.ContactsStore },
-                {success: onGetMailContacts }, ASC.Resources.Master.Resource.LoadingProcessing);
+                {success: onGetMailContacts }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
         }
     }
 

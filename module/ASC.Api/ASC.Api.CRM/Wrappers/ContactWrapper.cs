@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Specific;
-using Contact = ASC.CRM.Core.Entities.Contact;
 using ASC.Web.CRM;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Enums;
+
+using Contact = ASC.CRM.Core.Entities.Contact;
 
 namespace ASC.Api.CRM.Wrappers
 {
@@ -102,19 +104,19 @@ namespace ASC.Api.CRM.Wrappers
         public new static PersonWrapper GetSample()
         {
             return new PersonWrapper(0)
-                {
-                    IsPrivate = true,
-                    IsShared = false,
-                    IsCompany = false,
-                    FirstName = "Tadjeddine",
-                    LastName = "Bachir",
-                    Company = CompanyWrapper.GetSample(),
-                    Title = "Programmer",
-                    About = "",
-                    Created = ApiDateTime.GetSample(),
-                    CreateBy = EmployeeWraper.GetSample(),
-                    ShareType = ShareType.None
-                };
+            {
+                IsPrivate = true,
+                IsShared = false,
+                IsCompany = false,
+                FirstName = "Tadjeddine",
+                LastName = "Bachir",
+                Company = CompanyWrapper.GetSample(),
+                Title = "Programmer",
+                About = "",
+                Created = ApiDateTime.GetSample(),
+                CreateBy = EmployeeWraper.GetSample(),
+                ShareType = ShareType.None
+            };
         }
     }
 
@@ -185,14 +187,14 @@ namespace ASC.Api.CRM.Wrappers
         public new static CompanyWrapper GetSample()
         {
             return new CompanyWrapper(0)
-                {
-                    IsPrivate = true,
-                    IsShared = false,
-                    IsCompany = true,
-                    About = "",
-                    CompanyName = "Food and Culture Project",
-                    PersonsCount = 0
-                };
+            {
+                IsPrivate = true,
+                IsShared = false,
+                IsCompany = true,
+                About = "",
+                CompanyName = "Food and Culture Project",
+                PersonsCount = 0
+            };
         }
     }
 
@@ -266,8 +268,8 @@ namespace ASC.Api.CRM.Wrappers
                 About = "",
                 Created = ApiDateTime.GetSample(),
                 CreateBy = EmployeeWraper.GetSample(),
-                CommonData = new List<ContactInfoWrapper>(){ContactInfoWrapper.GetSample()},
-                CustomFields = new List<CustomFieldBaseWrapper>(){CustomFieldBaseWrapper.GetSample()},
+                CommonData = new List<ContactInfoWrapper>() { ContactInfoWrapper.GetSample() },
+                CustomFields = new List<CustomFieldBaseWrapper>() { CustomFieldBaseWrapper.GetSample() },
                 ShareType = ShareType.None,
                 CanDelete = true,
                 CanEdit = true,
@@ -459,13 +461,13 @@ namespace ASC.Api.CRM.Wrappers
         public static ContactBaseWrapper GetSample()
         {
             return new ContactBaseWrapper(0)
-                {
-                    IsPrivate = true,
-                    IsShared = false,
-                    IsCompany = false,
-                    DisplayName = "Tadjeddine Bachir",
-                    SmallFotoUrl = "url to foto"
-                };
+            {
+                IsPrivate = true,
+                IsShared = false,
+                IsCompany = false,
+                DisplayName = "Tadjeddine Bachir",
+                SmallFotoUrl = "url to foto"
+            };
         }
     }
 

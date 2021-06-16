@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,17 @@
  *
 */
 
-
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-
 namespace ASC.Forum
 {
     public class ForumPresenterFactory : IPresenterFactory
     {
         public IPresenter GetPresenter<T>() where T : class
         {
-            IPresenter presenter = null;            
+            IPresenter presenter = null;
 
             if (typeof(T).Equals(typeof(ISecurityActionView)))
                 presenter = new SecurityActionPresenter();
-         
+
             else if (typeof(T).Equals(typeof(INotifierView)))
                 presenter = new NotifierPresenter();
 
@@ -41,6 +35,6 @@ namespace ASC.Forum
                 presenter = new SubscriptionGetcherPresenter();
 
             return presenter;
-        }    
+        }
     }
 }

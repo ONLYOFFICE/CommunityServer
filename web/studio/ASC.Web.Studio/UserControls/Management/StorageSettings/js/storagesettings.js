@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 ASC.StorageSettings = (function () {
     function init() {
         var $storageSettingsTemplateBlock = jq("#storageSettingsBlockTemplate");
-        var storageBlock = { id: "storage", title: ASC.Resources.Master.Resource.StorageStorageTitle };
-        var cdnBlock = { id: "cdn", title: ASC.Resources.Master.Resource.StorageCdnTitle };
+        var storageBlock = { id: "storage", title: ASC.Resources.Master.ResourceJS.StorageStorageTitle };
+        var cdnBlock = { id: "cdn", title: ASC.Resources.Master.ResourceJS.StorageCdnTitle };
 
         jq(".storageBlock")
             .append($storageSettingsTemplateBlock.tmpl(storageBlock))

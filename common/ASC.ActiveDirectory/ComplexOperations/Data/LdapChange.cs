@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -26,7 +27,7 @@ namespace ASC.ActiveDirectory.ComplexOperations.Data
         [JsonConverter(typeof(StringEnumConverter))]
         public LdapChangeAction Action { get; private set; }
 
-        public string Sid { get; private set;  }
+        public string Sid { get; private set; }
 
         public string Name { get; private set; }
 
@@ -39,7 +40,7 @@ namespace ASC.ActiveDirectory.ComplexOperations.Data
         public List<LdapItemChange> Changes { get; private set; }
 
         public LdapChange(string sid, string name, LdapChangeType type, LdapChangeAction action,
-            List<LdapItemChange> changes = null) :this(sid, name, null, type, action, changes)
+            List<LdapItemChange> changes = null) : this(sid, name, null, type, action, changes)
         {
         }
 

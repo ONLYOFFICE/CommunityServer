@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,11 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
+
 using ASC.Data.Storage;
 using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -32,14 +31,11 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/AuditTrail/AuditTrail.ascx";
 
+        public string TariffPageLink { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings(ManagementType.AuditTrail.ToString()))
-            {
-                Response.Redirect(CommonLinkUtility.GetDefault(), true);
-                return;
-            }
-
+            TariffPageLink = TenantExtra.GetTariffPageLink();
             Page.RegisterBodyScripts("~/UserControls/Management/AuditTrail/js/audittrail.js")
                 .RegisterStyle("~/UserControls/Management/AuditTrail/css/audittrail.less");
 
@@ -50,6 +46,14 @@ namespace ASC.Web.Studio.UserControls.Management
                 Describe = AuditResource.AuditTrailEmptyScreenDscr
             };
             emptyScreenHolder.Controls.Add(emptyScreenControl);
+        }
+
+        protected bool EnableAuditTrail
+        {
+            get
+            {
+                return TenantExtra.GetTenantQuota().Audit;
+            }
         }
     }
 }

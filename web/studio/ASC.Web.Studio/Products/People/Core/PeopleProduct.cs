@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
@@ -88,15 +89,15 @@ namespace ASC.Web.People.Core
         public override void Init()
         {
             _context = new ProductContext
-                {
-                    MasterPageFile = "~/Products/People/PeopleBaseTemplate.Master",
-                    DisabledIconFileName = "product_disabled_logo.png",
-                    IconFileName = "product_logo.png",
-                    LargeIconFileName = "product_logolarge.svg",
-                    DefaultSortOrder = 50,
-                    AdminOpportunities = () => PeopleResource.ProductAdminOpportunities.Split('|').ToList(),
-                    UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList()
-                };
+            {
+                MasterPageFile = "~/Products/People/PeopleBaseTemplate.Master",
+                DisabledIconFileName = "product_disabled_logo.png",
+                IconFileName = "product_logo.png",
+                LargeIconFileName = "product_logolarge.svg",
+                DefaultSortOrder = 50,
+                AdminOpportunities = () => PeopleResource.ProductAdminOpportunities.Split('|').ToList(),
+                UserOpportunities = () => PeopleResource.ProductUserOpportunities.Split('|').ToList()
+            };
 
             SearchHandlerManager.Registry(new SearchHandler());
         }

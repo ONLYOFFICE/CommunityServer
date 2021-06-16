@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -29,6 +30,7 @@ using ASC.Projects.Engine;
 using ASC.Web.Projects.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
+
 using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
@@ -116,7 +118,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                     .InnerJoin("projects_projects p", Exp.EqColumns("p.id", "t.project_id") & Exp.Eq("p.tenant_id", filter.Tenant))
 
                     .Select(ProjectColumns().Select(p => "p." + p).ToArray())
-                    .LeftOuterJoin("projects_comments c", Exp.EqColumns("c.target_uniq_id", "concat('Task_', convert(t.id, char))") & Exp.Eq("c.tenant_id", filter.Tenant) & Exp.Eq("c.inactive", 0))
+                    .LeftOuterJoin("projects_comments c", Exp.EqColumns("c.target_uniq_id", "concat('Task_', t.id)") & Exp.Eq("c.tenant_id", filter.Tenant) & Exp.Eq("c.inactive", 0))
 
                     .Select(CommentColumns().Select(c => "c." + c).ToArray())
                     .Where("t.tenant_id", filter.Tenant)
@@ -191,55 +193,55 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         private static ProjectComment ToComment(object[] r)
         {
             var p = new ProjectComment
+            {
+                Task = new Task
                 {
-                    Task = new Task
-                        {
-                            ID = Convert.ToInt32(r[0]),
-                            Title = Convert.ToString(r[1]),
-                            Description = Convert.ToString(r[2]),
-                            Priority = (TaskPriority)Convert.ToInt32(r[3]),
-                            Status = (TaskStatus)Convert.ToInt32(r[4]),
-                            StatusChangedOn = Convert.ToDateTime(r[5]),
-                            Milestone = Convert.ToInt32(r[6]),
-                            SortOrder = Convert.ToInt32(r[7]),
-                            Deadline = Convert.ToDateTime(r[8]),
-                            StartDate = Convert.ToDateTime(r[9]),
-                            CreateBy = new Guid(Convert.ToString(r[10])),
-                            CreateOn = Convert.ToDateTime(r[11]),
-                            LastModifiedBy = ToGuid(r[12]),
-                            LastModifiedOn = Convert.ToDateTime(r[13]),
-                            Responsibles =
+                    ID = Convert.ToInt32(r[0]),
+                    Title = Convert.ToString(r[1]),
+                    Description = Convert.ToString(r[2]),
+                    Priority = (TaskPriority)Convert.ToInt32(r[3]),
+                    Status = (TaskStatus)Convert.ToInt32(r[4]),
+                    StatusChangedOn = Convert.ToDateTime(r[5]),
+                    Milestone = Convert.ToInt32(r[6]),
+                    SortOrder = Convert.ToInt32(r[7]),
+                    Deadline = Convert.ToDateTime(r[8]),
+                    StartDate = Convert.ToDateTime(r[9]),
+                    CreateBy = new Guid(Convert.ToString(r[10])),
+                    CreateOn = Convert.ToDateTime(r[11]),
+                    LastModifiedBy = ToGuid(r[12]),
+                    LastModifiedOn = Convert.ToDateTime(r[13]),
+                    Responsibles =
                                 r[14] != null
                                     ? new List<Guid>(Convert.ToString(r[14]).Split(',').Select(x => new Guid(x)))
                                     : new List<Guid>(),
-                            Project = new Project
-                                {
-                                    ID = Convert.ToInt32(r[15]),
-                                    Title = Convert.ToString(r[16]),
-                                    Description = Convert.ToString(r[17]),
-                                    Status = (ProjectStatus)Convert.ToInt32(18),
-                                    StatusChangedOn = Convert.ToDateTime(r[19]),
-                                    Responsible = new Guid(Convert.ToString(r[20])),
-                                    Private = Convert.ToBoolean(r[21]),
-                                    CreateBy = new Guid(Convert.ToString(r[22])),
-                                    CreateOn = Convert.ToDateTime(r[23]),
-                                    LastModifiedBy = ToGuid(r[24]),
-                                    LastModifiedOn = Convert.ToDateTime(r[25]),
-                                }
-                        }
-                };
+                    Project = new Project
+                    {
+                        ID = Convert.ToInt32(r[15]),
+                        Title = Convert.ToString(r[16]),
+                        Description = Convert.ToString(r[17]),
+                        Status = (ProjectStatus)Convert.ToInt32(18),
+                        StatusChangedOn = Convert.ToDateTime(r[19]),
+                        Responsible = new Guid(Convert.ToString(r[20])),
+                        Private = Convert.ToBoolean(r[21]),
+                        CreateBy = new Guid(Convert.ToString(r[22])),
+                        CreateOn = Convert.ToDateTime(r[23]),
+                        LastModifiedBy = ToGuid(r[24]),
+                        LastModifiedOn = Convert.ToDateTime(r[25]),
+                    }
+                }
+            };
 
             if (r[26] != null)
             {
                 p.Comment = new Comment
-                    {
-                        OldGuidId = new Guid(Convert.ToString(r[26])),
-                        Content = Convert.ToString(r[27]),
-                        CreateBy = new Guid(Convert.ToString(r[28])),
-                        CreateOn = Convert.ToDateTime(r[29]),
-                        Parent = new Guid(Convert.ToString(r[30])),
-                        TargetUniqID = Convert.ToString(r[31])
-                    };
+                {
+                    OldGuidId = new Guid(Convert.ToString(r[26])),
+                    Content = Convert.ToString(r[27]),
+                    CreateBy = new Guid(Convert.ToString(r[28])),
+                    CreateOn = Convert.ToDateTime(r[29]),
+                    Parent = new Guid(Convert.ToString(r[30])),
+                    TargetUniqID = Convert.ToString(r[31])
+                };
             }
             return p;
         }
@@ -257,26 +259,26 @@ namespace ASC.Feed.Aggregator.Modules.Projects
             var feedAuthor = comments.Any() ? comments.Last().Comment.CreateBy : task.CreateBy;
 
             var feed = new Feed(task.CreateBy, task.CreateOn, true)
-                {
-                    Item = item,
-                    ItemId = task.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    ModifiedBy = feedAuthor,
-                    ModifiedDate = feedDate,
-                    Product = Product,
-                    Module = Name,
-                    Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
-                    Title = task.Title,
-                    Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(task.Description)),
-                    ExtraLocation = task.Project.Title,
-                    ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
-                    AdditionalInfo = Helper.GetUsersString(task.Responsibles),
-                    HasPreview = false,
-                    CanComment = true,
-                    CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
-                    Comments = comments.Select(ToFeedComment),
-                    GroupId = string.Format("{0}_{1}", item, task.ID)
-                };
+            {
+                Item = item,
+                ItemId = task.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                ModifiedBy = feedAuthor,
+                ModifiedDate = feedDate,
+                Product = Product,
+                Module = Name,
+                Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
+                Title = task.Title,
+                Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(task.Description)),
+                ExtraLocation = task.Project.Title,
+                ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
+                AdditionalInfo = Helper.GetUsersString(task.Responsibles),
+                HasPreview = false,
+                CanComment = true,
+                CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
+                Comments = comments.Select(ToFeedComment),
+                GroupId = string.Format("{0}_{1}", item, task.ID)
+            };
             feed.Keywords = string.Format("{0} {1} {2}",
                                           task.Title,
                                           task.Description,
@@ -288,11 +290,11 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         private static FeedComment ToFeedComment(ProjectComment comment)
         {
             return new FeedComment(comment.Comment.CreateBy)
-                {
-                    Id = comment.Comment.OldGuidId.ToString(),
-                    Description = HtmlUtility.GetFull(comment.Comment.Content),
-                    Date = comment.Comment.CreateOn
-                };
+            {
+                Id = comment.Comment.OldGuidId.ToString(),
+                Description = HtmlUtility.GetFull(comment.Comment.Content),
+                Date = comment.Comment.CreateOn
+            };
         }
     }
 }

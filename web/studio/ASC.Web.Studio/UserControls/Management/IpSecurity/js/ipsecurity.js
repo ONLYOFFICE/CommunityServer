@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +104,7 @@ window.IpSecurity = new function() {
             Teamlab.updateIpRestrictionsSettings({ enable: false }, {
                 success: function() {
                     hideLoader();
-                    LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.Resource.IPRestrictionsSettingsSuccessfullyUpdated, 'success');
+                    LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.IPRestrictionsSettingsSuccessfullyUpdated, 'success');
                 },
                 error: function() {
                     hideLoader();
@@ -128,12 +128,12 @@ window.IpSecurity = new function() {
             }
 
             if (!ipRegex.test(r)) {
-                LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.Resource.IncorrectIPAddressFormatError, 'error');
+                LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.IncorrectIPAddressFormatError, 'error');
                 return;
             }
             
             if (~restrictionsToSave.indexOf(r)) {
-                LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.Resource.SameIPRestrictionError, 'error');
+                LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.SameIPRestrictionError, 'error');
                 return;
             } else {
                 restrictionsToSave.push(r);
@@ -171,7 +171,7 @@ window.IpSecurity = new function() {
                         if (!enabled) {
                             $ipsecurityOff.click();
                         }
-                        LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.Resource.IPRestrictionsSettingsSuccessfullyUpdated, 'success');
+                        LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.IPRestrictionsSettingsSuccessfullyUpdated, 'success');
                     }
                 });
     }
@@ -189,7 +189,7 @@ window.IpSecurity = new function() {
     }
 
     function showErrorMessage() {
-        LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.Resource.CommonJSErrorMsg, 'error');
+        LoadingBanner.showMesInfoBtn($settingsBlock, ASC.Resources.Master.ResourceJS.CommonJSErrorMsg, 'error');
     }
 
     return {

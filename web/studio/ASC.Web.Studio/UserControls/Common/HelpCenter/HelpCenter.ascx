@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HelpCenter.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.HelpCenter.HelpCenter" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <% if (HelpCenterItems != null)

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.UserControls.Wiki.Patterns {
+namespace ASC.Web.Community.Modules.Wiki.Code.Patterns {
     using System;
     
     
@@ -66,11 +66,11 @@ namespace ASC.Web.UserControls.Wiki.Patterns {
         ///  &lt;formatter type=&quot;ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common&quot; /&gt;
         ///
         ///  &lt;pattern id=&quot;new wiki page&quot; sender=&quot;email.sender&quot;&gt;
-        ///    &lt;subject resource=&quot;|subject_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki&quot; /&gt;
-        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_1|ASC.Web.Community.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community.Wiki&quot; /&gt;
+        ///    &lt;subject resource=&quot;|subject_1|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community&quot; /&gt;
+        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_1|ASC.Web.Community.Modules.Wiki.Code.Patterns.WikiPatternResource,ASC.Web.Community&quot; /&gt;
         ///  &lt;/pattern&gt;
         ///
-        ///  &lt;pattern id=&quot;new wiki page&quot; sender=&quot;messanger. [rest of string was truncated]&quot;;.
+        ///  &lt;pattern id=&quot;new wiki page&quot; sender=&quot;mess [rest of string was truncated]&quot;;.
         /// </summary>
         public static string patterns {
             get {

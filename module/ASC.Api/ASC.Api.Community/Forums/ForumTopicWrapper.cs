@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 */
 
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Forum;
 using ASC.Specific;
@@ -54,7 +54,7 @@ namespace ASC.Api.Forums
 
         [DataMember(Order = 10)]
         public string ThreadTitile { get; set; }
-               
+
 
         public ForumTopicWrapper(Topic topic)
         {
@@ -86,17 +86,17 @@ namespace ASC.Api.Forums
         public static ForumTopicWrapper GetSample()
         {
             return new ForumTopicWrapper()
-                       {
-                           Created = ApiDateTime.GetSample(),
-                           Updated = ApiDateTime.GetSample(),
-                           Id = 10,
-                           UpdatedBy = EmployeeWraper.GetSample(),
-                           Text = "This is sample post",
-                           Status = TopicStatus.Sticky,
-                           Tags = new List<string> { "Tag1", "Tag2" },
-                           Title = "Sample topic",
-                           Type = TopicType.Informational
-                       };
+            {
+                Created = ApiDateTime.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                Id = 10,
+                UpdatedBy = EmployeeWraper.GetSample(),
+                Text = "This is sample post",
+                Status = TopicStatus.Sticky,
+                Tags = new List<string> { "Tag1", "Tag2" },
+                Title = "Sample topic",
+                Type = TopicType.Informational
+            };
         }
     }
 }

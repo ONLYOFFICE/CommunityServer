@@ -49,37 +49,37 @@
 <script id="projects_descriptionPanelContent" type="text/x-jquery-tmpl">
     {{if creationDate}}
     <div class="date">
-        <div class="param">${ASC.Projects.Resources.TasksResource.CreatingDate}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.CreatingDate}:</div>
         <div class="value">${creationDate}</div>
     </div>
     {{/if}}
     {{if createdBy}}
     <div class="createdby">
-        <div class="param">${ASC.Projects.Resources.TasksResource.CreatedBy}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.CreatedBy}:</div>
         <div class="value">${createdBy}</div>
     </div>
     {{/if}}
     {{if typeof startDate == "string"}}
     <div class="startdate">
-        <div class="param">${ASC.Projects.Resources.TasksResource.TaskStartDate}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.TaskStartDate}:</div>
         <div class="value">${startDate}</div>
     </div>
     {{/if}}
     {{if closedDate}}
     <div class="closed">
-        <div class="param">${ASC.Projects.Resources.TasksResource.Closed}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.Closed}:</div>
         <div class="value">${closedDate}</div>
     </div>
     {{/if}}
     {{if closedBy}}
     <div class="closedby">
-        <div class="param">${ASC.Projects.Resources.TasksResource.ClosedBy}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.ClosedBy}:</div>
         <div class="value">${closedBy}</div>
     </div>
     {{/if}}
     {{if project}}
     <div class="project">
-        <div class="param">${ASC.Projects.Resources.TasksResource.Project}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.Project}:</div>
         <div class="value">
             <span {{if typeof(projectStatus) !=="undefined" && projectStatus !== 1}} class="link dotline" {{/if}}  projectid="${projectId}">{{html project}}</span>
         </div>
@@ -87,7 +87,7 @@
     {{/if}}
     {{if milestone}}
     <div class="milestone">
-        <div class="param">${ASC.Projects.Resources.TasksResource.Milestone}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.Milestone}:</div>
         <div class="value">
             <span {{if typeof(milestoneStatus) !=="undefined" && milestoneStatus !== 1}} class="link dotline" {{/if}}  projectid="${projectId}" milestone="${milestoneId}">{{html milestone}}</span>
         </div>
@@ -95,11 +95,11 @@
     {{/if}}
     {{if description}}
     <div class="descr">
-        <div class="param">${ASC.Projects.Resources.TasksResource.Description}:</div>
+        <div class="param">${ASC.Projects.Resources.TaskResource.Description}:</div>
         <div class="value">
             <div class="descrValue">{{html jq.linksParser(jq.htmlEncodeLight(description))}}</div>
             {{if readMore}}
-            <a class="readMore" target="_blank" href="${readMore}">${ASC.Projects.Resources.CommonResource.ReadMore}</a>
+            <a class="readMore" target="_blank" href="${readMore}">${ASC.Projects.Resources.ProjectsCommonResource.ReadMore}</a>
             {{/if}}
         </div>
     </div>
@@ -185,7 +185,7 @@
             <span class="main-title-icon ${$item.data.icon}"></span>
             {{if $item.data.private}}<span class="private"></span>{{/if}}
             <span id="essenceTitle" class="text-overflow" title="${$item.data.title}">${$item.data.title}</span>
-            <span class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></span>
+            <span class="entity-menu" title="${ASC.Projects.Resources.ProjectsCommonResource.Actions}"></span>
         </div>
 
         <div id="projectTabs" class="display-none tabsNavigationLinkBox"></div>
@@ -220,7 +220,7 @@
     <div class="descriptionContainer">
         {{if status.items.length }}
         <div>
-            <span class="title">${ASC.Projects.Resources.CommonResource.Status}:</span>
+            <span class="title">${ASC.Projects.Resources.ProjectsCommonResource.Status}:</span>
             <span class="value">
                 {{if status.canChange }}
                 <span class="link dotline status">
@@ -279,7 +279,7 @@
             </div>
             <div class="dashboard-buttons">
                 <a class="button huge create-button" href="/Products/Projects/Projects.aspx?action=add">
-                    ${ASC.Projects.Resources.CommonResource.CreateProjectButtonText}
+                    ${ASC.Projects.Resources.ProjectsCommonResource.CreateProjectButtonText}
                 </a>
             </div>
         </div>
@@ -291,7 +291,7 @@
     <div class="taskTitls ms">
         <b>${describe.description}</b>
     </div>
-    <div class="describe-text ms">${ASC.Projects.Resources.TasksResource.WillBeMovedToMilestone}:</div>
+    <div class="describe-text ms">${ASC.Projects.Resources.TaskResource.WillBeMovedToMilestone}:</div>
     <div class="milestonesList">
         {{tmpl(milestones) 'projects_milestoneForMoveTaskPanelTmpl'}}
     </div>
@@ -302,7 +302,7 @@
         </a>
         <span class="splitter-buttons"></span>
         <a class="button gray middle" href="javascript:void(0)">
-            ${ASC.Projects.Resources.CommonResource.Cancel}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Cancel}
         </a>
     </div>
 </script>
@@ -320,19 +320,19 @@
         </div>
         <div class="pm-fieldRight">
             <div id="taskMilestone" data-id="" class="link dotline advansed-select-container">
-                ${ASC.Projects.Resources.CommonResource.Select}
+                ${ASC.Projects.Resources.ProjectsCommonResource.Select}
             </div>
         </div>
         <div style="clear: both">
         </div>
     </div>
     <div id="pm-respBlock" class="display-none">
-        <div class="pm-headerLeft userAddHeader">${ASC.Projects.Resources.TasksResource.TaskResponsible}:</div>
+        <div class="pm-headerLeft userAddHeader">${ASC.Projects.Resources.TaskResource.TaskResponsible}:</div>
         <div class="userAdd">
             <div id="responsibleSelectContainer">
             </div>
             <span id="taskResponsible" class="link dotline advansed-select-container">
-                ${ASC.Projects.Resources.TasksResource.Add}
+                ${ASC.Projects.Resources.TaskResource.Add}
             </span>
             <div class="float-right notify display-none">
                 <input type="checkbox" id="notify" checked="checked"/>
@@ -349,19 +349,19 @@
 
     <div style="clear: both" class="notify">
     </div>
-    <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TasksResource.TaskStartDate}:</div>
+    <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TaskResource.TaskStartDate}:</div>
     <div class="pm-fieldRight">
-        <span class="requiredErrorText startDate-error" error="${ASC.Projects.Resources.CommonResource.TaskCompareDateError}" style="margin-right: 24px;">
+        <span class="requiredErrorText startDate-error" error="${ASC.Projects.Resources.ProjectsCommonResource.TaskCompareDateError}" style="margin-right: 24px;">
         </span>
         <input type="text" id="taskStartDate" class="textEditCalendar" autocomplete="off"/>
     </div>
     <div style="clear: both">
     </div>
-    <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TasksResource.DeadLine}:</div>
+    <div class="pm-headerLeft" style="line-height: 21px;">${ASC.Projects.Resources.TaskResource.DeadLine}:</div>
     <div class="pm-fieldRight">
         <input type="text" id="taskDeadline" class="textEditCalendar"  autocomplete="off"/>
         <span class="splitter"></span><span class="link dotline deadline_left" data-value="0">
-            ${ASC.Projects.Resources.CommonResource.Today}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Today}
         </span><span class="splitter"></span><span class="link dotline deadline_left" data-value="3">
             3
             ${ASC.Projects.Resources.DayGenitiveSingular}
@@ -373,10 +373,10 @@
     </div>
     <div>
         <div class="pm-headerLeft">
-            ${ASC.Projects.Resources.TasksResource.Priority}:
+            ${ASC.Projects.Resources.TaskResource.Priority}:
         </div>
         <div class="pm-fieldRight">
-            <input type="checkbox" name="priority" value="1" id="priority"/><label class="priority high" for="priority">${ASC.Projects.Resources.TasksResource.HighPriority}</label>
+            <input type="checkbox" name="priority" value="1" id="priority"/><label class="priority high" for="priority">${ASC.Projects.Resources.TaskResource.HighPriority}</label>
         </div>
         <div style="clear: both">
         </div>
@@ -385,33 +385,33 @@
     </div>
     <div class="display-none" id="copySubtasksContainer">
         <div class="pm-headerLeft">
-            ${ASC.Projects.Resources.CommonResource.Copy}:
+            ${ASC.Projects.Resources.ProjectsCommonResource.Copy}:
         </div>
         <div class="pm-fieldRight">
             <div class="copy">
-                <input type="checkbox" name="copySubtasks" value="1" id="copySubtasks"/><label class="copy" for="copySubtasks">${ASC.Projects.Resources.TasksResource.Subtasks}</label>
+                <input type="checkbox" name="copySubtasks" value="1" id="copySubtasks"/><label class="copy" for="copySubtasks">${ASC.Projects.Resources.TaskResource.Subtasks}</label>
             </div>
             <div class="copy files">
-                <input type="checkbox" name="copyFiles" value="1" id="copyFiles"/><label class="copy" for="copyFiles">${ASC.Projects.Resources.CommonResource.DocsModuleTitle}</label>
+                <input type="checkbox" name="copyFiles" value="1" id="copyFiles"/><label class="copy" for="copyFiles">${ASC.Projects.Resources.ProjectsCommonResource.DocsModuleTitle}</label>
             </div>
         </div>
     </div>
     <div class="success-popup display-none">
-        ${ASC.Projects.Resources.CommonResource.TaskAddedMessage}
-        <a id="taskLink" href="javascript:void(0)">${ASC.Projects.Resources.TasksResource.GoToTheTask}</a>
+        ${ASC.Projects.Resources.ProjectsCommonResource.TaskAddedMessage}
+        <a id="taskLink" href="javascript:void(0)">${ASC.Projects.Resources.TaskResource.GoToTheTask}</a>
     </div>
     <div class="error-popup display-none"></div>
     <div class="pm-action-block big-button-container">
         <a id="saveTaskAction" href="javascript:void(0)" class="button blue middle">
-            ${ASC.Projects.Resources.CommonResource.Save}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Save}
         </a>
         <span class="splitter-buttons"></span>
         <a id="createTaskAndCreateNew" href="javascript:void(0)" class="button gray middle">
-            ${ASC.Projects.Resources.CommonResource.SaveAndAddMore}
+            ${ASC.Projects.Resources.ProjectsCommonResource.SaveAndAddMore}
         </a>
         <span class="splitter-buttons"></span>
         <a id="closeTaskAction" class="button gray middle" href="javascript:void(0)">
-            ${ASC.Projects.Resources.CommonResource.Cancel}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Cancel}
         </a>
     </div>
 </script>
@@ -425,7 +425,7 @@
             ${ASC.Projects.Resources.MilestoneResource.Responsible}:
         </div>
         <div id="milestoneResponsible" data-id="" class="link dotline advansed-select-container">
-            ${ASC.Projects.Resources.CommonResource.Select}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Select}
         </div>
         <div class="notifyResponsibleContainer">
             <input id="notifyResponsibleCheckbox" type="checkbox" checked="checked"/>
@@ -456,9 +456,9 @@
     <div id="milestoneKeyContainer">
         <input id="milestoneKeyCheckBox" type="checkbox"/>
         <label for="milestoneKeyCheckBox"> ${ASC.Projects.Resources.MilestoneResource.RootMilestone}</label>
-        <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectMilestone', popup: true });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectMilestone}"></div>
+        <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectMilestone', popup: true });" title="${ASC.Projects.Resources.ProjectsCommonResource.HelpQuestionProjectMilestone}"></div>
         <div class="popup_helper" id="AnswerForProjectMilestone">
-            <p>{{html jq.format(ASC.Projects.Resources.CommonResource.HelpAnswerProjectMilestone, "<br/>", "<b>", "</b>")}}
+            <p>{{html jq.format(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerProjectMilestone, "<br/>", "<b>", "</b>")}}
             </p>
         </div>
     </div>
@@ -470,11 +470,11 @@
     <div class="error-popup display-none"></div>
     <div id="milestoneActionButtonsContainer" class="big-button-container">
         <a id="milestoneActionButton" href="javascript:void(0)" class="button blue middle"
-           add="${ASC.Projects.Resources.MilestoneResource.AddMilestoneButton}" update="${ASC.Projects.Resources.CommonResource.SaveChanges}">
+           add="${ASC.Projects.Resources.MilestoneResource.AddMilestoneButton}" update="${ASC.Projects.Resources.ProjectsCommonResource.SaveChanges}">
         </a>
         <span class="splitter-buttons"></span>
         <a id="milestoneActionCancelButton" href="javascript:void(0)" class="button gray middle" onclick="javascript:jq.unblockUI();">
-            ${ASC.Projects.Resources.CommonResource.Cancel}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Cancel}
         </a>
     </div>
 </script>
@@ -497,7 +497,7 @@
         <span class="requiredErrorText">${project.error}</span>
         <div class="headerPanelSmall">${project.header}:</div>
         <div data-id="" class="link dotline advansed-select-container">
-            ${ASC.Projects.Resources.CommonResource.Select}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Select}
         </div>
     </div>
 </script>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources {
+namespace ASC.Web.Studio.PublicResources {
     using System;
     
     
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only the latest activity is shown at this page. The data itself is stored during the period, which can be entered to the field below (measured in days, 180 maximum):.
+        ///   Looks up a localized string similar to Only the latest activity is shown on this page. The data itself is stored during the period specified in the field below (max 180 days)..
         /// </summary>
         public static string AuditLatestText {
             get {
@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only the latest activity is shown at this page. The data itself is stored during the period, which can be entered to the field below (measured in days, 180 maximum):.
+        ///   Looks up a localized string similar to Only the latest activity is shown on this page. The data itself is stored during the period specified in the field below (max 180 days)..
         /// </summary>
         public static string LoginLatestText {
             get {
@@ -214,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Period of storage.
+        ///   Looks up a localized string similar to Storage period.
         /// </summary>
         public static string StoragePeriod {
             get {

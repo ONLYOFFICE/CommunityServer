@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,47 +16,48 @@
 
 
 using System;
-using ASC.Web.Community.News.Resources;
+
+using ASC.Web.Community.Modules.News.Resources;
 
 namespace ASC.Web.Community.News.Code
 {
-	class FeedTypeInfo
-	{
-		public int Id
-		{
-			get;
-			private set;
-		}
+    class FeedTypeInfo
+    {
+        public int Id
+        {
+            get;
+            private set;
+        }
 
-		public string TypeName
-		{
-			get;
-			private set;
-		}
+        public string TypeName
+        {
+            get;
+            private set;
+        }
 
-		public string TypeLogoPath
-		{
-			get;
-			private set;
-		}
+        public string TypeLogoPath
+        {
+            get;
+            private set;
+        }
 
-		public FeedTypeInfo(FeedType feedType, string name, string logo)
-		{
-			Id = (int)feedType;
-			TypeName = name;
-			TypeLogoPath = logo;
-		}
+        public FeedTypeInfo(FeedType feedType, string name, string logo)
+        {
+            Id = (int)feedType;
+            TypeName = name;
+            TypeLogoPath = logo;
+        }
 
-		public static FeedTypeInfo FromFeedType(FeedType feedType)
-		{
-			switch (feedType)
-			{
-				case FeedType.News: return new FeedTypeInfo(feedType, NewsResource.FeedTypeNews, "32x_news.png");
-				case FeedType.Order: return new FeedTypeInfo(feedType, NewsResource.NewsOrdersTypeName, "32x_order.png");
+        public static FeedTypeInfo FromFeedType(FeedType feedType)
+        {
+            switch (feedType)
+            {
+                case FeedType.News: return new FeedTypeInfo(feedType, NewsResource.FeedTypeNews, "32x_news.png");
+                case FeedType.Order: return new FeedTypeInfo(feedType, NewsResource.NewsOrdersTypeName, "32x_order.png");
                 case FeedType.Advert: return new FeedTypeInfo(feedType, NewsResource.NewsAnnouncementsTypeName, "32x_advert.png");
                 case FeedType.Poll: return new FeedTypeInfo(feedType, NewsResource.FeedTypePoll, "32x_poll.png");
-				default: throw new ArgumentOutOfRangeException(string.Format("Unknown feed type: {0}.", feedType));
-			}
-		}
-	}
+                default: throw new ArgumentOutOfRangeException(string.Format("Unknown feed type: {0}.", feedType));
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Attachment
     {
         private readonly int _id;
 
-        public ConcreteUserAttachmentExp(int id, int tenant, string user, bool? isRemoved = false) 
+        public ConcreteUserAttachmentExp(int id, int tenant, string user, bool? isRemoved = false)
             : base(tenant, user, isRemoved)
         {
             _id = id;

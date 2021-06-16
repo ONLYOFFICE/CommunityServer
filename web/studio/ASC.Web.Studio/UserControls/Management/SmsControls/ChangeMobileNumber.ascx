@@ -2,7 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ChangeMobileNumber.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ChangeMobileNumber" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 

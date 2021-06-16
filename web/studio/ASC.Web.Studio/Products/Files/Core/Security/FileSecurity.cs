@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
@@ -163,15 +164,15 @@ namespace ASC.Files.Core.Security
             {
                 case FolderType.COMMON:
                     defaultShareRecord = new FileShareRecord
-                        {
-                            Level = int.MaxValue,
-                            EntryId = entry.ID,
-                            EntryType = entry.FileEntryType,
-                            Share = DefaultCommonShare,
-                            Subject = Constants.GroupEveryone.ID,
-                            Tenant = TenantProvider.CurrentTenantID,
-                            Owner = SecurityContext.CurrentAccount.ID
-                        };
+                    {
+                        Level = int.MaxValue,
+                        EntryId = entry.ID,
+                        EntryType = entry.FileEntryType,
+                        Share = DefaultCommonShare,
+                        Subject = Constants.GroupEveryone.ID,
+                        Tenant = TenantProvider.CurrentTenantID,
+                        Owner = SecurityContext.CurrentAccount.ID
+                    };
 
                     if (!shares.Any())
                     {
@@ -187,15 +188,15 @@ namespace ASC.Files.Core.Security
 
                 case FolderType.USER:
                     defaultShareRecord = new FileShareRecord
-                        {
-                            Level = int.MaxValue,
-                            EntryId = entry.ID,
-                            EntryType = entry.FileEntryType,
-                            Share = DefaultMyShare,
-                            Subject = entry.RootFolderCreator,
-                            Tenant = TenantProvider.CurrentTenantID,
-                            Owner = entry.RootFolderCreator
-                        };
+                    {
+                        Level = int.MaxValue,
+                        EntryId = entry.ID,
+                        EntryType = entry.FileEntryType,
+                        Share = DefaultMyShare,
+                        Subject = entry.RootFolderCreator,
+                        Tenant = TenantProvider.CurrentTenantID,
+                        Owner = entry.RootFolderCreator
+                    };
 
                     if (!shares.Any())
                         return new List<Guid>
@@ -207,15 +208,15 @@ namespace ASC.Files.Core.Security
 
                 case FolderType.Privacy:
                     defaultShareRecord = new FileShareRecord
-                        {
-                            Level = int.MaxValue,
-                            EntryId = entry.ID,
-                            EntryType = entry.FileEntryType,
-                            Share = DefaultPrivacyShare,
-                            Subject = entry.RootFolderCreator,
-                            Tenant = TenantProvider.CurrentTenantID,
-                            Owner = entry.RootFolderCreator
-                        };
+                    {
+                        Level = int.MaxValue,
+                        EntryId = entry.ID,
+                        EntryType = entry.FileEntryType,
+                        Share = DefaultPrivacyShare,
+                        Subject = entry.RootFolderCreator,
+                        Tenant = TenantProvider.CurrentTenantID,
+                        Owner = entry.RootFolderCreator
+                    };
 
                     if (!shares.Any())
                         return new List<Guid>
@@ -255,7 +256,7 @@ namespace ASC.Files.Core.Security
             }
 
             if (defaultShareRecord != null)
-                shares = shares.Concat(new[] {defaultShareRecord});
+                shares = shares.Concat(new[] { defaultShareRecord });
 
             return shares.SelectMany(x =>
                                          {
@@ -267,7 +268,7 @@ namespace ASC.Files.Core.Security
                                                                 .Where(p => p.Status == EmployeeStatus.Active)
                                                                 .Select(y => y.ID);
 
-                                             return new[] {x.Subject};
+                                             return new[] { x.Subject };
                                          })
                          .Distinct()
                          .Where(x => Can(entry, x, action))
@@ -301,13 +302,13 @@ namespace ASC.Files.Core.Security
 
         private bool Can(FileEntry entry, Guid userId, FilesSecurityActions action)
         {
-            return Filter(new[] {entry}, action, userId).Any();
+            return Filter(new[] { entry }, action, userId).Any();
         }
 
         private List<Tuple<FileEntry, bool>> Can(IEnumerable<FileEntry> entry, Guid userId, FilesSecurityActions action)
         {
             var filtres = Filter(entry, action, userId);
-            return entry.Select(r=> new Tuple<FileEntry, bool>(r, filtres.Any(a=> a.ID.Equals(r.ID)))).ToList();
+            return entry.Select(r => new Tuple<FileEntry, bool>(r, filtres.Any(a => a.ID.Equals(r.ID)))).ToList();
         }
 
         private IEnumerable<FileEntry> Filter(IEnumerable<FileEntry> entries, FilesSecurityActions action, Guid userId)
@@ -323,7 +324,7 @@ namespace ASC.Files.Core.Security
             var result = new List<FileEntry>(entries.Count());
 
             // save entries order
-            var order = entries.Select((f, i) => new {Id = f.UniqID, Pos = i}).ToDictionary(e => e.Id, e => e.Pos);
+            var order = entries.Select((f, i) => new { Id = f.UniqID, Pos = i }).ToDictionary(e => e.Id, e => e.Pos);
 
             // common or my files
             Func<FileEntry, bool> filter =
@@ -376,13 +377,13 @@ namespace ASC.Files.Core.Security
                         continue;
                     }
 
-                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder) e).FolderType == FolderType.Projects)
+                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder)e).FolderType == FolderType.Projects)
                     {
                         // Root Projects folder read-only
                         continue;
                     }
 
-                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder) e).FolderType == FolderType.SHARE)
+                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder)e).FolderType == FolderType.SHARE)
                     {
                         // Root Share folder read-only
                         continue;
@@ -394,7 +395,7 @@ namespace ASC.Files.Core.Security
                         continue;
                     }
 
-                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder) e).FolderType == FolderType.Favorites)
+                    if (action != FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder && ((Folder)e).FolderType == FolderType.Favorites)
                     {
                         // Favorites folder read-only
                         continue;
@@ -426,7 +427,7 @@ namespace ASC.Files.Core.Security
                     }
 
                     if (DefaultCommonShare == FileShare.Read && action == FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder &&
-                        ((Folder) e).FolderType == FolderType.COMMON)
+                        ((Folder)e).FolderType == FolderType.COMMON)
                     {
                         // all can read Common folder
                         result.Add(e);
@@ -434,7 +435,7 @@ namespace ASC.Files.Core.Security
                     }
 
                     if (action == FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder &&
-                        ((Folder) e).FolderType == FolderType.SHARE)
+                        ((Folder)e).FolderType == FolderType.SHARE)
                     {
                         // all can read Share folder
                         result.Add(e);
@@ -450,7 +451,7 @@ namespace ASC.Files.Core.Security
                     }
 
                     if (action == FilesSecurityActions.Read && e.FileEntryType == FileEntryType.Folder &&
-                        ((Folder) e).FolderType == FolderType.Favorites)
+                        ((Folder)e).FolderType == FolderType.Favorites)
                     {
                         // all can read favorites folder
                         result.Add(e);
@@ -488,7 +489,7 @@ namespace ASC.Files.Core.Security
                         if (ace == null)
                         {
                             // share on parent folders
-                            ace = shares.Where(r => Equals(r.EntryId, ((File) e).FolderID) && r.EntryType == FileEntryType.Folder)
+                            ace = shares.Where(r => Equals(r.EntryId, ((File)e).FolderID) && r.EntryType == FileEntryType.Folder)
                                         .OrderBy(r => r, new SubjectComparer(subjects))
                                         .ThenBy(r => r.Level)
                                         .ThenByDescending(r => r.Share, new FileShareRecord.ShareComparer())
@@ -503,16 +504,16 @@ namespace ASC.Files.Core.Security
                                     .ThenByDescending(r => r.Share, new FileShareRecord.ShareComparer())
                                     .FirstOrDefault();
                     }
-                    var defaultShare = e.RootFolderType == FolderType.USER
-                        ? DefaultMyShare
-                        : e.RootFolderType == FolderType.Privacy
-                            ? DefaultPrivacyShare
-                            : DefaultCommonShare;
-                    e.Access = ace != null
-                        ? ace.Share
-                        : userId == FileConstant.ShareLinkId
-                            ? FileShare.Restrict
-                            : defaultShare;
+
+                    var defaultShare = userId == FileConstant.ShareLinkId
+                        ? FileShare.Restrict
+                        : e.RootFolderType == FolderType.USER
+                            ? DefaultMyShare
+                            : e.RootFolderType == FolderType.Privacy
+                                ? DefaultPrivacyShare
+                                : DefaultCommonShare;
+
+                    e.Access = ace != null ? ace.Share : defaultShare;
 
                     if (action == FilesSecurityActions.Read && e.Access != FileShare.Restrict) result.Add(e);
                     else if (action == FilesSecurityActions.Comment && (e.Access == FileShare.Comment || e.Access == FileShare.Review || e.Access == FileShare.CustomFilter || e.Access == FileShare.ReadWrite)) result.Add(e);
@@ -638,14 +639,14 @@ namespace ASC.Files.Core.Security
             using (var securityDao = daoFactory.GetSecurityDao())
             {
                 var r = new FileShareRecord
-                    {
-                        Tenant = TenantProvider.CurrentTenantID,
-                        EntryId = entryId,
-                        EntryType = entryType,
-                        Subject = @for,
-                        Owner = SecurityContext.CurrentAccount.ID,
-                        Share = share,
-                    };
+                {
+                    Tenant = TenantProvider.CurrentTenantID,
+                    EntryId = entryId,
+                    EntryType = entryType,
+                    Subject = @for,
+                    Owner = SecurityContext.CurrentAccount.ID,
+                    Share = share,
+                };
                 securityDao.SetShare(r);
             }
         }

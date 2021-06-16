@@ -15,22 +15,32 @@
                     </td>
                     <td>
                         {{if !domain.isSharedDomain}}
-                            <p class="info">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxToNewDomainInfo}</p>
-                            <p class="info">
-                                ${ASC.Mail.Resources.MailAdministrationResource.NewDomainAttention}
-                                {{if ASC.Mail.Constants.MS_MIGRATION_LINK_AVAILABLE }}
-                                  &nbsp;{{html ASC.Mail.Resources.MailResource.DomainHelperExportFromMSExchange.format("<a class='link underline' href='" + ASC.Resources.Master.HelpLink + "/server/docker/enterprise/migrate-from-exchange.aspx' target='_blank'>", "</a>")}}
-                                {{/if}}
-                            </p>
+                        <p class="info">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxToNewDomainInfo}</p>
+                        <p class="info">
+                            ${ASC.Mail.Resources.MailAdministrationResource.NewDomainAttention}
+                            {{if ASC.Mail.Constants.MS_MIGRATION_LINK_AVAILABLE }}
+                            &nbsp;{{html ASC.Mail.Resources.MailResource.DomainHelperExportFromMSExchange.format("<a class='link underline' href='" + ASC.Resources.Master.HelpLink + "/server/docker/enterprise/migrate-from-exchange.aspx' target='_blank'>", "</a>")}}
+                            {{/if}}
+                        </p>
                         {{else}}
-                            <p class="info">${ASC.Mail.Resources.MailResource.DomainHelperInformationText_1}</p>
-                            <p class="info">${ASC.Mail.Resources.MailResource.DomainHelperInformationText_2}</p>
+                        <p class="info">${ASC.Mail.Resources.MailResource.DomainHelperInformationText_1}</p>
+                        <p class="info">${ASC.Mail.Resources.MailResource.DomainHelperInformationText_2}</p>
                         {{/if}}
                     </td>
                 </tr>
             </table>
-            <span class="create_new_mailbox addUserLink">
-                <a class="gray link dotline">${ASC.Mail.Resources.MailAdministrationResource.AddMailboxLabel}</a>
+            {{if !ASC.Mail.Constants.ENABLE_MAIL_SERVER}}
+            <div class="disable">
+                <div class="settings-help-block" style="margin: 8px 0 0 40px;">
+                    <div>
+                        ${ASC.Mail.Resources.MailResource.ErrorNotAllowedOption}
+                    </div>&nbsp;
+                    <a href="${ASC.Mail.Constants.LinkToTariff}">${ASC.Mail.Resources.MailResource.ViewTariffPlans}</a>
+                </div><p>
+            </div>
+            {{/if}}
+            <span class="create_new_mailbox addUserLink" {{if !ASC.Mail.Constants.ENABLE_MAIL_SERVER}} style="cursor: default" {{/if}}>
+                <a class="gray link dotline" {{if !ASC.Mail.Constants.ENABLE_MAIL_SERVER}} style="cursor: default" {{/if}}>${ASC.Mail.Resources.MailAdministrationResource.AddMailboxLabel}</a>
             </span>
         </div>
         <div class="domain_content" {{if mailboxes.length == 0 && mailgroups.length == 0}} style="display: none" {{/if}}>

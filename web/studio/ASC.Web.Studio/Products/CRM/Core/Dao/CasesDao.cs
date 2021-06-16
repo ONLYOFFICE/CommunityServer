@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,9 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.Files.Core;
-using ASC.Web.Files.Api;
 using ASC.Web.CRM.Core.Search;
+using ASC.Web.Files.Api;
+
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
 
 namespace ASC.CRM.Core.Dao
@@ -377,9 +378,9 @@ namespace ASC.CRM.Core.Dao
                 {
                     if (!BundleSearch.TrySelectCase(searchText, out ids))
                     {
-                        conditions.Add(BuildLike(new[] {"title"}, keywords));
+                        conditions.Add(BuildLike(new[] { "title" }, keywords));
                     }
-                    else if(!ids.Any())
+                    else if (!ids.Any())
                     {
                         return null;
 
@@ -396,7 +397,7 @@ namespace ASC.CRM.Core.Dao
 
                 if (ids.Count > 0)
                     sqlQuery.Where(Exp.In("entity_id", ids));
-                
+
                 ids = Db.ExecuteList(sqlQuery).Select(item => Convert.ToInt32(item[0])).ToList();
                 if (ids.Count == 0) return null;
             }
@@ -540,13 +541,13 @@ namespace ASC.CRM.Core.Dao
         private static Cases ToCases(object[] row)
         {
             return new Cases
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           Title = Convert.ToString(row[1]),
-                           CreateBy = ToGuid(row[2]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[3].ToString())),
-                           IsClosed = Convert.ToBoolean(row[4])
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Title = Convert.ToString(row[1]),
+                CreateBy = ToGuid(row[2]),
+                CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[3].ToString())),
+                IsClosed = Convert.ToBoolean(row[4])
+            };
         }
 
         private SqlQuery GetCasesSqlQuery(Exp where)

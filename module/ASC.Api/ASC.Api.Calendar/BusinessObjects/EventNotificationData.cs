@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.BusinessObjects
@@ -38,24 +39,24 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         public DateTime GetUtcStartDate()
         {
-            if(Event==null)
+            if (Event == null)
                 return DateTime.MinValue;
 
-            if(RRule.Freq == Frequency.Never)
+            if (RRule.Freq == Frequency.Never)
                 return Event.UtcStartDate;
 
             return NotifyUtcDate.AddMinutes((-1) * DataProvider.GetBeforeMinutes(AlertType));
-            
+
         }
 
         public DateTime GetUtcEndDate()
         {
-             if(Event==null)
+            if (Event == null)
                 return DateTime.MinValue;
 
-             if (RRule.Freq == Frequency.Never || Event.AllDayLong || Event.UtcEndDate == DateTime.MinValue)
+            if (RRule.Freq == Frequency.Never || Event.AllDayLong || Event.UtcEndDate == DateTime.MinValue)
                 return Event.UtcEndDate;
-            
+
             return GetUtcStartDate().Add(Event.UtcEndDate - Event.UtcStartDate);
         }
 

@@ -4,7 +4,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
@@ -71,7 +71,7 @@
 
             <asp:PlaceHolder ID="InviteUserHolder" runat="server"/>
 
-            <% if (TenantExtra.EnableTarrifSettings)
+            <% if (TenantExtra.EnableTariffSettings)
                { %>
             <li class="menu-item none-sub-list add-block">
                 <div class="category-wrapper">

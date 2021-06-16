@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 
 
 using System;
-using ASC.Notify.Model;
+
 using ASC.Core.Users;
+using ASC.Notify.Model;
 
 namespace ASC.Forum
 {
@@ -54,7 +55,7 @@ namespace ASC.Forum
         public NotifyEventArgs(INotifyAction notifyAction, string objectID)
         {
             this.NotifyAction = notifyAction;
-            this.ObjectID = objectID;           
+            this.ObjectID = objectID;
         }
     }
 }

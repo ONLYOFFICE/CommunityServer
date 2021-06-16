@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ window.folderFilter = (function($) {
                 anykey: true,
                 anykeytimeout: 1000,
                 maxfilters: -1,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 colcount: 2,
                 sorters: [
                     { id: 'date', title: MailScriptResource.FilterByDate, sortOrder: 'descending', def: true }
@@ -286,8 +286,6 @@ window.folderFilter = (function($) {
             default:
                 return;
         }
-
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.filterClick, filterItem.id);
 
         //reset paging
         MailFilter.setFromDate(undefined);

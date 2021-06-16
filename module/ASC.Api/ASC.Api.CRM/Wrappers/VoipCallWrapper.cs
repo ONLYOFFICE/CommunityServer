@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Specific;
 using ASC.VoipService;
@@ -72,7 +73,7 @@ namespace ASC.Api.CRM.Wrappers
             AnsweredBy = EmployeeWraper.Get(call.AnsweredBy);
             DialDate = new ApiDateTime(call.DialDate);
             DialDuration = call.DialDuration;
-            Cost = call.Price + call.ChildCalls.Sum(r=> r.Price) + call.VoipRecord.Price;
+            Cost = call.Price + call.ChildCalls.Sum(r => r.Price) + call.VoipRecord.Price;
             Contact = contact;
             RecordUrl = call.VoipRecord.Uri;
             RecordDuration = call.VoipRecord.Duration;

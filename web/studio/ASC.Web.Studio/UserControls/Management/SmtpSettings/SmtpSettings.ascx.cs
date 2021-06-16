@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,16 @@ using System;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
+
 using Newtonsoft.Json;
+
 using SmtpSettingsConfig = ASC.Core.Configuration.SmtpSettings;
 
 namespace ASC.Web.Studio.UserControls.Management

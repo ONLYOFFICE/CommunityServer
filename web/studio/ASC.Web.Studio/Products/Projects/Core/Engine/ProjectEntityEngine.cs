@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Notify.Model;
@@ -77,12 +78,12 @@ namespace ASC.Projects.Engine
             SubscriptionProvider.UnSubscribe(NotifyAction, entity.NotifyId, recipient);
         }
 
-        public void UnSubscribeAll<T>(T entity) where T: ProjectEntity
+        public void UnSubscribeAll<T>(T entity) where T : ProjectEntity
         {
             SubscriptionProvider.UnSubscribe(NotifyAction, entity.NotifyId);
         }
 
-        public void UnSubscribeAll<T>(List<T> entity) where T: ProjectEntity
+        public void UnSubscribeAll<T>(List<T> entity) where T : ProjectEntity
         {
             entity.ForEach(UnSubscribeAll);
         }

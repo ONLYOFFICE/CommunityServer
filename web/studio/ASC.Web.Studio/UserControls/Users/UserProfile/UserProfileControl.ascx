@@ -6,7 +6,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Users.UserProfile" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id="studio_userProfileCardInfo" data-id="<%= UserInfo.ID %>" data-email="<%= UserInfo.Email.HtmlEncode() %>"></div>
@@ -236,12 +236,22 @@
     { %>
 <div class="user-block social-logins">
     <div class="tabs-section">
-        <span class="header-base"><%= Resource.LoginSocialNetworks %></span>
+        <span class="header-base <%if(!EnableOauth){ %> disable<%} %>"><%= Resource.LoginSocialNetworks %></span>
         <span id="switcherAccountLinks" class="toggle-button"
             data-switcher="0" data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>">
             <%= Resource.Hide %>
         </span>
     </div>
+    <%if (!EnableOauth)
+        { %>
+        <div class="disable">
+            <span class="settings-help-block">
+                <span><%= String.Format(Resource.ErrorNotAllowedOption, "<b>", "</b>") %></span>
+                <br/>
+                <a href="<%= TariffPageLink %>" target="_blank"> <%= Resource.ViewTariffPlans %></a>
+            </span>
+        </div>
+    <%} %>
     <asp:PlaceHolder runat="server" ID="_accountPlaceholder"></asp:PlaceHolder>
 </div>
 <% } %>

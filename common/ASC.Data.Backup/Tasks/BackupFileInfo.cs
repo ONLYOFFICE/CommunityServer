@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Xml.Linq;
+
 using ASC.Data.Backup.Extensions;
 
 namespace ASC.Data.Backup.Tasks
@@ -42,7 +43,7 @@ namespace ASC.Data.Backup.Tasks
 
         public XElement ToXElement()
         {
-            var xElement =  new XElement("file",
+            var xElement = new XElement("file",
                                 new XElement("domain", Domain),
                                 new XElement("module", Module),
                                 new XElement("path", Path));
@@ -58,12 +59,12 @@ namespace ASC.Data.Backup.Tasks
         public static BackupFileInfo FromXElement(XElement el)
         {
             return new BackupFileInfo
-                {
-                    Domain = el.Element("domain").ValueOrDefault(),
-                    Module = el.Element("module").ValueOrDefault(),
-                    Path = el.Element("path").ValueOrDefault(),
-                    Tenant = Convert.ToInt32(el.Element("tenant").ValueOrDefault() ?? "-1")
-                };
+            {
+                Domain = el.Element("domain").ValueOrDefault(),
+                Module = el.Element("module").ValueOrDefault(),
+                Path = el.Element("path").ValueOrDefault(),
+                Tenant = Convert.ToInt32(el.Element("tenant").ValueOrDefault() ?? "-1")
+            };
         }
     }
 }

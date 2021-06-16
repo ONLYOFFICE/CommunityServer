@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Security;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Logging;
@@ -35,6 +36,7 @@ using ASC.Mail.Server.Core.Entities;
 using ASC.Mail.Server.Utils;
 using ASC.Mail.Utils;
 using ASC.Web.Core;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Mail.Core.Engine
@@ -147,7 +149,7 @@ namespace ASC.Mail.Core.Engine
 
         public void Link(Entities.Server server, int tenant)
         {
-            if(server == null)
+            if (server == null)
                 return;
 
             using (var daoFactory = new DaoFactory())
@@ -216,7 +218,7 @@ namespace ASC.Mail.Core.Engine
 
             var linkedServer = serverDao.Get(Tenant);
 
-            if (linkedServer != null) 
+            if (linkedServer != null)
                 return linkedServer;
 
             var servers = GetAllServers(daoFactory);
@@ -469,7 +471,7 @@ namespace ASC.Mail.Core.Engine
 
                 engine.SaveMailbox(serverMailbox, serverAddress, false);
 
-                notificationAddressSettings = new ServerNotificationAddressSettings {NotificationAddress = login};
+                notificationAddressSettings = new ServerNotificationAddressSettings { NotificationAddress = login };
 
                 notificationAddressSettings.SaveForTenant(Tenant);
 
@@ -518,7 +520,7 @@ namespace ASC.Mail.Core.Engine
                 var serverDomainDao = daoFactory.CreateServerDomainDao(Tenant);
                 var serverDomain = serverDomainDao.GetDomains().FirstOrDefault(d => d.Name == mailAddress.Host);
 
-                if(serverDomain == null)
+                if (serverDomain == null)
                     throw new ArgumentException("Domain not exists");
 
                 var serverDao = daoFactory.CreateServerDao();
@@ -547,7 +549,7 @@ namespace ASC.Mail.Core.Engine
             var fullServerInfo = new ServerFullData();
             var mailboxDataList = new List<ServerMailboxData>();
             var mailgroupDataList = new List<ServerDomainGroupData>();
-            
+
             var domainEngine = new ServerDomainEngine(Tenant, User);
 
             using (var daoFactory = new DaoFactory())

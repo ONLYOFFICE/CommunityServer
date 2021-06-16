@@ -131,6 +131,36 @@
     }
   //  $helper.trigger('focus', [false]);
 
+    var parent = $combobox.data('parent');
+    if (parent) {
+        var $parent = jQuery(parent);
+        var $container = $combobox.find('div.combobox-container:first').css({ top: 0 });
+        var $title = $combobox.find('div.combobox-title:first');
+
+        var padding = 8;
+
+        var parentTop = $parent.offset().top;
+        var parentHeight = $parent.outerHeight();
+        var parentBottom = parentTop + parentHeight;
+
+        var containerTop = $container.offset().top;
+        var containerHeight = $container.outerHeight();
+        var containerBottom = containerTop + containerHeight;
+
+        var titleTop = $title.offset().top;
+        var titleHeight = $title.outerHeight();
+
+        var expectedContainerTop = titleTop - padding - containerHeight;
+
+        if (parentBottom < containerBottom) {
+            if (parentTop < expectedContainerTop) {
+                $container.css({ top: (-padding - containerHeight - titleHeight) })
+            } else {
+                $container.css({ top: (parentBottom - containerBottom) })
+            }
+        }
+    }
+
     setTimeout(bindBodyEvents, 1);
   }
 
@@ -476,6 +506,10 @@
           } else {
               $select.parents('span.tl-combobox:first').removeClass('left-align');
           }
+      }
+
+      if (params && params.hasOwnProperty('parent')) {
+          $select.parents('span.tl-combobox:first').data('parent', params['parent']);
       }
 
       //wasupdated = true;

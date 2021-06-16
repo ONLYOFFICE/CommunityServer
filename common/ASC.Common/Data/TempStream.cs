@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,30 @@
 */
 
 
+using System;
 using System.IO;
 
-namespace ASC.Data.Storage
+namespace ASC.Common
 {
     public static class TempStream
     {
+        public static Stream GetBuffered(this Stream srcStream)
+        {
+            if (srcStream == null) throw new ArgumentNullException("srcStream");
+            if (!srcStream.CanSeek || srcStream.CanTimeout)
+            {
+                //Buffer it
+                var memStream = Create();
+                srcStream.CopyTo(memStream);
+                memStream.Position = 0;
+                return memStream;
+            }
+            return srcStream;
+        }
+
         public static Stream Create()
         {
-            //Return temporary stream
-            return new FileStream(Path.GetTempFileName(), FileMode.Open, FileAccess.ReadWrite, FileShare.Read, 2048, FileOptions.DeleteOnClose);
+            return new FileStream(TempPath.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 4096, FileOptions.DeleteOnClose);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ var InvitesResender = new function() {
         jq('#resendInvitesResult').addClass("display-none");
         jq('#resendInvitesContent').removeClass("display-none");
 
-        StudioBlockUIManager.blockUI("#inviteResender", 330);
+        StudioBlockUIManager.blockUI("#inviteResender", 350);
         PopupKeyUpActionProvider.ClearActions();
         PopupKeyUpActionProvider.EnterAction = "jq(\"#resendBtn\").click();";
     }

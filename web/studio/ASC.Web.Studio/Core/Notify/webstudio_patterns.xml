@@ -117,10 +117,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_restore_started|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
   
-  <!-- restore_completed -->
-  <pattern id="restore_completed" sender="email.sender">
+  <!-- restore_completed_v115 -->
+  <pattern id="restore_completed_v115" sender="email.sender">
     <subject resource="|subject_restore_completed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_restore_completed|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_restore_completed_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- portal_deactivate -->
@@ -151,10 +151,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_tg|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- portal_delete_success_v10 -->
-  <pattern id="portal_delete_success_v10" sender="email.sender">
-    <subject resource="|subject_portal_delete_success_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_success_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- portal_delete_success_v115 -->
+  <pattern id="portal_delete_success_v115" sender="email.sender">
+    <subject resource="|subject_portal_delete_success_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_success_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- profile_delete -->
@@ -207,7 +207,7 @@ $activity.Key
 
   <!-- owner_confirm_change -->
   <pattern id="owner_confirm_change">
-    <subject resource="subject_confirm_owner_change|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <subject resource="|subject_confirm_owner_change|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_confirm_owner_change|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
@@ -217,10 +217,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_email|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- change_email -->
-  <pattern id="change_email">
-    <subject resource="|subject_change_email|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_email|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- change_email v115 -->
+  <pattern id="change_email_v115">
+    <subject resource="|subject_change_email_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_change_email_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- change_password -->
@@ -264,10 +264,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_start|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- migration_success -->
-  <pattern id="migration_success">
+  <!-- migration_success_v115 -->
+  <pattern id="migration_success_v115">
      <subject resource="|subject_migration_success|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_success|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_success_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- migration_error -->
@@ -298,10 +298,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_request_license|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin activation v10 -->
-  <pattern id="saas_admin_activation_v10">
-    <subject resource="|subject_saas_admin_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin activation v115 -->
+  <pattern id="saas_admin_activation_v115">
+    <subject resource="|subject_saas_admin_activation_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_activation_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise admin activationv10 -->
@@ -322,10 +322,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin welcome v10 -->
-  <pattern id="saas_admin_welcome_v10" sender="email.sender">
-    <subject resource="|subject_saas_admin_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin welcome v115 -->
+  <pattern id="saas_admin_welcome_v115" sender="email.sender">
+    <subject resource="|subject_saas_admin_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise admin welcome v10 -->
@@ -346,10 +346,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_admin_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas user activation v10 -->
-  <pattern id="saas_user_activation_v10">
-    <subject resource="|subject_saas_user_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_user_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas user activation v115 -->
+  <pattern id="saas_user_activation_v115">
+    <subject resource="|subject_saas_user_activation_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_user_activation_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise user activation v10 -->
@@ -376,14 +376,14 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_user_ldap_activation|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas user welcome v10 -->
-  <pattern id="saas_user_welcome_v10" sender="email.sender">
-    <subject resource="|subject_saas_user_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_user_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas user welcome v115 -->
+  <pattern id="saas_user_welcome_v115" sender="email.sender">
+    <subject resource="|subject_saas_user_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_user_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
-  <pattern id="saas_user_welcome_v10" sender="messanger.sender">
+  <pattern id="saas_user_welcome_v115" sender="messanger.sender">
     <subject />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_saas_user_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_saas_user_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise user welcome v10 -->
@@ -426,10 +426,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_opensource_user_welcome_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas guest activation v10 -->
-  <pattern id="saas_guest_activation_v10">
-    <subject resource="|subject_saas_guest_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_guest_activation_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas guest activation v115 -->
+  <pattern id="saas_guest_activation_v115">
+    <subject resource="|subject_saas_guest_activation_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_guest_activation_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise guest activation v10 -->
@@ -450,14 +450,14 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_opensource_guest_activation_v11|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas guest welcome v10 -->
-  <pattern id="saas_guest_welcome_v10" sender="email.sender">
-    <subject resource="|subject_saas_guest_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_guest_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas guest welcome v115 -->
+  <pattern id="saas_guest_welcome_v115" sender="email.sender">
+    <subject resource="|subject_saas_guest_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_guest_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
-  <pattern id="saas_guest_welcome_v10" sender="messanger.sender">
+  <pattern id="saas_guest_welcome_v115" sender="messanger.sender">
     <subject />
-    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_saas_guest_welcome_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_saas_guest_welcome_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- enterprise guest welcome v10 -->
@@ -562,82 +562,58 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_enterprise_whitelabel_admin_payment_warning_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
  
-  <!-- saas admin invite teammates v10 -->
-  <pattern id="saas_admin_invite_teammates_v10">
-    <subject resource="|subject_saas_admin_invite_teammates_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_invite_teammates_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin user docs tips v115 -->
+  <pattern id="saas_admin_user_docs_tips_v115">
+    <subject resource="|subject_saas_admin_user_docs_tips_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_docs_tips_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin without activity v10 -->
-  <pattern id="saas_admin_without_activity_v10">
-    <subject resource="|subject_saas_admin_without_activity_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_without_activity_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin comfort tips v115 -->
+  <pattern id="saas_admin_comfort_tips_v115">
+    <subject resource="|subject_saas_admin_comfort_tips_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_comfort_tips_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin user docs tips v10 -->
-  <pattern id="saas_admin_user_docs_tips_v10">
-    <subject resource="|subject_saas_admin_user_docs_tips_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_docs_tips_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin user apps tips v115 -->
+  <pattern id="saas_admin_user_apps_tips_v115">
+    <subject resource="|subject_saas_admin_user_apps_tips_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_apps_tips_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin user comfort tips v10 -->
-  <pattern id="saas_admin_user_comfort_tips_v10">
-    <subject resource="|subject_saas_admin_user_comfort_tips_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_comfort_tips_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin trial warning before5 v115 -->
+  <pattern id="saas_admin_trial_warning_before5_v115">
+    <subject resource="|subject_saas_admin_trial_warning_before5_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_before5_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin user apps tips v10 -->
-  <pattern id="saas_admin_user_apps_tips_v10">
-    <subject resource="|subject_saas_admin_user_apps_tips_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_user_apps_tips_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin trial warning v115 -->
+  <pattern id="saas_admin_trial_warning_v115">
+    <subject resource="|subject_saas_admin_trial_warning_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin trial warning before5 v10 -->
-  <pattern id="saas_admin_trial_warning_before5_v10">
-    <subject resource="|subject_saas_admin_trial_warning_before5_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_before5_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin trial warning after half year v115-->
+  <pattern id="saas_admin_trial_warning_after_half_year_v115">
+    <subject resource="|subject_saas_admin_trial_warning_after_half_year_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_after_half_year_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin trial warning v10 -->
-  <pattern id="saas_admin_trial_warning_v10">
-    <subject resource="|subject_saas_admin_trial_warning_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin trial warning after1 v115 -->
+  <pattern id="saas_admin_trial_warning_after1_v115">
+    <subject resource="|subject_saas_admin_trial_warning_after1_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_after1_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin trial warning after5 v10 -->
-  <pattern id="saas_admin_trial_warning_after5_v10">
-    <subject resource="|subject_saas_admin_trial_warning_after5_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_after5_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin payment warning every 2 months v115 -->
+  <pattern id="saas_admin_payment_warning_every_2months_v115">
+    <subject resource="|subject_saas_admin_payment_warning_every_2months_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_payment_warning_every_2months_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- saas admin trial warning after30 v10 -->
-  <pattern id="saas_admin_trial_warning_after30_v10">
-    <subject resource="|subject_saas_admin_trial_warning_after30_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_after30_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-  </pattern>
-
-  <!-- saas admin trial warning after half year v10 -->
-  <pattern id="saas_admin_trial_warning_after_half_year_v10">
-    <subject resource="|subject_saas_admin_trial_warning_after_half_year_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_trial_warning_after_half_year_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-  </pattern>
-
-  <!-- saas admin payment warning before5 v10 -->
-  <pattern id="saas_admin_payment_warning_before5_v10">
-    <subject resource="|subject_saas_admin_payment_warning_before5_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_payment_warning_before5_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-  </pattern>
-
-  <!-- saas admin payment warning after1 v10 -->
-  <pattern id="saas_admin_payment_warning_after1_v10">
-    <subject resource="|subject_saas_admin_payment_warning_after1_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_payment_warning_after1_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-  </pattern>
-
-  <!-- saas admin payment after monthly subscriptions v10 -->
-  <pattern id="saas_admin_payment_after_monthly_subscriptions_v10">
-    <subject resource="|subject_saas_admin_payment_after_monthly_subscriptions_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_payment_after_monthly_subscriptions_v10|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- saas admin ONLYOFFICE modules overview-->
+  <pattern id="saas_admin_modules_v115">
+    <subject resource="|subject_saas_admin_modules_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_saas_admin_modules_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio"/>
   </pattern>
 
   <!-- opensource admin docs tips v11 -->
@@ -692,10 +668,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_change_password|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- personal change email-->
-  <pattern id="personal_change_email">
-    <subject resource="|subject_personal_change_email|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_change_email|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  <!-- personal change email v115-->
+  <pattern id="personal_change_email_v115">
+    <subject resource="|subject_change_email_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_change_email_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- personal profile delete -->
@@ -726,10 +702,10 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_change_password|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
 
-  <!-- personal custom mode change email-->
-  <pattern id="personal_custom_mode_change_email">
-    <subject resource="|subject_personal_custom_mode_change_email|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_change_email|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
+  <!-- personal custom mode change email v115-->
+  <pattern id="personal_custom_mode_change_email_v115">
+    <subject resource="|subject_change_email_v115|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_personal_custom_mode_change_email_v115|ASC.Web.Studio.PublicResources.CustomModeResource,ASC.Web.Studio" />
   </pattern>
 
   <!-- personal custom mode profile delete -->

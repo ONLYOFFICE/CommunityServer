@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Contracts;
 using ASC.Data.Backup.Service;
@@ -28,7 +30,15 @@ namespace ASC.Data.Backup.Storage
     {
         public static IBackupStorage GetBackupStorage(BackupRecord record)
         {
-            return GetBackupStorage(record.StorageType, record.TenantId, record.StorageParams);
+            try
+            {
+                return GetBackupStorage(record.StorageType, record.TenantId, record.StorageParams);
+            }
+            catch (Exception error)
+            {
+                LogManager.GetLogger("ASC.Backup.Service").Error("can't get backup storage for record " + record.Id, error);
+                return null;
+            }
         }
 
         public static IBackupStorage GetBackupStorage(BackupStorageType type, int tenantId, Dictionary<string, string> storageParams)

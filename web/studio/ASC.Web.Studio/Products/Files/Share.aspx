@@ -4,6 +4,14 @@
 
 <%@ MasterType TypeName="ASC.Web.Files.Masters.BasicTemplate" %>
 
+<asp:Content runat="server" ContentPlaceHolderID="BTHeaderContent">
+    <style type="text/css">
+        #studioPageContent .page-content {
+            overflow: visible;
+        }
+    </style>
+</asp:Content>
+
 <asp:Content runat="server" ContentPlaceHolderID="BTPageContent">
     <asp:PlaceHolder ID="CommonContainerHolder" runat="server"></asp:PlaceHolder>
 </asp:Content>

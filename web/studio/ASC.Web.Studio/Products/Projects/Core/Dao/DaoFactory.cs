@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Web.Projects.Core;
+
 using Autofac;
 
 namespace ASC.Projects.Data
@@ -44,7 +45,7 @@ namespace ASC.Projects.Data
         }
 
         private IMilestoneDao milestoneDao;
-        public IMilestoneDao MilestoneDao { get { return milestoneDao ??(milestoneDao = Container.Resolve<IMilestoneDao>(Tenant)); } }
+        public IMilestoneDao MilestoneDao { get { return milestoneDao ?? (milestoneDao = Container.Resolve<IMilestoneDao>(Tenant)); } }
 
         private ITaskDao taskDao;
         public ITaskDao TaskDao { get { return taskDao ?? (taskDao = Container.Resolve<ITaskDao>(Tenant)); } }
@@ -56,7 +57,7 @@ namespace ASC.Projects.Data
         public IMessageDao MessageDao { get { return messageDao ?? (messageDao = Container.Resolve<IMessageDao>(Tenant)); } }
 
         private ICommentDao commentDao;
-        public ICommentDao CommentDao { get { return commentDao ??  (commentDao = Container.Resolve<ICommentDao>(Tenant)); } }
+        public ICommentDao CommentDao { get { return commentDao ?? (commentDao = Container.Resolve<ICommentDao>(Tenant)); } }
 
         private ITemplateDao templateDao;
         public ITemplateDao TemplateDao { get { return templateDao ?? (templateDao = Container.Resolve<ITemplateDao>(Tenant)); } }

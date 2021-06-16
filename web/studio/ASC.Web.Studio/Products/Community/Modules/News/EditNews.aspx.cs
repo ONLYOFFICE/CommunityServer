@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,21 @@
 using System;
 using System.Globalization;
 using System.Web;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Web.Community.Modules.News.Resources;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
-using ASC.Web.Community.News.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
+
 using FeedNS = ASC.Web.Community.News.Code;
 
 namespace ASC.Web.Community.News
@@ -191,12 +194,12 @@ namespace ASC.Web.Community.News
         public FeedAjaxInfo FeedPreview(string captionFeed, string bodyFeed)
         {
             var feed = new FeedAjaxInfo
-                {
-                    FeedCaption = captionFeed,
-                    FeedText = HtmlUtility.GetFull(bodyFeed),
-                    Date = TenantUtil.DateTimeNow().Ago(),
-                    UserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).RenderProfileLink(CommunityProduct.ID)
-                };
+            {
+                FeedCaption = captionFeed,
+                FeedText = HtmlUtility.GetFull(bodyFeed),
+                Date = TenantUtil.DateTimeNow().Ago(),
+                UserName = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).RenderProfileLink(CommunityProduct.ID)
+            };
             return feed;
         }
 

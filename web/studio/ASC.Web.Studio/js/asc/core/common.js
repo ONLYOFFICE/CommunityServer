@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,43 +152,6 @@ jQuery.fn.colorFade = function(color, tiemout, cb) {
                 cb();
             }
         }));
-};
-
-// google analytics track
-var trackingGoogleAnalytics = function (ctg, act, lbl) {
-    try {
-        if (window.ga) {
-            window.ga('www.send', 'event', ctg, act, lbl);
-            window.ga('testTracker.send', 'event', ctg, act, lbl);
-        }
-    } catch (err) {
-    }
-};
-
-jQuery.fn.trackEvent = function (category, action, label, typeAction) { // only for static objects (don't use for elements added dynamically)
-
-    switch (typeAction) {
-        case "click":
-            jq(this).on("click", function () {
-                trackingGoogleAnalytics(category, action, label);
-                return true;
-            });
-            break;
-        case "enter":
-            jq(this).keypress(function (e) {
-                if (e.which == 13) {
-                    trackingGoogleAnalytics(category, action, label);
-                }
-                return true;
-            });
-            break;
-        default:
-            jq(this).on("click", function () {
-                trackingGoogleAnalytics(category, action, label);
-                return true;
-            });
-            break;
-    }
 };
 
 if (!jQuery.fn.zIndex) {
@@ -399,7 +362,7 @@ jQuery.extend({
     confirmBeforeUnload: function(check){
         window.onbeforeunload = function (e) {
             if (typeof (check) != "function" || check())
-                return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
+                return ASC.Resources.Master.ResourceJS.WarningMessageBeforeUnload;
         };
     },
 
@@ -428,23 +391,25 @@ jQuery.extend({
             ddiWidth = dropdownItem.innerWidth(),
 
             w = jq(window),
+            wideScreen = w.width() >= 1200,
             scrScrollTop = w.scrollTop(),
-            scrHeight = w.height();
+            scrHeight = w.height(),
+            maxHeight = jq.browser.mobile ? document.body.scrollHeight : scrHeight + scrScrollTop;
 
         if (target.is(".entity-menu") || target.is(".menu-small")) {
             target.addClass("active");
 
-            var position = jq.browser.mobile ? target.position() : target.offset();
+            var position = target.offset();
             var baseTop = position.top + target.outerHeight() - 2;
             var correctionY =
                 ddiHeight > position.top
                     ? 0
-                    : (scrHeight + scrScrollTop - baseTop > ddiHeight ? 0 : ddiHeight);
+                    : (maxHeight - baseTop > ddiHeight ? 0 : ddiHeight);
 
             var top = baseTop - correctionY + (correctionY == 0 ? 2 : -target.outerHeight() - 2);
             var bottom = "auto";
 
-            if (top + ddiHeight > document.body.clientHeight + scrScrollTop) {
+            if (wideScreen && top + ddiHeight > maxHeight) {
                 top = "auto";
                 bottom = "0";
             }
@@ -460,12 +425,12 @@ jQuery.extend({
             correctionY =
                 ddiHeight > evt.pageY
                     ? 0
-                    : (scrHeight + scrScrollTop - evt.pageY > ddiHeight ? 0 : ddiHeight);
+                    : (maxHeight - evt.pageY > ddiHeight ? 0 : ddiHeight);
 
             var top = evt.pageY - correctionY;
             var bottom = "auto";
 
-            if (top + ddiHeight > document.body.clientHeight + scrScrollTop) {
+            if (wideScreen && top + ddiHeight > maxHeight) {
                 top = "auto";
                 bottom = "0";
             }
@@ -1894,4 +1859,26 @@ window.TipsManager = new function() {
     return {
         neverShowTips: neverShowTips
     };
+};
+
+function AddPaddingWithoutScrollTo($formBlock, $baseForm) {
+    if (jq(window).width() > 592) {
+        var minPadding = 112,
+            maxPadding = 184;
+        if ($formBlock == $baseForm) {
+            minPadding = 48;
+        }
+        var windowHeight = jq(window).height();
+        var baseFormHeight = $baseForm.height();
+        var oneSidePadding = (windowHeight - baseFormHeight) / 2;
+        if (oneSidePadding < minPadding) {
+            oneSidePadding = minPadding;
+        }
+        if (oneSidePadding > maxPadding) {
+            oneSidePadding = maxPadding;
+        }
+        $formBlock.css({ "paddingTop": oneSidePadding, "paddingBottom": oneSidePadding });
+    } else {
+        $formBlock.css({ "paddingTop": "", "paddingBottom": "" });
+    }
 };

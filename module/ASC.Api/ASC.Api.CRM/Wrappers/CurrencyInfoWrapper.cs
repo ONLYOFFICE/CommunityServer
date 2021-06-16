@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.CRM.Core;
 
 namespace ASC.Api.CRM
@@ -62,14 +63,14 @@ namespace ASC.Api.CRM
         public static CurrencyInfoWrapper GetSample()
         {
             return new CurrencyInfoWrapper
-                {
-                    Title = "Chinese Yuan",
-                    Abbreviation = "CNY",
-                    Symbol = "¥",
-                    CultureName = "CN",
-                    IsConvertable = true,
-                    IsBasic = false
-                };
+            {
+                Title = "Chinese Yuan",
+                Abbreviation = "CNY",
+                Symbol = "¥",
+                CultureName = "CN",
+                IsConvertable = true,
+                IsBasic = false
+            };
         }
     }
 

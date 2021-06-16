@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.UserControls.Forum.Resources {
+namespace ASC.Web.Community.Modules.Forum.UserControls.Resources {
     using System;
     
     
@@ -57,15 +57,6 @@ namespace ASC.Web.UserControls.Forum.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All.
-        /// </summary>
-        public static string All {
-            get {
-                return ResourceManager.GetString("All", resourceCulture);
             }
         }
         
@@ -318,15 +309,6 @@ namespace ASC.Web.UserControls.Forum.Resources {
         public static string PagePreview {
             get {
                 return ResourceManager.GetString("PagePreview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string PleaseWaitMessage {
-            get {
-                return ResourceManager.GetString("PleaseWaitMessage", resourceCulture);
             }
         }
         

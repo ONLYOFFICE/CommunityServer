@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Security;
 using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
-using ASC.Web.CRM.Classes;
 
 
 namespace ASC.CRM.Core.Entities
@@ -68,7 +68,7 @@ namespace ASC.CRM.Core.Entities
         public Guid CreateBy { get; set; }
 
         public DateTime? LastModifedOn { get; set; }
-        
+
         public Guid? LastModifedBy { get; set; }
 
 

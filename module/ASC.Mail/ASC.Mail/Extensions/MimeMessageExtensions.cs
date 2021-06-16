@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,12 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+
 using ASC.Common.Logging;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
 using ASC.Mail.Utils;
+
 using MimeKit;
 
 namespace ASC.Mail.Extensions
@@ -67,7 +69,7 @@ namespace ASC.Mail.Extensions
                         {
                             var encoding = EncodingTools.GetEncodingByCodepageName(charset);
 
-                            if(encoding == null)
+                            if (encoding == null)
                                 continue;
 
                             var newText = textPart.GetText(charset);
@@ -120,7 +122,7 @@ namespace ASC.Mail.Extensions
 
                 var charset = EncodingTools.DetectCharset(header.RawValue);
 
-                if(string.IsNullOrEmpty(charset))
+                if (string.IsNullOrEmpty(charset))
                     return;
 
                 var newValue = header.GetValue(charset);
@@ -241,10 +243,10 @@ namespace ASC.Mail.Extensions
             return mail;
         }
 
-        public static MailMessageData CreateCorruptedMesage(this MimeMessage message, 
+        public static MailMessageData CreateCorruptedMesage(this MimeMessage message,
             FolderType folder = FolderType.Inbox,
-            bool unread = false, 
-            string chainId = "", 
+            bool unread = false,
+            string chainId = "",
             string streamId = "")
         {
             var mailMessage = new MailMessageData

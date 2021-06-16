@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ namespace System
         public static T TryParseEnum<T>(this Type enumType, string value, T defaultValue) where T : struct
         {
             bool isDefault;
-            return TryParseEnum<T>(enumType, value, defaultValue, out isDefault);            
+            return TryParseEnum<T>(enumType, value, defaultValue, out isDefault);
         }
 
         public static T TryParseEnum<T>(this Type enumType, string value, T defaultValue, out bool isDefault) where T : struct

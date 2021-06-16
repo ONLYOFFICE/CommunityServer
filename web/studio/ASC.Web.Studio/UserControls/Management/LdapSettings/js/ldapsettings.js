@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,93 +16,1081 @@
 
 
 var LdapSettings = new function () {
-    var NULL_PERCENT = 0,
-        DEFAULT_LDAP_PORT = 389,
-        alreadyChecking = false,
+    var alreadyChecking = false,
         already = false,
+        previousSettings = null,
         progressBarIntervalId = null,
         objectSettings = null,
         isRestoreDefault = jq(".ldap-settings-main-container").hasClass("ldap-settings-is-default"),
-        isMono = jq(".ldap-settings-main-container").hasClass("ldap-settings-is-mono");
 
-    jq("#ldapSettingsCheckbox").click(function () {
-        var $ldapSettingsMainContainer = jq(".ldap-settings-main-container"),
-            $ldapSettingsUserContainer = jq(".ldap-settings-user-container"),
-            $ldapSettingsGroupContainer = jq(".ldap-settings-group-container"),
-            $ldapSettingsAuthContainer = jq(".ldap-settings-auth-container"),
-            $ldapSettingsGroupCheckbox = jq("#ldapSettingsGroupCheckbox"),
-            $ldapSettingsAuthCheckbox = jq("#ldapSettingsAuthenticationCheckbox");
-        if (jq(this).is(":checked")) {
-            $ldapSettingsUserContainer.find("input").removeAttr("disabled");
-            $ldapSettingsGroupCheckbox.removeAttr("disabled");
-            $ldapSettingsUserContainer.removeClass("ldap-settings-disabled");
-            jq(".ldap-settings-label-checkbox:not(.ldap-settings-never-disable)").removeClass("ldap-settings-disabled");
-            if ($ldapSettingsGroupCheckbox.is(":checked")) {
+        currentCron = null,
+        currentSettings = null,
+
+        syncInProgress = false,
+        constants = {
+            NULL_PERCENT: 0,
+            SSL_LDAP_PORT: 636,
+            DEFAULT_LDAP_PORT: 389,
+            GET_STATUS_TIMEOUT: 1000
+        },
+
+        ldapCertificateProblem = {
+            CertExpired: -2146762495,
+            CertValidityPeriodNesting: -2146762494,
+            CertRole: -2146762493,
+            CertPathLenConst: -2146762492,
+            CertCritical: -2146762491,
+            CertPurpose: -2146762490,
+            CertIssuerChaining: -2146762489,
+            CertMalformed: -2146762488,
+            CertUntrustedRoot: -2146762487,
+            CertChainnig: -2146762486,
+            CertRevoked: -2146762484,
+            CertUntrustedTestRoot: -2146762483,
+            CertRevocationFailure: -2146762482,
+            CertCnNoMatch: -2146762481,
+            CertWrongUsage: -2146762480,
+            CertUntrustedCa: -2146762478,
+            CertUnrecognizedError: -2146762477
+        },
+
+        ldapSecurityRes = {
+            fullAccess: ASC.Resources.Master.ResourceJS.SecurityMappingFullAccess,
+            documents: ASC.Resources.Master.ResourceJS.SecurityMappingDocuments,
+            projects: ASC.Resources.Master.ResourceJS.SecurityMappingProjects,
+            crm: ASC.Resources.Master.ResourceJS.SecurityMappingCrm,
+            community: ASC.Resources.Master.ResourceJS.SecurityMappingCommunity,
+            people: ASC.Resources.Master.ResourceJS.SecurityMappingPeople,
+            mail: ASC.Resources.Master.ResourceJS.SecurityMappingMail
+        },
+
+        ldapMappingRes = {
+            FirstNameAttribute: ASC.Resources.Master.ResourceJS.MappingFirstNameAttribute,
+            SecondNameAttribute: ASC.Resources.Master.ResourceJS.MappingSecondNameAttribute,
+            BirthDayAttribute: ASC.Resources.Master.ResourceJS.MappingBirthDayAttribute,
+            GenderAttribute: ASC.Resources.Master.ResourceJS.MappingGenderAttribute,
+            MobilePhoneAttribute: ASC.Resources.Master.ResourceJS.MappingMobilePhoneAttribute,
+            MailAttribute: ASC.Resources.Master.ResourceJS.MappingMailAttribute,
+            TitleAttribute: ASC.Resources.Master.ResourceJS.MappingTitleAttribute,
+            LocationAttribute: ASC.Resources.Master.ResourceJS.MappingLocationAttribute,
+            AvatarAttribute: ASC.Resources.Master.ResourceJS.MappingAvatarAttribute,
+            AdditionalPhone: ASC.Resources.Master.ResourceJS.MappingAdditionalPhone,
+            AdditionalMobilePhone: ASC.Resources.Master.ResourceJS.MappingAdditionalMobilePhone,
+            AdditionalMail: ASC.Resources.Master.ResourceJS.MappingAdditionalMail,
+            Skype: ASC.Resources.Master.ResourceJS.MappingSkype
+        },
+
+        $ldapSettingsServer = jq("#ldapSettingsServer"),
+        $ldapSettingsUserDN = jq("#ldapSettingsUserDN"),
+        $ldapSettingsPortNumber = jq("#ldapSettingsPortNumber"),
+        $ldapSettingsUserFilter = jq("#ldapSettingsUserFilter"),
+        $ldapSettingsLoginAttribute = jq("#ldapSettingsLoginAttribute"),
+        $ldapSettingsGroupDN = jq("#ldapSettingsGroupDN"),
+        $ldapSettingsUserAttribute = jq("#ldapSettingsUserAttribute"),
+        $ldapSettingsGroupFilter = jq("#ldapSettingsGroupFilter"),
+        $ldapSettingsGroupAttribute = jq("#ldapSettingsGroupAttribute"),
+        $ldapSettingsGroupNameAttribute = jq("#ldapSettingsGroupNameAttribute"),
+        $ldapSettingsLogin = jq("#ldapSettingsLogin"),
+        $ldapSettingsPassword = jq("#ldapSettingsPassword"),
+
+        $ldapSettingsError = jq("#ldapSettingsError"),
+        $ldapSettingsSyncError = jq("#ldapSettingsSyncError"),
+
+        $ldapSettingsSyncBtn = jq("#ldapSettingsSyncBtn"),
+        $ldapSettingsRestoreBtn = jq("#ldapSettingsRestoreBtn"),
+
+
+        $ldapSettingsSaveBtn = jq(".ldap-settings-save"),
+        $ldapSettingsMainContainer = jq(".ldap-settings-main-container"),
+
+        $ldapSettingsSyncSource = jq("#ldapSettingsSyncSource"),
+        $ldapSettingsSource = jq("#ldapSettingsSource"),
+        $ldapSettingsStatus = jq("#ldapSettingsStatus"),
+        $ldapSettingsPercent = jq("#ldapSettingsPercent"),
+
+        $ldapSettingsProgressbarContainer = jq(".ldap-settings-progressbar-container"),
+        $ldapSettingsProgressValue = $ldapSettingsProgressbarContainer.find(".asc-progress-value"),
+
+        $ldapSettingsSyncProgressbarContainer = jq(".ldap-settings-sync-progressbar-container"),
+        $ldapSettingsSyncProgressValue = $ldapSettingsSyncProgressbarContainer.find(".asc-progress-value"),
+
+        $ldapSettingsCronContainer = jq("#ldapSettingsCronContainer"),
+        $ldapSettingsAutoSyncBtn = jq("#ldapSettingsAutoSyncBtn"),
+
+        $ldapSettingsUserContainer = jq(".ldap-settings-user-container"),
+        $ldapSettingsGroupContainer = jq(".ldap-settings-group-container"),
+        $ldapSettingsAuthContainer = jq(".ldap-settings-auth-container"),
+        $ldapSettingsSecurityContainer = jq(".ldap-settings-security-container"),
+        $ldapSettingsAdvancedContainer = jq(".ldap-settings-advanced-container"),
+
+        $ldapSettingsStartTlsCheckbox = jq("#ldapSettingsStartTLSCheckbox"),
+        $ldapSettingsSslCheckbox = jq("#ldapSettingsSslCheckbox"),
+
+        $ldapSettingsAuthBtn = jq("#ldapSettingsAuthenticationCheckbox"),
+        $ldapSettingsBtn = jq("#ldapSettingsCheckbox"),
+
+        $ldapSettingsSyncStatus = jq("#ldapSettingsSyncStatus"),
+        $ldapSettingsSyncPercent = jq("#ldapSettingsSyncPercent"),
+
+        $ldapSettingsGroupBtn = jq("#ldapSettingsGroupCheckbox"),
+
+        $ldapSettingsAutoSync = jq("#ldapAutoSyncCont"),
+        $ldapSettingsCron = jq("#ldapSettingsAutoSyncCron"),
+        $ldapSettingsCronInput = jq("#ldapSettingsAutoSyncCronInput"),
+        $ldapCronEditLink = jq("#ldapCronEditLink, #ldapCronHumanText"),
+        $ldapSettingsAutoSyncDialog = jq("#ldapSettingsCronDialog"),
+        $ldapNextSyncFields = jq(".cronHumanReadable"),
+
+        $ldapSettingsSendWelcomeEmailCheckbox = jq("#ldapSettingsSendWelcomeEmail"),
+
+        $ldapSettingsInviteDialog = jq("#ldapSettingsInviteDialog"),
+        $ldapSettingsCertificateValidationDialog = jq("#ldapSettingsCertificateValidationDialog"),
+        $ldapSettingsTurnOffDialog = jq("#ldapSettingsTurnOffDialog"),
+        $ldapSettingsCronTurnOffDialog = jq("#ldapSettingsCronTurnOffDialog"),
+        $ldapSettingsSpoilerLink = jq(".ldap-settings-spoiler-link"),
+        $ldapSettingsSpoiler = jq("#ldapSettingsSpoiler"),
+
+        $ldapMappingSecurity = jq("#ldapMappingSecurity"),
+        $ldapMappingAddAccess = jq("#ldapMappingAddAccess"),
+
+        $ldapMappingAddBtn = jq("#ldapMappingAddBtn"),
+        $ldapMappingSettings = jq("#ldapMappingSettings"),
+        $studioPageContent = jq('#studioPageContent'),
+        ldapMappingOptions,
+        ldapMappingRequiredOptions = ["FirstNameAttribute", "SecondNameAttribute", "MailAttribute"],
+
+        $ldapSettingsImportUserLimitPanel = jq("#ldapSettingsImportUserLimitPanel"),
+
+        $ldapSettingsRestoreDefaultSettings = jq(".ldap-settings-restore-default-settings"),
+        $view = jq('.studio-container');
+
+
+    var init = function () {
+
+
+        function buildMappingOptions(collection) {
+            var htmlMappingOptions = "";
+
+            for (var key in collection) {
+                htmlMappingOptions += "<div class=\"option\" data-value=\"" + key + "\">" + Encoder.htmlEncode(collection[key]) + "</div>";
+            }
+
+            return htmlMappingOptions;
+        }
+
+        if (jq("#ldapBlock").hasClass("disable")) {
+            jq("#ldapBlock").find("input").prop("disabled", true);
+            jq("#ldapSettingsSyncBtn").addClass("disable");
+            return;
+        }
+
+        Teamlab.getLdapCronSettings({}, {
+            success: onGetLdapCronSettings,
+            error: onFailApi
+        });
+
+        $ldapSettingsSpoilerLink.on('click', function () {
+            spoiler.toggle('#ldapSettingsSpoiler', jq(this));
+        });
+
+        if (!$ldapSettingsSyncBtn.hasClass("disable")) {
+            enableSync(true);
+        }
+
+        ldapMappingOptions = buildMappingOptions(ldapMappingRes);
+        ldapSecurityOptions = buildMappingOptions(ldapSecurityRes);
+
+        parseMappings($ldapMappingSettings, ldapMappingRes, ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions);
+        parseMappings($ldapMappingSecurity, ldapSecurityRes, ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
+
+        currentSettings = getSettings();
+
+        $studioPageContent.on('click', '.selectBox', showSelectOptions);
+        $studioPageContent.on('click', '.selectBox .option', selectOption);
+
+        if ($ldapSettingsBtn.hasClass("off")) {
+            $ldapSettingsMainContainer.find("input").attr("disabled", true);
+            $ldapSettingsMainContainer.find("textarea").attr("disabled", true);
+            $ldapSettingsMainContainer.find(".selectBox:not(.locked)").addClass("disabled");
+            $ldapMappingAddBtn.addClass("disable");
+            $ldapMappingAddAccess.addClass("disabled");
+            $ldapMappingSettings.find(".ldap-mapping-remove-row").addClass("disable");
+            $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
+
+            $ldapSettingsGroupBtn.addClass("disable");
+
+            $ldapSettingsAuthBtn.addClass("disable")
+
+        } else {
+            $ldapSettingsUserContainer.find("input").attr("disabled", false);
+            $ldapSettingsUserContainer.find("textarea").attr("disabled", false);
+            if ($ldapSettingsGroupContainer.hasClass("ldap-settings-disabled")) {
+                $ldapSettingsGroupContainer.find("input").attr("disabled", true);
+                $ldapSettingsGroupContainer.find("textarea").attr("disabled", true);
+                $ldapMappingAddAccess.addClass("disabled");
+                $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
+            } else {
+                $ldapSettingsGroupContainer.find("input").attr("disabled", false);
+                $ldapSettingsGroupContainer.find("textarea").attr("disabled", false);
+                $ldapMappingAddAccess.removeClass("disabled");
+                $ldapMappingSecurity.find(".ldap-mapping-remove-row").removeClass("disable");
+            }
+
+            if ($ldapSettingsAuthContainer.hasClass("ldap-settings-disabled")) {
+                $ldapSettingsAuthContainer.find("input").attr("disabled", true);
+            } else {
+                $ldapSettingsAuthContainer.find("input").attr("disabled", false);
+            }
+        }
+
+        if (!$ldapSettingsSaveBtn.hasClass("disable")) {
+            enableSave(true);
+        }
+
+        if (!$ldapSettingsRestoreBtn.hasClass("disable")) {
+            enableRestoreDefault(true);
+        }
+
+        if (!$ldapSettingsSyncBtn.hasClass("disable")) {
+            enableSync(true);
+        }
+
+        jq("body").on("click", function (event) {
+            var $selectors = $view.find('.selectBox');
+            var target = (event.target) ? event.target : event.srcElement,
+                element = jq(target);
+
+            if (!element.is('.selectBox') && !element.is('.selectBoxValue') && !element.is('.selectBoxSwitch')) {
+                $selectors.find('.selectOptionsBox').hide();
+            } else {
+                var curBox = element.is('.selectBox') ? element : element.parents('.selectBox:first');
+                $selectors.not(curBox).find('.selectOptionsBox').hide();
+            }
+        });
+
+        $ldapMappingAddBtn.click(function () {
+            if (jq(this).hasClass("disable")) return;
+            addMappingRow($ldapMappingSettings, "", "", "", ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin);
+        });
+
+        $ldapMappingAddAccess.click(function () {
+            if (jq(this).hasClass("disable")) return;
+            addMappingRow($ldapMappingSecurity, "", "", "", ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
+        });
+
+        $ldapSettingsTurnOffDialog.on("click", ".ldap-settings-ok", function () {
+            if (jq(this).hasClass("disabled"))
+                return;
+
+            enableLdap(false);
+            closeDialog();
+            saveSettings();
+
+            if ($ldapSettingsSpoiler.hasClass("display-none")) {
+                spoiler.toggle('#ldapSettingsSpoiler', $ldapSettingsSpoilerLink);
+            }
+
+            jq('html, body').animate({
+                scrollTop: $ldapSettingsProgressbarContainer.offset().top
+            }, 2000);
+        });
+        $ldapSettingsTurnOffDialog.on("click", ".ldap-settings-cancel", closeDialog);
+
+        $ldapSettingsCronTurnOffDialog.on("click", ".ldap-settings-ok", function () {
+            if (jq(this).hasClass("disabled"))
+                return;
+
+            $ldapSettingsAutoSyncBtn.addClass("off").removeClass("on");
+            showCronEdit(false);
+            saveCronSettings(true);
+            closeDialog();
+        });
+        $ldapSettingsCronTurnOffDialog.on("click", ".ldap-settings-cancel", closeDialog);
+
+
+
+        $ldapSettingsSslCheckbox.click(function () {
+            var self = jq(this);
+
+            if (self.is(":checked")) {
+                $ldapSettingsStartTlsCheckbox.prop('checked', false);
+                $ldapSettingsPortNumber.val(constants.SSL_LDAP_PORT);
+            }
+            else {
+                $ldapSettingsPortNumber.val(constants.DEFAULT_LDAP_PORT);
+            }
+            refreshButtons();
+        });
+
+        $ldapSettingsStartTlsCheckbox.click(function () {
+            var self = jq(this);
+            if (self.hasClass("disabled"))
+                return;
+
+            if (self.is(":checked")) {
+                $ldapSettingsSslCheckbox.prop('checked', false);
+                $ldapSettingsPortNumber.val(constants.DEFAULT_LDAP_PORT);
+            }
+            refreshButtons();
+        });
+
+        $ldapSettingsBtn.on("click", onLdapEnabled);
+        $ldapSettingsAutoSyncBtn.on("click", onAutoSyncEnabled);
+        jq("#ldapCronEditLink").on("click", function (e) { onAutoSyncEnabled(e, true); });
+
+        $ldapSettingsSendWelcomeEmailCheckbox.click(function () {
+            if (jq(this).is(":checked")) {
+                jq(this).removeClass("off").addClass("on");
+            } else {
+                jq(this).removeClass("on").addClass("off");
+            }
+        });
+        $ldapSettingsGroupBtn.click(function () {
+
+            if (jq(this).hasClass("disable")) return;
+
+            if (jq(this).hasClass("off")) {
+                jq(this).removeClass("off").addClass("on");
                 $ldapSettingsGroupContainer.find("input").removeAttr("disabled");
                 $ldapSettingsGroupContainer.removeClass("ldap-settings-disabled");
+            } else {
+                jq(this).removeClass("on").addClass("off");
+                $ldapSettingsGroupContainer.find("input").attr("disabled", "");
+                $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
             }
-            $ldapSettingsAuthCheckbox.removeAttr("disabled");
-            if ($ldapSettingsAuthCheckbox.is(":checked") || isMono) {
+        });
+
+        $ldapSettingsAuthBtn.click(function () {
+
+            var $ldapSettingsAuthContainer = jq(".ldap-settings-auth-container");
+
+            if (jq(this).hasClass("disable")) return;
+
+            if (jq(this).hasClass("off")) {
+                jq(this).removeClass("off").addClass("on");
                 $ldapSettingsAuthContainer.find("input").removeAttr("disabled");
-                $ldapSettingsAuthContainer.removeClass("ldap-settings-disabled");             
+                $ldapSettingsAuthContainer.removeClass("ldap-settings-disabled");
+            } else {
+                jq(this).removeClass("on").addClass("off");
+                $ldapSettingsAuthContainer.find("input").attr("disabled", "");
+                $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
+            }
+        });
+
+        $ldapSettingsCertificateValidationDialog.on("click",
+            ".ldap-settings-ok",
+            function () { continueSaveSettings(null, true); });
+        $ldapSettingsCertificateValidationDialog.on("click",
+            ".ldap-settings-cancel",
+            function () {
+                closeDialog();
+            });
+
+        $ldapSettingsAutoSyncDialog.on("click", ".ldap-sync-save", function () {
+            if (jq(this).hasClass("disabled"))
+                return;
+
+            $ldapSettingsAutoSyncBtn.addClass("on").removeClass("off");
+            showCronEdit(true);
+            saveCronSettings();
+            closeDialog();
+            $ldapNextSyncFields.text(getNextValidDateFromCron($ldapSettingsCron.jqCronGetInstance().getCron()));
+        });
+        $ldapSettingsAutoSyncDialog.on("click", ".ldap-settings-cancel", function () {
+            closeDialog();
+            if (currentCron) {
+                setTimeout(function () { $ldapSettingsCron.jqCronGetInstance().setCron(currentCron); }, 500);
+            }
+        });
+        $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
+
+        $ldapSettingsInviteDialog.on("click", ".ldap-settings-ok", restoreDefaultSettings);
+        $ldapSettingsInviteDialog.on("click", ".ldap-settings-cancel", cancelDialog);
+        $ldapSettingsImportUserLimitPanel.on("click", ".ldap-settings-ok", continueSaveSettings);
+        $ldapSettingsImportUserLimitPanel.on("click", ".ldap-settings-cancel", cancelDialog);
+        $ldapSettingsImportUserLimitPanel.on("click", ".cancelButton", cancelDialog);
+        jq(document).keyup(function (e) {
+            /* Escape Key */
+            if (!$ldapSettingsImportUserLimitPanel.is(":hidden") && e.keyCode == 27) {
+                cancelDialog();
+            }
+        });
+        jq(".ldap-settings-main-container input").change(function () {
+            isRestoreDefault = false;
+            if ($ldapSettingsSaveBtn.hasClass("disable")) {
+                $ldapSettingsSaveBtn.removeClass("disable");
+                $ldapSettingsMainContainer.on("click", ".ldap-settings-save", saveSettings);
+            }
+            if ($ldapSettingsRestoreDefaultSettings.hasClass("disable")) {
+                $ldapSettingsRestoreDefaultSettings.removeClass("disable");
+                $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
+            }
+        });
+        jq(".ldap-settings-main-container .textEdit").keyup(function () {
+            isRestoreDefault = false;
+            if ($ldapSettingsSaveBtn.hasClass("disable")) {
+                $ldapSettingsSaveBtn.removeClass("disable");
+                $ldapSettingsMainContainer.on("click", ".ldap-settings-save", saveSettings);
+            }
+            if ($ldapSettingsRestoreDefaultSettings.hasClass("disable")) {
+                $ldapSettingsRestoreDefaultSettings.removeClass("disable");
+                $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
+            }
+        });
+    }
+
+    function onGetLdapCronSettings(params, cron) {
+
+        currentCron = Object.keys(cron).length === 0 ? "" : cron;
+        if (currentCron === "") {
+            $ldapSettingsAutoSyncBtn.removeClass("on").addClass("off");
+            showCronEdit(false);
+        } else {
+            $ldapSettingsAutoSyncBtn.removeClass("off").addClass("on");
+            showCronEdit(true);
+        }
+
+        $ldapSettingsCron.jqCron({
+            enabled_year: false,
+            texts: {
+                en: {
+                    empty: ASC.Resources.Master.ResourceJS.CronEmpty,
+                    empty_minutes: ASC.Resources.Master.ResourceJS.CronEmptyMinutes,
+                    empty_time_hours: ASC.Resources.Master.ResourceJS.CronEmptyTimeHours,
+                    empty_time_minutes: ASC.Resources.Master.ResourceJS.CronEmptyTimeMinutes,
+                    empty_day_of_week: ASC.Resources.Master.ResourceJS.CronEmptyDayOfWeek,
+                    empty_day_of_month: ASC.Resources.Master.ResourceJS.CronEmptyDayOfMonth,
+                    empty_month: ASC.Resources.Master.ResourceJS.CronEmptyMonth,
+                    name_minute: ASC.Resources.Master.ResourceJS.CronNameMinute,
+                    name_hour: ASC.Resources.Master.ResourceJS.CronNameHour,
+                    name_day: ASC.Resources.Master.ResourceJS.CronNameDay,
+                    name_week: ASC.Resources.Master.ResourceJS.CronNameWeek,
+                    name_month: ASC.Resources.Master.ResourceJS.CronNameMonth,
+                    name_year: ASC.Resources.Master.ResourceJS.CronNameYear,
+                    text_period: ASC.Resources.Master.ResourceJS.CronTextPeriod,
+                    text_mins: ASC.Resources.Master.ResourceJS.CronTextMins,
+                    text_time: ASC.Resources.Master.ResourceJS.CronTextTime,
+                    text_dow: ASC.Resources.Master.ResourceJS.CronTextDow,
+                    text_month: ASC.Resources.Master.ResourceJS.CronTextMonth,
+                    text_dom: ASC.Resources.Master.ResourceJS.CronTextDom,
+                    error1: ASC.Resources.Master.ResourceJS.CronError1,
+                    error2: ASC.Resources.Master.ResourceJS.CronError2,
+                    error3: ASC.Resources.Master.ResourceJS.CronError3,
+                    error4: ASC.Resources.Master.ResourceJS.CronError4,
+                    first_last: [ASC.Resources.Master.ResourceJS.CronFirst, ASC.Resources.Master.ResourceJS.CronLast],
+                    weekdays: [ASC.Resources.Master.ResourceJS.CronMonday, ASC.Resources.Master.ResourceJS.CronTuesday, ASC.Resources.Master.ResourceJS.CronWednesday, ASC.Resources.Master.ResourceJS.CronThursday, ASC.Resources.Master.ResourceJS.CronFriday, ASC.Resources.Master.ResourceJS.CronSaturday, ASC.Resources.Master.ResourceJS.CronSunday],
+                    months: [ASC.Resources.Master.ResourceJS.CronJanuary, ASC.Resources.Master.ResourceJS.CronFebruary, ASC.Resources.Master.ResourceJS.CronMarch, ASC.Resources.Master.ResourceJS.CronApril, ASC.Resources.Master.ResourceJS.CronMay, ASC.Resources.Master.ResourceJS.CronJune, ASC.Resources.Master.ResourceJS.CronJuly, ASC.Resources.Master.ResourceJS.CronAugust, ASC.Resources.Master.ResourceJS.CronSeptember, ASC.Resources.Master.ResourceJS.CronOctober, ASC.Resources.Master.ResourceJS.CronNovember, ASC.Resources.Master.ResourceJS.CronDecember]
+                }
+            },
+            default_value: currentCron || "0 0 0 ? * *",
+            bind_to: $ldapSettingsCronInput,
+            bind_method: {
+                set: function ($element, value) {
+                    var el;
+                    if ($ldapSettingsAutoSyncDialog.is(":visible")) {
+                        el = $ldapSettingsAutoSyncDialog.find(".cronHumanReadable");
+                    } else {
+                        el = $ldapNextSyncFields;
+                    }
+                    el = $ldapNextSyncFields;
+                    el.text(getNextValidDateFromCron(value));
+                    $element.val(value);
+                }
+            }
+        }).children().first().on("cron:change", refreshButtons);
+    }
+
+    function enableInputs(on) {
+        if (on) {
+            $ldapSettingsBtn.removeClass("off").addClass("on");
+            $ldapMappingAddBtn.removeClass("disable");
+
+            $ldapMappingAddAccess.addClass("disabled");
+            $ldapSettingsUserContainer.find("input").attr("disabled", false);
+
+            $ldapSettingsUserContainer.find("textarea").attr("disabled", false);
+            $ldapSettingsUserContainer.find(".selectBox:not(.locked)").removeClass("disabled");
+            $ldapMappingSettings.find(".ldap-mapping-remove-row").removeClass("disable");
+            $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
+
+            $ldapSettingsGroupBtn.removeClass("disable");
+
+            $ldapSettingsUserContainer.removeClass("ldap-settings-disabled");
+            $ldapSettingsSecurityContainer.removeClass("ldap-settings-disabled");
+            $ldapSettingsAdvancedContainer.removeClass("ldap-settings-disabled");
+
+            $ldapSettingsStartTlsCheckbox.attr("disabled", false);
+            $ldapSettingsSslCheckbox.attr("disabled", false);
+
+            $ldapSettingsSendWelcomeEmailCheckbox.attr("disabled", false);
+
+            $ldapSettingsAutoSyncBtn.addClass("disable");
+
+            if ($ldapSettingsGroupBtn.hasClass("on")) {
+                $ldapSettingsGroupContainer.find("input").removeAttr("disabled");
+                $ldapSettingsGroupContainer.find("textarea").removeAttr("disabled");
+                $ldapSettingsGroupContainer.removeClass("ldap-settings-disabled");
+                $ldapMappingAddAccess.removeClass("disabled");
+                $ldapMappingSecurity.find(".ldap-mapping-remove-row").removeClass("disable");
+            }
+            $ldapSettingsAuthBtn.removeClass("disable");
+
+            if ($ldapSettingsAuthBtn.hasClass("on")) {
+                $ldapSettingsAuthContainer.find("input").attr("disabled", false);
+                $ldapSettingsAuthContainer.removeClass("ldap-settings-disabled");
             }
         } else {
-            $ldapSettingsMainContainer.find("input:not(#ldapSettingsCheckbox)").attr("disabled", "");
-            jq(".ldap-settings-label-checkbox:not(.ldap-settings-never-disable)").addClass("ldap-settings-disabled");
+            $ldapSettingsBtn.removeClass("on").addClass("off");
+            $ldapMappingAddBtn.addClass("disable");
+
+            $ldapSettingsCronContainer.find("input").attr("disabled", true);
+            $ldapSettingsCronContainer.find(".on_off_button").addClass("disabled");
+
+            $ldapMappingAddAccess.addClass("disabled");
+
+            $ldapSettingsGroupBtn.addClass("disable");
+
+            $ldapSettingsAuthBtn.addClass("disable");
+
+            $ldapSettingsMainContainer.find("input").attr("disabled", true);
+            $ldapSettingsMainContainer.find("textarea").attr("disabled", true);
+            $ldapSettingsUserContainer.find(".selectBox:not(.locked)").addClass("disabled");
+            $ldapMappingSettings.find(".ldap-mapping-remove-row").addClass("disable");
+            $ldapMappingSecurity.find(".ldap-mapping-remove-row").addClass("disable");
+            $ldapSettingsStartTlsCheckbox.addClass("disabled");
+            $ldapSettingsSslCheckbox.addClass("disabled");
+
+            $ldapSettingsSendWelcomeEmailCheckbox.attr("disabled", true);
+
+            $ldapSettingsAutoSyncBtn.removeClass("disable");
             $ldapSettingsUserContainer.addClass("ldap-settings-disabled");
+            $ldapSettingsSecurityContainer.addClass("ldap-settings-disabled");
+            $ldapSettingsAdvancedContainer.addClass("ldap-settings-disabled");
             $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
             $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
         }
-    });
+    }
 
-    jq("#ldapSettingsGroupCheckbox").click(function () {
-        var $ldapSettingsGroupContainer = jq(".ldap-settings-group-container");
-        if (jq(this).is(":checked")) {
-            $ldapSettingsGroupContainer.find("input").removeAttr("disabled");
-            $ldapSettingsGroupContainer.removeClass("ldap-settings-disabled");
-        } else {
-            $ldapSettingsGroupContainer.find("input").attr("disabled", "");
-            $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
-        }
-    });
+    function getNextValidDateFromCron(cron) {
+        var now, m = moment();
 
-    jq("#ldapSettingsAuthenticationCheckbox").click(function () {
-        var $ldapSettingsAuthContainer = jq(".ldap-settings-auth-container");
-        if (jq(this).is(":checked")) {
-            $ldapSettingsAuthContainer.find("input").removeAttr("disabled");
-            $ldapSettingsAuthContainer.removeClass("ldap-settings-disabled");
+        var parts = cron.split(" ");
+
+        var mins = parts[1],
+            hrs = parts[2],
+            dow = parts[5];
+
+        var offset = m.utcOffset();
+        m.utc(offset);
+        m.milliseconds(0).subtract(offset, "minutes");
+        now = moment(m);
+
+        m.seconds(0);
+        m.minutes(mins);
+
+        if (hrs !== "*") {
+            m.hours(hrs);
+
+            if (dow === "*") {
+                if (m < now) {
+                    m.add(1, "days");
+                }
+            } else {
+                if (dow.length === 1) {
+                    m.isoWeekday(parseInt(dow));
+
+                    if (m < now) {
+                        m.add(7, "days");
+                    }
+                } else {
+                    if (dow[1] === "L") {
+                        m.date(m.daysInMonth());
+
+                        while (m.isoWeekday() != dow[0]) {
+                            m.subtract(1, "days");
+                        }
+
+                        if (m < now) {
+                            m.add(7, "days");
+
+                            var month = m.month();
+
+                            while (month === m.month()) {
+                                m.add(7, "days");
+                            }
+
+                            m.subtract(7, "days");
+                        }
+                    } else {
+                        m.date(1);
+                        var month = m.month();
+                        m.isoWeekday(parseInt(dow[0]));
+
+                        if (month !== m.month()) {
+                            m.add(7, "days");
+                        }
+
+                        if (m < now) {
+                            m.add(1, "month");
+                            m.date(1);
+
+                            month = m.month();
+                            m.isoWeekday(parseInt(dow[0]));
+
+                            if (month !== m.month()) {
+                                m.add(7, "days");
+                            }
+                        }
+                    }
+                }
+            }
         } else {
-            $ldapSettingsAuthContainer.find("input").attr("disabled", "");
-            $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
+            if (m < now) {
+                m.add(1, "hours");
+            }
         }
-    });
+
+        return m.add(offset, "minutes").format("LLLL");
+    }
+
+    function refreshButtons() {
+        isRestoreDefault = false;
+        var settingsChanged = hasChanges();
+        enableSave(settingsChanged);
+        enableSync(!settingsChanged && currentSettings.EnableLdapAuthentication);
+        enableRestoreDefault($ldapSettingsBtn.hasClass("on"));
+        enableCron(currentSettings.EnableLdapAuthentication);
+        enableMailCheckboxes($ldapSettingsBtn.hasClass("on") && jq(".ldap-mapping-row .selectBox[data-value=MailAttribute]").nextAll("input").val());
+    }
+
+    function enableProgress(enabled) {
+        if (enabled) {
+            if (syncInProgress) {
+                $ldapSettingsProgressbarContainer.css({ "visibility": "hidden" });
+                $ldapSettingsSyncProgressbarContainer.css({ "visibility": "visible" });
+            } else {
+                $ldapSettingsProgressbarContainer.css({ "visibility": "visible" });
+                $ldapSettingsSyncProgressbarContainer.css({ "visibility": "hidden" });
+            }
+        } else {
+            $ldapSettingsProgressbarContainer.css({ "visibility": "hidden" });
+            $ldapSettingsSyncProgressbarContainer.css({ "visibility": "hidden" });
+        }
+    }
+    
+    function enableSave(enabled) {
+        $ldapSettingsSaveBtn.toggleClass("disable", !enabled);
+
+        if (enabled) {
+            $ldapSettingsSaveBtn.off("click").on("click", saveSettings);
+        } else {
+            $ldapSettingsSaveBtn.off("click");
+        }
+    }
+
+    function enableSync(enabled) {
+        $ldapSettingsSyncBtn.toggleClass("disable", !enabled);
+
+        if (enabled) {
+            $ldapSettingsSyncBtn.off("click").on("click", syncUsersLDAP);
+        } else {
+            $ldapSettingsSyncBtn.off("click");
+        }
+    }
+
+    function enableRestoreDefault(enabled) {
+        $ldapSettingsRestoreBtn.toggleClass("disable", !enabled);
+
+        if (enabled) {
+            $ldapSettingsRestoreBtn.off("click").on("click", restoreDefault);
+        } else {
+            $ldapSettingsRestoreBtn.off("click");
+        }
+    }
+
+    function enableCron(on) {
+
+        $ldapSettingsAutoSyncBtn.toggleClass("disable", !on);
+        if (!on) {
+            $ldapSettingsAutoSyncBtn.removeClass("on").addClass("off");
+        }
+
+        showCronEdit($ldapSettingsAutoSyncBtn.hasClass("on"));
+    }
+
+    function showCronEdit(on) {
+        if (on) {
+            $ldapCronEditLink.show();
+        } else {
+            $ldapCronEditLink.hide();
+        }
+    }
+
+    function enableMailCheckboxes(on) {
+        if (on) {
+            $ldapSettingsSendWelcomeEmailCheckbox.attr("disabled", false);
+        } else {
+            $ldapSettingsSendWelcomeEmailCheckbox.prop('checked', false).attr("disabled", true); 
+        }
+    }
+
+    function enableLdap(on) {
+        $ldapSettingsBtn.toggleClass("off", !on).toggleClass("on", on);
+
+        if (on && $ldapSettingsSpoiler.hasClass("display-none")) {
+            $ldapSettingsSpoilerLink.click();
+        }
+
+        enableInputs(on);
+
+        HideRequiredError();
+
+        onSettingsChanged();
+
+    }
+
+    function onLdapEnabled() {
+        var $this = jq(this);
+
+        if ($this.hasClass("disabled"))
+            return;
+
+        var on = $this.hasClass("off");
+
+        if (currentSettings.EnableLdapAuthentication) {
+            StudioBlockUIManager.blockUI("#ldapSettingsTurnOffDialog", 500);
+        }
+        else {
+            enableLdap(on);
+        }
+    }
+
+    function getSettings() {
+        var enableLdapAuthentication = $ldapSettingsBtn.hasClass("on"),
+            startTls = $ldapSettingsStartTlsCheckbox.is(":checked"),
+            ssl = $ldapSettingsSslCheckbox.is(":checked"),
+            sendWelcomeEmail = $ldapSettingsSendWelcomeEmailCheckbox.is(":checked"),
+            server = $ldapSettingsServer.val(),
+            userDN = $ldapSettingsUserDN.val(),
+            portNumber = $ldapSettingsPortNumber.val(),
+            userFilter = $ldapSettingsUserFilter.val(),
+            loginAttribute = $ldapSettingsLoginAttribute.val(),
+            ldapMapping = {},
+            accessRights = {},
+            groupMembership = $ldapSettingsGroupBtn.hasClass("on"),
+            groupDN = $ldapSettingsGroupDN.val(),
+            userAttribute = $ldapSettingsUserAttribute.val(),
+            groupFilter = $ldapSettingsGroupFilter.val(),
+            groupAttribute = $ldapSettingsGroupAttribute.val(),
+            groupNameAttribute = $ldapSettingsGroupNameAttribute.val(),
+            authentication = $ldapSettingsAuthBtn.hasClass("on"),
+            login = $ldapSettingsLogin.val(),
+            password = $ldapSettingsPassword.val();
+
+
+        $ldapMappingSettings.children().each(function () {
+            var select = (jq(this).children("div").attr("data-value") || "").trim();
+            var input = (jq(this).children("input").val() || "").trim();
+
+            if (!select || !input) return;
+
+            if (ldapMapping[select] && !select.endsWith("Attribute")) {
+                ldapMapping[select] += "," + input;
+            } else {
+                ldapMapping[select] = input;
+            }
+        });
+
+        $ldapMappingSecurity.children().each(function () {
+            var select = (jq(this).children("div").attr("data-value") || "").trim();
+            var input = (jq(this).children("input").val() || "").trim();
+
+            if (!select || !input) return;
+
+            if (accessRights[select]) {
+                accessRights[select] += "," + input;
+            } else {
+                accessRights[select] = input;
+            }
+        });
+
+        var settings = {
+            EnableLdapAuthentication: enableLdapAuthentication,
+            StartTls: startTls,
+            Ssl: ssl,
+            SendWelcomeEmail: sendWelcomeEmail,
+            Server: server,
+            UserDN: userDN,
+            PortNumber: portNumber,
+            UserFilter: userFilter,
+            LoginAttribute: loginAttribute,
+            LdapMapping: ldapMapping,
+            AccessRights: accessRights,
+            GroupMembership: groupMembership,
+            GroupDN: groupDN,
+            UserAttribute: userAttribute,
+            GroupFilter: groupFilter,
+            GroupAttribute: groupAttribute,
+            GroupNameAttribute: groupNameAttribute,
+            Authentication: authentication,
+            Login: login,
+            Password: password
+        };
+
+        return settings;
+    }
+
+
+    function parseMappings(elem, res, options, placeholder, required) {
+        var data_val = elem.attr("data-value");
+        if (!data_val) return;
+        var data = JSON.parse(data_val);
+        elem.removeAttr("data-value");
+
+        if (required) {
+            for (var i = 0; i < required.length; i++) {
+                var value = data[required[i]];
+                addMappingRow(elem, required[i], value ? value : "", res[required[i]], options, placeholder, true);
+            }
+        }
+
+        if (data) {
+            for (var key in data) {
+                if (required && required.includes(key)) {
+                    continue;
+                }
+
+                if (data[key].includes(",")) {
+                    var split = data[key].split(",");
+                    for (var i = 0; i < split.length; i++) {
+                        addMappingRow(elem, key, split[i], res[key], options, placeholder);
+                    }
+                } else {
+                    addMappingRow(elem, key, data[key], res[key], options, placeholder);
+                }
+            }
+        }
+    }
+
+    function refreshMappingOptions(el, options) {
+
+        var uniqueKeys = [];
+        var selects = el.find(".selectBox");
+        selects.each(function () {
+            var val = jq(this).attr("data-value");
+            if (val.endsWith("Attribute"))
+                uniqueKeys.push(val);
+        }).each(function () {
+            var sel = jq(this).attr("data-value");
+
+            var currentOptions = jq(this).find(".selectOptionsInnerBox").html(options).children();
+            currentOptions.filter(function () { return jq(this).attr("data-value") === sel }).addClass("selected");
+            currentOptions.filter(function () {
+                return !(uniqueKeys.indexOf(jq(this).attr("data-value")) < 0) && jq(this).attr("data-value") !== sel;
+            }).remove();
+        });
+    }
+
+    function addMappingRow(el, key, value, humanKey, options, placeholder, required) {
+        key = key || "";
+        value = value || "";
+
+        jq("#ldapMappingFieldTmpl")
+            .tmpl({ key: key, value: value, humanKey: humanKey, options: options, placeholder: placeholder, required: required }).appendTo(el);
+
+        el.find(".ldap-mapping-remove-row").last().click(function () { removeMappingRow(el, jq(this), options); });
+        var select = el.find(".selectBox").last();
+        select.on("valueChanged", onSettingsChanged);
+        select.on("valueChanged", function () { refreshMappingOptions(el, options); });
+
+        if (required) {
+            select.addClass("locked").addClass("disabled");
+        }
+
+        var input = el.find("input").last();
+        input.change(refreshButtons)
+            .keyup(refreshButtons)
+            .on("paste", refreshButtons);
+
+        refreshMappingOptions(el, options);
+        if (!key) {
+            var val = select.find(".selectOptionsInnerBox").children().first();
+            select.attr("data-value", val.attr("data-value"));
+            select.children(".selectBoxValue").text(val.text());
+            refreshMappingOptions(el, options);
+        }
+    }
+
+    function removeMappingRow(el, self, options) {
+        if (self.hasClass("disable")) return;
+
+        var row = self.parent();
+        if (row.length && row.hasClass("ldap-mapping-row"))
+            row.remove();
+        refreshMappingOptions(el, options);
+        refreshButtons();
+    }
+
+    function onSettingsChanged() {
+        refreshButtons();
+    }
+
+    function hasChanges() {
+        var nextSettings = getSettings();
+
+        if (!currentSettings && !!nextSettings ||
+            !!currentSettings && !nextSettings) {
+            return true;
+        }
+
+        if (currentSettings.EnableLdapAuthentication !== nextSettings.EnableLdapAuthentication ||
+            currentSettings.StartTls !== nextSettings.StartTls ||
+            currentSettings.SendWelcomeEmail !== nextSettings.SendWelcomeEmail ||
+            currentSettings.Server !== nextSettings.Server ||
+            currentSettings.UserDN !== nextSettings.UserDN ||
+            currentSettings.PortNumber !== nextSettings.PortNumber ||
+            currentSettings.UserFilter !== nextSettings.UserFilter ||
+            currentSettings.LoginAttribute !== nextSettings.LoginAttribute ||
+            currentSettings.GroupMembership !== nextSettings.GroupMembership ||
+            currentSettings.GroupDN !== nextSettings.GroupDN ||
+            currentSettings.UserAttribute !== nextSettings.UserAttribute ||
+            currentSettings.GroupFilter !== nextSettings.GroupFilter ||
+            currentSettings.GroupAttribute !== nextSettings.GroupAttribute ||
+            currentSettings.GroupNameAttribute !== nextSettings.GroupNameAttribute ||
+            currentSettings.Authentication !== nextSettings.Authentication ||
+            currentSettings.Login !== nextSettings.Login ||
+            currentSettings.Password !== nextSettings.Password) {
+            return true;
+        }
+
+
+        if (!isObjectsEqual(currentSettings.LdapMapping, nextSettings.LdapMapping)) {
+            return true;
+        }
+
+        if (!isObjectsEqual(currentSettings.AccessRights, nextSettings.AccessRights)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function showSelectOptions() {
+        var $selector = jq(this);
+
+        if ($selector.attr("disabled") || $selector.hasClass("disabled"))
+            return;
+
+        var $options = $selector.find('.selectOptionsBox');
+
+        if ($options.is(':visible')) {
+            $options.hide();
+            $options.css('top', 0);
+            $options.css('left', 0);
+        } else {
+            var offset = $selector.position();
+
+            if ($options.is('.top')) {
+                $options.css('top', offset.top - $options.outerHeight() - 3 + 'px');
+                $options.css('left', offset.left + $selector.outerWidth() - $options.outerWidth() + 'px');
+            } else {
+                $options.css('top', offset.top + $selector.outerHeight() + 3 + 'px');
+                $options.css('left', offset.left + $selector.outerWidth() - $options.outerWidth() + 'px');
+            }
+
+            $options.show();
+        }
+    }
+
+    function selectOption() {
+
+        var $option = jq(this),
+            $select = $option.closest('.selectBox'),
+            value = $option.attr('data-value');
+
+        $select.find('.selectBoxValue').text($option.text());
+        $select.attr('data-value', value);
+
+        $option.closest('.selectOptionsBox').hide();
+        $option.siblings('.option').removeClass('selected');
+        $option.addClass('selected');
+
+        $select.trigger("valueChanged", value);
+    }
+
+    function onAutoSyncEnabled(ev, edit) {
+
+        var $this = jq(this);
+
+        if ($this.hasClass("disable")) return;
+
+        var on = $ldapSettingsAutoSyncBtn.hasClass("on");
+
+        if (on && currentCron && !edit) {
+            StudioBlockUIManager.blockUI("#ldapSettingsCronTurnOffDialog", 500);
+            return;
+        } else {
+            if (currentCron) {
+                $ldapSettingsCron.jqCronGetInstance().setCron(currentCron);
+            }
+            StudioBlockUIManager.blockUI("#ldapSettingsCronDialog", 500);
+            return;
+        }
+    }
 
     function restoreDefaultSettings() {
-        var $ldapSettingsSave = jq(".ldap-settings-save"),
-            $ldapSettingsMainContainer = jq(".ldap-settings-main-container");
+
         PopupKeyUpActionProvider.CloseDialog();
+        HideRequiredError();
+        setStatus("");
+        setSource("");
+        setPercents(constants.NULL_PERCENT);
 
         Teamlab.getLdapDefaultSettings({},
-        {
-            success: function(params, result) {
-                HideRequiredError();
-                loadSettings(result);
-                jq("#ldapSettingsError").addClass("display-none");
-                jq(".ldap-settings-progressbar-container").addClass("display-none");
-                setPercentsExactly(NULL_PERCENT);
+            {
+                success: function (params, result) {
 
-                jq(".ldap-settings-restore-default-settings").addClass("disable");
-                $ldapSettingsMainContainer.off("click", ".ldap-settings-restore-default-settings");
+                    try {
+                        if (result) {
+                            loadSettings(result);
+                            continueSaveSettings(null, true);
+                        } else {
+                            throw ASC.Resources.Master.ResourceJS.OperationFailedError;
+                        }
+                    } catch (error) {
+                        showError(error);
+                        currentSettings = previousSettings;
+                        endProcess();
+                    }
+                },
+                error: onFailApi
+            });
+    }
 
-                $ldapSettingsSave.removeClass("disable");
-                $ldapSettingsMainContainer.on("click", ".ldap-settings-save", saveSettings);
+    function closeDialog() {
+        PopupKeyUpActionProvider.CloseDialog();
+        enableInterface(true);
+        $ldapSettingsError.hide();
+        $ldapSettingsSyncError.hide();
+        enableProgress(false);
+        refreshButtons();
+        already = false;
+    }
 
-                jq(".ldap-settings-sync-users").addClass("disable");
+    function saveCronSettings(remove) {
+        var newCron;
 
-                isRestoreDefault = true;
+        if (remove) {
+            newCron = null;
+        } else {
+            newCron = $ldapSettingsCronInput.val();
+        }
+
+        Teamlab.setLdapCronSettings({}, { cron: newCron }, {
+            success: function () {
+                currentCron = newCron;
             },
-            error: function(params, response) {
-            }
+            error: onFailApi
         });
     }
 
@@ -111,22 +1099,29 @@ var LdapSettings = new function () {
             return;
         }
 
+        syncInProgress = true;
+        disableInterface();
+        previousSettings = currentSettings;
+        setStatus("");
+        setSource("");
+        setPercents(constants.NULL_PERCENT);
+
         already = true;
         HideRequiredError();
 
-        jq("#ldapSettingsError").addClass("display-none");
+        $ldapSettingsError.addClass("display-none");
 
         PopupKeyUpActionProvider.CloseDialog();
         disableInterface();
 
         Teamlab.syncLdap({},
-        {
-            success: function(params, response) {
-                progressBarIntervalId = setInterval(checkStatus, 600);
-            },
-            error: function(params, response) {
-            }
-        });
+            {
+                success: function () {
+                    setProgress(status);
+                    progressBarIntervalId = setInterval(checkStatus, 600);
+                },
+                error: onFailApi
+            });
     }
 
     function cancelDialog() {
@@ -140,166 +1135,99 @@ var LdapSettings = new function () {
     }
 
     function restoreDefault() {
+        var $this = jq(this);
+
+        if ($this.hasClass("disable")) return;
+
         StudioBlockUIManager.blockUI("#ldapSettingsInviteDialog", 500);
         PopupKeyUpActionProvider.EnterAction = "LdapSettings.restoreDefaultSettings();";
     }
 
     function disableInterface() {
-        var $ldapSettingsMainContainer = jq(".ldap-settings-main-container");
-        setPercentsExactly(NULL_PERCENT);
-        jq("#ldapSettingsError").addClass("display-none");
-        jq(".ldap-settings-progressbar-container").removeClass("display-none");
-        jq(".ldap-settings-save").addClass("disable");
-        jq(".ldap-settings-restore-default-settings").addClass("disable");
+        setPercentsExactly(constants.NULL_PERCENT);
+        $ldapSettingsError.hide();
+        $ldapSettingsSyncError.hide();
+        $ldapSettingsProgressbarContainer.removeClass("display-none");
+        $ldapSettingsSaveBtn.addClass("disable");
+        $ldapSettingsRestoreDefaultSettings.addClass("disable");
         jq(".ldap-settings-sync-users").addClass("disable");
         $ldapSettingsMainContainer.addClass("ldap-settings-disabled-all");
         $ldapSettingsMainContainer.find("input").attr("disabled", "");
         $ldapSettingsMainContainer.off("click", ".ldap-settings-save");
         $ldapSettingsMainContainer.off("click", ".ldap-settings-restore-default-settings");
         $ldapSettingsMainContainer.off("click", ".ldap-settings-sync-users");
+
+        $ldapMappingSettings.find(".ldap-mapping-remove-row").addClass("disable");
+        $ldapMappingAddBtn.attr("disabled", true).addClass("disable");
+
+        enableRestoreDefault(false);
+        enableSave(false);
+        enableSync(false);
+        enableProgress(true);
     }
 
-    function enableInterface() {
-        var $ldapSettingsCheckbox = jq("#ldapSettingsCheckbox"),
-            $ldapSettingsGroupCheckbox = jq("#ldapSettingsGroupCheckbox"),
-            $ldapSettingsAuthCheckbox = jq("#ldapSettingsAuthenticationCheckbox"),
-            $ldapSettingsMainContainer = jq(".ldap-settings-main-container");
-        
-        jq(".ldap-settings-save").removeClass("disable");
-        jq(".ldap-settings-restore-default-settings").removeClass("disable");
+    function enableInterface(cancel) {
+        if (!cancel) {
+            refreshButtons();
+        }
         $ldapSettingsMainContainer.removeClass("ldap-settings-disabled-all");
-        $ldapSettingsCheckbox.removeAttr("disabled");
-        if ($ldapSettingsCheckbox.is(":checked")) {
-            jq(".ldap-settings-user-container").find("input").removeAttr("disabled");
-            $ldapSettingsGroupCheckbox.removeAttr("disabled");
-            if ($ldapSettingsGroupCheckbox.is(":checked")) {
-                jq(".ldap-settings-group-container").find("input").removeAttr("disabled");
+        $ldapSettingsBtn.attr("disabled", false).removeClass("disable");
+        if ($ldapSettingsBtn.hasClass("on")) {
+            $ldapSettingsStartTlsCheckbox.removeClass("disabled").attr("disabled", false);
+            $ldapSettingsSslCheckbox.removeClass("disabled").attr("disabled", false);
+            $ldapSettingsUserContainer.find("input").attr("disabled", false);
+            $ldapSettingsUserContainer.find("textarea").attr("disabled", false);
+            $ldapSettingsUserContainer.find(".selectBox:not(.locked)").removeClass("disabled");
+            $ldapSettingsUserContainer.find(".on-off-button").removeClass("disable");
+            $ldapSettingsAutoSyncBtn.removeClass("disable");
+            $ldapSettingsGroupBtn.removeClass("disable");
+
+            $ldapMappingAddBtn.attr("disable", false).removeClass("disable");
+            $ldapMappingSettings.find(".ldap-mapping-remove-row").removeClass("disable");
+
+            if ($ldapSettingsGroupBtn.hasClass("on")) {
+                $ldapSettingsGroupContainer.find("input").attr("disabled", false);
+                $ldapSettingsGroupContainer.find("textarea").attr("disabled", false);
+                $ldapSettingsGroupContainer.find(".selectBox:not(.locked)").removeClass("disabled");
+                $ldapSettingsGroupContainer.find(".on-off-button").removeClass("disable");
+                $ldapMappingAddAccess.attr("disabled", false).removeClass("disabled");
             }
-            $ldapSettingsAuthCheckbox.removeAttr("disabled");
-            if ($ldapSettingsAuthCheckbox.is(":checked") || isMono) {
-                jq(".ldap-settings-auth-container").find("input").removeAttr("disabled");
+            $ldapSettingsAuthBtn.removeClass("disable");
+            if ($ldapSettingsAuthBtn.hasClass("on")) {
+                $ldapSettingsAuthContainer.find("input").attr("disabled", false);
+                $ldapSettingsAuthContainer.find(".on-off-button").removeClass("disable");
+            }
+            if ($ldapSettingsAutoSyncBtn.hasClass("on")) {
+                $ldapSettingsAutoSync.find("input").attr("disabled", false);
+                $ldapSettingsAutoSync.find(".selectBox:not(.locked)").removeClass("disabled");
             }
         }
-        $ldapSettingsMainContainer.on("click", ".ldap-settings-save", saveSettings);
-        $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
-        $ldapSettingsMainContainer.on("click", ".ldap-settings-sync-users", syncUsersLDAP);
+
     }
 
     function saveSettings() {
         if (already) {
             return;
         }
-        already = true;
-        HideRequiredError();
-        var $ldapSettingsMainContainer = jq(".ldap-settings-main-container"),
-            result = false,
-            enableLdapAuthentication = jq("#ldapSettingsCheckbox").is(":checked"),
-            server = jq("#ldapSettingsServer").val(),
-            userDN = jq("#ldapSettingsUserDN").val(),
-            portNumber = jq("#ldapSettingsPortNumber").val(),
-            userFilter = jq("#ldapSettingsUserFilter").val(),
-            loginAttribute = jq("#ldapSettingsLoginAttribute").val(),
-            firstNameAttribute = jq("#ldapSettingsFirstNameAttribute").val(),
-            secondNameAttribute = jq("#ldapSettingsSecondNameAttribute").val(),
-            mailAttribute = jq("#ldapSettingsMailAttribute").val(),
-            titleAttribute = jq("#ldapSettingsTitleAttribute").val(),
-            mobilePhoneAttribute = jq("#ldapSettingsMobilePhoneAttribute").val(),
-            locationAttribute = jq("#ldapSettingsLocationAttribute").val(),
-            groupMembership = jq("#ldapSettingsGroupCheckbox").is(":checked"),
-            groupDN = jq("#ldapSettingsGroupDN").val(),
-            userAttribute = jq("#ldapSettingsUserAttribute").val(),
-            groupFilter = jq("#ldapSettingsGroupFilter").val(),
-            groupAttribute = jq("#ldapSettingsGroupAttribute").val(),
-            groupNameAttribute = jq("#ldapSettingsGroupNameAttribute").val(),
-            authentication = jq("#ldapSettingsAuthenticationCheckbox").is(":checked"),
-            login = jq("#ldapSettingsLogin").val(),
-            password = jq("#ldapSettingsPassword").val();
 
+        already = true;
+
+        HideRequiredError();
+
+        objectSettings = getSettings();
         $ldapSettingsMainContainer.find(".ldap-settings-empty-field").addClass("display-none");
         $ldapSettingsMainContainer.find(".ldap-settings-incorrect-number").addClass("display-none");
-        if (enableLdapAuthentication) {
-            if (server == "") {
-                result = true;
-                ShowRequiredError(jq("#ldapSettingsServer"));
-            }
-            if (userDN == "") {
-                result = true;
-                ShowRequiredError(jq("#ldapSettingsUserDN"));
-            }
-            if (portNumber == "") {
-                result = true;
-                jq("#ldapSettingsPortNumberError").text(ASC.Resources.Master.Resource.LdapSettingsEmptyField);
-                ShowRequiredError(jq("#ldapSettingsPortNumber"));
-            } else if (!isInt(portNumber)) {
-                result = true;
-                jq("#ldapSettingsPortNumberError").text(ASC.Resources.Master.Resource.LdapSettingsIncorrectPortNumber);
-                ShowRequiredError(jq("#ldapSettingsPortNumber"));
-            }
-            if (loginAttribute == "") {
-                result = true;
-                ShowRequiredError(jq("#ldapSettingsLoginAttribute"));
-            }
-            if (groupMembership) {
-                if (groupDN == "") {
-                    result = true;
-                    ShowRequiredError(jq("#ldapSettingsGroupDN"));
-                }
-                if (userAttribute == "") {
-                    result = true;
-                    ShowRequiredError(jq("#ldapSettingsUserAttribute"));
-                }
-                if (groupAttribute == "") {
-                    result = true;
-                    ShowRequiredError(jq("#ldapSettingsGroupAttribute"));
-                }
-                if (groupNameAttribute == "") {
-                    result = true;
-                    ShowRequiredError(jq("#ldapSettingsGroupNameAttribute"));
-                }
-            }
-            if (authentication || isMono) {
-                if (login == "") {
-                    result = true;
-                    ShowRequiredError(jq("#ldapSettingsLogin"));
-                }
-                if (password == "") {
-                    result = true;
-                    ShowRequiredError(jq("#ldapSettingsPassword"));
-                }
-            }
-        }
 
-        if (result) {
+        if (!validateSettings(objectSettings)) {
             already = false;
             return;
         }
-        if (portNumber == "") {
-            portNumber = DEFAULT_LDAP_PORT;
-        }
-        objectSettings = {
-            EnableLdapAuthentication: enableLdapAuthentication,
-            Server: server,
-            UserDN: userDN,
-            PortNumber: portNumber,
-            UserFilter: userFilter,
-            LoginAttribute: loginAttribute,
-            FirstNameAttribute: firstNameAttribute,
-            SecondNameAttribute: secondNameAttribute,
-            MailAttribute: mailAttribute,
-            TitleAttribute: titleAttribute,
-            MobilePhoneAttribute: mobilePhoneAttribute,
-            LocationAttribute: locationAttribute,
-            GroupMembership: groupMembership,
-            GroupDN: groupDN,
-            UserAttribute: userAttribute,
-            GroupFilter: groupFilter,
-            GroupAttribute: groupAttribute,
-            GroupNameAttribute: groupNameAttribute,
-            Authentication: authentication,
-            Login: login,
-            Password: password
-        }
-        if (jq("#ldapSettingsCheckbox").is(":checked")) {
+
+        setStatus("");
+        setSource("");
+        setPercents(constants.NULL_PERCENT);
+
+        if ($ldapSettingsBtn.hasClass("on")) {
             StudioBlockUIManager.blockUI("#ldapSettingsImportUserLimitPanel", 500);
             PopupKeyUpActionProvider.EnableEsc = false;
             PopupKeyUpActionProvider.EnterAction = "LdapSettings.continueSaveSettings();";
@@ -308,18 +1236,240 @@ var LdapSettings = new function () {
         }
     }
 
-    function continueSaveSettings() {
-        PopupKeyUpActionProvider.CloseDialog();
-        disableInterface();
-        Teamlab.saveLdapSettings({},
-            JSON.stringify(objectSettings),
-            {
-                success: function (params, response) {
-                    progressBarIntervalId = setInterval(checkStatus, 600);
-                },
-                error: function(params, response) {
+    function validateSettings(settings) {
+        var isValid = true;
+
+        var validateKeyValuePairs = function () {
+            var $input = jq(this).children("input");
+            var select = (jq(this).children("div").attr("data-value") || "").trim();
+            var input = ($input.val() || "").trim();
+            if (!select || !input) {
+                jq(this).children(".requiredErrorText").text(ASC.Resources.Master.ResourceJS.LdapSettingsEmptyField);
+                ShowRequiredError($input, !isValid, !isValid);
+                isValid = false;
+            }
+        };
+
+        if (settings.EnableLdapAuthentication) {
+            if (settings.Server === "") {
+                ShowRequiredError($ldapSettingsServer);
+                isValid = false;
+            }
+            if (settings.UserDN === "") {
+                ShowRequiredError($ldapSettingsUserDN, !isValid, !isValid);
+                isValid = false;
+            }
+            if (settings.UserFilter === "") {
+                ShowRequiredError($ldapSettingsUserFilter, !isValid, !isValid);
+                isValid = false;
+            }
+            if (settings.PortNumber === "") {
+                jq("#ldapSettingsPortNumberError").text(ASC.Resources.Master.ResourceJS.LdapSettingsEmptyField);
+                ShowRequiredError($ldapSettingsPortNumber, !isValid, !isValid);
+                isValid = false;
+            } else if (!isInt(settings.PortNumber)) {
+                jq("#ldapSettingsPortNumberError").text(ASC.Resources.Master.ResourceJS.LdapSettingsIncorrectPortNumber);
+                ShowRequiredError($ldapSettingsPortNumber, !isValid, !isValid);
+                isValid = false;
+            }
+            if (settings.LoginAttribute === "") {
+                ShowRequiredError($ldapSettingsLoginAttribute, !isValid, !isValid);
+                isValid = false;
+            }
+
+            $ldapMappingSettings.children().each(validateKeyValuePairs);
+
+            var values = {};
+            var uniqueErr = false;
+            $ldapMappingSettings.children().each(function () {
+                var val = jq(this).children("input").val();
+                if (!val) return;
+
+                var exist = values[val];
+                if (exist) {
+                    exist.children(".requiredErrorText").text("");
+                    ShowRequiredError(exist.children("input"), !isValid, !isValid);
+                    uniqueErr = true;
+                    isValid = false;
+                    jq(this).children(".requiredErrorText").text("");
+                    ShowRequiredError(jq(this).children("input"), !isValid, !isValid);
+                } else {
+                    values[val] = jq(this);
                 }
             });
+            if (uniqueErr) toastr.error(ASC.Resources.Master.ResourceJS.ErrorBindingSameAttribute);
+
+            if (settings.GroupMembership) {
+                if (settings.GroupDN === "") {
+                    ShowRequiredError($ldapSettingsGroupDN, !isValid, !isValid);
+                    isValid = false;
+                }
+                if (settings.GroupFilter === "") {
+                    ShowRequiredError($ldapSettingsGroupFilter, !isValid, !isValid);
+                    isValid = false;
+                }
+                if (settings.UserAttribute === "") {
+                    ShowRequiredError($ldapSettingsUserAttribute, !isValid, !isValid);
+                    isValid = false;
+                }
+                if (settings.GroupAttribute === "") {
+                    ShowRequiredError($ldapSettingsGroupAttribute, !isValid, !isValid);
+                    isValid = false;
+                }
+                if (settings.GroupNameAttribute === "") {
+                    ShowRequiredError($ldapSettingsGroupNameAttribute, !isValid, !isValid);
+                    isValid = false;
+                }
+
+                $ldapMappingSecurity.children().each(validateKeyValuePairs);
+            }
+            if (settings.Authentication) {
+                if (settings.Login === "") {
+                    ShowRequiredError($ldapSettingsLogin, !isValid, !isValid);
+                    isValid = false;
+                }
+                if (settings.Password === "") {
+                    ShowRequiredError($ldapSettingsPassword, !isValid, !isValid);
+                    isValid = false;
+                }
+            }
+        }
+
+        return isValid;
+    }
+
+    function continueSaveSettings(e, acceptCertificate) {
+
+        PopupKeyUpActionProvider.CloseDialog();
+
+        syncInProgress = false;
+
+        disableInterface();
+
+        if (!acceptCertificate) {
+            acceptCertificate = false;
+        }
+        previousSettings = currentSettings;
+        currentSettings = getSettings();
+
+        Teamlab.saveLdapSettings({},
+            {
+                settings: JSON.stringify(currentSettings),
+                acceptCertificate: acceptCertificate
+            },
+            {
+                success: function (params, data) {
+                    try {
+                        var status = data;
+                        if (status && status.id) {
+                            setProgress(status);
+                            progressBarIntervalId = setInterval(checkStatus, constants.GET_STATUS_TIMEOUT);
+                        } else {
+                            throw ASC.Resources.Master.ResourceJS.OperationFailedError;
+                        }
+                    } catch (error) {
+                        showError(error);
+                        currentSettings = previousSettings;
+                        endProcess();
+                    }
+                },
+                error: onFailApi
+            });
+    }
+
+    function onFailApi(jqXHR, textStatus) {
+        if (textStatus !== null && textStatus === "abort") {
+            return;
+        }
+        showError(ASC.Resources.Master.ResourceJS.OperationFailedError);
+        currentSettings = previousSettings;
+        endProcess();
+    }
+
+    function endProcess() {
+        if (progressBarIntervalId) {
+            clearInterval(progressBarIntervalId);
+        }
+        already = false;
+        enableInterface(false);
+        if (isRestoreDefault) {
+            enableRestoreDefault(false);
+        }
+    }
+
+    function showError(error) {
+        var errorMessage;
+
+        if (typeof (error) === "string") {
+            errorMessage = error;
+        }
+        else if (error.message) {
+            errorMessage = error.message;
+        } else if (error.responseText) {
+            try {
+                var json = JSON.parse(error.responseText);
+
+                if (typeof (json) === "object") {
+                    if (json.ExceptionMessage) {
+                        errorMessage = json.ExceptionMessage;
+                    }
+                    else if (json.Message) {
+                        errorMessage = json.Message;
+                    }
+                }
+                else if (typeof (json) === "string") {
+                    errorMessage = error.responseText.replace(/(^")|("$)/g, "");
+
+                    if (!errorMessage.length && error.statusText) {
+                        errorMessage = error.statusText;
+                    }
+                }
+            } catch (e) {
+                errorMessage = error.responseText;
+            }
+        } else if (error.statusText) {
+            errorMessage = error.statusText;
+        } else if (error.error) {
+            errorMessage = error.error;
+        }
+
+        errorMessage = !errorMessage || typeof (errorMessage) !== "string" || !errorMessage.length ?
+            ASC.Resources.Master.ResourceJS.OperationFailedError :
+            errorMessage.replace(/(^")|("$)/g, "");
+
+        if (!errorMessage.length) {
+            console.error('showError failed with ', error);
+            return;
+        }
+
+        if (syncInProgress) {
+            $ldapSettingsSyncError.text(errorMessage);
+            $ldapSettingsSyncError.show();
+        } else {
+            $ldapSettingsError.text(errorMessage);
+            $ldapSettingsError.show();
+        }
+        setStatus("");
+        setSource("");
+        setPercents(constants.NULL_PERCENT);
+        toastr.error(errorMessage);
+    }
+
+    function setProgress(status) {
+        setPercents(status.percents);
+
+        if (status.completed) {
+            if (!status.error) {
+                setStatus(ASC.Resources.Master.ResourceJS.LdapSettingsSuccess);
+                setSource("");
+            }
+            else {
+
+            }
+        } else {
+            setStatus(status.status);
+            setSource(status.source);
+        }
     }
 
     function checkStatus() {
@@ -328,56 +1478,136 @@ var LdapSettings = new function () {
         }
         alreadyChecking = true;
         Teamlab.getLdapStatus({},
-        {
-            success: function(params, status) {
-                if (!status) {
+            {
+                success: onGetStatus,
+                error: function () {
                     alreadyChecking = false;
-                    return;
                 }
+            });
+    }
+    
+    function mapError(error) {
+        switch (error) {
+            case ldapCertificateProblem.CertExpired:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertExpired;
+            case ldapCertificateProblem.CertCnNoMatch:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertCnNoMatch;
+            case ldapCertificateProblem.CertIssuerChaining:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertIssuerChaining;
+            case ldapCertificateProblem.CertUntrustedCa:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertUntrustedCa;
+            case ldapCertificateProblem.CertUntrustedRoot:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertUntrustedRoot;
+            case ldapCertificateProblem.CertMalformed:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertMalformed;
+            case ldapCertificateProblem.CertUnrecognizedError:
+                return ASC.Resources.Master.ResourceJS.LdapSettingsCertUnrecognizedError;
+            case ldapCertificateProblem.CertValidityPeriodNesting:
+            case ldapCertificateProblem.CertRole:
+            case ldapCertificateProblem.CertPathLenConst:
+            case ldapCertificateProblem.CertCritical:
+            case ldapCertificateProblem.CertPurpose:
+            case ldapCertificateProblem.CertChainnig:
+            case ldapCertificateProblem.CertRevoked:
+            case ldapCertificateProblem.CertUntrustedTestRoot:
+            case ldapCertificateProblem.CertRevocationFailure:
+            case ldapCertificateProblem.CertWrongUsage:
+                return "";
+        }
 
-                setPercents(status.percents);
-                setStatus(status.status);
+        return "";
+    }
 
-                if (!status.completed) {
-                    alreadyChecking = false;
-                    return;
+    function onGetStatus(params, data) {
+        alreadyChecking = false;
+        try {
+
+            if (data.error) {
+                if (data.certificateConfirmRequest && data.certificateConfirmRequest.certificateErrors) {
+                    var errors = data.certificateConfirmRequest.certificateErrors
+                        .map((item) => mapError(item));
+                    data.certificateConfirmRequest.certificateErrors = errors;
                 }
-
-                clearInterval(progressBarIntervalId);
-                enableInterface();
-
-                if (status.error) {
-                    setTimeout(function() {
-                            var $ldapSettingsError = jq("#ldapSettingsError");
-                            $ldapSettingsError.text(status.error);
-                            $ldapSettingsError.removeClass("display-none");
-                            setStatus("");
-                            setPercentsExactly(NULL_PERCENT);
-                        },
-                        500);
-                } else {
-                    setStatus(ASC.Resources.Master.LdapSettingsSuccess);
-                    if (!isRestoreDefault) {
-                        jq(".ldap-settings-sync-users").removeClass("disable");
-                    }
-                    if (!isRestoreDefault) {
-                        jq(".ldap-settings-sync-users").removeClass("disable");
-                    }
-                }
-
-                jq(".ldap-settings-save").addClass("disable");
-                jq(".ldap-settings-main-container").off("click", ".ldap-settings-save");
-                if (isRestoreDefault) {
-                    jq(".ldap-settings-restore-default-settings").addClass("disable");
-                    jq(".ldap-settings-main-container").off("click", ".ldap-settings-restore-default-settings");
-                }
-
-                already = false;
-                alreadyChecking = false;
-            },
-            error: function(params, response) {
             }
-        });
+
+            var status = data;
+            if (jq.isEmptyObject(data)) {
+                status = {
+                    completed: true,
+                    percents: 100,
+                    certificateConfirmRequest: null,
+                    error: ""
+                };
+            }
+
+            setProgress(status);
+
+            if (status.warning && lastWarning !== status.warning) {
+                lastWarning = status.warning;
+                toastr.warning(status.warning, "", { timeOut: 0, extendedTimeOut: 0 });
+            }
+
+            if (isCompleted(status)) {
+                lastWarning = "";
+
+                if (status.error)
+                    throw status.error;
+
+                endProcess();
+            }
+
+        } catch (error) {
+            showError(error);
+            currentSettings = previousSettings;
+            endProcess();
+        }
+    }
+
+    function isCompleted(status) {
+        if (!status)
+            return true;
+
+        if (!status.completed)
+            return false;
+
+        if (status.certificateConfirmRequest &&
+            status.certificateConfirmRequest.requested) {
+            setCertificateDetails(status.certificateConfirmRequest);
+            currentSettings = previousSettings;
+            /* popupId, width, height, marginLeft, marginTop */
+            StudioBlockUIManager.blockUI("#ldapSettingsCertificateValidationDialog", 500);
+            return true;
+        }
+
+        if (status.error) {
+            return true;
+        }
+
+        toastr.success(ASC.Resources.Master.ResourceJS.LdapSettingsSuccess);
+        return true;
+    }
+
+    function setCertificateDetails(certificateConfirmRequest) {
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-serial-number").text(certificateConfirmRequest.serialNumber);
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-issuer-name").text(certificateConfirmRequest.issuerName);
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-subject-name").text(certificateConfirmRequest.subjectName);
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-valid-from").text(certificateConfirmRequest.validFrom);
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-valid-until").text(certificateConfirmRequest.validUntil);
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-unique-hash").text(certificateConfirmRequest.hash);
+        $ldapSettingsCertificateValidationDialog.find(".toast-container").remove();
+        var html = jq("#ldapCrtErrorTmpl")
+            .tmpl({
+                errors: function () {
+                    var certificateErrors = certificateConfirmRequest.certificateErrors,
+                        errors = [];
+                    for (var i = 0; i < certificateErrors.length; i++) {
+                        errors[i] = {};
+                        errors[i].message = certificateErrors[i];
+                    }
+                    return errors;
+                }
+            });
+        $ldapSettingsCertificateValidationDialog.find(".ldap-settings-crt-details-last").after(html);
     }
 
     function setPercentsExactly(percents) {
@@ -385,55 +1615,130 @@ var LdapSettings = new function () {
         jq("#ldapSettingsPercent").text(percents + "% ");
     }
 
-    function setPercents(percents) {
-        jq(".asc-progress-value").animate({ "width": percents + "%" });
-        jq("#ldapSettingsPercent").text(percents + "% ");
+    function setPercents(percent) {
+        if (percent === undefined)
+            return;
+
+        var value = percent + "%";
+
+        if (syncInProgress) {
+            if (percent === constants.NULL_PERCENT || percent <= lastPercent) {
+                $ldapSettingsSyncProgressValue.css({ "width": value });
+            } else {
+                $ldapSettingsSyncProgressValue.animate({ "width": value });
+            }
+            $ldapSettingsSyncPercent.text(value + " ");
+        } else {
+            if (percent === constants.NULL_PERCENT || percent <= lastPercent) {
+                $ldapSettingsProgressValue.css({ "width": value });
+            } else {
+                $ldapSettingsProgressValue.animate({ "width": value });
+            }
+            $ldapSettingsPercent.text(value + " ");
+        }
+
+        lastPercent = percent;
     }
 
     function setStatus(status) {
-        jq("#ldapSettingsStatus").text(status);
+        if (syncInProgress)
+            $ldapSettingsSyncStatus.text(status);
+        else
+            $ldapSettingsStatus.text(status);
     }
 
+    function setSource(source) {
+        if (syncInProgress)
+            $ldapSettingsSyncSource.text(source);
+        else
+            $ldapSettingsSource.text(source);
+    }
+    function clearAllMappingRows(el) {
+        el.find(".ldap-mapping-row").remove();
+    }
     function loadSettings(settings) {
-        if (!settings || typeof(settings) !== "object")
-            return;
+        if (settings) {
+            if (settings["enableLdapAuthentication"]) {
+                $ldapSettingsBtn.removeClass("off").addClass("on");
+            } else {
 
-        jq("#ldapSettingsCheckbox").prop("checked", settings["enableLdapAuthentication"]);
-        jq("#ldapSettingsServer").val(settings["server"]);
-        jq("#ldapSettingsUserDN").val(settings["userDN"]);
-        jq("#ldapSettingsPortNumber").val(settings["portNumber"]);
-        jq("#ldapSettingsUserFilter").val(settings["userFilter"]);
-        jq("#ldapSettingsLoginAttribute").val(settings["loginAttribute"]);
-        jq("#ldapSettingsFirstNameAttribute").val(settings["firstNameAttribute"]);
-        jq("#ldapSettingsSecondNameAttribute").val(settings["secondNameAttribute"]);
-        jq("#ldapSettingsMailAttribute").val(settings["mailAttribute"]);
-        jq("#ldapSettingsTitleAttribute").val(settings["titleAttribute"]);
-        jq("#ldapSettingsMobilePhoneAttribute").val(settings["mobilePhoneAttribute"]);
-        jq("#ldapSettingsLocationAttribute").val(settings["locationAttribute"]);
+                $ldapSettingsStartTlsCheckbox.prop('checked', false);
+                $ldapSettingsSslCheckbox.prop('checked', false);
+            }
+            if (settings["startTls"]) {
+                $ldapSettingsStartTlsCheckbox.prop('checked', true);
+            } else {
+                $ldapSettingsBtn.removeClass("on").addClass("off");
+            }
+            if (settings["ssl"]) {
+                $ldapSettingsSslCheckbox.prop('checked', true);
+            } else {
+                $ldapSettingsBtn.removeClass("on").addClass("off");
+            }
+            if (settings["sendWelcomeEmail"] == "true") {
+                $ldapSettingsSendWelcomeEmailCheckbox.prop('checked', true);
+            }
+            $ldapSettingsServer.val(settings["server"]);
+            $ldapSettingsUserDN.val(settings["userDN"]);
+            $ldapSettingsPortNumber.val(settings["portNumber"]);
+            $ldapSettingsUserFilter.val(settings["userFilter"]);
+            $ldapSettingsLoginAttribute.val(settings["loginAttribute"]);
 
-        jq("#ldapSettingsGroupCheckbox").prop("checked", settings["groupMembership"]);
-        jq("#ldapSettingsGroupDN").val(settings["groupDN"]);
-        jq("#ldapSettingsUserAttribute").val(settings["userAttribute"]);
-        jq("#ldapSettingsGroupFilter").val(settings["groupFilter"]);
-        jq("#ldapSettingsGroupAttribute").val(settings["groupAttribute"]);
-        jq("#ldapSettingsGroupNameAttribute").val(settings["groupNameAttribute"]);
+            var ldapMapping = settings["ldapMapping"];
+            var accessRights = settings["accessRights"];
 
-        jq("#ldapSettingsAuthenticationCheckbox").prop("checked", settings["authentication"]);
-        jq("#ldapSettingsLogin").val(settings["login"]);
-        jq("#ldapSettingsPassword").val(settings["password"]);
+            clearAllMappingRows($ldapMappingSettings);
+            if (ldapMapping) {
+                for (var key in ldapMapping) {
+                    addMappingRow($ldapMappingSettings, key, ldapMapping[key], ldapMappingRes[key], ldapMappingOptions, ASC.Resources.Master.ResourceJS.LdapAttributeOrigin, ldapMappingRequiredOptions.indexOf(key) !== -1);
+                }
+            }
 
-        disableNeededBlocks(settings["enableLdapAuthentication"],
-            settings["groupMembership"],
-            settings["authentication"]);
+            clearAllMappingRows($ldapMappingSecurity);
+            if (accessRights) {
+                for (var key in accessRights) {
+                    addMappingRow($ldapMappingSecurity, key, ldapMapping[key], ldapSecurityRes[key], ldapSecurityOptions, ASC.Resources.Master.ResourceJS.LdapSecurityPlaceholder);
+                }
+            }
+
+            if (settings["enableLdapAuthentication"]) {
+                $ldapSettingsGroupBtn.removeClass("disable");
+                $ldapSettingsAuthBtn.removeClass("disable");
+            } else {
+                $ldapSettingsGroupBtn.addClass("disable");
+                $ldapSettingsAuthBtn.addClass("disable");
+            }
+
+            if (settings["groupMembership"]) {
+                $ldapSettingsGroupBtn.removeClass("off").addClass("on");
+            } else {
+                $ldapSettingsGroupBtn.removeClass("on").addClass("off");
+            }
+            $ldapSettingsGroupDN.val(settings["groupDN"]);
+            $ldapSettingsUserAttribute.val(settings["userAttribute"]);
+            $ldapSettingsGroupFilter.val(settings["groupFilter"]);
+            $ldapSettingsGroupAttribute.val(settings["groupAttribute"]);
+            $ldapSettingsGroupNameAttribute.val(settings["groupNameAttribute"]);
+
+            if (settings["authentication"]) {
+                $ldapSettingsAuthBtn.removeClass("off").addClass("on");
+            } else {
+                $ldapSettingsAuthBtn.removeClass("on").addClass("off");
+            }
+            $ldapSettingsLogin.val(settings["login"]);
+            $ldapSettingsPassword.val(settings["password"]);
+
+            disableNeededBlocks(settings["enableLdapAuthentication"],
+                settings["groupMembership"],
+                settings["authentication"]);
+        }
     }
 
     function disableNeededBlocks(enableLdapAuthentication, groupMembership, authentication) {
-        var $ldapSettingsGroupContainer = jq(".ldap-settings-group-container"),
-            $ldapSettingsAuthContainer = jq(".ldap-settings-auth-container");
         if (!enableLdapAuthentication) {
-            jq(".ldap-settings-main-container").find("input:not(#ldapSettingsCheckbox)").attr("disabled", "");
+            $ldapSettingsMainContainer.find("input:not(#ldapSettingsCheckbox)").attr("disabled", "");
             jq(".ldap-settings-label-checkbox:not(.ldap-settings-never-disable)").addClass("ldap-settings-disabled");
-            jq(".ldap-settings-user-container").addClass("ldap-settings-disabled");
+            $ldapSettingsUserContainer.addClass("ldap-settings-disabled");
             $ldapSettingsGroupContainer.addClass("ldap-settings-disabled");
             $ldapSettingsAuthContainer.addClass("ldap-settings-disabled");
         } else {
@@ -448,52 +1753,75 @@ var LdapSettings = new function () {
         }
     }
 
-    jq(window).on("load", function () {
-        var $ldapSettingsMainContainer = jq(".ldap-settings-main-container"),
-            $ldapSettingsInviteDialog = jq("#ldapSettingsInviteDialog"),
-            $ldapSettingsImportUserLimitPanel = jq("#ldapSettingsImportUserLimitPanel"),
-            $ldapSettingsSave = jq(".ldap-settings-save"),
-            $ldapSettingsRestoreDefaultSettings = jq(".ldap-settings-restore-default-settings");
 
-        $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
-        $ldapSettingsMainContainer.on("click", ".ldap-settings-sync-users", syncUsersLDAP);
-        $ldapSettingsInviteDialog.on("click", ".ldap-settings-ok", restoreDefaultSettings);
-        $ldapSettingsInviteDialog.on("click", ".ldap-settings-cancel", cancelDialog);
-        $ldapSettingsImportUserLimitPanel.on("click", ".ldap-settings-ok", continueSaveSettings);
-        $ldapSettingsImportUserLimitPanel.on("click", ".ldap-settings-cancel", cancelDialog);
-        $ldapSettingsImportUserLimitPanel.on("click", ".cancelButton", cancelDialog);
-        jq(document).keyup(function (e) {
-            /* Escape Key */
-            if (!jq("#ldapSettingsImportUserLimitPanel").is(":hidden") && e.keyCode == 27) {
-                cancelDialog();
-            }
-        });
-        jq(".ldap-settings-main-container input").change(function () {
-            isRestoreDefault = false;
-            if ($ldapSettingsSave.hasClass("disable")) {
-                $ldapSettingsSave.removeClass("disable");
-                $ldapSettingsMainContainer.on("click", ".ldap-settings-save", saveSettings);
-            }
-            if ($ldapSettingsRestoreDefaultSettings.hasClass("disable")) {
-                $ldapSettingsRestoreDefaultSettings.removeClass("disable");
-                $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
-            }
-        });
-        jq(".ldap-settings-main-container .textEdit").keyup(function () {
-            isRestoreDefault = false;
-            if ($ldapSettingsSave.hasClass("disable")) {
-                $ldapSettingsSave.removeClass("disable");
-                $ldapSettingsMainContainer.on("click", ".ldap-settings-save", saveSettings);
-            }
-            if ($ldapSettingsRestoreDefaultSettings.hasClass("disable")) {
-                $ldapSettingsRestoreDefaultSettings.removeClass("disable");
-                $ldapSettingsMainContainer.on("click", ".ldap-settings-restore-default-settings", restoreDefault);
-            }
-        });
-    });
     return {
+        init: init,
         restoreDefaultSettings: restoreDefaultSettings,
         continueSaveSettings: continueSaveSettings,
         syncUsersLDAP: syncUsersLDAP
     };
 };
+
+function isObjectsEqual(obj, secondObj) {
+    if (!obj || !secondObj) {
+        return false;
+    }
+
+    var objKeys = [];
+    var secondObjKeys = [];
+
+    for (var key in obj) {
+        objKeys.push(key);
+    }
+
+    for (var key in secondObj) {
+        secondObjKeys.push(key);
+    }
+
+    if (objKeys.length !== secondObjKeys.length) {
+        return false;
+    }
+
+    for (var i in objKeys) {
+        var key = objKeys[i];
+        if (obj[key] !== secondObj[key]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+var spoiler = function () {
+    var toggle = function (toggleEl, spoilerEl, force, hideLinkText, showLinkText) {
+        var el = jq(toggleEl);
+        var $this = jq(spoilerEl);
+        if (!el)
+            return;
+
+        var enabled = typeof force === "boolean" ? force : el.hasClass('display-none');
+        var linkText = "";
+
+        if (enabled) {
+            el.toggleClass('display-none', false);
+            if ($this) {
+                linkText = hideLinkText || ASC.Resources.Master.ResourceJS.HideLink;
+                $this.text(linkText).prop('title', linkText);
+            }
+        } else {
+            el.toggleClass('display-none', true);
+            if ($this) {
+                linkText = showLinkText || ASC.Resources.Master.ResourceJS.ShowLink;
+                $this.text(linkText).prop('title', linkText);
+            }
+        }
+    };
+
+    return {
+        toggle: toggle
+    };
+}();
+
+jq(function () {
+    LdapSettings.init();
+});

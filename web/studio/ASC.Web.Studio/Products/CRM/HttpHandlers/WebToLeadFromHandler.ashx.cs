@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,29 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using System.Web;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
-using ASC.Core;
-using ASC.MessagingSystem;
-using ASC.Web.CRM.Classes;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+
 using ASC.Common.Logging;
+using ASC.Core;
+using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
-using ASC.Web.CRM.Services.NotifyService;
-using Newtonsoft.Json.Linq;
-using ASC.Web.CRM.Resources;
+using ASC.CRM.Core.Entities;
+using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Enums;
+using ASC.Web.CRM.Resources;
+using ASC.Web.CRM.Services.NotifyService;
+
 using Autofac;
+
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.CRM.HttpHandlers
 {
@@ -62,7 +64,7 @@ namespace ASC.Web.CRM.HttpHandlers
 
                 return Global.TenantSettings.WebFormKey == webFromKeyAsGuid;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -134,7 +136,7 @@ namespace ASC.Web.CRM.HttpHandlers
                     {
                         contact = new Company();
 
-                        ((Company) contact).CompanyName = companyName;
+                        ((Company)contact).CompanyName = companyName;
 
                         fieldCollector.Add(CRMContactResource.CompanyName, companyName);
                     }
@@ -142,15 +144,15 @@ namespace ASC.Web.CRM.HttpHandlers
                     {
                         contact = new Person();
 
-                        ((Person) contact).FirstName = firstName;
-                        ((Person) contact).LastName = lastName;
-                        ((Person) contact).JobTitle = GetValue("jobTitle");
+                        ((Person)contact).FirstName = firstName;
+                        ((Person)contact).LastName = lastName;
+                        ((Person)contact).JobTitle = GetValue("jobTitle");
 
                         fieldCollector.Add(CRMContactResource.FirstName, firstName);
                         fieldCollector.Add(CRMContactResource.LastName, lastName);
 
                         if (!String.IsNullOrEmpty(GetValue("jobTitle")))
-                            fieldCollector.Add(CRMContactResource.JobTitle, ((Person) contact).JobTitle);
+                            fieldCollector.Add(CRMContactResource.JobTitle, ((Person)contact).JobTitle);
                     }
 
                     contact.About = GetValue("about");
@@ -166,7 +168,7 @@ namespace ASC.Web.CRM.HttpHandlers
                     }
                     else
                     {
-                        contact.ShareType = (ShareType) (Convert.ToInt32(GetValue("share_type")));
+                        contact.ShareType = (ShareType)(Convert.ToInt32(GetValue("share_type")));
                     }
 
                     contact.ID = daoFactory.ContactDao.SaveContact(contact);
@@ -183,7 +185,7 @@ namespace ASC.Web.CRM.HttpHandlers
                     {
                         if (key.StartsWith("customField_"))
                         {
-                            var fieldID = Convert.ToInt32(key.Split(new[] {'_'})[1]);
+                            var fieldID = Convert.ToInt32(key.Split(new[] { '_' })[1]);
                             String fieldValue = GetValue(key);
 
                             if (String.IsNullOrEmpty(fieldValue)) continue;
@@ -205,19 +207,19 @@ namespace ASC.Web.CRM.HttpHandlers
                         }
                         else if (key.StartsWith("contactInfo_"))
                         {
-                            var nameParts = key.Split(new[] {'_'}).Skip(1).ToList();
-                            var contactInfoType = (ContactInfoType) Enum.Parse(typeof(ContactInfoType), nameParts[0]);
+                            var nameParts = key.Split(new[] { '_' }).Skip(1).ToList();
+                            var contactInfoType = (ContactInfoType)Enum.Parse(typeof(ContactInfoType), nameParts[0]);
                             var category = Convert.ToInt32(nameParts[1]);
 
                             bool categoryIsExists = Enum.GetValues(ContactInfo.GetCategory(contactInfoType))
                                 .Cast<object>()
-                                .Any(categoryEnum => (int) categoryEnum == category);
+                                .Any(categoryEnum => (int)categoryEnum == category);
                             if (!categoryIsExists)
                                 throw new ArgumentException(String.Format("Category for {0} not found", nameParts[0]));
 
                             if (contactInfoType == ContactInfoType.Address)
                             {
-                                var addressPart = (AddressPart) Enum.Parse(typeof(AddressPart), nameParts[2]);
+                                var addressPart = (AddressPart)Enum.Parse(typeof(AddressPart), nameParts[2]);
 
                                 var findedAddress =
                                     contactInfos.Find(
@@ -279,7 +281,7 @@ namespace ASC.Web.CRM.HttpHandlers
                     if (!String.IsNullOrEmpty(notifyList))
                         NotifyClient.Instance.SendAboutCreateNewContact(
                             notifyList
-                                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(item => new Guid(item)).ToList(), contact.ID, contact.GetTitle(), fieldCollector);
 
                     var managersList = GetValue("managers_list");
@@ -304,7 +306,7 @@ namespace ASC.Web.CRM.HttpHandlers
                     context.Response.Write("</HTML>");
                 }
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 LogManager.GetLogger("ASC.CRM").Error(error);
                 context.Response.StatusCode = 400;
@@ -336,7 +338,7 @@ namespace ASC.Web.CRM.HttpHandlers
             if (String.IsNullOrEmpty(privateList)) return;
 
             var selectedUsers = privateList
-                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(item => new Guid(item)).ToList();
 
             CRMSecurity.SetAccessTo(contact, selectedUsers);
@@ -345,11 +347,11 @@ namespace ASC.Web.CRM.HttpHandlers
         protected void AssignCompanyToPerson(Company company, String firstName, String lastName, String privateList, DaoFactory daoFactory)
         {
             var person = new Person
-                {
-                    FirstName = firstName,
-                    LastName = lastName,
-                    CompanyID = company.ID
-                };
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                CompanyID = company.ID
+            };
             person.ID = daoFactory.ContactDao.SaveContact(person);
             SetPermission(person, privateList);
         }
@@ -364,9 +366,9 @@ namespace ASC.Web.CRM.HttpHandlers
             if (findedCompanies.Count == 0)
             {
                 company = new Company
-                    {
-                        CompanyName = companyName
-                    };
+                {
+                    CompanyName = companyName
+                };
 
                 company.ID = daoFactory.ContactDao.SaveContact(company);
 

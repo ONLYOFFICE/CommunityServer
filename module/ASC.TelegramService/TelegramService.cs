@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
 */
 
 
+using ASC.Core.Common.Contracts;
 using ASC.Core.Common.Notify;
 using ASC.Notify.Messages;
 
 namespace ASC.TelegramService
 {
-    public class TelegramService : ITelegramService
+    public class TelegramService : ITelegramService, IHealthCheckService
     {
         public void SendMessage(NotifyMessage m)
         {
@@ -49,6 +50,15 @@ namespace ASC.TelegramService
         public string RegistrationToken(string userId, int tenantId)
         {
             return Launcher.Handler.CurrentRegistrationToken(userId, tenantId);
+        }
+
+        public HealthCheckResponse CheckHealth()
+        {
+            return HealthCheckResult.ToResponse(new HealthCheckResult
+            {
+                Message = "Service Telegram is OK! Warning: Method is not implement. Always return the Healthy status",
+                Status = HealthStatus.Healthy
+            });
         }
     }
 }

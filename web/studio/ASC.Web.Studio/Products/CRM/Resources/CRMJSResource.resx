@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActualCloseDate" xml:space="preserve">
     <value>Actual date of the deal</value>
@@ -192,9 +133,6 @@
   <data name="CityWatermark" xml:space="preserve">
     <value>City</value>
   </data>
-  <data name="CloseCase" xml:space="preserve">
-    <value>Close case</value>
-  </data>
   <data name="Company" xml:space="preserve">
     <value>Company</value>
   </data>
@@ -214,11 +152,11 @@ Are you sure you want to continue anyway?</value>
   <data name="ContactTwitterDescription" xml:space="preserve">
     <value>Please enter the name of your Twitter account. For example, teamlabdotcom</value>
   </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Country</value>
+  </data>
   <data name="CurrentMonth" xml:space="preserve">
     <value>Current month</value>
-  </data>
-  <data name="CurrentUser" xml:space="preserve">
-    <value>Current user</value>
   </data>
   <data name="CurrentWeek" xml:space="preserve">
     <value>Current week</value>
@@ -234,9 +172,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="DeleteCaseInProgress" xml:space="preserve">
     <value>Deleting case...</value>
-  </data>
-  <data name="DeleteCompany" xml:space="preserve">
-    <value>Delete company</value>
   </data>
   <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete the '{0}' company?</value>
@@ -280,17 +215,8 @@ Are you sure you want to continue anyway?</value>
   <data name="ElementsSelectedCount" xml:space="preserve">
     <value>{0} selected</value>
   </data>
-  <data name="Empty" xml:space="preserve">
-    <value>Empty</value>
-  </data>
-  <data name="EmptyFieldsOfSettings" xml:space="preserve">
-    <value>The settings fields cannot be empty</value>
-  </data>
   <data name="EmptyItemList" xml:space="preserve">
     <value>The element list cannot be empty</value>
-  </data>
-  <data name="EmptyLabelError" xml:space="preserve">
-    <value>Every field must have a title</value>
   </data>
   <data name="EmptyLetterBodyContent" xml:space="preserve">
     <value>Every letter must have a body</value>
@@ -303,9 +229,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="EmptyTaskTitle" xml:space="preserve">
     <value>Every task must have a title</value>
-  </data>
-  <data name="EmptyTitleError" xml:space="preserve">
-    <value>The title field cannot be empty</value>
   </data>
   <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
     <value>No fields corresponding to the 'Case Title' could be found</value>
@@ -333,9 +256,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="ErrorMessage_SaveImageError" xml:space="preserve">
     <value>An error occurred while uploading the image to the server</value>
-  </data>
-  <data name="ErrorNotCorrectEmail" xml:space="preserve">
-    <value>Incorrect email</value>
   </data>
   <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
     <value>No fields corresponding to the 'Opportunity Title', 'Opportunity Responsible' could be found</value>
@@ -370,38 +290,14 @@ Are you sure you want to continue anyway?</value>
   <data name="GoToSettings" xml:space="preserve">
     <value>Go to Settings</value>
   </data>
-  <data name="HelpContentAccessRights" xml:space="preserve">
-    <value>Open the portal Settings page if you need to restrict the access to the CRM module and give some users administrator privileges.</value>
-  </data>
-  <data name="HelpContentAddContacts" xml:space="preserve">
-    <value>Click this button and select the Import contacts option if you need to transfer your contacts from a CSV file, all at once.</value>
-  </data>
-  <data name="HelpContentCreateNew" xml:space="preserve">
-    <value>Use this button to start creating your customer database adding persons and companies and linking them.</value>
-  </data>
-  <data name="HelpContentCreateWebsite" xml:space="preserve">
-    <value>Use this link to build a form that you can publish on your site and capture new contacts automatically.</value>
-  </data>
-  <data name="HelpTitleAccessRights" xml:space="preserve">
-    <value>Manage Access Rights</value>
-  </data>
-  <data name="HelpTitleAddContacts" xml:space="preserve">
-    <value>Add Contacts in Bulk</value>
-  </data>
-  <data name="HelpTitleCreateNew" xml:space="preserve">
-    <value>Create New Contact</value>
-  </data>
-  <data name="HelpTitleCreateWebsite" xml:space="preserve">
-    <value>Create a Website Contact Form</value>
-  </data>
   <data name="LinkWithProject" xml:space="preserve">
     <value>Link with project</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Uploading</value>
-  </data>
   <data name="LoadingProcessing" xml:space="preserve">
     <value>Loading...</value>
+  </data>
+  <data name="MakeVoIPCall" xml:space="preserve">
+    <value>Make a VoIP call</value>
   </data>
   <data name="ManyCases" xml:space="preserve">
     <value>cases</value>
@@ -423,9 +319,6 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="ManyTasks" xml:space="preserve">
     <value>tasks</value>
-  </data>
-  <data name="NewDocument" xml:space="preserve">
-    <value>New document</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next</value>
@@ -484,12 +377,6 @@ Are you sure you want to continue anyway?</value>
   <data name="OneTask" xml:space="preserve">
     <value>task</value>
   </data>
-  <data name="OpenCase" xml:space="preserve">
-    <value>Open a case</value>
-  </data>
-  <data name="OverallProgress" xml:space="preserve">
-    <value>Overall progress</value>
-  </data>
   <data name="PerPeriodDays" xml:space="preserve">
     <value>during {0} days</value>
   </data>
@@ -532,17 +419,11 @@ Are you sure you want to continue anyway?</value>
   <data name="SelectedCSVFileLabel" xml:space="preserve">
     <value>Selected CSV file: {0}</value>
   </data>
-  <data name="SelectOptions" xml:space="preserve">
-    <value>Choices</value>
-  </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
   <data name="SettingsUpdated" xml:space="preserve">
     <value>Settings have been successfully updated</value>
-  </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>Show {0} more from {1}</value>
   </data>
   <data name="ShowMoreButtonText" xml:space="preserve">
     <value>Show more</value>
@@ -574,12 +455,6 @@ Are you sure you want to continue anyway?</value>
   <data name="UnsuccessfullyClosed" xml:space="preserve">
     <value>Unsuccessfully closed</value>
   </data>
-  <data name="UploadFile" xml:space="preserve">
-    <value>Attach file</value>
-  </data>
-  <data name="UploadingProgress" xml:space="preserve">
-    <value>The file «{0}» is being uploaded...</value>
-  </data>
   <data name="VoipCallAgent" xml:space="preserve">
     <value>Agent</value>
   </data>
@@ -610,15 +485,6 @@ Are you sure you want to continue anyway?</value>
   <data name="VoipCallType" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="ZipCodeWatermark" xml:space="preserve">
-    <value>Zip code</value>
-  </data>
-  <data name="CountryWatermark" xml:space="preserve">
-    <value>Country</value>
-  </data>
-  <data name="MakeVoIPCall" xml:space="preserve">
-    <value>Make a VoIP call</value>
-  </data>
   <data name="VoipSettingsLearnMore" xml:space="preserve">
     <value>To learn more, visit our {0}Help Center{1}</value>
   </data>
@@ -633,5 +499,8 @@ Are you sure you want to continue anyway?</value>
   </data>
   <data name="VoipSettingsPanelUserText" xml:space="preserve">
     <value>To do it, please contact your portal administrator.</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Zip code</value>
   </data>
 </root>

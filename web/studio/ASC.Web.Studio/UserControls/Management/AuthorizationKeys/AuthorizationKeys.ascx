@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AuthorizationKeys.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.AuthorizationKeys" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="authKeysContainer">
     <div class="header-base"><%= Resource.AuthorizationKeys %></div>
@@ -40,37 +40,56 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="containerBodyBlock clearFix">
+                <div class="containerBodyBlock clearFix <% if (!SaveAvailable) {%> disable <% }%>">
 
                     <img src="<%= WebPath.GetPath("UserControls/Management/AuthorizationKeys/img/" + service.Name.ToLower() + ".svg") %>" alt="<%= service.Title %>" class="auth-service-img" />
+                    
+                <% if (!SaveAvailable)
+                    { %>
+                        <p class ="disable">
+                            <div class="settings-help-block">
+                                <p><%= String.Format(Resource.ErrorNotAllowedOption, "<b>", "</b>") %></p>
+                                <a href="<%= TariffPageLink %>" target="_blank"> <%= Resource.ViewTariffPlans %></a>
+                            </div>
+                        </p>
+                    <% } %>
 
                     <% if (!string.IsNullOrEmpty(service.Instruction))
                        { %>
                     <div class="popup-info-block"><%= string.Format(service.Instruction.HtmlEncode(), "<div class=\"popup-info-separator\"></div>") %></div>
                     <% } %>
 
+
                     <div>
                         <%foreach (var prop in service.Props){%>
                         <div class="bold headerPanelSmall"><%= prop.Title %>:</div>
-                        <input id="<%= prop.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= prop.Title %>" value="<%= prop.Value %>" />
+                        <input id="<%= prop.Name %>" type="text" class="auth-service-key textEdit" placeholder="<%= prop.Title %>" <%= SaveAvailable ? "" : "disabled = disabled" %>" value="<%= prop.Value %>" />
                         <%}%>
                     </div>
 
                     <div class="small-button-container">
-                        <a id="saveBtn<%= service.Name %>" class="button blue middle saveButton"><%= Resource.AuthorizationKeysEnableButton %></a>
+                        <a id="saveBtn<%= service.Name %>" class="button blue middle <%= SaveAvailable ? "saveButton" : "disable" %>"><%= Resource.AuthorizationKeysEnableButton %></a>
                     </div>
 
                      <% if (!string.IsNullOrEmpty(SupportLink) || !string.IsNullOrEmpty(SupportLink))
                        { %>
                     <div class="popup-info-block">
                         <% if (!string.IsNullOrEmpty(HelpLink))
-                           { %>
-                        <div><%= string.Format(Resource.AuthorizationKeysHelpTextV11, "<a href=\"" + HelpLink + "/server/windows/community/authorization-keys.aspx#" + service.Name + "\" target=\"_blank\">", "</a>") %></div>
+                            { %>
+                                <%if (SaveAvailable) {%>
+                                    <div><%= string.Format(Resource.AuthorizationKeysHelpTextV11, "<a href=\"" + HelpLink + "/server/windows/community/authorization-keys.aspx#" + service.Name + "\" target=\"_blank\">", "</a>") %></div>
+                                <%} else{%>
+                                    <div><%= string.Format(Resource.AuthorizationKeysHelpTextV11, "<a target=\"_blank\">", "</a>") %></div>
+                                <%} %>
                         <div class="popup-info-separator"></div>
                         <% } %>
                         <% if (!string.IsNullOrEmpty(SupportLink))
                            { %>
-                        <div><%= string.Format(Resource.AuthorizationKeysSupportTextV11, "<a href=\""+ SupportLink +"\" target=\"_blank\">", "</a>") %></div>
+                                <%if (SaveAvailable) {%>
+                                    <div><%= string.Format(Resource.AuthorizationKeysSupportTextV11, "<a href=\""+ SupportLink +"\" target=\"_blank\">", "</a>") %></div>
+                                <%} else{%>
+                                    <div><%= string.Format(Resource.AuthorizationKeysSupportTextV11, "<a target=\"_blank\">", "</a>") %></div>
+                                <%} %>
                         <% } %>
                     </div>
                     <% } %>

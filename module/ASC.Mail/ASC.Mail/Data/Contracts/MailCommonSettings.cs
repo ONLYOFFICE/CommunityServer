@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Core.Common.Settings;
 
 namespace ASC.Mail.Data.Contracts
@@ -52,7 +53,8 @@ namespace ASC.Mail.Data.Contracts
             };
         }
 
-        public override Guid ID {
+        public override Guid ID
+        {
             get { return new Guid("{AA4E16A0-B9F5-402A-A71E-9A1EC6E6B57A}"); }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,10 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
-using ASC.Core;
-using Action = ASC.Common.Security.Authorizing.Action;
+using ASC.CRM.Core.Entities;
 #endregion
 
 namespace ASC.CRM.Core
@@ -52,7 +50,7 @@ namespace ASC.CRM.Core
                 contactId = eventObj.ContactID;
                 entityId = eventObj.EntityID;
                 entityType = eventObj.EntityType;
-                
+
             }
             else
             {
@@ -62,31 +60,31 @@ namespace ASC.CRM.Core
             if (entityId == 0 && contactId == 0) return null;
 
             if (entityId == 0)
-            return new Company
+                return new Company
                 {
                     ID = contactId,
                     CompanyName = "fakeCompany"
                 };
-                
-                //   return _daoFactory.ContactDao.GetByID(contactId);
+
+            //   return _daoFactory.ContactDao.GetByID(contactId);
 
             switch (entityType)
             {
 
                 case EntityType.Opportunity:
                     return new Deal
-                        {
-                            ID = entityId,
-                            Title = "fakeDeal"
-                        };
-                   // return _daoFactory.DealDao.GetByID(entityId);
+                    {
+                        ID = entityId,
+                        Title = "fakeDeal"
+                    };
+                // return _daoFactory.DealDao.GetByID(entityId);
                 case EntityType.Case:
                     return new Cases
-                        {
-                            ID = entityId, 
-                            Title = "fakeCases"
-                        };
-                  //  return _daoFactory.CasesDao.GetByID(entityId);
+                    {
+                        ID = entityId,
+                        Title = "fakeCases"
+                    };
+                    //  return _daoFactory.CasesDao.GetByID(entityId);
             }
 
             return null;
@@ -104,10 +102,10 @@ namespace ASC.CRM.Core
 
         public IEnumerable<IRole> GetObjectRoles(ISubject account, ISecurityObjectId objectId, SecurityCallContext callContext)
         {
- 
-          //   Constants.Everyone
-          // if (_daoFactory.GetManagerDao().GetAll(false).Contains(ASC.Core.CoreContext.UserManager.GetUsers(account.ID)))
-          //   return new Action[]
+
+            //   Constants.Everyone
+            // if (_daoFactory.GetManagerDao().GetAll(false).Contains(ASC.Core.CoreContext.UserManager.GetUsers(account.ID)))
+            //   return new Action[]
             throw new NotImplementedException();
         }
     }

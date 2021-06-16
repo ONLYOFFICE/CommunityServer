@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,24 @@
 
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Core.Client.HttpHandlers;
-using ASC.Web.CRM.Classes;
-using ASC.CRM.Core;
+
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
-using ASC.Web.Core;
-using ASC.Web.CRM.Configuration;
 using ASC.CRM.Core.Entities;
+using ASC.Web.Core;
 using ASC.Web.Core.Client;
+using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Core;
+using ASC.Web.CRM.Resources;
+
 using Autofac;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
@@ -175,7 +177,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 var allListItems = daoFactory.ListItemDao.GetItems();
                 var contactStatusListItems = allListItems.Where(r => r.ListType == ListType.ContactStatus).ToList();
                 contactStatusListItems.Insert(0,
-                    new ListItem {ID = 0, Title = CRMCommonResource.NotSpecified, Color = "0"});
+                    new ListItem { ID = 0, Title = CRMCommonResource.NotSpecified, Color = "0" });
 
                 var contactStages = contactStatusListItems.ConvertAll(item => new
                 {
@@ -185,7 +187,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 });
 
                 var contactTypeListItems = allListItems.Where(r => r.ListType == ListType.ContactType).ToList();
-                contactTypeListItems.Insert(0, new ListItem {ID = 0, Title = CRMContactResource.CategoryNotSpecified});
+                contactTypeListItems.Insert(0, new ListItem { ID = 0, Title = CRMContactResource.CategoryNotSpecified });
 
                 var contactTypes = contactTypeListItems.ConvertAll(item => new
                 {
@@ -202,7 +204,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 };
                 Converter<InvoiceStatus, object> invoiceStatusesConverter = item => new
                 {
-                    value = (int) item,
+                    value = (int)item,
                     displayname = item.ToLocalizedString(),
                     apiname = item.ToString().ToLower()
                 };
@@ -387,7 +389,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 converter("about", CRMContactResource.About)
             };
 
-            foreach (ContactInfoType infoTypeEnum in Enum.GetValues(typeof (ContactInfoType)))
+            foreach (ContactInfoType infoTypeEnum in Enum.GetValues(typeof(ContactInfoType)))
             {
                 var localName = string.Format("contactInfo_{0}_{1}", infoTypeEnum, ContactInfo.GetDefaultCategory(infoTypeEnum));
                 var localTitle = infoTypeEnum.ToLocalizedString();
@@ -396,7 +398,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 {
                     foreach (AddressPart addressPartEnum in Enum.GetValues(typeof(AddressPart)))
                         columnSelectorData.Add(converter(
-                            string.Format(localName + "_{0}_{1}", addressPartEnum, (int) AddressCategory.Work),
+                            string.Format(localName + "_{0}_{1}", addressPartEnum, (int)AddressCategory.Work),
                             string.Format(localTitle + " {0}", addressPartEnum.ToLocalizedString().ToLower())));
                 }
                 else
@@ -420,7 +422,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
 
                 Converter<CustomField, object> customFieldConverter =
                     customField =>
-                        defaultConverter("customField_" + customField.ID, customField.Label, (int) customField.FieldType,
+                        defaultConverter("customField_" + customField.ID, customField.Label, (int)customField.FieldType,
                             customField.Mask);
 
                 Func<EntityType, List<object>> getFieldsDescription = entityType =>
@@ -625,7 +627,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                 var daoFactory = scope.Resolve<DaoFactory>();
                 var fieldsDescription = daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Opportunity);
                 columnSelectorData.AddRange(fieldsDescription.ConvertAll(CfConverter));
-                columnSelectorData.AddRange(GetList("member", CRMDealResource.DealParticipants, string.Empty, CRMDealResource.DealParticipant));
+                columnSelectorData.AddRange(GetList("member", CRMDealResource.DealParticipants, CRMDealResource.OtherMembersDeal, CRMDealResource.DealParticipant));
                 columnSelectorData.AddRange(GetList("tag", CRMDealResource.DealTags, CRMDealResource.DealTagList, CRMDealResource.DealTag));
 
                 var tagList = daoFactory.TagDao.GetAllTags(EntityType.Opportunity).ToList();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.Files;
@@ -106,14 +107,14 @@ namespace ASC.Web.Files.Controls
                     descrMy += strDragDrop;
 
                     EmptyScreenFolder.Controls.Add(new EmptyScreenControl
-                        {
-                            ID = "emptyContainer_my",
-                            ImgSrc = PathProvider.GetImagePath("empty_screen_my.png"),
-                            Header = FilesUCResource.MyFiles,
-                            HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                            Describe = descrMy,
-                            ButtonHTML = strButtons.ToString()
-                        });
+                    {
+                        ID = "emptyContainer_my",
+                        ImgSrc = PathProvider.GetImagePath("empty_screen_my.png"),
+                        Header = FilesUCResource.MyFiles,
+                        HeaderDescribe = FilesUCResource.EmptyScreenHeader,
+                        Describe = descrMy,
+                        ButtonHTML = strButtons.ToString()
+                    });
 
                     EmptyScreenFolder.Controls.Add(new EmptyScreenControl
                     {
@@ -194,62 +195,62 @@ namespace ASC.Web.Files.Controls
                 if (!CoreContext.Configuration.Personal)
                 {
                     EmptyScreenFolder.Controls.Add(new EmptyScreenControl
-                        {
-                            ID = "emptyContainer_forme",
-                            ImgSrc = PathProvider.GetImagePath("empty_screen_forme.png"),
-                            Header = FilesUCResource.SharedForMe,
-                            HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                            Describe = FilesUCResource.EmptyScreenDescrForme.HtmlEncode()
-                        });
+                    {
+                        ID = "emptyContainer_forme",
+                        ImgSrc = PathProvider.GetImagePath("empty_screen_forme.png"),
+                        Header = FilesUCResource.SharedForMe,
+                        HeaderDescribe = FilesUCResource.EmptyScreenHeader,
+                        Describe = FilesUCResource.EmptyScreenDescrForme.HtmlEncode()
+                    });
 
                     EmptyScreenFolder.Controls.Add(new EmptyScreenControl
-                        {
-                            ID = "emptyContainer_corporate",
-                            ImgSrc = PathProvider.GetImagePath("empty_screen_corporate.png"),
-                            Header = FilesUCResource.CorporateFiles,
-                            HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                            Describe = FilesUCResource.EmptyScreenDescrCorporate.HtmlEncode() + strDragDrop,
-                            ButtonHTML = isAdmin ? strButtons.ToString() : string.Empty
-                        });
+                    {
+                        ID = "emptyContainer_corporate",
+                        ImgSrc = PathProvider.GetImagePath("empty_screen_corporate.png"),
+                        Header = FilesUCResource.CorporateFiles,
+                        HeaderDescribe = FilesUCResource.EmptyScreenHeader,
+                        Describe = FilesUCResource.EmptyScreenDescrCorporate.HtmlEncode() + strDragDrop,
+                        ButtonHTML = isAdmin ? strButtons.ToString() : string.Empty
+                    });
                 }
 
                 //trash
                 EmptyScreenFolder.Controls.Add(new EmptyScreenControl
-                    {
-                        ID = "emptyContainer_trash",
-                        ImgSrc = PathProvider.GetImagePath("empty_screen_trash.png"),
-                        Header = FilesUCResource.Trash,
-                        HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                        Describe = FilesUCResource.EmptyScreenDescrTrash.HtmlEncode(),
-                        ButtonHTML = !isVisitor ? string.Format("<div><a href=\"#{1}\" class=\"empty-folder-goto link dotline up\">{0}</a></div>", FilesUCResource.ButtonGotoMy, Global.FolderMy) : string.Empty
-                    });
+                {
+                    ID = "emptyContainer_trash",
+                    ImgSrc = PathProvider.GetImagePath("empty_screen_trash.png"),
+                    Header = FilesUCResource.Trash,
+                    HeaderDescribe = FilesUCResource.EmptyScreenHeader,
+                    Describe = FilesUCResource.EmptyScreenDescrTrash.HtmlEncode(),
+                    ButtonHTML = !isVisitor ? string.Format("<div><a href=\"#{1}\" class=\"empty-folder-goto link dotline up\">{0}</a></div>", FilesUCResource.ButtonGotoMy, Global.FolderMy) : string.Empty
+                });
             }
 
             if (!CoreContext.Configuration.Personal)
             {
                 EmptyScreenFolder.Controls.Add(new EmptyScreenControl
-                    {
-                        ID = "emptyContainer_project",
-                        ImgSrc = PathProvider.GetImagePath("empty_screen_project.png"),
-                        Header = FilesUCResource.ProjectFiles,
-                        HeaderDescribe = FilesUCResource.EmptyScreenHeader,
-                        Describe = (!isVisitor
+                {
+                    ID = "emptyContainer_project",
+                    ImgSrc = PathProvider.GetImagePath("empty_screen_project.png"),
+                    Header = FilesUCResource.ProjectFiles,
+                    HeaderDescribe = FilesUCResource.EmptyScreenHeader,
+                    Describe = (!isVisitor
                                         ? FilesUCResource.EmptyScreenDescrProject.HtmlEncode()
                                         : FilesUCResource.EmptyScreenDescrProjectVisitor.HtmlEncode())
                                    + strDragDrop
-                    });
+                });
             }
 
             //Filter
             EmptyScreenFolder.Controls.Add(new EmptyScreenControl
-                {
-                    ID = "emptyContainer_filter",
-                    ImgSrc = PathProvider.GetImagePath("empty_screen_filter.png"),
-                    Header = FilesUCResource.Filter,
-                    HeaderDescribe = FilesUCResource.EmptyScreenFilter,
-                    Describe = FilesUCResource.EmptyScreenFilterDescr.HtmlEncode(),
-                    ButtonHTML = string.Format("<a class=\"clearFilterButton link dotline files-clear-filter\" >{0}</a>", FilesUCResource.ButtonClearFilter)
-                });
+            {
+                ID = "emptyContainer_filter",
+                ImgSrc = PathProvider.GetImagePath("empty_screen_filter.png"),
+                Header = FilesUCResource.Filter,
+                HeaderDescribe = FilesUCResource.EmptyScreenFilter,
+                Describe = FilesUCResource.EmptyScreenFilterDescr.HtmlEncode(),
+                ButtonHTML = string.Format("<a class=\"clearFilterButton link dotline files-clear-filter\" >{0}</a>", FilesUCResource.ButtonClearFilter)
+            });
 
             strButtons.Append(strToParent);
 

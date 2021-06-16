@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
 
 
 using System.ComponentModel;
+
 using ASC.Web.CRM.Classes;
 
 
 namespace ASC.CRM.Core
 {
-    [TypeConverter(typeof (LocalizedEnumConverter))]
+    [TypeConverter(typeof(LocalizedEnumConverter))]
     public enum ContactInfoBaseCategory
     {
         Home,
@@ -29,7 +30,7 @@ namespace ASC.CRM.Core
         Other
     }
 
-    [TypeConverter(typeof (LocalizedEnumConverter))]
+    [TypeConverter(typeof(LocalizedEnumConverter))]
     public enum PhoneCategory
     {
         Home,
@@ -50,14 +51,14 @@ namespace ASC.CRM.Core
         Country
     }
 
-    [TypeConverter(typeof (LocalizedEnumConverter))]
+    [TypeConverter(typeof(LocalizedEnumConverter))]
     public enum AddressCategory
     {
         Home,
         Postal,
         Office,
         Billing,
-        Other, 
+        Other,
         Work
     }
 }

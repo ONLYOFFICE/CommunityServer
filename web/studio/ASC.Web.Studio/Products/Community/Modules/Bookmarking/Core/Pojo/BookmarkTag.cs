@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,36 +17,36 @@
 
 namespace ASC.Bookmarking.Pojo
 {
-	public class BookmarkTag
-	{
-		public virtual long BookmarkTagID { get; set; }
+    public class BookmarkTag
+    {
+        public virtual long BookmarkTagID { get; set; }
 
-		public virtual long BookmarkID { get; set; }
+        public virtual long BookmarkID { get; set; }
 
-		public virtual long TagID { get; set; }
+        public virtual long TagID { get; set; }
 
-		// override object.Equals
-		public override bool Equals(object obj)
-		{
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
-			
-			var bookmarkTag = obj as BookmarkTag;
-			if (this.TagID.Equals(bookmarkTag.TagID))
-			{
-				return true;
-			}
-			return false;
-		}
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
 
-		// override object.GetHashCode
-		public override int GetHashCode()
-		{			
-			var hash = TagID.GetHashCode();
-			return hash;
-		}
+            var bookmarkTag = obj as BookmarkTag;
+            if (this.TagID.Equals(bookmarkTag.TagID))
+            {
+                return true;
+            }
+            return false;
+        }
 
-	}
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            var hash = TagID.GetHashCode();
+            return hash;
+        }
+
+    }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Security.Principal;
+
 using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
 
@@ -36,9 +37,9 @@ namespace ASC.Core.Configuration
 
         public static readonly ISystemAccount Guest = new SystemAccount(new Guid("712D9EC3-5D2B-4b13-824F-71F00191DCCA"), "guest", false);
 
-        public static readonly IPrincipal Anonymous = new GenericPrincipal(Guest, new[] {Role.Everyone});
+        public static readonly IPrincipal Anonymous = new GenericPrincipal(Guest, new[] { Role.Everyone });
 
-        public static readonly ISystemAccount[] SystemAccounts = new[] {CoreSystem, Guest};
+        public static readonly ISystemAccount[] SystemAccounts = new[] { CoreSystem, Guest };
 
         public static readonly int DefaultTrialPeriod = 30;
     }

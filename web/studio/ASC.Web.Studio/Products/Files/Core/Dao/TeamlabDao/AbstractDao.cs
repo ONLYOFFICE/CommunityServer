@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,14 @@
 
 using System;
 using System.Text.RegularExpressions;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Core;
+
 using Autofac;
 
 namespace ASC.Files.Core.Data
@@ -94,6 +96,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.comment")
                 .Select("f.encrypted")
                 .Select("f.forcesave")
+                .Select("f.thumb")
                 .Where(where);
         }
 
@@ -132,7 +135,7 @@ namespace ASC.Files.Core.Data
             var result = Query("files_security s")
                 .SelectCount()
                 .Where(Exp.EqColumns("s.entry_id", "cast(f.id as char)"))
-                .Where("s.entry_type", (int) type)
+                .Where("s.entry_type", (int)type)
                 .SetMaxResults(1);
 
             return result;

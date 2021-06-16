@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 ASC.Projects.TasksManager = (function () {
     var baseObject = ASC.Projects,
         resources = baseObject.Resources,
-        tasksResource = resources.TasksResource,
+        TaskResource = resources.TaskResource,
         projectsJsResource = resources.ProjectsJSResource,
         filter = baseObject.ProjectsAdvansedFilter,
         common = baseObject.Common,
@@ -101,7 +101,7 @@ ASC.Projects.TasksManager = (function () {
             var actions = [
                 {
                     id: "gaChangeStatus",
-                    title: tasksResource.ChangeStatus,
+                    title: TaskResource.ChangeStatus,
                     multi: master.customStatuses.map(function(item){
                             return {
                                 id: "ga" + item.id,
@@ -128,7 +128,7 @@ ASC.Projects.TasksManager = (function () {
                 },
                 {
                     id: "gaDelete",
-                    title: resources.CommonResource.Delete,
+                    title: resources.ProjectsCommonResource.Delete,
                     handler: gaRemoveHandler,
                     checker: function (task) {
                         return task.canDelete;
@@ -141,10 +141,10 @@ ASC.Projects.TasksManager = (function () {
                 tmplName: projectsTaskListItemTmplName,
                 baseEmptyScreen: {
                     img: "tasks",
-                    header: tasksResource.NoTasksCreated,
-                    description: jq.format(teamlab.profile.isVisitor ? tasksResource.TasksHelpTheManageVisitor : tasksResource.TasksHelpTheManage, tasksResource.DescrEmptyListTaskFilter),
+                    header: TaskResource.NoTasksCreated,
+                    description: jq.format(teamlab.profile.isVisitor ? TaskResource.TasksHelpTheManageVisitor : TaskResource.TasksHelpTheManage, TaskResource.DescrEmptyListTaskFilter),
                     button: {
-                        title: tasksResource.AddFirstTask,
+                        title: TaskResource.AddFirstTask,
                         onclick: showNewTaskPopup,
                         canCreate: function () {
                             if (currentProjectId && !currentProject) {
@@ -158,8 +158,8 @@ ASC.Projects.TasksManager = (function () {
                     }
                 },
                 filterEmptyScreen: {
-                    header: tasksResource.NoTasks, 
-                    description: tasksResource.DescrEmptyListTaskFilter
+                    header: TaskResource.NoTasks, 
+                    description: TaskResource.DescrEmptyListTaskFilter
                 },
                 groupMenu: {
                     actions: actions,
@@ -305,15 +305,15 @@ ASC.Projects.TasksManager = (function () {
 
         if (task.status !== 2) {
             if (task.canEdit) {
-                menuItems.push(new ActionMenuItem("ta_edit", tasksResource.Edit, taEditHandler.bind(null, task), "edit"));
+                menuItems.push(new ActionMenuItem("ta_edit", TaskResource.Edit, taEditHandler.bind(null, task), "edit"));
             }
 
             if (task.canCreateSubtask) {
-                menuItems.push(new ActionMenuItem("ta_subtask", tasksResource.AddSubtask, taSubtaskHandler.bind(null, taskid), "subtask-v2"));
+                menuItems.push(new ActionMenuItem("ta_subtask", TaskResource.AddSubtask, taSubtaskHandler.bind(null, taskid), "subtask-v2"));
             }
 
             if (!task.responsible) {
-                menuItems.push(new ActionMenuItem("ta_accept", tasksResource.AcceptSubtask, taAcceptHandler.bind(null, task), "accept"));
+                menuItems.push(new ActionMenuItem("ta_accept", TaskResource.AcceptSubtask, taAcceptHandler.bind(null, task), "accept"));
             }
 
             if (menuItems.length) {
@@ -322,23 +322,23 @@ ASC.Projects.TasksManager = (function () {
 
             if (task.canEdit) {
                 if (task.responsibles && task.responsibles.some(function (item) { return item.id != currentUserId; })) {
-                    menuItems.push(new ActionMenuItem("ta_mesres", tasksResource.MessageResponsible, taMesresHandler.bind(null, taskid), "notify-responsible"));
+                    menuItems.push(new ActionMenuItem("ta_mesres", TaskResource.MessageResponsible, taMesresHandler.bind(null, taskid), "notify-responsible"));
                 } 
             }
         }
 
         if (task.canCreateTimeSpend) {
-            menuItems.push(new ActionMenuItem("ta_time", tasksResource.TrackTime, taTimeHandler.bind(null, task), "track-time"));
+            menuItems.push(new ActionMenuItem("ta_time", TaskResource.TrackTime, taTimeHandler.bind(null, task), "track-time"));
         }
 
         if (task.status !== 2) {
             if (task.canEdit) {
-                menuItems.push(new ActionMenuItem("ta_move", tasksResource.MoveToMilestone, taMoveHandler.bind(null, task), "move-to-milestone"));
+                menuItems.push(new ActionMenuItem("ta_move", TaskResource.MoveToMilestone, taMoveHandler.bind(null, task), "move-to-milestone"));
             }
 
             var project = common.getProjectById(task.projectId);
             if (project && project.canCreateTask) {
-                menuItems.push(new ActionMenuItem("ta_copy", resources.CommonResource.Copy, taCopyHandler.bind(null, task), "move-or-copy"));
+                menuItems.push(new ActionMenuItem("ta_copy", resources.ProjectsCommonResource.Copy, taCopyHandler.bind(null, task), "move-or-copy"));
             } 
         }
 
@@ -347,7 +347,7 @@ ASC.Projects.TasksManager = (function () {
                 menuItems.push(new ActionMenuItem(null, null, null, null, true));
             }
 
-            menuItems.push(new ActionMenuItem("ta_remove", resources.CommonResource.Delete, taRemoveHandler.bind(null, taskid), "delete"));
+            menuItems.push(new ActionMenuItem("ta_remove", resources.ProjectsCommonResource.Delete, taRemoveHandler.bind(null, taskid), "delete"));
         }
 
         return { menuItems: menuItems };
@@ -669,7 +669,7 @@ ASC.Projects.TasksManager = (function () {
     };
 
     function notifyTaskResponsible(params, taskId) {
-        teamlab.notifyPrjTaskResponsible(params, taskId, { success: common.displayInfoPanel.bind(null, tasksResource.MessageSend) });
+        teamlab.notifyPrjTaskResponsible(params, taskId, { success: common.displayInfoPanel.bind(null, TaskResource.MessageSend) });
     };
 
 
@@ -707,7 +707,7 @@ ASC.Projects.TasksManager = (function () {
             .concat([
                 {
                     id: 0,
-                    title: tasksResource.None
+                    title: TaskResource.None
                 }
             ]);
 
@@ -722,11 +722,11 @@ ASC.Projects.TasksManager = (function () {
         var header, describe;
 
         if (tasks.length === 1) {
-            header = tasksResource.MoveTaskToAnotherMilestone;
-            describe = { title: tasksResource.Task, description: tasks[0].title, moveToMilestone: tasksResource.MoveToMilestone };
+            header = TaskResource.MoveTaskToAnotherMilestone;
+            describe = { title: TaskResource.Task, description: tasks[0].title, moveToMilestone: TaskResource.MoveToMilestone };
         } else {
-            header = tasksResource.MoveTasksToAnotherMilestone;
-            describe = { title: tasksResource.TasksCount, description: tasks.length, moveToMilestone: tasksResource.MoveTasksToMilestone };
+            header = TaskResource.MoveTasksToAnotherMilestone;
+            describe = { title: TaskResource.TasksCount, description: tasks.length, moveToMilestone: TaskResource.MoveTasksToMilestone };
         }
 
         $moveTaskPanel.html(jq.tmpl("common_containerTmpl",

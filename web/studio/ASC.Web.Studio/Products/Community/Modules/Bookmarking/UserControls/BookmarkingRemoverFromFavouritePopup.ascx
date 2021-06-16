@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BookmarkingRemoverFromFavouritePopup.ascx.cs" Inherits="ASC.Web.UserControls.Bookmarking.BookmarkingRemoverFromFavouritePopup" %>
-<%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Bookmarking.UserControls.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 <%@ Register Assembly="ASC.Web.Community" Namespace="ASC.Web.UserControls.Bookmarking.Common" TagPrefix="ascbc" %>
 

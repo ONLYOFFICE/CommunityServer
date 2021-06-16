@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace ASC.Web.Core.Users
 {
@@ -59,28 +60,29 @@ namespace ASC.Web.Core.Users
             return thumbnailsData.ThumbnailList;
         }
 
-        public static Bitmap GetBitmap(Image mainImg, Size size, UserPhotoThumbnailSettings thumbnailSettings)
+        public static Bitmap GetBitmap(Image mainImg, Size size, UserPhotoThumbnailSettings thumbnailSettings, InterpolationMode interpolationMode = InterpolationMode.HighQualityBicubic)
         {
             var thumbnailBitmap = new Bitmap(size.Width, size.Height);
 
-            var scaleX = size.Width/(1.0*thumbnailSettings.Size.Width);
-            var scaleY = size.Height/(1.0*thumbnailSettings.Size.Height);
+            var scaleX = size.Width / (1.0 * thumbnailSettings.Size.Width);
+            var scaleY = size.Height / (1.0 * thumbnailSettings.Size.Height);
 
-            var rect = new Rectangle(-(int) (scaleX*(1.0*thumbnailSettings.Point.X)),
-                                     -(int) (scaleY*(1.0*thumbnailSettings.Point.Y)),
-                                     (int) (scaleX*mainImg.Width),
-                                     (int) (scaleY*mainImg.Height));
+            var rect = new Rectangle(-(int)(scaleX * (1.0 * thumbnailSettings.Point.X)),
+                                     -(int)(scaleY * (1.0 * thumbnailSettings.Point.Y)),
+                                     (int)(scaleX * mainImg.Width),
+                                     (int)(scaleY * mainImg.Height));
 
             using (var graphic = Graphics.FromImage(thumbnailBitmap))
             {
-                graphic.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                graphic.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                graphic.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                graphic.DrawImage(mainImg, rect);
+                graphic.InterpolationMode = interpolationMode;
+                graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                graphic.SmoothingMode = SmoothingMode.HighQuality;
+                graphic.CompositingMode = CompositingMode.SourceCopy;
+                graphic.CompositingQuality = CompositingQuality.HighQuality;
 
                 using (var wrapMode = new System.Drawing.Imaging.ImageAttributes())
                 {
-                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
                     graphic.DrawImage(mainImg, rect, 0, 0, mainImg.Width, mainImg.Height, GraphicsUnit.Pixel, wrapMode);
                 }
             }

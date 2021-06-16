@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,29 +16,28 @@
 
 
 using System;
-using System.Collections.Generic;
 
 namespace ASC.Web.Community.News.Code
 {
-	[Serializable]
-	public class FeedPollAnswer
-	{
-		public long VariantId
-		{
-			get;
-			private set;
-		}
+    [Serializable]
+    public class FeedPollAnswer
+    {
+        public long VariantId
+        {
+            get;
+            private set;
+        }
 
-		public string UserId
-		{
-			get;
-			private set;
-		}
+        public string UserId
+        {
+            get;
+            private set;
+        }
 
-		public FeedPollAnswer(long variantId, string userId)
-		{
-			VariantId = variantId;
-			UserId = userId;
-		}
-	}
+        public FeedPollAnswer(long variantId, string userId)
+        {
+            VariantId = variantId;
+            UserId = userId;
+        }
+    }
 }

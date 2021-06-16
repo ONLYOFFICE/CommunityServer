@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio
 {
@@ -100,7 +102,8 @@ namespace ASC.Web.Studio
             }
 
             var mailProduct = WebItemManager.Instance[WebItemManager.MailProductID];
-            if (mailProduct != null && !mailProduct.IsDisabled()) {
+            if (mailProduct != null && !mailProduct.IsDisabled())
+            {
                 defaultListProducts.Add(mailProduct);
             }
 
@@ -128,6 +131,15 @@ namespace ASC.Web.Studio
             ProductsCount = defaultListProducts.Count() + CustomNavigationItems.Count() + (TenantExtra.EnableControlPanel ? 1 : 0);
 
             ResetCacheKey = ConfigurationManagerExtension.AppSettings["web.client.cache.resetkey"] ?? "";
+
+            if (CurrentUser.IsOwner() && TenantExtra.Saas && !CoreContext.Configuration.CustomMode && !TenantExtra.GetTenantQuota().Free)
+            {
+                var collaboratorPopupSettings = CollaboratorSettings.LoadForCurrentUser();
+                if (collaboratorPopupSettings.FirstVisit)
+                {
+                    WelcomePanelHolder.Controls.Add(LoadControl(WelcomeDashboard.Location));
+                }
+            }
         }
 
         private static Dictionary<Guid, Int32> GetStartProductsPriority()

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.Core
@@ -25,7 +26,7 @@ namespace ASC.Web.Studio.Core
     [Serializable]
     [DataContract]
     public class CustomNavigationSettings : BaseSettings<CustomNavigationSettings>
-    {       
+    {
         [DataMember]
         public List<CustomNavigationItem> Items { get; set; }
 
@@ -42,7 +43,7 @@ namespace ASC.Web.Studio.Core
 
     [Serializable]
     [DataContract]
-    public class CustomNavigationItem 
+    public class CustomNavigationItem
     {
         [DataMember]
         public Guid Id { get; set; }

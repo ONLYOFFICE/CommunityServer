@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,14 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Data.Storage;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Extensions;
 using ASC.Mail.Utils;
 using ASC.Web.Core.Files;
+
 using HtmlAgilityPack;
 
 namespace ASC.Mail.Data.Storage
@@ -33,7 +35,7 @@ namespace ASC.Mail.Data.Storage
     public class StorageManager
     {
         public const string CKEDITOR_IMAGES_DOMAIN = "mail";
-        
+
         public int Tenant { get; private set; }
         public string User { get; private set; }
 
@@ -62,7 +64,7 @@ namespace ASC.Mail.Data.Storage
             if (log == null)
                 log = new NullLog();
 
-            var data = new byte[] {};
+            var data = new byte[] { };
 
             try
             {
@@ -116,7 +118,7 @@ namespace ASC.Mail.Data.Storage
 
                         Log.InfoFormat("ChangeSignatureEditorImagesLinks() Original image link: {0}", link);
 
-                         var fileLink = HttpUtility.UrlDecode(link.Substring(currentMailCkeditorUrl.Length));
+                        var fileLink = HttpUtility.UrlDecode(link.Substring(currentMailCkeditorUrl.Length));
 
                         var fileName = Path.GetFileName(fileLink);
 

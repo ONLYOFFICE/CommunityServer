@@ -1,7 +1,8 @@
-using ASC.Web.Core;
-using ASC.Web.CRM.Configuration;
 using System.Reflection;
 using System.Runtime.InteropServices;
+
+using ASC.Web.Core;
+using ASC.Web.CRM.Configuration;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information

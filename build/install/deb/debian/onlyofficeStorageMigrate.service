@@ -13,9 +13,6 @@ Group=onlyoffice
 # Give up if ping don't get an answer
 TimeoutSec=600
 
-# Auto-Restart every 24 hours
-WatchdogSec=24h
-
 Restart=no
 PrivateTmp=false
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,17 +40,17 @@ namespace ASC.Web.Core.Calendars
         #endregion
     }
 
-    public interface ICalendar: IiCalFormatView
+    public interface ICalendar : IiCalFormatView
     {
-        string Id { get;}
+        string Id { get; }
         string Name { get; }
-        string Description { get; }        
+        string Description { get; }
         Guid OwnerId { get; }
         EventAlertType EventAlertType { get; }
         List<IEvent> LoadEvents(Guid userId, DateTime utcStartDate, DateTime utcEndDate);
         SharingOptions SharingOptions { get; }
         TimeZoneInfo TimeZone { get; }
 
-        CalendarContext Context {get;}
+        CalendarContext Context { get; }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -602,8 +602,10 @@ body.media-width-0-1150 .project-info-container .project-title {
     #fullFormUserList {
         display: none;
         margin-bottom: 5px;
-        overflow: hidden;
+        overflow-x: hidden;
         width: 370px;
+        max-height: 100px;
+        scrollbar-width: thin;
 
         .user {
             background: url("../images/small-icons.png") no-repeat 0 3px transparent;

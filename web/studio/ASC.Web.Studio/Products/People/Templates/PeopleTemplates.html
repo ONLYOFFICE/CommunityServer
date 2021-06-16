@@ -200,7 +200,7 @@
 <script id="groupListTemplate" type="text/x-jquery-tmpl">
     {{each(i, group) groups}}
     <li class="menu-sub-item" data-id="${group.id}">
-        <a class="menu-item-label outer-text text-overflow" title="${group.name}" href="/Products/People/#sortorder=ascending&status=active&group=${group.id}">${group.name}</a>
+        <a class="menu-item-label outer-text text-overflow" title="${group.name}">${group.name}</a>
     </li>
     {{/each}}
 </script>
@@ -223,8 +223,10 @@
         <td class="email">
             <input type="text" class="studioEditableInput email last" value="${Email}" maxlength="64" />
         </td>
-        <td class="remove {{if jq.browser.mobile === true}}mob{{/if}}">
-            <div></div>
+        <td class="status">
+            <span class="link dotline statusValue">
+                
+            </span>
         </td>
     </tr>
 </script>
@@ -269,12 +271,14 @@
     {{/if}}
         <option value="emptyOption">${ASC.People.Resources.PeopleResource.NotImport}</option>
         {{each $item.cols}}
-        {{if $value.Value === $data }}
-        <option value="${$value.Key}" selected>${$value.Value}</option>
-        {{else}}
-        <option value="${$value.Key}">${$value.Value}</option>
+        {{if $value.Key != "status" }}
+            {{if $value.Value === $data }}
+            <option value="${$value.Key}" selected>${$value.Value}</option>
+            {{else}}
+            <option value="${$value.Key}">${$value.Value}</option>
+            {{/if}}
         {{/if}}
-        {{/each}}
+    {{/each}}
     </select>
 </script>
 

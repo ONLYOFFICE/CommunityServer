@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
 
 
 using System;
-using ASC.Web.Community.Wiki.Common;
-using ASC.Web.UserControls.Wiki;
 using System.Linq;
 using System.Text;
-using ASC.Web.UserControls.Wiki.Resources;
+
+using ASC.Web.Community.Modules.Wiki.Resources;
+using ASC.Web.Community.Wiki.Common;
+using ASC.Web.UserControls.Wiki;
 
 namespace ASC.Web.Community.Wiki
 {
@@ -124,7 +125,7 @@ namespace ASC.Web.Community.Wiki
                 Response.RedirectLC(ActionHelper.GetViewPagePath(this.ResolveUrlLC("PageHistoryList.aspx"), PageNameUtil.Decode(WikiPage)), this);
             }
 
-            WikiMaster.CurrentPageCaption = string.Format(WikiResource.wikiDiffDescriptionFormat, OldVer, NewVer);
+            //WikiMaster.CurrentPageCaption = string.Format(WikiResource.wikiDiffDescriptionFormat, OldVer, NewVer);
         }
 
         private void WriteLine(int nr, string typ, string aText, StringBuilder sb)

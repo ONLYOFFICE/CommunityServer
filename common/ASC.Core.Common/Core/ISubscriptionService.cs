@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,16 @@ namespace ASC.Core
 {
     public interface ISubscriptionService
     {
+        string[] GetRecipients(int tenant, string sourceID, string actionID, string objectID);
+
         IEnumerable<SubscriptionRecord> GetSubscriptions(int tenant, string sourceId, string actionId);
 
         IEnumerable<SubscriptionRecord> GetSubscriptions(int tenant, string sourceId, string actionId, string recipientId, string objectId);
 
+        string[] GetSubscriptions(int tenant, string sourceId, string actionId, string recipientId, bool checkSubscribe);
+
         SubscriptionRecord GetSubscription(int tenant, string sourceId, string actionId, string recipientId, string objectId);
+        bool IsUnsubscribe(int tenant, string sourceId, string actionId, string recipientId, string objectId);
 
         void SaveSubscription(SubscriptionRecord s);
 

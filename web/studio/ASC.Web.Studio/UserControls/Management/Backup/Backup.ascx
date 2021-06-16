@@ -2,10 +2,10 @@
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Backup" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <% if (EnableBackup)
-   { %>
+    { %>
 <div id="backup-manager-view">
     <div id="backupBox" class="backupBox clearFix">
         <div class="settings-block">
@@ -41,8 +41,10 @@
             </ul>
 
             <div class="teamlabStorageFolderSelectorBox display-none">
-                <input id="backupTeamlabStorageFolderSelector" type="text" class="teamlabStorageFolderSelector textEdit" readonly="readonly"/>
-                <div id="backupTeamlabStorageFolderSelectorBtn" class="button gray middle"><%= Resource.Choose %></div>
+                <div class="input-button-box">
+                    <input id="backupTeamlabStorageFolderSelector" type="text" class="teamlabStorageFolderSelector textEdit" readonly="readonly"/>
+                    <div id="backupTeamlabStorageFolderSelectorBtn" class="button gray middle"><%= Resource.Choose %></div>
+                </div>
             </div>
             <asp:PlaceHolder runat="server" ID="FolderSelectorHolder"></asp:PlaceHolder>
 
@@ -52,20 +54,6 @@
                 <input id="backupWithMailCheck" type="checkbox" />
                 <label for="backupWithMailCheck"><%= Resource.BackupMakeWithMail %></label>
             </div>
-
-            <% if (BackupHelper.ExceedsMaxAvailableSize(TenantId))
-               { %>
-            <div id="spaceExceedMessage" class="toast-popup-container" data-status="<%= BackupHelper.GetAvailableSize(TenantId) %>">
-                <div class="toast toast-error">
-                    <div class="toast-message">
-                        <%= string.Format(UserControlsCommonResource.BackupSpaceExceed.HtmlEncode(),
-                                          FileSizeComment.FilesSizeToString(BackupHelper.AvailableZipSize),
-                                          "<a class=\"link underline\" href=\"" + CommonLinkUtility.GetAdministration(ManagementType.Statistic) + "\">",
-                                          "</a>") %>
-                    </div>
-                </div>
-            </div>
-            <% } %>
 
             <div class="middle-button-container">
                 <a id="startBackupBtn" class="button blue middle"><%= Resource.BackupMakeCopyBtn %></a>
@@ -90,32 +78,32 @@
         <div class="settings-help-block">
             <p><%= string.Format(Resource.DataBackupHelp.HtmlEncode(), "<b>", "</b>", "<br />") %></p>
             <% if (!string.IsNullOrEmpty(HelpLink))
-               { %>
+                { %>
                 <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#CreatingBackup_block" %>" target="_blank">
                     <%= Resource.LearnMore %>
                 </a>
             <% } %>
         </div>
     </div>
-
     <% if (EnableAutoBackup)
        { %>
-    <div id="autoBackupSettingsBox" class="backupBox clearFix">
+    <div id="autoBackupSettingsBox" class="backupBox clearFix <%if (!AutoBackup){ %>disable <%} %>">
         <div class="settings-block">
             <div class="header-base"><%: Resource.AutoDataBackup %></div>
             <div class="backupBoxDscr"><%: Resource.AutoBackupText %></div>
 
-            <ul id="autoBackupSwitchBox" class="clearFix">
-                <li>
-                    <input id="autoBackupOff" type="radio" name="autoBackupSwitch" value="0"/>
-                    <label for="autoBackupOff"><%= Resource.AutoBackupOff %></label>
-                </li>
-                <li>
-                    <input id="autoBackupOn" type="radio" name="autoBackupSwitch" value="1"/>
-                    <label for="autoBackupOn"><%= Resource.AutoBackupOn %></label>
-                </li>
-            </ul>
-
+            <div>
+                <ul id="autoBackupSwitchBox" class="clearFix">
+                    <li>
+                        <input <%= AutoBackup ? "" : "disabled=\"disabled\"" %> id="autoBackupOff" type="radio" name="autoBackupSwitch" value="0"/>
+                        <label for="autoBackupOff"><%= Resource.AutoBackupOff %></label>
+                    </li>
+                    <li>
+                        <input <%= AutoBackup ? "" : "disabled=\"disabled\"" %> id="autoBackupOn" type="radio" name="autoBackupSwitch" value="1"/>
+                        <label for="autoBackupOn"><%= Resource.AutoBackupOn %></label>
+                    </li>
+                </ul>
+            </div>
             <div id="autoBackuSettingsBlock">
                 <ul id="autoBackupSettingsStoragesBox" class="backupStoragesBox clearFix">
                     <li>
@@ -141,8 +129,10 @@
                 </ul>
 
                 <div id="autoBackupSettingsTeamlabStorageFolderSelectorBox" class="teamlabStorageFolderSelectorBox display-none">
-                    <input id="autoBackupSettingsTeamlabStorageFolderSelector" type="text" class="teamlabStorageFolderSelector textEdit" readonly="readonly"/>
-                    <div id="autoBackupSettingsTeamlabStorageFolderSelectorBtn" class="button gray middle"><%= Resource.Choose %></div>
+                    <div class="input-button-box">
+                        <input id="autoBackupSettingsTeamlabStorageFolderSelector" type="text" class="teamlabStorageFolderSelector textEdit" readonly="readonly"/>
+                        <div id="autoBackupSettingsTeamlabStorageFolderSelectorBtn" class="button gray middle"><%= Resource.Choose %></div>
+                    </div>
                 </div>
 
                 <div id="backupConsumerStorageScheduleSettingsBox" class="display-none consumerStorageSettingsBox"></div>
@@ -155,16 +145,17 @@
                 <div class="backup-settings_auto-params">
                     <asp:PlaceHolder runat="server" ID="BackupTimePeriod"></asp:PlaceHolder>
                     <div class="backup-settings_title"><%= Resource.BackupCopyCount %>:</div>
-                    <select id="maxStoredCopiesCount"></select>
+                    <select id="maxStoredCopiesCount" class="comboBox"></select>
                 </div>
             </div>
 
             <div class="middle-button-container">
-                <a id="saveSettingsBtn" class="button blue middle"><%= Resource.SaveButton %></a>
+                <a id="saveSettingsBtn" class="button blue middle <%= AutoBackup ? "" : "disable" %>"><%= Resource.SaveButton %></a>
             </div>
         </div>
 
         <div class="settings-help-block">
+            <%if (AutoBackup) { %>
             <p><%= string.Format(Resource.AutoDataBackupHelp.HtmlEncode(), "<b>", "</b>", "<br />") %></p>
             <% if (!string.IsNullOrEmpty(HelpLink))
                { %>
@@ -172,6 +163,10 @@
                     <%= Resource.LearnMore %>
                 </a>
             <% } %>
+            <%} else { %>
+                <p><%= String.Format(Resource.ErrorNotAllowedOption, "<b>", "</b>") %></p>
+                <a href="<%= TariffPageLink %>" target="_blank"> <%= Resource.ViewTariffPlans %></a>
+            <%} %>
         </div>
         <% } %>
     </div>

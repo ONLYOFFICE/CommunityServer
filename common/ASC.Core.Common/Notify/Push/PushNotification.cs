@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ namespace ASC.Core.Common.Notify.Push
         public string ShortMessage { get; set; }
 
         [DataMember]
-        public int? Badge { get; set; } 
+        public int? Badge { get; set; }
 
         [DataMember]
         public PushModule Module { get; set; }
@@ -49,10 +49,10 @@ namespace ASC.Core.Common.Notify.Push
 
         [DataMember]
         public DateTime QueuedOn { get; set; }
-        
+
         public static PushNotification ApiNotification(string message, int? badge)
         {
-            return new PushNotification {Message = message, Badge = badge};
+            return new PushNotification { Message = message, Badge = badge };
         }
     }
 
@@ -70,7 +70,7 @@ namespace ASC.Core.Common.Notify.Push
 
         public PushItem()
         {
-            
+
         }
 
         public PushItem(PushItemType type, string id, string description)

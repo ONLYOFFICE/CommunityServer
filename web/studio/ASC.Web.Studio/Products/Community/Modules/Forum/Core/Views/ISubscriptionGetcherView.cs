@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 
 
 using System;
-using ASC.Notify.Model;
 using System.Collections.Generic;
+
+using ASC.Notify.Model;
 
 namespace ASC.Forum
 {
@@ -28,7 +29,7 @@ namespace ASC.Forum
         event EventHandler<SubscriptionEventArgs> GetSubscriptionObjects;
     }
 
-    public class SubscriptionEventArgs: EventArgs
+    public class SubscriptionEventArgs : EventArgs
     {
         public Guid UserID { get; private set; }
 
@@ -38,7 +39,7 @@ namespace ASC.Forum
 
         public SubscriptionEventArgs(INotifyAction notifyAction, Guid userID, int tenantID)
         {
-            this.NotifyAction = notifyAction;         
+            this.NotifyAction = notifyAction;
             this.UserID = userID;
             this.TenantID = tenantID;
         }

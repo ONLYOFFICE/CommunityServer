@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Core.Common.Settings;
 
 namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
@@ -36,53 +37,54 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
         public override ISettings GetDefault()
         {
             return new SsoSettingsV2
+            {
+                EnableSso = false,
+
+                IdpSettings = new SsoIdpSettings
                 {
-                    EnableSso = false,
+                    EntityId = string.Empty,
+                    SsoUrl = string.Empty,
+                    SsoBinding = SsoBindingType.Saml20HttpPost,
+                    SloUrl = string.Empty,
+                    SloBinding = SsoBindingType.Saml20HttpPost,
+                    NameIdFormat = SsoNameIdFormatType.Saml20Transient
+                },
 
-                    IdpSettings = new SsoIdpSettings
-                        {
-                            EntityId = string.Empty,
-                            SsoUrl = string.Empty,
-                            SsoBinding = SsoBindingType.Saml20HttpPost,
-                            SloUrl = string.Empty,
-                            SloBinding = SsoBindingType.Saml20HttpPost,
-                            NameIdFormat = SsoNameIdFormatType.Saml20Transient
-                        },
+                IdpCertificates = new List<SsoCertificate>(),
+                IdpCertificateAdvanced = new SsoIdpCertificateAdvanced
+                {
+                    DecryptAlgorithm = SsoEncryptAlgorithmType.AES_128,
+                    DecryptAssertions = false,
+                    VerifyAlgorithm = SsoSigningAlgorithmType.RSA_SHA1,
+                    VerifyAuthResponsesSign = false,
+                    VerifyLogoutRequestsSign = false,
+                    VerifyLogoutResponsesSign = false
+                },
 
-                    IdpCertificates = new List<SsoCertificate>(),
-                    IdpCertificateAdvanced = new SsoIdpCertificateAdvanced
-                        {
-                            DecryptAlgorithm = SsoEncryptAlgorithmType.AES_128,
-                            DecryptAssertions = false,
-                            VerifyAlgorithm = SsoSigningAlgorithmType.RSA_SHA1,
-                            VerifyAuthResponsesSign = false,
-                            VerifyLogoutRequestsSign = false,
-                            VerifyLogoutResponsesSign = false
-                        },
+                SpCertificates = new List<SsoCertificate>(),
+                SpCertificateAdvanced = new SsoSpCertificateAdvanced
+                {
+                    DecryptAlgorithm = SsoEncryptAlgorithmType.AES_128,
+                    EncryptAlgorithm = SsoEncryptAlgorithmType.AES_128,
+                    EncryptAssertions = false,
+                    SigningAlgorithm = SsoSigningAlgorithmType.RSA_SHA1,
+                    SignAuthRequests = false,
+                    SignLogoutRequests = false,
+                    SignLogoutResponses = false
+                },
 
-                    SpCertificates = new List<SsoCertificate>(),
-                    SpCertificateAdvanced = new SsoSpCertificateAdvanced
-                        {
-                            EncryptAlgorithm = SsoEncryptAlgorithmType.AES_128,
-                            EncryptAssertions = false,
-                            SigningAlgorithm = SsoSigningAlgorithmType.RSA_SHA1,
-                            SignAuthRequests = false,
-                            SignLogoutRequests = false,
-                            SignLogoutResponses = false
-                        },
-
-                    FieldMapping = new SsoFieldMapping
-                        {
-                            FirstName = "givenName",
-                            LastName = "sn",
-                            Email = "mail",
-                            Title = "title",
-                            Location = "l",
-                            Phone = "mobile"
-                        },
-                    SpLoginLabel = SSO_SP_LOGIN_LABEL,
-                    HideAuthPage = false
-                };
+                FieldMapping = new SsoFieldMapping
+                {
+                    FirstName = "givenName",
+                    LastName = "sn",
+                    Email = "mail",
+                    Title = "title",
+                    Location = "l",
+                    Phone = "mobile"
+                },
+                SpLoginLabel = SSO_SP_LOGIN_LABEL,
+                HideAuthPage = false
+            };
         }
 
         [DataMember]
@@ -241,6 +243,10 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
         public string EncryptAlgorithm { get; set; }
 
         [DataMember]
+        public string DecryptAlgorithm { get; set; }
+
+
+        [DataMember]
         public bool EncryptAssertions { get; set; }
     }
 
@@ -293,6 +299,28 @@ namespace ASC.Web.Studio.UserControls.Management.SingleSignOnSettings
 
         [DataMember]
         public const string Saml20HttpRedirect = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
+    }
+
+    [Serializable]
+    [DataContract]
+    public class SsoMetadata
+    {
+
+        [DataMember]
+        public const string BaseUrl = "";
+
+        [DataMember]
+        public const string MetadataUrl = "/sso/metadata";
+
+        [DataMember]
+        public const string EntityId = "/sso/metadata";
+
+        [DataMember]
+        public const string ConsumerUrl = "/sso/acs";
+
+        [DataMember]
+        public const string LogoutUrl = "/sso/slo/callback";
+
     }
 
     [Serializable]

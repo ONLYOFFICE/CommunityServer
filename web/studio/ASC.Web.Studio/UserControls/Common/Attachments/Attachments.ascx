@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Attachments.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.Attachments.Attachments" %>
 
 <%@ Import Namespace="ASC.Web.Core.Files" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <% if (CanAddFile)
    { %>  

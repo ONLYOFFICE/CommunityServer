@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.FederatedLogin.Profile;
+
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
@@ -63,8 +65,8 @@ namespace ASC.FederatedLogin.LoginProviders
                             PostalCode = DemandLevel.Request,
                             TimeZone = DemandLevel.Request,
                             FullName = DemandLevel.Request,
-                                                        
-                                                       
+
+
                         });
                         var fetch = new FetchRequest();
                         fetch.Attributes.AddRequired(WellKnownAttributes.Contact.Email);
@@ -85,7 +87,7 @@ namespace ASC.FederatedLogin.LoginProviders
                     }
                     catch (ProtocolException ex)
                     {
-                       return LoginProfile.FromError(ex);
+                        return LoginProfile.FromError(ex);
                     }
                 }
                 else

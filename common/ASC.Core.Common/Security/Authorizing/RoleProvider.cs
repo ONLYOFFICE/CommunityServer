@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
 using ASC.Core.Users;
-using AuthConst = ASC.Common.Security.Authorizing.Constants;
-using ConfConst = ASC.Core.Configuration.Constants;
 
 namespace ASC.Core.Security.Authorizing
 {
@@ -42,7 +41,7 @@ namespace ASC.Core.Security.Authorizing
                 {
                     roles = CoreContext.UserManager
                                        .GetUserGroups(account.ID, IncludeType.Distinct | IncludeType.InParent)
-                                       .Select(g => (IRole) g)
+                                       .Select(g => (IRole)g)
                                        .ToList();
                 }
             }

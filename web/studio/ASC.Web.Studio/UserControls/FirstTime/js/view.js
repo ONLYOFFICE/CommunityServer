@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,6 @@ ASC.Controls.FirstTimeView = new function() {
 
     this.Finish = function() {
         window.onbeforeunload = null;
-
-        try {
-            if (window.ga) {
-                window.ga('www.send', 'pageview', '/wizard_finish');
-                window.ga('www.send', 'event', 'onlyoffice_adwords', 'wizard_finish');
-                window.ga('testTracker.send', 'pageview', '/wizard_finish');
-                window.ga('testTracker.send', 'event', 'onlyoffice_adwords', 'wizard_finish');
-            }
-            window.uetq = window.uetq || [];
-            window.uetq.push({ 'ec': 'onlyoffice_msn', 'ea': 'clickto', 'el': 'onbutton', 'ev': '1' });
-        } catch(err) {
-        }
 
         var url = "Default.aspx";
         if (jq("body").is(".desktop")) {
@@ -74,7 +62,7 @@ ASC.Controls.FirstTimeView = new function() {
         } else {
             ASC.Controls.FirstTimeView.ShowOperationInfo(result);
             window.onbeforeunload = function(e) {
-                return ASC.Resources.Master.Resource.WizardCancelConfirmMessage;
+                return ASC.Resources.Master.ResourceJS.WizardCancelConfirmMessage;
             };
         }
     };
@@ -95,6 +83,6 @@ jq(document).ready(function() {
         }
     });
     window.onbeforeunload = function(e) {
-    return ASC.Resources.Master.Resource.WizardCancelConfirmMessage;
+    return ASC.Resources.Master.ResourceJS.WizardCancelConfirmMessage;
     };
 });

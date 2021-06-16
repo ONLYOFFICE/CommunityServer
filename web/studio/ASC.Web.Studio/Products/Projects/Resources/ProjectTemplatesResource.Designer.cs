@@ -61,15 +61,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Milestone.
-        /// </summary>
-        public static string AddMilestone {
-            get {
-                return ResourceManager.GetString("AddMilestone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add Milestone Title.
         /// </summary>
         public static string AddMilestoneTitle {
@@ -147,15 +138,6 @@ namespace ASC.Web.Projects.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        public static string Description {
-            get {
-                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -246,15 +228,6 @@ namespace ASC.Web.Projects.Resources {
         public static string NotifyResponsibles {
             get {
                 return ResourceManager.GetString("NotifyResponsibles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project Manager.
-        /// </summary>
-        public static string ProjectLeader {
-            get {
-                return ResourceManager.GetString("ProjectLeader", resourceCulture);
             }
         }
         

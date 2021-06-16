@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 */
 
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Forum;
 
 namespace ASC.Api.Forums
@@ -31,11 +31,13 @@ namespace ASC.Api.Forums
 
         public ForumWrapper(IEnumerable<ThreadCategory> categories, IEnumerable<Thread> threads)
         {
-            Categories = (from threadCategory in categories where threadCategory.Visible
-                         select
-                             new ForumCategoryWrapper(threadCategory,
-                                                      from thread in threads
-                                                      where thread.CategoryID == threadCategory.ID select thread)).ToList();
+            Categories = (from threadCategory in categories
+                          where threadCategory.Visible
+                          select
+                              new ForumCategoryWrapper(threadCategory,
+                                                       from thread in threads
+                                                       where thread.CategoryID == threadCategory.ID
+                                                       select thread)).ToList();
         }
 
         private ForumWrapper()
@@ -46,9 +48,9 @@ namespace ASC.Api.Forums
         public static ForumWrapper GetSample()
         {
             return new ForumWrapper
-                {
-                    Categories = new List<ForumCategoryWrapper> {ForumCategoryWrapper.GetSample()}
-                };
+            {
+                Categories = new List<ForumCategoryWrapper> { ForumCategoryWrapper.GetSample() }
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,18 +156,22 @@ ASC.Projects.SubtasksManager = (function () {
         var subtaskid = selectedActionCombobox.attr("id"),
             subtask = getFilteredSubTaskById(subtaskid),
             taskid = subtask.taskid,
+            task = getFilteredTaskById(taskid),
             ActionMenuItem = ASC.Projects.ActionMenuItem;
 
         var menuItems = [];
 
         if (subtask.status != 2) {
             if (!subtask.responsible) {
-                menuItems.push(new ActionMenuItem("sta_accept", resources.TasksResource.AcceptSubtask, staAcceptHandler.bind(null, subtask, taskid), "accept"));
+                menuItems.push(new ActionMenuItem("sta_accept", resources.TaskResource.AcceptSubtask, staAcceptHandler.bind(null, subtask, taskid), "accept"));
             }
 
             if (subtask.canEdit) {
-                menuItems.push(new ActionMenuItem("sta_edit", resources.TasksResource.Edit, staEditHandler.bind(null, subtaskid, taskid), "edit"));
-                menuItems.push(new ActionMenuItem("sta_copy", resources.CommonResource.Copy, staCopyHandler.bind(null, subtaskid, taskid), "move-or-copy"));
+                menuItems.push(new ActionMenuItem("sta_edit", resources.TaskResource.Edit, staEditHandler.bind(null, subtaskid, taskid), "edit"));
+            }
+
+            if (task.canCreateSubtask) {
+                menuItems.push(new ActionMenuItem("sta_copy", resources.ProjectsCommonResource.Copy, staCopyHandler.bind(null, subtaskid, taskid), "move-or-copy"));
             }
         }
 
@@ -176,7 +180,7 @@ ASC.Projects.SubtasksManager = (function () {
                 menuItems.push(new ActionMenuItem(null, null, null, null, true));
             }
 
-            menuItems.push(new ActionMenuItem("sta_remove", resources.CommonResource.Delete, staRemoveHandler.bind(null, subtaskid, taskid), "delete"));
+            menuItems.push(new ActionMenuItem("sta_remove", resources.ProjectsCommonResource.Delete, staRemoveHandler.bind(null, subtaskid, taskid), "delete"));
         }
         return { menuItems: menuItems };
     }
@@ -264,7 +268,7 @@ ASC.Projects.SubtasksManager = (function () {
         var validTeamMembers = common.excludeVisitors(team),
             nobody = {
                 id: "00000000-0000-0000-0000-000000000000",
-                displayName: ASC.Projects.Resources.TasksResource.NoResponsible
+                displayName: ASC.Projects.Resources.TaskResource.NoResponsible
             },
             $responsibleSelector = jq(".subtask-responsible-selector");
 

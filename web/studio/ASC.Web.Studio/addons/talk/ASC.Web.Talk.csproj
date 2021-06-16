@@ -172,15 +172,231 @@
     <Content Include="UserControls\TalkNavigationItem.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\TalkOverviewResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TalkOverviewResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\TalkResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TalkResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkOverviewResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>TalkOverviewResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.hy.resx" Condition="$(Cultures.Contains('hy'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TalkResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>TalkResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

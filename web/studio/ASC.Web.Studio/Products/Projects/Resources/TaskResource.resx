@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accept" xml:space="preserve">
     <value>Accept Task</value>
@@ -141,12 +82,6 @@
   <data name="AddTask" xml:space="preserve">
     <value>Add new task</value>
   </data>
-  <data name="AddThisTask" xml:space="preserve">
-    <value>Add This Task</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
   <data name="AllTasks" xml:space="preserve">
     <value>All Tasks</value>
   </data>
@@ -156,32 +91,11 @@
   <data name="BetterToReturn" xml:space="preserve">
     <value>The best way is to return and close subtasks manually, then retry to close the task</value>
   </data>
-  <data name="ByCreateDate" xml:space="preserve">
-    <value>Creation date</value>
-  </data>
-  <data name="ByDeadline" xml:space="preserve">
-    <value>Due date</value>
-  </data>
-  <data name="ByMilestone" xml:space="preserve">
-    <value>Milestone</value>
-  </data>
-  <data name="ByPriority" xml:space="preserve">
-    <value>Priority</value>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>The best way is to return and close subtasks manually, then retry to close tasks</value>
   </data>
   <data name="ByResponsible" xml:space="preserve">
     <value>Responsible</value>
-  </data>
-  <data name="ByStatus" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="ByTag" xml:space="preserve">
-    <value>Tag</value>
-  </data>
-  <data name="ByTitle" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="ChangeStatus" xml:space="preserve">
     <value>Change Status</value>
@@ -191,9 +105,6 @@
   </data>
   <data name="ChooseProject" xml:space="preserve">
     <value>Choose the project</value>
-  </data>
-  <data name="ChooseResponsible" xml:space="preserve">
-    <value>Responsible</value>
   </data>
   <data name="ChooseTaskForLink" xml:space="preserve">
     <value>Choose task</value>
@@ -207,32 +118,29 @@
   <data name="ClosingDate" xml:space="preserve">
     <value>Closing Date</value>
   </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Closing Tasks</value>
+  </data>
   <data name="ClosingTheTask" xml:space="preserve">
     <value>Closing the Task</value>
   </data>
-  <data name="CompleteTask" xml:space="preserve">
-    <value>Close Task</value>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>No comments for this task could be found.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>No comments found</value>
   </data>
   <data name="CopyTaskHeader" xml:space="preserve">
     <value>Copy task</value>
   </data>
-  <data name="CopyTaskPopup" xml:space="preserve">
-    <value>Создание копии из выбранной задачи</value>
-  </data>
   <data name="CreatedBy" xml:space="preserve">
     <value>Created by</value>
-  </data>
-  <data name="CreateFirstSubtask" xml:space="preserve">
-    <value>Create first subtask</value>
   </data>
   <data name="CreateNewLink" xml:space="preserve">
     <value>Create new link</value>
   </data>
   <data name="CreatingDate" xml:space="preserve">
     <value>Creation Date</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
   </data>
   <data name="DeadLine" xml:space="preserve">
     <value>Due date</value>
@@ -255,17 +163,14 @@
   <data name="EndAllSubtasksCloseTask" xml:space="preserve">
     <value>Close all subtasks, then close task</value>
   </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Close all subtasks, then close tasks</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>Due Date</value>
   </data>
   <data name="ErrorCreateNewLink" xml:space="preserve">
     <value>Error creating a new link</value>
-  </data>
-  <data name="ErrorCreateTaskLink" xml:space="preserve">
-    <value>The link could not be created as the task has been changed or moved to another milestone. Please close this window to update the list of available tasks.</value>
-  </data>
-  <data name="ErrorCreateTaskLinkChart" xml:space="preserve">
-    <value>The link could not be created as the task has been changed or moved to another milestone. Please close this window to update the Gantt chart.</value>
   </data>
   <data name="FollowTask" xml:space="preserve">
     <value>Follow the task</value>
@@ -276,9 +181,6 @@
   <data name="HighPriority" xml:space="preserve">
     <value>High</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>hours</value>
-  </data>
   <data name="MessageResponsible" xml:space="preserve">
     <value>Notify responsible</value>
   </data>
@@ -288,20 +190,17 @@
   <data name="Milestone" xml:space="preserve">
     <value>Milestone</value>
   </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Move tasks to another Milestone</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Move to milestone</value>
+  </data>
   <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
     <value>Move task to another Milestone</value>
   </data>
-  <data name="MoveToGanttChart" xml:space="preserve">
-    <value>Move to Gantt chart</value>
-  </data>
   <data name="MoveToMilestone" xml:space="preserve">
     <value>Move to milestone</value>
-  </data>
-  <data name="My" xml:space="preserve">
-    <value>Me</value>
-  </data>
-  <data name="MyTasks" xml:space="preserve">
-    <value>My Tasks</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>none</value>
@@ -318,9 +217,6 @@
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
-  <data name="Other" xml:space="preserve">
-    <value>Other</value>
-  </data>
   <data name="Priority" xml:space="preserve">
     <value>Priority</value>
   </data>
@@ -336,8 +232,11 @@
   <data name="RelatedTaskIntervalDesc" xml:space="preserve">
     <value>Interval between start date and end date of two tasks</value>
   </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>There are no other tasks linked to this task.</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>No linked tasks found</value>
   </data>
   <data name="RemoveTask" xml:space="preserve">
     <value>Delete task</value>
@@ -345,32 +244,29 @@
   <data name="RemoveTaskPopup" xml:space="preserve">
     <value>Are you sure you want to delete this task? </value>
   </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Delete tasks</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Are you sure you want to delete this tasks?</value>
+  </data>
   <data name="Responsibles" xml:space="preserve">
     <value>Responsible users</value>
   </data>
-  <data name="Saving" xml:space="preserve">
-    <value>Saving...</value>
-  </data>
-  <data name="SavingTask" xml:space="preserve">
-    <value>Saving task...</value>
-  </data>
-  <data name="Select" xml:space="preserve">
-    <value>Select</value>
-  </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>Show more</value>
-  </data>
   <data name="ShowTasksWithoutResponsible" xml:space="preserve">
     <value>Show tasks without responsible</value>
-  </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
   </data>
   <data name="Subtask" xml:space="preserve">
     <value>Subtask</value>
   </data>
   <data name="Subtasks" xml:space="preserve">
     <value>Subtasks</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>No subtasks have been created for this task.</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>No subtasks found</value>
   </data>
   <data name="Task" xml:space="preserve">
     <value>Task</value>
@@ -381,17 +277,20 @@
   <data name="TaskProducer" xml:space="preserve">
     <value>Created by</value>
   </data>
-  <data name="TaskReopen" xml:space="preserve">
-    <value>Resume</value>
-  </data>
   <data name="TaskResponsible" xml:space="preserve">
     <value>Assigned to</value>
   </data>
   <data name="Tasks" xml:space="preserve">
     <value>Tasks</value>
   </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Tasks Count</value>
+  </data>
   <data name="TasksHelpTheManage" xml:space="preserve">
     <value>Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project. Start adding tasks, get them done, set who's responsible, manage team work.</value>
+  </data>
+  <data name="TasksHelpTheManageVisitor" xml:space="preserve">
+    <value>Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project.</value>
   </data>
   <data name="TaskStartDate" xml:space="preserve">
     <value>Start date</value>
@@ -399,11 +298,11 @@
   <data name="TaskTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
   <data name="TrackTime" xml:space="preserve">
     <value>Track time</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>You're trying to close tasks with open subtasks</value>
   </data>
   <data name="TryingToCloseTheTask" xml:space="preserve">
     <value>You're trying to close a task with open subtasks</value>
@@ -419,56 +318,5 @@
   </data>
   <data name="WithoutResponsible" xml:space="preserve">
     <value>Nobody</value>
-  </data>
-  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
-    <value>Отсутствуют подзадачи</value>
-  </data>
-  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
-    <value>Отсутствуют подзадачи</value>
-  </data>
-  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
-    <value>Отсутствуют комментарии</value>
-  </data>
-  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
-    <value>Отсутствуют комментарии</value>
-  </data>
-  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
-    <value>Отстутствуют связанные задачи</value>
-  </data>
-  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
-    <value>Отстутствуют связанные задачи</value>
-  </data>
-  <data name="RemoveTasks" xml:space="preserve">
-    <value>Delete tasks</value>
-  </data>
-  <data name="RemoveTasksPopup" xml:space="preserve">
-    <value>Are you sure you want to delete tasks?</value>
-  </data>
-  <data name="CloseTask" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
-    <value>Move tasks to another Milestone</value>
-  </data>
-  <data name="MoveTasksToMilestone" xml:space="preserve">
-    <value>Move to milestone</value>
-  </data>
-  <data name="TasksCount" xml:space="preserve">
-    <value>Tasks Count</value>
-  </data>
-  <data name="BetterToReturnTasks" xml:space="preserve">
-    <value>The best way is to return and close subtasks manually, then retry to close tasks</value>
-  </data>
-  <data name="ClosingTasks" xml:space="preserve">
-    <value>Closing Tasks</value>
-  </data>
-  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
-    <value>Close all subtasks, then close tasks</value>
-  </data>
-  <data name="TryingToCloseTasks" xml:space="preserve">
-    <value>You're trying to close tasks with open subtasks</value>
-  </data>
-  <data name="TasksHelpTheManageVisitor" xml:space="preserve">
-    <value>Tasks help the manager distribute all the work evenly among the project participants, set responsible ones for various parts of the project. Start adding tasks, get them done, set who's responsible, manage team work.</value>
   </data>
 </root>

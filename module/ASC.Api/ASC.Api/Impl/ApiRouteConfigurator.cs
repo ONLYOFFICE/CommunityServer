@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,14 +72,14 @@ namespace ASC.Api.Impl
                 //Get all methods
                 var methods = apiEntryPoint.Activator.LimitType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
 
-                var gloabalFilters = apiEntryPoint.Activator.LimitType.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>().ToList();
-                gloabalFilters.AddRange(apiEntryPoint.Activator.LimitType.Assembly.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>());
+                var gloabalFilters = apiEntryPoint.Activator.LimitType.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>().ToList();
+                gloabalFilters.AddRange(apiEntryPoint.Activator.LimitType.Assembly.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>());
                 gloabalFilters.AddRange(Container.Resolve<IEnumerable<ApiCallFilter>>()); //Add gloably registered filters
 
                 return (from methodInfo in methods.Where(x => !x.IsConstructor)
-                        let attr = methodInfo.GetCustomAttributes(typeof (ApiAttribute), true).Cast<ApiAttribute>().FirstOrDefault()
-                        let cache = methodInfo.GetCustomAttributes(typeof (CacheAttribute), true).Cast<CacheAttribute>().FirstOrDefault()
-                        let filters = methodInfo.GetCustomAttributes(typeof (ApiCallFilter), true).Cast<ApiCallFilter>()
+                        let attr = methodInfo.GetCustomAttributes(typeof(ApiAttribute), true).Cast<ApiAttribute>().FirstOrDefault()
+                        let cache = methodInfo.GetCustomAttributes(typeof(CacheAttribute), true).Cast<CacheAttribute>().FirstOrDefault()
+                        let filters = methodInfo.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>()
                         where attr != null
                         select ToApiMethodCall(methodInfo, apiEntryPoint, attr, cache, filters, gloabalFilters)).ToList();
             }
@@ -166,11 +166,11 @@ namespace ASC.Api.Impl
                                                         return x.Value;
                                                     });
                 return new RouteCallInfo
-                    {
-                        Url = url,
-                        Method = entryPoint.HttpMethod,
-                        Params = arguments
-                    };
+                {
+                    Url = url,
+                    Method = entryPoint.HttpMethod,
+                    Params = arguments
+                };
             }
             throw new ArgumentException("Api method not found or not registered");
         }

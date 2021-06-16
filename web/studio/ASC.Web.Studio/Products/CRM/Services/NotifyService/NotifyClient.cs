@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
-using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
+
+using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
 using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
-using ASC.Core.Tenants;
-using ASC.CRM.Core;
-using System.Collections.Specialized;
-using ASC.Common.Logging;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Resources;
+
 using Autofac;
 
 #endregion
@@ -74,7 +76,7 @@ namespace ASC.Web.CRM.Services.NotifyService
             client.SendNoticeToAsync(
                 NotifyConstants.Event_CreateNewContact,
                 null,
-                recipientID.ConvertAll(item => ToRecipient(item)).ToArray(),
+                recipientID.ConvertAll(item => ToRecipient(item)).Where(recipient => recipient != null).ToArray(),
                 true,
                 new TagValue(NotifyConstants.Tag_AdditionalData, fields),
                 new TagValue(NotifyConstants.Tag_EntityTitle, contactTitle),
@@ -188,7 +190,7 @@ namespace ASC.Web.CRM.Services.NotifyService
                       new TagValue(NotifyConstants.Tag_EntityID, baseEntityData["id"]),
                       new TagValue(NotifyConstants.Tag_EntityRelativeURL, baseEntityData["entityRelativeURL"]),
                       new TagValue(NotifyConstants.Tag_AdditionalData,
-                      new Hashtable { 
+                      new Hashtable {
                       { "Files", fileListInfoHashtable },
                       {"EventContent", entity.Content}}));
 
@@ -396,7 +398,7 @@ namespace ASC.Web.CRM.Services.NotifyService
               true,
               new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
               new TagValue(NotifyConstants.Tag_AdditionalData,
-                 new Hashtable { 
+                 new Hashtable {
                       { "TaskDescription", HttpUtility.HtmlEncode(task.Description) },
                       { "TaskCategory", taskCategoryTitle },
 
@@ -452,7 +454,7 @@ namespace ASC.Web.CRM.Services.NotifyService
                 taskDealRelativeUrl = String.Format("Products/CRM/Deals.aspx?id={0}", taskDeal.ID);
                 taskDealTitle = taskDeal.Title.HtmlEncode();
             }
-           
+
             client.SendNoticeToAsync(
                NotifyConstants.Event_ResponsibleForTask,
                null,
@@ -460,7 +462,7 @@ namespace ASC.Web.CRM.Services.NotifyService
                true,
                new TagValue(NotifyConstants.Tag_EntityTitle, task.Title),
                new TagValue(NotifyConstants.Tag_AdditionalData,
-                 new Hashtable { 
+                 new Hashtable {
                       { "TaskDescription", HttpUtility.HtmlEncode(task.Description) },
                       { "Files", fileListInfoHashtable },
                       { "TaskCategory", taskCategoryTitle },
@@ -493,7 +495,7 @@ namespace ASC.Web.CRM.Services.NotifyService
             new TagValue(NotifyConstants.Tag_EntityTitle, deal.Title),
             new TagValue(NotifyConstants.Tag_EntityID, deal.ID),
             new TagValue(NotifyConstants.Tag_AdditionalData,
-            new Hashtable { 
+            new Hashtable {
                       { "OpportunityDescription", HttpUtility.HtmlEncode(deal.Description) }
                  })
             );

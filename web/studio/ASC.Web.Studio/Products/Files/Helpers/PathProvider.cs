@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,14 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
+
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Utility;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Classes
@@ -151,6 +153,11 @@ namespace ASC.Web.Files.Classes
             var store = Global.GetStore();
             var fileName = string.Format("{0}{1}", Guid.NewGuid(), ext);
             var path = Path.Combine("temp_stream", fileName);
+
+            if (store.IsFile(FileConstant.StorageDomainTmp, path))
+            {
+                store.Delete(FileConstant.StorageDomainTmp, path);
+            }
 
             store.Save(
                 FileConstant.StorageDomainTmp,

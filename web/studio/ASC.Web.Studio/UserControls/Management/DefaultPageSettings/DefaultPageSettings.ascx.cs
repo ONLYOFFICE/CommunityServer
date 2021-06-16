@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using System.Linq;
-using System.Configuration;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -51,12 +53,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 var productInfo = WebItemSecurity.GetSecurityInfo(p.ID.ToString());
                 if (productInfo.Enabled)
                     DefaultPages.Add(new DefaultStartPageWrapper
-                        {
-                            ProductID = p.ID,
-                            DisplayName = p.Name,
-                            ProductName = p.GetSysName(),
-                            IsSelected = DefaultProductID.Equals(p.ID)
-                        });
+                    {
+                        ProductID = p.ID,
+                        DisplayName = p.Name,
+                        ProductName = p.GetSysName(),
+                        IsSelected = DefaultProductID.Equals(p.ID)
+                    });
             }
 
             var addons = WebItemManager.Instance.GetItemsAll<IAddon>().Where(a => a.Visible && a.ID != WebItemManager.VoipModuleID);
@@ -76,20 +78,20 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             DefaultPages.Add(new DefaultStartPageWrapper
-                {
-                    ProductID = defaultPageSettings.FeedModuleID,
-                    DisplayName = Resources.UserControlsCommonResource.FeedTitle,
-                    ProductName = "feed",
-                    IsSelected = DefaultProductID.Equals(defaultPageSettings.FeedModuleID)
-                });
+            {
+                ProductID = defaultPageSettings.FeedModuleID,
+                DisplayName = UserControlsCommonResource.FeedTitle,
+                ProductName = "feed",
+                IsSelected = DefaultProductID.Equals(defaultPageSettings.FeedModuleID)
+            });
 
             DefaultPages.Add(new DefaultStartPageWrapper
-                {
-                    ProductID = Guid.Empty,
-                    DisplayName = Resources.Resource.DefaultPageSettingsChoiseOfProducts,
-                    ProductName = string.Empty,
-                    IsSelected = DefaultProductID.Equals(Guid.Empty)
-                });
+            {
+                ProductID = Guid.Empty,
+                DisplayName = Resource.DefaultPageSettingsChoiseOfProducts,
+                ProductName = string.Empty,
+                IsSelected = DefaultProductID.Equals(Guid.Empty)
+            });
 
             HelpLink = CommonLinkUtility.GetHelpLink();
         }

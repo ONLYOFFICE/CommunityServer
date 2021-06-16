@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Runtime.Serialization;
+
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
@@ -50,7 +51,7 @@ namespace ASC.Api.Projects.Wrappers
             Id = searchItem.ID;
             Title = searchItem.Title;
             EntityType = searchItem.EntityType;
-            Created = (ApiDateTime) searchItem.CreateOn;
+            Created = (ApiDateTime)searchItem.CreateOn;
             Description = searchItem.Description;
         }
 
@@ -58,13 +59,13 @@ namespace ASC.Api.Projects.Wrappers
         public static SearchItemWrapper GetSample()
         {
             return new SearchItemWrapper
-                       {
-                           Id = "345",
-                           EntityType = EntityType.Project,
-                           Title = "Sample title",
-                           Description = "Sample desription",
-                           Created = ApiDateTime.GetSample(),
-                       };
+            {
+                Id = "345",
+                EntityType = EntityType.Project,
+                Title = "Sample title",
+                Description = "Sample desription",
+                Created = ApiDateTime.GetSample(),
+            };
         }
     }
 }

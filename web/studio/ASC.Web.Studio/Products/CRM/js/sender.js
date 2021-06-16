@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,16 +29,23 @@ ASC.CRM.SmtpSender = (function () {
         ASC.CRM.FileUploader.fileIDs.clear();
     };
 
+    var getWatermark = function () {
+        if (!jq("#watermarkInfo").length || ASC.Resources.Master.CustomMode) {
+            return "";
+        }
+
+        return jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
+            jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
+                jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
+        );
+    }
+
     var initFileUploaderCallback = function () {
         ASC.CRM.FileUploader.OnAllUploadCompleteCallback_function = function () {
             jq('#sendEmailPanel').hide();
             jq("#sendProcessPanel").show();
 
-            var contacts = ASC.CRM.SmtpSender.selectedItems.map(function (item) { return item.id; }),
-                watermark = jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
-                                        jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
-                                        jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
-            );
+            var contacts = ASC.CRM.SmtpSender.selectedItems.map(function (item) { return item.id; });
 
             var subj = jq("#sendEmailPanel #tbxEmailSubject").val().trim();
             if (subj == "") {
@@ -48,7 +55,7 @@ ASC.CRM.SmtpSender = (function () {
             var data = {
                 contactIds: contacts,
                 subject: subj,
-                body: ASC.CRM.SmtpSender.editor.getData() + (jq("#watermarkInfo").length ? watermark : ""),
+                body: ASC.CRM.SmtpSender.editor.getData() + getWatermark(),
                 fileIDs: ASC.CRM.FileUploader.fileIDs,
                 storeInHistory: jq("#storeInHistory").is(":checked")
             };
@@ -210,12 +217,7 @@ ASC.CRM.SmtpSender = (function () {
                     success: function(params, response) {
                         jq("#previewSubject").text(subj);
 
-                        var watermark = jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
-                                                    jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
-                                                    jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
-                        );
-
-                        jq("#previewMessage").html(response + (jq("#watermarkInfo").length ? watermark : ""));
+                        jq("#previewMessage").html(response + getWatermark());
 
                         var attachments = ASC.CRM.FileUploader.fileNames();
                         jq("#previewAttachments span").html("");
@@ -237,9 +239,6 @@ ASC.CRM.SmtpSender = (function () {
                         jq("#sendButton").text(ASC.CRM.Resources.CRMJSResource.Send).unbind("click").bind("click", function () {
                             ASC.CRM.SmtpSender.sendEmail();
                         });
-                        jq("#sendButton").trackEvent(ga_Categories.contacts, ga_Actions.actionClick, 'mass_email');
-
-
 
                     },
                     error: function(params, errors) {
@@ -259,11 +258,7 @@ ASC.CRM.SmtpSender = (function () {
             if (ASC.CRM.FileUploader.getUploadFileCount() > 0) {
                 ASC.CRM.FileUploader.start();
             } else {
-                var contacts = ASC.CRM.SmtpSender.selectedItems.map(function (item) { return item.id; }),
-                    watermark = jq.format("<div style='color:#787878;font-size:12px;margin-top:10px'>{0}</div>",
-                                            jq.format(ASC.CRM.Resources.CRMJSResource.TeamlabWatermark,
-                                            jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
-                );
+                var contacts = ASC.CRM.SmtpSender.selectedItems.map(function (item) { return item.id; });
 
                 var subj = jq("#sendEmailPanel #tbxEmailSubject").val().trim();
                 if (subj == "") {
@@ -281,7 +276,7 @@ ASC.CRM.SmtpSender = (function () {
                 var data = {
                     contactIds: contacts,
                     subject: subj,
-                    body: letterBody + (jq("#watermarkInfo").length ? watermark : ""),
+                    body: letterBody + getWatermark(),
                     fileIDs: [],
                     storeInHistory: jq("#storeInHistory").is(":checked")
                 };

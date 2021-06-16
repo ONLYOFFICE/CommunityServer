@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
@@ -41,11 +42,11 @@ namespace ASC.Web.Talk.Addon
                 return WebItemManager.Instance.GetItemsAll()
                                      .Where(webItem => webItem.ID == WebItemManager.TalkProductID)
                                      .Select(webItem => new UsageSpaceStatItem
-                                         {
-                                             Name = webItem.Name,
-                                             SpaceUsage = TenantStatisticsProvider.GetUsedSize(webItem.ID),
-                                             Url = VirtualPathUtility.ToAbsolute(webItem.StartURL)
-                                         })
+                                     {
+                                         Name = webItem.Name,
+                                         SpaceUsage = TenantStatisticsProvider.GetUsedSize(webItem.ID),
+                                         Url = VirtualPathUtility.ToAbsolute(webItem.StartURL)
+                                     })
                                      .ToList();
             }
 
@@ -71,19 +72,19 @@ namespace ASC.Web.Talk.Addon
         private static UsageSpaceStatItem ToUsageSpaceStatItem(IDataStore storage, UserInfo userInfo)
         {
             if (userInfo.Equals(Constants.LostUser)) return null;
-            
+
             var md5Hash = GetUserMd5Hash(userInfo.ID);
 
             if (!storage.IsDirectory(md5Hash)) return null;
 
             return new UsageSpaceStatItem
-                {
-                    SpaceUsage = storage.GetDirectorySize(md5Hash),
-                    Name = userInfo.DisplayUserName(false),
-                    ImgUrl = userInfo.GetSmallPhotoURL(),
-                    Url = userInfo.GetUserProfilePageURL(),
-                    Disabled = userInfo.Status == EmployeeStatus.Terminated
-                };
+            {
+                SpaceUsage = storage.GetDirectorySize(md5Hash),
+                Name = userInfo.DisplayUserName(false),
+                ImgUrl = userInfo.GetSmallPhotoURL(),
+                Url = userInfo.GetUserProfilePageURL(),
+                Disabled = userInfo.Status == EmployeeStatus.Terminated
+            };
         }
 
         public static string GetUserMd5Hash(Guid userId)

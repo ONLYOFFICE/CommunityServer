@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Wiki {
-    
-    
-    public partial class PageHistoryList {
-        
+namespace ASC.Web.Community.Wiki
+{
+
+
+    public partial class PageHistoryList
+    {
+
         /// <summary>
         /// rptPageHistory control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace ASC.Web.Community.Wiki {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptPageHistory;
-        
+
         /// <summary>
         /// cmdDiff control.
         /// </summary>

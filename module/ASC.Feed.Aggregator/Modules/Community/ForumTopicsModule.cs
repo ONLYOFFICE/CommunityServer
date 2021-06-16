@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -124,25 +125,25 @@ namespace ASC.Feed.Aggregator.Modules.Community
         private static Post ToPost(object[] r)
         {
             return new Post
+            {
+                ID = Convert.ToInt32(r[0]),
+                TopicID = Convert.ToInt32(r[1]),
+                PosterID = new Guid(Convert.ToString(r[2])),
+                CreateDate = Convert.ToDateTime(r[3]),
+                Subject = Convert.ToString(r[4]),
+                Text = Convert.ToString(r[5]),
+                Topic = new Topic
                 {
-                    ID = Convert.ToInt32(r[0]),
-                    TopicID = Convert.ToInt32(r[1]),
-                    PosterID = new Guid(Convert.ToString(r[2])),
-                    CreateDate = Convert.ToDateTime(r[3]),
-                    Subject = Convert.ToString(r[4]),
-                    Text = Convert.ToString(r[5]),
-                    Topic = new Topic
-                        {
-                            ID = Convert.ToInt32(r[6]),
-                            Title = Convert.ToString(r[7]),
-                            Type = (TopicType)Convert.ToInt32(r[8]),
-                            RecentPostID = Convert.ToInt32(r[9]),
-                            CreateDate = Convert.ToDateTime(r[10]),
-                            PosterID = new Guid(Convert.ToString(r[11])),
-                            ThreadID = Convert.ToInt32(r[12]),
-                            ThreadTitle = Convert.ToString(r[14])
-                        }
-                };
+                    ID = Convert.ToInt32(r[6]),
+                    Title = Convert.ToString(r[7]),
+                    Type = (TopicType)Convert.ToInt32(r[8]),
+                    RecentPostID = Convert.ToInt32(r[9]),
+                    CreateDate = Convert.ToDateTime(r[10]),
+                    PosterID = new Guid(Convert.ToString(r[11])),
+                    ThreadID = Convert.ToInt32(r[12]),
+                    ThreadTitle = Convert.ToString(r[14])
+                }
+            };
         }
 
         private Feed ToFeed(Post post)
@@ -160,21 +161,21 @@ namespace ASC.Feed.Aggregator.Modules.Community
             var itemUrl = "/Products/Community/Modules/Forum/Posts.aspx?t=" + post.Topic.ID + "&post=" + post.ID;
             var threadUrl = "/Products/Community/Modules/Forum/Topics.aspx?f=" + post.Topic.ThreadID;
             return new Feed(post.Topic.PosterID, post.Topic.CreateDate)
-                {
-                    Item = item,
-                    ItemId = post.Topic.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = post.Topic.Title,
-                    Description = HtmlUtility.GetFull(post.Text),
-                    ExtraLocation = post.Topic.ThreadTitle,
-                    ExtraLocationUrl = CommonLinkUtility.ToAbsolute(threadUrl),
-                    Keywords = string.Format("{0} {1}", post.Topic.Title, post.Text),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = GetGroupId(item, post.Topic.PosterID, post.Topic.ThreadID.ToString(CultureInfo.InvariantCulture))
-                };
+            {
+                Item = item,
+                ItemId = post.Topic.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                Product = Product,
+                Module = Name,
+                Title = post.Topic.Title,
+                Description = HtmlUtility.GetFull(post.Text),
+                ExtraLocation = post.Topic.ThreadTitle,
+                ExtraLocationUrl = CommonLinkUtility.ToAbsolute(threadUrl),
+                Keywords = string.Format("{0} {1}", post.Topic.Title, post.Text),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = GetGroupId(item, post.Topic.PosterID, post.Topic.ThreadID.ToString(CultureInfo.InvariantCulture))
+            };
         }
     }
 }

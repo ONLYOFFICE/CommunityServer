@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,17 @@
 
 
 using System.Web;
+
 using ASC.Core.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
+using ASC.Web.Community.Modules.Wiki.Code.Patterns;
 
 namespace ASC.Web.UserControls.Wiki
 {
     public class WikiNotifySource : NotifySource
     {
-        private string defPageHref;
+        private readonly string defPageHref;
 
 
         public static WikiNotifySource Instance
@@ -59,7 +61,7 @@ namespace ASC.Web.UserControls.Wiki
 
         protected override IPatternProvider CreatePatternsProvider()
         {
-            return new XmlPatternProvider2(Patterns.WikiPatternsResource.patterns, ChoosePattern);
+            return new XmlPatternProvider2(WikiPatternsResource.patterns, ChoosePattern);
         }
 
 

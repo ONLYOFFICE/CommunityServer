@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,23 +17,23 @@
 
 using System;
 using System.Runtime.Serialization;
+
+using ASC.Common.Security.Authorizing;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Common.Security.Authentication;
-using ASC.Common.Security.Authorizing;
 
 namespace ASC.Api.Calendar.Wrappers
 {
-    [DataContract(Name ="publicItem")]
+    [DataContract(Name = "publicItem")]
     public class PublicItemWrapper : ASC.Web.Core.Calendars.SharingOptions.PublicItem
     {
         private Guid _owner;
-        private string _calendarId;
-        private string _eventId;
-        private bool _isCalendar;
+        private readonly string _calendarId;
+        private readonly string _eventId;
+        private readonly bool _isCalendar;
 
 
-        public PublicItemWrapper( ASC.Web.Core.Calendars.SharingOptions.PublicItem publicItem, string calendartId, Guid owner)
+        public PublicItemWrapper(ASC.Web.Core.Calendars.SharingOptions.PublicItem publicItem, string calendartId, Guid owner)
         {
             base.Id = publicItem.Id;
             base.IsGroup = publicItem.IsGroup;
@@ -61,7 +61,7 @@ namespace ASC.Api.Calendar.Wrappers
             {
                 return base.Id.ToString();
             }
-            set{}
+            set { }
         }
 
         [DataMember(Name = "name", Order = 20)]
@@ -69,12 +69,12 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                if(this.IsGroup)                
-                    return CoreContext.UserManager.GetGroupInfo(base.Id).Name;                
+                if (this.IsGroup)
+                    return CoreContext.UserManager.GetGroupInfo(base.Id).Name;
                 else
-                    return CoreContext.UserManager.GetUsers(base.Id).DisplayUserName();                
+                    return CoreContext.UserManager.GetUsers(base.Id).DisplayUserName();
             }
-            set{}
+            set { }
         }
 
         [DataMember(Name = "isGroup", Order = 30)]
@@ -92,7 +92,7 @@ namespace ASC.Api.Calendar.Wrappers
         {
             get
             {
-                return !base.Id.Equals(_owner); 
+                return !base.Id.Equals(_owner);
             }
             set { }
         }
@@ -100,22 +100,23 @@ namespace ASC.Api.Calendar.Wrappers
         [DataMember(Name = "selectedAction", Order = 50)]
         public AccessOption SharingOption
         {
-            get {
+            get
+            {
                 if (base.Id.Equals(_owner))
                 {
                     return AccessOption.OwnerOption;
                 }
                 var subject = IsGroup ? (ISubject)CoreContext.UserManager.GetGroupInfo(base.Id) : (ISubject)CoreContext.Authentication.GetAccountByID(base.Id);
                 int calId;
-                if (_isCalendar && int.TryParse(_calendarId,out calId))
+                if (_isCalendar && int.TryParse(_calendarId, out calId))
                 {
                     var obj = new ASC.Api.Calendar.BusinessObjects.Calendar() { Id = _calendarId };
                     if (SecurityContext.PermissionResolver.Check(subject, obj, null, CalendarAccessRights.FullAccessAction))
                         return AccessOption.FullAccessOption;
                 }
-                else if(!_isCalendar)
+                else if (!_isCalendar)
                 {
-                    var obj = new ASC.Api.Calendar.BusinessObjects.Event() { Id = _eventId, CalendarId = _calendarId};
+                    var obj = new ASC.Api.Calendar.BusinessObjects.Event() { Id = _eventId, CalendarId = _calendarId };
                     if (SecurityContext.PermissionResolver.Check(subject, obj, null, CalendarAccessRights.FullAccessAction))
                         return AccessOption.FullAccessOption;
                 }
@@ -127,8 +128,14 @@ namespace ASC.Api.Calendar.Wrappers
 
         public static object GetSample()
         {
-            return new { selectedAction = AccessOption.GetSample(), canEdit = true, isGroup = true, 
-                         name = "Everyone", id = "2fdfe577-3c26-4736-9df9-b5a683bb8520" };
+            return new
+            {
+                selectedAction = AccessOption.GetSample(),
+                canEdit = true,
+                isGroup = true,
+                name = "Everyone",
+                id = "2fdfe577-3c26-4736-9df9-b5a683bb8520"
+            };
         }
     }
 }

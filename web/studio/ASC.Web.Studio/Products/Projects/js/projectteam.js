@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,7 +159,7 @@ ASC.Projects.ProjectTeam = (function() {
 
         if (!user.isVisitor) {
             if (project.canCreateTask && !user.isTerminated) {
-                menuItems.push(new ActionMenuItem("team_task", resources.TasksResource.AddNewTask, teamAddNewTask.bind(null, userId), "new-task"));
+                menuItems.push(new ActionMenuItem("team_task", resources.TaskResource.AddNewTask, teamAddNewTask.bind(null, userId), "new-task"));
             }
             if (!teamlab.profile.isVisitor) {
                 menuItems.push(new ActionMenuItem("team_reportOpen", resources.ReportResource.ReportOpenTasks, teamReportOpenTasksHandler.bind(null, userId), "open-tasks-report"));
@@ -185,7 +185,7 @@ ASC.Projects.ProjectTeam = (function() {
                     menuItems.push(new ActionMenuItem(null, null, null, null, true));
                 }
 
-                menuItems.push(new ActionMenuItem("team_remove", resources.CommonResource.RemoveMemberFromTeam, teamRemoveHanlder.bind(null, userId), "user"));
+                menuItems.push(new ActionMenuItem("team_remove", resources.ProjectsCommonResource.RemoveMemberFromTeam, teamRemoveHanlder.bind(null, userId), "user"));
             }
         }
 
@@ -321,9 +321,9 @@ ASC.Projects.ProjectTeam = (function() {
             security: [
                 security(item.canReadMessages, "Messages", resources.MessageResource.Messages),
                 security(item.canReadFiles, "Files", resources.ProjectsFileResource.Documents),
-                security(item.canReadTasks, "Tasks", resources.TasksResource.AllTasks),
+                security(item.canReadTasks, "Tasks", resources.TaskResource.AllTasks),
                 security(item.canReadMilestones, "Milestone", resources.MilestoneResource.Milestones),
-                security(item.canReadContacts, "Contacts", resources.CommonResource.ModuleContacts, item.isVisitor)
+                security(item.canReadContacts, "Contacts", resources.ProjectsCommonResource.ModuleContacts, item.isVisitor)
             ]
         }, item);
     }

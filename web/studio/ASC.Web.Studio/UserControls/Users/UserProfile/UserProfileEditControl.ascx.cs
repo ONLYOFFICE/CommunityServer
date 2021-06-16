@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
-using ASC.Core.Users;
 using ASC.Core.Tenants;
+using ASC.Core.Users;
 using ASC.Web.Core;
-using ASC.Web.Studio.UserControls.Statistics;
-using ASC.Web.Studio.Core.Users;
 using ASC.Web.Core.Users;
-using ASC.Web.Studio.Utility;
-using Resources;
-using Newtonsoft.Json;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Studio.Utility;
+
+using Newtonsoft.Json;
 
 using LdapMapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields;
 
@@ -106,12 +108,18 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             get { return "~/UserControls/Users/UserProfile/UserProfileEditControl.ascx"; }
         }
 
+        protected string TariffPageLink { get; set; }
+
+        protected bool IsFreeTariff { get; set; }
+
         #endregion
 
         #region events
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            TariffPageLink = TenantExtra.GetTariffPageLink();
+            IsFreeTariff = TenantExtra.GetTenantQuota().Free;
             IsPageEditProfileFlag = (Request["action"] == "edit");
             CurrentUserIsPeopleAdmin = WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);
             CurrentUserIsMailAdmin = WebItemSecurity.IsProductAdministrator(WebItemManager.MailProductID, SecurityContext.CurrentAccount.ID);
@@ -128,7 +136,10 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             RegisterBodyScript();
 
-            InitUserTypeSelector();
+            if (!IsPersonal)
+            {
+                InitUserTypeSelector();
+            }
 
             InitPasswordSettings();
 
@@ -231,6 +242,11 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 .RegisterStyle("~/UserControls/Users/UserProfile/css/profileeditcontrol_style.less");
         }
 
+        public bool CanAddVisitor()
+        {
+            return CoreContext.Configuration.Standalone || TenantStatisticsProvider.GetVisitorsCount() < TenantExtra.GetTenantQuota().ActiveUsers * Constants.CoefficientOfVisitors;
+        }
+
         private void InitUserTypeSelector()
         {
             var canAddUser = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
@@ -242,52 +258,41 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
             if (canAddUser)
             {
-                if (isVisitorType && !canEditType)
-                {
-                    UserTypeSelectorClass = "disabled";
-                    UserTypeSelectorGuestItemClass = "active";
-                    UserTypeSelectorUserItemClass = "disabled";
-                }
-                else
-                {
-                    if (canEditType)
-                    {
-                        UserTypeSelectorClass = "";
-                        UserTypeSelectorGuestItemClass = isVisitorType ? "active" : "";
-                        UserTypeSelectorUserItemClass = isVisitorType ? "" : "active";
-                    }
-                    else
-                    {
-                        UserTypeSelectorClass = "disabled";
-                        UserTypeSelectorGuestItemClass = "disabled";
-                        UserTypeSelectorUserItemClass = "active";
-                    }
-                }
+                UserTypeSelectorUserItemClass = isVisitorType ? "" : "active";
             }
             else
             {
-                if (isVisitorType || !IsPageEditProfileFlag)
+                UserTypeSelectorUserItemClass = "disabled";
+            }
+            if (CanAddVisitor())
+            {
+                UserTypeSelectorGuestItemClass = isVisitorType ? "active" : "";
+            }
+            else
+            {
+                UserTypeSelectorGuestItemClass = "disabled";
+            }
+            if (canEditType)
+            {
+                UserTypeSelectorClass = "";
+            }
+            else
+            {
+                UserTypeSelectorClass = "disabled";
+            }
+
+            if (IsPageEditProfileFlag)
+            {
+                if (isVisitorType)
                 {
-                    UserTypeSelectorClass = canEditType ? "" : "disabled";
                     UserTypeSelectorGuestItemClass = "active";
-                    UserTypeSelectorUserItemClass = "disabled";
                 }
                 else
                 {
-                    if (canEditType)
-                    {
-                        UserTypeSelectorClass = "";
-                        UserTypeSelectorGuestItemClass = isVisitorType ? "active" : "";
-                        UserTypeSelectorUserItemClass = isVisitorType ? "" : "active";
-                    }
-                    else
-                    {
-                        UserTypeSelectorClass = "disabled";
-                        UserTypeSelectorGuestItemClass = "disabled";
-                        UserTypeSelectorUserItemClass = "active";
-                    }
+                    UserTypeSelectorUserItemClass = "active";
                 }
             }
+
         }
 
         private void InitPasswordSettings()
@@ -315,7 +320,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             WorkFromDate = Profile.WorkFromDate.HasValue ? Profile.WorkFromDate.Value.ToShortDateString() : "";
             BirthDate = Profile.BirthDate.HasValue ? Profile.BirthDate.Value.ToShortDateString() : "";
             Departments = CoreContext.UserManager.GetUserGroups(Profile.ID);
-            
+
             SocContacts = profileHelper.Contacts;
 
             OtherContacts = new List<MyContact>();

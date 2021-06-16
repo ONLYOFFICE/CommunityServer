@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,17 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net;
 using System.Linq;
+using System.Net;
+
 using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
 using ASC.Data.Storage;
+using ASC.Web.Core;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Resources;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Core;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -72,7 +73,7 @@ namespace ASC.Web.CRM.Classes
         private static readonly Dictionary<int, IDictionary<Size, string>> _photoCache = new Dictionary<int, IDictionary<Size, string>>();
 
         private static readonly WorkerQueue<ResizeWorkerItem> ResizeQueue = new WorkerQueue<ResizeWorkerItem>(2, TimeSpan.FromSeconds(30), 1, true);
-        private static readonly ICacheNotify cachyNotify; 
+        private static readonly ICacheNotify cachyNotify;
 
         private static readonly Size _oldBigSize = new Size(145, 145);
 
@@ -154,7 +155,7 @@ namespace ASC.Web.CRM.Classes
                     else
                         _photoCache[contactID].Add(photoSize, photoUri);
                 else
-                    _photoCache.Add(contactID, new Dictionary<Size, string> {{photoSize, photoUri}});
+                    _photoCache.Add(contactID, new Dictionary<Size, string> { { photoSize, photoUri } });
             }
         }
 
@@ -425,7 +426,7 @@ namespace ASC.Web.CRM.Classes
                 {
                     DeletePhoto(contactID, false, null, false);
                 }
-                foreach (var photoSize in new[] {_bigSize, _mediumSize, _smallSize})
+                foreach (var photoSize in new[] { _bigSize, _mediumSize, _smallSize })
                 {
                     var photoTmpPath = FromDataStoreRelative(isNewContact ? 0 : contactID, photoSize, true, tmpDirName);
                     if (string.IsNullOrEmpty(photoTmpPath)) throw new Exception("Temp phono not found");
@@ -448,7 +449,7 @@ namespace ASC.Web.CRM.Classes
                 }
                 DeletePhoto(contactID, true, tmpDirName, true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.GetLogger("ASC.CRM").ErrorFormat("TryUploadPhotoFromTmp for contactID={0} failed witth error: {1}", contactID, ex);
                 return;
@@ -491,14 +492,14 @@ namespace ASC.Web.CRM.Classes
         private static PhotoData ResizeToBigSize(byte[] imageData, int contactID, bool uploadOnly, string tmpDirName)
         {
             var resizeWorkerItem = new ResizeWorkerItem
-                {
-                    ContactID = contactID,
-                    UploadOnly = uploadOnly,
-                    RequireFotoSize = new[] {_bigSize},
-                    ImageData = imageData,
-                    DataStore = Global.GetStore(),
-                    TmpDirName = tmpDirName
-                };
+            {
+                ContactID = contactID,
+                UploadOnly = uploadOnly,
+                RequireFotoSize = new[] { _bigSize },
+                ImageData = imageData,
+                DataStore = Global.GetStore(),
+                TmpDirName = tmpDirName
+            };
 
             ExecResizeImage(resizeWorkerItem);
 
@@ -530,14 +531,14 @@ namespace ASC.Web.CRM.Classes
         private static void ExecGenerateThumbnail(byte[] imageData, int contactID, bool uploadOnly, string tmpDirName)
         {
             var resizeWorkerItem = new ResizeWorkerItem
-                {
-                    ContactID = contactID,
-                    UploadOnly = uploadOnly,
-                    RequireFotoSize = new[] {_mediumSize, _smallSize},
-                    ImageData = imageData,
-                    DataStore = Global.GetStore(),
-                    TmpDirName = tmpDirName
-                };
+            {
+                ContactID = contactID,
+                UploadOnly = uploadOnly,
+                RequireFotoSize = new[] { _mediumSize, _smallSize },
+                ImageData = imageData,
+                DataStore = Global.GetStore(),
+                TmpDirName = tmpDirName
+            };
 
             if (!ResizeQueue.GetItems().Contains(resizeWorkerItem))
                 ResizeQueue.Add(resizeWorkerItem);

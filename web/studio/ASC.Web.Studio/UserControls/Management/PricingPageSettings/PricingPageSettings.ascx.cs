@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,11 @@
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Web.Studio.Utility;
+
 using AjaxPro;
+
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -33,7 +36,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!TenantExtra.EnableTarrifSettings)
+            if (!TenantExtra.EnableTariffSettings)
                 return;
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
@@ -53,7 +56,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 return new
                 {
                     Status = 1,
-                    Message = Resources.Resource.SuccessfullySaveSettingsMessage
+                    Message = Resource.SuccessfullySaveSettingsMessage
                 };
             }
             catch (Exception e)

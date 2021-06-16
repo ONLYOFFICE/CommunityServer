@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ namespace ASC.Api.Calendar.iCalParser
     /// </summary>
     public class Scanner : IEnumerable
     {
-        private string fileName = null;
+        private readonly string fileName = null;
         private Stream stream = null;
         private TextReader rdr = null;
         private int lineNumber = -1;
@@ -58,7 +58,7 @@ namespace ASC.Api.Calendar.iCalParser
 
         private class Enumerator : IEnumerator
         {
-            Scanner scanner;
+            readonly Scanner scanner;
             Token current;
 
             internal Enumerator(Scanner _scanner)
@@ -155,7 +155,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
             return null;  // IDs need to start with a letter
 
-            getID:
+        getID:
             if ((i = Peek()) == -1)
                 return new Token(buff.ToString(), ScannerState.ParseID);
             else
@@ -183,7 +183,7 @@ namespace ASC.Api.Calendar.iCalParser
             if ((i = Peek()) == -1)
                 return null;
 
-        start:
+            start:
             if ((i = Peek()) == -1)
                 return new Token(buff.ToString(), ScannerState.ParseParms);
             else
@@ -305,7 +305,7 @@ namespace ASC.Api.Calendar.iCalParser
             if ((i = Peek()) == -1)
                 return null;
 
-        start:
+            start:
             if ((i = Peek()) == -1)
                 return new Token(buff.ToString(), ScannerState.ParseValue);
             else

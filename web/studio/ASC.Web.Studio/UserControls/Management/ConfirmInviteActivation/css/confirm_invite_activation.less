@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,120 +15,52 @@
 */
 
 
+@orangeMain: #FF6F3D;
+
+.box-shadow-for-autofill(@type: inset, @byX: 0, @byY: 0, @blurRadius: 0, @radius: 56px, @color: #f9f9f9) {
+    -webkit-box-shadow: @type @byX @byY @blurRadius @radius @color;
+    -moz-box-shadow: @type @byX @byY @blurRadius @radius @color;
+    box-shadow: @type @byX @byY @blurRadius @radius @color;
+}
+
+.border-radius(@value) {
+    border-radius: @value;
+    -moz-border-radius: @value;
+    -webkit-border-radius: @value;
+}
+
+.transition-duration(@time: 0.3s) {
+    -webkit-transition-duration: @time;
+    -o-transition-duration: @time;
+    transition-duration: @time;
+}
+
+.box-sizing {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.h2-mixin {
+    font-weight: bold;
+    line-height: 133%;
+    letter-spacing: -0.02em;
+    font-size: 32px;
+    margin: 0 auto;
+    text-align: center;
+
+    @media screen and (max-width: 1023px) {
+        font-size: 30px; letter-spacing: -0.01em;
+    }
+
+    @media screen and (max-width: 592px) {
+        font-size: 20px;
+    }
+}
+
 .confirmBlock {
     display: block;
     width: 960px;
     margin: 0 auto;
-
-    &.confirm-personal {
-        text-align: center;
-
-		.confirm-block-title{
-			margin: 0!important;
-		}
-        .default-personal-popup_h {
-            font-size: 29px;
-            font-weight: normal;
-            margin: 0;
-            //text-transform: uppercase;
-        }
-
-        .default-personal-popup_line {
-			display: none;
-           /* background-color: #86d6f6;
-            display: inline-block;
-            height: 72px;
-            width: 1px;
-            margin-bottom: 18px;*/
-        }
-
-        .default-personal-popup_text {
-            font-size: 18px;
-			margin-bottom: 40px;
-			margin-top: 34px;
-        }
-
-        .rightPart {
-            float: none;
-            margin: 0 auto;
-            width: 360px;
-
-            .property {
-                margin-bottom: 36px;
-
-                .name {
-                    display: block;
-					margin-top: 28px;
-					margin-left: 5px;
-					font-size: 18px;
-					width: 93px;
-					color: #bdbdbd;
-					font-weight: 400;
-                }
-
-                .value {
-                    display: block;
-                    width: 350px;
-                    text-align: left;
-                }
-
-                .textEdit {
-                    border: none;
-					border-bottom: 2px solid #bdbdbd;
-					border-radius: 0;
-					width: 100%;
-					margin-top: 4px;
-					font-size: 14px;
-                    &:focus {
-                        border-color: #2d86ab;
-                    }
-
-                    &.with-error {
-                        border-color: #c44747;
-                    }
-                }
-            }
-        }
-
-        .big-button-container {
-            margin: 59px auto 120px;
-			width: 355px;
-        }
-
-        .HelpCenterSwitcher {
-            display: none;
-        }
-
-        #buttonConfirmInvite {
-            background-color: #f16240;
-			background-image: none;
-			border: none;
-			color: white;
-			cursor: pointer;
-			font-size: 18px;
-			font-weight: 600;
-			padding: 17px 42px;
-			margin: 0;
-			text-align: center;
-			width: 267px;
-   
-            .borderRadius();
-
-            &:hover {
-                background-color: #fd6a46;
-            }
-
-            &:active {
-                background-color: #e65836;
-            }
-        }
-
-        .auth-docs_social_text {
-            font-size: 21px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-    }
 }
 
 .confirm-block-title .subTitle {
@@ -199,7 +131,7 @@
 
     .errorText {
         line-height: 12px;
-        position:absolute;
+        position: absolute;
         top: -37px;
     }
 
@@ -208,6 +140,227 @@
     }
 }
 
+.body-personal-confirm {
+    background-color: transparent;
+    background-image: url(images/first_screen_bg.svg);
+    background-position: center -508px;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+
+    main {
+        height: auto;
+        padding: 0;
+    }
+
+    .paging-content {
+        padding: 0;
+    }
+
+    #studioPageContent {
+        min-width: auto;
+    }
+}
+
+.confirm-personal {
+    margin: 0 auto;
+    padding: 48px 0;
+    text-align: center;
+    width: 544px;
+
+    .big-button-container {
+        margin-top: 0;
+    }
+
+    #buttonConfirmInvite {
+        background-color: @orangeMain;
+        border: none;
+        .border-radius(3px);
+        .box-sizing();
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 16px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        .transition-duration();
+        top: 0;
+        width: 100%;
+
+        &:hover, &:active {
+            background-color: #ff7a4b;
+        }
+
+        &.disabled {
+            background-color: #FFD4C5;
+            cursor: default;
+            pointer-events: none;
+        }
+    }
+
+    .confirm-block-title {
+        margin: 0;
+    }
+
+    .default-personal-popup_h {
+        .h2-mixin();
+    }
+
+    .default-personal-popup_line, .HelpCenterSwitcher {
+        display: none;
+    }
+
+    .default-personal-popup_text {
+        font-size: 18px;
+        line-height: 160%;
+        margin: 32px 0 48px;
+    }
+
+    .rightPart {
+        float: none;
+        width: auto;
+
+        .property {
+            background: #FFFFFF;
+            border: 1px solid #AAAAAA;
+            border-radius: 3px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            height: 56px;
+            margin-bottom: 32px;
+            position: relative;
+            width: 100%;
+
+            &.focus, &.error, &.valid {
+                &.input-hint-top {
+                    .name {
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            &.error {
+                background: #fff7f7;
+                border-color: #CB0000;
+
+                input:-webkit-autofill {
+                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #fff7f7);
+                }
+
+                .name {
+                    color: #D87373;
+                }
+            }
+
+            &.focus {
+                background: #FFFFFF;
+                border-color: #666666;
+
+                input:-webkit-autofill {
+                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #FFFFFF);
+                }
+
+                .name {
+                    color: #333333;
+                }
+            }
+
+            &.input-hint-top .name {
+                transform: translateX(2px) translateY(-12px);
+            }
+
+            &.valid {
+                background: #F9FEEF;
+                border-color: #8BB825;
+
+                input:-webkit-autofill {
+                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #F9FEEF);
+                }
+
+                .name {
+                    color: #666666;
+                    transform: translateX(2px) translateY(-12px);
+                }
+            }
+
+            .name {
+                color: #CCCCCC;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: normal;
+                line-height: 12px;
+                left: 14px;
+                padding: 0;
+                pointer-events: none;
+                top: 20px;
+                transition: transform 100ms ease;
+                transform: translateY(0);
+                position: absolute;
+            }
+
+            .textEdit {
+                background: transparent;
+                border: none;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                color: #333333;
+                font-size: 16px;
+                height: auto;
+                line-height: 20px;
+                margin-top: 22px;
+                outline: none;
+                padding: 0 16px;
+                width: 100%;
+
+                &:-webkit-autofill {
+                    .box-shadow-for-autofill(inset, 0, 0, 0, 28px, #FFFFFF);
+                    color: #333333;
+                    font-size: 16px;
+
+                    & ~ .name {
+                        font-size: 12px;
+                        transform: translateX(2px) translateY(-12px);
+                    }
+                }
+
+                &::-ms-input-placeholder {
+                    color: transparent;
+                }
+
+                &::placeholder {
+                    color: transparent;
+                }
+
+                &::-webkit-input-placeholder {
+                    color: transparent;
+                }
+
+                &:-moz-placeholder {
+                    color: transparent;
+                }
+                /* FF 4-18 */
+                &::-moz-placeholder {
+                    color: transparent;
+                }
+                /* FF 19+ */
+                &:-ms-input-placeholder {
+                    color: transparent;
+                }
+
+                &:focus {
+                    border-color: #2d86ab;
+                }
+
+                &.with-error {
+                    border-color: #c44747;
+                }
+            }
+        }
+    }
+}
 
 .borderRadius (@value: 3px) {
     border-radius: @value;
@@ -215,49 +368,62 @@
     -webkit-border-radius: @value;
 }
 
-@media screen and (max-width: 900px){
-	#studioPageContent{
-		min-width: auto;
+@media screen and (max-width: 900px) {
+    #studioPageContent {
+        min-width: auto;
 
-		.mainPageLayout{
-			min-width: auto;
-			padding: 24px 0 0;
+        .mainPageLayout {
+            min-width: auto;
+            padding: 24px 0 0;
 
-			.confirmBlock{
-				width: auto;
+            .confirmBlock {
+                width: auto;
+            }
+        }
+    }
+}
 
-			}
-			.confirmBlock.confirm-personal .rightPart{
-				float: none;
-				margin: 0 auto;
-				width: 320px;
-			}
-			.confirmBlock.confirm-personal .rightPart .property{
-				margin-bottom: 36px;
-				display: block;
-				position: relative;
-				width: 300px;
-				margin: 0 auto;
-				
-				.value{
-					display: block;
-					width: auto;
-					text-align: left;
-				}
-				.textEdit{
-					width: 300px;
-					margin-top: 4px;
-					padding-left: 0;
-					padding-right: 0;
-				}
-			}
-			.confirmBlock.confirm-personal .big-button-container{
-				margin: 59px auto 120px;
-				width: 300px;
-			}
-			.confirmBlock.confirm-personal #buttonConfirmInvite{
-				width: 215px;
-			}
-		}
-	}
+@media screen and (max-width: 592px) {
+    .confirm-personal {
+        padding: 96px 0;
+        width: 90vw;
+
+        #buttonConfirmInvite {
+            font-size: 13px;
+            padding: 16px;
+        }
+
+        .default-personal-popup_text {
+            font-size: 14px;
+            margin: 24px 0;
+        }
+
+        .rightPart .property {
+            height: 48px;
+            margin-bottom: 24px;
+
+            &.focus, &.error, &.valid {
+                &.input-hint-top {
+                    .name {
+                        font-size: 11px;
+                    }
+                }
+            }
+
+            .name {
+                font-size: 15px;
+                top: 16px;
+            }
+
+            .textEdit {
+                font-size: 13px;
+                margin-top: 20px;
+
+                &:-webkit-autofill {
+                    font-size: 13px;
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
 }

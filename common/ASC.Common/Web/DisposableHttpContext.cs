@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ namespace ASC.Common.Web
             {
                 if (value == null) throw new ArgumentNullException();
                 if (!(value is IDisposable)) throw new ArgumentException("Only IDisposable may be added!");
-                Items[key] = (IDisposable) value;
+                Items[key] = (IDisposable)value;
             }
         }
 
@@ -60,7 +60,7 @@ namespace ASC.Common.Web
         {
             get
             {
-                var table = (Dictionary<string, IDisposable>) ctx.Items[key];
+                var table = (Dictionary<string, IDisposable>)ctx.Items[key];
                 if (table == null)
                 {
                     table = new Dictionary<string, IDisposable>(1);

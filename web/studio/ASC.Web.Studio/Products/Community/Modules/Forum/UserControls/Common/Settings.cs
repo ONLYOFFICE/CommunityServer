@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 
 using System;
-using System.Web;
 using System.Collections.Generic;
+using System.Web;
 
 namespace ASC.Web.UserControls.Forum.Common
 {
@@ -41,7 +41,7 @@ namespace ASC.Web.UserControls.Forum.Common
 
         public string FileStoreModuleID { get; private set; }
 
-        public string ThreadParamName{ get; private set;}
+        public string ThreadParamName { get; private set; }
 
         public string TopicParamName { get; private set; }
 
@@ -55,7 +55,7 @@ namespace ASC.Web.UserControls.Forum.Common
 
         public string SearchPageVirtualPath { get; private set; }
         public string SearchPageAbsolutePath { get { return GetAbsolutePathWithParams(SearchPageVirtualPath); } }
-        
+
         public string StartPageVirtualPath { get; private set; }
         public string StartPageAbsolutePath { get { return GetAbsolutePathWithParams(StartPageVirtualPath); } }
 
@@ -100,9 +100,9 @@ namespace ASC.Web.UserControls.Forum.Common
         {
             if (!string.IsNullOrEmpty(virtualPath))
             {
-                if(virtualPath.IndexOf("?")!=-1)
+                if (virtualPath.IndexOf("?") != -1)
                     return VirtualPathUtility.ToAbsolute(virtualPath.Split('?')[0]) + "?" + virtualPath.Split('?')[1];
-                
+
                 return VirtualPathUtility.ToAbsolute(virtualPath) + "?";
             }
 
@@ -131,7 +131,7 @@ namespace ASC.Web.UserControls.Forum.Common
             if (!string.IsNullOrEmpty(query))
             {
                 var result = new List<string>();
-                foreach (var param in query.Split(new[] {'&'}, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var param in query.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     result.Add(param.Split('=')[0]);
                 }

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbortMassSend" xml:space="preserve">
     <value>Abort Blanket Mailing</value>
@@ -129,9 +70,6 @@
   <data name="AddingPersonProgress" xml:space="preserve">
     <value>Adding contact...</value>
   </data>
-  <data name="AdditionalContactInformation" xml:space="preserve">
-    <value>Additional information</value>
-  </data>
   <data name="AddNewAddress" xml:space="preserve">
     <value>Add new address</value>
   </data>
@@ -140,12 +78,6 @@
   </data>
   <data name="AddNewContact" xml:space="preserve">
     <value>Add new person</value>
-  </data>
-  <data name="AddNewEmail" xml:space="preserve">
-    <value>Add email</value>
-  </data>
-  <data name="AddNewPhone" xml:space="preserve">
-    <value>Add phone</value>
   </data>
   <data name="AddTagToContactGroupHelpForAdmin" xml:space="preserve">
     <value>This default action can be changed {0}here{1}</value>
@@ -275,7 +207,7 @@ Do you want to delete this tag also from the company and from all its persons?</
     <value>Contact manager</value>
   </data>
   <data name="ContactPhotoInfo" xml:space="preserve">
-    <value>You can upload an image file in PNG or JPG format not larger than {1}200x300 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}{0}{2}.</value>
+    <value>You can upload an image not larger than {1}200x300 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}{0}{2}.</value>
   </data>
   <data name="Contacts" xml:space="preserve">
     <value>Contacts</value>
@@ -313,9 +245,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="ContactTitle" xml:space="preserve">
     <value>Contact Name</value>
   </data>
-  <data name="ContactTwitterDescription" xml:space="preserve">
-    <value>Enter your Twitter account name. For example, teamlabdotcom</value>
-  </data>
   <data name="ContactType" xml:space="preserve">
     <value>Contact Type</value>
   </data>
@@ -349,14 +278,8 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="CreateProject" xml:space="preserve">
     <value>Create project</value>
   </data>
-  <data name="CreateTask" xml:space="preserve">
-    <value>Create task</value>
-  </data>
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
-  </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Companies</value>
   </data>
   <data name="DeleteContact" xml:space="preserve">
     <value>Delete contact</value>
@@ -376,14 +299,8 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="DeletingContacts" xml:space="preserve">
     <value>Deleting contacts</value>
   </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
-  </data>
   <data name="DoNotImportThisField" xml:space="preserve">
     <value>Do not import this field</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
   </data>
   <data name="EditCompany" xml:space="preserve">
     <value>Edit company «{0}»</value>
@@ -399,9 +316,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   </data>
   <data name="EditProfilePerson" xml:space="preserve">
     <value>Edit person</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
   </data>
   <data name="EmptyContactListDescription" xml:space="preserve">
     <value>Keep all the contacts your company works with in one place. Add new companies and persons, divide them into {0}types{1}, link with each other, add personal information. Import multiple contacts that you already have from a {2}CSV file{3} at one go.</value>
@@ -436,20 +350,11 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="ErrorEmptyContactFirstName" xml:space="preserve">
     <value>Enter a first name</value>
   </data>
-  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
-    <value>The uploaded file could not be found</value>
-  </data>
   <data name="ErrorInvalidEmail" xml:space="preserve">
     <value>Invalid email</value>
   </data>
   <data name="ErrorInvalidPhone" xml:space="preserve">
     <value>Invalid phone number</value>
-  </data>
-  <data name="Everyone" xml:space="preserve">
-    <value>all users (including the deleted users)</value>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>Files</value>
   </data>
   <data name="FilterByAccessibility" xml:space="preserve">
     <value>Accessibility</value>
@@ -523,9 +428,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="Lead" xml:space="preserve">
     <value>Lead</value>
   </data>
-  <data name="LoadPhoto" xml:space="preserve">
-    <value>Upload photo</value>
-  </data>
   <data name="LoadPhotoFromPC" xml:space="preserve">
     <value>Upload photo from PC</value>
   </data>
@@ -575,7 +477,7 @@ Do you want to delete this tag also from the company and from all its persons?</
     <value>Start Merging Contacts</value>
   </data>
   <data name="MergePanelDescriptionText" xml:space="preserve">
-    <value>Please select the contact which is duplicated by the current contact. The two contact data will be combined and the current contact will be deleted.</value>
+    <value>Please select the contact which is duplicated by the current contact. Once the contact is selected, click Start Merging Contacts. The two contact data will be combined and the current contact will be deleted.</value>
   </data>
   <data name="MergePanelHeaderText" xml:space="preserve">
     <value>Merge contacts</value>
@@ -606,9 +508,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   </data>
   <data name="Overview" xml:space="preserve">
     <value>Description</value>
-  </data>
-  <data name="People" xml:space="preserve">
-    <value>People</value>
   </data>
   <data name="Person" xml:space="preserve">
     <value>Person</value>
@@ -646,18 +545,6 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
-  <data name="SearchText" xml:space="preserve">
-    <value>Enter a text to search</value>
-  </data>
-  <data name="SelectCSVFileButton" xml:space="preserve">
-    <value>Select a CSV file</value>
-  </data>
-  <data name="Show" xml:space="preserve">
-    <value>Show</value>
-  </data>
-  <data name="ShowAllSearchResult" xml:space="preserve">
-    <value>Show all the results</value>
-  </data>
   <data name="ShowContactProfile" xml:space="preserve">
     <value>Go to profile</value>
   </data>
@@ -667,14 +554,8 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="ShowOnMap" xml:space="preserve">
     <value>Show on the map</value>
   </data>
-  <data name="ShowOnPage" xml:space="preserve">
-    <value>Show on page</value>
-  </data>
   <data name="Staff" xml:space="preserve">
     <value>Staff</value>
-  </data>
-  <data name="Stage" xml:space="preserve">
-    <value>Contact type</value>
   </data>
   <data name="StartImport" xml:space="preserve">
     <value>Start importing contacts</value>
@@ -682,32 +563,17 @@ Do you want to delete this tag also from the company and from all its persons?</
   <data name="Supplier" xml:space="preserve">
     <value>Supplier</value>
   </data>
-  <data name="Tag" xml:space="preserve">
-    <value>Tag</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
-  </data>
   <data name="TeamlabWatermarkInfo" xml:space="preserve">
     <value>We will add the text watermark to your letter like "Powered by ONLYOFFICE.com". You can see it in the next (message preview) step.</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Position</value>
   </data>
   <data name="TooltipCsv" xml:space="preserve">
     <value>CSV (comma-separated values) files store tabular data in the plain-text form. You can create such files from any spreadsheets using ONLYOFFICE™ Documents.</value>
   </data>
   <data name="TooltipTypes" xml:space="preserve">
-    <value>Contact types let you characterize your potential customers in a certain way. The default contact types are cold, warm and hot which mean the contact's willingness to purchase your product. To be able to edit them, the administrator rights are needed.</value>
+    <value>Contact types let you characterize your contacts based on their role in relation to the organization. The default contact types are "Client", "Competitor", "Partner",  and "Supplier". To be able to edit them, administrator rights are required.</value>
   </data>
   <data name="TotalContacts" xml:space="preserve">
     <value>All contacts</value>
-  </data>
-  <data name="TotalFinded" xml:space="preserve">
-    <value>Total found</value>
-  </data>
-  <data name="ViewInfo" xml:space="preserve">
-    <value>Show info</value>
   </data>
   <data name="ViewMailingHistory" xml:space="preserve">
     <value>View mailing history</value>

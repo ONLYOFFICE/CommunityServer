@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 
 using System;
-using System.Globalization;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Core;
 using ASC.Files.Core;
@@ -25,6 +25,7 @@ using ASC.Specific;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.Utility;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 
@@ -99,6 +100,11 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
+        public String ThumbnailUrl { get; set; }
+
+        /// <summary>
+        /// </summary>
         /// <param name="file"></param>
         public FileWrapper(File file)
             : base(file)
@@ -131,6 +137,11 @@ namespace ASC.Api.Documents
                 ViewUrl = CommonLinkUtility.GetFullAbsolutePath(file.DownloadUrl);
 
                 WebUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID));
+
+                if (file.ThumbnailStatus == Thumbnail.Created)
+                {
+                    ThumbnailUrl = CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileThumbnailUrl(file.ID, file.Version));
+                }
             }
             catch (Exception)
             {
@@ -148,26 +159,26 @@ namespace ASC.Api.Documents
         public static FileWrapper GetSample()
         {
             return new FileWrapper
-                {
-                    Access = FileShare.ReadWrite,
-                    Updated = ApiDateTime.GetSample(),
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Id = new Random().Next(),
-                    RootFolderType = FolderType.BUNCH,
-                    Shared = false,
-                    Title = "Some titile.txt",
-                    FileExst = ".txt",
-                    FileType = FileType.Document,
-                    UpdatedBy = EmployeeWraper.GetSample(),
-                    ContentLength = "12.06 KB", //12345
-                    PureContentLength = 12345,
-                    FileStatus = FileStatus.IsNew,
-                    FolderId = 12334,
-                    Version = 3,
-                    VersionGroup = 1,
-                    ViewUrl = "http://www.onlyoffice.com/viewfile?fileid=2221"
-                };
+            {
+                Access = FileShare.ReadWrite,
+                Updated = ApiDateTime.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+                Id = new Random().Next(),
+                RootFolderType = FolderType.BUNCH,
+                Shared = false,
+                Title = "Some titile.txt",
+                FileExst = ".txt",
+                FileType = FileType.Document,
+                UpdatedBy = EmployeeWraper.GetSample(),
+                ContentLength = "12.06 KB", //12345
+                PureContentLength = 12345,
+                FileStatus = FileStatus.IsNew,
+                FolderId = 12334,
+                Version = 3,
+                VersionGroup = 1,
+                ViewUrl = "http://www.onlyoffice.com/viewfile?fileid=2221"
+            };
         }
     }
 }

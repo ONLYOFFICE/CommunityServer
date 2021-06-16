@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using System.Web.Routing;
 using ASC.Api.Batch;
 using ASC.Api.Interfaces;
 using ASC.Common.Logging;
+
 using Autofac;
 
 namespace ASC.Api
@@ -63,7 +64,7 @@ namespace ASC.Api
             _context = context;
             container = ApiSetup.Builder;
             var config = container.Resolve<IApiConfiguration>();
-            var route = RouteTable.Routes.OfType<Route>().First(r=> r.Url.EndsWith(config.GetBasePath() + "batch"));
+            var route = RouteTable.Routes.OfType<Route>().First(r => r.Url.EndsWith(config.GetBasePath() + "batch"));
             if (route == null)
             {
                 throw new ArgumentException("Couldn't resolve api");
@@ -73,7 +74,7 @@ namespace ASC.Api
             {
                 throw new ArgumentException("Couldn't resolve api");
             }
-            
+
             var requestContext = new RequestContext(context, new RouteData(new Route("batch", routeHandler), routeHandler));
             _batchHandler = routeHandler.GetHttpHandler(requestContext) as ApiBatchHttpHandler;
             if (_batchHandler == null)

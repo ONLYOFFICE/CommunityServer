@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
 */
 
 
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Tenants;
-using ASC.VoipService.Twilio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Common.Configuration;
+using ASC.Core.Tenants;
+using ASC.VoipService.Twilio;
 
 namespace ASC.VoipService.Dao
 {
@@ -186,7 +187,7 @@ namespace ASC.VoipService.Dao
                 {
                     call.ChildCalls.AddRange(h);
                     return call;
-                }).Where(r=> string.IsNullOrEmpty(r.ParentID)).ToList();
+                }).Where(r => string.IsNullOrEmpty(r.ParentID)).ToList();
 
                 return calls;
             }
@@ -194,7 +195,7 @@ namespace ASC.VoipService.Dao
 
         public VoipCall GetCall(string id)
         {
-            return GetCalls(new VoipCallFilter { Id = id}).FirstOrDefault();
+            return GetCalls(new VoipCallFilter { Id = id }).FirstOrDefault();
         }
 
         public int GetCallsCount(VoipCallFilter filter)
@@ -295,26 +296,26 @@ namespace ASC.VoipService.Dao
         private static VoipCall ToCall(object[] r)
         {
             var call = new VoipCall
+            {
+                Id = (string)r[0],
+                ParentID = (string)r[1],
+                From = (string)r[2],
+                To = (string)r[3],
+                AnsweredBy = new Guid((string)r[4]),
+                DialDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
+                DialDuration = Convert.ToInt32(r[6] ?? "0"),
+                Price = Convert.ToDecimal(r[7]),
+                Status = (VoipCallStatus)Convert.ToInt32(r[8]),
+                VoipRecord = new VoipRecord
                 {
-                    Id = (string)r[0],
-                    ParentID = (string)r[1],
-                    From = (string)r[2],
-                    To = (string)r[3],
-                    AnsweredBy = new Guid((string)r[4]),
-                    DialDate = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
-                    DialDuration = Convert.ToInt32(r[6] ?? "0"),
-                    Price = Convert.ToDecimal(r[7]),
-                    Status = (VoipCallStatus)Convert.ToInt32(r[8]),
-                    VoipRecord = new VoipRecord
-                    {
-                        Id = (string)r[9],
-                        Uri = (string)r[10],
-                        Duration = Convert.ToInt32(r[11] ?? "0"),
-                        Price = Convert.ToDecimal(r[12])
-                    },
-                    ContactId = Convert.ToInt32(r[13]),
-                    ContactIsCompany = Convert.ToBoolean(r[14])
-                };
+                    Id = (string)r[9],
+                    Uri = (string)r[10],
+                    Duration = Convert.ToInt32(r[11] ?? "0"),
+                    Price = Convert.ToDecimal(r[12])
+                },
+                ContactId = Convert.ToInt32(r[13]),
+                ContactIsCompany = Convert.ToBoolean(r[14])
+            };
 
             if (call.ContactId != 0)
             {

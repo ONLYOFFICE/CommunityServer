@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,11 @@
 using System;
 using System.Linq;
 using System.Web;
+
 using ASC.Core;
 using ASC.Web.Core.Files;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
@@ -41,12 +44,12 @@ namespace ASC.Web.Studio
             if (CoreContext.Configuration.Personal)
                 Context.Response.Redirect(FilesLinkUtility.FilesBaseAbsolutePath);
 
-            if (!TenantExtra.EnableTarrifSettings ||
+            if (!TenantExtra.EnableTariffSettings ||
                 (TariffSettings.HidePricingPage &&
                  !CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID)))
                 Response.Redirect("~/", true);
 
-            if (TenantExtra.EnableControlPanel)
+            if (TenantExtra.EnableControlPanel && !CoreContext.Configuration.CustomMode)
                 Response.Redirect(TenantExtra.GetTariffPageLink(), true);
         }
 
@@ -62,7 +65,7 @@ namespace ASC.Web.Studio
                 Master.TopStudioPanel.DisableGift = true;
             }
 
-            Title = HeaderStringHelper.GetPageTitle(Resources.Resource.Tariffs);
+            Title = HeaderStringHelper.GetPageTitle(Resource.Tariffs);
 
             if (Request.DesktopApp())
             {
@@ -81,7 +84,8 @@ namespace ASC.Web.Studio
                 }
                 else
                 {
-                    pageContainer.Controls.Add(LoadControl(TariffUsage.Location));
+                    pageContainer.Controls.Add(LoadControl(TariffSaas.Location));
+                    //pageContainer.Controls.Add(LoadControl(TariffUsage.Location));
                 }
 
                 var payments = CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).ToList();
@@ -94,6 +98,8 @@ namespace ASC.Web.Studio
                     pageContainer.Controls.Add(tariffHistory);
                 }
             }
+
+            pageContainer.Controls.Add(LoadControl(SupportChat.Location));
         }
     }
 }

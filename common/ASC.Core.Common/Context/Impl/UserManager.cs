@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Core.Caching;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using ASC.Core.Caching;
 
 namespace ASC.Core
 {
@@ -145,8 +146,14 @@ namespace ASC.Core
         {
             if (string.IsNullOrEmpty(email)) return Constants.LostUser;
 
+            if (CoreContext.Configuration.Personal)
+            {
+                var u = userService.GetUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, email);
+                return u != null && !u.Removed ? u : Constants.LostUser;
+            }
+
             return GetUsersInternal()
-                .FirstOrDefault(u => string.Compare(u.Email, email, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
+               .FirstOrDefault(u => string.Compare(u.Email, email, StringComparison.CurrentCultureIgnoreCase) == 0) ?? Constants.LostUser;
         }
 
         public UserInfo[] Search(string text, EmployeeStatus status)
@@ -190,17 +197,32 @@ namespace ASC.Core
             if (u.ID == Guid.Empty) SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
             else SecurityContext.DemandPermissions(new UserSecurityProvider(u.ID), Constants.Action_EditUser);
 
-            if (Constants.MaxEveryoneCount <= GetUsersByGroup(Constants.GroupEveryone.ID).Length)
+            if (!CoreContext.Configuration.Personal)
             {
-                throw new TenantQuotaException("Maximum number of users exceeded");
-            }
-
-            if (u.Status == EmployeeStatus.Active)
-            {
-                var q = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
-                if (q.ActiveUsers < GetUsersByGroup(Constants.GroupUser.ID).Length)
+                if (Constants.MaxEveryoneCount <= GetUsersByGroup(Constants.GroupEveryone.ID).Length)
                 {
-                    throw new TenantQuotaException(string.Format("Exceeds the maximum active users ({0})", q.ActiveUsers));
+                    throw new TenantQuotaException("Maximum number of users exceeded");
+                }
+
+                if (u.Status == EmployeeStatus.Active)
+                {
+                    if (isVisitor)
+                    {
+                        var maxUsers = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId).ActiveUsers;
+
+                        if (!CoreContext.Configuration.Standalone && CoreContext.UserManager.GetUsersByGroup(Constants.GroupVisitor.ID).Length > Constants.CoefficientOfVisitors * maxUsers)
+                        {
+                            throw new TenantQuotaException("Maximum number of visitors exceeded");
+                        }
+                    }
+                    else
+                    {
+                        var q = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+                        if (q.ActiveUsers < GetUsersByGroup(Constants.GroupUser.ID).Length)
+                        {
+                            throw new TenantQuotaException(string.Format("Exceeds the maximum active users ({0})", q.ActiveUsers));
+                        }
+                    }
                 }
             }
 
@@ -307,8 +329,8 @@ namespace ASC.Core
 
                 if (userRefs != null)
                 {
-                    var toAdd = userRefs.Where(r => !r.Removed && 
-                        r.RefType == UserGroupRefType.Contains && 
+                    var toAdd = userRefs.Where(r => !r.Removed &&
+                        r.RefType == UserGroupRefType.Contains &&
                         !Constants.BuildinGroups.Any(g => g.ID.Equals(r.GroupId)))
                         .Select(r => r.GroupId);
                     result.AddRange(toAdd);

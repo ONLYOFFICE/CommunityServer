@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,5 +102,81 @@ jq(document).on("click", "#buttonConfirmInvite", function () {
 
             window.submitForm("confirmInvite", "");
         });
+    }
+});
+
+jq(function () {
+    if (ASC.Resources.Master.Personal) {
+        jq("body").addClass("body-personal-confirm");
+
+        jq("#buttonConfirmInvite").on("click", function () {
+            jq(".body-personal-confirm input[type='text'], .body-personal-confirm input[type='password']").each(function () {
+                var currentInput = jq(this);
+                var currentInputValue = currentInput[0].value;
+                var currentInputWrapper = currentInput.parents(".property");
+
+                if (currentInputValue.length == 0) {
+                    currentInputWrapper.addClass("error");
+                }
+            });
+        });
+
+        jq(".body-personal-confirm input[type='text'], .body-personal-confirm input[type='password']").focus(inputFocus).focusout(inputFocusOut);
+
+        jq(".property").each(function () {
+            var $inpuntHint = jq(this).children(".name");
+            jq(this).children(".value").append($inpuntHint);
+        });
+
+        var $formBlock = jq(".confirmBlock");
+        AddPaddingWithoutScrollTo($formBlock, $formBlock);
+
+        jq(window).on("resize", function () {
+            AddPaddingWithoutScrollTo($formBlock, $formBlock);
+        });
+
+        function inputFocus() {
+            var currentInput = jq(this);
+
+            currentInput.parents(".property")
+                .removeClass('error')
+                .removeClass('valid')
+                .addClass('focus')
+                .addClass('input-hint-top');
+        };
+
+        function inputFocusOut() {
+            var currentInput = jq(this);
+            var currentInputValue = currentInput[0].value;
+
+            var currentInputId = currentInput[0].id;
+            var currentInputWrapper = currentInput.parents(".property");
+            currentInputWrapper.removeClass('focus');
+
+            if (currentInputValue.length == 0) {
+                currentInputWrapper.removeClass('input-hint-top');
+            } else {
+                if (currentInputId == "studio_confirm_Email") {
+                    if (!jq.isValidEmail(currentInputValue)) {
+                        currentInputWrapper.addClass("error");
+                    } else if (currentInputValue.length > 0) {
+                        currentInputWrapper.addClass('valid');
+                    }
+                } else if (currentInputId.toLowerCase().indexOf("name") != -1) {
+                    var nameRegexp = new XRegExp(ASC.Resources.Master.UserNameRegExpr.Pattern);
+                    if (!nameRegexp.test(currentInputValue)) {
+                        currentInputWrapper.addClass("error");
+                    } else if (currentInputValue.length > 0) {
+                        currentInputWrapper.addClass('valid');
+                    }
+                } else if (currentInputId == "studio_confirm_pwd") {
+                    if (!(new XRegExp(jq(this).data("regex"), "ig")).test(currentInputValue)) {
+                        currentInputWrapper.addClass("error");
+                    } else if (currentInputValue.length > 0) {
+                        currentInputWrapper.addClass('valid');
+                    }
+                }
+            }
+        };
     }
 });

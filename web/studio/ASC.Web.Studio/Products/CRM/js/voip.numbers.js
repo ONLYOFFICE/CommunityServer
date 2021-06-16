@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -336,17 +336,17 @@ ASC.CRM.Voip.NumbersView = (function ($) {
 
     function correctFile(file) {
         if (getFileExtension(file.name) != ".mp3") {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileFormatErrorMsg);
+            toastr.error(ASC.Resources.Master.ResourceJS.UploadVoipRingtoneFileFormatErrorMsg);
             return false;
         }
 
         if (file.size <= 0) {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneEmptyFileErrorMsg);
+            toastr.error(ASC.Resources.Master.ResourceJS.UploadVoipRingtoneEmptyFileErrorMsg);
             return false;
         }
 
         if (file.size > 20 * 1024 * 1024) {
-            toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileSizeErrorMsg);
+            toastr.error(ASC.Resources.Master.ResourceJS.UploadVoipRingtoneFileSizeErrorMsg);
             return false;
         }
 
@@ -383,7 +383,7 @@ ASC.CRM.Voip.NumbersView = (function ($) {
                     if (response.Message) {
                         toastr.error(response.Message);
                     } else {
-                        toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileErrorMsg);
+                        toastr.error(ASC.Resources.Master.ResourceJS.UploadVoipRingtoneFileErrorMsg);
                     }
                     hideLoader();
                     return;
@@ -410,7 +410,7 @@ ASC.CRM.Voip.NumbersView = (function ($) {
             })
             .bind("fileuploadfail", function() {
                 hideLoader();
-                toastr.error(ASC.Resources.Master.Resource.UploadVoipRingtoneFileErrorMsg);
+                toastr.error(ASC.Resources.Master.ResourceJS.UploadVoipRingtoneFileErrorMsg);
             })
             .bind("fileuploadstart", showLoader)
             .bind("fileuploadstop", hideLoader);
@@ -798,11 +798,11 @@ ASC.CRM.Voip.NumbersView = (function ($) {
     };
 
     function showSuccessOpearationMessage() {
-        toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
+        toastr.success(ASC.Resources.Master.ResourceJS.ChangesSuccessfullyAppliedMsg);
     };
 
     function showErrorMessage() {
-        toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
+        toastr.error(ASC.Resources.Master.ResourceJS.CommonJSErrorMsg);
     };
 
     //#endregion

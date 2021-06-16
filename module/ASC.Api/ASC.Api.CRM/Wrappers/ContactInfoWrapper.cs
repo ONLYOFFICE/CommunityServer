@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.CRM.Core;
 using ASC.Web.CRM.Classes;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Api.CRM.Wrappers
@@ -98,16 +100,16 @@ namespace ASC.Api.CRM.Wrappers
         public static Address GetSample()
         {
             return new Address
-                {
-                    Country = "Latvia",
-                    Zip = "LV-1021",
-                    Street = "Lubanas st. 125a-25",
-                    State = "",
-                    City = "Riga",
-                    IsPrimary = true,
-                    Category = (int)ContactInfoBaseCategory.Work,
-                    CategoryName = ((AddressCategory)ContactInfoBaseCategory.Work).ToLocalizedString()
-                };
+            {
+                Country = "Latvia",
+                Zip = "LV-1021",
+                Street = "Lubanas st. 125a-25",
+                State = "",
+                City = "Riga",
+                IsPrimary = true,
+                Category = (int)ContactInfoBaseCategory.Work,
+                CategoryName = ((AddressCategory)ContactInfoBaseCategory.Work).ToLocalizedString()
+            };
         }
     }
 
@@ -157,13 +159,13 @@ namespace ASC.Api.CRM.Wrappers
         public static ContactInfoWrapper GetSample()
         {
             return new ContactInfoWrapper(0)
-                {
-                    IsPrimary = true,
-                    Category = (int)ContactInfoBaseCategory.Home,
-                    CategoryName = ContactInfoBaseCategory.Home.ToLocalizedString(),
-                    Data = "support@onlyoffice.com",
-                    InfoType = ContactInfoType.Email
-                };
+            {
+                IsPrimary = true,
+                Category = (int)ContactInfoBaseCategory.Home,
+                CategoryName = ContactInfoBaseCategory.Home.ToLocalizedString(),
+                Data = "support@onlyoffice.com",
+                InfoType = ContactInfoType.Email
+            };
         }
     }
 }

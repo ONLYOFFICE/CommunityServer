@@ -106,38 +106,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Empty docbuilder path.
-        /// </summary>
-        public static string BuildErrorEmptyDocbuilderPath {
-            get {
-                return ResourceManager.GetString("BuildErrorEmptyDocbuilderPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Empty docbuilder template.
+        ///   Looks up a localized string similar to Empty Document Builder template.
         /// </summary>
         public static string BuildErrorEmptyDocbuilderTemplate {
             get {
                 return ResourceManager.GetString("BuildErrorEmptyDocbuilderTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error has occurred. Empty output file.
-        /// </summary>
-        public static string BuildErrorEmptyOutputFile {
-            get {
-                return ResourceManager.GetString("BuildErrorEmptyOutputFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximum number of process is exceeded. Try later.
-        /// </summary>
-        public static string BuildErrorMaxProcessExceeded {
-            get {
-                return ResourceManager.GetString("BuildErrorMaxProcessExceeded", resourceCulture);
             }
         }
         
@@ -169,7 +142,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Calls count.
+        ///   Looks up a localized string similar to Call count.
         /// </summary>
         public static string CallsCount {
             get {
@@ -178,7 +151,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Calls duration.
+        ///   Looks up a localized string similar to Call duration.
         /// </summary>
         public static string CallsDuration {
             get {
@@ -210,15 +183,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ClosedTasks {
             get {
                 return ResourceManager.GetString("ClosedTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Complete.
-        /// </summary>
-        public static string Complete {
-            get {
-                return ResourceManager.GetString("Complete", resourceCulture);
             }
         }
         
@@ -268,7 +232,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Count.
+        ///   Looks up a localized string similar to Number.
         /// </summary>
         public static string Count {
             get {
@@ -421,25 +385,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        public static string Error {
-            get {
-                return ResourceManager.GetString("Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not get docbuilder response.
-        /// </summary>
-        public static string ErrorNullDocbuilderResponse {
-            get {
-                return ResourceManager.GetString("ErrorNullDocbuilderResponse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Could not get report data.
+        ///   Looks up a localized string similar to Could not get the report data.
         /// </summary>
         public static string ErrorNullReportData {
             get {
@@ -448,7 +394,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not get report script.
+        ///   Looks up a localized string similar to Could not get the report script.
         /// </summary>
         public static string ErrorNullReportScript {
             get {
@@ -655,20 +601,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No data for the report. Select another filter..
+        ///   Looks up a localized string similar to No data for the report. Choose another filter..
         /// </summary>
         public static string NoData {
             get {
                 return ResourceManager.GetString("NoData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open.
-        /// </summary>
-        public static string Open {
-            get {
-                return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         
@@ -682,7 +619,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Outcoming.
+        ///   Looks up a localized string similar to Outgoing.
         /// </summary>
         public static string Outcoming {
             get {
@@ -763,7 +700,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report building.
+        ///   Looks up a localized string similar to Building the report.
         /// </summary>
         public static string ReportBuilding {
             get {
@@ -772,7 +709,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All generated reports you can always see, download, edit, or delete them in {0}CRM/Reports/Generated reports{1}.
+        ///   Looks up a localized string similar to You can view, download, edit, or delete all the generated reports in {0}CRM/Reports/Generated reports{1}.
         /// </summary>
         public static string ReportBuildingInfo {
             get {
@@ -781,7 +718,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report building ({0}% complete).
+        ///   Looks up a localized string similar to Building the report ({0}% complete).
         /// </summary>
         public static string ReportBuildingProgress {
             get {
@@ -817,7 +754,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sales By Managers.
+        ///   Looks up a localized string similar to Sales by managers.
         /// </summary>
         public static string SalesByManagersReport {
             get {
@@ -844,7 +781,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sales Forecast.
+        ///   Looks up a localized string similar to Sales forecast.
         /// </summary>
         public static string SalesForecastReport {
             get {
@@ -880,7 +817,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sales Funnel.
+        ///   Looks up a localized string similar to Sales funnel.
         /// </summary>
         public static string SalesFunnelReport {
             get {
@@ -936,7 +873,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary for the Moment.
+        ///   Looks up a localized string similar to Summary for the moment.
         /// </summary>
         public static string SummaryAtThisMomentReport {
             get {
@@ -945,7 +882,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary for the Period.
+        ///   Looks up a localized string similar to Summary for the period.
         /// </summary>
         public static string SummaryForThePeriodReport {
             get {
@@ -995,15 +932,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Today {
             get {
                 return ResourceManager.GetString("Today", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tomorrow.
-        /// </summary>
-        public static string Tomorrow {
-            get {
-                return ResourceManager.GetString("Tomorrow", resourceCulture);
             }
         }
         
@@ -1080,7 +1008,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contacts by Managers.
+        ///   Looks up a localized string similar to Contacts by managers.
         /// </summary>
         public static string WorkloadByContactsReport {
             get {
@@ -1098,7 +1026,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opportunities by Managers.
+        ///   Looks up a localized string similar to Opportunities by managers.
         /// </summary>
         public static string WorkloadByDealsReport {
             get {
@@ -1116,7 +1044,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoices by Managers.
+        ///   Looks up a localized string similar to Invoices by managers.
         /// </summary>
         public static string WorkloadByInvoicesReport {
             get {
@@ -1134,7 +1062,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tasks by Managers.
+        ///   Looks up a localized string similar to Tasks by managers.
         /// </summary>
         public static string WorkloadByTasksReport {
             get {
@@ -1152,7 +1080,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please note that this report will only be available if you connect Twillio. To connect, follow the {0}link{1}.
+        ///   Looks up a localized string similar to Please note that this report will only be available if you connect Twilio. To connect, follow the {0}link{1}.
         /// </summary>
         public static string WorkloadByVoipNotAllowed {
             get {
@@ -1161,7 +1089,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voip by Managers.
+        ///   Looks up a localized string similar to VoIP by managers.
         /// </summary>
         public static string WorkloadByVoipReport {
             get {

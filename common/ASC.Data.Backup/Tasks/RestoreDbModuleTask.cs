@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
-using System.Text;
+
 using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.Data.Backup.Exceptions;
@@ -76,7 +76,7 @@ namespace ASC.Data.Backup.Tasks
                     var rowsInserted = 0;
                     ActionInvoker.Try(
                         state =>
-                            RestoreTable(connection.Fix(), (TableInfo) state, ref transactionsCommited,
+                            RestoreTable(connection.Fix(), (TableInfo)state, ref transactionsCommited,
                                 ref rowsInserted), table, 5,
                         onAttemptFailure: error => _columnMapper.Rollback(),
                         onFailure: error => { throw ThrowHelper.CantRestoreTable(table.Name, error); });
@@ -107,7 +107,7 @@ namespace ASC.Data.Backup.Tasks
                 foreach (
                     IEnumerable<DataRowInfo> rows in
                         GetRows(tableInfo, stream)
-                            .Skip(transactionsCommited*TransactionLength)
+                            .Skip(transactionsCommited * TransactionLength)
                             .MakeParts(TransactionLength))
                 {
                     using (var transaction = connection.BeginTransaction())
@@ -227,7 +227,7 @@ namespace ASC.Data.Backup.Tasks
 
         private static IEnumerable<DataRowInfo> OrderNode(TreeNode<DataRowInfo> node)
         {
-            var result = new List<DataRowInfo> {node.Entry};
+            var result = new List<DataRowInfo> { node.Entry };
             result.AddRange(node.Children.SelectMany(x => OrderNode(x)));
             return result;
         }

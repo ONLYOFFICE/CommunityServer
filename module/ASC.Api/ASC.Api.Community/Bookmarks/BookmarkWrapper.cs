@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,9 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
-using ASC.Bookmarking.Business;
 using ASC.Bookmarking.Pojo;
 using ASC.Specific;
 using ASC.Web.UserControls.Bookmarking.Common;
@@ -54,16 +51,16 @@ namespace ASC.Api.Bookmarks
 
         [DataMember(Order = 9)]
         public EmployeeWraper CreatedBy { get; set; }
-        
+
 
         public BookmarkWrapper(Bookmark bookmark)
         {
-            Id=bookmark.ID;
-            CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(bookmark.UserCreatorID)); 
+            Id = bookmark.ID;
+            CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(bookmark.UserCreatorID));
             Title = bookmark.Name;
             Url = bookmark.URL;
             Description = bookmark.Description;
-            Updated = Created = (ApiDateTime) bookmark.Date;
+            Updated = Created = (ApiDateTime)bookmark.Date;
             Thumbnail = ThumbnailHelper.Instance.GetThumbnailUrl(bookmark.URL, BookmarkingSettings.ThumbSmallSize);
         }
 

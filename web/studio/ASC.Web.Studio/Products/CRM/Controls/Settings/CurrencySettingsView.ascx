@@ -42,8 +42,9 @@
                     <% } %>
                 </optgroup>
             </select>
-            <span class="splitter-buttons"></span>
-            <a id="addCurrencyRate" class="button gray middle disable"><%= CRMSettingResource.AddCurrencyRate %></a>
+            <div class="small-button-container">
+                <a id="addCurrencyRate" class="button gray middle disable"><%= CRMSettingResource.AddCurrencyRate %></a>
+            </div>
             <div id="currencyRateList"></div>
         </div>
         <div class="settings-help-block">

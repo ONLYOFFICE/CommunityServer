@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Common.Configuration;
@@ -28,8 +30,8 @@ using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Notify.Cron;
 using ASC.Web.Core.Security;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio.Core.Backup
 {
@@ -42,7 +44,6 @@ namespace ASC.Web.Studio.Core.Backup
         public BackupProgress StartBackup(BackupStorageType storageType, Dictionary<string, string> storageParams, bool backupMail)
         {
             DemandPermissionsBackup();
-            DemandSize();
 
             var backupRequest = new StartBackupRequest
             {
@@ -123,7 +124,6 @@ namespace ASC.Web.Studio.Core.Backup
         public void CreateSchedule(BackupStorageType storageType, Dictionary<string, string> storageParams, int backupsStored, CronParams cronParams, bool backupMail)
         {
             DemandPermissionsBackup();
-            DemandSize();
 
             if (!SetupInfo.IsVisibleSettings("AutoBackup"))
                 throw new InvalidOperationException(Resource.ErrorNotAllowedOption);
@@ -267,6 +267,11 @@ namespace ASC.Web.Studio.Core.Backup
             {
                 restoreRequest.StorageType = storageType;
                 restoreRequest.FilePathOrId = storageParams["filePath"];
+
+                if (restoreRequest.StorageType == BackupStorageType.Local && !CoreContext.Configuration.Standalone)
+                {
+                    restoreRequest.FilePathOrId = BackupFileUploadHandler.GetFilePath();
+                }
             }
 
             using (var service = new BackupServiceClient())
@@ -294,7 +299,8 @@ namespace ASC.Web.Studio.Core.Backup
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings("Restore"))
+            if (!SetupInfo.IsVisibleSettings("Restore") ||
+                (!CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Restore))
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Restore");
         }
 
@@ -306,7 +312,6 @@ namespace ASC.Web.Studio.Core.Backup
         public BackupProgress StartTransfer(string targetRegion, bool notifyUsers, bool transferMail)
         {
             DemandPermissionsTransfer();
-            DemandSize();
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.StartTransferSetting);
 
@@ -352,15 +357,6 @@ namespace ASC.Web.Studio.Core.Backup
             {
                 return service.GetTmpFolder();
             }
-        }
-
-        private static void DemandSize()
-        {
-            if (BackupHelper.ExceedsMaxAvailableSize(TenantProvider.CurrentTenantID))
-                throw new InvalidOperationException(string.Format(UserControlsCommonResource.BackupSpaceExceed,
-                    FileSizeComment.FilesSizeToString(BackupHelper.AvailableZipSize),
-                    "",
-                    ""));
         }
 
         private static void ValidateCronSettings(CronParams cronParams)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,13 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Web;
 
 namespace ASC.Web.Community.Bookmarking
 {
-	public static class BookmarkingCommunityConstants
-	{	
+    public static class BookmarkingCommunityConstants
+    {
 
-		public static readonly Guid BookmarkingCommunityModuleId = new Guid("28B10049-DD20-4f54-B986-873BC14CCFC7");
+        public static readonly Guid BookmarkingCommunityModuleId = new Guid("28B10049-DD20-4f54-B986-873BC14CCFC7");
 
-	}
+    }
 }

@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Community"%>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ForumEditor.ascx.cs" Inherits="ASC.Web.Community.Forum.ForumEditor" %>
-<%@ Import Namespace="ASC.Web.Community.Forum.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Forum.Resources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
   

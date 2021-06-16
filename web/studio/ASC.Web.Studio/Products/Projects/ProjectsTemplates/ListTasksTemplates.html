@@ -2,7 +2,7 @@
     <div class="task with-entity-menu clearFix{{if !$item.data.subtasks.length}} noSubtasks{{/if}}{{if $item.data.canEdit}} canedit{{/if}}{{if $item.data.status == 2}} closed{{/if}}" taskid="${id}">
 
         {{if ($item.data.canEdit && !Teamlab.profile.isVisitor) || $item.data.canCreateTimeSpend || $item.data.canDelete}}
-        <div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
+        <div class="entity-menu" title="${ASC.Projects.Resources.ProjectsCommonResource.Actions}"></div>
         {{else}}
         <div class="nomenupoint"></div>
         {{/if}}
@@ -29,13 +29,13 @@
 
         {{if $item.data.responsibles.length > 1}}
         <div class="user">
-            <span class="other" title="${ASC.Projects.Resources.ProjectResource.TitleTaskResponsibleUsers}">${responsibles.length} ${ASC.Projects.Resources.TasksResource.Responsibles}</span>
+            <span class="other" title="${ASC.Projects.Resources.ProjectResource.TitleTaskResponsibleUsers}">${responsibles.length} ${ASC.Projects.Resources.TaskResource.Responsibles}</span>
         </div>
         {{else}}
 
         <div class="user">
             {{if $item.data.responsible == null}}
-            <span>${ASC.Projects.Resources.TasksResource.NoResponsible}</span>
+            <span>${ASC.Projects.Resources.TaskResource.NoResponsible}</span>
             {{else}}
             <span {{if responsible.id=='4a515a15-d4d6-4b8e-828e-e0586f18f3a3' || (responsible.isTerminated && !Teamlab.profile.isAdmin)}}class="not-action"{{else}} title="${ASC.Projects.Resources.ProjectResource.TitleTaskResponsibleUser}"{{/if}}>${responsible.displayName}</span>
             {{/if}}
@@ -49,7 +49,7 @@
         {{if $item.data.milestone != null}}
         <div class='deadline'>
             <span class="timeLeft {{if ASC.Projects.TasksManager.compareDates($item.data.milestone.deadline)}}red{{/if}}">${milestone.displayDateDeadline}</span>
-            <span class="milestone" title="${ASC.Projects.Resources.TasksResource.Milestone + ': ' + milestone.title}"></span>
+            <span class="milestone" title="${ASC.Projects.Resources.TaskResource.Milestone + ': ' + milestone.title}"></span>
         </div>
             {{/if}} 
         {{/if}} 
@@ -58,7 +58,7 @@
         {{tmpl 'projects_subtasksTemplate'}}
         {{if $item.data.canEdit || $item.data.canCreateSubtask}}
                 <div class="quickAddSubTaskLink icon-link plus" {{if ($item.data.status == 1 || $item.data.status == 4) && ($item.data.subtasks.length)}}visible="true"{{else}}visible="false" style="display:none;"{{/if}}> 
-                    <span class="link dotline" taskid="${id}">${ASC.Projects.Resources.TasksResource.AddNewSubtask}</span>
+                    <span class="link dotline" taskid="${id}">${ASC.Projects.Resources.TaskResource.AddNewSubtask}</span>
                 </div>
         {{/if}}
         <div class="st_separater"></div>
@@ -85,7 +85,7 @@
     <span class="collaps link dotline" title="${ASC.Projects.Resources.ProjectResource.TitleTaskOpenSubtasks}" taskid="${id}">+{{html ASC.Projects.TasksManager.openedCount($item.data.subtasks)}}</span>
     {{else}}
     {{if $item.data.canCreateSubtask}}
-    <span class="add">+ ${ASC.Projects.Resources.TasksResource.Subtask}</span>
+    <span class="add">+ ${ASC.Projects.Resources.TaskResource.Subtask}</span>
     {{/if}}
     {{/if}}
 </script>

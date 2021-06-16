@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ var RecaptchaController = new function () {
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.async = false;
-        script.src = "https://www.google.com/recaptcha/api.js?hl=" + datahl;
+        script.src = "https://www.recaptcha.net/recaptcha/api.js?hl=" + datahl;
 
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(script, s);

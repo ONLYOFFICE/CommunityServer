@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,15 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Core;
 using ASC.Forum;
 using ASC.Notify.Model;
+using ASC.Notify.Recipients;
+using ASC.Web.Community.Modules.Forum.Resources;
+using ASC.Web.Community.Product;
 using ASC.Web.Core.Subscriptions;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Community.Product;
-using ASC.Notify.Recipients;
 
 namespace ASC.Web.Community.Forum
 {
@@ -88,7 +90,7 @@ namespace ASC.Web.Community.Forum
                         subscriptionObjects.Add(new SubscriptionObject()
                         {
                             ID = _topicOnForumSubscriptionTypeID.ToString(),
-                            Name = Resources.ForumResource.NewTopicOnForumSubscriptionTitle,
+                            Name = ForumResource.NewTopicOnForumSubscriptionTitle,
                             URL = string.Empty,
                             SubscriptionType = GetSubscriptionTypes().Find(st => st.ID.Equals(_topicOnForumSubscriptionTypeID))
                         });
@@ -144,7 +146,7 @@ namespace ASC.Web.Community.Forum
             subscriptionTypes.Add(new SubscriptionType()
             {
                 ID = _topicOnForumSubscriptionTypeID,
-                Name = Resources.ForumResource.NewTopicOnForumSubscriptionTitle,
+                Name = ForumResource.NewTopicOnForumSubscriptionTitle,
                 NotifyAction = SubscriptionConstants.NewTopicInForum,
                 Single = true,
                 IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType),
@@ -154,7 +156,7 @@ namespace ASC.Web.Community.Forum
             subscriptionTypes.Add(new SubscriptionType()
             {
                 ID = _threadSubscriptionTypeID,
-                Name = Resources.ForumResource.ThreadSubscriptionTitle,
+                Name = ForumResource.ThreadSubscriptionTitle,
                 NotifyAction = SubscriptionConstants.NewPostInThread,
                 GetSubscriptionObjects = new GetSubscriptionObjectsDelegate(GetSubscriptionObjectsByType),
                 IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType)
@@ -163,7 +165,7 @@ namespace ASC.Web.Community.Forum
             subscriptionTypes.Add(new SubscriptionType()
             {
                 ID = _topicSubscriptionTypeID,
-                Name = Resources.ForumResource.TopicSubscriptionTitle,
+                Name = ForumResource.TopicSubscriptionTitle,
                 NotifyAction = SubscriptionConstants.NewPostInTopic,
                 GetSubscriptionObjects = new GetSubscriptionObjectsDelegate(GetSubscriptionObjectsByType),
                 IsEmptySubscriptionType = new IsEmptySubscriptionTypeDelegate(IsEmptySubscriptionType)

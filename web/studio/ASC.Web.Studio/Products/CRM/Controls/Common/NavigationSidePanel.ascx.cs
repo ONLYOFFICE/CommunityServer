@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
 */
 
 
+using System;
+using System.Web;
+
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Classes;
@@ -22,8 +25,6 @@ using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.UserForum;
-using System;
-using System.Web;
 
 namespace ASC.Web.CRM.Controls.Common
 {
@@ -53,7 +54,7 @@ namespace ASC.Web.CRM.Controls.Common
         private void InitCurrentPage()
         {
             var currentPath = HttpContext.Current.Request.Path;
-            if(currentPath.IndexOf("Settings.aspx", StringComparison.OrdinalIgnoreCase)>0)
+            if (currentPath.IndexOf("Settings.aspx", StringComparison.OrdinalIgnoreCase) > 0)
             {
                 var typeValue = (HttpContext.Current.Request["type"] ?? "common").ToLower();
                 CurrentPage = "settings_" + typeValue;

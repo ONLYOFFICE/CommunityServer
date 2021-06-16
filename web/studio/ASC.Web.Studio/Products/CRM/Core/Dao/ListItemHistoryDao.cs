@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using ASC.Collections;
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Web.CRM.Classes;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 
 
@@ -107,7 +107,7 @@ namespace ASC.CRM.Core.Dao
         {
             var sqlQuery = Query("crm_item_history")
                 .SelectCount()
-                .Where(Exp.Eq("entity_type", (int) entityType) & Exp.Eq("status", statusID));
+                .Where(Exp.Eq("entity_type", (int)entityType) & Exp.Eq("status", statusID));
 
             if (startDate.HasValue)
                 sqlQuery.Where(Exp.Gt("modifed_on", startDate));
@@ -121,7 +121,7 @@ namespace ASC.CRM.Core.Dao
         public virtual ListItemHistory GetByID(int id)
         {
             var sqlQuery = GetListItemSqlQuery(Exp.Eq("id", id));
-            
+
             var result = Db.ExecuteList(sqlQuery).ConvertAll(ToListItemHistory);
 
             return result.Count > 0 ? result[0] : null;
@@ -129,7 +129,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual List<ListItemHistory> GetAll(EntityType entityType)
         {
-            var sqlQuery = GetListItemSqlQuery(Exp.Eq("entity_type", (int) entityType))
+            var sqlQuery = GetListItemSqlQuery(Exp.Eq("entity_type", (int)entityType))
                 .OrderBy("entity_id", true);
 
             return Db.ExecuteList(sqlQuery).ConvertAll(ToListItemHistory);
@@ -153,7 +153,7 @@ namespace ASC.CRM.Core.Dao
             var sqlQuery = Insert("crm_item_history")
                 .InColumnValue("id", 0)
                 .InColumnValue("entity_id", item.EntityID)
-                .InColumnValue("entity_type", (int) item.EntityType)
+                .InColumnValue("entity_type", (int)item.EntityType)
                 .InColumnValue("status", item.StatusID)
                 .InColumnValue("modifed_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
                 .InColumnValue("modifed_by", SecurityContext.CurrentAccount.ID)
@@ -168,7 +168,7 @@ namespace ASC.CRM.Core.Dao
                 throw new ArgumentException();
 
             var sqlQuery = Delete("crm_item_history")
-                .Where(Exp.Eq("entity_type", (int) entityType) & Exp.Eq("status", statusID));
+                .Where(Exp.Eq("entity_type", (int)entityType) & Exp.Eq("status", statusID));
 
             Db.ExecuteNonQuery(sqlQuery);
         }
@@ -216,14 +216,14 @@ namespace ASC.CRM.Core.Dao
         public static ListItemHistory ToListItemHistory(object[] row)
         {
             return new ListItemHistory
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           EntityID = Convert.ToInt32(row[1]),
-                           EntityType = (EntityType)Convert.ToInt32(row[2]),
-                           StatusID = Convert.ToInt32(row[3]),
-                           ModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[4].ToString())),
-                           ModifedBy = ToGuid(row[5]),
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                EntityID = Convert.ToInt32(row[1]),
+                EntityType = (EntityType)Convert.ToInt32(row[2]),
+                StatusID = Convert.ToInt32(row[3]),
+                ModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[4].ToString())),
+                ModifedBy = ToGuid(row[5]),
+            };
         }
     }
 }

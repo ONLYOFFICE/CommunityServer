@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -28,6 +29,7 @@ using ASC.Projects.Engine;
 using ASC.Web.Projects.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
+
 using Autofac;
 
 namespace ASC.Feed.Aggregator.Modules.Projects
@@ -188,43 +190,43 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         private static ProjectComment ToComment(object[] r)
         {
             var p = new ProjectComment
+            {
+                Discussion = new Message
                 {
-                    Discussion = new Message
-                        {
-                            ID = Convert.ToInt32(r[0]),
-                            Title = Convert.ToString(r[1]),
-                            Description = Convert.ToString(r[2]),
-                            CreateBy = new Guid(Convert.ToString(r[3])),
-                            CreateOn = Convert.ToDateTime(r[4]),
-                            LastModifiedBy = ToGuid(r[5]),
-                            LastModifiedOn = Convert.ToDateTime(r[6]),
-                            Project = new Project
-                                {
-                                    ID = Convert.ToInt32(r[7]),
-                                    Title = Convert.ToString(r[8]),
-                                    Description = Convert.ToString(r[9]),
-                                    Status = (ProjectStatus)Convert.ToInt32(10),
-                                    StatusChangedOn = Convert.ToDateTime(r[11]),
-                                    Responsible = new Guid(Convert.ToString(r[12])),
-                                    Private = Convert.ToBoolean(r[13]),
-                                    CreateBy = new Guid(Convert.ToString(r[14])),
-                                    CreateOn = Convert.ToDateTime(r[15]),
-                                    LastModifiedBy = ToGuid(r[16]),
-                                    LastModifiedOn = Convert.ToDateTime(r[17]),
-                                }
-                        }
-                };
+                    ID = Convert.ToInt32(r[0]),
+                    Title = Convert.ToString(r[1]),
+                    Description = Convert.ToString(r[2]),
+                    CreateBy = new Guid(Convert.ToString(r[3])),
+                    CreateOn = Convert.ToDateTime(r[4]),
+                    LastModifiedBy = ToGuid(r[5]),
+                    LastModifiedOn = Convert.ToDateTime(r[6]),
+                    Project = new Project
+                    {
+                        ID = Convert.ToInt32(r[7]),
+                        Title = Convert.ToString(r[8]),
+                        Description = Convert.ToString(r[9]),
+                        Status = (ProjectStatus)Convert.ToInt32(10),
+                        StatusChangedOn = Convert.ToDateTime(r[11]),
+                        Responsible = new Guid(Convert.ToString(r[12])),
+                        Private = Convert.ToBoolean(r[13]),
+                        CreateBy = new Guid(Convert.ToString(r[14])),
+                        CreateOn = Convert.ToDateTime(r[15]),
+                        LastModifiedBy = ToGuid(r[16]),
+                        LastModifiedOn = Convert.ToDateTime(r[17]),
+                    }
+                }
+            };
             if (r[18] != null)
             {
                 p.Comment = new Comment
-                    {
-                        OldGuidId = new Guid(Convert.ToString(r[18])),
-                        Content = Convert.ToString(r[19]),
-                        CreateBy = new Guid(Convert.ToString(r[20])),
-                        CreateOn = Convert.ToDateTime(r[21]),
-                        Parent = new Guid(Convert.ToString(r[22])),
-                        TargetUniqID = Convert.ToString(r[23])
-                    };
+                {
+                    OldGuidId = new Guid(Convert.ToString(r[18])),
+                    Content = Convert.ToString(r[19]),
+                    CreateBy = new Guid(Convert.ToString(r[20])),
+                    CreateOn = Convert.ToDateTime(r[21]),
+                    Parent = new Guid(Convert.ToString(r[22])),
+                    TargetUniqID = Convert.ToString(r[23])
+                };
             }
             return p;
         }
@@ -242,25 +244,25 @@ namespace ASC.Feed.Aggregator.Modules.Projects
             var feedAuthor = comments.Any() ? comments.Last().Comment.CreateBy : discussion.CreateBy;
 
             var feed = new Feed(discussion.CreateBy, discussion.CreateOn, true)
-                {
-                    Item = item,
-                    ItemId = discussion.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    ModifiedBy = feedAuthor,
-                    ModifiedDate = feedDate,
-                    Product = Product,
-                    Module = Name,
-                    Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
-                    Title = discussion.Title,
-                    Description = HtmlUtility.GetFull(discussion.Description),
-                    ExtraLocation = discussion.Project.Title,
-                    ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
-                    HasPreview = discussion.Description.Contains("class=\"asccut\""),
-                    CanComment = true,
-                    CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
-                    Comments = comments.Select(ToFeedComment),
-                    GroupId = string.Format("{0}_{1}", item, discussion.ID)
-                };
+            {
+                Item = item,
+                ItemId = discussion.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                ModifiedBy = feedAuthor,
+                ModifiedDate = feedDate,
+                Product = Product,
+                Module = Name,
+                Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
+                Title = discussion.Title,
+                Description = HtmlUtility.GetFull(discussion.Description),
+                ExtraLocation = discussion.Project.Title,
+                ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
+                HasPreview = discussion.Description.Contains("class=\"asccut\""),
+                CanComment = true,
+                CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
+                Comments = comments.Select(ToFeedComment),
+                GroupId = string.Format("{0}_{1}", item, discussion.ID)
+            };
             feed.Keywords = string.Format("{0} {1} {2}",
                                           discussion.Title,
                                           Helper.GetText(discussion.Description),
@@ -272,11 +274,11 @@ namespace ASC.Feed.Aggregator.Modules.Projects
         private static FeedComment ToFeedComment(ProjectComment comment)
         {
             return new FeedComment(comment.Comment.CreateBy)
-                {
-                    Id = comment.Comment.OldGuidId.ToString(),
-                    Description = HtmlUtility.GetFull(comment.Comment.Content),
-                    Date = comment.Comment.CreateOn
-                };
+            {
+                Id = comment.Comment.OldGuidId.ToString(),
+                Description = HtmlUtility.GetFull(comment.Comment.Content),
+                Date = comment.Comment.CreateOn
+            };
         }
     }
 }

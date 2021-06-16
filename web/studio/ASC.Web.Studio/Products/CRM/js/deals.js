@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -901,7 +901,7 @@ ASC.CRM.ListDealView = (function() {
         ASC.CRM.ListDealView.advansedFilter = jq("#dealsAdvansedFilter")
             .advansedFilter({
                 anykey      : false,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxfilters  : -1,
                 colcount    : 2,
                 maxlength   : "100",
@@ -1220,28 +1220,6 @@ ASC.CRM.ListDealView = (function() {
 
             _initFilter();
 
-            ///*tracking events*/
-            ASC.CRM.ListDealView.advansedFilter.one("adv-ready", function () {
-                var crmAdvansedFilterContainer = jq("#dealsAdvansedFilter .advansed-filter-list");
-                crmAdvansedFilterContainer.find("li[data-id='my'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'me_manager');
-                crmAdvansedFilterContainer.find("li[data-id='responsibleID'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'custom_manager');
-                crmAdvansedFilterContainer.find("li[data-id='company'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'company');
-                crmAdvansedFilterContainer.find("li[data-id='Persons'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'persons');
-                crmAdvansedFilterContainer.find("li[data-id='withopportunity'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'with_opportunity');
-                crmAdvansedFilterContainer.find("li[data-id='lastMonth'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'last_month');
-                crmAdvansedFilterContainer.find("li[data-id='yesterday'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'yesterday');
-                crmAdvansedFilterContainer.find("li[data-id='today'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'today');
-                crmAdvansedFilterContainer.find("li[data-id='thisMonth'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'this_month');
-                crmAdvansedFilterContainer.find("li[data-id='fromToDate'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'from_to_date');
-                crmAdvansedFilterContainer.find("li[data-id='opportunityStagesID'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'opportunity_stages');
-                crmAdvansedFilterContainer.find("li[data-id='stageTypeOpen'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'stage_type_open');
-                crmAdvansedFilterContainer.find("li[data-id='stageTypeClosedAndWon'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'stage_type_closed_and_won');
-                crmAdvansedFilterContainer.find("li[data-id='stageTypeClosedAndLost'] .inner-text").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'stage_type_closed_and_lost');
-
-                jq("#dealsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.deals, ga_Actions.filterClick, 'sort');
-                jq("#dealsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.deals, ga_Actions.filterClick, "search_text", "enter");
-            });
-            
             ASC.CRM.PartialExport.init(ASC.CRM.ListDealView.advansedFilter, "opportunity");
         },
 

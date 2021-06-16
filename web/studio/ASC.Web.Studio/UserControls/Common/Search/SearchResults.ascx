@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SearchResults.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.Search.SearchResults" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Search" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:Repeater ID="results" runat="server">
     <ItemTemplate>
@@ -12,8 +13,8 @@
             </div>
 
             <div id="oper_<%# Container.ItemIndex %>" style="float: right; padding-top: 10px; display: <%# ((ASC.Web.Studio.Core.Search.SearchResult)Container.DataItem).Items.Count > ((ASC.Web.Studio.Core.Search.SearchResult)Container.DataItem).PresentationControl.MaxCount?"block":"none" %>">
-                <%=Resources.Resource.TotalFinded %>: <%# ((ASC.Web.Studio.Core.Search.SearchResult)Container.DataItem).Items.Count%><span>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="showAllLink"
-                    onclick="SearchResults.ShowAll(this,'<%# Container.FindControl("resultItems").ClientID %>','<%#((ASC.Web.Studio.Core.Search.SearchResult)Container.DataItem).ProductID %>','<%# Container.ItemIndex %>');"><%= Resources.Resource.ShowAllSearchResult %></span></span>
+                <%=Resource.TotalFinded %>: <%# ((ASC.Web.Studio.Core.Search.SearchResult)Container.DataItem).Items.Count%><span>&nbsp;&nbsp;|&nbsp;&nbsp;<span class="showAllLink"
+                    onclick="SearchResults.ShowAll(this,'<%# Container.FindControl("resultItems").ClientID %>','<%#((ASC.Web.Studio.Core.Search.SearchResult)Container.DataItem).ProductID %>','<%# Container.ItemIndex %>');"><%= Resource.ShowAllSearchResult %></span></span>
             </div>
         </div>
 

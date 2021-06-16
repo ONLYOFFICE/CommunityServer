@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
+using ASC.Web.Projects.Core.Engine;
 using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
@@ -70,7 +72,7 @@ namespace ASC.Projects.Engine
 
                 if (filter.Max <= 0 || filter.Max > 150000) break;
 
-                listMilestones = listMilestones.Take((int) filter.Max).ToList();
+                listMilestones = listMilestones.Take((int)filter.Max).ToList();
 
                 if (listMilestones.Count == filter.Max || milestones.Count == 0) break;
 

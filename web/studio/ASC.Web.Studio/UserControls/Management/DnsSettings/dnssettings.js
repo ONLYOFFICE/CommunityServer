@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ var DnsSettings = new function () {
                 if (result.value.rs1 == "0") {
                     LoadingBanner.showMesInfoBtn("#studio_enterDns", result.value.rs2, "error");
                 } else if (result.value.rs1 == "1") {
-                    LoadingBanner.showMesInfoBtn("#studio_enterDns", result.value.rs2 || ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                    LoadingBanner.showMesInfoBtn("#studio_enterDns", result.value.rs2 || ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage, "success");
                 }
             }
         );

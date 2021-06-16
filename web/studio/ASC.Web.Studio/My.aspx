@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Masters/BaseTemplate.master" AutoEventWireup="true" CodeBehind="My.aspx.cs" Inherits="ASC.Web.Studio.MyStaff" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 
 <asp:Content ContentPlaceHolderID="TitleContent" runat="server">

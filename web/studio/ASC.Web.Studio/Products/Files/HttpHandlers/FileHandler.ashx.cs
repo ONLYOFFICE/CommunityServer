@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +24,17 @@ using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Services;
+
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
-using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
+using ASC.Web.Files.Core.Compress;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Services.DocumentService;
@@ -41,8 +42,11 @@ using ASC.Web.Files.Services.FFmpegService;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
+
 using JWT;
+
 using Newtonsoft.Json.Linq;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using MimeMapping = ASC.Common.Web.MimeMapping;
@@ -97,6 +101,9 @@ namespace ASC.Web.Files
                     case "diff":
                         DifferenceFile(context);
                         break;
+                    case "thumb":
+                        ThumbnailFile(context);
+                        break;
                     case "track":
                         TrackFile(context);
                         break;
@@ -113,14 +120,15 @@ namespace ASC.Web.Files
 
         private static void BulkDownloadFile(HttpContext context)
         {
-            if (!SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey)))
+            if (!SecurityContext.IsAuthenticated)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 return;
             }
 
+            var ext = CompressToArchive.GetExt(context.Request.QueryString["ext"]);
             var store = Global.GetStore();
-            var path = string.Format(@"{0}\{1}.zip", SecurityContext.CurrentAccount.ID, FileConstant.DownloadTitle);
+            var path = string.Format(@"{0}\{1}{2}", SecurityContext.CurrentAccount.ID, FileConstant.DownloadTitle, ext);
             if (!store.IsFile(FileConstant.StorageDomainTmp, path))
             {
                 Global.Logger.ErrorFormat("BulkDownload file error. File is not exist on storage. UserId: {0}.", SecurityContext.CurrentAccount.ID);
@@ -150,7 +158,7 @@ namespace ASC.Web.Files
                         readStream.Seek(offset, SeekOrigin.Begin);
                     }
 
-                    SendStreamByChunks(context, length, FileConstant.DownloadTitle + ".zip", readStream, ref flushed);
+                    SendStreamByChunks(context, length, FileConstant.DownloadTitle + ext, readStream, ref flushed);
                 }
 
                 context.Response.Flush();
@@ -558,7 +566,7 @@ namespace ASC.Web.Files
                                                    stream.CanSeek
                                                        ? stream.Length.ToString(CultureInfo.InvariantCulture)
                                                        : file.ContentLength.ToString(CultureInfo.InvariantCulture));
-                        stream.StreamCopyTo(context.Response.OutputStream);
+                        stream.CopyTo(context.Response.OutputStream);
                     }
                 }
             }
@@ -635,7 +643,7 @@ namespace ASC.Web.Files
                 var fileExtension = FileUtility.GetInternalExtension(toExtension);
                 fileName = "new" + fileExtension;
                 var path = FileConstant.NewDocPath
-                           + (CoreContext.Configuration.CustomMode ? "ru-RU/" : "default/")
+                           + (CoreContext.Configuration.CustomMode ? "ru-RU/" : "en-US/")
                            + fileName;
 
                 var storeTemplate = Global.GetStoreTemplate();
@@ -655,7 +663,7 @@ namespace ASC.Web.Files
                                                stream.CanSeek
                                                    ? stream.Length.ToString(CultureInfo.InvariantCulture)
                                                    : storeTemplate.GetFileSize("", path).ToString(CultureInfo.InvariantCulture));
-                    stream.StreamCopyTo(context.Response.OutputStream);
+                    stream.CopyTo(context.Response.OutputStream);
                 }
             }
             catch (Exception ex)
@@ -713,7 +721,7 @@ namespace ASC.Web.Files
             using (var readStream = store.GetReadStream(FileConstant.StorageDomainTmp, path))
             {
                 context.Response.AddHeader("Content-Length", readStream.Length.ToString(CultureInfo.InvariantCulture));
-                readStream.StreamCopyTo(context.Response.OutputStream);
+                readStream.CopyTo(context.Response.OutputStream);
             }
 
             store.Delete(FileConstant.StorageDomainTmp, path);
@@ -794,7 +802,7 @@ namespace ASC.Web.Files
                     using (var stream = fileDao.GetDifferenceStream(file))
                     {
                         context.Response.AddHeader("Content-Length", stream.Length.ToString(CultureInfo.InvariantCulture));
-                        stream.StreamCopyTo(context.Response.OutputStream);
+                        stream.CopyTo(context.Response.OutputStream);
                     }
                 }
             }
@@ -815,6 +823,81 @@ namespace ASC.Web.Files
             catch (HttpException he)
             {
                 Global.Logger.ErrorFormat("DifferenceFile", he);
+            }
+        }
+
+        private static void ThumbnailFile(HttpContext context)
+        {
+            try
+            {
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    var id = context.Request[FilesLinkUtility.FileId];
+                    int version;
+                    int.TryParse(context.Request[FilesLinkUtility.Version] ?? "", out version);
+
+                    var file = version > 0
+                                   ? fileDao.GetFile(id, version)
+                                   : fileDao.GetFile(id);
+
+                    if (file == null)
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                        return;
+                    }
+
+                    if (!Global.GetFilesSecurity().CanRead(file))
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                        return;
+                    }
+
+                    if (!string.IsNullOrEmpty(file.Error))
+                    {
+                        context.Response.StatusDescription = file.Error;
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return;
+                    }
+
+                    if (file.ThumbnailStatus != Thumbnail.Created)
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                        return;
+                    }
+
+                    context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue("." + Global.ThumbnailExtension));
+                    context.Response.ContentType = MimeMapping.GetMimeMapping("." + Global.ThumbnailExtension);
+
+                    using (var stream = fileDao.GetThumbnail(file))
+                    {
+                        context.Response.AddHeader("Content-Length", stream.Length.ToString(CultureInfo.InvariantCulture));
+                        stream.CopyTo(context.Response.OutputStream);
+                    }
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                Global.Logger.Error("Error for: " + context.Request.Url, ex);
+                return;
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.Write(ex.Message);
+                Global.Logger.Error("Error for: " + context.Request.Url, ex);
+                return;
+            }
+
+            try
+            {
+                context.Response.Flush();
+                context.Response.SuppressContent = true;
+                context.ApplicationInstance.CompleteRequest();
+            }
+            catch (HttpException he)
+            {
+                Global.Logger.ErrorFormat("Thumbnail", he);
             }
         }
 
@@ -909,7 +992,7 @@ namespace ASC.Web.Files
 
             var templatePath = FileConstant.NewDocPath + lang + "/";
             if (!storeTemplate.IsDirectory(templatePath))
-                templatePath = FileConstant.NewDocPath + "default/";
+                templatePath = FileConstant.NewDocPath + "en-US/";
             templatePath += templateName;
 
             if (string.IsNullOrEmpty(fileTitle))
@@ -922,11 +1005,11 @@ namespace ASC.Web.Files
             }
 
             var file = new File
-                {
-                    Title = fileTitle,
-                    FolderID = folder.ID,
-                    Comment = FilesCommonResource.CommentCreate,
-                };
+            {
+                Title = fileTitle,
+                FolderID = folder.ID,
+                Comment = FilesCommonResource.CommentCreate,
+            };
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             using (var stream = storeTemplate.GetReadStream("", templatePath))
@@ -942,11 +1025,11 @@ namespace ASC.Web.Files
                 fileTitle = Path.GetFileName(HttpUtility.UrlDecode(fileUri));
 
             var file = new File
-                {
-                    Title = fileTitle,
-                    FolderID = folder.ID,
-                    Comment = FilesCommonResource.CommentCreate,
-                };
+            {
+                Title = fileTitle,
+                FolderID = folder.ID,
+                Comment = FilesCommonResource.CommentCreate,
+            };
 
             var req = (HttpWebRequest)WebRequest.Create(fileUri);
 
@@ -967,7 +1050,7 @@ namespace ASC.Web.Files
 
         private static void Redirect(HttpContext context)
         {
-            if (!SecurityContext.AuthenticateMe(CookiesManager.GetCookies(CookiesType.AuthKey)))
+            if (!SecurityContext.IsAuthenticated)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 return;

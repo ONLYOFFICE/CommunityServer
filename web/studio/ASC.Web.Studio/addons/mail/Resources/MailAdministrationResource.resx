@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
@@ -132,14 +73,14 @@
   <data name="AddNewDomainButton" xml:space="preserve">
     <value>Add your own domain</value>
   </data>
-  <data name="AddUserLabel" xml:space="preserve">
-    <value>Add user</value>
-  </data>
   <data name="AliasesLabel" xml:space="preserve">
     <value>Aliases</value>
   </data>
   <data name="AliasLabel" xml:space="preserve">
     <value>Alias</value>
+  </data>
+  <data name="ChangeMailboxPasswordPopupInfo" xml:space="preserve">
+    <value>Enter a new password</value>
   </data>
   <data name="CreateMailboxHeaderInfo" xml:space="preserve">
     <value>Create new mailbox</value>
@@ -152,12 +93,6 @@
   </data>
   <data name="CreateMailgroupPopupHeader" xml:space="preserve">
     <value>You need to enter the mail group address and choose mailboxes that will be included in this mailgroup.</value>
-  </data>
-  <data name="ChangeMailboxPasswordPopupInfo" xml:space="preserve">
-    <value>Enter a new password</value>
-  </data>
-  <data name="ViewMailboxConnectionSettingsPopupInfo" xml:space="preserve">
-    <value>Connection settings</value>
   </data>
   <data name="DeleteDomain" xml:space="preserve">
     <value>Delete domain</value>
@@ -205,7 +140,7 @@
     <value>Domain "{0}" is already in use.</value>
   </data>
   <data name="DomainWizardDomainNameSymbolInfo" xml:space="preserve">
-    <value>In some cases DNS management service does not allow to use '@' as domain/subdomain name. Use your domain name with the '.' at the end, e.g.: '%1.'</value>
+    <value>In some cases, the DNS management service does not allow using '@' as a domain/subdomain name. Use your domain name with the '.' at the end, e.g.: '%1.'</value>
   </data>
   <data name="DomainWizardDomainNotVerified" xml:space="preserve">
     <value>Domain "{0}" is not verified.</value>
@@ -235,7 +170,7 @@
     <value>Priority:</value>
   </data>
   <data name="DomainWizardProveDomainOwnershipInfo" xml:space="preserve">
-    <value>Before you can start create your corporate email addresses, you need to add TXT record in the control panel of your own domain in order to prove your domain ownership.</value>
+    <value>Before you can start creating your corporate email addresses, you need to add a TXT record in the control panel of your own domain in order to prove your domain ownership.</value>
   </data>
   <data name="DomainWizardSPFRecord" xml:space="preserve">
     <value>SPF (Sender Policy Framework) record</value>
@@ -261,9 +196,6 @@
   <data name="EditGroupAddressesLabel" xml:space="preserve">
     <value>Edit mail group addresses</value>
   </data>
-  <data name="EditMailboxAliasesLabel" xml:space="preserve">
-    <value>Edit mailbox aliases</value>
-  </data>
   <data name="EditMailboxLabel" xml:space="preserve">
     <value>Edit mailbox</value>
   </data>
@@ -282,29 +214,20 @@
   <data name="MailboxUserLabel" xml:space="preserve">
     <value>Mailbox user</value>
   </data>
-  <data name="MailboxSendSettingsLabel" xml:space="preserve">
-    <value>Send connection settings to:</value>
-  </data>
-  <data name="MailboxSendSettingsThisMailboxLabel" xml:space="preserve">
-    <value>this mailbox address</value>
-  </data>
-  <data name="MailboxSendSettingsProfileMailboxLabel" xml:space="preserve">
-    <value>this mailbox user profile address</value>
-  </data>
   <data name="MailgroupAddressLabel" xml:space="preserve">
     <value>Mail group address</value>
   </data>
   <data name="MailgroupMailboxesLabel" xml:space="preserve">
     <value>Mail group mailboxes</value>
   </data>
+  <data name="MigrateFromMSExchangeButton" xml:space="preserve">
+    <value>Migrate from MS Exchange</value>
+  </data>
   <data name="NewDomainAttention" xml:space="preserve">
     <value>The mailboxes previously existing on this domain cannot be automatically transferred to the portal. You need to add them anew.</value>
   </data>
   <data name="NoDomainSetUpButton" xml:space="preserve">
     <value>Set up the first domain</value>
-  </data>
-  <data name="MigrateFromMSExchangeButton" xml:space="preserve">
-    <value>Migrate from MS Exchange</value>
   </data>
   <data name="NoDomainSetUpDescription" xml:space="preserve">
     <value>Set up your own domain to create and manage corporate mailboxes like username@yourcompany.com. You can create mailboxes for your employees, and they will see them in their ONLYOFFICE Mail clients.</value>
@@ -334,7 +257,7 @@
     <value>User</value>
   </data>
   <data name="VerifiedDomainAddedPopupBody" xml:space="preserve">
-    <value>We have added your domain to the mail domain list, but you cannot use it right now to create your mail boxes. The reason might be that the necessary time has not passed yet. Please wait a little, some servers can take up to 24 hours to update DNS information.</value>
+    <value>We have added your domain to the mail domain list, but you cannot use it right now to create your mailboxes. The reason might be that the necessary time has not passed yet. Please wait for a little, some servers can take up to 24 hours to update DNS information.</value>
   </data>
   <data name="VerifiedDomainAddedPopupFooter" xml:space="preserve">
     <value>We will send you an email message to your {0} address when your domain is ready to be used.</value>
@@ -344,6 +267,9 @@
   </data>
   <data name="VerifyButton" xml:space="preserve">
     <value>Verify</value>
+  </data>
+  <data name="ViewMailboxConnectionSettingsPopupInfo" xml:space="preserve">
+    <value>Connection settings</value>
   </data>
   <data name="WebDomainLabel" xml:space="preserve">
     <value>Domain</value>

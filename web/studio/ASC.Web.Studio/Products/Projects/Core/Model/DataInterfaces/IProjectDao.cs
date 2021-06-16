@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,11 @@
 #region Usings
 
 using System;
-using System.Collections.Generic;
-using ASC.Projects.Core.Domain;
 using System.Collections;
+using System.Collections.Generic;
+
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Projects.Core.Domain;
 
 #endregion
 
@@ -32,18 +33,18 @@ namespace ASC.Projects.Core.DataInterfaces
         List<Project> GetAll(ProjectStatus? status, int max);
 
         List<Project> GetLast(ProjectStatus? status, int offset, int max);
-        
+
         List<Project> GetByParticipiant(Guid participantId, ProjectStatus status);
 
         List<Project> GetFollowing(Guid participantId);
 
         List<Project> GetOpenProjectsWithTasks(Guid participantId);
-            
-        
+
+
         DateTime GetMaxLastModified();
 
         void UpdateLastModified(int projectID);
-            
+
         Project GetById(int projectId);
 
         List<Project> GetById(ICollection projectIDs);
@@ -51,15 +52,15 @@ namespace ASC.Projects.Core.DataInterfaces
         bool IsExists(int projectId);
 
         bool IsFollow(int projectId, Guid participantId);
-        
+
         int Count();
 
         List<int> GetTaskCount(List<int> projectId, TaskStatus? taskStatus, bool isAdmin);
 
         int GetMessageCount(int projectId);
-        
+
         int GetTotalTimeCount(int projectId);
-        
+
         int GetMilestoneCount(int projectId, params MilestoneStatus[] milestoneStatus);
 
         Project Create(Project project);
@@ -98,7 +99,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         void DeleteProjectContact(int projectID, int contactid);
 
-        
+
         void SetTaskOrder(int projectID, string order);
 
         string GetTaskOrder(int projectID);

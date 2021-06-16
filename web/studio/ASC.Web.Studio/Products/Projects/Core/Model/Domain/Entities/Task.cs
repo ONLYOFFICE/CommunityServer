@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+
 using ASC.Projects.Engine;
-using ASC.Web.Projects;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
+
 using Autofac;
 
 namespace ASC.Projects.Core.Domain
@@ -29,7 +30,7 @@ namespace ASC.Projects.Core.Domain
     [DebuggerDisplay("Task: ID = {ID}, Title = {Title}, Status = {Status}")]
     public class Task : ProjectEntity
     {
-        public override EntityType EntityType { get{ return EntityType.Task;} }
+        public override EntityType EntityType { get { return EntityType.Task; } }
 
         public override string ItemPath { get { return "{0}Tasks.aspx?prjID={1}&ID={2}"; } }
 

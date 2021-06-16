@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+
 using ASC.Api;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
@@ -42,9 +41,9 @@ namespace ASC.Web.Community
         {
             PublishRecentUploadPhotos("recentPhotos");
             PublishAllAlbumInfo("");
-            PublishAlbumsPhotos("",Enumerable.Empty<int>());
-            
-           // Page.JsonPublisher(contactsForFirstRequest, "contactsForFirstRequest");
+            PublishAlbumsPhotos("", Enumerable.Empty<int>());
+
+            // Page.JsonPublisher(contactsForFirstRequest, "contactsForFirstRequest");
 
         }
 

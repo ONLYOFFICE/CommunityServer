@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Blogs.Core.Domain;
 using ASC.Core;
 using ASC.ElasticSearch;
@@ -54,7 +55,7 @@ namespace ASC.Web.Community.Search
                 TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                 Title = post.Title,
                 Content = post.Content,
-                TagsWrapper = post.TagList.Select(r=> new TagsWrapper
+                TagsWrapper = post.TagList.Select(r => new TagsWrapper
                 {
                     Title = r.Content
                 }).ToList()

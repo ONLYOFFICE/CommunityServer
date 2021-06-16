@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
@@ -25,11 +26,11 @@ using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.UserControls.Feed;
 using ASC.Web.Studio.Utility;
-using Resources;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Studio
 {
@@ -96,12 +97,12 @@ namespace ASC.Web.Studio
             var isVisitor = CoreContext.UserManager.GetUsers(userId).IsVisitor();
 
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
-                {
-                    ID = "emptyListCommunity",
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.png"),
-                    Header = UserControlsCommonResource.FeedEmptyCommunityHeader,
-                    Describe = isVisitor ? string.Empty : UserControlsCommonResource.FeedEmptyCommunityDescription,
-                    ButtonHTML = isVisitor
+            {
+                ID = "emptyListCommunity",
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.png"),
+                Header = UserControlsCommonResource.FeedEmptyCommunityHeader,
+                Describe = isVisitor ? string.Empty : UserControlsCommonResource.FeedEmptyCommunityDescription,
+                ButtonHTML = isVisitor
                                      ? string.Empty
                                      : string.Format("<a class='link underline plus' href='{0}'>{1}</a>" +
                                                      "<br/><a class='link underline plus' href='{2}'>{3}</a>" +
@@ -112,48 +113,48 @@ namespace ASC.Web.Studio
                                                      UserControlsCommonResource.FeedEventsModuleLink,
                                                      VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/CreateBookmark.aspx"),
                                                      UserControlsCommonResource.FeedBookmarkModuleLink)
-                });
+            });
 
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
-                {
-                    ID = "emptyListCrm",
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.png", WebItemManager.CRMProductID),
-                    Header = UserControlsCommonResource.FeedEmptyContactListHeader,
-                    Describe = UserControlsCommonResource.FeedEmptyContactListDescription,
-                    ButtonHTML = string.Format("<a class='link underline plus' href='{0}?action=manage'>{1}</a><br/>" +
+            {
+                ID = "emptyListCrm",
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_persons.png", WebItemManager.CRMProductID),
+                Header = UserControlsCommonResource.FeedEmptyContactListHeader,
+                Describe = UserControlsCommonResource.FeedEmptyContactListDescription,
+                ButtonHTML = string.Format("<a class='link underline plus' href='{0}?action=manage'>{1}</a><br/>" +
                                                "<a class='link underline plus' href='{0}?action=manage&type=people'>{2}</a>",
                                                VirtualPathUtility.ToAbsolute("~/Products/CRM/Default.aspx"),
                                                UserControlsCommonResource.FeedCreateFirstCompany,
                                                UserControlsCommonResource.FeedCreateFirstPerson)
-                });
+            });
 
             var canCreateProjects =
                 !isVisitor
                 && (CoreContext.UserManager.IsUserInGroup(userId, Constants.GroupAdmin.ID)
                     || WebItemSecurity.IsProductAdministrator(WebItemManager.ProjectsProductID, userId));
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
-                {
-                    Header = UserControlsCommonResource.FeedEmptyListProjHeader,
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.png", WebItemManager.ProjectsProductID),
-                    Describe = canCreateProjects ? UserControlsCommonResource.FeedEmptyListProjDescribe : string.Empty,
-                    ID = "emptyListProjects",
-                    ButtonHTML = canCreateProjects
+            {
+                Header = UserControlsCommonResource.FeedEmptyListProjHeader,
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.png", WebItemManager.ProjectsProductID),
+                Describe = canCreateProjects ? UserControlsCommonResource.FeedEmptyListProjDescribe : string.Empty,
+                ID = "emptyListProjects",
+                ButtonHTML = canCreateProjects
                                      ? string.Format("<a href='{0}' class='link underline addFirstElement'>{1}<a>",
                                                      VirtualPathUtility.ToAbsolute("~/Products/Projects/Projects.aspx?action=add"),
                                                      UserControlsCommonResource.FeedCreateFirstProject)
                                      : string.Empty
-                });
+            });
 
             emptyScreensHolder.Controls.Add(new EmptyScreenControl
-                {
-                    ID = "emptyListDocuments",
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("documents150.png"),
-                    Header = UserControlsCommonResource.FeedCorporateFiles,
-                    Describe = UserControlsCommonResource.FeedEmptyScreenDescrCorporate,
-                    ButtonHTML = string.Format("<a href=\"{0}\" class=\"link underline up\">{1}</a>",
+            {
+                ID = "emptyListDocuments",
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("documents150.png"),
+                Header = UserControlsCommonResource.FeedCorporateFiles,
+                Describe = UserControlsCommonResource.FeedEmptyScreenDescrCorporate,
+                ButtonHTML = string.Format("<a href=\"{0}\" class=\"link underline up\">{1}</a>",
                                                VirtualPathUtility.ToAbsolute("~/Products/Files/"),
                                                UserControlsCommonResource.FeedButtonGotoDocuments)
-                });
+            });
         }
 
         #region IRenderCustomNavigation Members

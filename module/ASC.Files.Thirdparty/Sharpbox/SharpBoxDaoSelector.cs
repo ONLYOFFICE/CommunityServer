@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+
 using ASC.Core;
-using ASC.Files.Thirdparty.ProviderDao;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
@@ -85,11 +85,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 var providerInfo = GetProviderInfo(Convert.ToInt32(match.Groups["id"].Value));
 
                 return new SharpBoxInfo
-                           {
-                               Path = match.Groups["path"].Value,
-                               SharpBoxProviderInfo = providerInfo,
-                               PathPrefix = "sbox-" + match.Groups["id"].Value
-                           };
+                {
+                    Path = match.Groups["path"].Value,
+                    SharpBoxProviderInfo = providerInfo,
+                    PathPrefix = "sbox-" + match.Groups["id"].Value
+                };
             }
             throw new ArgumentException("Id is not a sharpbox id");
         }
@@ -115,11 +115,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             {
                 try
                 {
-                    info = (SharpBoxProviderInfo) dbDao.GetProviderInfo(linkId);
+                    info = (SharpBoxProviderInfo)dbDao.GetProviderInfo(linkId);
                 }
                 catch (InvalidOperationException)
                 {
-                    throw new ArgumentException("Provider id not found or you have no access");
+                    throw new ProviderInfoArgumentException("Provider id not found or you have no access");
                 }
             }
             return info;

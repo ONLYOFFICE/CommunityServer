@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using ASC.Common.Logging;
 using ASC.Common.Web;
 using ASC.Mail.Clients;
@@ -28,6 +29,7 @@ using ASC.Mail.Enums;
 using ASC.Mail.Exceptions;
 using ASC.Mail.Extensions;
 using ASC.Mail.Utils;
+
 using MailMessage = ASC.Mail.Data.Contracts.MailMessageData;
 
 namespace ASC.Mail.Core.Engine
@@ -76,7 +78,7 @@ namespace ASC.Mail.Core.Engine
             bool importance,
             bool unread,
             string subject,
-            string body, 
+            string body,
             string calendarUid = null,
             DateTime? date = null,
             List<int> tagIds = null,
@@ -85,7 +87,7 @@ namespace ASC.Mail.Core.Engine
             string mimeMessageId = null,
             uint? userFolderId = null)
         {
-            var folder = folderId.HasValue ? (FolderType) folderId.Value : FolderType.Inbox;
+            var folder = folderId.HasValue ? (FolderType)folderId.Value : FolderType.Inbox;
 
             if (!MailFolder.IsIdOk(folder))
                 throw new ArgumentException(@"Invalid folder id", "folderId");
@@ -119,7 +121,7 @@ namespace ASC.Mail.Core.Engine
 
             if (!to.Any())
             {
-                to = new List<string> {mbox.EMail.Address};
+                to = new List<string> { mbox.EMail.Address };
             }
 
             if (!string.IsNullOrEmpty(body))
@@ -181,7 +183,7 @@ namespace ASC.Mail.Core.Engine
             var id = _engineFactory.MessageEngine.MailSave(mbox, sampleMessage, 0, folder, restoreFolder, userFolderId,
                 SAMPLE_UIDL, "", false);
 
-            if (!add2Index) 
+            if (!add2Index)
                 return id;
 
             var message = _engineFactory.MessageEngine.GetMessage(id, new MailMessageData.Options());
@@ -283,10 +285,10 @@ namespace ASC.Mail.Core.Engine
             uint? userFolderId,
             int? mailboxId,
             bool unread,
-            Stream emlStream, 
+            Stream emlStream,
             bool add2Index = false)
         {
-            var folder = folderId.HasValue ? (FolderType) folderId.Value : FolderType.Inbox;
+            var folder = folderId.HasValue ? (FolderType)folderId.Value : FolderType.Inbox;
 
             if (!MailFolder.IsIdOk(folder))
                 throw new ArgumentException(@"Invalid folder id", "folderId");

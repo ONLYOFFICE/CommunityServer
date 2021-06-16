@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MediaPlayer.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.MediaPlayer" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.UserControls.Common" Assembly="ASC.Web.Studio" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 
 <div id="mediaPlayer">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,19 @@
 window.ASC.Files.ThirdParty = (function () {
     var isInit = false;
     var thirdPartyList = {
-        Box: { key: "Box", customerTitle: ASC.Files.FilesJSResources.FolderTitleBoxNet, providerTitle: ASC.Files.FilesJSResources.TypeTitleBoxNet, getTokenUrl: ASC.Files.Constants.URL_OAUTH_BOX },
-        BoxNet: { key: "BoxNet", customerTitle: ASC.Files.FilesJSResources.FolderTitleBoxNet, providerTitle: ASC.Files.FilesJSResources.TypeTitleBoxNet },
-        DropBox: { key: "DropBox", customerTitle: ASC.Files.FilesJSResources.FolderTitleDropBox, providerTitle: ASC.Files.FilesJSResources.TypeTitleDropBox },
-        DropboxV2: { key: "DropboxV2", customerTitle: ASC.Files.FilesJSResources.FolderTitleDropBox, providerTitle: ASC.Files.FilesJSResources.TypeTitleDropBox, getTokenUrl: ASC.Files.Constants.URL_OAUTH_DROPBOXV2 },
-        DocuSign: { key: "DocuSign", customerTitle: ASC.Files.FilesJSResources.FolderTitleDocuSign, providerTitle: ASC.Files.FilesJSResources.TypeTitleDocuSign, getTokenUrl: ASC.Files.Constants.URL_OAUTH_DOCUSIGN, link: ASC.Files.Constants.URL_OAUTH_DOCUSIGN_LINK },
-        Google: { key: "Google", customerTitle: ASC.Files.FilesJSResources.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResources.TypeTitleGoogle, getTokenUrl: "http://www.onlyoffice.com" },
-        GoogleDrive: { key: "GoogleDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResources.TypeTitleGoogle, getTokenUrl: ASC.Files.Constants.URL_OAUTH2_GOOGLE },
-        OneDrive: { key: "OneDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
-        SharePoint: { key: "SharePoint", customerTitle: ASC.Files.FilesJSResources.FolderTitleSharePoint, providerTitle: ASC.Files.FilesJSResources.TypeTitleSharePoint, urlRequest: true },
-        SkyDrive: { key: "SkyDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
-        WebDav: { key: "WebDav", customerTitle: ASC.Files.FilesJSResources.FolderTitleWebDav, providerTitle: ASC.Files.FilesJSResources.TypeTitleWebDav, urlRequest: true },
-        kDrive: { key: "kDrive", customerTitle: ASC.Files.FilesJSResources.FolderTitlekDrive, providerTitle: ASC.Files.FilesJSResources.TypeTitlekDrive },
-        Yandex: { key: "Yandex", customerTitle: ASC.Files.FilesJSResources.FolderTitleYandex, providerTitle: ASC.Files.FilesJSResources.TypeTitleYandex }
+        Box: { key: "Box", customerTitle: ASC.Files.FilesJSResource.FolderTitleBoxNet, providerTitle: ASC.Files.FilesJSResource.TypeTitleBoxNet, getTokenUrl: ASC.Files.Constants.URL_OAUTH_BOX },
+        BoxNet: { key: "BoxNet", customerTitle: ASC.Files.FilesJSResource.FolderTitleBoxNet, providerTitle: ASC.Files.FilesJSResource.TypeTitleBoxNet },
+        DropBox: { key: "DropBox", customerTitle: ASC.Files.FilesJSResource.FolderTitleDropBox, providerTitle: ASC.Files.FilesJSResource.TypeTitleDropBox },
+        DropboxV2: { key: "DropboxV2", customerTitle: ASC.Files.FilesJSResource.FolderTitleDropBox, providerTitle: ASC.Files.FilesJSResource.TypeTitleDropBox, getTokenUrl: ASC.Files.Constants.URL_OAUTH_DROPBOXV2 },
+        DocuSign: { key: "DocuSign", customerTitle: ASC.Files.FilesJSResource.FolderTitleDocuSign, providerTitle: ASC.Files.FilesJSResource.TypeTitleDocuSign, getTokenUrl: ASC.Files.Constants.URL_OAUTH_DOCUSIGN, link: ASC.Files.Constants.URL_OAUTH_DOCUSIGN_LINK },
+        Google: { key: "Google", customerTitle: ASC.Files.FilesJSResource.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResource.TypeTitleGoogle, getTokenUrl: "http://www.onlyoffice.com" },
+        GoogleDrive: { key: "GoogleDrive", customerTitle: ASC.Files.FilesJSResource.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResource.TypeTitleGoogle, getTokenUrl: ASC.Files.Constants.URL_OAUTH2_GOOGLE },
+        OneDrive: { key: "OneDrive", customerTitle: ASC.Files.FilesJSResource.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResource.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
+        SharePoint: { key: "SharePoint", customerTitle: ASC.Files.FilesJSResource.FolderTitleSharePoint, providerTitle: ASC.Files.FilesJSResource.TypeTitleSharePoint, urlRequest: true },
+        SkyDrive: { key: "SkyDrive", customerTitle: ASC.Files.FilesJSResource.FolderTitleSkyDrive, providerTitle: ASC.Files.FilesJSResource.TypeTitleSkyDrive, getTokenUrl: ASC.Files.Constants.URL_OAUTH_SKYDRIVE },
+        WebDav: { key: "WebDav", customerTitle: ASC.Files.FilesJSResource.FolderTitleWebDav, providerTitle: ASC.Files.FilesJSResource.TypeTitleWebDav, urlRequest: true },
+        kDrive: { key: "kDrive", customerTitle: ASC.Files.FilesJSResource.FolderTitlekDrive, providerTitle: ASC.Files.FilesJSResource.TypeTitlekDrive },
+        Yandex: { key: "Yandex", customerTitle: ASC.Files.FilesJSResource.FolderTitleYandex, providerTitle: ASC.Files.FilesJSResource.TypeTitleYandex }
     };
 
     var docuSignFolderSelector;
@@ -107,11 +107,12 @@ window.ASC.Files.ThirdParty = (function () {
         }
         getThirdParty();
         ASC.Files.UI.hideAllContent();
+        jq("#treeViewContainer .node-selected").removeClass("node-selected");
         jq("#treeSetting").addClass("currentCategory open");
         jq(".settings-link-thirdparty").addClass("active");
         jq("#settingThirdPartyPanel").show();
 
-        ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleSettingsThirdParty);
+        ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResource.TitleSettingsThirdParty);
     };
 
     var showChangeDialog = function (folderData) {
@@ -162,7 +163,7 @@ window.ASC.Files.ThirdParty = (function () {
 
         jq("#thirdPartyCorporate").prop("checked", ASC.Files.Folders.folderContainer == "corporate");
 
-        jq("#thirdPartyDialogCaption").text(ASC.Files.FilesJSResources.ThirdPartyEditorCaption.format(thirdParty.providerTitle));
+        jq("#thirdPartyDialogCaption").text(ASC.Files.FilesJSResource.ThirdPartyEditorCaption.format(thirdParty.providerTitle));
 
         ASC.Files.UI.blockUI("#thirdPartyEditor", 400);
         PopupKeyUpActionProvider.EnterAction = "jq(\"#submitThirdParty\").click();";
@@ -180,7 +181,7 @@ window.ASC.Files.ThirdParty = (function () {
         infoBlock.hide();
 
         if (folderTitle == "") {
-            infoBlock.show().find("div").text(ASC.Files.FilesJSResources.ErrorMassage_FieldsIsEmpty);
+            infoBlock.show().find("div").text(ASC.Files.FilesJSResource.ErrorMassage_FieldsIsEmpty);
             return;
         }
 
@@ -189,7 +190,7 @@ window.ASC.Files.ThirdParty = (function () {
         LoadingBanner.showLoaderBtn("#thirdPartyEditor");
 
         if (thirdParty.folderId) {
-            ASC.Files.UI.blockObjectById("folder", thirdParty.folderId, true, ASC.Files.FilesJSResources.DescriptChangeInfo);
+            ASC.Files.UI.blockObjectById("folder", thirdParty.folderId, true, ASC.Files.FilesJSResource.DescriptChangeInfo);
         }
 
         saveProvider(thirdParty.id, thirdParty.key, folderTitle, connectUrl, "", password, token, corporate, thirdParty.folderId);
@@ -204,10 +205,10 @@ window.ASC.Files.ThirdParty = (function () {
         var folderId = folderData ? folderData.entryId : null;
 
         providerTitle = providerTitle || getThirdPartyItem(folderData).providerTitle;
-        jq("#thirdPartyDeleteDescr").html(ASC.Files.FilesJSResources.ConfirmDeleteThirdParty.format(customerTitle, providerTitle));
+        jq("#thirdPartyDeleteDescr").html(ASC.Files.FilesJSResource.ConfirmDeleteThirdParty.format(customerTitle, providerTitle));
 
         jq("#deleteThirdParty").unbind("click").click(function () {
-            ASC.Files.UI.blockObjectById("folder", folderId, true, ASC.Files.FilesJSResources.DescriptRemove);
+            ASC.Files.UI.blockObjectById("folder", folderId, true, ASC.Files.FilesJSResource.DescriptRemove);
             PopupKeyUpActionProvider.CloseDialog();
             deleteProvider(providerId, providerKey, customerTitle, folderId);
             return false;
@@ -385,11 +386,11 @@ window.ASC.Files.ThirdParty = (function () {
         if (customerTitle == ""
             || !providerId && (!thirdParty.getTokenUrl && (login == "" || password == ""))
             || !providerId && (thirdParty.urlRequest && connectUrl == "")) {
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_FieldsIsEmpty, true);
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.ErrorMassage_FieldsIsEmpty, true);
             return;
         }
         if (!providerId && (thirdParty.getTokenUrl && token == "")) {
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_MustLogin, true);
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.ErrorMassage_MustLogin, true);
             return;
         }
 
@@ -471,7 +472,7 @@ window.ASC.Files.ThirdParty = (function () {
 
     var showMoveThirdPartyMessage = function (folderToId, folderToTitle, pathDest) {
         var providerTitle = getThirdPartyItem(ASC.Files.Folders.currentFolder).providerTitle;
-        jq("#moveThirdPartyMessage").html(jq.format(ASC.Files.FilesJSResources.ConfirmThirdPartyMoveMessage, "<br/><br/>", providerTitle));
+        jq("#moveThirdPartyMessage").html(jq.format(ASC.Files.FilesJSResource.ConfirmThirdPartyMoveMessage, "<br/><br/>", providerTitle));
 
         jq("#buttonMoveThirdParty").unbind("click").click(function () {
             PopupKeyUpActionProvider.CloseDialogAction = "";
@@ -520,7 +521,7 @@ window.ASC.Files.ThirdParty = (function () {
             return;
         }
 
-        var header = ASC.Files.FilesJSResources.DocuSignDialogHeader.format(fileData.title);
+        var header = ASC.Files.FilesJSResource.DocuSignDialogHeader.format(fileData.title);
         jq("#thirdpartyToDocuSign .thirdparty-todocusign-header").attr("title", header).text(header);
 
         var titleObj = jq("#thirdpartyToDocuSign .thirdparty-todocusign-title");
@@ -553,7 +554,7 @@ window.ASC.Files.ThirdParty = (function () {
             }).toArray();
 
             PopupKeyUpActionProvider.CloseDialog();
-            ASC.Files.UI.blockObject(fileData.entryObject, true, ASC.Files.FilesJSResources.DescriptDocuSign);
+            ASC.Files.UI.blockObject(fileData.entryObject, true, ASC.Files.FilesJSResource.DescriptDocuSign);
 
             var data = {
                 docusign_data: {
@@ -663,10 +664,10 @@ window.ASC.Files.ThirdParty = (function () {
 
             return true;
         } else {
-            var errorString = ASC.Files.FilesJSResources.ErrorMassage_SecurityException;
+            var errorString = ASC.Files.FilesJSResource.ErrorMassage_SecurityException;
             if (folderId == ASC.Files.Constants.FOLDER_ID_PROJECT
                 || folderId == ASC.Files.Constants.FOLDER_ID_SHARE) {
-                errorString = ASC.Files.FilesJSResources.ErrorMassage_SecurityException_PrivateRoot;
+                errorString = ASC.Files.FilesJSResource.ErrorMassage_SecurityException_PrivateRoot;
             }
             ASC.Files.UI.displayInfoPanel(errorString, true);
 
@@ -1002,9 +1003,9 @@ window.ASC.Files.ThirdParty = (function () {
 
         ASC.Files.UI.displayInfoPanel(
             folderId
-                ? ASC.Files.FilesJSResources.InfoChangeThirdParty.format(folderTitle)
-                : ASC.Files.FilesJSResources.InfoSaveThirdParty.format(folderTitle,
-                    params.corporate ? ASC.Files.FilesJSResources.CorporateFiles : ASC.Files.FilesJSResources.MyFiles));
+                ? ASC.Files.FilesJSResource.InfoChangeThirdParty.format(folderTitle)
+                : ASC.Files.FilesJSResource.InfoSaveThirdParty.format(folderTitle,
+                    params.corporate ? ASC.Files.FilesJSResource.CorporateFiles : ASC.Files.FilesJSResource.MyFiles));
 
         if (!params.providerId) {
             ASC.Files.Filter.clearFilter(true);
@@ -1025,8 +1026,7 @@ window.ASC.Files.ThirdParty = (function () {
         var folderObj = ASC.Files.UI.getEntryObject("folder", folderId);
 
         if (folderObj != null && folderObj.length) {
-            folderObj.remove();
-
+            ASC.Files.UI.removeEntryObject(folderObj);
             ASC.Files.UI.checkEmptyContent();
         } else if (providerKey == ASC.Files.ThirdParty.thirdPartyList.DocuSign.key) {
             ASC.Files.ThirdParty.docuSignAttached(false);
@@ -1045,7 +1045,7 @@ window.ASC.Files.ThirdParty = (function () {
         var parentId = ASC.Files.Tree.getParentId(folderId);
         ASC.Files.Tree.reloadFolder(parentId);
 
-        ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoRemoveThirdParty.format(folderTitle));
+        ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoRemoveThirdParty.format(folderTitle));
     };
 
     var onChangeAccessToThirdparty = function (jsonData, params, errorMessage) {

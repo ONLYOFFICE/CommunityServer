@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,17 @@
 */
 
 
+using System;
+using System.IO;
+using System.Linq;
+
 using ASC.Common.Threading.Progress;
 using ASC.CRM.Core;
 using ASC.Web.Studio.Utility;
+
 using LumenWorks.Framework.IO.Csv;
+
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -35,7 +36,7 @@ namespace ASC.Web.CRM.Classes
 
         private static readonly Object _syncObj = new Object();
 
-        private static readonly ProgressQueue _importQueue = new ProgressQueue(3, TimeSpan.FromSeconds(15), true);
+        private static readonly ProgressQueue _importQueue = new ProgressQueue(Global.GetQueueWorkerCount("import"), Global.GetQueueWaitInterval("import"), true);
 
         public static readonly int MaxRoxCount = 10000;
 
@@ -50,7 +51,8 @@ namespace ASC.Web.CRM.Classes
         {
             var result = new CsvReader(
                 new StreamReader(CSVFileStream, importCsvSettings.Encoding, true),
-                importCsvSettings.HasHeader, importCsvSettings.DelimiterCharacter, importCsvSettings.QuoteType, '"', '#', ValueTrimmingOptions.UnquotedOnly) { SkipEmptyLines = true, SupportsMultiline = true, DefaultParseErrorAction = ParseErrorAction.AdvanceToNextLine, MissingFieldAction = MissingFieldAction.ReplaceByEmpty };
+                importCsvSettings.HasHeader, importCsvSettings.DelimiterCharacter, importCsvSettings.QuoteType, '"', '#', ValueTrimmingOptions.UnquotedOnly)
+            { SkipEmptyLines = true, SupportsMultiline = true, DefaultParseErrorAction = ParseErrorAction.AdvanceToNextLine, MissingFieldAction = MissingFieldAction.ReplaceByEmpty };
 
             return result;
         }

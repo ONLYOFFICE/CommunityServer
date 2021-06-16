@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 
 namespace ASC.Api.Calendar.Wrappers
@@ -26,7 +23,7 @@ namespace ASC.Api.Calendar.Wrappers
     [DataContract(Name = "timeZone", Namespace = "")]
     public class TimeZoneWrapper
     {
-        private TimeZoneInfo _timeZone;
+        private readonly TimeZoneInfo _timeZone;
         public TimeZoneWrapper(TimeZoneInfo timeZone)
         {
             _timeZone = timeZone;

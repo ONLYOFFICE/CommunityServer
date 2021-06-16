@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ ASC.InvitePanel = (function () {
             clip = ASC.Clipboard.create(url, "shareInviteUserLinkCopy", {
                 onComplete: function () {
                     if (typeof(window.toastr) !== "undefined") {
-                        toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+                        toastr.success(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
                     } else {
                         jq("#shareInviteUserLink, #shareInviteUserLinkCopy").yellowFade();
                     }
@@ -152,7 +152,7 @@ ASC.InvitePanel = (function () {
 
         var linkPanel = jq("#shareInviteLinkViaSocPanel"),
             link = encodeURIComponent(url),
-            text = encodeURIComponent(jq.format(ASC.Resources.Master.Resource.ShareInviteLinkDscr, url));
+            text = encodeURIComponent(jq.format(ASC.Resources.Master.ResourceJS.ShareInviteLinkDscr, url));
 
         if (!!ASC.Resources.Master.UrlShareFacebook) {
             linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, "", "", ""));

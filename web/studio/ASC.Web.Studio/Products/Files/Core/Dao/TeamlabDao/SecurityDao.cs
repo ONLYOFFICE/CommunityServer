@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core.Security;
@@ -275,15 +276,15 @@ namespace ASC.Files.Core.Data
         private FileShareRecord ToFileShareRecord(object[] r)
         {
             var result = new FileShareRecord
-                {
-                    Tenant = Convert.ToInt32(r[0]),
-                    EntryId = MappingID(r[1]),
-                    EntryType = (FileEntryType)Convert.ToInt32(r[2]),
-                    Subject = new Guid((string)r[3]),
-                    Owner = new Guid((string)r[4]),
-                    Share = (FileShare)Convert.ToInt32(r[5]),
-                    Level = 6 < r.Length ? Convert.ToInt32(r[6]) : 0,
-                };
+            {
+                Tenant = Convert.ToInt32(r[0]),
+                EntryId = MappingID(r[1]),
+                EntryType = (FileEntryType)Convert.ToInt32(r[2]),
+                Subject = new Guid((string)r[3]),
+                Owner = new Guid((string)r[4]),
+                Share = (FileShare)Convert.ToInt32(r[5]),
+                Level = 6 < r.Length ? Convert.ToInt32(r[6]) : 0,
+            };
 
 
             return result;

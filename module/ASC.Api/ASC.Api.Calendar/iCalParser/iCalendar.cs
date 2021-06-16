@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Net;
 using System.Text.RegularExpressions;
+
 using ASC.Api.Calendar.Resources;
 using ASC.Common.Utils;
-using ASC.Web.Core.Calendars;
-using System.IO;
-using System.Net;
 using ASC.Core;
+using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.iCalParser
 {
@@ -63,7 +63,7 @@ namespace ASC.Api.Calendar.iCalParser
                 using (var stream = resp.GetResponseStream())
                 {
                     var ms = new MemoryStream();
-                    stream.StreamCopyTo(ms);
+                    stream.CopyTo(ms);
                     ms.Seek(0, SeekOrigin.Begin);
 
                     using (var tempReader = new StreamReader(ms))
@@ -93,15 +93,15 @@ namespace ASC.Api.Calendar.iCalParser
         {
             this.Context.CanChangeAlertType = false;
             this.Context.CanChangeTimeZone = false;
-            this.Context.GetGroupMethod = delegate() { return Resources.CalendarApiResource.iCalCalendarsGroup; };
+            this.Context.GetGroupMethod = delegate () { return Resources.CalendarApiResource.iCalCalendarsGroup; };
 
             this.EventAlertType = EventAlertType.Never;
-            this.Events = new List<iCalEvent>();            
+            this.Events = new List<iCalEvent>();
         }
 
         public bool isEmptyName
         {
-            get { return String.IsNullOrEmpty(_name);}
+            get { return String.IsNullOrEmpty(_name); }
         }
 
         private string _name;
@@ -149,14 +149,14 @@ namespace ASC.Api.Calendar.iCalParser
                 _timeZone = value;
             }
         }
-        
+
         public string TZID { get; set; }
 
         public string xTimeZone { get; set; }
-       
+
         public override List<IEvent> LoadEvents(Guid userId, DateTime utcStartDate, DateTime utcEndDate)
         {
             return Events.Cast<IEvent>().ToList();
-        }       
+        }
     }
 }

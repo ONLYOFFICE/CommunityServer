@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using ASC.Api.Exceptions;
 using ASC.Common.Utils;
 using ASC.Core;
@@ -31,18 +32,17 @@ using ASC.Data.Storage;
 using ASC.ElasticSearch;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
+using ASC.Web.Community.Modules.Wiki.Resources;
+using ASC.Web.Community.Product;
+using ASC.Web.Community.Search;
+using ASC.Web.Community.Wiki.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Web.UserControls.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.UC;
+
 using File = ASC.Web.UserControls.Wiki.Data.File;
-using ASC.Web.Community.Product;
-using ASC.Web.Community.Search;
-using ASC.Web.Community.Wiki.Common;
-using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.UserControls.Wiki
 {
@@ -431,18 +431,18 @@ namespace ASC.Web.UserControls.Wiki
                     if (pageName == string.Empty)
                     {
                         page = new Page
-                            {
-                                PageName = string.Empty,
-                                Body = WikiUCResource.MainPage_DefaultBody
-                            };
+                        {
+                            PageName = string.Empty,
+                            Body = WikiUCResource.MainPage_DefaultBody
+                        };
                     }
                     else if (pageName == WikiUCResource.HelpPageCaption)
                     {
                         page = new Page
-                            {
-                                PageName = WikiUCResource.HelpPageCaption,
-                                Body = WikiUCResource.HelpPage_DefaultBody
-                            };
+                        {
+                            PageName = WikiUCResource.HelpPageCaption,
+                            Body = WikiUCResource.HelpPage_DefaultBody
+                        };
                     }
 
                 }

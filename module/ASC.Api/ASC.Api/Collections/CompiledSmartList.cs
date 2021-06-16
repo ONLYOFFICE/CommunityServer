@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using Microsoft.CSharp;
 
 
@@ -183,10 +184,10 @@ namespace ASC.Api.Collections
                 var provider = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
 
                 var name = "Filter";
-                if (FilterBy!=null)
-                    name+="_"+Regex.Replace(FilterBy, @"\W", "");
-                if (SortFields!=null)
-                    name+="_Sort_" + Regex.Replace(SortFields.Aggregate((y, x) => y), @"\W", "");
+                if (FilterBy != null)
+                    name += "_" + Regex.Replace(FilterBy, @"\W", "");
+                if (SortFields != null)
+                    name += "_Sort_" + Regex.Replace(SortFields.Aggregate((y, x) => y), @"\W", "");
                 var typeName = provider.CreateValidIdentifier(name);
 
 
@@ -283,14 +284,14 @@ namespace ASC.Api.Collections
 
                 var assemblyName = "filter" + Guid.NewGuid().ToString("N");
                 var cp = new CompilerParameters
-                             {
-                                 GenerateExecutable = false,
-                                 OutputAssembly = assemblyName,
-                                 GenerateInMemory = true,
-                                 TreatWarningsAsErrors = false,
-                                 CompilerOptions = "/optimize /t:library",
-                                 IncludeDebugInformation = false,
-                             };
+                {
+                    GenerateExecutable = false,
+                    OutputAssembly = assemblyName,
+                    GenerateInMemory = true,
+                    TreatWarningsAsErrors = false,
+                    CompilerOptions = "/optimize /t:library",
+                    IncludeDebugInformation = false,
+                };
 
                 cp.ReferencedAssemblies.Add("mscorlib.dll");
                 cp.ReferencedAssemblies.Add("system.dll");

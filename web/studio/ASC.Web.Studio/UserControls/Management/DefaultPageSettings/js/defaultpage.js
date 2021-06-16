@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ var DefaultPage = new function() {
             bafore: function() { LoadingBanner.showLoaderBtn("#studio_defaultPageSettings"); },
             after: function() { LoadingBanner.hideLoaderBtn("#studio_defaultPageSettings"); },
             success: function() {
-                LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage, "success");
             },
             error: function(params, errors) {
                 LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", errors[0], "error");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin
@@ -91,14 +92,14 @@ namespace ASC.FederatedLogin
                 return null;
 
             var token = new OAuth20Token
-                {
-                    AccessToken = accessToken,
-                    RefreshToken = parser.Value<string>("refresh_token"),
-                    ClientID = parser.Value<string>("client_id"),
-                    ClientSecret = parser.Value<string>("client_secret"),
-                    RedirectUri = parser.Value<string>("redirect_uri"),
-                    OriginJson = json,
-                };
+            {
+                AccessToken = accessToken,
+                RefreshToken = parser.Value<string>("refresh_token"),
+                ClientID = parser.Value<string>("client_id"),
+                ClientSecret = parser.Value<string>("client_secret"),
+                RedirectUri = parser.Value<string>("redirect_uri"),
+                OriginJson = json,
+            };
 
             long expiresIn;
             if (long.TryParse(parser.Value<string>("expires_in"), out expiresIn))

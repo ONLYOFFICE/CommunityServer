@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+
 using ASC.Api.Attributes;
+using ASC.Api.Collections;
 using ASC.Api.CRM.Wrappers;
 using ASC.Api.Employee;
 using ASC.Api.Exceptions;
+using ASC.Core;
+using ASC.Core.Users;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.Api.Collections;
-using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Specific;
 using ASC.Web.CRM.Classes;
-using ASC.Core.Users;
 
 namespace ASC.Api.CRM
 {
@@ -228,8 +228,8 @@ namespace ASC.Api.CRM
         [Update(@"opportunity/access")]
         public IEnumerable<OpportunityWrapper> SetAccessToBatchDeal(IEnumerable<int> opportunityid, bool isPrivate, IEnumerable<Guid> accessList)
         {
-            if(opportunityid == null) throw new ArgumentException();
-            
+            if (opportunityid == null) throw new ArgumentException();
+
             var result = new List<Deal>();
 
             var deals = DaoFactory.DealDao.GetDeals(opportunityid.ToArray());
@@ -502,20 +502,20 @@ namespace ASC.Api.CRM
             bool isNotify)
         {
             var deal = new Deal
-                {
-                    Title = title,
-                    Description = description,
-                    ResponsibleID = responsibleid,
-                    BidType = bidType,
-                    BidValue = bidValue,
-                    PerPeriodValue = perPeriodValue,
-                    DealMilestoneID = stageid,
-                    DealMilestoneProbability = successProbability < 0 ? 0 : (successProbability > 100 ? 100 : successProbability),
-                    ContactID = contactid,
-                    ActualCloseDate = actualCloseDate,
-                    ExpectedCloseDate = expectedCloseDate,
-                    BidCurrency = !String.IsNullOrEmpty(bidCurrencyAbbr) ? bidCurrencyAbbr.ToUpper() : null,
-                };
+            {
+                Title = title,
+                Description = description,
+                ResponsibleID = responsibleid,
+                BidType = bidType,
+                BidValue = bidValue,
+                PerPeriodValue = perPeriodValue,
+                DealMilestoneID = stageid,
+                DealMilestoneProbability = successProbability < 0 ? 0 : (successProbability > 100 ? 100 : successProbability),
+                ContactID = contactid,
+                ActualCloseDate = actualCloseDate,
+                ExpectedCloseDate = expectedCloseDate,
+                BidCurrency = !String.IsNullOrEmpty(bidCurrencyAbbr) ? bidCurrencyAbbr.ToUpper() : null,
+            };
 
             CRMSecurity.DemandCreateOrUpdate(deal);
 
@@ -846,7 +846,7 @@ namespace ASC.Api.CRM
 
             var contacts = new Dictionary<int, ContactBaseWrapper>();
 
-            var customFields = DaoFactory.CustomFieldDao.GetEnityFields(EntityType.Opportunity, dealIDs.ToArray())
+            var customFields = DaoFactory.CustomFieldDao.GetEntityFields(EntityType.Opportunity, dealIDs.ToArray())
                                          .GroupBy(item => item.EntityID)
                                          .ToDictionary(item => item.Key, item => item.Select(ToCustomFieldBaseWrapper));
 
@@ -937,7 +937,7 @@ namespace ASC.Api.CRM
             if (!string.IsNullOrEmpty(deal.BidCurrency))
                 dealWrapper.BidCurrency = ToCurrencyInfoWrapper(CurrencyProvider.Get(deal.BidCurrency));
 
-            dealWrapper.CustomFields = DaoFactory.CustomFieldDao.GetEnityFields(EntityType.Opportunity, deal.ID, false).ConvertAll(item => new CustomFieldBaseWrapper(item)).ToSmartList();
+            dealWrapper.CustomFields = DaoFactory.CustomFieldDao.GetEntityFields(EntityType.Opportunity, deal.ID, false).ConvertAll(item => new CustomFieldBaseWrapper(item)).ToSmartList();
 
             dealWrapper.Members = new List<ContactBaseWrapper>();
 

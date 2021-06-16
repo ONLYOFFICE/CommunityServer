@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Common.Logging;
 using ASC.Core.Common.Configuration;
 using ASC.FederatedLogin;
@@ -68,7 +69,7 @@ namespace ASC.Mail.Authorization
 
                 if (String.IsNullOrEmpty(loginProvider.RedirectUri))
                     throw new ArgumentNullException("RedirectUrl");
-        }
+            }
             catch (Exception ex)
             {
                 log.ErrorFormat("GoogleOAuth2Authorization() Exception:\r\n{0}\r\n", ex.ToString());
@@ -78,12 +79,12 @@ namespace ASC.Mail.Authorization
         public OAuth20Token RequestAccessToken(string refreshToken)
         {
             var token = new OAuth20Token
-                {
-                    ClientID = ClientId,
-                    ClientSecret = ClientSecret,
-                    RedirectUri = RedirectUrl,
-                    RefreshToken = refreshToken,
-                };
+            {
+                ClientID = ClientId,
+                ClientSecret = ClientSecret,
+                RedirectUri = RedirectUrl,
+                RefreshToken = refreshToken,
+            };
 
             try
             {

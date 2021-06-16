@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -197,10 +198,11 @@ namespace ASC.Files.Core.Data
             }
 
             var tagsToRemove = dbManager.ExecuteList(
-                Query("files_tag")
-                    .Select("id")
-                    .Where(Exp.EqColumns("0",
-                        Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))))
+                Query("files_tag tbl_ft ")
+                    .Select("tbl_ft.id")
+                    .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
+                                                             Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
+                    .Where("tbl_ftl.tag_id is null"))
                 .ConvertAll(r => Convert.ToInt32(r[0]));
 
             dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
@@ -335,14 +337,14 @@ namespace ASC.Files.Core.Data
                 .Select("id")
                 .Where("name", tag.TagName)
                 .Where("owner", tag.Owner.ToString())
-                .Where("flag", (int) tag.TagType));
+                .Where("flag", (int)tag.TagType));
 
             if (id != 0)
             {
                 var d = Delete("files_tag_link")
                     .Where("tag_id", id)
                     .Where(Exp.Eq("entry_id", MappingID(tag.EntryId).ToString()))
-                    .Where("entry_type", (int) tag.EntryType);
+                    .Where("entry_type", (int)tag.EntryType);
                 dbManager.ExecuteNonQuery(d);
 
                 var count = dbManager.ExecuteScalar<int>(Query("files_tag_link").SelectCount().Where("tag_id", id));
@@ -385,7 +387,7 @@ namespace ASC.Files.Core.Data
             return GetNewTags(subject, () =>
             {
                 var insertQuery = new SqlInsert("files_tag_temporary", true)
-                    .InColumns(new[] {GetTenantColumnName("files_tag_temporary"), "entry_id", "entry_type"});
+                    .InColumns(new[] { GetTenantColumnName("files_tag_temporary"), "entry_id", "entry_type" });
 
                 insertQuery.Values(new[]
                 {
@@ -650,11 +652,11 @@ namespace ASC.Files.Core.Data
         private Tag ToTag(object[] r)
         {
             var result = new Tag((string)r[0], (TagType)Convert.ToInt32(r[1]), new Guid((string)r[2]), null, Convert.ToInt32(r[5]))
-                {
-                    EntryId = MappingID(r[3]),
-                    EntryType = (FileEntryType)Convert.ToInt32(r[4]),
-                    Id = Convert.ToInt32(r[6]),
-                };
+            {
+                EntryId = MappingID(r[3]),
+                EntryType = (FileEntryType)Convert.ToInt32(r[4]),
+                Id = Convert.ToInt32(r[6]),
+            };
 
             return result;
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Core.Tenants;
 
 namespace ASC.Mail.Extensions
@@ -31,7 +32,7 @@ namespace ASC.Mail.Extensions
                 if (diff.Days == 0)
                 {
                     return dateTime.ToShortTimeString();
-                } 
+                }
                 if (TenantUtil.DateTimeNow().Year == dateTime.Date.Year)
                 {
                     return String.Format("{0}", dateTime.ToString("MMMM dd"));

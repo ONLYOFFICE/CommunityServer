@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ServiceHealthChecker.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ServiceHealthChecker" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix">
     <div id="serviceStatusContainer" class="settings-block">

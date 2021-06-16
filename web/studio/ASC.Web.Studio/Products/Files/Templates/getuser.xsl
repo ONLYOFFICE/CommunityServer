@@ -2,13 +2,13 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" encoding="utf-8" standalone="yes" indent="yes" omit-xml-declaration="yes" media-type="text/xhtml" />
 
-  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
+  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="FilesCommonResource" />
 
   <xsl:template match="userItem">
     <div class="ds-user-link">
       <span class="ds-user-link-delete">
         <xsl:attribute name="title">
-          <resource name="fres.ButtonDelete" />
+          <resource name="FilesCommonResource.ButtonDelete" />
         </xsl:attribute>
       </span>
       <span class="userLink">

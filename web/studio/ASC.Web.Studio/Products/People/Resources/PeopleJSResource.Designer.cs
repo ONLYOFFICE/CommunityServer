@@ -88,92 +88,11 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open the portal Settings page if you need to restrict the access to the People module and give some users administrator privileges..
-        /// </summary>
-        public static string HelpContentAccessRights {
-            get {
-                return ResourceManager.GetString("HelpContentAccessRights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add several users at once using the contact information from Google, Yahoo, Windows Live, from a CSV file or an email client contact book..
-        /// </summary>
-        public static string HelpContentAddMore {
-            get {
-                return ResourceManager.GetString("HelpContentAddMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modify your personal information, change your email and password, select a portal language, manage your subscriptions..
-        /// </summary>
-        public static string HelpContentEditProfile {
-            get {
-                return ResourceManager.GetString("HelpContentEditProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Click the user you wish to view the personal information: first name, last name, email, location etc..
-        /// </summary>
-        public static string HelpContentViewUser {
-            get {
-                return ResourceManager.GetString("HelpContentViewUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Manage Access Rights.
-        /// </summary>
-        public static string HelpTitleAccessRights {
-            get {
-                return ResourceManager.GetString("HelpTitleAccessRights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add More Users at Once.
-        /// </summary>
-        public static string HelpTitleAddMore {
-            get {
-                return ResourceManager.GetString("HelpTitleAddMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Your Profile.
-        /// </summary>
-        public static string HelpTitleEditProfile {
-            get {
-                return ResourceManager.GetString("HelpTitleEditProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to View User Profile.
-        /// </summary>
-        public static string HelpTitleViewUser {
-            get {
-                return ResourceManager.GetString("HelpTitleViewUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string LblActive {
             get {
                 return ResourceManager.GetString("LblActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string LblByName {
-            get {
-                return ResourceManager.GetString("LblByName", resourceCulture);
             }
         }
         
@@ -268,7 +187,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your current pricing plan allows you to add {0}{1} active users{2}..
+        ///   Looks up a localized string similar to Your current pricing plan allows you to add {0}{1} more active users{2}..
         /// </summary>
         public static string TariffActiveUserLimit {
             get {
@@ -282,6 +201,15 @@ namespace ASC.Web.People.Resources {
         public static string TariffActiveUserLimitExcludingGuests {
             get {
                 return ResourceManager.GetString("TariffActiveUserLimitExcludingGuests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your current pricing plan allows you to add {0}{1} guests{2}..
+        /// </summary>
+        public static string TariffGuestLimit {
+            get {
+                return ResourceManager.GetString("TariffGuestLimit", resourceCulture);
             }
         }
     }

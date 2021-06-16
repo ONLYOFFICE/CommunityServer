@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Mail;
 using ASC.Mail.Core.Dao.Expressions.Contact;
@@ -193,7 +194,7 @@ namespace ASC.Api.Mail
         [Read(@"crm/linked/entities")]
         public IEnumerable<CrmContactData> GetLinkedCrmEntitiesInfo(int message_id)
         {
-            if(message_id < 0)
+            if (message_id < 0)
                 throw new ArgumentException(@"meesage_id must be positive integer", "message_id");
 
             return MailEngineFactory.CrmLinkEngine.GetLinkedCrmEntitiesId(message_id);

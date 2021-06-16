@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 // ReSharper disable InconsistentNaming
 
 using System.Collections.Generic;
+
 using ASC.Mail.Core.DbSchema.Interfaces;
 
 namespace ASC.Mail.Core.DbSchema.Tables
@@ -38,7 +39,8 @@ namespace ASC.Mail.Core.DbSchema.Tables
             public const string DateCreated = "date_created";
         }
 
-        public string Name {
+        public string Name
+        {
             get { return TABLE_NAME; }
         }
 
@@ -49,13 +51,13 @@ namespace ASC.Mail.Core.DbSchema.Tables
             OrderedColumnCollection = new List<string>
             {
                 Columns.Id,
-                Columns.AddressName, 
+                Columns.AddressName,
                 Columns.Tenant,
                 Columns.DomainId,
                 Columns.MailboxId,
-                Columns.IsMailGroup, 
+                Columns.IsMailGroup,
                 Columns.IsAlias,
-                Columns.DateCreated 
+                Columns.DateCreated
             };
         }
     }

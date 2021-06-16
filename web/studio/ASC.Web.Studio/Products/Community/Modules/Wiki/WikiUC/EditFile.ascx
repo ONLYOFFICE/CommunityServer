@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditFile.ascx.cs" Inherits="ASC.Web.UserControls.Wiki.UC.EditFile" %>
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Wiki.Resources" %>
 <div class="<%=MainWikiClassName %>">
     <div class="wikiEdit">
         <div class="headerPanel">

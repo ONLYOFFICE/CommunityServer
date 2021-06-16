@@ -3,7 +3,7 @@
     Inherits="ASC.Web.Community.Bookmarking.UserControls.BookmarkHeaderPageControl" %>
 
 <%@ Import Namespace="ASC.Web.Community.Product" %>
-<%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Bookmarking.UserControls.Resources" %>
 
 
 <div class="bookmarksHeaderBlock header-with-menu" style="margin-bottom: 16px;">

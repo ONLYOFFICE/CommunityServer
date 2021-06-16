@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
+using ASC.Common.Logging;
 using ASC.Notify.Config;
 using ASC.Notify.Messages;
-using ASC.Common.Logging;
 
 namespace ASC.Notify
 {
@@ -129,7 +129,7 @@ namespace ASC.Notify
                         NotifyServiceCfg.Senders[m.Value.Sender].Send(m.Value);
                         log.DebugFormat("Notify #{0} has been sent.", m.Key);
                     }
-                     catch (Exception e)
+                    catch (Exception e)
                     {
                         result = MailSendingState.FatalError;
                         log.Error(e);

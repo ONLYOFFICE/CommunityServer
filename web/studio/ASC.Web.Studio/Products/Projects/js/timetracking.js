@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         resources = baseObject.Resources,
         projectsJsResource = resources.ProjectsJSResource,
         projectsFilterResource = resources.ProjectsFilterResource,
-        ttResource = resources.TimeTrackingResource,
+        TimeTrackingResource = resources.TimeTrackingResource,
         filter = baseObject.ProjectsAdvansedFilter,
         common = baseObject.Common,
         teamlab,
@@ -61,7 +61,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             var actions = [
                 {
                     id: "gaBilled",
-                    title: ttResource.PaymentStatusBilled,
+                    title: TimeTrackingResource.PaymentStatusBilled,
                     handler: changePaymentSatusByCheckedTimers.bind(null, "billed", 2),
                     checker: function (item) {
                         return item.canEditPaymentStatus;
@@ -69,7 +69,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
                 },
                 {
                     id: "gaNotBilled",
-                    title: ttResource.PaymentStatusNotBilled,
+                    title: TimeTrackingResource.PaymentStatusNotBilled,
                     handler: changePaymentSatusByCheckedTimers.bind(null, "not-billed", 1),
                     checker: function (item) {
                         return item.canEditPaymentStatus;
@@ -77,7 +77,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
                 },
                 {
                     id: "gaNotChargeable",
-                    title: ttResource.PaymentStatusNotChargeable,
+                    title: TimeTrackingResource.PaymentStatusNotChargeable,
                     handler: changePaymentSatusByCheckedTimers.bind(null, "not-chargeable", 0),
                     checker: function (item) {
                         return item.canEditPaymentStatus;
@@ -85,7 +85,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
                 },
                 {
                     id: "gaDelete",
-                    title: resources.CommonResource.Delete,
+                    title: resources.ProjectsCommonResource.Delete,
                     handler: showQuestionWindow,
                     checker: function (item) {
                         return item.canEdit;
@@ -170,7 +170,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             events = teamlab.events;
 
         self.baseInit({
-                moduleTitle: resources.CommonResource.TimeTracking
+                moduleTitle: resources.ProjectsCommonResource.TimeTracking
             },
             isTask ? undefined : { pagination: "timeKeyForPagination" },
             {
@@ -210,12 +210,12 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
         if (isTask) {
             teamlab.getPrjProject({}, projectid);
-            totalTimeText = ttResource.TimeSpentForTask;
+            totalTimeText = TimeTrackingResource.TimeSpentForTask;
         } else {
             filter.createAdvansedFilterForTimeTracking(self);
 
             $timerList.addClass("forProject");
-            totalTimeText = ttResource.TotalTimeNote;
+            totalTimeText = TimeTrackingResource.TotalTimeNote;
         }
         textSpan.text(totalTimeText);
 
@@ -224,8 +224,8 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
             return {
                 menuItems: [
-                    { id: "ta_edit", text: resources.TasksResource.Edit, handler: taEditHandler.bind(null, timeid), classname: "edit" },
-                    { id: "ta_remove", text: resources.CommonResource.Delete, handler: taRemoveHandler.bind(null, timeid), classname: "delete" }
+                    { id: "ta_edit", text: resources.TaskResource.Edit, handler: taEditHandler.bind(null, timeid), classname: "edit" },
+                    { id: "ta_remove", text: resources.ProjectsCommonResource.Delete, handler: taRemoveHandler.bind(null, timeid), classname: "delete" }
                 ]
             };
         }
@@ -347,7 +347,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             getTotalTimeByFilter();
 
             var textSpan = $totalTimeContainer.find("span").first(),
-                totalTimeText = isTask ? ttResource.TimeSpentForTask : ttResource.TotalTimeNote;
+                totalTimeText = isTask ? TimeTrackingResource.TimeSpentForTask : TimeTrackingResource.TotalTimeNote;
             
             textSpan.text(totalTimeText);
         }

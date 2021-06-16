@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Services.WCFService;
 
@@ -31,7 +32,7 @@ namespace ASC.Api.Documents
         /// </summary>
         [DataMember(Name = "shareTo", Order = 0)]
         public Guid ShareTo { get; set; }
-        
+
         /// <summary>
         /// </summary>
         [DataMember(Name = "access", Order = 1)]
@@ -43,11 +44,11 @@ namespace ASC.Api.Documents
         public AceWrapper ToAceObject()
         {
             return new AceWrapper
-                          {
-                              Share = Access,
-                              SubjectId = ShareTo,
-                              SubjectGroup = !Core.CoreContext.UserManager.UserExists(ShareTo)
-                          };
+            {
+                Share = Access,
+                SubjectId = ShareTo,
+                SubjectGroup = !Core.CoreContext.UserManager.UserExists(ShareTo)
+            };
         }
     }
 }

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessSettingsHeader" xml:space="preserve">
     <value>Access Settings for {0}</value>
@@ -147,14 +88,14 @@
   <data name="AceStatusEnum_Varies" xml:space="preserve">
     <value>Varies</value>
   </data>
-  <data name="ButtonFilterAuthor" xml:space="preserve">
-    <value>Author</value>
-  </data>
   <data name="ButtonFilterArchive" xml:space="preserve">
     <value>Archives</value>
   </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
   <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
-    <value>No subfolders</value>
+    <value>Exclude subfolders</value>
   </data>
   <data name="ButtonFilterDocument" xml:space="preserve">
     <value>Documents</value>
@@ -199,10 +140,10 @@
     <value>Author</value>
   </data>
   <data name="ButtonSortCreated" xml:space="preserve">
-    <value>Created</value>
+    <value>Creation date</value>
   </data>
   <data name="ButtonSortModifiedNew" xml:space="preserve">
-    <value>Modified</value>
+    <value>Last modified date</value>
   </data>
   <data name="ButtonSortName" xml:space="preserve">
     <value>Title</value>
@@ -220,28 +161,25 @@
     <value>Are you sure you want to remove the {0} from the 'Documents' module? This will not affect your {1} account in any way.</value>
   </data>
   <data name="ConfirmEmptyTrash" xml:space="preserve">
-    <value>Are you sure you want to empty the recycle bin?</value>
+    <value>Are you sure you want to empty the trash?</value>
   </data>
   <data name="ConfirmLeavePage" xml:space="preserve">
     <value>Are you sure you want to leave the current page? Downloading of files will be interrupted.</value>
   </data>
   <data name="ConfirmRemoveFile" xml:space="preserve">
-    <value>Are you sure you want to delete the document?</value>
+    <value>You are about to delete this file? Please note, that if you have shared it with someone, it will become unavailable. Are you sure you want to continue?</value>
   </data>
   <data name="ConfirmRemoveFolder" xml:space="preserve">
-    <value>Are you sure you want to delete the folder?</value>
+    <value>You are about to delete this folder? Please note, that if you have shared it with someone, it will become unavailable. Are you sure you want to continue?</value>
   </data>
   <data name="ConfirmRemoveList" xml:space="preserve">
-    <value>Are you sure you want to delete these elements?</value>
+    <value>You are about to delete these elements? Please note, that if you have shared these files/folders with someone, they will become unavailable. Are you sure you want to continue?</value>
   </data>
   <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
     <value>You are about to move elements from the {1} directory. In such a case, they will be deleted from your {1} account and will no longer be accessible to other users, in case these elements have previously been shared. {0}Are you sure you want to move the elements?</value>
   </data>
-  <data name="CopyToClipboard" xml:space="preserve">
-    <value>Copy link</value>
-  </data>
   <data name="CorporateFiles" xml:space="preserve">
-    <value>Common Documents</value>
+    <value>Common</value>
   </data>
   <data name="CustomFormat" xml:space="preserve">
     <value>Custom format</value>
@@ -334,7 +272,7 @@
     <value>You don't have enough permission to perform the operation</value>
   </data>
   <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
-    <value>You can not performed this action in this folder</value>
+    <value>You cannot perform such an action in this folder</value>
   </data>
   <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
     <value>The title cannot contain any of the following characters: {0}</value>
@@ -363,11 +301,11 @@
   <data name="FolderTitleBoxNet" xml:space="preserve">
     <value>Box directory</value>
   </data>
-  <data name="FolderTitleDropBox" xml:space="preserve">
-    <value>Dropbox directory</value>
-  </data>
   <data name="FolderTitleDocuSign" xml:space="preserve">
     <value>DocuSign account</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox directory</value>
   </data>
   <data name="FolderTitleGoogle" xml:space="preserve">
     <value>Google directory</value>
@@ -387,47 +325,11 @@
   <data name="FolderTitleYandex" xml:space="preserve">
     <value>Yandex Directory</value>
   </data>
-  <data name="GetShortenLink" xml:space="preserve">
-    <value>Shorten link</value>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Now '{0}' is the owner of '{1}'</value>
   </data>
-  <data name="HelpContentConnectAccount" xml:space="preserve">
-    <value>Connect your Google Drive, Dropbox,  Box and OneDrive accounts and have all documents in one place.</value>
-  </data>
-  <data name="HelpContentCreateFiles" xml:space="preserve">
-    <value>Use this button to create new documents, spreadsheets and presentations directly on your portal.</value>
-  </data>
-  <data name="HelpContentDownloadFiles" xml:space="preserve">
-    <value>Click the file name to download and save the document to your hard disk drive.</value>
-  </data>
-  <data name="HelpContentShareFiles" xml:space="preserve">
-    <value>Share your files with other portal users or make them available to people outside your portal setting the appropriate access rights.</value>
-  </data>
-  <data name="HelpContentUploadFiles" xml:space="preserve">
-    <value>Use this button to upload files: documents, spreadsheets, presentations, etc. stored on your hard disk drive.</value>
-  </data>
-  <data name="HelpContentViewFiles" xml:space="preserve">
-    <value>Click the file name to view the document, or use the pencil icon to open it for editing. For faster processing your file will be converted to the Office Open XML format.</value>
-  </data>
-  <data name="HelpTitleConnectAccount" xml:space="preserve">
-    <value>Connect Your Account</value>
-  </data>
-  <data name="HelpTitleCreateFiles" xml:space="preserve">
-    <value>Create New Files</value>
-  </data>
-  <data name="HelpTitleDownloadFiles" xml:space="preserve">
-    <value>Download Your Files</value>
-  </data>
-  <data name="HelpTitleShareFiles" xml:space="preserve">
-    <value>Share Your Files</value>
-  </data>
-  <data name="HelpTitleUploadFiles" xml:space="preserve">
-    <value>Upload Your Files</value>
-  </data>
-  <data name="HelpTitleViewFiles" xml:space="preserve">
-    <value>View &amp; Edit Your Files</value>
-  </data>
-  <data name="ImportFromGoogle" xml:space="preserve">
-    <value>Import from Google Drive</value>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Now '{0}' is the owner of {1} items</value>
   </data>
   <data name="InfoChangeThirdParty" xml:space="preserve">
     <value>'{0}' changed</value>
@@ -466,7 +368,7 @@
     <value>Move {1}{0}{2}</value>
   </data>
   <data name="InfoMoveGroup" xml:space="preserve">
-    <value>{0} moved elements</value>
+    <value>{0} elements have been moved</value>
   </data>
   <data name="InfoMoveItem" xml:space="preserve">
     <value>'{0}' moved</value>
@@ -481,7 +383,7 @@
     <value>It was successfully deleted {0} from {1}</value>
   </data>
   <data name="InfoRemoveThirdParty" xml:space="preserve">
-    <value>Third Party '{0}' is deleted</value>
+    <value>Third party '{0}' is disconnected</value>
   </data>
   <data name="InfoRenameFile" xml:space="preserve">
     <value>The document '{0}' is renamed to '{1}'</value>
@@ -489,41 +391,26 @@
   <data name="InfoRenameFolder" xml:space="preserve">
     <value>The folder '{0}' is renamed to '{1}'</value>
   </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' added to '{1}'</value>
+  </data>
   <data name="InfoTemplateAdd" xml:space="preserve">
     <value>Files added to Templates</value>
   </data>
   <data name="InfoTemplateRemove" xml:space="preserve">
     <value>Files removed from Templates</value>
   </data>
-  <data name="InfoChangeOwner" xml:space="preserve">
-    <value>Now '{0}' is the owner of '{1}'</value>
-  </data>
-  <data name="InfoChangeOwnerArray" xml:space="preserve">
-    <value>Now '{0}' is the owner of {1} items</value>
-  </data>
-  <data name="InfoSaveThirdParty" xml:space="preserve">
-    <value>'{0}' added to '{1}'</value>
-  </data>
   <data name="InfoUploadedSuccess" xml:space="preserve">
     <value>{0} documents are successfully uploaded</value>
   </data>
-  <data name="LoadingProcessing" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="LoadingWait" xml:space="preserve">
-    <value>Please wait...</value>
-  </data>
   <data name="MyFiles" xml:space="preserve">
-    <value>My Documents</value>
+    <value>My documents</value>
   </data>
   <data name="OriginalFormat" xml:space="preserve">
     <value>Original format</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
-  </data>
-  <data name="OverallProgress" xml:space="preserve">
-    <value>Overall Progress</value>
   </data>
   <data name="Presentations" xml:space="preserve">
     <value>Presentations</value>
@@ -532,10 +419,10 @@
     <value>Failed to upload file {0} to display</value>
   </data>
   <data name="PrivacyRoom" xml:space="preserve">
-    <value>Privacy Room</value>
+    <value>Private Room</value>
   </data>
   <data name="ProjectFiles" xml:space="preserve">
-    <value>Project Documents</value>
+    <value>In projects</value>
   </data>
   <data name="RevisionCount" xml:space="preserve">
     <value>revisions: {0}</value>
@@ -547,10 +434,10 @@
     <value>You have been granted access to the {0} document</value>
   </data>
   <data name="SharingSettingsCount" xml:space="preserve">
-    <value>elements: {0}</value>
+    <value>{0}</value>
   </data>
   <data name="SharingSettingsEmpty" xml:space="preserve">
-    <value>Add users or groups and give them permissions{0} to read, review or edit the documents.</value>
+    <value>Add users and groups to share documents with them.{0} Set their permissions for reading,  editing, etc.</value>
   </data>
   <data name="SharingSettingsHeader" xml:space="preserve">
     <value>Sharing Settings for {0}</value>
@@ -583,7 +470,7 @@
     <value>Cancel</value>
   </data>
   <data name="TitleCreate" xml:space="preserve">
-    <value>Create</value>
+    <value>Save</value>
   </data>
   <data name="TitleEditingFile" xml:space="preserve">
     <value>It is currently being edited</value>
@@ -622,34 +509,34 @@
     <value>Help</value>
   </data>
   <data name="TitleSettingsThirdParty" xml:space="preserve">
-    <value>Connect accounts</value>
+    <value>Connected Clouds</value>
   </data>
   <data name="TypeTitleBoxNet" xml:space="preserve">
     <value>Box</value>
   </data>
-  <data name="TypeTitleDropBox" xml:space="preserve">
-    <value>Dropbox</value>
-  </data>
   <data name="TypeTitleDocuSign" xml:space="preserve">
     <value>DocuSign</value>
   </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
   <data name="TypeTitleGoogle" xml:space="preserve">
-    <value>google.com</value>
+    <value>Google Drive</value>
   </data>
   <data name="TypeTitlekDrive" xml:space="preserve">
     <value>kDrive</value>
   </data>
   <data name="TypeTitleSharePoint" xml:space="preserve">
-    <value>sharepoint.com</value>
+    <value>SharePoint</value>
   </data>
   <data name="TypeTitleSkyDrive" xml:space="preserve">
-    <value>onedrive.live.com</value>
+    <value>OneDrive</value>
   </data>
   <data name="TypeTitleWebDav" xml:space="preserve">
     <value>WebDAV</value>
   </data>
   <data name="TypeTitleYandex" xml:space="preserve">
-    <value>yandex.com</value>
+    <value>Yandex.Disk</value>
   </data>
   <data name="UnknownErrorText" xml:space="preserve">
     <value>Unknown error...</value>

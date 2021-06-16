@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ window.ASC.Controls.SmsValidationSettings = (function () {
 
             var callback = {
                 success: function (_, data) {
-                    LoadingBanner.showMesInfoBtn("#studio_smsValidationSettings", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                    LoadingBanner.showMesInfoBtn("#studio_smsValidationSettings", ASC.Resources.Master.ResourceJS.SuccessfullySaveSettingsMessage, "success");
                     if (data) {
                         window.location.reload(true);
                     }

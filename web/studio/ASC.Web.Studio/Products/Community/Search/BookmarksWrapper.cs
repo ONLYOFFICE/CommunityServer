@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Bookmarking.Pojo;
 using ASC.Core;
 using ASC.ElasticSearch;
@@ -56,7 +57,7 @@ namespace ASC.Web.Community.Search
         {
             return new BookmarksUserWrapper
             {
-                Id = (int) userBookmark.UserBookmarkID,
+                Id = (int)userBookmark.UserBookmarkID,
                 TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
                 Name = userBookmark.Name,
                 Description = userBookmark.Description,

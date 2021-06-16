@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,15 @@ namespace ASC.Web.Core.Calendars
     public delegate List<BaseCalendar> GetCalendarForUser(Guid userId);
 
     public class CalendarManager
-    {   
+    {
         public static CalendarManager Instance
         {
             get;
             private set;
         }
 
-        private List<GetCalendarForUser> _calendarProviders;
-        private List<BaseCalendar> _calendars;
+        private readonly List<GetCalendarForUser> _calendarProviders;
+        private readonly List<BaseCalendar> _calendars;
 
         static CalendarManager()
         {
@@ -45,8 +45,8 @@ namespace ASC.Web.Core.Calendars
         }
 
         public void RegistryCalendar(BaseCalendar calendar)
-        { 
-            lock(this._calendars)
+        {
+            lock (this._calendars)
             {
                 if (!this._calendars.Exists(c => String.Equals(c.Id, calendar.Id, StringComparison.InvariantCultureIgnoreCase)))
                     this._calendars.Add(calendar);
@@ -80,7 +80,7 @@ namespace ASC.Web.Core.Calendars
 
         public BaseCalendar GetCalendarForUser(Guid userId, string calendarId)
         {
-            return GetCalendarsForUser(userId).Find(c=> String.Equals(c.Id, calendarId, StringComparison.InvariantCultureIgnoreCase));
+            return GetCalendarsForUser(userId).Find(c => String.Equals(c.Id, calendarId, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public List<BaseCalendar> GetCalendarsForUser(Guid userId)
@@ -88,8 +88,8 @@ namespace ASC.Web.Core.Calendars
             var cals = new List<BaseCalendar>();
             foreach (var h in _calendarProviders)
             {
-                var list =  h(userId);
-                if(list!=null)
+                var list = h(userId);
+                if (list != null)
                     cals.AddRange(list.FindAll(c => c.SharingOptions.PublicForItem(userId)));
             }
 

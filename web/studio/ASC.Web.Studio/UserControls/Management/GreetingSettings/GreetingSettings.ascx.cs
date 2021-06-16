@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -57,11 +59,11 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.GreetingSettingsUpdated);
 
-                return new {Status = 1, Message = Resource.SuccessfullySaveGreetingSettingsMessage};
+                return new { Status = 1, Message = Resource.SuccessfullySaveGreetingSettingsMessage };
             }
             catch (Exception e)
             {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
+                return new { Status = 0, Message = e.Message.HtmlEncode() };
             }
         }
 
@@ -77,15 +79,15 @@ namespace ASC.Web.Studio.UserControls.Management
                 //_tenantInfoSettings.Save();
 
                 return new
-                    {
-                        Status = 1,
-                        Message = Resource.SuccessfullySaveGreetingSettingsMessage,
-                        CompanyName = CoreContext.TenantManager.GetCurrentTenant().Name
-                    };
+                {
+                    Status = 1,
+                    Message = Resource.SuccessfullySaveGreetingSettingsMessage,
+                    CompanyName = CoreContext.TenantManager.GetCurrentTenant().Name
+                };
             }
             catch (Exception e)
             {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
+                return new { Status = 0, Message = e.Message.HtmlEncode() };
             }
         }
     }

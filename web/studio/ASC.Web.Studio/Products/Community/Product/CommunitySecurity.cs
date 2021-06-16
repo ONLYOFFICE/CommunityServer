@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,13 @@
 
 using System;
 using System.Security;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
-using Action = ASC.Common.Security.Authorizing.Action;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Community.Product

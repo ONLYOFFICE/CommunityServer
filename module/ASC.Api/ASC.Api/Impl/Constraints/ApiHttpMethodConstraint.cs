@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
+
 using ASC.Api.Impl.Routing;
 
 namespace ASC.Api.Impl.Constraints
@@ -38,15 +39,15 @@ namespace ASC.Api.Impl.Constraints
             return result;
         }
 
-        public ApiHttpMethodConstraint(params string[] allowedMethods):base(allowedMethods)
+        public ApiHttpMethodConstraint(params string[] allowedMethods) : base(allowedMethods)
         {
-            
+
         }
 
         protected override bool Match(System.Web.HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             var baseMatch = base.Match(httpContext, route, parameterName, values, routeDirection);
-            if (!baseMatch && routeDirection==RouteDirection.IncomingRequest)
+            if (!baseMatch && routeDirection == RouteDirection.IncomingRequest)
             {
                 baseMatch = AllowedMethods.Any(method => string.Equals(method, httpContext.Request.RequestType, StringComparison.OrdinalIgnoreCase));
             }
@@ -66,7 +67,7 @@ namespace ASC.Api.Impl.Constraints
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values,
             RouteDirection routeDirection)
         {
-            if(!route.Url.EndsWith(ApiRouteRegistrator.ExtensionBrace)) return true;
+            if (!route.Url.EndsWith(ApiRouteRegistrator.ExtensionBrace)) return true;
             if (!values.Any()) return false;
             var extension = (string)values.First(r => r.Key == ApiRouteRegistrator.Extension).Value;
             extension = extension.TrimStart('.');

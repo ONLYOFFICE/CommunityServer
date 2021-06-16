@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,33 +17,35 @@
 
 jq(function () {
     jq("#accountLinks, .account-links").delegate(".popup", "click", function () {
-        var obj = jq(this);
-        if (obj.hasClass('linked')) {
-            //unlink
-            Teamlab.thirdPartyUnLinkAccount({ provider: obj.attr('id') }, { provider: obj.attr('id') }, {
-                success: function (params, response) {
-                    for (var i = 0, n = window.AccountLinkControl_Providers.length; i < n; i++) {
-                        if (window.AccountLinkControl_Providers[i].Provider == params.provider) {
-                            window.AccountLinkControl_Providers[i].Linked = false;
-                            break;
+        if (window.AccountLinkControl_Disable === false || window.AccountLinkControl_AddHandler) {
+            var obj = jq(this);
+            if (obj.hasClass('linked')) {
+                //unlink
+                Teamlab.thirdPartyUnLinkAccount({ provider: obj.attr('id') }, { provider: obj.attr('id') }, {
+                    success: function (params, response) {
+                        for (var i = 0, n = window.AccountLinkControl_Providers.length; i < n; i++) {
+                            if (window.AccountLinkControl_Providers[i].Provider == params.provider) {
+                                window.AccountLinkControl_Providers[i].Linked = false;
+                                break;
+                            }
                         }
+                        jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers, lang: ASC.Resources.Master.TwoLetterISOLanguageName,disable: window.AccountLinkControl_Disable }));
+                    },
+                    error: function (params, errors) {
+                        toastr.error(errors[0]);
                     }
-                    jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers, lang: ASC.Resources.Master.TwoLetterISOLanguageName }));
-                },
-                error: function (params, errors) {
-                    toastr.error(errors[0]);
-                }
-            });
-        }
-        else {
-            var link = obj.attr('href');
-            window.open(link, 'login', 'width=800,height=500,status=no,toolbar=no,menubar=no,resizable=yes,scrollbars=no');
+                });
+            }
+            else {
+                var link = obj.attr('href');
+                window.open(link, 'login', 'width=800,height=500,status=no,toolbar=no,menubar=no,resizable=yes,scrollbars=no');
+            }
         }
         return false;
     });
 
     if (window.AccountLinkControl_SettingsView === true) {
-        jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers, lang: ASC.Resources.Master.TwoLetterISOLanguageName }));
+        jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers, lang: ASC.Resources.Master.TwoLetterISOLanguageName, disable: window.AccountLinkControl_Disable }));
     }
 });
 
@@ -56,7 +58,7 @@ function loginCallback(profile) {
                     break;
                 }
             }
-            jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers, lang: ASC.Resources.Master.TwoLetterISOLanguageName }));
+            jq("#accountLinks").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers, lang: ASC.Resources.Master.TwoLetterISOLanguageName, disable: window.AccountLinkControl_Disable }));
         },
         error: function (params, errors) {
             toastr.error(errors[0]);

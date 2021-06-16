@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Core;
 using ASC.Files.Core;
@@ -88,21 +89,21 @@ namespace ASC.Api.Documents
         public static FolderWrapper GetSample()
         {
             return new FolderWrapper
-                {
-                    Access = FileShare.ReadWrite,
-                    Updated = ApiDateTime.GetSample(),
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Id = new Random().Next(),
-                    RootFolderType = FolderType.BUNCH,
-                    Shared = false,
-                    Title = "Some titile",
-                    UpdatedBy = EmployeeWraper.GetSample(),
-                    FilesCount = new Random().Next(),
-                    FoldersCount = new Random().Next(),
-                    ParentId = new Random().Next(),
-                    IsShareable = false
-                };
+            {
+                Access = FileShare.ReadWrite,
+                Updated = ApiDateTime.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+                Id = new Random().Next(),
+                RootFolderType = FolderType.BUNCH,
+                Shared = false,
+                Title = "Some titile",
+                UpdatedBy = EmployeeWraper.GetSample(),
+                FilesCount = new Random().Next(),
+                FoldersCount = new Random().Next(),
+                ParentId = new Random().Next(),
+                IsShareable = false
+            };
         }
     }
 }

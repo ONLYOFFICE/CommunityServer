@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
 using ASC.Core;
@@ -30,6 +31,7 @@ using ASC.VoipService.Dao;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.CRM.Resources;
+
 using Autofac;
 
 namespace ASC.Web.CRM.Classes
@@ -190,7 +192,7 @@ namespace ASC.Web.CRM.Classes
                     Queue.Start(SaveAdditionalInfoAction);
                 }
 
-                Queue.Add(new QueueItem {CallID = callId, TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId});
+                Queue.Add(new QueueItem { CallID = callId, TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId });
             }
         }
 
@@ -273,7 +275,7 @@ namespace ASC.Web.CRM.Classes
                     Data = contactPhone
                 });
 
-            CRMSecurity.SetAccessTo(contact, new List<Guid> {SecurityContext.CurrentAccount.ID});
+            CRMSecurity.SetAccessTo(contact, new List<Guid> { SecurityContext.CurrentAccount.ID });
 
             return contact;
         }

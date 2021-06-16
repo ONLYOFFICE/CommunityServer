@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,17 @@
 */
 
 
-using ASC.Common.Caching;
 using System;
+
+using ASC.Common.Caching;
 
 namespace ASC.Data.Storage
 {
     static class DataStoreCache
     {
         private static readonly ICache Cache = AscCache.Memory;
-        
- 
+
+
         public static void Put(IDataStore store, string tenantId, string module)
         {
             Cache.Insert(DataStoreCacheItem.Create(tenantId, module).MakeCacheKey(), store, DateTime.MaxValue);
@@ -39,7 +40,7 @@ namespace ASC.Data.Storage
         {
             Cache.Remove(DataStoreCacheItem.Create(tenantId, module).MakeCacheKey());
         }
-        
+
 
     }
 

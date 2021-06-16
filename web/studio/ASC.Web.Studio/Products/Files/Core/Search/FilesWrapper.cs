@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+
 using ASC.Core;
 using ASC.ElasticSearch;
 using ASC.ElasticSearch.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Core.Search
@@ -96,19 +99,37 @@ namespace ASC.Web.Files.Core.Search
             };
         }
 
+        protected override async Task<Stream> GetDocumentStreamAsync()
+        {
+            CoreContext.TenantManager.SetCurrentTenant(TenantId);
+
+            if (Encrypted) return null;
+            if (!FileUtility.CanIndex(Title)) return null;
+            if (ContentLength > MaxFileSize) return null;
+
+            using (var fileDao = Global.DaoFactory.GetFileDao())
+            {
+                var file = (File)this;
+                
+                CoreContext.TenantManager.SetCurrentTenant(TenantId);
+                if (!await fileDao.IsExistOnStorageAsync(file).ConfigureAwait(false)) return null;
+
+                CoreContext.TenantManager.SetCurrentTenant(TenantId);
+                return await fileDao.GetFileStreamAsync(file).ConfigureAwait(false);
+            }
+        }
         protected override Stream GetDocumentStream()
         {
             CoreContext.TenantManager.SetCurrentTenant(TenantId);
 
             if (Encrypted) return null;
             if (!FileUtility.CanIndex(Title)) return null;
+            if (ContentLength > MaxFileSize) return null;
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             {
-                var file = (File) this;
-
+                var file = (File)this;
                 if (!fileDao.IsExistOnStorage(file)) return null;
-                if (file.ContentLength > MaxContentLength) return null;
 
                 return fileDao.GetFileStream(file);
             }

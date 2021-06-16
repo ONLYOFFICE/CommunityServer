@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.CRM.Core;
 using ASC.MessagingSystem;
@@ -29,7 +30,7 @@ namespace ASC.Api.CRM
     public partial class CRMApi
     {
         //TABLE `crm_currency_rate` column `rate` DECIMAL(10,2) NOT NULL
-        public const decimal MaxRateValue = (decimal) 99999999.99;
+        public const decimal MaxRateValue = (decimal)99999999.99;
 
         /// <summary>
         ///    Get the list of currency rates
@@ -95,14 +96,14 @@ namespace ASC.Api.CRM
         {
             ValidateRate(rate);
 
-            ValidateCurrencies(new[] {fromCurrency, toCurrency});
+            ValidateCurrencies(new[] { fromCurrency, toCurrency });
 
             var currencyRate = new CurrencyRate
-                {
-                    FromCurrency = fromCurrency,
-                    ToCurrency = toCurrency,
-                    Rate = rate
-                };
+            {
+                FromCurrency = fromCurrency,
+                ToCurrency = toCurrency,
+                Rate = rate
+            };
 
             currencyRate.ID = DaoFactory.CurrencyRateDao.SaveOrUpdate(currencyRate);
             MessageService.Send(Request, MessageAction.CurrencyRateUpdated, fromCurrency, toCurrency);
@@ -124,7 +125,7 @@ namespace ASC.Api.CRM
 
             ValidateRate(rate);
 
-            ValidateCurrencies(new[] {fromCurrency, toCurrency});
+            ValidateCurrencies(new[] { fromCurrency, toCurrency });
 
             var currencyRate = DaoFactory.CurrencyRateDao.GetByID(id);
 
@@ -201,7 +202,7 @@ namespace ASC.Api.CRM
             foreach (var rate in rates)
             {
                 var exist = false;
-                
+
                 foreach (var existingRate in existingRates)
                 {
                     if (rate.FromCurrency != existingRate.FromCurrency || rate.ToCurrency != existingRate.ToCurrency)
@@ -237,7 +238,7 @@ namespace ASC.Api.CRM
                 throw new ArgumentException();
 
             var currencyRate = DaoFactory.CurrencyRateDao.GetByID(id);
-            
+
             if (currencyRate == null)
                 throw new ArgumentException();
 
@@ -259,7 +260,7 @@ namespace ASC.Api.CRM
 
             ValidateCurrencies(currencies.ToArray());
         }
-        
+
         private static void ValidateCurrencies(string[] currencies)
         {
             if (currencies.Any(string.IsNullOrEmpty))

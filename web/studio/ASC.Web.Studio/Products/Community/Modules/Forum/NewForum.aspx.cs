@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,15 @@
 
 
 using System;
-using ASC.Web.Studio;
-using AjaxPro;
-using ASC.Forum;
 using System.Collections.Generic;
-using ASC.Web.Studio.Utility;
 using System.Text;
+
+using AjaxPro;
+
+using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
+using ASC.Web.Studio;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Forum
 {
@@ -45,9 +48,9 @@ namespace ASC.Web.Community.Forum
             ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out categories, out threads);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<div class='headerPanelSmall-splitter'><b>" + Resources.ForumResource.ThreadCategory + ":</b></div>");
+            sb.Append("<div class='headerPanelSmall-splitter'><b>" + ForumResource.ThreadCategory + ":</b></div>");
             sb.Append("<select id='forum_fmCategoryID' onchange=\"ForumMakerProvider.SelectCategory();\" style='width:400px;' class='comboBox'>");
-            sb.Append("<option value='-1'>" + Resources.ForumResource.TypeCategoryName + "</option>");
+            sb.Append("<option value='-1'>" + ForumResource.TypeCategoryName + "</option>");
             foreach (var categ in categories)
             {
                 sb.Append("<option value='" + categ.ID + "'>" + categ.Title.HtmlEncode() + "</option>");

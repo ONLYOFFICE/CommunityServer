@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 using AjaxPro;
-using ASC.Core;
+
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Forum
-{  
+{
     [AjaxNamespace("ForumMaker")]
     public partial class ForumMaker : System.Web.UI.UserControl
     {
@@ -38,24 +40,24 @@ namespace ASC.Web.Community.Forum
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Utility.RegisterTypeForAjax(this.GetType());           
+            Utility.RegisterTypeForAjax(this.GetType());
             _forumMakerContainer.Options.IsPopup = true;
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public string GetCategoryList()
-        {   
+        {
             var categories = new List<ThreadCategory>();
             var threads = new List<Thread>();
             ForumDataProvider.GetThreadCategories(TenantProvider.CurrentTenantID, out categories, out threads);
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<div>"+Resources.ForumResource.ThreadCategory+":</div>");
+            sb.Append("<div>" + ForumResource.ThreadCategory + ":</div>");
             sb.Append("<select id='forum_fmCategoryID' onchange=\"ForumMakerProvider.SelectCategory();\" style='margin-top:3px; width:99%;' class='comboBox'>");
-            sb.Append("<option value='-1'>"+Resources.ForumResource.TypeCategoryName+"</option>");
+            sb.Append("<option value='-1'>" + ForumResource.TypeCategoryName + "</option>");
             foreach (var categ in categories)
             {
-                sb.Append("<option value='"+categ.ID+"'>"+categ.Title.HtmlEncode()+"</option>");
+                sb.Append("<option value='" + categ.ID + "'>" + categ.Title.HtmlEncode() + "</option>");
             }
             sb.Append("</select>");
             return sb.ToString();
@@ -69,14 +71,14 @@ namespace ASC.Web.Community.Forum
             if (!ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
-                resp.rs2 = "<div>" + Resources.ForumResource.ErrorAccessDenied + "</div>";
+                resp.rs2 = "<div>" + ForumResource.ErrorAccessDenied + "</div>";
                 return resp;
             }
 
             if (String.IsNullOrEmpty(threadName) || String.IsNullOrEmpty(threadName.Trim()))
             {
                 resp.rs1 = "0";
-                resp.rs2 = "<div>" + Resources.ForumResource.ErrorThreadEmptyName + "</div>";
+                resp.rs2 = "<div>" + ForumResource.ErrorThreadEmptyName + "</div>";
                 return resp;
             }
 
@@ -95,7 +97,7 @@ namespace ASC.Web.Community.Forum
                     if (String.IsNullOrEmpty(categoryName) || String.IsNullOrEmpty(categoryName.Trim()))
                     {
                         resp.rs1 = "0";
-                        resp.rs2 = "<div>" + Resources.ForumResource.ErrorCategoryEmptyName + "</div>";
+                        resp.rs2 = "<div>" + ForumResource.ErrorCategoryEmptyName + "</div>";
                         return resp;
                     }
 
@@ -127,5 +129,5 @@ namespace ASC.Web.Community.Forum
 
             return resp;
         }
-    }    
+    }
 }

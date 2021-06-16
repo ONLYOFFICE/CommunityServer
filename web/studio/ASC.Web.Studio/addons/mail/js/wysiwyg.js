@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,6 +126,7 @@ window.wysiwygEditor = (function ($) {
             toolbar: "Mail",
             removePlugins: "magicline",
             filebrowserUploadUrl: "fckuploader.ashx?newEditor=true&esid=mail",
+            height: 200,
             tabIndex: 5,
             resize_dir: "vertical",
             on: {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Logging;
 using ASC.Core.Common.Notify.Push;
 using ASC.Core.Configuration;
@@ -37,14 +38,14 @@ namespace ASC.Core.Common.Notify
             try
             {
                 var notification = new PushNotification
-                    {
-                        Module = GetTagValue<PushModule>(message, PushConstants.PushModuleTagName),
-                        Action = GetTagValue<PushAction>(message, PushConstants.PushActionTagName),
-                        Item = GetTagValue<PushItem>(message, PushConstants.PushItemTagName),
-                        ParentItem = GetTagValue<PushItem>(message, PushConstants.PushParentItemTagName),
-                        Message = message.Body,
-                        ShortMessage = message.Subject
-                    };
+                {
+                    Module = GetTagValue<PushModule>(message, PushConstants.PushModuleTagName),
+                    Action = GetTagValue<PushAction>(message, PushConstants.PushActionTagName),
+                    Item = GetTagValue<PushItem>(message, PushConstants.PushItemTagName),
+                    ParentItem = GetTagValue<PushItem>(message, PushConstants.PushParentItemTagName),
+                    Message = message.Body,
+                    ShortMessage = message.Subject
+                };
 
                 if (configured)
                 {

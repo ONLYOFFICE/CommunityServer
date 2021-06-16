@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ using System.Security;
 using System.Security.Authentication;
 using System.Threading;
 using System.Web;
+
 using ASC.ActiveDirectory;
+using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
@@ -43,12 +45,12 @@ using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using Constants = ASC.Core.Configuration.Constants;
 using SecurityContext = ASC.Core.SecurityContext;
-using ASC.ActiveDirectory.Base.Settings;
 
 namespace ASC.Specific.AuthorizationApi
 {
@@ -95,33 +97,33 @@ namespace ASC.Specific.AuthorizationApi
             {
                 if (string.IsNullOrEmpty(user.MobilePhone) || user.MobilePhoneActivationStatus == MobilePhoneActivationStatus.NotActivated)
                     return new AuthenticationTokenData
-                        {
-                            Sms = true
-                        };
+                    {
+                        Sms = true
+                    };
 
                 SmsManager.PutAuthCode(user, false);
 
                 return new AuthenticationTokenData
-                    {
-                        Sms = true,
-                        PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
-                        Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
-                    };
+                {
+                    Sms = true,
+                    PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
+                    Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
+                };
             }
 
             if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
             {
                 if (!TfaAppUserSettings.EnableForUser(user.ID))
                     return new AuthenticationTokenData
-                        {
-                            Tfa = true,
-                            TfaKey = user.GenerateSetupCode(300).ManualEntryKey
-                        };
+                    {
+                        Tfa = true,
+                        TfaKey = user.GenerateSetupCode().ManualEntryKey
+                    };
 
                 return new AuthenticationTokenData
-                    {
-                        Tfa = true
-                    };
+                {
+                    Tfa = true
+                };
             }
 
             try
@@ -134,10 +136,10 @@ namespace ASC.Specific.AuthorizationApi
                 var expires = TenantCookieSettings.GetExpiresTime(tenant);
 
                 return new AuthenticationTokenData
-                    {
-                        Token = token,
-                        Expires = new ApiDateTime(expires)
-                    };
+                {
+                    Token = token,
+                    Expires = new ApiDateTime(expires)
+                };
             }
             catch
             {
@@ -168,11 +170,11 @@ namespace ASC.Specific.AuthorizationApi
             MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedMobileNumber, MessageTarget.Create(user.ID), user.DisplayUserName(false), mobilePhone);
 
             return new AuthenticationTokenData
-                {
-                    Sms = true,
-                    PhoneNoise = SmsSender.BuildPhoneNoise(mobilePhone),
-                    Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
-                };
+            {
+                Sms = true,
+                PhoneNoise = SmsSender.BuildPhoneNoise(mobilePhone),
+                Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
+            };
         }
 
         /// <summary>
@@ -191,11 +193,11 @@ namespace ASC.Specific.AuthorizationApi
             SmsManager.PutAuthCode(user, true);
 
             return new AuthenticationTokenData
-                {
-                    Sms = true,
-                    PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
-                    Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
-                };
+            {
+                Sms = true,
+                PhoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
+                Expires = new ApiDateTime(DateTime.UtcNow.Add(SmsKeyStorage.StoreInterval))
+            };
         }
 
         /// <summary>
@@ -244,10 +246,10 @@ namespace ASC.Specific.AuthorizationApi
                 var expires = TenantCookieSettings.GetExpiresTime(tenant);
 
                 var result = new AuthenticationTokenData
-                    {
-                        Token = token,
-                        Expires = new ApiDateTime(expires)
-                    };
+                {
+                    Token = token,
+                    Expires = new ApiDateTime(expires)
+                };
 
                 if (sms)
                 {
@@ -281,11 +283,10 @@ namespace ASC.Specific.AuthorizationApi
         /// <param name="email">Email address</param>
         /// <param name="lang">Culture</param>
         /// <param name="spam">User consent to subscribe to the ONLYOFFICE newsletter</param>
-        /// <param name="analytics">Track analytics</param>
         /// <param name="recaptchaResponse">recaptcha token</param>
         /// <visible>false</visible>
         [Create(@"register", false)] //NOTE: this method doesn't requires auth!!!
-        public string RegisterUserOnPersonal(string email, string lang, bool spam, bool analytics, string recaptchaResponse)
+        public string RegisterUserOnPersonal(string email, string lang, bool spam, string recaptchaResponse)
         {
             if (!CoreContext.Configuration.Personal) throw new MethodAccessException("Method is only available on personal.onlyoffice.com");
 
@@ -293,7 +294,8 @@ namespace ASC.Specific.AuthorizationApi
             {
                 if (CoreContext.Configuration.CustomMode) lang = "ru-RU";
 
-                var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
+                var cultureInfo = SetupInfo.GetPersonalCulture(lang).Value;
+
                 if (cultureInfo != null)
                 {
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;
@@ -353,7 +355,7 @@ namespace ASC.Specific.AuthorizationApi
                         LogManager.GetLogger("ASC.Web").Debug(String.Format("ERROR write to template_unsubscribe {0}, email:{1}", ex.Message, email.ToLowerInvariant()));
                     }
                 }
-                StudioNotifyService.Instance.SendInvitePersonal(email, String.Empty, analytics);
+                StudioNotifyService.Instance.SendInvitePersonal(email);
             }
             catch (Exception ex)
             {
@@ -402,7 +404,8 @@ namespace ASC.Specific.AuthorizationApi
                     }
                     Cache.Insert("loginsec/" + userName, counter.ToString(CultureInfo.InvariantCulture), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
 
-                    if (EnableLdap) {
+                    if (EnableLdap)
+                    {
                         var localization = new LdapLocalization(Resource.ResourceManager);
                         var ldapUserManager = new LdapUserManager(localization);
 

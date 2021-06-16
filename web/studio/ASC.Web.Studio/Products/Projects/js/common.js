@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +50,6 @@ ASC.Projects.Common = (function () {
     function initMobileBanner() {
         if (isInitMobileBanner || !jq(".mobileApp-banner").length) return;
         isInitMobileBanner = true;
-        jq(".mobileApp-banner_btn.app-store").trackEvent("mobileApp-banner", "action-click", "app-store");
-        jq(".mobileApp-banner_btn.google-play").trackEvent("mobileApp-banner", "action-click", "google-play");
     };
 
     function initApiData() {
@@ -283,7 +281,8 @@ ASC.Projects.Common = (function () {
             cPage === baseObject.Import ||
             cPage === baseObject.GantChartPage ||
             cPage === baseObject.ReportView ||
-            cPage === baseObject.Templates 
+            cPage === baseObject.Templates ||
+            cPage === baseObject.SettingsManager
             ) return;
 
         function newBlock(image, title, text) {
@@ -291,33 +290,33 @@ ASC.Projects.Common = (function () {
         }
 
         if (!master.CanCreateProject) return;
-        var commonResource = baseObject.Resources.CommonResource;
+        var ProjectsCommonResource = baseObject.Resources.ProjectsCommonResource;
 
         var tmplObj = {
             blocks: [
-                newBlock("design-project-hierarchy.png", commonResource.DashboardDesignProjectHierarchy,
+                newBlock("design-project-hierarchy.png", ProjectsCommonResource.DashboardDesignProjectHierarchy,
                     [
-                        commonResource.DashboardDesignProjectHierarchyFirstLine,
-                        commonResource.DashboardDesignProjectHierarchySecondLine,
-                        commonResource.DashboardDesignProjectHierarchyThirdLine
+                        ProjectsCommonResource.DashboardDesignProjectHierarchyFirstLine,
+                        ProjectsCommonResource.DashboardDesignProjectHierarchySecondLine,
+                        ProjectsCommonResource.DashboardDesignProjectHierarchyThirdLine
                     ]),
-                newBlock("track-time-and-progress.png", commonResource.DashboardTrackTimeAndProgress,
+                newBlock("track-time-and-progress.png", ProjectsCommonResource.DashboardTrackTimeAndProgress,
                     [
-                        commonResource.DashboardTrackTimeAndProgressFirstLine,
-                        commonResource.DashboardTrackTimeAndProgressSecondLine,
-                        commonResource.DashboardTrackTimeAndProgressThirdLine
+                        ProjectsCommonResource.DashboardTrackTimeAndProgressFirstLine,
+                        ProjectsCommonResource.DashboardTrackTimeAndProgressSecondLine,
+                        ProjectsCommonResource.DashboardTrackTimeAndProgressThirdLine
                     ]),
-                newBlock("manage-access-rights.png", commonResource.DashboardManageAccessRights,
+                newBlock("manage-access-rights.png", ProjectsCommonResource.DashboardManageAccessRights,
                     [
-                        commonResource.DashboardManageAccessRightsFirstLine,
-                        commonResource.DashboardManageAccessRightsSecondLine,
-                        commonResource.DashboardManageAccessRightsThirdLine
+                        ProjectsCommonResource.DashboardManageAccessRightsFirstLine,
+                        ProjectsCommonResource.DashboardManageAccessRightsSecondLine,
+                        ProjectsCommonResource.DashboardManageAccessRightsThirdLine
                     ]),
-                newBlock("use-more-tools.png", commonResource.DashboardUseMoreTools,
+                newBlock("use-more-tools.png", ProjectsCommonResource.DashboardUseMoreTools,
                     [
-                        commonResource.DashboardUseMoreToolsFirstLine,
-                        commonResource.DashboardUseMoreToolsSecondLine,
-                        commonResource.DashboardUseMoreToolsThirdLine
+                        ProjectsCommonResource.DashboardUseMoreToolsFirstLine,
+                        ProjectsCommonResource.DashboardUseMoreToolsSecondLine,
+                        ProjectsCommonResource.DashboardUseMoreToolsThirdLine
                     ])
             ]
         };
@@ -664,6 +663,7 @@ ASC.Projects.Common = (function () {
             return true;
         }
 
+        jq(".studio-action-panel").hide();
         var $self = jq(this);
         var href = $self.attr("href");
         goToHrefWithoutReload(href);
@@ -782,7 +782,7 @@ ASC.Projects.Common = (function () {
 })();
 
 ASC.Projects.ReportGenerator = (function() {
-    var resources = ASC.Projects.Resources.ProjectsJSResource,
+    var ProjectsJSResource = ASC.Projects.Resources.ProjectsJSResource,
         teamlab,
         progressDialog,
         isInit = false;
@@ -796,9 +796,9 @@ ASC.Projects.ReportGenerator = (function() {
 
         progressDialog.init(
             {
-                header: resources.ReportBuilding,
-                footer: resources.ReportBuildingInfo.format("<a class='link underline' href='/Products/Files/'>", "</a>"),
-                progress: resources.ReportBuildingProgress
+                header: ProjectsJSResource.ReportBuilding,
+                footer: ProjectsJSResource.ReportBuildingInfo.format("<a class='link underline' href='/Products/Files/'>", "</a>"),
+                progress: ProjectsJSResource.ReportBuildingProgress
             },
             jq("#studioPageContent .mainPageContent"),
             {

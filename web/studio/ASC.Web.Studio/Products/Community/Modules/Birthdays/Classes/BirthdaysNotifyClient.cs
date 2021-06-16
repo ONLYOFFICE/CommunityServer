@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -31,7 +32,7 @@ using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
-using ASC.Web.Community.Birthdays.Resources;
+using ASC.Web.Community.Modules.Birthdays.Resources;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
@@ -143,7 +144,7 @@ namespace ASC.Web.Community.Birthdays
                         {
                             continue;
                         }
-                        
+
                         var allSubscription = subscriptionProvider.IsSubscribed(Event_BirthdayReminder, user, null);
                         foreach (var birthday in birthdays)
                         {

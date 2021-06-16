@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using ASC.Common.Caching;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.FederatedLogin;
 using ASC.Files.Core;
+
 using Dropbox.Api.Files;
 
 namespace ASC.Files.Thirdparty.Dropbox

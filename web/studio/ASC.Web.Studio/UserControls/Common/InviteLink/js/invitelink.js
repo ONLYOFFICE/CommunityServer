@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ jq(document).ready(function () {
                             ASC.InvitePanel.bindClipboardEvent();
 
                             if (typeof (window.toastr) !== "undefined") {
-                                toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+                                toastr.success(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
                             } else {
                                 jq("#shareInviteUserLink, #shareInviteUserLinkCopy").yellowFade();
                             }

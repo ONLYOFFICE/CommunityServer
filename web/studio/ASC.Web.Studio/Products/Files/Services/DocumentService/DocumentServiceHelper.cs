@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Files.Core;
@@ -29,7 +30,9 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
+
 using JWT;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -223,9 +226,14 @@ namespace ASC.Web.Files.Services.DocumentService
             var docKey = GetDocKey(fileStable);
             var modeWrite = (editPossible || reviewPossible || fillFormsPossible || commentPossible) && tryEdit;
 
+            if (file.FolderID != null)
+            {
+                EntryManager.SetFileStatus(file);
+            }
+
             configuration = new Configuration(file)
-                {
-                    Document =
+            {
+                Document =
                         {
                             Key = docKey,
                             Permissions =
@@ -239,12 +247,12 @@ namespace ASC.Web.Files.Services.DocumentService
                                     ModifyFilter = rightModifyFilter
                                 }
                         },
-                    EditorConfig =
+                EditorConfig =
                         {
                             ModeWrite = modeWrite,
                         },
-                    ErrorMessage = strError,
-                };
+                ErrorMessage = strError,
+            };
 
             if (!lastVersion)
             {

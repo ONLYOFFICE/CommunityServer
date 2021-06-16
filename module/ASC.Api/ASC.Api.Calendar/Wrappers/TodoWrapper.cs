@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Specific;
@@ -27,18 +28,18 @@ namespace ASC.Api.Calendar.Wrappers
 {
     [DataContract(Name = "todo", Namespace = "")]
     public class TodoWrapper
-    {        
-        private TimeZoneInfo _timeZone;
+    {
+        private readonly TimeZoneInfo _timeZone;
 
         public Guid UserId { get; private set; }
 
         protected ITodo _baseTodo;
 
-        private DateTime _utcStartDate = DateTime.MinValue;
-        private DateTime _utcCompletedDate = DateTime.MinValue;
+        private readonly DateTime _utcStartDate = DateTime.MinValue;
+        private readonly DateTime _utcCompletedDate = DateTime.MinValue;
 
         private TodoWrapper(ITodo baseTodo, Guid userId, TimeZoneInfo timeZone, DateTime utcStartDate)
-            :this(baseTodo, userId, timeZone)
+            : this(baseTodo, userId, timeZone)
         {
             _utcStartDate = utcStartDate;
         }
@@ -47,7 +48,7 @@ namespace ASC.Api.Calendar.Wrappers
         {
             _timeZone = timeZone;
             _baseTodo = baseTodo;
-            this.UserId = userId;            
+            this.UserId = userId;
         }
 
         public List<TodoWrapper> GetList()
@@ -58,7 +59,7 @@ namespace ASC.Api.Calendar.Wrappers
 
             return list;
         }
-        
+
         [DataMember(Name = "objectId", Order = 0)]
         public string Id { get { return _baseTodo.Id; } }
 
@@ -82,7 +83,7 @@ namespace ASC.Api.Calendar.Wrappers
             get
             {
                 var startD = _utcStartDate != DateTime.MinValue ? _utcStartDate : _baseTodo.UtcStartDate;
-                startD =new DateTime(startD.Ticks, DateTimeKind.Utc);
+                startD = new DateTime(startD.Ticks, DateTimeKind.Utc);
 
                 return new ApiDateTime(startD, _timeZone);
             }
@@ -112,7 +113,7 @@ namespace ASC.Api.Calendar.Wrappers
             }
         }
 
-      
+
         public static object GetSample()
         {
             return new

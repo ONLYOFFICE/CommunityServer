@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,4 +104,19 @@ body.media-width-0-1200 .auth-service-item {
 .auth-service-img {
     max-height: 40px;
     max-width: 135px;
+}
+
+.settings-help-block{
+    margin-bottom: 0px;
+    float:none;
+}
+
+.disable div {
+    color: #9e9e9e;
+}
+
+.disable .popup-info-block a, .disable .popup-info-block a:visited, .disable .popup-info-block a:hover, .disable .popup-info-block a:active {
+    color: #9e9e9e;
+    cursor: default;
+    text-decoration: underline;
 }

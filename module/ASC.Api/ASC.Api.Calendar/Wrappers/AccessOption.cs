@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ namespace ASC.Api.Calendar.Wrappers
 
         public static AccessOption ReadOption
         {
-            get { return new AccessOption() { Id = "read", Default = true, DefaultStyle = "read", Name= Resources.CalendarApiResource.ReadOption }; }
+            get { return new AccessOption() { Id = "read", Default = true, DefaultStyle = "read", Name = Resources.CalendarApiResource.ReadOption }; }
         }
 
         public static AccessOption FullAccessOption
@@ -51,9 +51,11 @@ namespace ASC.Api.Calendar.Wrappers
         }
 
 
-        public static List<AccessOption> CalendarStandartOptions {
-            get {
-                 return new List<AccessOption>(){ReadOption, FullAccessOption};
+        public static List<AccessOption> CalendarStandartOptions
+        {
+            get
+            {
+                return new List<AccessOption>() { ReadOption, FullAccessOption };
             }
         }
 

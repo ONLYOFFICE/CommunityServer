@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,14 @@
 */
 
 
-using ASC.Files.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+
+using ASC.Files.Core;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.ProviderDao
@@ -48,7 +51,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var result = fileDao.GetFile(selector.ConvertId(fileId));
 
                 if (result != null && !Default.IsMatch(fileId))
-                    SetSharedProperty(new[] {result});
+                    SetSharedProperty(new[] { result });
 
                 return result;
             }
@@ -63,7 +66,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var result = fileDao.GetFile(selector.ConvertId(fileId), fileVersion);
 
                 if (result != null && !Default.IsMatch(fileId))
-                    SetSharedProperty(new[] {result});
+                    SetSharedProperty(new[] { result });
 
                 return result;
             }
@@ -77,7 +80,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var result = fileDao.GetFile(selector.ConvertId(parentId), title);
 
                 if (result != null && !Default.IsMatch(parentId))
-                    SetSharedProperty(new[] {result});
+                    SetSharedProperty(new[] { result });
 
                 return result;
             }
@@ -407,13 +410,14 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
         }
 
-        public void UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
+        public File UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
         {
             using (var fileDao = GetFileDao(uploadSession.File))
             {
                 uploadSession.File = ConvertId(uploadSession.File);
                 fileDao.UploadChunk(uploadSession, chunkStream, chunkLength);
             }
+            return uploadSession.File;
         }
 
         public void AbortUploadSession(ChunkedUploadSession uploadSession)
@@ -559,6 +563,60 @@ namespace ASC.Files.Thirdparty.ProviderDao
             using (var fileDao = selector.GetFileDao(fileId))
             {
                 return fileDao.ContainChanges(selector.ConvertId(fileId), fileVersion);
+            }
+        }
+
+        public void SaveThumbnail(File file, Stream thumbnail)
+        {
+            var fileId = file.ID;
+            var selector = GetSelector(fileId);
+            file.ID = selector.ConvertId(fileId);
+
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                fileDao.SaveThumbnail(file, thumbnail);
+                file.ID = fileId; //Restore
+            }
+        }
+
+        public Stream GetThumbnail(File file)
+        {
+            var fileId = file.ID;
+            var selector = GetSelector(fileId);
+            file.ID = selector.ConvertId(fileId);
+
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                var stream = fileDao.GetThumbnail(file);
+                file.ID = fileId; //Restore
+                return stream;
+            }
+        }
+
+        public async Task<Stream> GetFileStreamAsync(File file)
+        {
+            var fileId = file.ID;
+            var selector = GetSelector(fileId);
+            file.ID = selector.ConvertId(fileId);
+
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                var stream = await fileDao.GetFileStreamAsync(file);
+                file.ID = fileId; //Restore
+                return stream;
+            }
+        }
+
+        public async Task<bool> IsExistOnStorageAsync(File file)
+        {
+            var fileId = file.ID;
+            var selector = GetSelector(fileId);
+            file.ID = selector.ConvertId(fileId);
+
+            using (var fileDao = selector.GetFileDao(fileId))
+            {
+                var isExist = await fileDao.IsExistOnStorageAsync(file).ConfigureAwait(true);
+                return isExist;
             }
         }
 

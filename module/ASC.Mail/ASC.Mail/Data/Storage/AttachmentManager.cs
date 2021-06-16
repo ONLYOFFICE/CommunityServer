@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Mail.Data.Contracts;
 
 namespace ASC.Mail.Data.Storage
@@ -24,7 +25,7 @@ namespace ASC.Mail.Data.Storage
     {
         public static AttachmentStream ToAttachmentStream(this MailAttachmentData mailAttachmentData, int offset = 0)
         {
-            if (mailAttachmentData == null) 
+            if (mailAttachmentData == null)
                 throw new InvalidOperationException("Attachment not found");
 
             var storage = MailDataStore.GetDataStore(mailAttachmentData.tenant);

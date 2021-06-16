@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,18 +146,17 @@ ASC.Controls.EmailAndPasswordManager = new function() {
         }
 
         if (jq("#licenseKeyText").length && jq("#licenseKeyText").hasClass("error")) {
-            res = { "Status": 0, "Message": ASC.Resources.Master.Resource.LicenseKeyError };
+            res = { "Status": 0, "Message": ASC.Resources.Master.ResourceJS.LicenseKeyError };
             if (parentCallback != null)
                 parentCallback(res);
             return;
         }
 
         if (jq(".license-accept").length && !jq(".license-accept input[type=checkbox]").is(":checked")) {
-            toastr.error(ASC.Resources.Master.Resource.LicenseAgreementsError);
+            toastr.error(ASC.Resources.Master.ResourceJS.LicenseAgreementsError);
             return;
         }
 
-        var analytics = jq("#analyticsAcceptedOpenSource").is(":checked");
         var subscribeFromSite = jq("#subscribeFromSite").is(":checked");
 
         window.hashPassword(pwd, function (passwordHash) {
@@ -169,7 +168,6 @@ ASC.Controls.EmailAndPasswordManager = new function() {
                 jq('#studio_lng').val() || jq('#studio_lng').data('default'),
                 promocode,
                 amiid,
-                analytics,
                 subscribeFromSite,
                 function (result) {
                     if (parentCallback != null)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,11 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Configuration;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.CRM.Configuration;
 
 namespace ASC.Api.CRM.Wrappers
 {
@@ -47,14 +48,14 @@ namespace ASC.Api.CRM.Wrappers
         public static HistoryCategoryBaseWrapper GetSample()
         {
             return new HistoryCategoryBaseWrapper
-                {
-                    ID = 30,
-                    Title = "Lunch",
-                    SortOrder = 10,
-                    Color = String.Empty,
-                    Description = "",
-                    ImagePath = "path to image"
-                };
+            {
+                ID = 30,
+                Title = "Lunch",
+                SortOrder = 10,
+                Color = String.Empty,
+                Description = "",
+                ImagePath = "path to image"
+            };
         }
     }
 
@@ -76,15 +77,15 @@ namespace ASC.Api.CRM.Wrappers
         public new static HistoryCategoryWrapper GetSample()
         {
             return new HistoryCategoryWrapper
-                {
-                    ID = 30,
-                    Title = "Lunch",
-                    SortOrder = 10,
-                    Color = String.Empty,
-                    Description = "",
-                    ImagePath = "path to image",
-                    RelativeItemsCount = 1
-                };
+            {
+                ID = 30,
+                Title = "Lunch",
+                SortOrder = 10,
+                Color = String.Empty,
+                Description = "",
+                ImagePath = "path to image",
+                RelativeItemsCount = 1
+            };
         }
     }
 
@@ -119,15 +120,15 @@ namespace ASC.Api.CRM.Wrappers
         public static DealMilestoneBaseWrapper GetSample()
         {
             return new DealMilestoneBaseWrapper
-                {
-                    ID = 30,
-                    Title = "Discussion",
-                    SortOrder = 2,
-                    Color = "#B9AFD3",
-                    Description = "The potential buyer showed his/her interest and sees how your offering meets his/her goal",
-                    StageType = DealMilestoneStatus.Open,
-                    SuccessProbability = 20
-                };
+            {
+                ID = 30,
+                Title = "Discussion",
+                SortOrder = 2,
+                Color = "#B9AFD3",
+                Description = "The potential buyer showed his/her interest and sees how your offering meets his/her goal",
+                StageType = DealMilestoneStatus.Open,
+                SuccessProbability = 20
+            };
         }
     }
 
@@ -149,16 +150,16 @@ namespace ASC.Api.CRM.Wrappers
         public new static DealMilestoneWrapper GetSample()
         {
             return new DealMilestoneWrapper
-                {
-                    ID = 30,
-                    Title = "Discussion",
-                    SortOrder = 2,
-                    Color = "#B9AFD3",
-                    Description = "The potential buyer showed his/her interest and sees how your offering meets his/her goal",
-                    StageType = DealMilestoneStatus.Open,
-                    SuccessProbability = 20,
-                    RelativeItemsCount = 1
-                };
+            {
+                ID = 30,
+                Title = "Discussion",
+                SortOrder = 2,
+                Color = "#B9AFD3",
+                Description = "The potential buyer showed his/her interest and sees how your offering meets his/her goal",
+                StageType = DealMilestoneStatus.Open,
+                SuccessProbability = 20,
+                RelativeItemsCount = 1
+            };
         }
     }
 
@@ -186,13 +187,13 @@ namespace ASC.Api.CRM.Wrappers
         public static TaskCategoryBaseWrapper GetSample()
         {
             return new TaskCategoryBaseWrapper
-                {
-                    ID = 30,
-                    Title = "Appointment",
-                    SortOrder = 2,
-                    Description = "",
-                    ImagePath = "path to image"
-                };
+            {
+                ID = 30,
+                Title = "Appointment",
+                SortOrder = 2,
+                Description = "",
+                ImagePath = "path to image"
+            };
         }
     }
 
@@ -214,14 +215,14 @@ namespace ASC.Api.CRM.Wrappers
         public new static TaskCategoryWrapper GetSample()
         {
             return new TaskCategoryWrapper
-                {
-                    ID = 30,
-                    Title = "Appointment",
-                    SortOrder = 2,
-                    Description = "",
-                    ImagePath = "path to image",
-                    RelativeItemsCount = 1
-                };
+            {
+                ID = 30,
+                Title = "Appointment",
+                SortOrder = 2,
+                Description = "",
+                ImagePath = "path to image",
+                RelativeItemsCount = 1
+            };
         }
     }
 
@@ -245,12 +246,12 @@ namespace ASC.Api.CRM.Wrappers
         public static ContactStatusBaseWrapper GetSample()
         {
             return new ContactStatusBaseWrapper
-                {
-                    ID = 30,
-                    Title = "Cold",
-                    SortOrder = 2,
-                    Description = ""
-                };
+            {
+                ID = 30,
+                Title = "Cold",
+                SortOrder = 2,
+                Description = ""
+            };
         }
     }
 
@@ -272,13 +273,13 @@ namespace ASC.Api.CRM.Wrappers
         public new static ContactStatusWrapper GetSample()
         {
             return new ContactStatusWrapper
-                {
-                    ID = 30,
-                    Title = "Cold",
-                    SortOrder = 2,
-                    Description = "",
-                    RelativeItemsCount = 1
-                };
+            {
+                ID = 30,
+                Title = "Cold",
+                SortOrder = 2,
+                Description = "",
+                RelativeItemsCount = 1
+            };
         }
     }
 
@@ -302,12 +303,12 @@ namespace ASC.Api.CRM.Wrappers
         public static ContactTypeBaseWrapper GetSample()
         {
             return new ContactTypeBaseWrapper
-                {
-                    ID = 30,
-                    Title = "Client",
-                    SortOrder = 2,
-                    Description = ""
-                };
+            {
+                ID = 30,
+                Title = "Client",
+                SortOrder = 2,
+                Description = ""
+            };
         }
     }
 
@@ -329,13 +330,13 @@ namespace ASC.Api.CRM.Wrappers
         public new static ContactTypeWrapper GetSample()
         {
             return new ContactTypeWrapper
-                {
-                    ID = 30,
-                    Title = "Client",
-                    SortOrder = 2,
-                    Description = "",
-                    RelativeItemsCount = 1
-                };
+            {
+                ID = 30,
+                Title = "Client",
+                SortOrder = 2,
+                Description = "",
+                RelativeItemsCount = 1
+            };
         }
     }
 
@@ -367,10 +368,10 @@ namespace ASC.Api.CRM.Wrappers
         public static TagWrapper GetSample()
         {
             return new TagWrapper
-                {
-                    Title = "Tag",
-                    RelativeItemsCount = 1
-                };
+            {
+                Title = "Tag",
+                RelativeItemsCount = 1
+            };
         }
     }
 

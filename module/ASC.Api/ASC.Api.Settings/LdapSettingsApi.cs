@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+
+using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
@@ -25,12 +27,12 @@ using ASC.Api.Attributes;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
-using Newtonsoft.Json;
-using Resources;
 using ASC.Notify.Cron;
-using ASC.ActiveDirectory.Base;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.Utility;
+
+using Newtonsoft.Json;
 
 namespace ASC.Api.Settings
 {
@@ -389,7 +391,8 @@ namespace ASC.Api.Settings
                 Warning = operation.GetProperty<string>(LdapOperation.WARNING)
             };
 
-            if (!(string.IsNullOrEmpty(result.Warning))) {
+            if (!(string.IsNullOrEmpty(result.Warning)))
+            {
                 operation.SetProperty(LdapOperation.WARNING, ""); // "mark" as read
             }
 
@@ -400,9 +403,8 @@ namespace ASC.Api.Settings
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                (CoreContext.Configuration.Standalone &&
-                 !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+            if ((!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) && !CoreContext.Configuration.Standalone) || 
+                !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Ldap");
             }

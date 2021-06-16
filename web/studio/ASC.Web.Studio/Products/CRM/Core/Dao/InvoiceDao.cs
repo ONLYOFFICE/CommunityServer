@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using ASC.Collections;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -28,7 +29,9 @@ using ASC.CRM.Core.Entities;
 using ASC.ElasticSearch;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Search;
+
 using Newtonsoft.Json;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.CRM.Core.Dao
@@ -453,7 +456,7 @@ namespace ASC.CRM.Core.Dao
         {
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
-            var result =  SaveOrUpdateInvoiceInDb(invoice);
+            var result = SaveOrUpdateInvoiceInDb(invoice);
 
             FactoryIndexer<InvoicesWrapper>.IndexAsync(invoice);
 
@@ -702,7 +705,7 @@ namespace ASC.CRM.Core.Dao
 
                 tx.Commit();
             }
-            invoices.ForEach(invoice =>  FactoryIndexer<InvoicesWrapper>.DeleteAsync(invoice));
+            invoices.ForEach(invoice => FactoryIndexer<InvoicesWrapper>.DeleteAsync(invoice));
         }
 
         #endregion
@@ -839,7 +842,7 @@ namespace ASC.CRM.Core.Dao
                     List<int> invoicesIds;
                     if (!FactoryIndexer<InvoicesWrapper>.TrySelectIds(s => s.MatchAll(searchText), out invoicesIds))
                     {
-                        conditions.Add(BuildLike(new[] {tblAliasPrefix + "number", tblAliasPrefix + "description"}, keywords));
+                        conditions.Add(BuildLike(new[] { tblAliasPrefix + "number", tblAliasPrefix + "description" }, keywords));
                     }
                     else
                     {

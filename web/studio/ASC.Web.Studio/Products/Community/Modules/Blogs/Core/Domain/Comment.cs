@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 
@@ -26,7 +27,7 @@ using ASC.Common.Security.Authorizing;
 
 namespace ASC.Blogs.Core.Domain
 {
-    public class CommentStat 
+    public class CommentStat
     {
         public Guid PostId;
         public Guid ForUserID;
@@ -34,13 +35,13 @@ namespace ASC.Blogs.Core.Domain
         public int UndreadCount;
     }
 
-	public class Comment : ISecurityObject
+    public class Comment : ISecurityObject
     {
         #region members
 
         private Guid id;
-	    private Post post;
-	    private IList<Comment> commentList = new List<Comment>();
+        private Post post;
+        private IList<Comment> commentList = new List<Comment>();
 
         #endregion
 
@@ -53,28 +54,28 @@ namespace ASC.Blogs.Core.Domain
 
 
         public bool IsRoot() { return ParentId == Guid.Empty; }
-        
+
         public List<Comment> SelectChildLevel(List<Comment> from)
         {
             return SelectChildLevel(ID, from);
         }
-        
+
         public static List<Comment> SelectRootLevel(List<Comment> from)
         {
             return SelectChildLevel(Guid.Empty, from);
         }
-        
+
         public static List<Comment> SelectChildLevel(Guid forParentId, List<Comment> from)
         {
             return from.FindAll(comm => comm.ParentId == forParentId);
         }
-        
+
         #region Properties
-        
+
         public Guid PostId { get; set; }
-        
+
         public Guid ParentId { get; set; }
-       
+
         public virtual Guid ID
         {
             get { return id; }
@@ -87,16 +88,16 @@ namespace ASC.Blogs.Core.Domain
             set { post = value; }
         }
 
-	    public virtual bool Inactive { get; set; }
+        public virtual bool Inactive { get; set; }
 
-	    public virtual Guid UserID { get; set; }
+        public virtual Guid UserID { get; set; }
 
-	    public virtual string Content { get; set; }
+        public virtual string Content { get; set; }
 
-	    public virtual DateTime Datetime { get; set; }
+        public virtual DateTime Datetime { get; set; }
 
-	    public virtual bool IsReaded { get; set; }
-        
+        public virtual bool IsReaded { get; set; }
+
         public virtual IList<Comment> CommentList
         {
             get { return new List<Comment>(commentList).AsReadOnly(); }

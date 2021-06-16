@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Web;
+
 using ASC.Core;
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.PublicResources;
+
 using Microsoft.Ajax.Utilities;
-using Resources;
 
 namespace ASC.Web.Studio.Masters.MasterResources
 {
@@ -60,7 +61,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
             return new List<KeyValuePair<string, object>>(5)
             {
-                RegisterResourceSet("Resource", ResourceJS.ResourceManager),
+                RegisterResourceSet("ResourceJS", ResourceJS.ResourceManager),
                 RegisterResourceSet("FeedResource", FeedResource.ResourceManager),
                 RegisterResourceSet("ChatResource", ChatResource.ResourceManager),
                 RegisterResourceSet("UserControlsCommonResource", UserControlsCommonResource.ResourceManager),

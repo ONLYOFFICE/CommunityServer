@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,8 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Web;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace ASC.Web.UserControls.Wiki
 {
@@ -28,7 +26,7 @@ namespace ASC.Web.UserControls.Wiki
         {
             return str.Replace(" ", "_");
         }
-        
+
         public static string Clean(string str)
         {
             return str.Replace("_", " ");
@@ -40,7 +38,7 @@ namespace ASC.Web.UserControls.Wiki
             return HttpUtility.UrlEncode(result);
         }
 
-        public static string Decode (string str)
+        public static string Decode(string str)
         {
             string result = str; //HttpUtility.UrlDecode(str);//BUG: removed due + problem
             Regex nameReg = new Regex(@"_", RegexOptions.CultureInvariant | RegexOptions.Singleline);

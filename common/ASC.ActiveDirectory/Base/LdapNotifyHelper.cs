@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
-using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Common.DependencyInjection;
 using ASC.Common.Threading;
+using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Notify;
 using ASC.Notify.Model;
 
@@ -79,20 +80,13 @@ namespace ASC.ActiveDirectory.Base
                 {
                     var tId = t.TenantId;
 
+                    var ldapSettings = LdapSettings.LoadForTenant(tId);
+                    if (!ldapSettings.EnableLdapAuthentication) continue;
+
                     var cronSettings = LdapCronSettings.LoadForTenant(tId);
+                    if (string.IsNullOrEmpty(cronSettings.Cron)) continue;
 
-                    if (string.IsNullOrEmpty(cronSettings.Cron))
-                        continue;
-
-                    if (LdapSettings.LoadForTenant(tId).EnableLdapAuthentication)
-                    {
-                        RegisterAutoSync(t, cronSettings.Cron);
-                    }
-                    else
-                    {
-                        cronSettings.Cron = null;
-                        cronSettings.Save();
-                    }
+                    RegisterAutoSync(t, cronSettings.Cron);
                 }
             }, TaskCreationOptions.LongRunning);
 

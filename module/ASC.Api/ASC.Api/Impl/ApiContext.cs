@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
+
 using ASC.Api.Interfaces;
+
 using Autofac;
 
 namespace ASC.Api.Impl
 {
-    public class ApiContext:ICloneable
+    public class ApiContext : ICloneable
     {
         public RequestContext RequestContext { get; set; }
 
@@ -32,9 +34,9 @@ namespace ASC.Api.Impl
         {
         }
 
-        public ApiContext(RequestContext requestContext,IApiConfiguration apiConfiguration)
+        public ApiContext(RequestContext requestContext, IApiConfiguration apiConfiguration)
         {
-            if (apiConfiguration==null)
+            if (apiConfiguration == null)
                 apiConfiguration = ApiSetup.Builder.Resolve<IApiConfiguration>();
 
             if (requestContext == null) return;
@@ -47,23 +49,23 @@ namespace ASC.Api.Impl
             //Try parse values
             string count = GetRequestValue("count");
             ulong countParsed;
-            if (!string.IsNullOrEmpty(count) && ulong.TryParse(count,out countParsed))
+            if (!string.IsNullOrEmpty(count) && ulong.TryParse(count, out countParsed))
             {
                 //Count specified and valid
-                SpecifiedCount = (long)Math.Max(0,Math.Min(apiConfiguration.ItemsPerPage, countParsed));
+                SpecifiedCount = (long)Math.Max(0, Math.Min(apiConfiguration.ItemsPerPage, countParsed));
             }
             else
             {
-                SpecifiedCount = Math.Max(0,apiConfiguration.ItemsPerPage);
+                SpecifiedCount = Math.Max(0, apiConfiguration.ItemsPerPage);
             }
             Count = SpecifiedCount + 1;//NOTE: +1 added to see if it's last page
 
 
             string startIndex = GetRequestValue("startIndex");
             long startIndexParsed;
-            if (startIndex != null && long.TryParse(startIndex,out startIndexParsed))
+            if (startIndex != null && long.TryParse(startIndex, out startIndexParsed))
             {
-                StartIndex =Math.Max(0,startIndexParsed);
+                StartIndex = Math.Max(0, startIndexParsed);
                 SpecifiedStartIndex = StartIndex;
             }
 
@@ -97,11 +99,11 @@ namespace ASC.Api.Impl
                 var values = RequestContext.HttpContext.Request.QueryString.GetValues(key + "[]");
                 if (values != null)
                     return values;
-                
+
                 values = RequestContext.HttpContext.Request.QueryString.GetValues(key);
-                if (values!=null)
+                if (values != null)
                 {
-                    if (values.Length==1) //If it's only one element
+                    if (values.Length == 1) //If it's only one element
                     {
                         //Try split
                         if (!string.IsNullOrEmpty(values[0]))
@@ -136,7 +138,7 @@ namespace ASC.Api.Impl
         /// Don't forget to call _context.SetDataPaginated() to prevent SmartList from filtering response if you fetch data from DB with TOP & COUNT
         /// </remarks>
         public long Count { get; set; }
-        
+
         /// <summary>
         /// Gets start index to get item from collection. Request parameter "startIndex"
         /// </summary>
@@ -156,7 +158,7 @@ namespace ASC.Api.Impl
         /// Gets field to filter from request parameter "filterBy"
         /// </summary>
         public string FilterBy { get; set; }
-        
+
         /// <summary>
         /// Gets filter operation from request parameter "filterOp"
         /// can be one of the following:"contains","equals","startsWith","present"
@@ -173,7 +175,7 @@ namespace ASC.Api.Impl
         /// Like ...&sortOrder=descending&...
         /// </summary>
         public bool SortDescending { get; set; }
-        
+
         /// <summary>
         /// Gets value to filter from request parameter "updatedSince"
         /// </summary>
@@ -200,7 +202,7 @@ namespace ASC.Api.Impl
             SortBy = string.Empty;
             return this;
         }
-        
+
         public ApiContext SetDataFiltered()
         {
             FilterBy = string.Empty;

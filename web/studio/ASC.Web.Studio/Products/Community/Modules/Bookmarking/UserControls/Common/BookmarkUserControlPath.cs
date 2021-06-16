@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,24 @@
 
 namespace ASC.Web.UserControls.Bookmarking.Common
 {
-	public static class BookmarkUserControlPath
-	{
-		public const string SingleBookmarkUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/SingleBookmarkUserControl.ascx";
+    public static class BookmarkUserControlPath
+    {
+        public const string SingleBookmarkUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/SingleBookmarkUserControl.ascx";
 
-		public const string BookmarkInfoUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkInfoUserControl.ascx";
+        public const string BookmarkInfoUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkInfoUserControl.ascx";
 
-		public const string BookmarkingSortUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingSortUserControl.ascx";
+        public const string BookmarkingSortUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingSortUserControl.ascx";
 
-		public const string BookmarkingUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingUserControl.ascx";
+        public const string BookmarkingUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingUserControl.ascx";
 
-		public const string BookmarkingPagingUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingPagingUserControl.ascx";
+        public const string BookmarkingPagingUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingPagingUserControl.ascx";
 
-		public const string CommentsUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/CommentsUserControl.ascx";
+        public const string CommentsUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/CommentsUserControl.ascx";
 
-		public const string BookmarkRaitingUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkRaitingUserControl.ascx";
+        public const string BookmarkRaitingUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkRaitingUserControl.ascx";
 
-		public const string CreateBookmarkUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/CreateBookmarkUserControl.ascx";
+        public const string CreateBookmarkUserControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/CreateBookmarkUserControl.ascx";
 
         public const string BookmarkHeaderPageControlPath = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkHeaderPageControl.ascx";
-	}
+    }
 }

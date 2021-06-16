@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,14 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Security;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Users;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Core.Mail
@@ -60,7 +62,7 @@ namespace ASC.Web.Core.Mail
         {
             return new DbManager("webstudio");
         }
-        
+
         private static DbManager GetDb(string dbid, string connectionString)
         {
             var connectionSettings = new ConnectionStringSettings(dbid, connectionString, "MySql.Data.MySqlClient");

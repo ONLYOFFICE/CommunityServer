@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Core;
 using ASC.Core.Users;
 
@@ -46,11 +47,11 @@ namespace ASC.Web.Core.Calendars
             if (SharedForAll)
                 return true;
 
-            if(PublicItems.Exists(i=> i.Id.Equals(itemId)))
+            if (PublicItems.Exists(i => i.Id.Equals(itemId)))
                 return true;
 
             var u = CoreContext.UserManager.GetUsers(itemId);
-            if(u!=null && u.ID!= ASC.Core.Users.Constants.LostUser.ID)
+            if (u != null && u.ID != ASC.Core.Users.Constants.LostUser.ID)
             {
                 var userGroups = new List<GroupInfo>(CoreContext.UserManager.GetUserGroups(itemId));
                 userGroups.AddRange(CoreContext.UserManager.GetUserGroups(itemId, Constants.SysGroupCategoryId));
@@ -66,14 +67,14 @@ namespace ASC.Web.Core.Calendars
         {
             var o = new SharingOptions();
             o.SharedForAll = this.SharedForAll;
-            foreach (var i in this.PublicItems)            
+            foreach (var i in this.PublicItems)
                 o.PublicItems.Add(new PublicItem() { Id = i.Id, IsGroup = i.IsGroup });
-            
+
             return o;
         }
 
         #endregion
     }
 
-   
+
 }

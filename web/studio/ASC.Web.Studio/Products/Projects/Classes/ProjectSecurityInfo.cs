@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Core;
+
 using Autofac;
 
 namespace ASC.Web.Projects.Classes
@@ -100,7 +102,7 @@ namespace ASC.Web.Projects.Classes
             {
                 SortBy = "title",
                 SortOrder = true,
-                ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
+                ProjectStatuses = new List<ProjectStatus> { ProjectStatus.Open }
             };
 
             using (var scope = DIHelper.Resolve())
@@ -120,7 +122,7 @@ namespace ASC.Web.Projects.Classes
 
     public class TaskSecurityInfo
     {
-        public bool CanEdit{ get; set; }
+        public bool CanEdit { get; set; }
 
         public bool CanCreateSubtask { get; set; }
 
@@ -128,6 +130,6 @@ namespace ASC.Web.Projects.Classes
 
         public bool CanDelete { get; set; }
 
-        public bool CanReadFiles{ get; set; }
+        public bool CanReadFiles { get; set; }
     }
 }

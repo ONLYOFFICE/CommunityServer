@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+
 using ASC.Data.Storage;
 
 namespace ASC.Data.Backup.Storage
@@ -47,7 +48,7 @@ namespace ASC.Data.Backup.Storage
             using (var source = GetDataStore().GetReadStream("", storagePath))
             using (var destination = File.OpenWrite(targetLocalPath))
             {
-                source.StreamCopyTo(destination);
+                source.CopyTo(destination);
             }
         }
 
@@ -56,7 +57,7 @@ namespace ASC.Data.Backup.Storage
             var dataStore = GetDataStore();
             if (dataStore.IsFile("", storagePath))
             {
-                dataStore.Delete("", storagePath);   
+                dataStore.Delete("", storagePath);
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,14 +22,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Data.Storage.S3;
+using ASC.CRM.Core.Entities;
 using ASC.VoipService;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Resources;
-using ASC.CRM.Core.Entities;
 using ASC.Web.Files.Api;
 
 
@@ -42,7 +42,7 @@ namespace ASC.CRM.Core.Dao
         const string TimeFormat = "[h]:mm:ss;@";
         const string ShortDateFormat = "M/d/yyyy";
 
-        private DaoFactory DaoFactory {get; set; }
+        private DaoFactory DaoFactory { get; set; }
 
         #region Constructor
 
@@ -236,15 +236,16 @@ namespace ASC.CRM.Core.Dao
                 using (var stream = storeTemplate.GetReadStream("", filePath))
                 {
                     var document = new Files.Core.File
-                        {
-                            Title = Path.GetFileName(filePath),
-                            FolderID = DaoFactory.FileDao.GetRoot(),
-                            ContentLength = stream.Length
-                        };
+                    {
+                        Title = Path.GetFileName(filePath),
+                        FolderID = DaoFactory.FileDao.GetRoot(),
+                        ContentLength = stream.Length,
+                        ThumbnailStatus = Files.Core.Thumbnail.NotRequired,
+                    };
 
                     var file = DaoFactory.FileDao.SaveFile(document, stream);
 
-                    SaveFile((int) file.ID, -1);
+                    SaveFile((int)file.ID, -1);
 
                     result.Add(file);
                 }
@@ -378,7 +379,7 @@ namespace ASC.CRM.Core.Dao
             GetTimePeriod(timePeriod, out fromDate, out toDate);
 
             string dateSelector;
-            
+
             switch (timePeriod)
             {
                 case ReportTimePeriod.Today:
@@ -414,7 +415,7 @@ namespace ASC.CRM.Core.Dao
                 .LeftOuterJoin("crm_deal_milestone m", Exp.EqColumns("m.id", "d.deal_milestone_id") & Exp.EqColumns("m.tenant_id", "d.tenant_id"))
                 .LeftOuterJoin("crm_currency_rate r", Exp.EqColumns("r.tenant_id", "d.tenant_id") & Exp.EqColumns("r.from_currency", "d.bid_currency"))
                 .LeftOuterJoin("core_user u", Exp.EqColumns("u.tenant", "d.tenant_id") & Exp.EqColumns("u.id", "d.responsible_id"))
-                .Where("m.status", (int) DealMilestoneStatus.ClosedAndWon)
+                .Where("m.status", (int)DealMilestoneStatus.ClosedAndWon)
                 .Where(managers != null && managers.Any() ? Exp.In("d.responsible_id", managers) : Exp.Empty)
                 .Where(Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .GroupBy("responsible_id", "close_date");
@@ -479,7 +480,7 @@ namespace ASC.CRM.Core.Dao
                     }
                     else
                     {
-                        res.Add(userId, new Dictionary<DateTime, decimal> {{date, 0}});
+                        res.Add(userId, new Dictionary<DateTime, decimal> { { date, 0 } });
                     }
 
                     date = date.AddHours(1);
@@ -517,28 +518,28 @@ namespace ASC.CRM.Core.Dao
 
             foreach (var key in res.First().Value.Keys)
             {
-                head.Add(new {format = "H:mm", value = key.ToShortTimeString()});
+                head.Add(new { format = "H:mm", value = key.ToShortTimeString() });
             }
 
             return new
+            {
+                resource = new
                 {
-                    resource = new
-                        {
-                            manager = CRMReportResource.Manager,
-                            summary = CRMReportResource.Sum,
-                            total = CRMReportResource.Total,
-                            dateRangeLabel = CRMReportResource.TimePeriod + ":",
-                            dateRangeValue = GetTimePeriodText(timePeriod),
-                            sheetName = CRMReportResource.SalesByManagersReport,
-                            header = CRMReportResource.SalesByManagersReport,
-                            header1 = CRMReportResource.SalesByHour + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            header2 = CRMReportResource.TotalSalesByManagers + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            chartName1 = CRMReportResource.SalesByHour + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            chartName2 = CRMReportResource.TotalSalesByManagers + ", " + Global.TenantSettings.DefaultCurrency.Symbol
-                        },
-                    thead = head,
-                    tbody = body
-                };
+                    manager = CRMReportResource.Manager,
+                    summary = CRMReportResource.Sum,
+                    total = CRMReportResource.Total,
+                    dateRangeLabel = CRMReportResource.TimePeriod + ":",
+                    dateRangeValue = GetTimePeriodText(timePeriod),
+                    sheetName = CRMReportResource.SalesByManagersReport,
+                    header = CRMReportResource.SalesByManagersReport,
+                    header1 = CRMReportResource.SalesByHour + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    header2 = CRMReportResource.TotalSalesByManagers + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    chartName1 = CRMReportResource.SalesByHour + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    chartName2 = CRMReportResource.TotalSalesByManagers + ", " + Global.TenantSettings.DefaultCurrency.Symbol
+                },
+                thead = head,
+                tbody = body
+            };
         }
 
         private static object GenerateReportDataByDays(ReportTimePeriod timePeriod, List<SalesByManager> data)
@@ -748,7 +749,7 @@ namespace ASC.CRM.Core.Dao
             DateTime fromDate;
             DateTime toDate;
 
-            GetTimePeriod(timePeriod, out fromDate, out toDate);          
+            GetTimePeriod(timePeriod, out fromDate, out toDate);
 
             string dateSelector;
 
@@ -849,7 +850,7 @@ namespace ASC.CRM.Core.Dao
 
                 if (key > res.Last().Key)
                     key = res.Last().Key;
-                
+
                 res[key] = new Tuple<decimal, decimal>(res[key].Item1 + item.ValueWithProbability,
                                                        res[key].Item2 + item.Value);
             }
@@ -878,20 +879,20 @@ namespace ASC.CRM.Core.Dao
                 };
 
             return new
+            {
+                resource = new
                 {
-                    resource = new
-                        {
-                            total = CRMReportResource.Total,
-                            dateRangeLabel = CRMReportResource.TimePeriod + ":",
-                            dateRangeValue = GetTimePeriodText(timePeriod),
-                            sheetName = CRMReportResource.SalesForecastReport,
-                            header = CRMReportResource.SalesForecastReport,
-                            header1 = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            chartName = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol
-                        },
-                    thead = head,
-                    tbody = body
-                };
+                    total = CRMReportResource.Total,
+                    dateRangeLabel = CRMReportResource.TimePeriod + ":",
+                    dateRangeValue = GetTimePeriodText(timePeriod),
+                    sheetName = CRMReportResource.SalesForecastReport,
+                    header = CRMReportResource.SalesForecastReport,
+                    header1 = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    chartName = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol
+                },
+                thead = head,
+                tbody = body
+            };
         }
 
         private static object GenerateReportByMonths(ReportTimePeriod timePeriod, List<SalesForecast> data)
@@ -947,20 +948,20 @@ namespace ASC.CRM.Core.Dao
                 };
 
             return new
+            {
+                resource = new
                 {
-                    resource = new
-                        {
-                            total = CRMReportResource.Total,
-                            dateRangeLabel = CRMReportResource.TimePeriod + ":",
-                            dateRangeValue = GetTimePeriodText(timePeriod),
-                            sheetName = CRMReportResource.SalesForecastReport,
-                            header = CRMReportResource.SalesForecastReport,
-                            header1 = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            chartName = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol
-                        },
-                    thead = head,
-                    tbody = body
-                };
+                    total = CRMReportResource.Total,
+                    dateRangeLabel = CRMReportResource.TimePeriod + ":",
+                    dateRangeValue = GetTimePeriodText(timePeriod),
+                    sheetName = CRMReportResource.SalesForecastReport,
+                    header = CRMReportResource.SalesForecastReport,
+                    header1 = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    chartName = CRMReportResource.SalesForecastReport + ", " + Global.TenantSettings.DefaultCurrency.Symbol
+                },
+                thead = head,
+                tbody = body
+            };
         }
 
         #endregion
@@ -1035,7 +1036,7 @@ namespace ASC.CRM.Core.Dao
         }
 
         private static object GenerateReportData(ReportTimePeriod timePeriod, List<SalesFunnel> data)
-        {           
+        {
             var totalCount = data.Sum(x => x.Count);
 
             if (totalCount == 0) return null;
@@ -1043,7 +1044,7 @@ namespace ASC.CRM.Core.Dao
             var totalBudget = data.Sum(x => x.Value);
 
             var closed = data.Where(x => x.Status == DealMilestoneStatus.ClosedAndWon).ToList();
-            
+
             var reportData = data.Select(item => new List<object>
                 {
                     item.Title,
@@ -1053,46 +1054,46 @@ namespace ASC.CRM.Core.Dao
                 }).ToList();
 
             return new
+            {
+                resource = new
                 {
-                    resource = new
-                        {
-                            header = CRMReportResource.SalesFunnelReport,
-                            sheetName = CRMReportResource.SalesFunnelReport,
-                            dateRangeLabel = CRMReportResource.TimePeriod + ":",
-                            dateRangeValue = GetTimePeriodText(timePeriod),
+                    header = CRMReportResource.SalesFunnelReport,
+                    sheetName = CRMReportResource.SalesFunnelReport,
+                    dateRangeLabel = CRMReportResource.TimePeriod + ":",
+                    dateRangeValue = GetTimePeriodText(timePeriod),
 
-                            chartName = CRMReportResource.SalesFunnelByCount,
-                            chartName1 = CRMReportResource.SalesFunnelByBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            chartName2 = CRMReportResource.DealsCount,
-                            chartName3 = CRMReportResource.DealsBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    chartName = CRMReportResource.SalesFunnelByCount,
+                    chartName1 = CRMReportResource.SalesFunnelByBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    chartName2 = CRMReportResource.DealsCount,
+                    chartName3 = CRMReportResource.DealsBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
 
-                            totalCountLabel = CRMReportResource.TotalDealsCount,
-                            totalCountValue = totalCount,
+                    totalCountLabel = CRMReportResource.TotalDealsCount,
+                    totalCountValue = totalCount,
 
-                            totalBudgetLabel = CRMReportResource.TotalDealsBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            totalBudgetValue = totalBudget,
+                    totalBudgetLabel = CRMReportResource.TotalDealsBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    totalBudgetValue = totalBudget,
 
-                            averageBidLabel = CRMReportResource.AverageDealsBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                            averageBidValue = totalBudget/totalCount,
+                    averageBidLabel = CRMReportResource.AverageDealsBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    averageBidValue = totalBudget / totalCount,
 
-                            averageDurationLabel = CRMReportResource.AverageDealsDuration,
-                            averageDurationValue = closed.Sum(x => x.Duration)/closed.Count,
+                    averageDurationLabel = CRMReportResource.AverageDealsDuration,
+                    averageDurationValue = closed.Sum(x => x.Duration) / closed.Count,
 
-                            header1 = CRMReportResource.ByCount,
-                            header2 = CRMReportResource.ByBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
+                    header1 = CRMReportResource.ByCount,
+                    header2 = CRMReportResource.ByBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
 
-                            stage = CRMReportResource.Stage,
-                            count = CRMReportResource.Count,
-                            budget = CRMReportResource.Budget,
-                            conversion = CRMReportResource.Conversion,
+                    stage = CRMReportResource.Stage,
+                    count = CRMReportResource.Count,
+                    budget = CRMReportResource.Budget,
+                    conversion = CRMReportResource.Conversion,
 
-                            deals = CRMDealResource.Deals,
-                            status0 = DealMilestoneStatus.Open.ToLocalizedString(),
-                            status1 = DealMilestoneStatus.ClosedAndWon.ToLocalizedString(),
-                            status2 = DealMilestoneStatus.ClosedAndLost.ToLocalizedString()
-                        },
-                    data = reportData
-                };
+                    deals = CRMDealResource.Deals,
+                    status0 = DealMilestoneStatus.Open.ToLocalizedString(),
+                    status1 = DealMilestoneStatus.ClosedAndWon.ToLocalizedString(),
+                    status2 = DealMilestoneStatus.ClosedAndLost.ToLocalizedString()
+                },
+                data = reportData
+            };
         }
 
         #endregion
@@ -1114,7 +1115,7 @@ namespace ASC.CRM.Core.Dao
                 .SetMaxResults(1);
 
             return Db.ExecuteList(sqlQuery).Any();
-           
+
         }
 
         public object GetWorkloadByContactsReportData(ReportTimePeriod timePeriod, Guid[] managers)
@@ -1175,7 +1176,7 @@ namespace ASC.CRM.Core.Dao
 
                     header1 = CRMReportResource.NewContacts,
                     header2 = CRMReportResource.NewContactsWithAndWithoutDeals,
-                    
+
                     manager = CRMReportResource.Manager,
                     total = CRMReportResource.Total,
 
@@ -1637,7 +1638,7 @@ namespace ASC.CRM.Core.Dao
                     item.Count,
                     new {format = TimeFormat, value = SecondsToTimeFormat(item.Duration)}
                 }).ToList();
-            
+
             return new
             {
                 resource = new
@@ -1804,7 +1805,7 @@ namespace ASC.CRM.Core.Dao
                                Exp.EqColumns("m.id", "d.deal_milestone_id"))
                 .Where(managers != null && managers.Any() ? Exp.In("d.responsible_id", managers) : Exp.Empty)
                 .Where(Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
-                .Where("m.status", (int) DealMilestoneStatus.ClosedAndWon);
+                .Where("m.status", (int)DealMilestoneStatus.ClosedAndWon);
 
             var lostDealsSqlQuery = Query("crm_deal d")
                 .Select("count(d.id) as count",
@@ -1822,7 +1823,7 @@ namespace ASC.CRM.Core.Dao
                                Exp.EqColumns("m.id", "d.deal_milestone_id"))
                 .Where(managers != null && managers.Any() ? Exp.In("d.responsible_id", managers) : Exp.Empty)
                 .Where(Exp.Between("d.actual_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
-                .Where("m.status", (int) DealMilestoneStatus.ClosedAndLost);
+                .Where("m.status", (int)DealMilestoneStatus.ClosedAndLost);
 
             var overdueDealsSqlQuery = Query("crm_deal d")
                 .Select("count(d.id) as count",
@@ -1843,13 +1844,13 @@ namespace ASC.CRM.Core.Dao
                     Exp.And(
                         Exp.Between("d.expected_close_date", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)),
                         Exp.Or(Exp.Eq("m.status", (int)DealMilestoneStatus.Open) & Exp.Lt("d.expected_close_date", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow())),
-                               Exp.Eq("m.status", (int) DealMilestoneStatus.ClosedAndWon) & Exp.Sql("d.actual_close_date > d.expected_close_date"))));
+                               Exp.Eq("m.status", (int)DealMilestoneStatus.ClosedAndWon) & Exp.Sql("d.actual_close_date > d.expected_close_date"))));
 
             var sent = Exp.Sum(Exp.If(!Exp.Eq("i.status", (int)InvoiceStatus.Draft), 1, 0));
             var paid = Exp.Sum(Exp.If(Exp.Eq("i.status", (int)InvoiceStatus.Paid), 1, 0));
             var rejected = Exp.Sum(Exp.If(Exp.Eq("i.status", (int)InvoiceStatus.Rejected), 1, 0));
             var overdue = Exp.Sum(Exp.If(Exp.Or(Exp.Eq("i.status", (int)InvoiceStatus.Sent) & Exp.Lt("i.due_date", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow())),
-                                                Exp.Eq("i.status", (int) InvoiceStatus.Paid) & Exp.Sql("i.last_modifed_on > i.due_date")), 1, 0));
+                                                Exp.Eq("i.status", (int)InvoiceStatus.Paid) & Exp.Sql("i.last_modifed_on > i.due_date")), 1, 0));
 
             var invoicesSqlQuery = Query("crm_invoice i")
                 .Select(sent)
@@ -1865,7 +1866,7 @@ namespace ASC.CRM.Core.Dao
                         "count(c.id)")
                 .LeftOuterJoin("crm_list_item i", Exp.EqColumns("i.tenant_id", "c.tenant_id") &
                                                   Exp.EqColumns("i.id", "c.contact_type_id") &
-                                                  Exp.Eq("i.list_type", (int) ListType.ContactType))
+                                                  Exp.Eq("i.list_type", (int)ListType.ContactType))
                 .Where(managers != null && managers.Any() ? Exp.In("c.create_by", managers) : Exp.Empty)
                 .Where(Exp.Between("c.create_on", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .GroupBy("i.id")
@@ -1896,19 +1897,19 @@ namespace ASC.CRM.Core.Dao
             using (var tx = Db.BeginTransaction())
             {
                 res = new
+                {
+                    DealsInfo = new
                     {
-                        DealsInfo = new
-                            {
-                                Created = Db.ExecuteList(newDealsSqlQuery),
-                                Won = Db.ExecuteList(wonDealsSqlQuery),
-                                Lost = Db.ExecuteList(lostDealsSqlQuery),
-                                Overdue = Db.ExecuteList(overdueDealsSqlQuery),
-                            },
-                        InvoicesInfo = Db.ExecuteList(invoicesSqlQuery),
-                        ContactsInfo = Db.ExecuteList(contactsSqlQuery),
-                        TasksInfo = Db.ExecuteList(tasksSqlQuery),
-                        VoipInfo = Db.ExecuteList(voipSqlQuery) 
-                    };
+                        Created = Db.ExecuteList(newDealsSqlQuery),
+                        Won = Db.ExecuteList(wonDealsSqlQuery),
+                        Lost = Db.ExecuteList(lostDealsSqlQuery),
+                        Overdue = Db.ExecuteList(overdueDealsSqlQuery),
+                    },
+                    InvoicesInfo = Db.ExecuteList(invoicesSqlQuery),
+                    ContactsInfo = Db.ExecuteList(contactsSqlQuery),
+                    TasksInfo = Db.ExecuteList(tasksSqlQuery),
+                    VoipInfo = Db.ExecuteList(voipSqlQuery)
+                };
 
                 tx.Commit();
             }
@@ -1927,10 +1928,10 @@ namespace ASC.CRM.Core.Dao
                     dateRangeLabel = CRMReportResource.TimePeriod + ":",
                     dateRangeValue = GetTimePeriodText(timePeriod),
                     chartName = CRMReportResource.DealsByBudget + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                    chartName1=CRMReportResource.DealsByCount,
-                    chartName2=CRMReportResource.ContactsByType,
-                    chartName3=CRMReportResource.TasksForThePeriod,
-                    chartName4=CRMReportResource.InvoicesForThePeriod,
+                    chartName1 = CRMReportResource.DealsByCount,
+                    chartName2 = CRMReportResource.ContactsByType,
+                    chartName3 = CRMReportResource.TasksForThePeriod,
+                    chartName4 = CRMReportResource.InvoicesForThePeriod,
                     chartName5 = CRMReportResource.CallsForThePeriod,
                     header1 = CRMDealResource.Deals,
                     header2 = CRMContactResource.Contacts,
@@ -2114,7 +2115,7 @@ namespace ASC.CRM.Core.Dao
                         "count(c.id) as count")
                 .LeftOuterJoin("crm_list_item i", Exp.EqColumns("i.tenant_id", "c.tenant_id") &
                                                   Exp.EqColumns("i.id", "c.contact_type_id") &
-                                                  Exp.Eq("i.list_type", (int) ListType.ContactType))
+                                                  Exp.Eq("i.list_type", (int)ListType.ContactType))
                 .Where(managers != null && managers.Any() ? Exp.In("c.create_by", managers) : Exp.Empty)
                 .Where(timePeriod == ReportTimePeriod.DuringAllTime ? Exp.Empty : Exp.Between("c.create_on", TenantUtil.DateTimeToUtc(fromDate), TenantUtil.DateTimeToUtc(toDate)))
                 .GroupBy("i.id")
@@ -2155,22 +2156,22 @@ namespace ASC.CRM.Core.Dao
             using (var tx = Db.BeginTransaction())
             {
                 res = new
+                {
+                    DealsInfo = new
                     {
-                        DealsInfo = new
-                            {
-                                Open = Db.ExecuteList(openDealsSqlQuery),
-                                Overdue = Db.ExecuteList(overdueDealsSqlQuery),
-                                Near = Db.ExecuteList(nearDealsSqlQuery),
-                                ByStage = Db.ExecuteList(dealsByStageSqlQuery)
-                            },
-                        ContactsInfo = new
-                            {
-                                ByType = Db.ExecuteList(contactsByTypeSqlQuery),
-                                ByStage = Db.ExecuteList(contactsByStageSqlQuery)
-                            },
-                        TasksInfo = Db.ExecuteList(tasksSqlQuery),
-                        InvoicesInfo = Db.ExecuteList(invoicesSqlQuery),
-                    };
+                        Open = Db.ExecuteList(openDealsSqlQuery),
+                        Overdue = Db.ExecuteList(overdueDealsSqlQuery),
+                        Near = Db.ExecuteList(nearDealsSqlQuery),
+                        ByStage = Db.ExecuteList(dealsByStageSqlQuery)
+                    },
+                    ContactsInfo = new
+                    {
+                        ByType = Db.ExecuteList(contactsByTypeSqlQuery),
+                        ByStage = Db.ExecuteList(contactsByStageSqlQuery)
+                    },
+                    TasksInfo = Db.ExecuteList(tasksSqlQuery),
+                    InvoicesInfo = Db.ExecuteList(invoicesSqlQuery),
+                };
 
                 tx.Commit();
             }
@@ -2190,7 +2191,7 @@ namespace ASC.CRM.Core.Dao
                     dateRangeValue = GetTimePeriodText(timePeriod),
                     chartName = CRMReportResource.DealsByStatus + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
                     chartName1 = CRMReportResource.DealsByStage + ", " + Global.TenantSettings.DefaultCurrency.Symbol,
-                    chartName2=CRMReportResource.ContactsByType,
+                    chartName2 = CRMReportResource.ContactsByType,
                     chartName3 = CRMReportResource.ContactsByStage,
                     chartName4 = CRMReportResource.TasksByStatus,
                     chartName5 = CRMReportResource.InvoicesByStatus,

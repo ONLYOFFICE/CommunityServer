@@ -79,17 +79,86 @@
     <Compile Include="iCalParser\Scanner.cs" />
     <Compile Include="iCalParser\Token.cs" />
     <Compile Include="Notification\CalendarNotifySource.cs" />
-    <Compile Include="Notification\CalendarPatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Notification\CalendarPatterns.Designer.cs">
       <DependentUpon>CalendarPatterns.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Resources\CalendarApiResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CalendarApiResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Resources\CalendarApiResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,24 +175,119 @@
     <Compile Include="Wrappers\AccessOption.cs" />
     <Compile Include="Wrappers\SubscriptionWrapper.cs" />
     <Compile Include="Wrappers\TimeZoneWrapper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\CalendarApiResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CalendarApiResource.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Resources\CalendarApiResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CalendarApiResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Notification\CalendarPatternResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarPatternResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Notification\CalendarPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Notification\CalendarPatterns.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CalendarPatterns.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Notification\calendar_patterns.xml" />
+    <EmbeddedResource Include="Notification\CalendarPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Notification\CalendarPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>CalendarPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,18 @@
 
 using System.Collections.Generic;
 using System.Web.Routing;
+
 using ASC.Api.Interfaces;
 using ASC.Common.DependencyInjection;
 using ASC.Common.Logging;
+
 using Autofac;
 
 namespace ASC.Api
 {
     public static class ApiSetup
     {
-        private static object locker = new object();
+        private static readonly object locker = new object();
 
         private static volatile bool initialized = false;
 
@@ -51,7 +53,7 @@ namespace ASC.Api
                         container.Register(c => LogManager.GetLogger("ASC.Api"))
                             .As<ILog>()
                             .SingleInstance();
-                        
+
                         container.Register(c => c.Resolve<IApiRouteConfigurator>().RegisterEntryPoints())
                             .As<IEnumerable<IApiMethodCall>>()
                             .SingleInstance();

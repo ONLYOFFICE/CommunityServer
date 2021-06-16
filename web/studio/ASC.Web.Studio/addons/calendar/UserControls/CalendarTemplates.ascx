@@ -2,6 +2,9 @@
 <%@ Import Namespace="ASC.Core" %>
 
 <%@ Import Namespace="ASC.Data.Storage" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
+<%@ Import Namespace="ASC.Web.Calendar.Resources" %>
+
 <script id="categoriesDialogTemplate" type="text/x-jquery-tmpl">
     <div>
         <div id="fc_cal_editor">
@@ -14,8 +17,8 @@
 		        </div>
 	        </div>
             <div class="choose_event_source">
-                <span id="events_link" class="active"><%=Resources.CalendarJSResource.calendarExportEvents_byLink%></span>
-                <span id="events_file"><%=Resources.CalendarJSResource.calendarExportEvents_fromFile%></span>
+                <span id="events_link" class="active"><%=CalendarJSResource.calendarExportEvents_byLink%></span>
+                <span id="events_file"><%=CalendarJSResource.calendarExportEvents_fromFile%></span>
             </div>
             
 	        <!-- create iCal-calendar -->
@@ -27,7 +30,7 @@
                 <div>
                     <input type="checkbox"/>
                     <label>
-                        <%=Resources.CalendarJSResource.calendarExportEvents_syncByLink%>
+                        <%=CalendarJSResource.calendarExportEvents_syncByLink%>
                     </label>
                 </div>
 			</div>
@@ -45,7 +48,7 @@
 	        </div>
             <div class="botttom-indent clearFix calendar">
                 <div class="halfwidth">
-                    <div class="label"><%=Resources.CalendarJSResource.calendarImportEvents_calendarLabel%></div>
+                    <div class="label"><%=CalendarJSResource.calendarImportEvents_calendarLabel%></div>
                     <div style="position: relative;">
 				        <div class="bullet"></div>
 				        <select></select>
@@ -193,7 +196,7 @@
 	        <div class="viewer">
                 <div class="title big"></div>
                 <div class="info-text">
-                    <%=Resources.CalendarJSResource.cancelledEventInfoText%>
+                    <%=CalendarJSResource.cancelledEventInfoText%>
                 </div>
                 <div class="location"></div>
                 <div class="date-time">
@@ -215,15 +218,15 @@
                     <span class="name"></span>
 		        </div>
                 <div class="attendees">
-                    <%=Resources.CalendarJSResource.GuestsCount%> <span class="guests-count"></span>&nbsp;
-                    <%=Resources.CalendarJSResource.AcceptedCount%> <span class="accepted-count"></span>&nbsp;
-                    <%=Resources.CalendarJSResource.DeclinedCount%> <span class="declined-count"></span>
+                    <%=CalendarJSResource.GuestsCount%> <span class="guests-count"></span>&nbsp;
+                    <%=CalendarJSResource.AcceptedCount%> <span class="accepted-count"></span>&nbsp;
+                    <%=CalendarJSResource.DeclinedCount%> <span class="declined-count"></span>
                 </div>
                 <div class="reply-buttons">
-                    <%=Resources.CalendarJSResource.replyLabelText%>
-                    <span class="reply-button accepted"><%=Resources.CalendarJSResource.replyAnswerYes%></span>&nbsp;
-                    <span class="reply-button tentative"><%=Resources.CalendarJSResource.replyAnswerMaybe%></span>&nbsp;
-                    <span class="reply-button declined"><%=Resources.CalendarJSResource.replyAnswerNo%></span>
+                    <%=CalendarJSResource.replyLabelText%>
+                    <span class="reply-button accepted"><%=CalendarJSResource.replyAnswerYes%></span>&nbsp;
+                    <span class="reply-button tentative"><%=CalendarJSResource.replyAnswerMaybe%></span>&nbsp;
+                    <span class="reply-button declined"><%=CalendarJSResource.replyAnswerNo%></span>
                 </div>
 		        
 
@@ -635,30 +638,30 @@
                             <a class="header-back-link"></a>
                             <span></span>
                         </h1>
-                        <div class="info-text"><%=Resources.CalendarJSResource.cancelledEventInfoText%></div>
+                        <div class="info-text"><%=CalendarJSResource.cancelledEventInfoText%></div>
                     </div>
                 </div>
                 <div class="halfwidth right">
                     <div class="inner">
                         <div class="reply-buttons">
-			                <span class="label"><%=Resources.CalendarJSResource.replyLabelText%></span>
+			                <span class="label"><%=CalendarJSResource.replyLabelText%></span>
                             <ul>
                                 <li class="reply-radio-container">
                                     <label>
                                         <input class="reply-radio accepted" type="radio" name="replyradio" data-value="ACCEPTED"/>
-                                        <%=Resources.CalendarJSResource.replyAnswerYes%>
+                                        <%=CalendarJSResource.replyAnswerYes%>
                                     </label>
                                 </li>
                                 <li class="reply-radio-container">
                                     <label>
                                         <input class="reply-radio tentative" type="radio" name="replyradio" data-value="TENTATIVE"/>
-                                        <%=Resources.CalendarJSResource.replyAnswerMaybe%>
+                                        <%=CalendarJSResource.replyAnswerMaybe%>
                                     </label>
                                 </li>
                                 <li class="reply-radio-container">
                                     <label>
                                         <input class="reply-radio declined" type="radio" name="replyradio" data-value="DECLINED"/>
-                                        <%=Resources.CalendarJSResource.replyAnswerNo%>
+                                        <%=CalendarJSResource.replyAnswerNo%>
                                     </label>
                                 </li>
                             </ul>
@@ -673,12 +676,12 @@
                 <div class="halfwidth left">
                     <div class="inner">
                         <div class="botttom-indent title">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_summaryLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_summaryLabel%></div>
 			                <div class="text"></div>
 		                </div>
 
                         <div class="botttom-indent location">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_locationLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_locationLabel%></div>
 			                <div class="text"></div>
 		                </div>
                 
@@ -696,14 +699,14 @@
 				                </div>
 			                </div>
                             <div class="inline-block cbx-container all-day">
-                                <span class="no-label"><%=Resources.CalendarJSResource.calendarEventEditor_notAllDayEvent%></span>
-			                    <span class="yes-label"><%=Resources.CalendarJSResource.calendarEventEditor_allDayEvent%></span>
+                                <span class="no-label"><%=CalendarJSResource.calendarEventEditor_notAllDayEvent%></span>
+			                    <span class="yes-label"><%=CalendarJSResource.calendarEventEditor_allDayEvent%></span>
 			                </div>
 		                </div>
                 
                         <div class="botttom-indent clearFix calendar">
                             <div class="halfwidth">
-                                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_calendarLabel%></div>
+                                <div class="label"><%=CalendarJSResource.calendarEventEditor_calendarLabel%></div>
                                 <div class="wrapper">
 				                    <span class="bullet"></span>
                                     <span class="name"></span>
@@ -712,22 +715,22 @@
 		                </div>
 
                         <div class="botttom-indent owner">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_organizerLabel%></div>
                             <div class="name"></div>
 		                </div>
 
                         <div class="botttom-indent attendees">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_attendeesLabel%></div>
                             <div class="users-list attendees-user-list"></div>
 		                </div>
 
 		                <div class="botttom-indent clearFix repeat-alert">
 			                <div class="halfwidth">
-				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_repeatLabel%></div>
+				                <div class="label"><%=CalendarJSResource.calendarEventEditor_repeatLabel%></div>
                                 <span class="repeat"></span>
 			                </div>
                             <div class="halfwidth">
-                                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_alertLabel%></div>
+                                <div class="label"><%=CalendarJSResource.calendarEventEditor_alertLabel%></div>
                                 <span class="alert"></span>
 			                </div>
 		                </div>
@@ -736,12 +739,12 @@
                 <div class="halfwidth right">
                     <div class="inner">
 	                    <div class="botttom-indent description">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_descriptionLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_descriptionLabel%></div>
 			                <div class="text"></div>
 		                </div>
 
                         <div class="botttom-indent">
-                            <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
+                            <div class="label"><%=CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
                             <div class="users-list shared-user-list"></div>
                         </div>
                     </div>
@@ -754,13 +757,13 @@
                 <div class="halfwidth left">
                     <div class="inner">
                         <div class="botttom-indent title">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_summaryLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_summaryLabel%></div>
 			                <input type="text" class="textEdit fullwidth" value="" maxlength="${maxlength}"/>
 		                </div>
 
                         <div class="botttom-indent date-time from-to">
 			                <div class="inline-block">
-				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_timeLabel%></div>
+				                <div class="label"><%=CalendarJSResource.calendarEventEditor_timeLabel%></div>
 				                <div class="wrapper">
 					                <input class="from-date textEdit date" type="text" value=""/>
                                     <div class="from cal-icon"></div>
@@ -768,7 +771,7 @@
 				                </div>
 			                </div>
                             <div class="inline-block">
-				               <!-- <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_toLabel%></div> -->
+				               <!-- <div class="label"><%=CalendarJSResource.calendarEventEditor_toLabel%></div> -->
 				                <div class="wrapper">
 					                <input class="to-time textEdit time" type="text" value=""/>
 					                <input class="to-date textEdit date" type="text" value=""/>
@@ -782,19 +785,19 @@
                                 <div>
                                     <label>
                                         <input class="allday cb" type="checkbox"/>
-                                        <%=Resources.CalendarJSResource.calendarEventEditor_allDayLabel%>
+                                        <%=CalendarJSResource.calendarEventEditor_allDayLabel%>
                                     </label>
                                 </div>
 			                </div>
 			                <div class="inline-block">
-                                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_repeatLabel%></div>
+                                <div class="label"><%=CalendarJSResource.calendarEventEditor_repeatLabel%></div>
                                 <span class="fc-view-repeat">
 					                <span class="fc-selector-link"></span>
 					                <span class="fc-dropdown">&nbsp;</span>
 				                </span>
 			                </div>
                             <div class="inline-block">
-				                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_alertLabel%></div>
+				                <div class="label"><%=CalendarJSResource.calendarEventEditor_alertLabel%></div>
                                 <span class="fc-view-alert">
 					                <span class="fc-selector-link"></span>
 					                <span class="fc-dropdown">&nbsp;</span>
@@ -804,7 +807,7 @@
                         
                         <table class="repeat-settings hidden">
                             <tr class="fc-start-date">
-                                <td><%=Resources.CalendarJSResource.repeatSetting_fromLabel%></td>
+                                <td><%=CalendarJSResource.repeatSetting_fromLabel%></td>
                                 <td class="date-time">
                                     <div class="wrapper">
 						                <input class="from-date textEdit date" type="text" value=""/>
@@ -814,7 +817,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><%=Resources.CalendarJSResource.repeatSettings_onLabel%></td>
+                                <td><%=CalendarJSResource.repeatSettings_onLabel%></td>
                                 <td>
                                     <div class="fc-dwm-selector">
 				                        <span class="fc-selector-link"></span>
@@ -823,10 +826,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><%=Resources.CalendarJSResource.repeatSettings_eachLabel%></td>
+                                <td><%=CalendarJSResource.repeatSettings_eachLabel%></td>
                                 <td>
                                     <select class="fc-interval-selector"></select>&nbsp;
-			                        <span class="fc-interval-label"><%=Resources.CalendarJSResource.repeatSettings_intervalDay%></span>
+			                        <span class="fc-interval-label"><%=CalendarJSResource.repeatSettings_intervalDay%></span>
                                 </td>
                             </tr>
                             <tr>
@@ -838,7 +841,7 @@
                                 <td class="fc-month-radio"></td>
                             </tr>
                             <tr>
-                                <td><%=Resources.CalendarJSResource.repeatSettings_toLabel%></td>
+                                <td><%=CalendarJSResource.repeatSettings_toLabel%></td>
                                 <td>
                                     <div class="fc-endrepeat-selector">
 				                        <span class="fc-selector-link"></span>
@@ -849,9 +852,9 @@
                             <tr class="fc-repeat-cycles">
                                 <td></td>
                                 <td>
-                                    <%=Resources.CalendarJSResource.repeatSettings_afterLabel%>&nbsp;
+                                    <%=CalendarJSResource.repeatSettings_afterLabel%>&nbsp;
                                     <input class="fc-cycle-times" type="text" value="1">&nbsp;
-			                        <%=Resources.CalendarJSResource.repeatSettings_timesLabel%>
+			                        <%=CalendarJSResource.repeatSettings_timesLabel%>
                                 </td>
                             </tr>
                             <tr class="fc-end-date">
@@ -868,7 +871,7 @@
                         
                         <div class="botttom-indent clearFix calendar">
                             <div class="halfwidth">
-                                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_calendarLabel%></div>
+                                <div class="label"><%=CalendarJSResource.calendarEventEditor_calendarLabel%></div>
                                 <div class="wrapper" style="position: relative">
 				                    <div class="bullet"></div>
 				                    <select></select>
@@ -877,12 +880,12 @@
 		                </div>
 
                         <div class="botttom-indent location">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_locationLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_locationLabel%></div>
 			                <input type="text" class="textEdit fullwidth" value="" maxlength="${maxlength}"/>
 		                </div>
 
                         <div class="botttom-indent owner">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_organizerLabel%></div>
                             <div class="name"></div>
                             <div class="selector">
                                 <select></select>
@@ -890,7 +893,7 @@
 		                </div>
                         
                         <div class="botttom-indent description">
-			                <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_descriptionLabel%></div>
+			                <div class="label"><%=CalendarJSResource.calendarEventEditor_descriptionLabel%></div>
 			                <textarea class="textEdit fullwidth"></textarea>
 		                </div>
                     </div>
@@ -899,15 +902,15 @@
                     <div class="inner">
                         <div class="botttom-indent attendees">
 			                <div class="label">
-                                <%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabel%>
+                                <%=CalendarJSResource.calendarEventEditor_attendeesLabel%>
                                 <span id="attendeesHelpSwitcher" class="HelpCenterSwitcher"></span>
                                 <div id="attendeesHelpInfo" class="popup_helper">
-                                    <%=CoreContext.Configuration.CustomMode ? ASC.Web.Studio.PublicResources.CustomModeResource.calendarEventEditor_attendeesLabelHelpInfoCustomMode : Resources.CalendarJSResource.calendarEventEditor_attendeesLabelHelpInfo%>
+                                    <%=CoreContext.Configuration.CustomMode ? ASC.Web.Studio.PublicResources.CustomModeResource.calendarEventEditor_attendeesLabelHelpInfoCustomMode : CalendarJSResource.calendarEventEditor_attendeesLabelHelpInfo%>
                                 </div>
 			                </div>
                             <div class="clearFix input-container">
                                 <div class="btn-container">
-                                    <a class="button gray"><%=Resources.CalendarJSResource.confirmPopup_ButtonOk%></a>
+                                    <a class="button gray"><%=CalendarJSResource.confirmPopup_ButtonOk%></a>
                                 </div>
                                 <div class="text-container">
                                     <input type="text" class="textEdit fullwidth" value=""/>
@@ -916,24 +919,24 @@
                             <div class="users-list attendees-user-list"></div>
                             <div class="attendees-noaccount">
                                 <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/Default.aspx") %>">
-                                    <%=Resources.CalendarJSResource.attendeesNoAccountLink%>
+                                    <%=CalendarJSResource.attendeesNoAccountLink%>
                                 </a>
-                                <%=Resources.CalendarJSResource.attendeesNoAccountText%>
+                                <%=CalendarJSResource.attendeesNoAccountText%>
                             </div>
                             <div class="inline-block cbx-container sent-invitations">
                                 <div>
                                     <label>
                                         <input class="sent-invitations cb" type="checkbox"/>
-                                        <%=Resources.CalendarJSResource.calendarEventEditor_sentInvitationsLabel%>
+                                        <%=CalendarJSResource.calendarEventEditor_sentInvitationsLabel%>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="botttom-indent">
-                            <div class="label"><%=Resources.CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
+                            <div class="label"><%=CalendarJSResource.calendarEventEditor_sharedUsersLabel%></div>
                             <div>
                                 <span class="addUserLink">
-                                    <a class="link dotline"><%=Resources.CalendarJSResource.calendarEventEditor_sharedUsersLink%></a>
+                                    <a class="link dotline"><%=CalendarJSResource.calendarEventEditor_sharedUsersLink%></a>
                                     <span class="sort-down-black"></span>
                                 </span>
                             </div>
@@ -945,11 +948,11 @@
 	    </div>
 
 	    <div class="buttons clearFix">
-		    <a class="save-btn button blue big"><%=Resources.CalendarJSResource.calendarEventEditor_saveButton%></a>
-		    <a class="close-btn button gray big"><%=Resources.CalendarJSResource.calendarEventEditor_closeButton%></a>
-		    <a class="cancel-btn button gray big"><%=Resources.CalendarJSResource.calendarEventEditor_cancelButton%></a>
-		    <a class="delete-btn button gray big"><%=Resources.CalendarJSResource.calendarEventEditor_deleteButton%></a>
-		    <a class="unsubs-btn button gray big"><%=Resources.CalendarJSResource.calendarEventEditor_unsubscribeButton%></a>
+		    <a class="save-btn button blue big"><%=CalendarJSResource.calendarEventEditor_saveButton%></a>
+		    <a class="close-btn button gray big"><%=CalendarJSResource.calendarEventEditor_closeButton%></a>
+		    <a class="cancel-btn button gray big"><%=CalendarJSResource.calendarEventEditor_cancelButton%></a>
+		    <a class="delete-btn button gray big"><%=CalendarJSResource.calendarEventEditor_deleteButton%></a>
+		    <a class="unsubs-btn button gray big"><%=CalendarJSResource.calendarEventEditor_unsubscribeButton%></a>
 	    </div>
 
     </div>
@@ -978,7 +981,7 @@
             <div class="remove">
                 {{if item.canEdit & !item.hideRemove}}
                     <img class="removeItem" data="${item.id}" border="0" align="absmiddle"
-                        src="<%=ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("trash_16.png")%>" alt="<%=Resources.Resource.DeleteButton%>"/>
+                        src="<%=ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("trash_16.png")%>" alt="<%=Resource.DeleteButton%>"/>
                 {{else}}
                     &nbsp;
                 {{/if}}
@@ -1011,7 +1014,7 @@
         </div>         
         <div class="remove">
             {{if canEdit}}  
-                <img class="removeItem" border="0" align="absmiddle" src="<%=ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("trash_16.png")%>" alt="<%=Resources.Resource.DeleteButton%>"/>
+                <img class="removeItem" border="0" align="absmiddle" src="<%=ASC.Web.Core.Utility.Skins.WebImageSupplier.GetAbsoluteWebPath("trash_16.png")%>" alt="<%=Resource.DeleteButton%>"/>
             {{else}}
                 &nbsp;
             {{/if}}
@@ -1019,12 +1022,12 @@
         <div class="action">
             {{if canEdit}} 
             <select>
-                <option value="REQ-PARTICIPANT"><%=Resources.CalendarJSResource.calendarEventEditor_requiredParticipant%></option>
-                <option value="OPT-PARTICIPANT"><%=Resources.CalendarJSResource.calendarEventEditor_optionalParticipant%></option>
+                <option value="REQ-PARTICIPANT"><%=CalendarJSResource.calendarEventEditor_requiredParticipant%></option>
+                <option value="OPT-PARTICIPANT"><%=CalendarJSResource.calendarEventEditor_optionalParticipant%></option>
             </select>
             {{else}}
-                {{if role == "REQ-PARTICIPANT"}}<%=Resources.CalendarJSResource.calendarEventEditor_requiredParticipant%>{{/if}}
-                {{if role == "OPT-PARTICIPANT"}}<%=Resources.CalendarJSResource.calendarEventEditor_optionalParticipant%>{{/if}}
+                {{if role == "REQ-PARTICIPANT"}}<%=CalendarJSResource.calendarEventEditor_requiredParticipant%>{{/if}}
+                {{if role == "OPT-PARTICIPANT"}}<%=CalendarJSResource.calendarEventEditor_optionalParticipant%>{{/if}}
             {{/if}}
         </div>
     </div>

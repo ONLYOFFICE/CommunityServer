@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -252,12 +252,12 @@ var TariffSettings = new function () {
         var site = (jq(".text-edit-site").val() || "").trim();
         var message = (jq(".text-edit-message").val() || "").trim();
         if (!fname.length || !lname.length || !email.length || !phone.length || !ctitle.length || !csize.length) {
-            toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
+            toastr.error(ASC.Resources.Master.ResourceJS.ErrorEmptyField);
             return;
         }
         if (!site.length && jq(".text-edit-site").is(":visible")
             || !message.length && jq(".text-edit-message").is(":visible")) {
-            toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
+            toastr.error(ASC.Resources.Master.ResourceJS.ErrorEmptyField);
             return;
         }
 
@@ -267,7 +267,7 @@ var TariffSettings = new function () {
                     toastr.error(result.error.Message);
                     return;
                 }
-                toastr.success(ASC.Resources.Master.Resource.SendTariffRequest1);
+                toastr.success(ASC.Resources.Master.ResourceJS.SendTariffRequest1);
             });
     };
 

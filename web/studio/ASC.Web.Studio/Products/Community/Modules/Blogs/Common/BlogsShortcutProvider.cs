@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,14 @@
 
 using System;
 using System.Web;
+
 using ASC.Blogs.Core;
-using ASC.Web.Core.ModuleManagement.Common;
-using ASC.Core;
 using ASC.Blogs.Core.Security;
+using ASC.Core;
+using ASC.Web.Core.ModuleManagement.Common;
 
 namespace ASC.Web.Community.Blogs
-{    
+{
     public class BlogsShortcutProvider : IShortcutProvider
     {
         public static string GetCreateContentPageUrl()
@@ -43,13 +44,13 @@ namespace ASC.Web.Community.Blogs
 
         public bool CheckPermissions(Guid shortcutID, string currentUrl)
         {
-            if (shortcutID.Equals(new Guid("98DB8D88-EDF2-4f82-B3AF-B95E87E3EE5C")) || 
+            if (shortcutID.Equals(new Guid("98DB8D88-EDF2-4f82-B3AF-B95E87E3EE5C")) ||
                 shortcutID.Equals(new Guid("20673DF0-665E-4fc8-9B44-D48B2A783508")))
             {
                 return SecurityContext.CheckPermissions(new PersonalBlogSecObject(CoreContext.UserManager.GetUsers(
                     SecurityContext.CurrentAccount.ID)), Constants.Action_AddPost);
-            }            
-            
+            }
+
             return false;
         }
     }

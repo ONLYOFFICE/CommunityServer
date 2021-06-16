@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core.Users;
 using ASC.Notify.Recipients;
 
@@ -95,10 +96,10 @@ namespace ASC.Core.Notify
                 var user = CoreContext.UserManager.GetUsers(userID);
                 if (user.ID != Constants.LostUser.ID)
                 {
-                    if (senderName == ASC.Core.Configuration.Constants.NotifyEMailSenderSysName) return new[] {user.Email};
-                    if (senderName == ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName) return new[] {user.UserName};
-                    if (senderName == ASC.Core.Configuration.Constants.NotifyPushSenderSysName) return new[] {user.UserName};
-                    if (senderName == ASC.Core.Configuration.Constants.NotifyTelegramSenderSysName) return new[] {user.ID.ToString()};
+                    if (senderName == ASC.Core.Configuration.Constants.NotifyEMailSenderSysName) return new[] { user.Email };
+                    if (senderName == ASC.Core.Configuration.Constants.NotifyMessengerSenderSysName) return new[] { user.UserName };
+                    if (senderName == ASC.Core.Configuration.Constants.NotifyPushSenderSysName) return new[] { user.UserName };
+                    if (senderName == ASC.Core.Configuration.Constants.NotifyTelegramSenderSysName) return new[] { user.ID.ToString() };
                 }
             }
             return new string[0];

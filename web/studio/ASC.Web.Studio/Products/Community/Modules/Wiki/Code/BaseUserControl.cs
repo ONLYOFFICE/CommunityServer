@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,10 @@
 
 
 using System;
+using System.Web;
+
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Utility;
-using System.Web;
 
 namespace ASC.Web.UserControls.Wiki
 {
@@ -50,16 +49,16 @@ namespace ASC.Web.UserControls.Wiki
         {
             get { return new WikiEngine(); }
         }
-        
+
 
         public void RiseWikiPageLoaded(IWikiObjectOwner owner)
         {
             RiseWikiPageLoaded(false, owner);
         }
-        
+
         public void RiseWikiPageLoaded(bool isNew, IWikiObjectOwner owner)
         {
-            if(WikiPageLoaded != null)
+            if (WikiPageLoaded != null)
             {
                 WikiPageLoaded(isNew, owner);
             }
@@ -68,10 +67,10 @@ namespace ASC.Web.UserControls.Wiki
         public string MainWikiClassName
         {
             get { return _mainWikiClassName; }
-            set{ _mainWikiClassName = value; }
+            set { _mainWikiClassName = value; }
         }
 
-        
+
         protected void RisePageEmptyEvent()
         {
             if (PageEmpty != null)

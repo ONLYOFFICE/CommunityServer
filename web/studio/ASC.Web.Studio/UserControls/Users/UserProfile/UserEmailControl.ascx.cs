@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core;
@@ -45,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(typeof (EmailOperationService));
+            AjaxPro.Utility.RegisterTypeForAjax(typeof(EmailOperationService));
 
             IsAdmin = Viewer.IsAdmin() || WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, Viewer.ID);
         }

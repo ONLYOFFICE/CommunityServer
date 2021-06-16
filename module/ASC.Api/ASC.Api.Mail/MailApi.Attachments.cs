@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,14 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Mail.Core.Engine;
+using ASC.Mail.Core.Engine.Operations.Base;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Utils;
-using ASC.Mail.Core.Engine.Operations.Base;
-using System.Threading;
 
 // ReSharper disable InconsistentNaming
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
-using ASC.CRM.Core.Entities;
 using ASC.Common.Threading.Progress;
 using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
-using ASC.Web.CRM.Resources;
 using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Resources;
 
 namespace ASC.Api.CRM
 {
@@ -228,14 +229,14 @@ namespace ASC.Api.CRM
             }
 
             var companyAddress = Newtonsoft.Json.JsonConvert.SerializeObject(new
-                {
-                    type = AddressCategory.Billing.ToString(),
-                    street,
-                    city,
-                    state,
-                    zip,
-                    country
-                });
+            {
+                type = AddressCategory.Billing.ToString(),
+                street,
+                city,
+                state,
+                zip,
+                country
+            });
 
             tenantSettings.InvoiceSetting.CompanyAddress = companyAddress;
 
@@ -487,7 +488,7 @@ namespace ASC.Api.CRM
         public IProgressItem StartPartialExport(string entityType, string base64FilterString)
         {
             if (string.IsNullOrEmpty(base64FilterString)) throw new ArgumentException();
-            
+
             FilterObject filterObject;
             String fileName;
 

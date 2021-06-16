@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddNewTask" xml:space="preserve">
     <value>Create new task</value>
@@ -132,9 +73,6 @@
   <data name="ClosedTask" xml:space="preserve">
     <value>Closed task</value>
   </data>
-  <data name="ClosedTasks" xml:space="preserve">
-    <value>Closed tasks</value>
-  </data>
   <data name="ConnectWithAContact" xml:space="preserve">
     <value>Link with contact</value>
   </data>
@@ -149,9 +87,6 @@
   </data>
   <data name="CustomResponsibleFilter" xml:space="preserve">
     <value>Other users</value>
-  </data>
-  <data name="DeadLine" xml:space="preserve">
-    <value>Deadline</value>
   </data>
   <data name="DeleteTask" xml:space="preserve">
     <value>Delete task</value>
@@ -177,9 +112,6 @@
   <data name="EmptyContentTasksHeader" xml:space="preserve">
     <value>The task list is empty</value>
   </data>
-  <data name="FindContactByName" xml:space="preserve">
-    <value>Find a company or a person by name</value>
-  </data>
   <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
     <value>A properly formed CSV file should be selected on your computer HDD. It must contain the fields or columns separated by the selected delimiter which will be used to import tasks. The files containing more than {0} rows should be divided into smaller parts for proper importing.</value>
   </data>
@@ -203,9 +135,6 @@
   </data>
   <data name="ImportTasks" xml:space="preserve">
     <value>Import tasks</value>
-  </data>
-  <data name="MyTasks" xml:space="preserve">
-    <value>My Tasks</value>
   </data>
   <data name="MyTasksFilter" xml:space="preserve">
     <value>My tasks</value>
@@ -245,9 +174,6 @@
   </data>
   <data name="SavingTask" xml:space="preserve">
     <value>Saving task</value>
-  </data>
-  <data name="Show" xml:space="preserve">
-    <value>Show</value>
   </data>
   <data name="StartImport" xml:space="preserve">
     <value>Start Importing</value>
@@ -300,9 +226,6 @@
   <data name="TaskDescription" xml:space="preserve">
     <value>Task description</value>
   </data>
-  <data name="TaskIsOver" xml:space="preserve">
-    <value>Task «{0}» is closed</value>
-  </data>
   <data name="TaskResponsible" xml:space="preserve">
     <value>Assign to</value>
   </data>
@@ -347,8 +270,5 @@
   </data>
   <data name="Week" xml:space="preserve">
     <value>Week</value>
-  </data>
-  <data name="WithoutResponsible" xml:space="preserve">
-    <value>Nobody</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,13 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -52,7 +53,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected string[] GetServiceNames()
         {
-            return (ConfigurationManagerExtension.AppSettings["monitoring.service-names"] ?? "").Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            return (ConfigurationManagerExtension.AppSettings["monitoring.service-names"] ?? "").Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         [AjaxMethod]
@@ -126,13 +127,16 @@ namespace ASC.Web.Studio.UserControls.Management
                 case ServiceControllerStatus.Running:
                     return ServiceStatus.Running;
 
-                case ServiceControllerStatus.StartPending: case ServiceControllerStatus.ContinuePending:
+                case ServiceControllerStatus.StartPending:
+                case ServiceControllerStatus.ContinuePending:
                     return ServiceStatus.StartPending;
 
-                case ServiceControllerStatus.Paused: case ServiceControllerStatus.Stopped:
+                case ServiceControllerStatus.Paused:
+                case ServiceControllerStatus.Stopped:
                     return ServiceStatus.Stopped;
 
-                case ServiceControllerStatus.PausePending: case ServiceControllerStatus.StopPending:
+                case ServiceControllerStatus.PausePending:
+                case ServiceControllerStatus.StopPending:
                     return ServiceStatus.StopPending;
 
                 default:
@@ -153,7 +157,7 @@ namespace ASC.Web.Studio.UserControls.Management
         private static object ToAjaxResponse(string serviceName, ServiceController sc)
         {
             var status = GetServiceStatus(sc);
-            return new {id = GetServiceId(serviceName), name = serviceName, status = status, statusDescription = GetServiceStatusDescription(status)};
+            return new { id = GetServiceId(serviceName), name = serviceName, status = status, statusDescription = GetServiceStatusDescription(status) };
         }
 
         protected enum ServiceStatus
