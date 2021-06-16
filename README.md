@@ -4,7 +4,7 @@
 <hr />
 <p align="center">
   <a href="https://www.onlyoffice.com/">Website</a> |
-  <a href="https://www.onlyoffice.com/server-solutions.aspx">Products</a> |
+  <a href="https://www.onlyoffice.com/workspace.aspx">ONLYOFFICE Workspace</a> |
   <a href="https://helpcenter.onlyoffice.com/">Documentation</a> |
   <a href="https://api.onlyoffice.com/">API</a> |
   <a href="https://www.onlyoffice.com/about.aspx">About</a>
@@ -17,12 +17,14 @@
 </p>
 <p align="center">
   <a href="http://www.apache.org/licenses/LICENSE-2.0"><img alt="http://www.apache.org/licenses/LICENSE-2.0" src="https://img.shields.io/badge/License-Apache%20v2.0-green.svg?style=flat"></a>
-  <a href="https://github.com/ONLYOFFICE/portals/releases"><img alt="https://github.com/ONLYOFFICE/portals/releases" src="https://img.shields.io/badge/release-11.0.0-blue.svg"></a>
+  <a href="https://github.com/ONLYOFFICE/CommunityServer/releases"><img alt="https://github.com/ONLYOFFICE/CommunityServer/releases" src="https://img.shields.io/badge/release-11.0.0-blue.svg"></a>
 </p>
 
-## Overview
+# Overview
 
-ONLYOFFICE Community Server is a free open source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.
+ONLYOFFICE Community Server is a free open-source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place.
+
+Starting from version 11.0, Community Server is distributed as ONLYOFFICE Groups on terms of Apache License. 
 
 ## Functionality
 
@@ -44,8 +46,11 @@ ONLYOFFICE Community Server is a free open source collaborative system developed
 * Calendar
 * Email Aggregator
 * People module (employee database)
-* Instant Messenger
 * Support of more than 20 languages
+
+Community Server (distributed as ONLYOFFICE Groups) is a part of **ONLYOFFICE Workspace** that also includes [Document Server (distributed as ONLYOFFICE Docs)](https://github.com/ONLYOFFICE/DocumentServer), [Mail Server](https://github.com/ONLYOFFICE/Docker-MailServer), [Talk (instant messaging app)](https://github.com/ONLYOFFICE/XMPPServer). 
+
+Control Panel for administrating **ONLYOFFICE Workspace** can be found in [this repo](https://github.com/ONLYOFFICE/ControlPanel). 
 
 ## Compiling
 
@@ -53,9 +58,9 @@ To compile source, follow this [instruction](https://helpcenter.onlyoffice.com/s
 
 ## Connecting your own modules
 
-You can now create your own modules and connect them to ONLYOFFICE Community Server. See [this repository](https://github.com/ONLYOFFICE/CommunityServer-CustomModules "https://github.com/ONLYOFFICE/CommunityServer-CustomModules") for more details.
+You can now create your own modules and connect them to ONLYOFFICE Groups (packaged as Community Server). See [this instruction](https://helpcenter.onlyoffice.com/server/community/community-server-custom-modules.aspx "https://helpcenter.onlyoffice.com/server/community/community-server-custom-modules.aspx") for more details.
 
-## Project Information
+## Project information
 
 Official website: [https://www.onlyoffice.com](https://www.onlyoffice.com?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS "http://www.onlyoffice.com?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS")
 
@@ -63,69 +68,11 @@ Code repository: [https://github.com/ONLYOFFICE/CommunityServer](https://github.
 
 Docker Image: [https://github.com/ONLYOFFICE/Docker-CommunityServer](https://github.com/ONLYOFFICE/Docker-CommunityServer "https://github.com/ONLYOFFICE/Docker-CommunityServer")
 
-License: [GNU GPL v3.0](https://www.gnu.org/copyleft/gpl.html "GNU GPL v3.0")
+License: [Apache](https://www.apache.org/licenses/LICENSE-2.0)
 
-SaaS version: [https://www.onlyoffice.com/cloud-office.aspx](https://www.onlyoffice.com/cloud-office.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS "https://www.onlyoffice.com/cloud-office.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS")
+ONLYOFFICE Workspace: [https://www.onlyoffice.com/workspace.aspx](https://www.onlyoffice.com/workspace.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS)
 
-Enterprise version: [https://www.onlyoffice.com/enterprise-edition-free.aspx](https://www.onlyoffice.com/enterprise-edition-free.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS "https://www.onlyoffice.com/enterprise-edition-free.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS")
-
-## ONLYOFFICE Community Edition
-
-ONLYOFFICE Community Server is a part of **ONLYOFFICE Community Edition** that comprises also Document Server and Mail Server. To install ONLYOFFICE Community Edition, make use of the [Docker](https://www.onlyoffice.com/download.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS "https://www.onlyoffice.com/download.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS") with ONLYOFFICE Community Edition pre-installed.
-
-## ONLYOFFICE Enterprise Edition
-
-**ONLYOFFICE Enterprise Edition** is a scalable commercial build of the office suite comprising Community Server, Document Server and Mail Server.
-
-### Compare Community Edition and Enterprise Edition
-
-The table below will help you make the right choice.
-
-| Pricing and licensing | Community Edition | Enterprise Edition Start |
-| --------------------- | ----------------- | ------------------------ |
-| | [GET IT NOW](https://www.onlyoffice.com/download.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) | [START FREE TRIAL](https://www.onlyoffice.com/enterprise-edition-free.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) |
-| Cost | FREE | [Go to the pricing page](https://www.onlyoffice.com/enterprise-edition.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) |
-| Simultaneous connections | up to 20 maximum | As in chosen pricing plan |
-| Number of users | up to 20 recommended | As in chosen pricing plan |
-| License | GNU AGPL v.3 | [Proprietary](https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=4485697&doc=R29zSHZNRi9LYnRTb3JDditmVGpXQThVVXhMTWdja0xwemlYZXpiaDBYdz0_IjQ0ODU2OTci0) |
-| **Support** | **Community Edition** | **Enterprise Edition Start** |
-| Documentation | [Help center](https://helpcenter.onlyoffice.com/server/docker/opensource/index.aspx) | [Help center](https://helpcenter.onlyoffice.com/server/enterprise.aspx) |
-| Standard support | Forum or paid | One year support included |
-| Initial response time | 48 hours | 48 hours |
-| Premium support | [Buy now](https://www.onlyoffice.com/support.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) | [Buy now](https://www.onlyoffice.com/support.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) |
-| **System administration (Control Panel)** | **Community Edition** | **Enterprise Edition Start** |
-| White label | - | + |
-| Multitenancy | - | As in chosen pricing plan |
-| Data backup | - | + |
-| Data recovery | - | + |
-| Automatic updates | - | + |
-| Login history | - | + |
-| LDAP support (Active Directory) | - | + |
-| HTTPS, own domain | +(manual configuration) | + |
-| **Features** | **Community Edition** | **Enterprise Edition Start** |
-| Document editing | + | + |
-| Desktop applications | + | + |
-| Mobile applications | + | + |
-| Online document editors | + | + |
-| Co-editing, commenting | +(co-editing only) | + |
-| Document management | + | + |
-| Sharing, embedding | + | + |
-| Version control | + | + |
-| Reviewing | + | + |
-| Mail merge | + | + |
-| Third party service integration | + | + |
-| Project management | + | + |
-| Gantt chart | + | + |
-| Time management | + | + |
-| Reports | + | + |
-| CRM | + | + |
-| Invoicing system | + | + |
-| Mail server | + | + |
-| Mail aggregator | + | + |
-| Calendar | + | + |
-|  | [GET IT NOW](https://www.onlyoffice.com/download.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) | [START FREE TRIAL](https://www.onlyoffice.com/enterprise-edition-free.aspx?utm_source=github&utm_medium=cpc&utm_campaign=GitHubCS) |
-
-## User Feedback and Support
+## User feedback and support
 
 If you have any problems with or questions about [ONLYOFFICE][2], please visit our official forum to find answers to your questions: [dev.onlyoffice.org][1] or you can ask and answer ONLYOFFICE development questions on [Stack Overflow][3].
 
