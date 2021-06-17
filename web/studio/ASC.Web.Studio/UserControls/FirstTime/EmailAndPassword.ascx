@@ -5,7 +5,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="requiredStep" class="clearFix">
     <div class="passwordBlock">
@@ -122,12 +122,7 @@
 <div class="subscribe-accept">
     <input type="checkbox" id="subscribeFromSite" />
     <label for="subscribeFromSite">
-        <%= UserControlsCommonResource.SubscribeSite %></label>
-</div>
-<div class="analytics-accept">
-    <input type="checkbox" id="analyticsAcceptedOpenSource" />
-    <label for="analyticsAcceptedOpenSource">
-        <%= string.Format(UserControlsCommonResource.AnalyticsOpenSource) %></label>
+        <%: UserControlsCommonResource.SubscribeSite %></label>
 </div>
 <div class="license-accept">
     <input type="checkbox" id="policyAcceptedOpenSource">

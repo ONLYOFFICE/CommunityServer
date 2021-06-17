@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.UserControls.Management.AccessRights" %>
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <script id="adminTmpl" type="text/x-jquery-tmpl">
     <tr id="adminItem_${id}" class="adminItem">
@@ -64,12 +64,12 @@
 
 <div class="tabs-section">
     <span class="header-base">
-        <span><%= Resource.AdminSettings %></span>
+        <span class="<% if (!EnableAddAdmin) {%>disabled<%}%>"><%= Resource.AdminSettings %></span>
     </span> 
-    <span id="switcherAccessRights_Admin" data-id="Admin" class="toggle-button"
+        <span id="switcherAccessRights_Admin" data-id="Admin" class="toggle-button"
           data-switcher="0" data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>">
         <%= Resource.Hide %>
-    </span>
+    </span>  
 </div>
 
 <div id="accessRightsContainer_Admin" class="accessRights-content accessRightsTable">
@@ -96,34 +96,48 @@
         </thead>
         <tbody></tbody>
     </table>
-    <div id="adminAdvancedSelector" class="advanced-selector-select">
-          <%= CustomNamingPeople.Substitute<Resource>("ChooseUser").HtmlEncode() %>
-     </div>
-    <div>
-        <div id="full_panelQuestion" class="popup_helper">
-            <% for (var i = 0; i < FullAccessOpportunities.Length; i++) %>
-            <% { %>
-                <% if (i == 0) %>
-                <% { %>
-                    <div><%= FullAccessOpportunities[i] %>:</div>
-                <% }  else { %>
-                    <div class="simple-marker-list"><%= FullAccessOpportunities[i].TrimEnd(' ', ';', '.') + (i == FullAccessOpportunities.Length - 1 ? "." : ";") %></div>
-                <% } %>
-            <% } %>
-        </div>
-        <% foreach (var p in Products) %>
-        <% { %>
-            <% if (p.GetAdminOpportunities().Count > 0) %>
-            <% { %>
-                <div id="<%= p.GetSysName() %>_panelQuestion" class="popup_helper">
-                    <div><%= String.Format(Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
-                    <% var last = p.GetAdminOpportunities().Last();
-                       foreach (var oprtunity in p.GetAdminOpportunities()) %>
-                    <% { %>
-                        <div class="simple-marker-list"><%= oprtunity.TrimEnd(' ', ';', '.') + (oprtunity == last ? "." : ";") %></div>
-                    <% } %>
-                </div>
-            <% } %>
-        <% } %>
-    </div>
+    <table width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td width="390px" valign="top">
+                        <div id="adminAdvancedSelector" class="advanced-selector-select <% if (!EnableAddAdmin) { %> disabled <%} %>">
+                              <%= CustomNamingPeople.Substitute<Resource>("ChooseUser").HtmlEncode() %>
+                         </div>
+                        <div>
+                            <div id="full_panelQuestion" class="popup_helper">
+                                <% for (var i = 0; i < FullAccessOpportunities.Length; i++) %>
+                                <% { %>
+                                    <% if (i == 0) %>
+                                    <% { %>
+                                        <div><%= FullAccessOpportunities[i] %>:</div>
+                                    <% }  else { %>
+                                        <div class="simple-marker-list"><%= FullAccessOpportunities[i].TrimEnd(' ', ';', '.') + (i == FullAccessOpportunities.Length - 1 ? "." : ";") %></div>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                            <% foreach (var p in Products) %>
+                            <% { %>
+                                <% if (p.GetAdminOpportunities().Count > 0) %>
+                                <% { %>
+                                    <div id="<%= p.GetSysName() %>_panelQuestion" class="popup_helper">
+                                        <div><%= String.Format(Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
+                                        <% var last = p.GetAdminOpportunities().Last();
+                                           foreach (var oprtunity in p.GetAdminOpportunities()) %>
+                                        <% { %>
+                                            <div class="simple-marker-list"><%= oprtunity.TrimEnd(' ', ';', '.') + (oprtunity == last ? "." : ";") %></div>
+                                        <% } %>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </td>
+                    <td valign="top" class="disable">
+                        <div id="ErrorNotAllowed" class="<% if (EnableAddAdmin) { %> display-none <%} else{%>settings-help-block <%} %>">
+                            <p><%= String.Format(Resource.ErrorNotAllowedOption, "<b>", "</b>") %></p>
+                            <a href="<%= TariffPageLink %>" target="_blank"> <%= Resource.ViewTariffPlans %></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </div>

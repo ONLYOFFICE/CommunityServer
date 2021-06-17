@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,18 @@ namespace ASC.Core.Billing
         }
 
         public bool Autorenewal
+        {
+            get;
+            set;
+        }
+
+        public int PaymentStatus
+        {
+            get;
+            set;
+        }
+
+        public int Quantity
         {
             get;
             set;

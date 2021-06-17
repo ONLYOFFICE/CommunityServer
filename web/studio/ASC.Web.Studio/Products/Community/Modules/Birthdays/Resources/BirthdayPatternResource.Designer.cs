@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Birthdays.Resources {
+namespace ASC.Web.Community.Modules.Birthdays.Resources {
     using System;
     
     
@@ -66,7 +66,9 @@ namespace ASC.Web.Community.Birthdays.Resources {
         ///The following &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal user has the birthday $BirthdayDate
         ///$BirthdayUserName
         ///
-        ///Visit the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal to view the event or send your birthday greetings..
+        ///Visit the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal to view the event or send your birthday greetings.
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about the new events on the [rest of string was truncated]&quot;;.
         /// </summary>
         public static string pattern_BirthdayReminder {
             get {
@@ -80,8 +82,8 @@ namespace ASC.Web.Community.Birthdays.Resources {
         ///
         ///  &lt;!--Milestone Due Date Notification--&gt;
         ///  &lt;pattern id=&quot;BirthdayReminder&quot; sender=&quot;email.sender&quot;&gt;
-        ///    &lt;subject resource=&quot;|subject_BirthdayReminder|ASC.Web.Community.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Community&quot; /&gt;
-        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_BirthdayReminder|ASC.Web.Community.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Commun [rest of string was truncated]&quot;;.
+        ///    &lt;subject resource=&quot;|subject_BirthdayReminder|ASC.Web.Community.Modules.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Community&quot; /&gt;
+        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_BirthdayReminder|ASC.Web.Community.Modules.Birthdays.Resources.BirthdayPatternResourc [rest of string was truncated]&quot;;.
         /// </summary>
         public static string patterns {
             get {

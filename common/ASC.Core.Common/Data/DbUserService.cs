@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -43,6 +44,15 @@ namespace ASC.Core.Data
         public UserInfo GetUser(int tenant, Guid id)
         {
             var q = GetUserQuery(tenant, default(DateTime)).Where("id", id);
+            return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
+        }
+
+
+        public UserInfo GetUser(int tenant, string email)
+        {
+            var q = GetUserQuery(tenant, default(DateTime))
+                .Where("email", email)
+                .Where("removed", false);
             return ExecList(q).ConvertAll(ToUser).SingleOrDefault();
         }
 
@@ -81,7 +91,7 @@ namespace ASC.Core.Data
 
                 var users = ExecList(q).ConvertAll(ToUser);
                 UserInfo result = null;
-                foreach(var user in users)
+                foreach (var user in users)
                 {
                     RegeneratePassword(tenant, user.ID);
 
@@ -403,32 +413,32 @@ namespace ASC.Core.Data
         private static UserInfo ToUser(object[] r)
         {
             var u = new UserInfo
-                {
-                    ID = new Guid((string)r[0]),
-                    UserName = (string)r[1],
-                    FirstName = (string)r[2],
-                    LastName = (string)r[3],
-                    Sex = r[4] != null ? Convert.ToBoolean(r[4]) : (bool?)null,
-                    BirthDate = (DateTime?)r[5],
-                    Status = (EmployeeStatus)Convert.ToInt32(r[6]),
-                    Title = (string)r[7],
-                    WorkFromDate = (DateTime?)r[8],
-                    TerminatedDate = (DateTime?)r[9],
-                    Email = (string)r[11],
-                    Location = (string)r[12],
-                    Notes = (string)r[13],
-                    Removed = Convert.ToBoolean(r[14]),
-                    LastModified = Convert.ToDateTime(r[15]),
-                    Tenant = Convert.ToInt32(r[16]),
-                    ActivationStatus = (EmployeeActivationStatus)Convert.ToInt32(r[17]),
-                    CultureName = (string)r[18],
-                    MobilePhone = (string)r[19],
-                    MobilePhoneActivationStatus = (MobilePhoneActivationStatus)Convert.ToInt32(r[20]),
-                    Sid = (string)r[21],
-                    SsoNameId = (string)r[22],
-                    SsoSessionId = (string)r[23],
-                    CreateDate = Convert.ToDateTime(r[24])
-                };
+            {
+                ID = new Guid((string)r[0]),
+                UserName = (string)r[1],
+                FirstName = (string)r[2],
+                LastName = (string)r[3],
+                Sex = r[4] != null ? Convert.ToBoolean(r[4]) : (bool?)null,
+                BirthDate = (DateTime?)r[5],
+                Status = (EmployeeStatus)Convert.ToInt32(r[6]),
+                Title = (string)r[7],
+                WorkFromDate = (DateTime?)r[8],
+                TerminatedDate = (DateTime?)r[9],
+                Email = (string)r[11],
+                Location = (string)r[12],
+                Notes = (string)r[13],
+                Removed = Convert.ToBoolean(r[14]),
+                LastModified = Convert.ToDateTime(r[15]),
+                Tenant = Convert.ToInt32(r[16]),
+                ActivationStatus = (EmployeeActivationStatus)Convert.ToInt32(r[17]),
+                CultureName = (string)r[18],
+                MobilePhone = (string)r[19],
+                MobilePhoneActivationStatus = (MobilePhoneActivationStatus)Convert.ToInt32(r[20]),
+                Sid = (string)r[21],
+                SsoNameId = (string)r[22],
+                SsoSessionId = (string)r[23],
+                CreateDate = Convert.ToDateTime(r[24])
+            };
             u.ContactsFromString((string)r[10]);
             return u;
         }
@@ -459,16 +469,16 @@ namespace ASC.Core.Data
         private Group ToGroup(object[] r)
         {
             return new Group
-                {
-                    Id = new Guid((string)r[0]),
-                    Name = (string)r[1],
-                    ParentId = r[2] != null ? new Guid((string)r[2]) : Guid.Empty,
-                    CategoryId = r[3] != null ? new Guid((string)r[3]) : Guid.Empty,
-                    Removed = Convert.ToBoolean(r[4]),
-                    LastModified = Convert.ToDateTime(r[5]),
-                    Tenant = Convert.ToInt32(r[6]),
-                    Sid = (string)r[7]
-                };
+            {
+                Id = new Guid((string)r[0]),
+                Name = (string)r[1],
+                ParentId = r[2] != null ? new Guid((string)r[2]) : Guid.Empty,
+                CategoryId = r[3] != null ? new Guid((string)r[3]) : Guid.Empty,
+                Removed = Convert.ToBoolean(r[4]),
+                LastModified = Convert.ToDateTime(r[5]),
+                Tenant = Convert.ToInt32(r[6]),
+                Sid = (string)r[7]
+            };
         }
 
         private List<string> CollectGroupChilds(int tenant, string id)
@@ -510,11 +520,11 @@ namespace ASC.Core.Data
         private static UserGroupRef ToUserGroupRef(object[] r)
         {
             return new UserGroupRef(new Guid((string)r[0]), new Guid((string)r[1]), (UserGroupRefType)Convert.ToInt32(r[2]))
-                {
-                    Removed = Convert.ToBoolean(r[3]),
-                    LastModified = Convert.ToDateTime(r[4]),
-                    Tenant = Convert.ToInt32(r[5])
-                };
+            {
+                Removed = Convert.ToBoolean(r[3]),
+                LastModified = Convert.ToDateTime(r[4]),
+                Tenant = Convert.ToInt32(r[5])
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core;
 
@@ -30,25 +31,25 @@ namespace ASC.MessagingSystem
         private const string forwardedHeader = "X-Forwarded-For";
         private const string hostHeader = "Host";
         private const string refererHeader = "Referer";
-        
+
 
         public static EventMessage Create(HttpRequest request, string initiator, MessageAction action, MessageTarget target, params string[] description)
         {
             try
             {
                 return new EventMessage
-                    {
-                        IP = request != null ? request.Headers[forwardedHeader] ?? request.UserHostAddress : null,
-                        Initiator = initiator,
-                        Date = DateTime.UtcNow,
-                        TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
-                        UserId = SecurityContext.CurrentAccount.ID,
-                        Page = request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null,
-                        Action = action,
-                        Description = description,
-                        Target = target,
-                        UAHeader = request != null ? request.Headers[userAgentHeader] : null
-                    };
+                {
+                    IP = request != null ? request.Headers[forwardedHeader] ?? request.UserHostAddress : null,
+                    Initiator = initiator,
+                    Date = DateTime.UtcNow,
+                    TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                    UserId = SecurityContext.CurrentAccount.ID,
+                    Page = request != null && request.UrlReferrer != null ? request.UrlReferrer.ToString() : null,
+                    Action = action,
+                    Description = description,
+                    Target = target,
+                    UAHeader = request != null ? request.Headers[userAgentHeader] : null
+                };
             }
             catch (Exception ex)
             {
@@ -62,14 +63,14 @@ namespace ASC.MessagingSystem
             try
             {
                 var message = new EventMessage
-                    {
-                        Date = DateTime.UtcNow,
-                        TenantId = userData == null ? CoreContext.TenantManager.GetCurrentTenant().TenantId : userData.TenantId,
-                        UserId = userData == null ? SecurityContext.CurrentAccount.ID : userData.UserId,
-                        Action = action,
-                        Description = description,
-                        Target = target
-                    };
+                {
+                    Date = DateTime.UtcNow,
+                    TenantId = userData == null ? CoreContext.TenantManager.GetCurrentTenant().TenantId : userData.TenantId,
+                    UserId = userData == null ? SecurityContext.CurrentAccount.ID : userData.UserId,
+                    Action = action,
+                    Description = description,
+                    Target = target
+                };
 
                 if (headers != null)
                 {
@@ -97,14 +98,14 @@ namespace ASC.MessagingSystem
             try
             {
                 return new EventMessage
-                    {
-                        Initiator = initiator,
-                        Date = DateTime.UtcNow,
-                        TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
-                        Action = action,
-                        Description = description,
-                        Target = target
-                    };
+                {
+                    Initiator = initiator,
+                    Date = DateTime.UtcNow,
+                    TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                    Action = action,
+                    Description = description,
+                    Target = target
+                };
             }
             catch (Exception ex)
             {

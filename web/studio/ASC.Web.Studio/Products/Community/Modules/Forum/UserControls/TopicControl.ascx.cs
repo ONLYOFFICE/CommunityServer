@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,16 @@ using System;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using ASC.Common.Utils;
+
 using AjaxPro;
+
+using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
-using System.Collections.Generic;
-using ASC.ElasticSearch;
-using ASC.Web.Community.Search;
 
 namespace ASC.Web.UserControls.Forum
 {
@@ -104,7 +104,7 @@ namespace ASC.Web.UserControls.Forum
             if (bitMask > 0)
             {
                 sb.Append("<span id=\"forum_mf_" + Topic.ID + "\" style=\"margin-left:5px;\">");
-                sb.Append("<a class=\"link\" href=\"javascript:ForumManager.ShowTopicModeratorFunctions('" + Topic.ID + "'," + bitMask + "," + (int)Topic.Status + ",'" + _settings.LinkProvider.EditTopic(Topic.ID) + "');\"><img alt='#' border=0 align='absmiddle' src='" + WebImageSupplier.GetAbsoluteWebPath("down.png", _settings.ImageItemID) + "' title='" + Resources.ForumUCResource.ModeratorFunctions + "' /></a>");
+                sb.Append("<a class=\"link\" href=\"javascript:ForumManager.ShowTopicModeratorFunctions('" + Topic.ID + "'," + bitMask + "," + (int)Topic.Status + ",'" + _settings.LinkProvider.EditTopic(Topic.ID) + "');\"><img alt='#' border=0 align='absmiddle' src='" + WebImageSupplier.GetAbsoluteWebPath("down.png", _settings.ImageItemID) + "' title='" + ForumUCResource.ModeratorFunctions + "' /></a>");
                 sb.Append("</span>");
             }
             return sb.ToString();
@@ -114,7 +114,7 @@ namespace ASC.Web.UserControls.Forum
         protected string RenderPages()
         {
             var sb = new StringBuilder();
-            var amount = Convert.ToInt32(Math.Ceiling(Topic.PostCount/(_settings.PostCountOnPage*1.0)));
+            var amount = Convert.ToInt32(Math.Ceiling(Topic.PostCount / (_settings.PostCountOnPage * 1.0)));
             if (amount > 1)
             {
                 sb.Append(" <span class=\"text-medium-describe\">(");
@@ -170,14 +170,14 @@ namespace ASC.Web.UserControls.Forum
             if (topic == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.ApprovePost, topic))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -205,14 +205,14 @@ namespace ASC.Web.UserControls.Forum
             if (topic == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.TopicClose, topic))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -222,8 +222,8 @@ namespace ASC.Web.UserControls.Forum
                 ForumDataProvider.UpdateTopic(TenantProvider.CurrentTenantID, topic.ID, topic.Title, topic.Sticky, topic.Closed);
 
                 resp.rs1 = "1";
-                resp.rs3 = topic.Closed ? Resources.ForumUCResource.SuccessfullyCloseTopicMessage : Resources.ForumUCResource.SuccessfullyOpenTopicMessage;
-                resp.rs4 = topic.Closed ? Resources.ForumUCResource.OpenTopicButton : Resources.ForumUCResource.CloseTopicButton;
+                resp.rs3 = topic.Closed ? ForumUCResource.SuccessfullyCloseTopicMessage : ForumUCResource.SuccessfullyOpenTopicMessage;
+                resp.rs4 = topic.Closed ? ForumUCResource.OpenTopicButton : ForumUCResource.CloseTopicButton;
                 resp.status = topic.Closed ? "close" : "open";
             }
             catch (Exception e)
@@ -245,14 +245,14 @@ namespace ASC.Web.UserControls.Forum
             if (topic == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.TopicSticky, topic))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -265,13 +265,13 @@ namespace ASC.Web.UserControls.Forum
                 if (topic.Sticky)
                 {
 
-                    resp.rs3 = Resources.ForumUCResource.SuccessfullyStickyTopicMessage;
-                    resp.rs4 = Resources.ForumUCResource.ClearStickyTopicButton;
+                    resp.rs3 = ForumUCResource.SuccessfullyStickyTopicMessage;
+                    resp.rs4 = ForumUCResource.ClearStickyTopicButton;
                 }
                 else
                 {
-                    resp.rs3 = Resources.ForumUCResource.SuccessfullyClearStickyTopicMessage;
-                    resp.rs4 = Resources.ForumUCResource.StickyTopicButton;
+                    resp.rs3 = ForumUCResource.SuccessfullyClearStickyTopicMessage;
+                    resp.rs4 = ForumUCResource.StickyTopicButton;
                 }
             }
             catch (Exception e)
@@ -292,14 +292,14 @@ namespace ASC.Web.UserControls.Forum
             if (topic == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.TopicDelete, topic))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -307,7 +307,7 @@ namespace ASC.Web.UserControls.Forum
             {
                 RemoveDataHelper.RemoveTopic(topic);
                 resp.rs1 = "1";
-                resp.rs3 = Resources.ForumUCResource.SuccessfullyDeleteTopicMessage;
+                resp.rs3 = ForumUCResource.SuccessfullyDeleteTopicMessage;
                 resp.rs4 = topic.ThreadID.ToString();
             }
             catch (Exception ex)

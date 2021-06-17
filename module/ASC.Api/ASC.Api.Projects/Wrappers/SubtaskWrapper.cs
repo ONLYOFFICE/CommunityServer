@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
@@ -62,17 +62,17 @@ namespace ASC.Api.Projects.Wrappers
         public static SubtaskWrapper GetSample()
         {
             return new SubtaskWrapper
-                {
-                    Id = 1233,
-                    Title = "Sample subtask",
-                    Description = "Sample description",
-                    Status = (int)TaskStatus.Open,
-                    Responsible = EmployeeWraper.GetSample(),
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Updated = ApiDateTime.GetSample(),
-                    UpdatedBy = EmployeeWraper.GetSample(),
-                };
+            {
+                Id = 1233,
+                Title = "Sample subtask",
+                Description = "Sample description",
+                Status = (int)TaskStatus.Open,
+                Responsible = EmployeeWraper.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                UpdatedBy = EmployeeWraper.GetSample(),
+            };
         }
     }
 }

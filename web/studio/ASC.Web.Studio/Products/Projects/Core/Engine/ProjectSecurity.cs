@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.DataInterfaces;
@@ -26,6 +27,7 @@ using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Projects;
 using ASC.Web.Projects.Classes;
+
 using Autofac;
 
 namespace ASC.Projects.Engine
@@ -364,8 +366,7 @@ namespace ASC.Projects.Engine
             return Common.IsInTeam(task.Project) &&
                    (task.CreateBy == Common.CurrentUserId ||
                     !task.Responsibles.Any() ||
-                    task.Responsibles.Contains(Common.CurrentUserId) ||
-                    task.SubTasks.Select(r => r.Responsible).Contains(Common.CurrentUserId));
+                    task.Responsibles.Contains(Common.CurrentUserId));
         }
 
         public override bool CanDeleteEntity(Task task)
@@ -414,7 +415,7 @@ namespace ASC.Projects.Engine
         public override bool CanEditFiles(Task entity)
         {
             if (!Common.IsProjectsEnabled()) return false;
-            if(entity.Project.Status == ProjectStatus.Closed) return false;
+            if (entity.Project.Status == ProjectStatus.Closed) return false;
             if (Common.IsProjectManager(entity.Project)) return true;
 
             return CanUpdateEntity(entity);
@@ -429,7 +430,7 @@ namespace ASC.Projects.Engine
 
         public bool CanCreateSubtask(Task task)
         {
-            if (task== null || !Common.Can()) return false;
+            if (task == null || !Common.Can()) return false;
             if (Common.IsProjectManager(task.Project)) return true;
 
             return Common.IsInTeam(task.Project) &&

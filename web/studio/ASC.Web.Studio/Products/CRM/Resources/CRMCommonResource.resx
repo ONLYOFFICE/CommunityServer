@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessRightsForReading" xml:space="preserve">
     <value>for reading</value>
@@ -183,14 +124,8 @@
   <data name="ByCategory" xml:space="preserve">
     <value>Category</value>
   </data>
-  <data name="ByTitle" xml:space="preserve">
-    <value>By title</value>
-  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
-  </data>
-  <data name="Case" xml:space="preserve">
-    <value>Case</value>
   </data>
   <data name="CasesModuleName" xml:space="preserve">
     <value>Cases</value>
@@ -225,14 +160,20 @@
   <data name="Comma" xml:space="preserve">
     <value>Comma</value>
   </data>
-  <data name="ComposeMail" xml:space="preserve">
-    <value>Compose Mail</value>
-  </data>
   <data name="ComposeMailDescription" xml:space="preserve">
     <value>Compose a letter to be sent to all the clients selected in the contact list. You can check the number of selected clients in the 'To' field, enter a common 'Subject' and use the 'Personal tags' to include all the necessary information to your letter. This is a beta version for those who want to try out new features of ONLYOFFICE™ CRM.</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Confirmation of changes</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>You deleted yourself from contact managers.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>You will lose read and write access to the contact if the appropriate access rights are not allowed for all CRM users.</value>
   </data>
   <data name="ConfirmationDeleteText" xml:space="preserve">
     <value>Are you sure you want to delete these elements?</value>
@@ -255,12 +196,6 @@
   <data name="ConversionRates" xml:space="preserve">
     <value>Currency convertor</value>
   </data>
-  <data name="Convert" xml:space="preserve">
-    <value>Convert</value>
-  </data>
-  <data name="Count" xml:space="preserve">
-    <value>Quantity</value>
-  </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -268,7 +203,7 @@
     <value>Creation date</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Create New</value>
+    <value>Create</value>
   </data>
   <data name="CreateNewContact" xml:space="preserve">
     <value>Create New Contact</value>
@@ -278,6 +213,9 @@
   </data>
   <data name="CreateNewTag" xml:space="preserve">
     <value>Add new tag</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Creation date</value>
   </data>
   <data name="CRMProductIsDisabled" xml:space="preserve">
     <value>The CRM module is not enabled</value>
@@ -402,8 +340,14 @@
   <data name="Currency_MoldovanLeu" xml:space="preserve">
     <value>Moldovan Leu</value>
   </data>
+  <data name="Currency_MongolianTugrik" xml:space="preserve">
+    <value>Mongolian Tugrik</value>
+  </data>
   <data name="Currency_MoroccanDirham" xml:space="preserve">
     <value>Moroccan Dirham</value>
+  </data>
+  <data name="Currency_NewBelarusianRuble" xml:space="preserve">
+    <value>New Belarusian Ruble</value>
   </data>
   <data name="Currency_NewZealandDollar" xml:space="preserve">
     <value>New Zealand Dollar</value>
@@ -420,6 +364,9 @@
   <data name="Currency_Other" xml:space="preserve">
     <value>Other currencies</value>
   </data>
+  <data name="Currency_PacificFranc" xml:space="preserve">
+    <value>Pacific franc</value>
+  </data>
   <data name="Currency_PakistaniRupee" xml:space="preserve">
     <value>Pakistani Rupee</value>
   </data>
@@ -432,11 +379,20 @@
   <data name="Currency_PoundSterling" xml:space="preserve">
     <value>Pound Sterling</value>
   </data>
+  <data name="Currency_QatariRiyal" xml:space="preserve">
+    <value>Qatari Riyal</value>
+  </data>
+  <data name="Currency_RomanianLeu" xml:space="preserve">
+    <value>Romanian Leu</value>
+  </data>
   <data name="Currency_Rouble" xml:space="preserve">
     <value>Rouble</value>
   </data>
   <data name="Currency_SaudiRiyal" xml:space="preserve">
     <value>Saudi Riyal</value>
+  </data>
+  <data name="Currency_SerbianDinar" xml:space="preserve">
+    <value>Serbian Dinar</value>
   </data>
   <data name="Currency_SingaporeDollar" xml:space="preserve">
     <value>Singapore Dollar</value>
@@ -458,6 +414,9 @@
   </data>
   <data name="Currency_TrinidadAndTobagoDollar" xml:space="preserve">
     <value>Trinidad and Tobago Dollar</value>
+  </data>
+  <data name="Currency_TunisianDinar" xml:space="preserve">
+    <value>Tunisian Dinar</value>
   </data>
   <data name="Currency_TurkishNewLira" xml:space="preserve">
     <value>Turkish New Lira</value>
@@ -495,6 +454,54 @@
   <data name="CustomResponsibleFilter" xml:space="preserve">
     <value>Other users</value>
   </data>
+  <data name="DashboardCommunicateWithClients" xml:space="preserve">
+    <value>Communicate with clients</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsFirstLine" xml:space="preserve">
+    <value>Send invoices to your clients.</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsSecondLine" xml:space="preserve">
+    <value>Make VoIP calls with Twilio integration.</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsThirdLine" xml:space="preserve">
+    <value>Organize mass mailings and meetings.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabase" xml:space="preserve">
+    <value>Create clients database</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseFirstLine" xml:space="preserve">
+    <value>Add contacts manually, get from web-to-lead form, or import from csv/email.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseSecondLine" xml:space="preserve">
+    <value>Fill in contact details, link people with companies and their social networks.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseThirdLine" xml:space="preserve">
+    <value>Structure contacts using types/tags, adjust temperature levels.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrm" xml:space="preserve">
+    <value>Customize your CRM</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmFirstLine" xml:space="preserve">
+    <value>Adjust CRM settings, grant access rights, set up currency/exchange rates.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmSecondLine" xml:space="preserve">
+    <value>Add new contacts types/user fields, create your own web-to-lead forms.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmThirdLine" xml:space="preserve">
+    <value>Describe your business process using customizable opportunity stages.</value>
+  </data>
+  <data name="DashboardTrackSales" xml:space="preserve">
+    <value>Track sales</value>
+  </data>
+  <data name="DashboardTrackSalesFirstLine" xml:space="preserve">
+    <value>Assign tasks to managers, link them with contacts.</value>
+  </data>
+  <data name="DashboardTrackSalesSecondLine" xml:space="preserve">
+    <value>Add opportunities, set budget, analyze potential deal success.</value>
+  </data>
+  <data name="DashboardTrackSalesThirdLine" xml:space="preserve">
+    <value>Set deadline/task reminders, generate reports.</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -509,9 +516,6 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
-  </data>
-  <data name="DeleteContact" xml:space="preserve">
-    <value>Delete contact</value>
   </data>
   <data name="DeleteHistoryEvent" xml:space="preserve">
     <value>Delete event</value>
@@ -543,15 +547,6 @@
   <data name="DuplicateRecords" xml:space="preserve">
     <value>Duplicate Records</value>
   </data>
-  <data name="Employees" xml:space="preserve">
-    <value>{!Users}</value>
-  </data>
-  <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
-    <value>Be aware of what your clients think about your produce and brand in the social network.</value>
-  </data>
-  <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
-    <value>No linked twitter accounts</value>
-  </data>
   <data name="EmptyFileErrorMsg" xml:space="preserve">
     <value>Empty file</value>
   </data>
@@ -560,9 +555,6 @@
   </data>
   <data name="EmptyHistoryHeader" xml:space="preserve">
     <value>No records for this filter can be found here</value>
-  </data>
-  <data name="EmptyPeopleInDealContent" xml:space="preserve">
-    <value>The opportunity participant list is empty</value>
   </data>
   <data name="EnterAmount" xml:space="preserve">
     <value>Enter amount</value>
@@ -576,11 +568,14 @@
   <data name="ExportCurrentListToCsvFile" xml:space="preserve">
     <value>Export current list to CSV-file</value>
   </data>
-  <data name="File" xml:space="preserve">
-    <value>File</value>
+  <data name="ExportData" xml:space="preserve">
+    <value>Export data</value>
   </data>
-  <data name="Files" xml:space="preserve">
-    <value>Files</value>
+  <data name="ExportDataInfo" xml:space="preserve">
+    <value>You can always see, download, edit, or delete all the exported files in {0}Documents/My documents{1}</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>Exporting data ({0}% complete)</value>
   </data>
   <data name="FileSizeErrorMsg" xml:space="preserve">
     <value>The maximum file size is exceeded</value>
@@ -670,22 +665,13 @@
     <value>CSV File Settings</value>
   </data>
   <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
-    <value>Text Delimiter</value>
+    <value>Text delimiter</value>
   </data>
   <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
     <value>Scanning the file...</value>
   </data>
   <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
     <value>Start importing data</value>
-  </data>
-  <data name="ImportStartingPanelButton" xml:space="preserve">
-    <value>Go to Contact List</value>
-  </data>
-  <data name="ImportStartingPanelDescription" xml:space="preserve">
-    <value>Import of contacts can take several minutes depending on the amount of your data. You will be informed when it is done.</value>
-  </data>
-  <data name="ImportStartingPanelHeader" xml:space="preserve">
-    <value>Importing started</value>
   </data>
   <data name="InformationProvidedBy" xml:space="preserve">
     <value>Information is submitted</value>
@@ -711,9 +697,6 @@
   <data name="LinkTo" xml:space="preserve">
     <value>Link with</value>
   </data>
-  <data name="LoadingProcessing" xml:space="preserve">
-    <value />
-  </data>
   <data name="LoadingWait" xml:space="preserve">
     <value>Please wait ...</value>
   </data>
@@ -729,14 +712,14 @@
   <data name="MailHistoryEventTemplate" xml:space="preserve">
     <value>ONLYOFFICE™ Mass Send Feature: "{0}"</value>
   </data>
-  <data name="MailSend" xml:space="preserve">
-    <value>Sending Mail</value>
-  </data>
   <data name="MailSender_FailedDeliverException" xml:space="preserve">
     <value>Failed to deliver message to {0}</value>
   </data>
   <data name="MailSender_InvalidEmail" xml:space="preserve">
     <value>Invalid email address: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Delivery failed - will retry in {0} seconds.</value>
   </data>
   <data name="MailSubject" xml:space="preserve">
     <value>Email subject</value>
@@ -744,29 +727,17 @@
   <data name="MailTo" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="Message" xml:space="preserve">
-    <value>Message</value>
-  </data>
   <data name="MoneyCalculator" xml:space="preserve">
     <value>Calculator</value>
   </data>
   <data name="My" xml:space="preserve">
     <value>My</value>
   </data>
-  <data name="MyDeals" xml:space="preserve">
-    <value>My opportunities</value>
-  </data>
   <data name="MyEventsFilter" xml:space="preserve">
     <value>My events</value>
   </data>
-  <data name="MyTasks" xml:space="preserve">
-    <value>My tasks</value>
-  </data>
   <data name="NextSample" xml:space="preserve">
     <value>Next record</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
   </data>
   <data name="NoLoadedMessages" xml:space="preserve">
     <value>No records</value>
@@ -800,21 +771,6 @@
   </data>
   <data name="OtherSettings" xml:space="preserve">
     <value>Other settings</value>
-  </data>
-  <data name="Overview" xml:space="preserve">
-    <value>Overview</value>
-  </data>
-  <data name="Part" xml:space="preserve">
-    <value>Share</value>
-  </data>
-  <data name="PleaseWait" xml:space="preserve">
-    <value>Please wait</value>
-  </data>
-  <data name="PortalName" xml:space="preserve">
-    <value>Portal name</value>
-  </data>
-  <data name="PreviewMail" xml:space="preserve">
-    <value>Preview Mail</value>
   </data>
   <data name="PreviewMailDescription" xml:space="preserve">
     <value>Here you can see the letter you are composing. Use the 'Back' button to make some changes or use the 'Send' button, if you like the result.</value>
@@ -857,7 +813,7 @@
     <value>Products &amp; Services</value>
   </data>
   <data name="ProductUserOpportunities" xml:space="preserve">
-    <value>Create contact, task, case, opportunity with a possibility to limit access to them|Edit contact, task, case, opportunity with the access rights set up</value>
+    <value>Create a contact, task, case, opportunity with a possibility to limit access to them|Edit a contact, task, case, opportunity with the access rights set up</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
@@ -867,6 +823,9 @@
   </data>
   <data name="RelativeTo" xml:space="preserve">
     <value>Linked with</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Reports</value>
   </data>
   <data name="Responsible" xml:space="preserve">
     <value>Responsible</value>
@@ -895,9 +854,6 @@
   <data name="Semicolon" xml:space="preserve">
     <value>Semicolon</value>
   </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
-  </data>
   <data name="SendEmail" xml:space="preserve">
     <value>Send Email</value>
   </data>
@@ -915,9 +871,6 @@
   </data>
   <data name="ShowInformation" xml:space="preserve">
     <value>Show information</value>
-  </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>Show more</value>
   </data>
   <data name="ShowOnPage" xml:space="preserve">
     <value>Show on page</value>
@@ -985,9 +938,6 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
-  <data name="Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
   <data name="TypeCompanyOrPerson" xml:space="preserve">
     <value>Company/Person</value>
   </data>
@@ -1018,106 +968,10 @@
   <data name="VoIPSettings" xml:space="preserve">
     <value>VoIP Settings</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
-  </data>
-  <data name="Currency_RomanianLeu" xml:space="preserve">
-    <value>Romanian Leu</value>
-  </data>
-  <data name="Currency_NewBelarusianRuble" xml:space="preserve">
-    <value>New Belarusian Ruble</value>
-  </data>
-  <data name="CreationDate" xml:space="preserve">
-    <value>Creation date</value>
-  </data>
-  <data name="ReportsModuleName" xml:space="preserve">
-    <value>Reports</value>
-  </data>
-  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
-    <value>Confirmation of changes</value>
-  </data>
-  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
-    <value>You deleted yourself from contact managers.</value>
-  </data>
-  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
-    <value>You will lose access to the contact for reading and writing, if the appropriate access is not allowed for all CRM users.</value>
-  </data>
-  <data name="Currency_PacificFranc" xml:space="preserve">
-    <value>Pacific franc</value>
-  </data>
-  <data name="ExportData" xml:space="preserve">
-    <value>Export data</value>
-  </data>
-  <data name="ExportDataProgress" xml:space="preserve">
-    <value>Export data ({0}% complete)</value>
-  </data>
-  <data name="MailSender_MailboxBusyException" xml:space="preserve">
-    <value>Delivery failed - will retry in {0} seconds.</value>
-  </data>
-  <data name="ExportDataInfo" xml:space="preserve">
-    <value>All exported files you can always see, download, edit, or delete them in {0}Documents/My Documents{1}</value>
-  </data>
   <data name="WholeCRMModule" xml:space="preserve">
     <value>Whole CRM module</value>
   </data>
-  <data name="Currency_SerbianDinar" xml:space="preserve">
-    <value>Serbian Dinar</value>
-  </data>
-  <data name="Currency_TunisianDinar" xml:space="preserve">
-    <value>Tunisian Dinar</value>
-  </data>
-  <data name="Currency_QatariRiyal" xml:space="preserve">
-    <value>Qatari Riyal</value>
-  </data>
-  <data name="DashboardCommunicateWithClients" xml:space="preserve">
-    <value>Communicate with clients</value>
-  </data>
-  <data name="DashboardCommunicateWithClientsFirstLine" xml:space="preserve">
-    <value>Send invoices to your clients.</value>
-  </data>
-  <data name="DashboardCommunicateWithClientsSecondLine" xml:space="preserve">
-    <value>Make VoIP calls with Twilio integration.</value>
-  </data>
-  <data name="DashboardCommunicateWithClientsThirdLine" xml:space="preserve">
-    <value>Organize mass mailings and meetings.</value>
-  </data>
-  <data name="DashboardCreateClientsDatabase" xml:space="preserve">
-    <value>Create clients database</value>
-  </data>
-  <data name="DashboardCreateClientsDatabaseFirstLine" xml:space="preserve">
-    <value>Add contacts manually, get from web-to-lead form, or import from csv/email.</value>
-  </data>
-  <data name="DashboardCreateClientsDatabaseSecondLine" xml:space="preserve">
-    <value>Fill in contact details, link people with companies and their social networks.</value>
-  </data>
-  <data name="DashboardCreateClientsDatabaseThirdLine" xml:space="preserve">
-    <value>Structure contacts using types/tags, adjust temperature levels.</value>
-  </data>
-  <data name="DashboardCustomizeYourCrm" xml:space="preserve">
-    <value>Customize your CRM</value>
-  </data>
-  <data name="DashboardCustomizeYourCrmFirstLine" xml:space="preserve">
-    <value>Adjust CRM settings, grant access rights, set up currency/exchange rates.</value>
-  </data>
-  <data name="DashboardCustomizeYourCrmSecondLine" xml:space="preserve">
-    <value>Add new contacts types/user fields, create your own web-to-lead forms.</value>
-  </data>
-  <data name="DashboardCustomizeYourCrmThirdLine" xml:space="preserve">
-    <value>Describe your business process using customizable opportunity stages.</value>
-  </data>
-  <data name="DashboardTrackSales" xml:space="preserve">
-    <value>Track sales</value>
-  </data>
-  <data name="DashboardTrackSalesFirstLine" xml:space="preserve">
-    <value>Assign tasks to managers, link them with contacts.</value>
-  </data>
-  <data name="DashboardTrackSalesSecondLine" xml:space="preserve">
-    <value>Add opportunities, set budget, analyze potential deal success.</value>
-  </data>
-  <data name="DashboardTrackSalesThirdLine" xml:space="preserve">
-    <value>Set deadline/task reminders, generate reports.</value>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
 </root>

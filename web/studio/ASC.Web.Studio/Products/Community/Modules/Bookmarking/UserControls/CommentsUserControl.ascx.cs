@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,13 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Web.Studio.Utility.HtmlUtility;
+
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Pojo;
-using ASC.Core;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
-using Newtonsoft.Json;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
@@ -58,7 +55,7 @@ namespace ASC.Web.UserControls.Bookmarking
                 return _serviceHelper.Comments;
             }
             set
-            { 
+            {
                 _serviceHelper.Comments = CommentList;
                 BookmarkingServiceHelper.UpdateCurrentInstanse(_serviceHelper);
             }
@@ -92,6 +89,6 @@ namespace ASC.Web.UserControls.Bookmarking
             commentList.ShowCaption = false;
             commentList.ObjectID = BookmarkID.ToString();
         }
-      
+
     }
 }

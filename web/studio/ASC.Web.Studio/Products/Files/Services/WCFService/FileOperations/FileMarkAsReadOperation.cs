@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
 */
 
 
-using ASC.Common.Security.Authentication;
-using ASC.Files.Core;
-using ASC.Web.Files.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
+using ASC.Common.Security.Authentication;
+using ASC.Files.Core;
+using ASC.Web.Files.Utils;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {

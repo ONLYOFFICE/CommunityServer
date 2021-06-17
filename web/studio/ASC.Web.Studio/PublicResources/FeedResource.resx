@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdvertCommentedText" xml:space="preserve">
     <value>Comments added to the announcement</value>
@@ -135,9 +76,6 @@
   <data name="BlogsModule" xml:space="preserve">
     <value>Blogs</value>
   </data>
-  <data name="Bookmark" xml:space="preserve">
-    <value>Bookmark</value>
-  </data>
   <data name="BookmarkCommentedText" xml:space="preserve">
     <value>Bookmark comment has been added</value>
   </data>
@@ -153,9 +91,6 @@
   <data name="CancelCommentBtn" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Case" xml:space="preserve">
-    <value>Case</value>
-  </data>
   <data name="CaseCreatedText" xml:space="preserve">
     <value>Case has been added</value>
   </data>
@@ -168,23 +103,14 @@
   <data name="CommunityProduct" xml:space="preserve">
     <value>Community</value>
   </data>
-  <data name="Company" xml:space="preserve">
-    <value>Company</value>
-  </data>
   <data name="CompanyCreatedText" xml:space="preserve">
     <value>Company has been added</value>
   </data>
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
-  <data name="Contacts" xml:space="preserve">
-    <value>Contacts</value>
-  </data>
   <data name="ContactsModule" xml:space="preserve">
     <value>Contacts</value>
-  </data>
-  <data name="CreatedBy" xml:space="preserve">
-    <value>Created by</value>
   </data>
   <data name="CrmProduct" xml:space="preserve">
     <value>CRM</value>
@@ -207,17 +133,8 @@
   <data name="Deadline" xml:space="preserve">
     <value>Deadline</value>
   </data>
-  <data name="Deal" xml:space="preserve">
-    <value>Opportunity</value>
-  </data>
   <data name="DealCreatedText" xml:space="preserve">
     <value>Opportunity has been added</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>Discussion</value>
   </data>
   <data name="DiscussionCommentedText" xml:space="preserve">
     <value>Discussion comment has been added</value>
@@ -231,17 +148,11 @@
   <data name="DocumentsProduct" xml:space="preserve">
     <value>Documents</value>
   </data>
-  <data name="Event" xml:space="preserve">
-    <value>Event</value>
-  </data>
   <data name="EventsModule" xml:space="preserve">
     <value>Events</value>
   </data>
   <data name="FeedsReadedMsg" xml:space="preserve">
     <value>No news so far. Please go to the feed to see the latest news history.</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>File</value>
   </data>
   <data name="FileCreatedText" xml:space="preserve">
     <value>File has been added</value>
@@ -252,17 +163,11 @@
   <data name="FileUpdatedText" xml:space="preserve">
     <value>File updated</value>
   </data>
-  <data name="Folder" xml:space="preserve">
-    <value>Folder</value>
-  </data>
   <data name="FolderCreatedText" xml:space="preserve">
     <value>Folder has been added</value>
   </data>
   <data name="FoldersModule" xml:space="preserve">
     <value>Folders</value>
-  </data>
-  <data name="Forum" xml:space="preserve">
-    <value>Forum</value>
   </data>
   <data name="ForumPollCreatedText" xml:space="preserve">
     <value>Poll has been added</value>
@@ -285,14 +190,8 @@
   <data name="LoadingMsg" xml:space="preserve">
     <value>Loading, please wait</value>
   </data>
-  <data name="Me" xml:space="preserve">
-    <value>Me</value>
-  </data>
   <data name="Members" xml:space="preserve">
     <value>Members</value>
-  </data>
-  <data name="Milestone" xml:space="preserve">
-    <value>Milestone</value>
   </data>
   <data name="MilestoneCreatedText" xml:space="preserve">
     <value>Milestone has been added</value>
@@ -326,9 +225,6 @@
   </data>
   <data name="ParticipantCreatedText" xml:space="preserve">
     <value>Participant has been added</value>
-  </data>
-  <data name="Person" xml:space="preserve">
-    <value>Person</value>
   </data>
   <data name="PersonCreatedText" xml:space="preserve">
     <value>Person has been added</value>
@@ -389,9 +285,6 @@
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
-  </data>
-  <data name="Task" xml:space="preserve">
-    <value>Task</value>
   </data>
   <data name="TaskCommentedText" xml:space="preserve">
     <value>Task comment has been added</value>

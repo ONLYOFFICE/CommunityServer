@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Core.Enums;
-using LumenWorks.Framework.IO.Csv;
-using Newtonsoft.Json.Linq;
 using ASC.CRM.Core.Dao;
-using ASC.Common.Threading.Progress;
+using ASC.CRM.Core.Entities;
+
+using LumenWorks.Framework.IO.Csv;
+
+using Newtonsoft.Json.Linq;
 
 #endregion
 
@@ -122,7 +123,7 @@ namespace ASC.Web.CRM.Classes
                 throw new OperationCanceledException();
             }
 
-            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone()); 
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());
             #endregion
 
             #region Processing duplicate rule
@@ -131,7 +132,8 @@ namespace ASC.Web.CRM.Classes
 
             _log.Info("ImportContactsData. _DuplicateRecordRuleProcess. End");
 
-            if (IsCompleted) {
+            if (IsCompleted)
+            {
                 return;
             }
 
@@ -147,7 +149,7 @@ namespace ASC.Web.CRM.Classes
                 throw new OperationCanceledException();
             }
 
-            ImportDataCache.Insert(EntityType.Contact,(ImportDataOperation)Clone());
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());
             #endregion
 
             #region Manipulation for saving Companies for persons + CRMSecurity
@@ -172,11 +174,11 @@ namespace ASC.Web.CRM.Classes
                         .ToDictionary(item => item.Key, item => item.Value);
 
 
-            #region CRMSecurity set -by every item-
+                    #region CRMSecurity set -by every item-
 
                     portion.ForEach(ct => CRMSecurity.SetAccessTo(ct, _importSettings.ContactManagers));
 
-            #endregion
+                    #endregion
 
 
                     index += DaoIterationStep;
@@ -211,7 +213,7 @@ namespace ASC.Web.CRM.Classes
                     if (findedCompany == null)
                     {
                         #region create COMPANY for person in csv
-                            
+
                         findedCompany = new Company
                         {
                             CompanyName = item.Value,
@@ -253,11 +255,11 @@ namespace ASC.Web.CRM.Classes
                         contactDao.SaveContactList(portion))
                         .ToDictionary(item => item.Key, item => item.Value);
 
-                #region CRMSecurity set -by every item-
+                    #region CRMSecurity set -by every item-
 
                     portion.ForEach(ct => CRMSecurity.SetAccessTo(ct, _importSettings.ContactManagers));
 
-                #endregion
+                    #endregion
 
 
                     index += DaoIterationStep;
@@ -280,7 +282,7 @@ namespace ASC.Web.CRM.Classes
                 throw new OperationCanceledException();
             }
 
-            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());  
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());
             #endregion
 
             #region Save contact infos -by portions-
@@ -324,7 +326,7 @@ namespace ASC.Web.CRM.Classes
             if (findedCustomField.Count != 0)
             {
                 findedCustomField.ForEach(item => item.EntityID = fakeRealContactIdHash[item.EntityID]);
-                
+
                 index = 0;
                 while (index < findedCustomField.Count)
                 {
@@ -352,7 +354,7 @@ namespace ASC.Web.CRM.Classes
                 throw new OperationCanceledException();
             }
 
-            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone()); 
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());
             #endregion
 
             #region Save tags
@@ -443,7 +445,8 @@ namespace ASC.Web.CRM.Classes
                 }
                 else
                 {
-                    contact.StatusID = listItemDao.CreateItem(ListType.ContactStatus, new ListItem(){
+                    contact.StatusID = listItemDao.CreateItem(ListType.ContactStatus, new ListItem()
+                    {
                         Title = contactStageName,
                         Color = "#77cf9a",
                         Description = ""
@@ -460,7 +463,8 @@ namespace ASC.Web.CRM.Classes
                 }
                 else
                 {
-                    contact.ContactTypeID = listItemDao.CreateItem(ListType.ContactType, new ListItem(){
+                    contact.ContactTypeID = listItemDao.CreateItem(ListType.ContactType, new ListItem()
+                    {
                         Title = contactTypeName,
                         Description = ""
                     });
@@ -515,10 +519,10 @@ namespace ASC.Web.CRM.Classes
             if (contactInfoType == ContactInfoType.Email)
             {
                 var validEmails = propertyValue
-                    .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .Where(email => email.TestEmailRegex()).ToArray();
 
-                if(!validEmails.Any())
+                if (!validEmails.Any())
                     return;
 
                 propertyValue = string.Join(",", validEmails);
@@ -571,23 +575,23 @@ namespace ASC.Web.CRM.Classes
                 return;
             }
 
-            var items = propertyValue.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            var items = propertyValue.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var item in items)
             {
                 findedContactInfos.Add(new ContactInfo
-                    {
-                        Category = category,
-                        InfoType = contactInfoType,
-                        Data = item,
-                        ContactID = contact.ID,
-                        IsPrimary = isPrimary
-                    });
+                {
+                    Category = category,
+                    InfoType = contactInfoType,
+                    Data = item,
+                    ContactID = contact.ID,
+                    IsPrimary = isPrimary
+                });
 
                 isPrimary = false;
             }
         }
-        
+
         #endregion
 
         private void _DuplicateRecordRuleProcess(DaoFactory _daoFactory,
@@ -604,86 +608,86 @@ namespace ASC.Web.CRM.Classes
             switch (_importSettings.DuplicateRecordRule)
             {
                 case 1:  // Skip  
+                {
+                    var emails = findedContactInfos.Where(item => item.InfoType == ContactInfoType.Email).ToList();
+
+                    if (emails.Count == 0) break;
+
+                    var index = 0;
+                    while (index < emails.Count)
                     {
-                        var emails = findedContactInfos.Where(item => item.InfoType == ContactInfoType.Email).ToList();
+                        var emailsIteration = emails.Skip(index).Take(DaoIterationStep).ToList();// Get next step
 
-                        if (emails.Count == 0) break;
+                        var duplicateContactsID = contactDao.FindDuplicateByEmail(emailsIteration, false)
+                                                    .Distinct()
+                                                    .ToList();
 
-                        var index = 0;
-                        while (index < emails.Count)
+                        if (duplicateContactsID.Count != 0)
                         {
-                            var emailsIteration = emails.Skip(index).Take(DaoIterationStep).ToList();// Get next step
+                            findedContacts = findedContacts.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
 
-                            var duplicateContactsID = contactDao.FindDuplicateByEmail(emailsIteration, false)
-                                                        .Distinct()
-                                                        .ToList();
+                            personFakeIdCompanyNameHash = personFakeIdCompanyNameHash.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
 
-                            if (duplicateContactsID.Count != 0)
+                            if (findedContacts.Count == 0)
                             {
-                                findedContacts = findedContacts.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
-
-                                personFakeIdCompanyNameHash = personFakeIdCompanyNameHash.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
-
-                                if (findedContacts.Count == 0)
-                                {
-                                    Complete();
-                                    return;
-                                }
-
-                                findedContactInfos = findedContactInfos.Where(item => !duplicateContactsID.Contains(item.ContactID)).ToList();
-                                findedCustomField = findedCustomField.Where(item => !duplicateContactsID.Contains(item.EntityID)).ToList();
-
-                                foreach (var exceptID in duplicateContactsID)
-                                {
-                                    if (findedTags.ContainsKey(exceptID)) findedTags.Remove(exceptID);
-                                }
+                                Complete();
+                                return;
                             }
 
-                            index += DaoIterationStep;
-                            if (index > emails.Count)
+                            findedContactInfos = findedContactInfos.Where(item => !duplicateContactsID.Contains(item.ContactID)).ToList();
+                            findedCustomField = findedCustomField.Where(item => !duplicateContactsID.Contains(item.EntityID)).ToList();
+
+                            foreach (var exceptID in duplicateContactsID)
                             {
-                                index = emails.Count;
+                                if (findedTags.ContainsKey(exceptID)) findedTags.Remove(exceptID);
                             }
                         }
+
+                        index += DaoIterationStep;
+                        if (index > emails.Count)
+                        {
+                            index = emails.Count;
+                        }
                     }
-                    break;
+                }
+                break;
                 case 2:  // Overwrite  
+                {
+                    var emailContactInfos = findedContactInfos.Where(item => item.InfoType == ContactInfoType.Email).ToList();
+                    if (emailContactInfos.Count == 0) break;
+
+                    _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. Start. All emeails count = {0}", emailContactInfos.Count);
+
+                    var index = 0;
+                    while (index < emailContactInfos.Count)
                     {
-                        var emailContactInfos = findedContactInfos.Where(item => item.InfoType == ContactInfoType.Email).ToList();
-                        if (emailContactInfos.Count == 0) break;
+                        var emailsIteration = emailContactInfos.Skip(index).Take(DaoIterationStep).ToList();// Get next step
 
-                        _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. Start. All emeails count = {0}", emailContactInfos.Count);
+                        _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. Portion from index = {0}. count = {1}", index, emailsIteration.Count);
+                        var duplicateContactsID = contactDao.FindDuplicateByEmail(emailsIteration, true)
+                                                    .Distinct()
+                                                    .ToArray();
 
-                        var index = 0;
-                        while (index < emailContactInfos.Count)
+                        _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. FindDuplicateByEmail result count = {0}", duplicateContactsID.Length);
+                        var deleted = contactDao.DeleteBatchContact(duplicateContactsID);
+
+                        _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. DeleteBatchContact. Was deleted {0} contacts", deleted != null ? deleted.Count : 0);
+
+                        index += DaoIterationStep;
+                        if (index > emailContactInfos.Count)
                         {
-                            var emailsIteration = emailContactInfos.Skip(index).Take(DaoIterationStep).ToList();// Get next step
-
-                            _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. Portion from index = {0}. count = {1}", index, emailsIteration.Count);
-                            var duplicateContactsID = contactDao.FindDuplicateByEmail(emailsIteration, true)
-                                                        .Distinct()
-                                                        .ToArray();
-
-                            _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. FindDuplicateByEmail result count = {0}", duplicateContactsID.Length);
-                            var deleted = contactDao.DeleteBatchContact(duplicateContactsID);
-
-                            _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. DeleteBatchContact. Was deleted {0} contacts", deleted != null ? deleted.Count : 0);
-
-                            index += DaoIterationStep;
-                            if (index > emailContactInfos.Count)
-                            {
-                                index = emailContactInfos.Count;
-                            }
+                            index = emailContactInfos.Count;
                         }
-
-                        break;
                     }
+
+                    break;
+                }
                 case 3: // Clone
                     break;
                 default:
                     break;
             }
         }
-    
+
     }
 }

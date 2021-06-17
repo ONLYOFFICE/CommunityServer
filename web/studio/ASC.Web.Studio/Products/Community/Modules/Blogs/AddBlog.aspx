@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Master/Community.Master" AutoEventWireup="true" CodeBehind="AddBlog.aspx.cs" Inherits="ASC.Web.Community.Blogs.AddBlog" Title="Untitled Page" %>
 
-<%@ Import Namespace="ASC.Blogs.Core.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Blogs.Core.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 

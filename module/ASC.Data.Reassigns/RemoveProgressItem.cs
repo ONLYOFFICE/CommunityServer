@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,17 +22,20 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+
 using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Mail.Core.Engine;
 using ASC.MessagingSystem;
-using ASC.Web.CRM.Core;
 using ASC.Web.Core;
+using ASC.Web.CRM.Core;
 using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Studio.Core.Notify;
+
 using Autofac;
+
 using CrmDaoFactory = ASC.CRM.Core.Dao.DaoFactory;
 
 namespace ASC.Data.Reassigns
@@ -208,7 +211,7 @@ namespace ASC.Data.Reassigns
 
             if (_httpHeaders != null)
                 MessageService.Send(_httpHeaders, MessageAction.UserDataRemoving, MessageTarget.Create(_userId),
-                                    new[] {_userName});
+                                    new[] { _userName });
             else
                 MessageService.Send(_context.Request, MessageAction.UserDataRemoving, MessageTarget.Create(_userId),
                                     _userName);

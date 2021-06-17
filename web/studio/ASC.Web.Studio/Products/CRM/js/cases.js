@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -757,7 +757,7 @@ ASC.CRM.ListCasesView = (function() {
         ASC.CRM.ListCasesView.advansedFilter = jq("#casesAdvansedFilter")
             .advansedFilter({
                 anykey      : false,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxfilters  : -1,
                 maxlength   : "100",
                 store       : true,
@@ -938,18 +938,7 @@ ASC.CRM.ListCasesView = (function() {
             jq(".containerBodyBlock").children(".loader-page").show();
 
             _initFilter();
-            /*tracking events*/
 
-            ASC.CRM.ListCasesView.advansedFilter.one("adv-ready", function () {
-                var crmAdvansedFilterContainer = jq("#casesAdvansedFilter .advansed-filter-list");
-                crmAdvansedFilterContainer.find("li[data-id='opened'] .inner-text").trackEvent(ga_Categories.cases, ga_Actions.filterClick, 'opened_status');
-                crmAdvansedFilterContainer.find("li[data-id='closed'] .inner-text").trackEvent(ga_Categories.cases, ga_Actions.filterClick, 'closed_status');
-                crmAdvansedFilterContainer.find("li[data-id='tags'] .inner-text").trackEvent(ga_Categories.cases, ga_Actions.filterClick, 'with_tags');
-
-                jq("#casesAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.cases, ga_Actions.filterClick, "sort");
-                jq("#casesAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.cases, ga_Actions.filterClick, "search_text", "enter");
-            });
-            
             ASC.CRM.PartialExport.init(ASC.CRM.ListCasesView.advansedFilter, "case");
         },
 

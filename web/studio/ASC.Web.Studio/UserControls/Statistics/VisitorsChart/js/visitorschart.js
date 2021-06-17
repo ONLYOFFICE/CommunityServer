@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -168,9 +168,18 @@
                     '<div class="info">' + item.datapoint[1] + ' ' + window.ASC.Resources.visitsLabel + '</div>';
                   ASC.Common.toolTip.show(content, function () {
                       var $this = $(this);
+                      var width = $this.outerWidth(true);
+                      var height = $this.outerHeight(true);
+                      var top = item.pageY - height - 5;
+                      var left = item.pageX + 5;
+
+                      if (width + left > document.body.scrollWidth) {
+                          left = item.pageX - width - 5;
+                      }
+
                       $this.css({
-                          left: item.pageX + 5,
-                          top: item.pageY - $this.outerHeight(true) - 5
+                          left: left,
+                          top: top
                       });
                   });
               } else {

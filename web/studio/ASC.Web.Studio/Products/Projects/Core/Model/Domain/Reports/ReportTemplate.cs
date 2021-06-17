@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,13 @@
 
 using System;
 using System.IO;
+
 using ASC.Projects.Engine;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Utils;
 using ASC.Web.Projects;
 using ASC.Web.Projects.Core;
+
 using Autofac;
 
 namespace ASC.Projects.Core.Domain.Reports
@@ -46,7 +48,7 @@ namespace ASC.Projects.Core.Domain.Reports
 
         public int Tenant { get; set; }
 
-        
+
         public ReportTemplate(ReportType reportType)
         {
             ReportType = reportType;

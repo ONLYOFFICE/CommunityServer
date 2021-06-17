@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,11 @@
 
 
 using System;
+
+using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
-using ASC.Web.UserControls.Bookmarking.Resources;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
@@ -35,20 +36,20 @@ namespace ASC.Web.UserControls.Bookmarking
 
             var sortControl = new ViewSwitcher();
             sortControl.TabItems.Add(new ViewSwitcherTabItem
-                {
-                    TabName = BookmarkingUCResource.BookmarkedBy,
-                    DivID = "BookmarkedByPanel",
-                    IsSelected = ServiceHelper.SelectedTab == 1,
-                    SkipRender = true
-                });
+            {
+                TabName = BookmarkingUCResource.BookmarkedBy,
+                DivID = "BookmarkedByPanel",
+                IsSelected = ServiceHelper.SelectedTab == 1,
+                SkipRender = true
+            });
 
             sortControl.TabItems.Add(new ViewSwitcherTabItem
-                {
-                    TabName = BookmarkingUCResource.Comments + String.Format(" ({0})", CommentsCount),
-                    DivID = "BookmarkCommentsPanel",
-                    IsSelected = ServiceHelper.SelectedTab == 0,
-                    SkipRender = true
-                });
+            {
+                TabName = BookmarkingUCResource.Comments + String.Format(" ({0})", CommentsCount),
+                DivID = "BookmarkCommentsPanel",
+                IsSelected = ServiceHelper.SelectedTab == 0,
+                SkipRender = true
+            });
 
             BookmarkInfoTabsContainer.Controls.Add(sortControl);
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@
 using System;
 using System.IO;
 
-using ASC.Common.Logging;
-
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
+
+using ASC.Common.Logging;
 
 
 namespace ASC.Data.Backup.Storage
@@ -51,8 +51,8 @@ namespace ASC.Data.Backup.Storage
 
             if (String.IsNullOrEmpty(storageBasePath))
                 key = "backup/" + Path.GetFileName(localPath);
-            else                        
-                key = String.Concat(storageBasePath.Trim(new char[] {' ', '/', '\\'}), "/", Path.GetFileName(localPath));
+            else
+                key = String.Concat(storageBasePath.Trim(new char[] { ' ', '/', '\\' }), "/", Path.GetFileName(localPath));
 
             using (var fileTransferUtility = new TransferUtility(accessKeyId, secretAccessKey, RegionEndpoint.GetBySystemName(region)))
             {
@@ -74,10 +74,10 @@ namespace ASC.Data.Backup.Storage
         public void Download(string storagePath, string targetLocalPath)
         {
             var request = new GetObjectRequest
-                {
-                    BucketName = bucket,
-                    Key = GetKey(storagePath),
-                };
+            {
+                BucketName = bucket,
+                Key = GetKey(storagePath),
+            };
 
             using (var s3 = GetClient())
             using (var response = s3.GetObject(request))
@@ -91,10 +91,10 @@ namespace ASC.Data.Backup.Storage
             using (var s3 = GetClient())
             {
                 s3.DeleteObject(new DeleteObjectRequest
-                    {
-                        BucketName = bucket,
-                        Key = GetKey(storagePath)
-                    });
+                {
+                    BucketName = bucket,
+                    Key = GetKey(storagePath)
+                });
             }
         }
 
@@ -123,18 +123,18 @@ namespace ASC.Data.Backup.Storage
             {
                 return s3.GetPreSignedURL(
                     new GetPreSignedUrlRequest
-                        {
-                            BucketName = bucket,
-                            Key = GetKey(storagePath),
-                            Expires = DateTime.UtcNow.AddDays(1),
-                            Verb = HttpVerb.GET
-                        });
+                    {
+                        BucketName = bucket,
+                        Key = GetKey(storagePath),
+                        Expires = DateTime.UtcNow.AddDays(1),
+                        Verb = HttpVerb.GET
+                    });
             }
         }
 
         private string GetKey(string fileName)
         {
-           // return "backup/" + Path.GetFileName(fileName);
+            // return "backup/" + Path.GetFileName(fileName);
             return fileName;
         }
 

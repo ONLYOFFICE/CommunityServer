@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,11 +53,14 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>Add new opportunity</value>
+  </data>
   <data name="AddThisAndCreateDealButton" xml:space="preserve">
     <value>Save and Create New Opportunity</value>
   </data>
@@ -165,9 +109,6 @@
   <data name="CreateNewDeal" xml:space="preserve">
     <value>Create new opportunity</value>
   </data>
-  <data name="CurrentDeal" xml:space="preserve">
-    <value>Current opportunity</value>
-  </data>
   <data name="CurrentDealMilestone" xml:space="preserve">
     <value>Opportunity at stage</value>
   </data>
@@ -185,9 +126,6 @@
   </data>
   <data name="DealAmount" xml:space="preserve">
     <value>Sum</value>
-  </data>
-  <data name="DealCount" xml:space="preserve">
-    <value>Qty</value>
   </data>
   <data name="DealMilestone" xml:space="preserve">
     <value>Opportunity Stages</value>
@@ -283,7 +221,7 @@
     <value>Edit opportunity</value>
   </data>
   <data name="EmptyContentDealsDescribe" xml:space="preserve">
-    <value>Opportunities let you track potential sales to your clients. Determine the {0}opportunity stages{1} in accordance with your business process, keep history, assign tasks, upload documents, calculate profit with every client.</value>
+    <value>Opportunities let you track potential sales. Determine the {0}opportunity stages{1} in accordance with your business process, keep history, assign tasks, upload documents, calculate profit from every client.</value>
   </data>
   <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
     <value>No opportunities matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the opportunities in this section. Or you can create the opportunity in case it is absent from the list.</value>
@@ -321,6 +259,9 @@
   <data name="FilterByStageOrStageType" xml:space="preserve">
     <value>Stage/stage type</value>
   </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>Find opportunity by title</value>
+  </data>
   <data name="ImportDeals" xml:space="preserve">
     <value>Import opportunities</value>
   </data>
@@ -345,6 +286,9 @@
   <data name="ImportStartingPanelHeader" xml:space="preserve">
     <value>Importing started</value>
   </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>Select from existing opportunities or add a new one</value>
+  </data>
   <data name="LinkOrCreateDeal" xml:space="preserve">
     <value>Link or create opportunity</value>
   </data>
@@ -360,9 +304,6 @@
   <data name="OtherMembersDeal" xml:space="preserve">
     <value>Other opportunity participants</value>
   </data>
-  <data name="Overdue" xml:space="preserve">
-    <value>Overdue</value>
-  </data>
   <data name="PeopleInDeal" xml:space="preserve">
     <value>Participants</value>
   </data>
@@ -374,9 +315,6 @@
   </data>
   <data name="ResponsibleDeal" xml:space="preserve">
     <value>Responsible for the opportunity</value>
-  </data>
-  <data name="SettingCustomFields" xml:space="preserve">
-    <value>Customize user fields</value>
   </data>
   <data name="ShowDealProfile" xml:space="preserve">
     <value>Go to profile</value>
@@ -393,9 +331,6 @@
   <data name="TooltipStages" xml:space="preserve">
     <value>Opportunity stages let you determine steps necessary to complete the deal. The default opportunity stages are approach, discussion, evaluation, negotiation, commitment, success, zero-point. To be able to edit them the portal administrator rights are needed.</value>
   </data>
-  <data name="Total" xml:space="preserve">
-    <value>Total</value>
-  </data>
   <data name="TotalAmount" xml:space="preserve">
     <value>Total amount</value>
   </data>
@@ -404,14 +339,5 @@
   </data>
   <data name="TotalOnPage" xml:space="preserve">
     <value>Page total</value>
-  </data>
-  <data name="AddNewDeal" xml:space="preserve">
-    <value>Add new opportunity</value>
-  </data>
-  <data name="LinkDealsFromExisting" xml:space="preserve">
-    <value>Select from existing opportunities or add a new one</value>
-  </data>
-  <data name="FindDealByName" xml:space="preserve">
-    <value>Find opportunity by title</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ window.ASC.Files.Filter = (function () {
                 anykeytimeout: 800,
                 colcount: 3,
                 filters: getFilterItems(),
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxlength: ASC.Files.Constants.MAX_NAME_LENGTH,
                 sorters: getSorterItems()
             };
@@ -48,79 +48,79 @@ window.ASC.Files.Filter = (function () {
         var filterItems = [
             {
                 id: "selected-type-folder",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.FoldersOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterFolder,
+                title: ASC.Files.FilesJSResource.ButtonFilterFolder,
                 visible: !isFavorites && !isRecent && !isTemplates
             },
             {
                 id: "selected-type-text",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.DocumentsOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterDocument
+                title: ASC.Files.FilesJSResource.ButtonFilterDocument
             },
             {
                 id: "selected-type-presentation",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.PresentationsOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterPresentation
+                title: ASC.Files.FilesJSResource.ButtonFilterPresentation
             },
             {
                 id: "selected-type-spreadsheet",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.SpreadsheetsOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterSpreadsheet
+                title: ASC.Files.FilesJSResource.ButtonFilterSpreadsheet
             },
             {
                 id: "selected-type-image",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.ImagesOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterImage,
+                title: ASC.Files.FilesJSResource.ButtonFilterImage,
                 visible: !isRecent && !isTemplates
             },
             {
                 id: "selected-type-media",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.MediaOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterMedia,
+                title: ASC.Files.FilesJSResource.ButtonFilterMedia,
                 visible: !isRecent && !isTemplates
             },
             {
                 id: "selected-type-archive",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.ArchiveOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterArchive,
+                title: ASC.Files.FilesJSResource.ButtonFilterArchive,
                 visible: !isRecent && !isTemplates
             },
             {
                 id: "selected-type-file",
-                filtertitle: ASC.Files.FilesJSResources.ButtonFilterType,
-                group: ASC.Files.FilesJSResources.ButtonFilterType,
+                filtertitle: ASC.Files.FilesJSResource.ButtonFilterType,
+                group: ASC.Files.FilesJSResource.ButtonFilterType,
                 groupby: "type",
                 options: getTypeOptions(ASC.Files.Constants.FilterType.FilesOnly),
                 type: "combobox",
-                title: ASC.Files.FilesJSResources.ButtonFilterFiles,
+                title: ASC.Files.FilesJSResource.ButtonFilterFiles,
                 visible: !isFavorites && !isRecent && !isTemplates
             }
         ];
@@ -128,17 +128,17 @@ window.ASC.Files.Filter = (function () {
         if (ASC.Resources.Master.Personal != true) {
             filterItems.push({
                 id: "selected-person",
-                group: ASC.Files.FilesJSResources.ButtonFilterAuthor,
+                group: ASC.Files.FilesJSResource.ButtonFilterAuthor,
                 groupby: "owner",
-                title: ASC.Files.FilesJSResources.Users,
+                title: ASC.Files.FilesJSResource.Users,
                 type: "person"
             });
 
             filterItems.push({
                 id: "selected-group",
-                group: ASC.Files.FilesJSResources.ButtonFilterAuthor,
+                group: ASC.Files.FilesJSResource.ButtonFilterAuthor,
                 groupby: "owner",
-                title: ASC.Files.FilesJSResources.Departments,
+                title: ASC.Files.FilesJSResource.Departments,
                 type: "group"
             });
         }
@@ -148,8 +148,8 @@ window.ASC.Files.Filter = (function () {
         if (jq(".files-filter").data("content")) {
             filterItems.push({
                 id: "with-content",
-                group: ASC.Files.FilesJSResources.ButtonFilterOther,
-                title: ASC.Files.FilesJSResources.ButtonFilterInContent,
+                group: ASC.Files.FilesJSResource.ButtonFilterOther,
+                title: ASC.Files.FilesJSResource.ButtonFilterInContent,
                 type: "flag",
                 visible: !isRootTrash
             });
@@ -157,8 +157,8 @@ window.ASC.Files.Filter = (function () {
 
         filterItems.push({
             id: "current-folder",
-            group: ASC.Files.FilesJSResources.ButtonFilterOther,
-            title: ASC.Files.FilesJSResources.ButtonFilterCurrentFolderOnly,
+            group: ASC.Files.FilesJSResource.ButtonFilterOther,
+            title: ASC.Files.FilesJSResource.ButtonFilterCurrentFolderOnly,
             type: "flag",
             visible: !isRootTrash && !isFavorites && !isRecent && !isTemplates
                 && (!ASC.Files.ThirdParty || !ASC.Files.ThirdParty.isThirdParty())
@@ -176,41 +176,41 @@ window.ASC.Files.Filter = (function () {
         if (!isFavorites && !isRecent && !isTemplates) {
             options = [{
                 def: defaultType == ASC.Files.Constants.FilterType.FoldersOnly,
-                title: ASC.Files.FilesJSResources.ButtonFilterFolder,
+                title: ASC.Files.FilesJSResource.ButtonFilterFolder,
                 value: ASC.Files.Constants.FilterType.FoldersOnly
             }];
         }
 
         options.push({
                 def: defaultType == ASC.Files.Constants.FilterType.DocumentsOnly,
-                title: ASC.Files.FilesJSResources.ButtonFilterDocument,
+                title: ASC.Files.FilesJSResource.ButtonFilterDocument,
                 value: ASC.Files.Constants.FilterType.DocumentsOnly
             },
             {
                 def: defaultType == ASC.Files.Constants.FilterType.PresentationsOnly,
-                title: ASC.Files.FilesJSResources.ButtonFilterPresentation,
+                title: ASC.Files.FilesJSResource.ButtonFilterPresentation,
                 value: ASC.Files.Constants.FilterType.PresentationsOnly
             },
             {
                 def: defaultType == ASC.Files.Constants.FilterType.SpreadsheetsOnly,
-                title: ASC.Files.FilesJSResources.ButtonFilterSpreadsheet,
+                title: ASC.Files.FilesJSResource.ButtonFilterSpreadsheet,
                 value: ASC.Files.Constants.FilterType.SpreadsheetsOnly
             });
 
         if (!isRecent && !isTemplates) {
             options.push({
                     def: defaultType == ASC.Files.Constants.FilterType.ImagesOnly,
-                    title: ASC.Files.FilesJSResources.ButtonFilterImage,
+                    title: ASC.Files.FilesJSResource.ButtonFilterImage,
                     value: ASC.Files.Constants.FilterType.ImagesOnly
                 },
                 {
                     def: defaultType == ASC.Files.Constants.FilterType.MediaOnly,
-                    title: ASC.Files.FilesJSResources.ButtonFilterMedia,
+                    title: ASC.Files.FilesJSResource.ButtonFilterMedia,
                     value: ASC.Files.Constants.FilterType.MediaOnly
                 },
                 {
                     def: defaultType == ASC.Files.Constants.FilterType.ArchiveOnly,
-                    title: ASC.Files.FilesJSResources.ButtonFilterArchive,
+                    title: ASC.Files.FilesJSResource.ButtonFilterArchive,
                     value: ASC.Files.Constants.FilterType.ArchiveOnly
                 });
         }
@@ -218,7 +218,7 @@ window.ASC.Files.Filter = (function () {
         if (!isFavorites && !isRecent && !isTemplates) {
             options.push({
                 def: defaultType == ASC.Files.Constants.FilterType.FilesOnly,
-                title: ASC.Files.FilesJSResources.ButtonFilterFiles,
+                title: ASC.Files.FilesJSResource.ButtonFilterFiles,
                 value: ASC.Files.Constants.FilterType.FilesOnly
             });
         }
@@ -234,31 +234,31 @@ window.ASC.Files.Filter = (function () {
                 def: (startOrderBy.property == "DateAndTime"),
                 dsc: (startOrderBy.property == "DateAndTime" ? !startOrderBy.is_asc : false),
                 id: "DateAndTime",
-                title: ASC.Files.FilesJSResources.ButtonSortModifiedNew
+                title: ASC.Files.FilesJSResource.ButtonSortModifiedNew
             },
             {
                 def: (startOrderBy.property == "DateAndTimeCreation"),
                 dsc: (startOrderBy.property == "DateAndTimeCreation" ? !startOrderBy.is_asc : false),
                 id: "DateAndTimeCreation",
-                title: ASC.Files.FilesJSResources.ButtonSortCreated
+                title: ASC.Files.FilesJSResource.ButtonSortCreated
             },
             {
                 def: (startOrderBy.property == "AZ"),
                 dsc: (startOrderBy.property == "AZ" ? !startOrderBy.is_asc : true),
                 id: "AZ",
-                title: ASC.Files.FilesJSResources.ButtonSortName
+                title: ASC.Files.FilesJSResource.ButtonSortName
             },
             {
                 def: (startOrderBy.property == "Type"),
                 dsc: (startOrderBy.property == "Type" ? !startOrderBy.is_asc : true),
                 id: "Type",
-                title: ASC.Files.FilesJSResources.ButtonSortType
+                title: ASC.Files.FilesJSResource.ButtonSortType
             },
             {
                 def: (startOrderBy.property == "Size"),
                 dsc: (startOrderBy.property == "Size" ? !startOrderBy.is_asc : false),
                 id: "Size",
-                title: ASC.Files.FilesJSResources.ButtonSortSize
+                title: ASC.Files.FilesJSResource.ButtonSortSize
             }
         ];
 
@@ -267,7 +267,7 @@ window.ASC.Files.Filter = (function () {
                 def: (startOrderBy.property == "Author"),
                 dsc: (startOrderBy.property == "Author" ? !startOrderBy.is_asc : false),
                 id: "Author",
-                title: ASC.Files.FilesJSResources.ButtonSortAuthor
+                title: ASC.Files.FilesJSResource.ButtonSortAuthor
             });
         }
 

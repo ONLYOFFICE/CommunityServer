@@ -2,6 +2,7 @@
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConvertFile.ascx.cs" Inherits="ASC.Web.Files.Controls.ConvertFile" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
+<%@ Import Namespace="ASC.Web.Files.Core.Compress" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -79,7 +80,7 @@
         <body>
             <div><%=FilesUCResource.ChooseFormatToDownload%></div>
             <div id="convertFileList" class="compact cnvrt-list-file-block"></div>
-            <div id="convertFileZip"><%= String.Format(FilesUCResource.FilesWillBeCompressed, "<b>", "</b>")%></div>
+            <div id="convertFileZip"><%= String.Format(CompressToArchive.Instance.Title, "<b>", "</b>")%></div>
             <div class="text-medium-describe"><%= FilesUCResource.LostDataConvert %></div>
             <div class="middle-button-container">
                 <a id="buttonStartConvert" class="button blue middle">

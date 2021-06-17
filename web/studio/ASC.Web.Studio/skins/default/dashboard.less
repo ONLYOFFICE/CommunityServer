@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,6 +152,58 @@
     }
 }
 
+.dashboard-center-box.welcome {
+    .module-block h1 {
+        text-align: center;
+        font-size: 28px;
+        line-height: 32px;
+        font-weight: 600;
+        margin: 0 0 32px 0;
+    }
+
+    .content {
+        height: 362px;
+    }
+
+    .module-block .img {
+        background-position: 10px 0;
+        padding: 0;
+        width: 180px;
+    }
+
+    .module-block .text {
+        width: 420px;
+    }
+
+    .module-block .text b {
+        font-weight: 600;
+    }
+
+    .module-block .title {
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 0 18px 0;
+    }
+
+    .content .module-block {
+        .img.tailored-cloud {
+            background-image: url("images/dashboard/tailored-cloud.svg");
+        }
+
+        .img.ultimate-security {
+            background-image: url("images/dashboard/ultimate-security.svg");
+        }
+
+        .img.integration-with-infrastructure {
+            background-image: url("images/dashboard/integration-with-infrastructure.svg");
+        }
+
+        .img.apps-you-need {
+            background-image: url("images/dashboard/apps-you-need.svg");
+        }
+    }
+}
+
 .dashboard-center-box .slick-carousel {
     display: none;
     width: 600px;
@@ -276,5 +328,9 @@
         float: left;
         height: 260px;
         position: relative;
+
+        &:focus {
+            outline: none;
+        }
     }
 }

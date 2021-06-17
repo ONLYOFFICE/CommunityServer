@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,16 @@
 
 #region Import
 
+using System;
+using System.Linq;
+using System.Text;
+using System.Web;
+
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Resources;
-using System;
-using System.Linq;
-using System.Text;
-using System.Web;
 
 
 #endregion
@@ -97,8 +98,10 @@ namespace ASC.Web.CRM.Controls.Contacts
             if (TargetContact is Company)
             {
                 var members = DaoFactory.ContactDao.GetMembersIDsAndShareType(TargetContact.ID);
-                foreach (var m in members) {
-                    if (CRMSecurity.CanAccessTo(m.Key, EntityType.Person, m.Value, 0)) {
+                foreach (var m in members)
+                {
+                    if (CRMSecurity.CanAccessTo(m.Key, EntityType.Person, m.Value, 0))
+                    {
                         additionalContactsCount++;
                     }
                 }

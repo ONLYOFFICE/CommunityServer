@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ROOT_DIR="/var/www/onlyoffice/Data/certs";
-NGINX_CONF_DIR="/etc/nginx/sites-enabled";
+NGINX_CONF_DIR="{{NGINX_CONF_DIR}}";
 NGINX_ROOT_DIR="/etc/nginx";
 APP_SERVICES_ROOT_DIR="/var/www/onlyoffice/Services"
 SSL_OCSP_CERTIFICATE_PATH="${ROOT_DIR}/stapling.trusted.crt";
@@ -56,7 +56,7 @@ fi
 
 sed '/mail\.default-api-scheme/s/\(value\s*=\s*\"\).*\"/\1https\"/' -i ${APP_SERVICES_ROOT_DIR}/MailAggregator/ASC.Mail.Aggregator.CollectionService.exe.config;
 
-mv -f default-onlyoffice-ssl.conf ${NGINX_CONF_DIR}/onlyoffice
+mv -f default-onlyoffice-ssl.conf ${NGINX_CONF_DIR}/onlyoffice.conf
 
 service onlyofficeMailAggregator restart
 service nginx reload

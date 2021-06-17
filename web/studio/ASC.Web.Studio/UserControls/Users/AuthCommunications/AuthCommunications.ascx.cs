@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -29,9 +31,9 @@ using ASC.Web.Core.Security;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls
 {
@@ -107,11 +109,11 @@ namespace ASC.Web.Studio.UserControls
                 StudioNotifyService.Instance.SendMsgToAdminFromNotAuthUser(email, message);
                 MessageService.Send(HttpContext.Current.Request, MessageAction.ContactAdminMailSent);
 
-                return new {Status = 1, Message = Resource.AdminMessageSent};
+                return new { Status = 1, Message = Resource.AdminMessageSent };
             }
             catch (Exception ex)
             {
-                return new {Status = 0, Message = ex.Message.HtmlEncode()};
+                return new { Status = 0, Message = ex.Message.HtmlEncode() };
             }
         }
 
@@ -148,38 +150,38 @@ namespace ASC.Web.Studio.UserControls
                 switch (tenant.TrustedDomainsType)
                 {
                     case TenantTrustedDomainsType.Custom:
-                        {
-                            var address = new MailAddress(email);
-                            if (
-                                tenant.TrustedDomains.Any(
-                                    d => address.Address.EndsWith("@" + d, StringComparison.InvariantCultureIgnoreCase)))
-                            {
-                                StudioNotifyService.Instance.SendJoinMsg(email, emplType);
-                                MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
-                                                    MessageAction.SentInviteInstructions, email);
-                                return new {Status = 1, Message = Resource.FinishInviteJoinEmailMessage};
-                            }
-
-                            throw new Exception(Resource.ErrorEmailDomainNotAllowed);
-                        }
-                    case TenantTrustedDomainsType.All:
+                    {
+                        var address = new MailAddress(email);
+                        if (
+                            tenant.TrustedDomains.Any(
+                                d => address.Address.EndsWith("@" + d.Replace("*", ""), StringComparison.InvariantCultureIgnoreCase)))
                         {
                             StudioNotifyService.Instance.SendJoinMsg(email, emplType);
                             MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
                                                 MessageAction.SentInviteInstructions, email);
-                            return new {Status = 1, Message = Resource.FinishInviteJoinEmailMessage};
+                            return new { Status = 1, Message = Resource.FinishInviteJoinEmailMessage };
                         }
+
+                        throw new Exception(Resource.ErrorEmailDomainNotAllowed);
+                    }
+                    case TenantTrustedDomainsType.All:
+                    {
+                        StudioNotifyService.Instance.SendJoinMsg(email, emplType);
+                        MessageService.Send(HttpContext.Current.Request, MessageInitiator.System,
+                                            MessageAction.SentInviteInstructions, email);
+                        return new { Status = 1, Message = Resource.FinishInviteJoinEmailMessage };
+                    }
                     default:
                         throw new Exception(Resource.ErrorNotCorrectEmail);
                 }
             }
             catch (FormatException)
             {
-                return new {Status = 0, Message = Resource.ErrorNotCorrectEmail};
+                return new { Status = 0, Message = Resource.ErrorNotCorrectEmail };
             }
             catch (Exception e)
             {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
+                return new { Status = 0, Message = e.Message.HtmlEncode() };
             }
         }
 
@@ -190,12 +192,12 @@ namespace ASC.Web.Studio.UserControls
             switch (tenant.TrustedDomainsType)
             {
                 case TenantTrustedDomainsType.Custom:
-                    {
-                        var domains = "<strong>" +
-                                      string.Join("</strong>, <strong>", tenant.TrustedDomains) +
-                                      "</strong>";
-                        return String.Format(Resource.TrustedDomainsInviteTitle.HtmlEncode(), domains);
-                    }
+                {
+                    var domains = "<strong>" +
+                                  string.Join("</strong>, <strong>", tenant.TrustedDomains) +
+                                  "</strong>";
+                    return String.Format(Resource.TrustedDomainsInviteTitle.HtmlEncode(), domains);
+                }
                 case TenantTrustedDomainsType.All:
                     return Resource.SignInFromAnyDomainInviteTitle.HtmlEncode();
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Core;
 using ASC.Core.Common.Settings;
 using ASC.Web.Studio.Utility;
@@ -38,9 +39,9 @@ namespace ASC.Web.Studio.Core
         public override ISettings GetDefault()
         {
             return new PrivacyRoomSettings
-                {
-                    EnabledSetting = true
-                };
+            {
+                EnabledSetting = true
+            };
         }
 
         public static bool Enabled

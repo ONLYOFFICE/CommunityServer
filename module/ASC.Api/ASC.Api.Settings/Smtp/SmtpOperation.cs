@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,18 @@ using System.Net.Sockets;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ASC.Common.Logging;
 using ASC.Common.Security.Authorizing;
 using ASC.Common.Threading;
 using ASC.Core;
+using ASC.Web.Studio.PublicResources;
+
 using MailKit.Net.Smtp;
 using MailKit.Security;
+
 using MimeKit;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Settings.Smtp
@@ -150,7 +155,7 @@ namespace ASC.Api.Settings.Smtp
             }
             catch (AuthorizingException authError)
             {
-                Error = Resources.Resource.ErrorAccessDenied; // "No permissions to perform this action";
+                Error = Resource.ErrorAccessDenied; // "No permissions to perform this action";
                 Logger.Error(Error, new SecurityException(Error, authError));
             }
             catch (AggregateException ae)
@@ -193,13 +198,15 @@ namespace ASC.Api.Settings.Smtp
             var sslCertificatePermit = ConfigurationManagerExtension.AppSettings["mail.certificate-permit"] != null &&
                     Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["mail.certificate-permit"]);
 
-            return new SmtpClient
+            var client = new SmtpClient
             {
-                ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
-                    sslCertificatePermit ||
-                    MailKit.MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
-                Timeout = (int) TimeSpan.FromSeconds(30).TotalMilliseconds
+                Timeout = (int)TimeSpan.FromSeconds(30).TotalMilliseconds
             };
+
+            if (sslCertificatePermit)
+                client.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+
+            return client;
         }
 
         public virtual DistributedTask GetDistributedTask()

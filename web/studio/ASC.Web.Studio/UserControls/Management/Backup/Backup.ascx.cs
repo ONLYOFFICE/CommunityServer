@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,11 +42,21 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return SetupInfo.IsVisibleSettings("AutoBackup"); }
         }
 
+        protected bool AutoBackup
+        {
+            get
+            {
+                return CoreContext.Configuration.Standalone || TenantExtra.GetTenantQuota().AutoBackup;
+            }
+        }
+
         protected string HelpLink { get; set; }
         protected int TenantId { get; set; }
+        public string TariffPageLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            TariffPageLink = TenantExtra.GetTariffPageLink();
             if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
             {
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);

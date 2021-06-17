@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+
 using ASC.Files.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Files;
@@ -39,10 +40,13 @@ namespace ASC.Web.Files
 
         public static string GetUrlForEditor
         {
-            get {return Location + string.Format("?{0}=true&{1}={{{1}}}&{2}={{{2}}}",
-                FromEditorParam,
-                FilterExtParam,
-                FileTypeParam);}
+            get
+            {
+                return Location + string.Format("?{0}=true&{1}={{{1}}}&{2}={{{2}}}",
+               FromEditorParam,
+               FilterExtParam,
+               FileTypeParam);
+            }
         }
 
         public static string GetUrl(string ext = null,
@@ -77,12 +81,7 @@ namespace ASC.Web.Files
         {
             get
             {
-                var ext = (Request[FilterExtParam] ?? "").Trim().ToLower();
-                //todo: obsolete since DS v5.3
-                return
-                    ext == "{" + FilterExtParam.ToLower() + "}"
-                        ? "xlsx"
-                        : ext;
+                return (Request[FilterExtParam] ?? "").Trim().ToLower();
             }
         }
 
@@ -113,7 +112,7 @@ namespace ASC.Web.Files
                   .AddStaticStyles(GetStaticStyleSheet())
                   .AddStaticBodyScripts(GetStaticJavaScript());
 
-            var fileSelector = (FileSelector) LoadControl(FileSelector.Location);
+            var fileSelector = (FileSelector)LoadControl(FileSelector.Location);
             fileSelector.IsFlat = true;
             fileSelector.OnlyFolder = OnlyFolder;
             fileSelector.Multiple = (Request[MultiSelectParam] ?? "").Trim().ToLower() == "true";

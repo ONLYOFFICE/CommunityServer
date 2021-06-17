@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,14 @@
 */
 
 
+using System;
+using System.Web.UI;
+
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.UserForum;
-using System;
-using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -42,7 +43,7 @@ namespace ASC.Web.Files.Controls
 
             if (!Desktop)
             {
-                var helpCenter = (HelpCenter) LoadControl(HelpCenter.Location);
+                var helpCenter = (HelpCenter)LoadControl(HelpCenter.Location);
                 helpCenter.IsSideBar = true;
                 sideHelpCenter.Controls.Add(helpCenter);
 

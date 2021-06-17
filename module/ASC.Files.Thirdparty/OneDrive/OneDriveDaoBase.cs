@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -29,7 +30,9 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
+
 using Microsoft.OneDrive.Sdk;
+
 using File = ASC.Files.Core.File;
 using Folder = ASC.Files.Core.Folder;
 
@@ -185,25 +188,25 @@ namespace ASC.Files.Thirdparty.OneDrive
             var isRoot = IsRoot(onedriveFolder);
 
             var folder = new Folder
-                {
-                    ID = MakeId(isRoot ? string.Empty : onedriveFolder.Id),
-                    ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(onedriveFolder)),
-                    CreateBy = OneDriveProviderInfo.Owner,
-                    CreateOn = isRoot ? OneDriveProviderInfo.CreateOn : (onedriveFolder.CreatedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFolder.CreatedDateTime.Value.DateTime) : default(DateTime)),
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = OneDriveProviderInfo.Owner,
-                    ModifiedOn = isRoot ? OneDriveProviderInfo.CreateOn : (onedriveFolder.LastModifiedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFolder.LastModifiedDateTime.Value.DateTime) : default(DateTime)),
-                    ProviderId = OneDriveProviderInfo.ID,
-                    ProviderKey = OneDriveProviderInfo.ProviderKey,
-                    RootFolderCreator = OneDriveProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = OneDriveProviderInfo.RootFolderType,
+            {
+                ID = MakeId(isRoot ? string.Empty : onedriveFolder.Id),
+                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(onedriveFolder)),
+                CreateBy = OneDriveProviderInfo.Owner,
+                CreateOn = isRoot ? OneDriveProviderInfo.CreateOn : (onedriveFolder.CreatedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFolder.CreatedDateTime.Value.DateTime) : default(DateTime)),
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = OneDriveProviderInfo.Owner,
+                ModifiedOn = isRoot ? OneDriveProviderInfo.CreateOn : (onedriveFolder.LastModifiedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFolder.LastModifiedDateTime.Value.DateTime) : default(DateTime)),
+                ProviderId = OneDriveProviderInfo.ID,
+                ProviderKey = OneDriveProviderInfo.ProviderKey,
+                RootFolderCreator = OneDriveProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = OneDriveProviderInfo.RootFolderType,
 
-                    Shareable = false,
-                    Title = MakeItemTitle(onedriveFolder),
-                    TotalFiles = 0,
-                    TotalSubFolders = 0
-                };
+                Shareable = false,
+                Title = MakeItemTitle(onedriveFolder),
+                TotalFiles = 0,
+                TotalSubFolders = 0
+            };
 
             return folder;
         }
@@ -217,45 +220,45 @@ namespace ASC.Files.Thirdparty.OneDrive
         {
             if (onedriveFile == null) return null;
             return new File
-                {
-                    ID = MakeId(onedriveFile.ErrorId),
-                    CreateBy = OneDriveProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    ModifiedBy = OneDriveProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeNow(),
-                    ProviderId = OneDriveProviderInfo.ID,
-                    ProviderKey = OneDriveProviderInfo.ProviderKey,
-                    RootFolderCreator = OneDriveProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = OneDriveProviderInfo.RootFolderType,
-                    Title = MakeItemTitle(onedriveFile),
-                    Error = onedriveFile.Error
-                };
+            {
+                ID = MakeId(onedriveFile.ErrorId),
+                CreateBy = OneDriveProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeNow(),
+                ModifiedBy = OneDriveProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeNow(),
+                ProviderId = OneDriveProviderInfo.ID,
+                ProviderKey = OneDriveProviderInfo.ProviderKey,
+                RootFolderCreator = OneDriveProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = OneDriveProviderInfo.RootFolderType,
+                Title = MakeItemTitle(onedriveFile),
+                Error = onedriveFile.Error
+            };
         }
 
         private Folder ToErrorFolder(ErrorItem onedriveFolder)
         {
             if (onedriveFolder == null) return null;
             return new Folder
-                {
-                    ID = MakeId(onedriveFolder.ErrorId),
-                    ParentFolderID = null,
-                    CreateBy = OneDriveProviderInfo.Owner,
-                    CreateOn = TenantUtil.DateTimeNow(),
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = OneDriveProviderInfo.Owner,
-                    ModifiedOn = TenantUtil.DateTimeNow(),
-                    ProviderId = OneDriveProviderInfo.ID,
-                    ProviderKey = OneDriveProviderInfo.ProviderKey,
-                    RootFolderCreator = OneDriveProviderInfo.Owner,
-                    RootFolderId = MakeId(),
-                    RootFolderType = OneDriveProviderInfo.RootFolderType,
-                    Shareable = false,
-                    Title = MakeItemTitle(onedriveFolder),
-                    TotalFiles = 0,
-                    TotalSubFolders = 0,
-                    Error = onedriveFolder.Error
-                };
+            {
+                ID = MakeId(onedriveFolder.ErrorId),
+                ParentFolderID = null,
+                CreateBy = OneDriveProviderInfo.Owner,
+                CreateOn = TenantUtil.DateTimeNow(),
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = OneDriveProviderInfo.Owner,
+                ModifiedOn = TenantUtil.DateTimeNow(),
+                ProviderId = OneDriveProviderInfo.ID,
+                ProviderKey = OneDriveProviderInfo.ProviderKey,
+                RootFolderCreator = OneDriveProviderInfo.Owner,
+                RootFolderId = MakeId(),
+                RootFolderType = OneDriveProviderInfo.RootFolderType,
+                Shareable = false,
+                Title = MakeItemTitle(onedriveFolder),
+                TotalFiles = 0,
+                TotalSubFolders = 0,
+                Error = onedriveFolder.Error
+            };
         }
 
         public File ToFile(Item onedriveFile)
@@ -271,26 +274,26 @@ namespace ASC.Files.Thirdparty.OneDrive
             if (onedriveFile.File == null) return null;
 
             return new File
-                {
-                    ID = MakeId(onedriveFile.Id),
-                    Access = FileShare.None,
-                    ContentLength = onedriveFile.Size.HasValue ? (long)onedriveFile.Size : 0,
-                    CreateBy = OneDriveProviderInfo.Owner,
-                    CreateOn = onedriveFile.CreatedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFile.CreatedDateTime.Value.DateTime) : default(DateTime),
-                    FileStatus = FileStatus.None,
-                    FolderID = MakeId(GetParentFolderId(onedriveFile)),
-                    ModifiedBy = OneDriveProviderInfo.Owner,
-                    ModifiedOn = onedriveFile.LastModifiedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFile.LastModifiedDateTime.Value.DateTime) : default(DateTime),
-                    NativeAccessor = onedriveFile,
-                    ProviderId = OneDriveProviderInfo.ID,
-                    ProviderKey = OneDriveProviderInfo.ProviderKey,
-                    Title = MakeItemTitle(onedriveFile),
-                    RootFolderId = MakeId(),
-                    RootFolderType = OneDriveProviderInfo.RootFolderType,
-                    RootFolderCreator = OneDriveProviderInfo.Owner,
-                    Shared = false,
-                    Version = 1
-                };
+            {
+                ID = MakeId(onedriveFile.Id),
+                Access = FileShare.None,
+                ContentLength = onedriveFile.Size.HasValue ? (long)onedriveFile.Size : 0,
+                CreateBy = OneDriveProviderInfo.Owner,
+                CreateOn = onedriveFile.CreatedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFile.CreatedDateTime.Value.DateTime) : default(DateTime),
+                FileStatus = FileStatus.None,
+                FolderID = MakeId(GetParentFolderId(onedriveFile)),
+                ModifiedBy = OneDriveProviderInfo.Owner,
+                ModifiedOn = onedriveFile.LastModifiedDateTime.HasValue ? TenantUtil.DateTimeFromUtc(onedriveFile.LastModifiedDateTime.Value.DateTime) : default(DateTime),
+                NativeAccessor = onedriveFile,
+                ProviderId = OneDriveProviderInfo.ID,
+                ProviderKey = OneDriveProviderInfo.ProviderKey,
+                Title = MakeItemTitle(onedriveFile),
+                RootFolderId = MakeId(),
+                RootFolderType = OneDriveProviderInfo.RootFolderType,
+                RootFolderCreator = OneDriveProviderInfo.Owner,
+                Shared = false,
+                Version = 1
+            };
         }
 
         public Folder GetRootFolder(object folderId)

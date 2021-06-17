@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Linq;
+using System.Text;
+
 using ASC.Collections;
 using ASC.Notify.Recipients;
 
@@ -118,7 +119,7 @@ namespace ASC.Core.Users
 
         string[] IDirectRecipient.Addresses
         {
-            get { return !string.IsNullOrEmpty(Email) ? new[] {Email} : new string[0]; }
+            get { return !string.IsNullOrEmpty(Email) ? new[] { Email } : new string[0]; }
         }
 
         public bool CheckActivation
@@ -143,7 +144,13 @@ namespace ASC.Core.Users
 
         internal GroupInfo[] GetGroups(IncludeType includeType, Guid? categoryId)
         {
-            var groups = groupCache.Get(ID.ToString(), () => CoreContext.UserManager.GetUserGroups(ID, IncludeType.Distinct, null));
+            var groups = groupCache.Get(ID.ToString(), () => {
+                if (CoreContext.Configuration.Personal)
+                {
+                    return new GroupInfo[2] { Constants.GroupUser, Constants.GroupEveryone };
+                }
+                return CoreContext.UserManager.GetUserGroups(ID, IncludeType.Distinct, null);
+            });
 
             if (categoryId.HasValue)
             {
@@ -178,7 +185,7 @@ namespace ASC.Core.Users
         {
             if (string.IsNullOrEmpty(contacts)) return this;
             Contacts.Clear();
-            foreach (var contact in contacts.Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var contact in contacts.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
             {
                 Contacts.Add(contact);
             }

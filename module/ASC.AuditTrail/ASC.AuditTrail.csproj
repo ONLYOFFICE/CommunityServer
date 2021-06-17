@@ -34,11 +34,6 @@
     <Compile Include="LoginEvent.cs" />
     <Compile Include="Mappers\AuditActionMapper.cs" />
     <Compile Include="AuditReportCreator.cs" />
-    <Compile Include="AuditReportResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AuditReportResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="AuditEventsRepository.cs" />
     <Compile Include="Mappers\OthersActionMapper.cs" />
     <Compile Include="Mappers\SettingsActionMapper.cs" />
@@ -52,10 +47,90 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AuditReportResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AuditReportResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AuditReportResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="AuditReportResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AuditReportResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuditReportResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>AuditReportResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

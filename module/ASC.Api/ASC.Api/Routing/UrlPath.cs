@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+
 using ASC.Api.Attributes;
 using ASC.Api.Interfaces;
 using ASC.Common.Web;
+
 using Autofac;
 
 namespace ASC.Api.Routing
@@ -61,7 +63,7 @@ namespace ASC.Api.Routing
                             arguments.Add(parameterInfo.Name, callArgs[index]);
                         }
                     }
-                    return resolver(methodCall.Method,arguments);
+                    return resolver(methodCall.Method, arguments);
                 }
 
             }

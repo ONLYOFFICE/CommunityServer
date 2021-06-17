@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,16 @@
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using HtmlAgilityPack;
 
 namespace ASC.Web.UserControls.Wiki
 {
     public partial class HtmlWikiUtil
     {
-        private static RegexOptions mainOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant;
+        private static readonly RegexOptions mainOptions = RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant;
 
-        private static string[] SupportedHtmlTags = { 
+        private static readonly string[] SupportedHtmlTags = {
                                                         "br", "em", "strong", "b", "i", "u", "strike", "h1", "h2", "h3", "h4", "h5", "h6", "a",
                                                         "div", "table", "tfoot", "thead", "tbody", "th", "tr", "td", "img", "caption",
                                                         "big", "blockquote", "font", "marquee", "nobr", "p", "pre", "small", "s", "sub",

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 
 using System;
 using System.Web;
+
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Business.Subscriptions;
-using ASC.Web.Community.Bookmarking;
-using ASC.Web.Community.Bookmarking.Resources;
+using ASC.Web.Community.Modules.Bookmarking.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
 using ASC.Web.Core.ModuleManagement;
@@ -60,14 +60,14 @@ namespace ASC.Web.Community.Bookmarking
         public BookmarkingModule()
         {
             Context = new ModuleContext
-                {
-                    DefaultSortOrder = 4,
-                    SmallIconFileName = "bookmarking_mini_icon.png",
-                    IconFileName = "bookmarking_icon.png",
-                    SubscriptionManager = new BookmarkingSubscriptionManager(),
-                    SearchHandler = new BookmarkingSearchHandler(),
-                    GetCreateContentPageAbsoluteUrl = () => BookmarkingPermissionsCheck.PermissionCheckCreateBookmark() ? VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/" + BookmarkingServiceHelper.GetCreateBookmarkPageUrl()) : null,
-                };
+            {
+                DefaultSortOrder = 4,
+                SmallIconFileName = "bookmarking_mini_icon.png",
+                IconFileName = "bookmarking_icon.png",
+                SubscriptionManager = new BookmarkingSubscriptionManager(),
+                SearchHandler = new BookmarkingSearchHandler(),
+                GetCreateContentPageAbsoluteUrl = () => BookmarkingPermissionsCheck.PermissionCheckCreateBookmark() ? VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Bookmarking/" + BookmarkingServiceHelper.GetCreateBookmarkPageUrl()) : null,
+            };
         }
     }
 }

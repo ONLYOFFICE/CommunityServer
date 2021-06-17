@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -216,6 +216,8 @@ namespace ASC.Core.Billing
                 CountPortals = license.PortalCount,
                 DiscEncryption = true,
                 PrivacyRoom = true,
+                Restore = true,
+                ContentSearch = true
             };
 
             if (defaultQuota.Name != "overdue" && !defaultQuota.Trial)
@@ -264,7 +266,7 @@ namespace ASC.Core.Billing
             }
         }
 
-        private static DateTime _date = DateTime.MinValue;
+        private static readonly DateTime _date = DateTime.MinValue;
 
         public static DateTime VersionReleaseDate
         {

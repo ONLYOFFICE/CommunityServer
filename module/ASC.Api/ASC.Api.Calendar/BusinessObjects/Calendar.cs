@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
-using ASC.Core;
+
+using ASC.Api.Calendar.iCalParser;
+using ASC.Api.Calendar.Wrappers;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
-using ASC.Web.Core.Calendars;
-using ASC.Api.Calendar.Wrappers;
 using ASC.Specific;
-using System.Net;
-using System.IO;
-using ASC.Api.Calendar.iCalParser;
+using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.BusinessObjects
 {
@@ -49,7 +46,7 @@ namespace ASC.Api.Calendar.BusinessObjects
 
             if (userViewSettings == null)
                 return cal;
-            
+
             //name             
             if (!String.IsNullOrEmpty(userViewSettings.Name))
                 cal.Name = userViewSettings.Name;
@@ -63,7 +60,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                 cal.Context.HtmlTextColor = userViewSettings.TextColor;
 
             //TimeZoneInfo      
-            if (userViewSettings.TimeZone!= null)
+            if (userViewSettings.TimeZone != null)
                 cal.TimeZone = userViewSettings.TimeZone;
 
             //alert type            
@@ -73,7 +70,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         }
 
         public static List<EventWrapper> GetEventWrappers(this BaseCalendar calendar, Guid userId, ApiDateTime startDate, ApiDateTime endDate)
-        {   
+        {
             var result = new List<EventWrapper>();
             if (calendar != null)
             {
@@ -98,7 +95,7 @@ namespace ASC.Api.Calendar.BusinessObjects
                     var cal = provider.GetCalendarById(Convert.ToInt32(calendar.Id));
                     if (cal != null)
                     {
-                        var todos = provider.LoadTodos(Convert.ToInt32(calendar.Id), userId, cal.TenantId, startDate,endDate)
+                        var todos = provider.LoadTodos(Convert.ToInt32(calendar.Id), userId, cal.TenantId, startDate, endDate)
                                 .Cast<ITodo>()
                                 .ToList();
                         foreach (var t in todos)
@@ -117,9 +114,9 @@ namespace ASC.Api.Calendar.BusinessObjects
 
 
     [DataContract(Name = "calendar", Namespace = "")]
-    public class Calendar : BaseCalendar,  ISecurityObject
+    public class Calendar : BaseCalendar, ISecurityObject
     {
-        public static string DefaultTextColor { get { return "#000000";} }
+        public static string DefaultTextColor { get { return "#000000"; } }
         public static string DefaultBackgroundColor { get { return "#9bb845"; } }
         public static string DefaultTodoBackgroundColor { get { return "#ffb45e"; } }
 
@@ -131,7 +128,7 @@ namespace ASC.Api.Calendar.BusinessObjects
         }
 
         public int TenantId { get; set; }
-        
+
         public List<UserViewSettings> ViewSettings { get; set; }
 
         public string iCalUrl { get; set; }
@@ -190,7 +187,7 @@ namespace ASC.Api.Calendar.BusinessObjects
             {
                 try
                 {
-                    var cal = iCalendar.GetFromUrl(iCalUrl,this.Id);
+                    var cal = iCalendar.GetFromUrl(iCalUrl, this.Id);
                     return cal.LoadEvents(userId, utcStartDate, utcEndDate);
                 }
                 catch
@@ -206,5 +203,5 @@ namespace ASC.Api.Calendar.BusinessObjects
                         .ToList();
             }
         }
-    }    
+    }
 }

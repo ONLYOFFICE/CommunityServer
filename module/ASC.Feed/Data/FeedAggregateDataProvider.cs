@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
+
 using Newtonsoft.Json;
 
 namespace ASC.Feed.Data
@@ -78,13 +80,15 @@ namespace ASC.Feed.Data
                         "modified_date", "json", "keywords", "aggregated_date");
                 var i2 = new SqlInsert("feed_users", true).InColumns("feed_id", "user_id");
 
+                var hasValues = false;
+
                 foreach (var f in feeds)
                 {
                     if (0 >= f.Users.Count) continue;
 
-                   i.Values(f.Id, f.Tenant, f.ProductId, f.ModuleId, f.AuthorId, f.ModifiedById, f.GroupId, f.CreatedDate, f.ModifiedDate, f.Json, f.Keywords, aggregatedDate);
+                    hasValues = true;
 
-
+                    i.Values(f.Id, f.Tenant, f.ProductId, f.ModuleId, f.AuthorId, f.ModifiedById, f.GroupId, f.CreatedDate, f.ModifiedDate, f.Json, f.Keywords, aggregatedDate);
 
                     if (f.ClearRightsBeforeInsert)
                     {
@@ -100,10 +104,13 @@ namespace ASC.Feed.Data
                     }
                 }
 
-                db.ExecuteNonQuery(i);
-                db.ExecuteNonQuery(i2);
+                if (hasValues)
+                {
+                    db.ExecuteNonQuery(i);
+                    db.ExecuteNonQuery(i2);
 
-                tx.Commit();
+                    tx.Commit();
+                }
             }
         }
 
@@ -234,7 +241,7 @@ namespace ASC.Feed.Data
                 .InnerJoin("feed_users u", Exp.EqColumns("a.id", "u.feed_id"))
                 .Where("u.user_id", SecurityContext.CurrentAccount.ID)
                 .SetMaxResults(1001);
-                
+
             if (1 < lastReadedTime.Year)
             {
                 q.Where(Exp.Ge("a.aggregated_date", lastReadedTime));
@@ -305,13 +312,13 @@ namespace ASC.Feed.Data
     public class FeedResultItem
     {
         public FeedResultItem(
-            string json, 
-            string module, 
-            Guid authorId, 
+            string json,
+            string module,
+            Guid authorId,
             Guid modifiedById,
-            string groupId, 
+            string groupId,
             DateTime createdDate,
-            DateTime modifiedDate, 
+            DateTime modifiedDate,
             DateTime aggregatedDate)
         {
             var now = TenantUtil.DateTimeFromUtc(DateTime.UtcNow);
@@ -321,7 +328,7 @@ namespace ASC.Feed.Data
 
             AuthorId = authorId;
             ModifiedById = modifiedById;
-            
+
             GroupId = groupId;
 
             if (now.Year == createdDate.Year && now.Date == createdDate.Date)

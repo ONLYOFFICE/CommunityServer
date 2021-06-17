@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1280,7 +1280,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       var link = response.FileURL.substring(0, response.FileURL.lastIndexOf('/')) + '/' + encodeURIComponent(response.FileName);
       var dstcontact = ASC.TMTalk.properties.item('dstcontact');
       if (dstcontact && typeof dstcontact === 'object') {
-          ASC.TMTalk.meseditorContainer.sendMessage(dstcontact.cid, dstcontact.type, ASC.TMTalk.stringFormat(jq.format(ASC.TMTalk.Resources.SendFileMessage, "{0}<br/>", "{1}"), link, response.Data));
+          ASC.TMTalk.meseditorContainer.sendMessage(dstcontact.cid, dstcontact.type, ASC.TMTalk.stringFormat(jq.format(ASC.TMTalk.TalkResource.SendFileMessage, "{0}<br/>", "{1}"), link, response.Data));
         ASC.TMTalk.properties.item('dstcontact', null);
       }
     } else {

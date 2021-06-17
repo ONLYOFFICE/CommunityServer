@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@
 using ASC.Common.Logging;
 using ASC.Common.Threading.Progress;
 using ASC.Core;
-using ASC.Core.Tenants;
+using ASC.Core.Common.Contracts;
 using ASC.Data.Storage.Configuration;
 
 namespace ASC.Data.Storage.Migration
 {
-    class Service : IService
+    class Service : IService, IHealthCheckService
     {
         public void Migrate(int tenantId, StorageSettings newStorageSettings)
         {
@@ -53,6 +53,15 @@ namespace ASC.Data.Storage.Migration
         public void StopMigrate()
         {
             StorageUploader.Stop();
+        }
+
+        public HealthCheckResponse CheckHealth()
+        {
+            return HealthCheckResult.ToResponse(new HealthCheckResult
+            {
+                Message = "Service Migrate is OK! Warning: Method is not implement. Always return the Healthy status",
+                Status = HealthStatus.Healthy
+            });
         }
     }
 }

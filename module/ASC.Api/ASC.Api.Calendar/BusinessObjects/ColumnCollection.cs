@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,38 +18,39 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 using ASC.Common.Utils;
 using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.BusinessObjects
 {
     internal class ColumnCollection
-    {   
-        private List<SelectColumnInfo> _columns = new List<SelectColumnInfo>();
+    {
+        private readonly List<SelectColumnInfo> _columns = new List<SelectColumnInfo>();
 
-        public class SelectColumnInfo{
+        public class SelectColumnInfo
+        {
 
-            public string Name{get; set;}
-            public int Ind{get; set;}
+            public string Name { get; set; }
+            public int Ind { get; set; }
 
             public T Parse<T>(object[] row)
-            {               
-                if (typeof(T).Equals(typeof(int)))                
+            {
+                if (typeof(T).Equals(typeof(int)))
                     return (T)((object)Convert.ToInt32(row[this.Ind]));
-                
+
                 if (typeof(T).Equals(typeof(Guid)))
                     return (T)((object)new Guid(Convert.ToString(row[this.Ind])));
-                
+
                 if (typeof(T).Equals(typeof(Boolean)))
                     return (T)((object)(Convert.ToBoolean(row[this.Ind])));
 
-                if (typeof(T).Equals(typeof(DateTime)))                
+                if (typeof(T).Equals(typeof(DateTime)))
                     return (T)((object)Convert.ToDateTime(row[this.Ind]));
 
                 if (typeof(T).Equals(typeof(RecurrenceRule)))
                 {
-                    return (T)((object) RecurrenceRule.Parse(Convert.ToString(row[this.Ind])));
+                    return (T)((object)RecurrenceRule.Parse(Convert.ToString(row[this.Ind])));
                 }
 
                 if (typeof(T).Equals(typeof(TimeZoneInfo)))
@@ -61,8 +62,8 @@ namespace ASC.Api.Calendar.BusinessObjects
 
                     return (T)((object)TimeZoneConverter.GetTimeZone(timeZoneId));
                 }
-                
-                return (T)(object)(Convert.ToString(row[this.Ind])??"");
+
+                return (T)(object)(Convert.ToString(row[this.Ind]) ?? "");
             }
 
             public bool IsNull(object[] row)
@@ -73,10 +74,10 @@ namespace ASC.Api.Calendar.BusinessObjects
 
         public SelectColumnInfo RegistryColumn(string selectName)
         {
-            var c = new SelectColumnInfo() { Name = selectName, Ind = _columns.Count};
+            var c = new SelectColumnInfo() { Name = selectName, Ind = _columns.Count };
             _columns.Add(c);
             return c;
-        }        
+        }
 
         public string[] SelectQuery
         {

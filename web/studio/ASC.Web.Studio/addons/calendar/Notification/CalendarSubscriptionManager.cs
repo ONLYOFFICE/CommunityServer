@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,21 +17,28 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Web.Core.Subscriptions;
+
 using ASC.Api.Calendar.Notification;
+using ASC.Web.Core.Subscriptions;
 
 namespace ASC.Web.Calendar.Notification
 {
     public class CalendarSubscriptionManager : IProductSubscriptionManager
     {
-        public SubscriptionType CalendarSharingSubscription { get {
-            return new SubscriptionType {
-                ID = new Guid("{1CE43C40-72F4-4265-A4C6-8B55E29DB447}"),
-                Name = Resources.CalendarAddonResource.CalendarSharingSubscription,
-                NotifyAction = CalendarNotifySource.CalendarSharing,
-                Single = true,
-                CanSubscribe = true};
-        } }
+        public SubscriptionType CalendarSharingSubscription
+        {
+            get
+            {
+                return new SubscriptionType
+                {
+                    ID = new Guid("{1CE43C40-72F4-4265-A4C6-8B55E29DB447}"),
+                    Name = Resources.CalendarAddonResource.CalendarSharingSubscription,
+                    NotifyAction = CalendarNotifySource.CalendarSharing,
+                    Single = true,
+                    CanSubscribe = true
+                };
+            }
+        }
 
         public SubscriptionType EventAlertSubscription
         {
@@ -57,7 +64,7 @@ namespace ASC.Web.Calendar.Notification
 
         public List<SubscriptionType> GetSubscriptionTypes()
         {
-            return new List<SubscriptionType> { CalendarSharingSubscription, EventAlertSubscription};
+            return new List<SubscriptionType> { CalendarSharingSubscription, EventAlertSubscription };
         }
 
         public Notify.Model.ISubscriptionProvider SubscriptionProvider

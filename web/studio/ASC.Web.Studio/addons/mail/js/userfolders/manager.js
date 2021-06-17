@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * limitations under the License.
  *
 */
+
 
 if (!Array.prototype.findIndex) {
     Array.prototype.findIndex = function (predicate) {
@@ -48,7 +49,7 @@ window.userFoldersManager = (function($) {
         OnUnreadChanged: "uf.unread_changed",
         OnError: "uf.error"
     };
-    var progressBarIntervalId = null;
+
     var getStatusTimeout = 1000;
     var onLoading = true;
 
@@ -341,30 +342,6 @@ window.userFoldersManager = (function($) {
             });
     }
 
-    function checkRemoveUserFolderStatus(operation, options) {
-        serviceManager.getMailOperationStatus(operation.id,
-        null,
-        {
-            success: function (params, data) {
-                if (data.completed) {
-                    clearInterval(progressBarIntervalId);
-                    progressBarIntervalId = null;
-
-                    options.onSuccess.call();
-                    window.LoadingBanner.hideLoading();
-                }
-            },
-            error: function (params, errors) {
-                console.error("checkRemoveUserFolderStatus", e, errors);
-                clearInterval(progressBarIntervalId);
-                progressBarIntervalId = null;
-
-                options.onError.call(params, errors);
-                window.LoadingBanner.hideLoading();
-            }
-        });
-    }
-
     function removeWithChildren(id) {
         var index = userFolders.findIndex(function(f) {
             return f.id === id;
@@ -383,23 +360,34 @@ window.userFoldersManager = (function($) {
         }
     }
 
+    var removeInProgress = false;
+
     function remove(folder) {
         userFoldersModal.showDelete(
             folder,
             {
-                onSave: function(removeFolder) {
+                onSave: function (removeFolder) {
+                    if (removeInProgress)
+                        return;
+
+                    removeInProgress = true;
+
                     window.Teamlab.removeMailFolder({},
                         removeFolder.id,
                         {
-                            success: function (params, data) {
+                            success: function (_, operation) {
                                 userFoldersModal.hide();
 
                                 window.LoadingBanner.displayMailLoading();
 
-                                progressBarIntervalId = setInterval(function() {
-                                        return checkRemoveUserFolderStatus(data,
-                                        {
-                                            onSuccess: function() {
+                                var removeUfIntervalId = setInterval(serviceManager.getMailOperationStatus(operation.id,
+                                    null,
+                                    {
+                                        success: function (_, data) {
+                                            if (data.completed) {
+                                                clearInterval(removeUfIntervalId);
+                                                removeUfIntervalId = null;
+
                                                 removeWithChildren(removeFolder.id);
 
                                                 if (removeFolder.parent > 0) {
@@ -415,16 +403,28 @@ window.userFoldersManager = (function($) {
                                                 window.toastr.success(MailScriptResource.InfoRemoveFolder.format(Encoder.htmlEncode(removeFolder.name)));
 
                                                 eventsHandler.trigger(supportedCustomEvents.OnDelete, removeFolder);
-                                            },
-                                            onError: function (params, errors) {
-                                                window.toastr.error(errors[0]);
-                                                eventsHandler.trigger(supportedCustomEvents.OnError, errors[0]);
+
+                                                window.LoadingBanner.hideLoading();
+
+                                                removeInProgress = false;
                                             }
-                                        });
-                                    },
+                                        },
+                                        error: function (_, errors) {
+                                            console.error("checkRemoveUserFolderStatus", e, errors);
+                                            clearInterval(removeUfIntervalId);
+                                            removeUfIntervalId = null;
+
+                                            window.toastr.error(errors[0]);
+                                            eventsHandler.trigger(supportedCustomEvents.OnError, errors[0]);
+
+                                            window.LoadingBanner.hideLoading();
+
+                                            removeInProgress = false;
+                                        }
+                                    }),
                                     getStatusTimeout);
                             },
-                            error: function (params, errors) {
+                            error: function (_, errors) {
                                 window.toastr.error(errors[0]);
                                 eventsHandler.trigger(supportedCustomEvents.OnError, errors[0]);
                             }

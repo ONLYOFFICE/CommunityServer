@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.UserControls.Wiki.Resources {
+namespace ASC.Web.Community.Modules.Wiki.Resources {
     using System;
     
     
@@ -57,24 +57,6 @@ namespace ASC.Web.UserControls.Wiki.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Actions.
-        /// </summary>
-        public static string Actions {
-            get {
-                return ResourceManager.GetString("Actions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Author.
-        /// </summary>
-        public static string Author {
-            get {
-                return ResourceManager.GetString("Author", resourceCulture);
             }
         }
         
@@ -183,15 +165,6 @@ namespace ASC.Web.UserControls.Wiki.Resources {
         public static string cmdVersionTemplate {
             get {
                 return ResourceManager.GetString("cmdVersionTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Date.
-        /// </summary>
-        public static string Date {
-            get {
-                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -561,15 +534,6 @@ namespace ASC.Web.UserControls.Wiki.Resources {
         public static string PagePreview {
             get {
                 return ResourceManager.GetString("PagePreview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string PleaseWaitMessage {
-            get {
-                return ResourceManager.GetString("PleaseWaitMessage", resourceCulture);
             }
         }
         

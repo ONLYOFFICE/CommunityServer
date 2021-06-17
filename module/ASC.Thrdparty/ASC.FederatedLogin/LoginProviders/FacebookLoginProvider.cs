@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
@@ -35,7 +37,7 @@ namespace ASC.FederatedLogin.LoginProviders
         public override string Scopes { get { return "email,public_profile"; } }
 
         public FacebookLoginProvider() { }
-        public FacebookLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null) : base(name, order, props, additional) {}
+        public FacebookLoginProvider(string name, int order, Dictionary<string, string> props, Dictionary<string, string> additional = null) : base(name, order, props, additional) { }
 
         public override LoginProfile GetLoginProfile(string accessToken)
         {
@@ -58,19 +60,19 @@ namespace ASC.FederatedLogin.LoginProviders
             if (jProfile == null) throw new Exception("Failed to correctly process the response");
 
             var profile = new LoginProfile
-                              {
-                                  BirthDay = jProfile.Value<string>("birthday"),
-                                  Link = jProfile.Value<string>("link"),
-                                  FirstName = jProfile.Value<string>("first_name"),
-                                  LastName = jProfile.Value<string>("last_name"),
-                                  Gender = jProfile.Value<string>("gender"),
-                                  EMail = jProfile.Value<string>("email"),
-                                  Id = jProfile.Value<string>("id"),
-                                  TimeZone = jProfile.Value<string>("timezone"),
-                                  Locale = jProfile.Value<string>("locale"),
-                                  Provider = ProviderConstants.Facebook,
-                                  Avatar = string.Format("http://graph.facebook.com/{0}/picture?type=large", jProfile.Value<string>("id"))
-                              };
+            {
+                BirthDay = jProfile.Value<string>("birthday"),
+                Link = jProfile.Value<string>("link"),
+                FirstName = jProfile.Value<string>("first_name"),
+                LastName = jProfile.Value<string>("last_name"),
+                Gender = jProfile.Value<string>("gender"),
+                EMail = jProfile.Value<string>("email"),
+                Id = jProfile.Value<string>("id"),
+                TimeZone = jProfile.Value<string>("timezone"),
+                Locale = jProfile.Value<string>("locale"),
+                Provider = ProviderConstants.Facebook,
+                Avatar = string.Format("http://graph.facebook.com/{0}/picture?type=large", jProfile.Value<string>("id"))
+            };
 
             return profile;
         }

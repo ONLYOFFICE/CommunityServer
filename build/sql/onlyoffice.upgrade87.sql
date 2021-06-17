@@ -25,7 +25,12 @@ BEGIN
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currenct_NigerianNaira', 'NGN', '?', 'NG', 1, 0);
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_CubanPeso', 'CUP', '$', 'CU', 0, 0);
 
-	INSERT INTO `tenants_tariff` (`tenant`, `tariff`, `stamp`, `tariff_key`, `comment`, `create_on`) SELECT -1, `tariff`, `stamp`, `tariff_key`, `comment`, NOW() FROM `tenants_tariff` WHERE `tenant` != -1 ORDER BY `id` DESC LIMIT 1;
+	IF EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tenants_tariff' AND COLUMN_NAME = 'tariff_key') THEN
+		INSERT INTO `tenants_tariff` (`tenant`, `tariff`, `stamp`, `tariff_key`, `comment`, `create_on`) SELECT -1, `tariff`, `stamp`, `tariff_key`, `comment`, NOW() FROM `tenants_tariff` WHERE `tenant` != -1 ORDER BY `id` DESC LIMIT 1;
+	ELSE
+		INSERT INTO `tenants_tariff` (`tenant`, `tariff`, `stamp`, `comment`, `create_on`) SELECT -1, `tariff`, `stamp`, `comment`, NOW() FROM `tenants_tariff` WHERE `tenant` != -1 ORDER BY `id` DESC LIMIT 1;
+	END IF;
+
 END DLM00
 
 CALL upgrade87() DLM00

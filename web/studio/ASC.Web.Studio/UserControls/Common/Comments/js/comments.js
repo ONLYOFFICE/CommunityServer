@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,7 +101,7 @@ var CommentsManagerObj = new function() {
 
         var text = CommentsManagerObj.editorInstance.getData();
         if (text.trim().length == 0) {
-            toastr.error(ASC.Resources.Master.Resource.EmptyCommentErrorMessage);
+            toastr.error(ASC.Resources.Master.ResourceJS.EmptyCommentErrorMessage);
             return false;
         }
 
@@ -264,7 +264,7 @@ var CommentsManagerObj = new function() {
         var link = window.location.href.replace(window.location.hash, '') + '#comment_' + id
         jq('#commentsClip').val(link).select();
         document.execCommand('copy');
-        window.toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+        window.toastr.success(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
     };
 
     function redraw() {

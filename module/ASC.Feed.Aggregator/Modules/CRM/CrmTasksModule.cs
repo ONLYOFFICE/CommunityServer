@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Web.Studio.Utility;
-using System.Linq;
 using ASC.Core.Users;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Feed.Aggregator.Modules.CRM
 {
@@ -140,22 +141,22 @@ namespace ASC.Feed.Aggregator.Modules.CRM
         private static Task ToTask(object[] r)
         {
             var task = new Task
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    Title = Convert.ToString(r[1]),
-                    Description = Convert.ToString(r[2]),
-                    DeadLine = Convert.ToDateTime(r[3]),
-                    ResponsibleID = new Guid(Convert.ToString(r[4])),
-                    ContactID = Convert.ToInt32(r[5]),
-                    IsClosed = Convert.ToBoolean(r[6]),
-                    EntityType = (EntityType)Convert.ToInt32(r[7]),
-                    EntityID = Convert.ToInt32(r[8]),
-                    CategoryID = Convert.ToInt32(r[9]),
-                    CreateBy = new Guid(Convert.ToString(r[10])),
-                    CreateOn = Convert.ToDateTime(r[11]),
-                    LastModifedBy = new Guid(Convert.ToString(r[12])),
-                    LastModifedOn = Convert.ToDateTime(r[13])
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = Convert.ToString(r[1]),
+                Description = Convert.ToString(r[2]),
+                DeadLine = Convert.ToDateTime(r[3]),
+                ResponsibleID = new Guid(Convert.ToString(r[4])),
+                ContactID = Convert.ToInt32(r[5]),
+                IsClosed = Convert.ToBoolean(r[6]),
+                EntityType = (EntityType)Convert.ToInt32(r[7]),
+                EntityID = Convert.ToInt32(r[8]),
+                CategoryID = Convert.ToInt32(r[9]),
+                CreateBy = new Guid(Convert.ToString(r[10])),
+                CreateOn = Convert.ToDateTime(r[11]),
+                LastModifedBy = new Guid(Convert.ToString(r[12])),
+                LastModifedOn = Convert.ToDateTime(r[13])
+            };
 
             if (string.IsNullOrEmpty(Convert.ToString(r[14]))) return task;
 
@@ -163,31 +164,31 @@ namespace ASC.Feed.Aggregator.Modules.CRM
             if (isCompany)
             {
                 task.Contact = new Company
-                    {
-                        ID = Convert.ToInt32(r[15]),
-                        About = Convert.ToString(r[16]),
-                        CompanyName = Convert.ToString(r[19]),
-                        CreateBy = new Guid(Convert.ToString(r[22])),
-                        CreateOn = Convert.ToDateTime(r[23]),
-                        LastModifedBy = new Guid(Convert.ToString(r[24])),
-                        LastModifedOn = Convert.ToDateTime(r[25])
-                    };
+                {
+                    ID = Convert.ToInt32(r[15]),
+                    About = Convert.ToString(r[16]),
+                    CompanyName = Convert.ToString(r[19]),
+                    CreateBy = new Guid(Convert.ToString(r[22])),
+                    CreateOn = Convert.ToDateTime(r[23]),
+                    LastModifedBy = new Guid(Convert.ToString(r[24])),
+                    LastModifedOn = Convert.ToDateTime(r[25])
+                };
             }
             else
             {
                 task.Contact = new Person
-                    {
-                        ID = Convert.ToInt32(r[15]),
-                        About = Convert.ToString(r[16]),
-                        FirstName = Convert.ToString(r[17]),
-                        LastName = Convert.ToString(r[18]),
-                        CompanyID = Convert.ToInt32(r[20]),
-                        JobTitle = Convert.ToString(r[21]),
-                        CreateBy = new Guid(Convert.ToString(r[22])),
-                        CreateOn = Convert.ToDateTime(r[23]),
-                        LastModifedBy = new Guid(Convert.ToString(r[24])),
-                        LastModifedOn = Convert.ToDateTime(r[25])
-                    };
+                {
+                    ID = Convert.ToInt32(r[15]),
+                    About = Convert.ToString(r[16]),
+                    FirstName = Convert.ToString(r[17]),
+                    LastName = Convert.ToString(r[18]),
+                    CompanyID = Convert.ToInt32(r[20]),
+                    JobTitle = Convert.ToString(r[21]),
+                    CreateBy = new Guid(Convert.ToString(r[22])),
+                    CreateOn = Convert.ToDateTime(r[23]),
+                    LastModifedBy = new Guid(Convert.ToString(r[24])),
+                    LastModifedOn = Convert.ToDateTime(r[25])
+                };
             }
 
             return task;
@@ -197,21 +198,21 @@ namespace ASC.Feed.Aggregator.Modules.CRM
         {
             const string itemUrl = "/Products/CRM/Tasks.aspx";
             return new Feed(task.CreateBy, task.CreateOn)
-                {
-                    Item = item,
-                    ItemId = task.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = task.Title,
-                    Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(task.Description)),
-                    AdditionalInfo = Helper.GetUser(task.ResponsibleID).DisplayUserName(),
-                    AdditionalInfo2 = task.Contact.GetTitle(),
-                    Keywords = string.Format("{0} {1}", task.Title, task.Description),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = GetGroupId(item, task.CreateBy)
-                };
+            {
+                Item = item,
+                ItemId = task.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                Product = Product,
+                Module = Name,
+                Title = task.Title,
+                Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(task.Description)),
+                AdditionalInfo = Helper.GetUser(task.ResponsibleID).DisplayUserName(),
+                AdditionalInfo2 = task.Contact.GetTitle(),
+                Keywords = string.Format("{0} {1}", task.Title, task.Description),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = GetGroupId(item, task.CreateBy)
+            };
         }
     }
 }

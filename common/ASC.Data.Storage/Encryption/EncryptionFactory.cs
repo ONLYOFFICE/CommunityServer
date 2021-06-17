@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,37 @@
 */
 
 
+using ASC.Common.DependencyInjection;
+using ASC.Core.Encryption;
+
+using Autofac;
+
 namespace ASC.Data.Storage.Encryption
 {
     class EncryptionFactory
     {
-        public static ICrypt GetCrypt(string storageName, EncryptionSettings encryptionSettings)
+        private static IContainer Builder { get; set; }
+
+        static EncryptionFactory()
         {
-            return new Crypt(storageName, encryptionSettings);
+            var container = AutofacConfigLoader.Load("encryption");
+
+            if (container != null)
+            {
+                Builder = container.Build();
+            }
         }
 
-        public static IMetadata GetMetadata()
+        public static ICrypt GetCrypt(string storageName, EncryptionSettings encryptionSettings)
         {
-            return new Metadata();
+            ICrypt result = null;
+
+            if (Builder != null)
+            {
+                result = Builder.Resolve<ICrypt>(new TypedParameter(typeof(string), storageName), new TypedParameter(typeof(EncryptionSettings), encryptionSettings));
+            }
+
+            return result ?? new FakeCrypt(storageName, encryptionSettings);
         }
     }
 }

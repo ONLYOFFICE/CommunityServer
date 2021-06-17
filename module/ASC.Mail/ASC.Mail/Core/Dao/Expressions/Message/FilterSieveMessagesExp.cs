@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+
 using ASC.Common.Data.Sql.Expressions;
 using ASC.ElasticSearch;
 using ASC.Mail.Core.DbSchema.Tables;
@@ -72,11 +73,11 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
 
             if (ids.Any())
             {
-                Ids = ids.Skip(page*pageSize).Take(pageSize).ToList();
+                Ids = ids.Skip(page * pageSize).Take(pageSize).ToList();
                 return;
             }
 
-            StartIndex = page*pageSize;
+            StartIndex = page * pageSize;
             Limit = pageSize;
         }
 
@@ -246,7 +247,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                 if (c.Key == ConditionKeyType.ToOrCc)
                 {
                     sel = new Selector<MailWrapper>().Or(
-                        s => s.Match(w => w.ToText, value), 
+                        s => s.Match(w => w.ToText, value),
                         s => s.Match(w => w.Cc, value));
                 }
                 else

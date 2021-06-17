@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
 */
 
 
+using System.Web;
+
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
-using System.Web;
 
 namespace ASC.Web.Projects
 {
@@ -35,7 +36,7 @@ namespace ASC.Web.Projects
         {
             FilterHolder.Controls.Add(LoadControl(MainContentFilter.Location));
 
-            var mainContent = (MainContent) LoadControl(MainContent.Location);
+            var mainContent = (MainContent)LoadControl(MainContent.Location);
             mainContent.NoMediaViewers = true;
             mainContent.FolderIDCurrentRoot = Project == null ? Global.FolderProjects : EngineFactory.FileEngine.GetRoot(Project.ID);
             mainContent.TitlePage = ProjectsCommonResource.ModuleName;

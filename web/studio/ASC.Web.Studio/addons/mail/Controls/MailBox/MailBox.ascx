@@ -29,9 +29,7 @@
             <li class="openNewTabMail">
                 <a class="dropdown-item with-icon new-tab"><%= MailResource.OpenInNewTabBtnLabel %></a>
             </li>
-            <li class="openSeparator">
-                <div class="dropdown-item-seporator"></div>
-            </li>
+            <li class="openSeparator dropdown-item-seporator"></li>
             <li class="replyMail">
                 <a class="dropdown-item with-icon reply"><%= MailResource.ReplyBtnLabel %></a>
             </li>
@@ -44,27 +42,21 @@
             <li class="createEmail">
                 <a class="dropdown-item with-icon edit"><%= MailResource.CreateEmailToSenderLabel %></a>
             </li>
-            <li class="composeSeparator">
-                <div class="dropdown-item-seporator"></div>
-            </li>
+            <li class="composeSeparator dropdown-item-seporator"></li>
             <li class="setReadMail">
                 <a class="dropdown-item with-icon mark-as-read"><%= MailResource.MarkAsRead %></a>
             </li>
             <li class="markImportant">
                 <a class="dropdown-item with-icon mark-as-important"><%= MailResource.MarkAsImportant %></a>
             </li>
-            <li class="markSeparator">
-                <div class="dropdown-item-seporator"></div>
-            </li>
+            <li class="markSeparator dropdown-item-seporator"></li>
             <% if (IsMailPrintAvailable())
                { %>
 
             <li class="printMail">
                 <a class="dropdown-item with-icon print"><%= MailScriptResource.PrintBtnLabel %></a>
             </li>
-             <li class="printSeparator">
-                <div class="dropdown-item-seporator"></div>
-            </li>
+            <li class="printSeparator dropdown-item-seporator"></li>
             <% } %>
             <li class="moveToFolder">
                 <a class="dropdown-item with-icon spam"><%= MailScriptResource.SpamLabel %></a>

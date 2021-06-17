@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Api.Attributes;
 using ASC.Mail.Data.Contracts;
 
@@ -46,12 +47,12 @@ namespace ASC.Api.Mail
         [Delete(@"alert/{id}")]
         public long DeleteAlert(long id)
         {
-            if(id < 0)
+            if (id < 0)
                 throw new ArgumentException(@"Invalid alert id. Id must be positive integer.", "id");
 
             var success = MailEngineFactory.AlertEngine.DeleteAlert(id);
 
-            if(!success)
+            if (!success)
                 throw new Exception("Delete failed");
 
             return id;

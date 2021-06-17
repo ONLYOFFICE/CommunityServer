@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+
 using ASC.Common.Logging;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Utils;
+
 using HtmlAgilityPack;
+
 using MimeKit;
 using MimeKit.Text;
 using MimeKit.Tnef;
@@ -368,7 +371,7 @@ namespace ASC.Mail.Extensions
                                             mds.Content.DecodeTo(memory);
 
                                             var text =
-                                                Encoding.ASCII.GetString(memory.GetBuffer(), 0, (int) memory.Length)
+                                                Encoding.ASCII.GetString(memory.GetBuffer(), 0, (int)memory.Length)
                                                     .Replace("\r\n", "\n");
 
                                             entity.SetText(Encoding.UTF8, text);

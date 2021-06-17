@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Tenants;
@@ -44,7 +45,9 @@ using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json.Linq;
+
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -114,14 +117,14 @@ namespace ASC.Web.Files.ThirdPartyApp
             var jsonFile = JObject.Parse(boxFile);
 
             var file = new File
-                {
-                    ID = ThirdPartySelector.BuildAppFileId(AppAttr, jsonFile.Value<string>("id")),
-                    Title = Global.ReplaceInvalidCharsAndTruncate(jsonFile.Value<string>("name")),
-                    CreateOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("created_at")),
-                    ModifiedOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("modified_at")),
-                    ContentLength = Convert.ToInt64(jsonFile.Value<string>("size")),
-                    ProviderKey = "Box"
-                };
+            {
+                ID = ThirdPartySelector.BuildAppFileId(AppAttr, jsonFile.Value<string>("id")),
+                Title = Global.ReplaceInvalidCharsAndTruncate(jsonFile.Value<string>("name")),
+                CreateOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("created_at")),
+                ModifiedOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("modified_at")),
+                ContentLength = Convert.ToInt64(jsonFile.Value<string>("size")),
+                ProviderKey = "Box"
+            };
 
             var modifiedBy = jsonFile.Value<JObject>("modified_by");
             if (modifiedBy != null)
@@ -208,7 +211,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     Global.Logger.Debug("BoxApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
 
                     var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl);
-                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, false, out downloadUrl);
+                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, null, null, null, false, out downloadUrl);
                     stream = null;
                 }
                 catch (Exception e)
@@ -234,7 +237,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 }
                 else
                 {
-                    var downloadRequest = (HttpWebRequest) WebRequest.Create(downloadUrl);
+                    var downloadRequest = (HttpWebRequest)WebRequest.Create(downloadUrl);
                     using (var downloadStream = new ResponseStream(downloadRequest.GetResponse()))
                     {
                         downloadStream.CopyTo(tmpStream);
@@ -381,7 +384,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 using (var stream = new ResponseStream(request.GetResponse()))
                 {
-                    stream.StreamCopyTo(context.Response.OutputStream);
+                    stream.CopyTo(context.Response.OutputStream);
                 }
             }
             catch (Exception ex)
@@ -432,7 +435,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             try
             {
                 resultResponse = RequestHelper.PerformRequest(BoxUrlUserInfo,
-                                                              headers: new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
+                                                              headers: new Dictionary<string, string> { { "Authorization", "Bearer " + token } });
                 Global.Logger.Debug("BoxApp: userinfo response - " + resultResponse);
             }
             catch (Exception ex)
@@ -452,14 +455,14 @@ namespace ASC.Web.Files.ThirdPartyApp
             if (Equals(userInfo, Constants.LostUser))
             {
                 userInfo = new UserInfo
-                    {
-                        FirstName = boxUserInfo.Value<string>("name"),
-                        Email = email,
-                        MobilePhone = boxUserInfo.Value<string>("phone"),
-                    };
+                {
+                    FirstName = boxUserInfo.Value<string>("name"),
+                    Email = email,
+                    MobilePhone = boxUserInfo.Value<string>("phone"),
+                };
 
                 var cultureName = boxUserInfo.Value<string>("language");
-                if(string.IsNullOrEmpty(cultureName))
+                if (string.IsNullOrEmpty(cultureName))
                     cultureName = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
                 var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.TwoLetterISOLanguageName, cultureName, StringComparison.InvariantCultureIgnoreCase));
                 if (cultureInfo != null)
@@ -509,7 +512,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             try
             {
                 var resultResponse = RequestHelper.PerformRequest(BoxUrlFile.Replace("{fileId}", boxFileId),
-                                                                  headers: new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
+                                                                  headers: new Dictionary<string, string> { { "Authorization", "Bearer " + token } });
                 Global.Logger.Debug("BoxApp: file response - " + resultResponse);
                 return resultResponse;
             }

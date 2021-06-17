@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 */
 
 
-window.createMailboxModal = (function($) {
+window.createMailboxModal = (function ($) {
     var $rootEl,
         currentMailboxUser,
         currentDomain;
@@ -27,7 +27,7 @@ window.createMailboxModal = (function($) {
 
         $(html).find('.save').unbind('click').bind('click', addMailbox);
 
-        $(html).find('.cancel').unbind('click').bind('click', function() {
+        $(html).find('.cancel').unbind('click').bind('click', function () {
             if ($(this).hasClass('disable')) {
                 return false;
             }
@@ -42,7 +42,7 @@ window.createMailboxModal = (function($) {
 
         $rootEl = $('#mail_server_create_mailbox_popup');
 
-        $rootEl.find('#mail_server_add_mailbox .mailboxName').unbind('textchange').bind('textchange', function() {
+        $rootEl.find('#mail_server_add_mailbox .mailboxName').unbind('textchange').bind('textchange', function () {
             turnOffAllRequiredError();
         });
 
@@ -96,14 +96,14 @@ window.createMailboxModal = (function($) {
             true,
             {},
             {
-                success: function() {
+                success: function () {
                     displayLoading(false);
                     disableButtons(false);
                     if ($rootEl.is(':visible')) {
                         $rootEl.find('.cancel').trigger('click');
                     }
                 },
-                error: function(ev, error) {
+                error: function (ev, error) {
                     popup.error(administrationError.getErrorText("addMailbox", error));
                     displayLoading(false);
                     disableButtons(false);
@@ -112,27 +112,27 @@ window.createMailboxModal = (function($) {
 
         return false;
     }
-    
+
     function initUserSelector(jqRootElement, userSelectorName) {
         var $mailboxUserSelector = $(jqRootElement).find(userSelectorName);
         $mailboxUserSelector.useradvancedSelector({
-                showme: true,
-                canadd: false,
-                withGuests: false,
-                showGroups: false,
-                onechosen: true,
-                inPopup: true
-            })
+            showme: true,
+            canadd: false,
+            withGuests: false,
+            showGroups: false,
+            onechosen: true,
+            inPopup: true
+        })
             .on("showList",
-                function(e, item) {
-                    var id = item.id, name = item.title;
+                function (e, item) {
+                    var id = item.id, name = TMMail.htmlDecode(item.title);
                     $rootEl.find(userSelectorName).text(name).attr("data-id", id);
                     var senderName = $rootEl.find('.senderName');
                     var sender = senderName.val().trim();
                     if (!sender || sender == currentMailboxUser) {
                         currentMailboxUser = (id == window.Teamlab.profile.id)
                             ? TMMail.htmlDecode(Teamlab.profile.displayName)
-                            : TMMail.htmlDecode(name);
+                            : name;
                         senderName.val(currentMailboxUser);
                     }
                     setFocusToMailboxInput();

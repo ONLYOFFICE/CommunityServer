@@ -18,10 +18,8 @@
     <RootNamespace>ASC.Web.Files</RootNamespace>
     <AssemblyName>ASC.Web.Files</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
@@ -120,8 +118,13 @@
     <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.designer.cs">
       <DependentUpon>MoreFeatures.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Core\Compress\CompressToArchive.cs" />
+    <Compile Include="Core\Compress\CompressToTarGz.cs" />
+    <Compile Include="Core\Compress\CompressToZip.cs" />
+    <Compile Include="Core\Compress\ICompress.cs" />
     <Compile Include="Core\Entries\EncryptionKeyPair.cs" />
     <Compile Include="Core\Entries\ForcesaveType.cs" />
+    <Compile Include="Core\Entries\Thumbnail.cs" />
     <Compile Include="Helpers\EasyBibHelper.cs" />
     <Compile Include="Core\DIHelper.cs" />
     <Compile Include="Core\Search\FilesWrapper.cs" />
@@ -238,7 +241,6 @@
     <Content Include="App_Themes\default\saveas.css" />
     <Content Include="Controls\AppBanner\AppBanner.ascx" />
     <Content Include="Controls\AppBanner\appbanner.css" />
-    <Content Include="Controls\AppBanner\appbanner.js" />
     <Content Include="Controls\AppBanner\images\android.svg" />
     <Content Include="Controls\AppBanner\images\android_gray.svg" />
     <Content Include="Controls\AppBanner\images\ios.svg" />
@@ -276,7 +278,6 @@
     <Content Include="Controls\ThirdParty\images\thirdparty_yandex_ru.png" />
     <Content Include="Controls\ThirdParty\images\trash_12.png" />
     <Content Include="Controls\ThirdParty\images\user_12.png" />
-    <Content Include="Controls\AnalyticsPersonalFirstVisit.js" />
     <Content Include="Controls\FileSelector\fileselector.js" />
     <Content Include="Controls\FileSelector\FileSelector.ascx" />
     <Content Include="Controls\FileSelector\fileselector.css" />
@@ -318,11 +319,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\NotifyService\FilesPatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FilesPatternResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Services\NotifyService\NotifyClient.cs" />
     <Compile Include="Services\NotifyService\NotifyConstants.cs" />
     <Compile Include="Services\NotifyService\NotifySource.cs" />
@@ -357,42 +353,539 @@
     <Content Include="Templates\getuser.xsl" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\FilesCommonResource.Designer.cs">
+    <EmbeddedResource Include="Resources\FilesCommonResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
       <DependentUpon>FilesCommonResource.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Resources\FilesJSResource.Designer.cs">
-      <DependentUpon>FilesJSResource.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Resources\FilesUCResource.Designer.cs">
-      <DependentUpon>FilesUCResource.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\FilesCommonResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FilesCommonResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\FilesCommonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\FilesJSResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\FilesJSResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FilesJSResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\FilesJSResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\FilesUCResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\FilesUCResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FilesUCResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\FilesUCResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FilesPatternResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Services\NotifyService\FilesPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Services\NotifyService\patterns.xml" />
+    <EmbeddedResource Include="Resources\FilesCommonResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.be.resx" Condition="$(Cultures.Contains('be'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.eu-ES.resx" Condition="$(Cultures.Contains('eu-ES'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.hr.resx" Condition="$(Cultures.Contains('hr'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.tg-Cyrl-TJ.resx" Condition="$(Cultures.Contains('tg-Cyrl-TJ'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesCommonResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>FilesCommonResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.hr.resx" Condition="$(Cultures.Contains('hr'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesJSResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>FilesJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.eu-ES.resx" Condition="$(Cultures.Contains('eu-ES'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.hr.resx" Condition="$(Cultures.Contains('hr'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FilesUCResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>FilesUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.bs-BA.resx" Condition="$(Cultures.Contains('bs-BA'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.eu-ES.resx" Condition="$(Cultures.Contains('eu-ES'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.sr-Latn-CS.resx" Condition="$(Cultures.Contains('sr-Latn-CS'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Services\NotifyService\FilesPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>FilesPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ChunkUploadDialog\ChunkUploadDialog.ascx.cs">
@@ -628,9 +1121,6 @@
     <PackageReference Include="DocuSign.eSign.dll">
       <Version>2.1.8.1</Version>
     </PackageReference>
-    <PackageReference Include="DotNetZip">
-      <Version>1.13.7</Version>
-    </PackageReference>
     <PackageReference Include="JWT">
       <Version>1.3.4</Version>
     </PackageReference>
@@ -642,6 +1132,9 @@
     </PackageReference>
     <PackageReference Include="RestSharp">
       <Version>106.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="SharpZipLib">
+      <Version>1.3.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Security.Permissions;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.Security.Cryptography;
-using System.Runtime.Serialization;
 
 namespace ASC.FederatedLogin.Profile
 {
@@ -212,10 +213,10 @@ namespace ASC.FederatedLogin.Profile
         public LoginProfile GetMinimalProfile()
         {
             var profileNew = new LoginProfile
-                {
-                    Provider = Provider,
-                    Id = Id
-                };
+            {
+                Provider = Provider,
+                Id = Id
+            };
             return profileNew;
         }
 
@@ -380,7 +381,7 @@ namespace ASC.FederatedLogin.Profile
         {
             if (info == null)
                 throw new ArgumentNullException("info");
-            var transformed = (string)info.GetValue(QueryParamName, typeof (string));
+            var transformed = (string)info.GetValue(QueryParamName, typeof(string));
             FromTransport(transformed);
         }
 
@@ -401,7 +402,7 @@ namespace ASC.FederatedLogin.Profile
         {
             using (var ms = new MemoryStream())
             {
-                var serializer = new DataContractJsonSerializer(typeof (LoginProfile));
+                var serializer = new DataContractJsonSerializer(typeof(LoginProfile));
                 serializer.WriteObject(ms, this);
                 ms.Seek(0, SeekOrigin.Begin);
                 return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,6 @@
 */
 
 
-using ASC.Core;
-using ASC.Web.Core;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Utility;
-using ASC.Web.Core.WebZones;
-using ASC.Web.Files.Classes;
-using ASC.Web.Files.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +22,16 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Xml;
+
+using ASC.Core;
+using ASC.Web.Core;
+using ASC.Web.Core.Files;
+using ASC.Web.Core.Utility;
+using ASC.Web.Core.WebZones;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.Resources;
 using ASC.Web.Studio.PublicResources;
+
 using SubscriptionManager = ASC.Web.Files.Classes.SubscriptionManager;
 
 namespace ASC.Web.Files.Configuration
@@ -61,18 +63,18 @@ namespace ASC.Web.Files.Configuration
 
             _productContext =
                 new ProductContext
-                    {
-                        MasterPageFile = FilesLinkUtility.FilesBaseVirtualPath + "Masters/BasicTemplate.master",
-                        DisabledIconFileName = "product_disabled_logo.png",
-                        IconFileName = "product_logo.png",
-                        LargeIconFileName = "product_logolarge.svg",
-                        DefaultSortOrder = 10,
-                        SubscriptionManager = new SubscriptionManager(),
-                        SpaceUsageStatManager = new FilesSpaceUsageStatManager(),
-                        AdminOpportunities = adminOpportunities,
-                        UserOpportunities = userOpportunities,
-                        CanNotBeDisabled = true,
-                    };
+                {
+                    MasterPageFile = FilesLinkUtility.FilesBaseVirtualPath + "Masters/BasicTemplate.master",
+                    DisabledIconFileName = "product_disabled_logo.png",
+                    IconFileName = "product_logo.png",
+                    LargeIconFileName = "product_logolarge.svg",
+                    DefaultSortOrder = 10,
+                    SubscriptionManager = new SubscriptionManager(),
+                    SpaceUsageStatManager = new FilesSpaceUsageStatManager(),
+                    AdminOpportunities = adminOpportunities,
+                    UserOpportunities = userOpportunities,
+                    CanNotBeDisabled = true,
+                };
             SearchHandlerManager.Registry(new SearchHandler());
 
             GlobalConfiguration.Configuration.Routes.MapHttpRoute(

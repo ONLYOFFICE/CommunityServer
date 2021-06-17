@@ -4,7 +4,7 @@
 
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DocEditor.aspx.cs" Inherits="ASC.Web.Files.DocEditor" %>
 
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <%@ Register TagPrefix="master" TagName="EditorScripts" Src="Masters/EditorScripts.ascx" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
@@ -55,8 +55,6 @@
         <div id="wrap">
             <div id="iframeEditor"></div>
         </div>
-
-        <%= RenderCustomScript() %>
 
         <master:EditorScripts runat="server" />
         <sc:InlineScript ID="InlineScripts" runat="server" />

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,18 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Web.Studio.Utility;
-using Contact = ASC.CRM.Core.Entities.Contact;
-using System.Linq;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Core.Enums;
+using ASC.Web.Studio.Utility;
+
+using Contact = ASC.CRM.Core.Entities.Contact;
 
 namespace ASC.Feed.Aggregator.Modules.CRM
 {
@@ -117,33 +119,33 @@ namespace ASC.Feed.Aggregator.Modules.CRM
             if (isCompany)
             {
                 contact = new Company
-                    {
-                        ID = Convert.ToInt32(r[1]),
-                        About = Convert.ToString(r[2]),
-                        CompanyName = Convert.ToString(r[5]),
-                        ShareType = r[8] != null ? (ShareType)Convert.ToInt32(r[8]) : ShareType.None,
-                        CreateBy = new Guid(Convert.ToString(r[9])),
-                        CreateOn = Convert.ToDateTime(r[10]),
-                        LastModifedBy = new Guid(Convert.ToString(r[11])),
-                        LastModifedOn = Convert.ToDateTime(r[12])
-                    };
+                {
+                    ID = Convert.ToInt32(r[1]),
+                    About = Convert.ToString(r[2]),
+                    CompanyName = Convert.ToString(r[5]),
+                    ShareType = r[8] != null ? (ShareType)Convert.ToInt32(r[8]) : ShareType.None,
+                    CreateBy = new Guid(Convert.ToString(r[9])),
+                    CreateOn = Convert.ToDateTime(r[10]),
+                    LastModifedBy = new Guid(Convert.ToString(r[11])),
+                    LastModifedOn = Convert.ToDateTime(r[12])
+                };
             }
             else
             {
                 contact = new Person
-                    {
-                        ID = Convert.ToInt32(r[1]),
-                        About = Convert.ToString(r[2]),
-                        FirstName = Convert.ToString(r[3]),
-                        LastName = Convert.ToString(r[4]),
-                        CompanyID = Convert.ToInt32(r[6]),
-                        JobTitle = Convert.ToString(r[7]),
-                        ShareType =r[8] != null ? (ShareType)Convert.ToInt32(r[8]) : ShareType.None,
-                        CreateBy = new Guid(Convert.ToString(r[9])),
-                        CreateOn = Convert.ToDateTime(r[10]),
-                        LastModifedBy = new Guid(Convert.ToString(r[11])),
-                        LastModifedOn = Convert.ToDateTime(r[12])
-                    };
+                {
+                    ID = Convert.ToInt32(r[1]),
+                    About = Convert.ToString(r[2]),
+                    FirstName = Convert.ToString(r[3]),
+                    LastName = Convert.ToString(r[4]),
+                    CompanyID = Convert.ToInt32(r[6]),
+                    JobTitle = Convert.ToString(r[7]),
+                    ShareType = r[8] != null ? (ShareType)Convert.ToInt32(r[8]) : ShareType.None,
+                    CreateBy = new Guid(Convert.ToString(r[9])),
+                    CreateOn = Convert.ToDateTime(r[10]),
+                    LastModifedBy = new Guid(Convert.ToString(r[11])),
+                    LastModifedOn = Convert.ToDateTime(r[12])
+                };
             }
 
             return contact;
@@ -163,19 +165,19 @@ namespace ASC.Feed.Aggregator.Modules.CRM
 
             var itemUrl = "/Products/CRM/Default.aspx?id=" + contact.ID + "#profile";
             return new Feed(contact.CreateBy, contact.CreateOn)
-                {
-                    Item = item,
-                    ItemId = contact.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = contact.GetTitle(),
-                    Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(contact.About)),
-                    Keywords = string.Format("{0}", contact.GetTitle()),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = GetGroupId(item, contact.CreateBy)
-                };
+            {
+                Item = item,
+                ItemId = contact.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                Product = Product,
+                Module = Name,
+                Title = contact.GetTitle(),
+                Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(contact.About)),
+                Keywords = string.Format("{0}", contact.GetTitle()),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = GetGroupId(item, contact.CreateBy)
+            };
         }
     }
 }

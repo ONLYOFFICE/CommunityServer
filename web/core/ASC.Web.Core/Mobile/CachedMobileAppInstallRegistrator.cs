@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
 */
 
 
+using System;
+
 using ASC.Common.Caching;
 using ASC.Core.Common.Notify.Push;
-using System;
 
 namespace ASC.Web.Core.Mobile
 {
@@ -71,7 +72,7 @@ namespace ASC.Web.Core.Mobile
         private static string GetCacheKey(string userEmail, MobileAppType? appType)
         {
             var cacheKey = appType.HasValue ? userEmail + "/" + appType.ToString() : userEmail;
-            
+
             return String.Format("{0}:mobile:{1}", ASC.Core.CoreContext.TenantManager.GetCurrentTenant().TenantId, cacheKey);
         }
     }

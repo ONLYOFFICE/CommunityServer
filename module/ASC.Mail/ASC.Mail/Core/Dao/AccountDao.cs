@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -98,7 +99,7 @@ namespace ASC.Mail.Core.Dao
                 MailboxEnabled = Convert.ToBoolean(r[2]),
                 MailboxAddressName = Convert.ToString(r[3]),
                 MailboxQuotaError = Convert.ToBoolean(r[4]),
-                MailboxDateAuthError = r[5] != null ? Convert.ToDateTime(r[5]) : (DateTime?) null,
+                MailboxDateAuthError = r[5] != null ? Convert.ToDateTime(r[5]) : (DateTime?)null,
                 MailboxOAuthToken = Convert.ToString(r[6]),
                 MailboxIsTeamlabMailbox = Convert.ToBoolean(r[7]),
                 MailboxEmailInFolder = Convert.ToString(r[8]),

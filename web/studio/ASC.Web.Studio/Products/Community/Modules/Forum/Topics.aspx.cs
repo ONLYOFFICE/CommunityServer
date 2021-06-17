@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,12 @@
 using System;
 using System.Text;
 using System.Web.UI.WebControls;
-using ASC.Web.Core.Utility.Skins;
+
 using AjaxPro;
+
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
@@ -60,12 +63,12 @@ namespace ASC.Web.Community.Forum
             else
             {
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
-                        Header = Resources.ForumResource.EmptyScreenTopicCaption,
-                        Describe = Resources.ForumResource.EmptyScreenTopicText,
-                        ButtonHTML = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.TopicCreate, thread) ? String.Format("<a class='link underline blue plus' href='newpost.aspx?f=" + thread.ID + "&m=0'>{0}</a>", Resources.ForumResource.EmptyScreenTopicLink) : String.Empty
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
+                    Header = ForumResource.EmptyScreenTopicCaption,
+                    Describe = ForumResource.EmptyScreenTopicText,
+                    ButtonHTML = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.TopicCreate, thread) ? String.Format("<a class='link underline blue plus' href='newpost.aspx?f=" + thread.ID + "&m=0'>{0}</a>", ForumResource.EmptyScreenTopicLink) : String.Empty
+                };
 
                 topicsHolder.Controls.Add(emptyScreenControl);
             }
@@ -81,17 +84,17 @@ namespace ASC.Web.Community.Forum
             //     master.ActionsPlaceHolder.Controls.Add(new HtmlMenuItem(subscriber.RenderThreadSubscription(!isThreadSubscribe, thread.ID)));
 
             ForumTitle = thread.Title;
-            ForumParentTitle = Resources.ForumResource.ForumsBreadCrumbs;
+            ForumParentTitle = ForumResource.ForumsBreadCrumbs;
             ForumParentURL = "Default.aspx";
 
-            Title = HeaderStringHelper.GetPageTitle((Master as ForumMasterPage).CurrentPageCaption ?? Resources.ForumResource.AddonName);
+            Title = HeaderStringHelper.GetPageTitle((Master as ForumMasterPage).CurrentPageCaption ?? ForumResource.AddonName);
             EnableDelete = ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null);
             var sb = new StringBuilder();
             sb.Append("<div id=\"forumsActionsMenuPanel\" class=\"studio-action-panel topics\">");
             sb.Append("<ul class=\"dropdown-content\">");
             if (EnableDelete)
             {
-                sb.Append("<li><a class=\"dropdown-item\" href=\"javascript:ForumMakerProvider.DeleteThreadTopic('" + thread.ID + "','" + thread.CategoryID + "');\">" + Resources.ForumResource.DeleteButton + "</a></li>");
+                sb.Append("<li><a class=\"dropdown-item\" href=\"javascript:ForumMakerProvider.DeleteThreadTopic('" + thread.ID + "','" + thread.CategoryID + "');\">" + ForumResource.DeleteButton + "</a></li>");
             }
             sb.Append("</ul>");
             sb.Append("</div>");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
@@ -87,17 +88,17 @@ namespace ASC.Web.Sample.Configuration
         public override void Init()
         {
             context = new ProductContext
-                {
-                    MasterPageFile = String.Concat(PathProvider.BaseVirtualPath, "Masters/BasicTemplate.Master"),
-                    DisabledIconFileName = "product_logo_disabled.png",
-                    IconFileName = "product_logo.png",
-                    LargeIconFileName = "product_logo_large.svg",
-                    DefaultSortOrder = 100,
-                    SubscriptionManager = null,
-                    SpaceUsageStatManager = null,
-                    AdminOpportunities = () => SampleResource.ProductAdminOpportunities.Split('|').ToList(),
-                    UserOpportunities = () => SampleResource.ProductUserOpportunities.Split('|').ToList(),
-                };
+            {
+                MasterPageFile = String.Concat(PathProvider.BaseVirtualPath, "Masters/BasicTemplate.Master"),
+                DisabledIconFileName = "product_logo_disabled.png",
+                IconFileName = "product_logo.png",
+                LargeIconFileName = "product_logo_large.svg",
+                DefaultSortOrder = 100,
+                SubscriptionManager = null,
+                SpaceUsageStatManager = null,
+                AdminOpportunities = () => SampleResource.ProductAdminOpportunities.Split('|').ToList(),
+                UserOpportunities = () => SampleResource.ProductUserOpportunities.Split('|').ToList(),
+            };
 
             SearchHandlerManager.Registry(new SampleSearchHandler());
 

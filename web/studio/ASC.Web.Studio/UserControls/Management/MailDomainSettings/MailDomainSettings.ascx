@@ -3,7 +3,7 @@
 <%@ Import Namespace="ASC.Core.Tenants" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix">
     <div id="studio_domainSettings" class="settings-block">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,15 @@ namespace ASC.Projects.Core.Domain.Entities.Feed
     public class ProjectComment
     {
         public Comment Comment { get; set; }
-        
+
         public int CommentedId { get; set; }
-        
+
         public string CommentedTitle { get; set; }
-        
+
         public int ProjectId { get; set; }
 
         public Message Discussion { get; set; }
-        
+
         public Task Task { get; set; }
 
         public EntityType CommentedType { get; set; }

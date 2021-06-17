@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ namespace ASC.Web.Files.Services.NotifyService
         public static readonly INotifyAction Event_DocuSignStatus = new NotifyAction("DocuSignStatus", "docusign status");
         public static readonly INotifyAction Event_MailMergeEnd = new NotifyAction("MailMergeEnd", "mail merge end");
         public static readonly INotifyAction Event_ShareDocument = new NotifyAction("ShareDocument", "share document");
+        public static readonly INotifyAction Event_ShareEncryptedDocument = new NotifyAction("ShareEncryptedDocument", "share encrypted document");
         public static readonly INotifyAction Event_ShareFolder = new NotifyAction("ShareFolder", "share folder");
         public static readonly INotifyAction Event_EditorMentions = new NotifyAction("EditorMentions", "editor mentions");
 

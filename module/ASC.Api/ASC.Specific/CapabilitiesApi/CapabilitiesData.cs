@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 
 namespace ASC.Specific.CapabilitiesApi
@@ -42,12 +43,12 @@ namespace ASC.Specific.CapabilitiesApi
         public static CapabilitiesData GetSample()
         {
             return new CapabilitiesData
-                {
-                    LdapEnabled = false,
-                    Providers = AccountLinkControl.AuthProviders,
-                    SsoLabel = string.Empty,
-                    SsoUrl = string.Empty,
-                };
+            {
+                LdapEnabled = false,
+                Providers = AccountLinkControl.AuthProviders,
+                SsoLabel = string.Empty,
+                SsoUrl = string.Empty,
+            };
         }
     }
 }

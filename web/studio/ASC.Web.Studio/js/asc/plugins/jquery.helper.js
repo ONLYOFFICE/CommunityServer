@@ -68,8 +68,8 @@
             if (options.next) {
                 if (jq('#' + options.BlockHelperID + ' .buttons').length == 0) {
                      $helpBlock.append('<div class="buttons"><a class="button gray nextHelp">' 
-                     + ASC.Resources.Master.Resource.ShowNext + '</a><a class="neverShow">'
-                     + ASC.Resources.Master.Resource.NeverShow + '</a></div>');                                     
+                     + ASC.Resources.Master.ResourceJS.ShowNext + '</a><a class="neverShow">'
+                     + ASC.Resources.Master.ResourceJS.NeverShow + '</a></div>');                                     
                 }
             }          
 

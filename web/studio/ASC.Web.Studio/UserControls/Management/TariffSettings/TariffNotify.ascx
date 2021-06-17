@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TariffNotify.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TariffNotify" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <% if (Notify != null)
    { %>

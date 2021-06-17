@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -215,7 +215,7 @@ window.accountsPage = (function($) {
         if (account.is_teamlab) {
             $("#accountActionMenu .editAccount").hide();
 
-            if (!account.is_shared_domain && ASC.Resources.Master.Standalone) {
+            if (!account.is_shared_domain) {
                 $("#accountActionMenu .changePassword").show();
                 $("#accountActionMenu .viewAccountSettings").show();
             } else {
@@ -257,7 +257,7 @@ window.accountsPage = (function($) {
                 account.mailbox_id, folderId,
                 { id: account.mailbox_id, emailInFolder: folderId, resetFolder: false },
                 { error: onErrorSetEMailInFolder },
-                ASC.Resources.Master.Resource.LoadingProcessing);
+                ASC.Resources.Master.ResourceJS.LoadingProcessing);
         };
 
         $('#filesFolderUnlinkButton').unbind('click').bind('click', { account: account }, unselectAttachmentsFolder);
@@ -282,7 +282,7 @@ window.accountsPage = (function($) {
             account.mailbox_id, null,
             { id: account.mailbox_id, emailInFolder: null, resetFolder: true },
             { error: onErrorResetEMailInFolder },
-            ASC.Resources.Master.Resource.LoadingProcessing);
+            ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function setMailAutoreply(event) {
@@ -454,7 +454,7 @@ window.accountsPage = (function($) {
         serviceManager.updateMailboxAutoreply(account.mailbox_id, account.turnOn, account.autoreply.onlyContacts,
             account.autoreply.turnOnToDate, account.autoreply.fromDate, account.autoreply.toDate,
             account.autoreply.subject, account.autoreply.html, { id: account.mailbox_id },
-            { error: window.accountsModal.hideLoader }, ASC.Resources.Master.Resource.LoadingProcessing);
+            { error: window.accountsModal.hideLoader }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function updateAutoreply(account) {
@@ -470,7 +470,7 @@ window.accountsPage = (function($) {
         toDate = Teamlab.serializeTimestamp(toDate);
         serviceManager.updateMailboxAutoreply(account.mailbox_id, turnOn, onlyContacts,
             turnOnToDate, fromDate, toDate, subject, html, { id: account.mailbox_id },
-            { error: window.accountsModal.hideLoader }, ASC.Resources.Master.Resource.LoadingProcessing);
+            { error: window.accountsModal.hideLoader }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function onErrorResetEMailInFolder() {

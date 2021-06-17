@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -31,10 +34,11 @@ using ASC.Geolocation;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
+
 using PhoneNumbers;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -64,6 +68,9 @@ namespace ASC.Web.Studio.UserControls.Management
         protected List<TenantQuota> QuotasYear;
 
         private TenantQuota _quotaForDisplay;
+
+        protected int MonthPrice;
+        protected int YearPrice;
 
         protected TenantQuota QuotaForDisplay
         {
@@ -128,6 +135,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var minYearQuota = QuotasYear.FirstOrDefault(q => q.ActiveUsers >= UsersCount && q.MaxTotalSize >= UsedSize);
             MinActiveUser = minYearQuota != null ? minYearQuota.ActiveUsers : (QuotasYear.Count > 0 ? QuotasYear.Last().ActiveUsers : 0 + 1);
+
+            MonthPrice = Convert.ToInt32(ConfigurationManager.AppSettings["core.custom-mode.month-price"] ?? "290");
+            YearPrice = Convert.ToInt32(ConfigurationManager.AppSettings["core.custom-mode.year-price"] ?? "175");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 

@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="VoipPhoneControl.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.VoipPhoneControl" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <script type="text/javascript" src="//media.twiliocdn.com/sdk/js/client/v1.9/twilio.min.js"></script>
 
 <div id="studio_dropVoipPopupPanel">

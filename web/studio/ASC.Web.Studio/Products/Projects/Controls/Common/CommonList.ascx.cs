@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Web.Projects.Classes;
 using ASC.Web.Studio.UserControls.Common.Attachments;
 using ASC.Web.Studio.Utility;
@@ -30,7 +31,7 @@ namespace ASC.Web.Projects.Controls.Common
         {
             if (!(Page is Web.Projects.Reports))
             {
-                var discussionFilesControl = (Attachments) LoadControl(Attachments.Location);
+                var discussionFilesControl = (Attachments)LoadControl(Attachments.Location);
                 discussionFilesControl.EmptyScreenVisible = false;
                 discussionFilesControl.ModuleName = "projects";
                 discussionFilesControl.DocUploaderHolder.Controls.Add(LoadControl(ProjectDocumentsPopup.Location));

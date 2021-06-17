@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Routing;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Security.Cryptography;
@@ -154,12 +155,18 @@ namespace ASC.Data.Storage.DiscStorage
             if (encoding != null)
                 context.Response.Headers["Content-Encoding"] = encoding;
 
+            if (!context.Response.IsClientConnected)
+            {
+                context.Response.End();
+                return;
+            }
+
             using (var stream = storage.GetReadStream(_domain, path))
             {
                 context.Response.Buffer = false;
 
                 long offset = 0;
-                long length = stream.Length;
+                var length = stream.Length;
                 if (stream.CanSeek)
                 {
                     length = ProcessRangeHeader(context, stream.Length, ref offset);
@@ -169,30 +176,15 @@ namespace ASC.Data.Storage.DiscStorage
                 context.Response.AddHeader("Connection", "Keep-Alive");
                 context.Response.AddHeader("Content-Length", length.ToString(CultureInfo.InvariantCulture));
 
-                const int bufferSize = 32 * 1024; // 32KB
-                var buffer = new byte[bufferSize];
-                var toRead = length;
-
-                while (toRead > 0)
+                try
                 {
-                    int read;
-
-                    try
-                    {
-                        read = stream.Read(buffer, 0, bufferSize);
-
-                        if (!context.Response.IsClientConnected) throw new Exception("StorageHandler: ProcessRequest failed: client disconnected");
-
-                        context.Response.OutputStream.Write(buffer, 0, read);
-                        context.Response.Flush();
-                        toRead -= read;
-                    }
-                    catch (Exception e)
-                    {
-                        LogManager.GetLogger("ASC").Error("storage", e);
-
-                        throw;
-                    }
+                    stream.CopyTo(context.Response.OutputStream);
+                    context.Response.Flush();
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger("ASC").Debug("StorageHandler.ProcessRequest", e);
+                    context.Response.End();
                 }
             }
         }

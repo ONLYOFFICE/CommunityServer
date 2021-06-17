@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -702,6 +702,7 @@ namespace ASC.Common.Web
             AddMimeMapping(".wmlc", "application/vnd.wap.wmlc");
             AddMimeMapping(".wmls", "text/vnd.wap.wmlscript");
             AddMimeMapping(".wmlsc", "application/vnd.wap.wmlscriptc");
+            AddMimeMapping(".woff2", "application/font-woff2");
             AddMimeMapping(".word", "application/msword");
             AddMimeMapping(".wp", "application/wordperfect");
             AddMimeMapping(".wp5", "application/wordperfect");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Notify.Signalr;
@@ -124,7 +125,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
 
         public void Start()
         {
-            if(!_worker.IsAlive)
+            if (!_worker.IsAlive)
                 _worker.Start();
         }
 
@@ -132,7 +133,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             lock (_processingQueue)
             {
-                if(!_processingQueue.Contains(item))
+                if (!_processingQueue.Contains(item))
                     _processingQueue.Enqueue(item);
             }
             _waitHandle.Set();
@@ -170,8 +171,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                 var mailFolderInfos = engineFactory.FolderEngine.GetFolders();
 
                 var count = (from mailFolderInfo in mailFolderInfos
-                    where mailFolderInfo.id == FolderType.Inbox
-                    select mailFolderInfo.unreadMessages)
+                             where mailFolderInfo.id == FolderType.Inbox
+                             select mailFolderInfo.unreadMessages)
                     .FirstOrDefault();
 
                 CoreContext.TenantManager.SetCurrentTenant(tenant);

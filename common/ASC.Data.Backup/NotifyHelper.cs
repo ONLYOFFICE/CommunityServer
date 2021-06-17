@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Common.Logging;
 using ASC.Core.Notify;
 
@@ -36,9 +37,9 @@ namespace ASC.Data.Backup
             SendNotification(MethodTransferStart, tenantId, targetRegion, notifyUsers);
         }
 
-        public static void SendAboutTransferComplete(int tenantId, string targetRegion, string targetAddress, bool notifyOnlyOwner)
+        public static void SendAboutTransferComplete(int tenantId, string targetRegion, string targetAddress, bool notifyOnlyOwner, int toTenantId)
         {
-            SendNotification(MethodTransferCompleted, tenantId, targetRegion, targetAddress, !notifyOnlyOwner);
+            SendNotification(MethodTransferCompleted, tenantId, targetRegion, targetAddress, !notifyOnlyOwner, toTenantId);
         }
 
         public static void SendAboutTransferError(int tenantId, string targetRegion, string resultAddress, bool notifyOnlyOwner)

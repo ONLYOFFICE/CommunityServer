@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -36,6 +37,7 @@ using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json;
 
 #endregion
@@ -81,7 +83,7 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataHistoryView(BasePage page, List<Guid> UserList)
         {
-            page.RegisterInlineScript(String.Format(" var historyView_dateTimeNowShortDateString = '{0}'; ",TenantUtil.DateTimeNow().ToShortDateString()), onReady: false);
+            page.RegisterInlineScript(String.Format(" var historyView_dateTimeNowShortDateString = '{0}'; ", TenantUtil.DateTimeNow().ToShortDateString()), onReady: false);
 
             if (UserList != null)
             {
@@ -112,9 +114,9 @@ namespace ASC.Web.CRM.Classes
             List<CustomField> data;
 
             if (targetContact is Company)
-                data = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Company, targetContact.ID, false);
+                data = daoFactory.CustomFieldDao.GetEntityFields(EntityType.Company, targetContact.ID, false);
             else
-                data = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Person, targetContact.ID, false);
+                data = daoFactory.CustomFieldDao.GetEntityFields(EntityType.Person, targetContact.ID, false);
 
             var networks =
                 daoFactory.ContactInfoDao.GetList(targetContact.ID, null, null, null)
@@ -212,13 +214,14 @@ namespace ASC.Web.CRM.Classes
             if (targetContact != null && targetContact is Company)
             {
                 var people = daoFactory.ContactDao.GetMembers(targetContact.ID);
-                if (people.Count != 0) {
+                if (people.Count != 0)
+                {
                     presetPersonsForCompanyJson = JsonConvert.SerializeObject(people.ConvertAll(item => new
-                        {
-                            id = item.ID,
-                            displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
-                            smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, false)
-                        }));
+                    {
+                        id = item.ID,
+                        displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
+                        smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, false)
+                    }));
                 }
             }
 
@@ -282,11 +285,12 @@ namespace ASC.Web.CRM.Classes
         public static void DataCasesFullCardView(BasePage page, ASC.CRM.Core.Entities.Cases targetCase)
         {
             var daoFactory = page.DaoFactory;
-            var customFieldList = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Case, targetCase.ID, false);
+            var customFieldList = daoFactory.CustomFieldDao.GetEntityFields(EntityType.Case, targetCase.ID, false);
             var tags = daoFactory.TagDao.GetEntityTags(EntityType.Case, targetCase.ID);
             var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Case).Where(item => !tags.Contains(item));
             var responsibleIDs = new List<Guid>();
-            if (CRMSecurity.IsPrivate(targetCase)) {
+            if (CRMSecurity.IsPrivate(targetCase))
+            {
                 responsibleIDs = CRMSecurity.GetAccessSubjectGuidsTo(targetCase);
             }
             var script = String.Format(@"
@@ -305,7 +309,7 @@ namespace ASC.Web.CRM.Classes
         {
             var daoFactory = page.DaoFactory;
             var customFieldList = targetCase != null
-                ? daoFactory.CustomFieldDao.GetEnityFields(EntityType.Case, targetCase.ID, true)
+                ? daoFactory.CustomFieldDao.GetEntityFields(EntityType.Case, targetCase.ID, true)
                 : daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Case);
             var tags = targetCase != null ? daoFactory.TagDao.GetEntityTags(EntityType.Case, targetCase.ID) : new string[] { };
             var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Case).Where(item => !tags.Contains(item));
@@ -333,11 +337,11 @@ namespace ASC.Web.CRM.Classes
             if (selectedContacts.Count > 0)
             {
                 presetContactsJson = JsonConvert.SerializeObject(selectedContacts.ConvertAll(item => new
-                                {
-                                    id = item.ID,
-                                    displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
-                                    smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, item is Company)
-                                }));
+                {
+                    id = item.ID,
+                    displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
+                    smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, item is Company)
+                }));
             }
 
             var script = String.Format(@"
@@ -360,12 +364,13 @@ namespace ASC.Web.CRM.Classes
         public static void DataDealFullCardView(BasePage page, Deal targetDeal)
         {
             var daoFactory = page.DaoFactory;
-            var customFieldList = daoFactory.CustomFieldDao.GetEnityFields(EntityType.Opportunity, targetDeal.ID, false);
+            var customFieldList = daoFactory.CustomFieldDao.GetEntityFields(EntityType.Opportunity, targetDeal.ID, false);
             var tags = daoFactory.TagDao.GetEntityTags(EntityType.Opportunity, targetDeal.ID);
             var availableTags = daoFactory.TagDao.GetAllTags(EntityType.Opportunity).Where(item => !tags.Contains(item));
 
             var responsibleIDs = new List<Guid>();
-            if (CRMSecurity.IsPrivate(targetDeal)) {
+            if (CRMSecurity.IsPrivate(targetDeal))
+            {
                 responsibleIDs = CRMSecurity.GetAccessSubjectGuidsTo(targetDeal);
             }
 
@@ -385,19 +390,20 @@ namespace ASC.Web.CRM.Classes
         public static void DataDealActionView(BasePage page, Deal targetDeal)
         {
             var daoFactory = page.DaoFactory;
-             var customFieldList = targetDeal != null
-                ? daoFactory.CustomFieldDao.GetEnityFields(EntityType.Opportunity, targetDeal.ID, true)
-                : daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Opportunity);
-           
+            var customFieldList = targetDeal != null
+               ? daoFactory.CustomFieldDao.GetEntityFields(EntityType.Opportunity, targetDeal.ID, true)
+               : daoFactory.CustomFieldDao.GetFieldsDescription(EntityType.Opportunity);
+
             var dealExcludedIDs = new List<Int32>();
             var dealClientIDs = new List<Int32>();
             var dealMembersIDs = new List<Int32>();
-            
+
             if (targetDeal != null)
             {
                 dealExcludedIDs = daoFactory.DealDao.GetMembers(targetDeal.ID).ToList();
                 dealMembersIDs = new List<int>(dealExcludedIDs);
-                if (targetDeal.ContactID != 0) {
+                if (targetDeal.ContactID != 0)
+                {
                     dealMembersIDs.Remove(targetDeal.ContactID);
                     dealClientIDs.Add(targetDeal.ContactID);
                 }
@@ -413,7 +419,7 @@ namespace ASC.Web.CRM.Classes
             if (targetDeal != null && targetDeal.ContactID != 0)
             {
                 var contact = daoFactory.ContactDao.GetByID(targetDeal.ContactID);
-                if(contact != null)
+                if (contact != null)
                 {
                     selectedContacts.Add(contact);
                 }
@@ -434,11 +440,11 @@ namespace ASC.Web.CRM.Classes
             if (selectedContacts.Count > 0)
             {
                 presetClientContactsJson = JsonConvert.SerializeObject(selectedContacts.ConvertAll(item => new
-                                {
-                                    id = item.ID,
-                                    displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
-                                    smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, item is Company)
-                                }));
+                {
+                    id = item.ID,
+                    displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
+                    smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, item is Company)
+                }));
             }
 
 
@@ -448,11 +454,11 @@ namespace ASC.Web.CRM.Classes
             {
                 showMembersPanel = true;
                 presetMemberContactsJson = JsonConvert.SerializeObject(selectedContacts.ConvertAll(item => new
-                                {
-                                    id = item.ID,
-                                    displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
-                                    smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, item is Company)
-                                }));
+                {
+                    id = item.ID,
+                    displayName = item.GetTitle().HtmlEncode().ReplaceSingleQuote().Replace(@"\", @"\\"),
+                    smallFotoUrl = ContactPhotoManager.GetSmallSizePhoto(item.ID, item is Company)
+                }));
             }
 
             var ResponsibleSelectedUserId = targetDeal == null ?
@@ -480,7 +486,8 @@ namespace ASC.Web.CRM.Classes
             page.JsonPublisher(customFieldList, "customFieldList");
             page.JsonPublisher(daoFactory.DealMilestoneDao.GetAll(), "dealMilestones");
 
-            if (targetDeal != null) {
+            if (targetDeal != null)
+            {
                 page.JsonPublisher(targetDeal, "targetDeal");
             }
         }
@@ -494,35 +501,35 @@ namespace ASC.Web.CRM.Classes
             var daoFactory = page.DaoFactory;
             var invoiceItems = daoFactory.InvoiceItemDao.GetAll();
             var invoiceItemsJson = JsonConvert.SerializeObject(invoiceItems.ConvertAll(item => new
-                {
-                    id = item.ID,
-                    title = item.Title,
-                    stockKeepingUnit = item.StockKeepingUnit,
-                    description = item.Description,
-                    price = item.Price,
-                    stockQuantity = item.StockQuantity,
-                    trackInventory = item.TrackInventory,
-                    invoiceTax1ID = item.InvoiceTax1ID,
-                    invoiceTax2ID = item.InvoiceTax2ID
-                }));
+            {
+                id = item.ID,
+                title = item.Title,
+                stockKeepingUnit = item.StockKeepingUnit,
+                description = item.Description,
+                price = item.Price,
+                stockQuantity = item.StockQuantity,
+                trackInventory = item.TrackInventory,
+                invoiceTax1ID = item.InvoiceTax1ID,
+                invoiceTax2ID = item.InvoiceTax2ID
+            }));
 
             var invoiceTaxes = daoFactory.InvoiceTaxDao.GetAll();
             var invoiceTaxesJson = JsonConvert.SerializeObject(invoiceTaxes.ConvertAll(item => new
-                {
-                    id = item.ID,
-                    name = item.Name,
-                    rate = item.Rate,
-                    description = item.Description
-                }));
+            {
+                id = item.ID,
+                name = item.Name,
+                rate = item.Rate,
+                description = item.Description
+            }));
 
             var invoiceSettings = Global.TenantSettings.InvoiceSetting ?? InvoiceSetting.DefaultSettings;
             var invoiceSettingsJson = JsonConvert.SerializeObject(new
-                {
-                    autogenerated = invoiceSettings.Autogenerated,
-                    prefix = invoiceSettings.Prefix,
-                    number = invoiceSettings.Number,
-                    terms = invoiceSettings.Terms
-                });
+            {
+                autogenerated = invoiceSettings.Autogenerated,
+                prefix = invoiceSettings.Prefix,
+                number = invoiceSettings.Number,
+                terms = invoiceSettings.Terms
+            });
 
             var presetContactsJson = string.Empty;
             var presetContactID = UrlParameters.ContactID;
@@ -555,8 +562,8 @@ namespace ASC.Web.CRM.Classes
 
             var contactInfoData = string.Empty;
             var consigneeInfoData = string.Empty;
-            
-            if(targetInvoice != null)
+
+            if (targetInvoice != null)
             {
                 if (targetInvoice.ContactID > 0)
                 {
@@ -566,7 +573,8 @@ namespace ASC.Web.CRM.Classes
                 {
                     consigneeInfoData = apiServer.GetApiResponse(String.Format(apiUrlFormat, SetupInfo.WebApiBaseUrl, targetInvoice.ConsigneeID), "GET");
                 }
-            } else if (presetContactID != 0)
+            }
+            else if (presetContactID != 0)
             {
                 contactInfoData = apiServer.GetApiResponse(String.Format(apiUrlFormat, SetupInfo.WebApiBaseUrl, presetContactID), "GET");
             }
@@ -599,13 +607,13 @@ namespace ASC.Web.CRM.Classes
 
         public static void DataInvoicesDetailsView(BasePage page, Invoice targetInvoice)
         {
-            if(targetInvoice == null)
+            if (targetInvoice == null)
                 return;
 
             var script = String.Format(@"var invoiceData = '{0}';", Global.EncodeTo64(targetInvoice.JsonData));
 
             var apiServer = new Api.ApiServer();
-            var apiUrl = String.Format("{0}crm/invoice/{1}.json",SetupInfo.WebApiBaseUrl, targetInvoice.ID);
+            var apiUrl = String.Format("{0}crm/invoice/{1}.json", SetupInfo.WebApiBaseUrl, targetInvoice.ID);
             var invoice = apiServer.GetApiResponse(apiUrl, "GET");
 
             page.RegisterInlineScript(script, onReady: false);

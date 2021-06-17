@@ -3,7 +3,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ListFiles.aspx.cs" Inherits="ASC.Web.Community.Wiki.ListFiles"
     MasterPageFile="~/Products/Community/Modules/Wiki/Wiki.Master" %>
 
-<%@ Import Namespace="ASC.Web.UserControls.Wiki.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Wiki.Resources" %>
 <%@ Import Namespace="ASC.Web.UserControls.Wiki.Data" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>

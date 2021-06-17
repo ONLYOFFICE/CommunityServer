@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,20 @@
 jq(function () {
     var recaptchaEmail = null;
     var recaptchaLogin = null;
+    var createAccountShown = false;
+    var loginPopupShown = false;
+    var passwordRecoveryShown = false;
+    var successRegisteringShown = false;
 
-    jq('#login').blur();
+    var $loginEmail = jq("#login");
+    $loginEmail.blur();
+    var loginEmailVal = $loginEmail.val();
+    if (loginEmailVal != "") {
+        $loginEmail.parent().addClass("focus");
+    }
     
     if (jq.cookies.get('onluoffice_personal_cookie') == null || jq.cookies.get('onluoffice_personal_cookie') == false) {
-        jq('.cookieMess').css('display', 'table');
+        jq('.cookieMess').show();
     }
 
     if (jq("#agree_to_terms").prop("checked")) {
@@ -44,13 +53,14 @@ jq(function () {
 
         jq('.auth-form-with_btns_social .account-links a').removeClass('disabled');
 
-        jq("#confirmEmailBtn")
-            .removeClass('disabled')
-            .on("click", function () {
+        if (jq("#agree_to_terms").prop("checked")) {
+            jq("#confirmEmailBtn").removeClass('disabled');
+        }
+
+        jq("#confirmEmailBtn").on("click", function () {
                 var $email = jq("#confirmEmail"),
                     email = $email.val().trim(),
                     spam = jq("#spam").prop("checked"),
-                    analytics = jq("#analytics").prop("checked"),
                     $error = jq("#confirmEmailError"),
                     errorText = "",
                     isError = false;
@@ -58,16 +68,16 @@ jq(function () {
                 $email.removeClass("error");
 
                 if (!email) {
-                    errorText = ASC.Resources.Master.Resource.ErrorEmptyEmail;
+                    errorText = ASC.Resources.Master.ResourceJS.ErrorEmptyEmail;
                     isError = true;
                 } else if (!jq.isValidEmail(email)) {
-                    errorText = ASC.Resources.Master.Resource.ErrorNotCorrectEmail;
+                    errorText = ASC.Resources.Master.ResourceJS.ErrorNotCorrectEmail;
                     isError = true;
                 }
 
                 if (isError) {
-                    $error.html(errorText);
-                    $email.addClass("error");
+                    $error.html(errorText).show();
+                    $email.addClass("error").parent().removeClass("valid").addClass("error");
                     return;
                 }
 
@@ -76,13 +86,12 @@ jq(function () {
                     "lang": jq(".personal-languages_select").attr("data-lang"),
                     "campaign": jq("#confirmEmailBtn").attr("data-campaign") ? !!(jq("#confirmEmailBtn").attr("data-campaign").length) : false,
                     "spam": spam,
-                    "analytics": analytics,
                     "recaptchaResponse": recaptchaEmail != null ? window.grecaptcha.getResponse(recaptchaEmail) : ""
                 };
 
                 var onError = function (error) {
-                    $error.html(error);
-                    $email.addClass("error");
+                    $error.html(error).show();
+                    $email.addClass("error").parent().removeClass("valid").addClass("error");
 
                     if (recaptchaEmail != null) {
                         window.grecaptcha.reset(recaptchaEmail);
@@ -97,8 +106,16 @@ jq(function () {
                         }
                         $error.empty();
                         jq("#activationEmail").html(email);
-                        jq(".auth-form-with_form_w").hide();
+                        var $authFormWithForm = jq(".auth-form-with_form");
+                        if ($authFormWithForm.parents(".first-screen-content").length) {
+                            jq(".auth-form-container").hide();
+                        } else {
+                            $authFormWithForm.hide();
+                        }
+                        jq("body").addClass("auth-maincontent-hidden");
                         jq("#sendEmailSuccessPopup").show();
+                        successRegisteringShown = true;
+                        AddPaddingWithoutScrollTo(jq("#sendEmailSuccessPopup"), jq("#loginPopup"));
                     },
                     error: function (params, errors) {
                         onError(errors[0]);
@@ -108,45 +125,17 @@ jq(function () {
     }
     
     function bindEvents () {
-        jq(function () {
-            jq("#loginSignUp").on("click", function () {
-                enableScroll();
-                jq('#login').blur();
-                jq("#loginPopup").hide();
-                hideAccountLinks();
-                jq(".auth-form-with_form_w").show();
-                jq("#confirmEmail").focus();
-            });
+        jq(".back-to-login").on("click", function () {
+            jq("#passwordRecovery").hide();
+            jq("#loginPopup").show();
+            jq("#personalCreateNow").addClass("web-shown");
+            positionPersonalCreateNowForLogin();
+            createAccountShown = false;
+            loginPopupShown = true;
+            passwordRecoveryShown = false;
         });
-        
-        jq('.create-link').on("click", function () {
-            jq('html, body').animate({ scrollTop: 0 }, 300);
-            jq(".auth-form-with_form_w").show();
-            jq("#confirmEmail").focus();
-        });
-        // close popup window
-        jq(".default-personal-popup_closer").on("click", function () {
-            hideAccountLinks();
-            jq(this).parents(".default-personal-popup").fadeOut(200, function() {
-                enableScroll();
-            });
-            if ((jq('body').hasClass('desktop'))) {
-                jq("#personalLogin a").click();
-            }
-            jq('.auth-form-with_form_btn')
-                .click(function () {
-                    return false;
-                });
-        });
-        // close register form
-        jq(".register_form_closer").on("click", function () {
-            jq(this).parents(".auth-form-with_form_w").fadeOut(200, function () {});
-        });
+
         // close cookie mess
-        jq(".cookieMess_closer").on("click", function () {
-            jq.cookies.set('onluoffice_personal_cookie', true);
-            closeCookieMess();
-        });
         jq("#personalcookie").on("click", function () {
             jq.cookies.set('onluoffice_personal_cookie', true);
             closeCookieMess();
@@ -245,12 +234,19 @@ jq(function () {
 
         // Login
         jq("#personalLogin a").on("click", function () {
-            jq(".auth-form-with_form_w").fadeOut(200, function () { });
+            jq(".auth-form-container").hide();
+            jq("#passwordRecovery").hide();
             showAccountLinks();
-            jq('.auth-form-with_form_btn').removeClass('disabled').unbind('click');
             jq("#loginPopup").show();
+            jq("#personalCreateNow").addClass("web-shown");
+            createAccountShown = false;
+            loginPopupShown = true;
+            passwordRecoveryShown = false;
+
             jq('#login').focus();
-            disableScroll();
+            jq('#pwd').blur();
+            jq("body").addClass("auth-maincontent-hidden");
+            positionPersonalCreateNowForLogin();
 
             if (jq("#recaptchaLogin").length) {
                 if (recaptchaLogin != null) {
@@ -269,20 +265,75 @@ jq(function () {
             }
         });
 
-        // open form
-        jq(".open-form").on("click", function () {
-            jq(".auth-form-with_form_w").show();
-            jq("#confirmEmail").focus();
-            //disableScroll();
-
-            if (jq("#recaptchaEmail").length) {
-                if (recaptchaEmail != null) {
-                    window.grecaptcha.reset(recaptchaEmail);
-                } else {
-                    recaptchaEmail = window.grecaptcha.render("recaptchaEmail", {"sitekey": jq("#recaptchaData").val()});
-                }
-            }
+        jq("#personalCreateNow a").on("click", function () {
+            jq(".auth-form-container").after(jq(".auth-form-with_form_w").addClass("separate-window").show());
+            jq("div:not(.first-screen-content) .auth-form-with_form").show();
+            jq(".auth-form-with_form > .auth-form-settings").append(jq("#confirmEmailBtn"));
+            positionPersonalAccountLogin();
+            jq("#loginPopup").hide().prepend(jq("#personalCreateNow"));
+            jq("#personalCreateNow").removeClass("web-shown");
+            jq("#passwordRecovery").hide();
+            jq("#personalAccountLogin").addClass("web-shown");
+            createAccountShown = true;
+            loginPopupShown = false;
+            passwordRecoveryShown = false;
         });
+
+        jq("#personalAccountLogin a").on("click", function () {
+            jq("#loginPopup").show();
+            jq("#personalCreateNow").addClass("web-shown");
+            jq(".auth-form-with_form_w").hide();
+            jq("#personalAccountLogin").removeClass("web-shown");
+            positionPersonalCreateNowForLogin();
+            createAccountShown = false;
+            loginPopupShown = true;
+            passwordRecoveryShown = false;
+        });
+
+        jq(".login_forget-psw").on("click", function () {
+            jq("#pswdRecoveryDialogPopupHeader").removeClass("display-none");
+            jq("#pswdRecoveryDialogText").show();
+            jq("#pswdChangeDialogPopupHeader").hide();
+            jq("#pswdChangeDialogText").hide();
+
+            jq("#" + jq("#studio_pwdReminderInfoID").val()).html("<div></div>");
+            jq("#" + jq("#studio_pwdReminderInfoID").val()).hide();
+
+            jq("#passwordRecovery").append(jq("#studio_pwdReminderDialog")).show();
+            jq("#personalCreateNow").addClass("web-shown");
+            jq(".popupContainerClass").append(jq("#passwordRecovery .link-as-btn"));
+            positionPersonalCreateNowForPasswordRecovery();
+
+            PopupKeyUpActionProvider.EnterAction = "PasswordTool.RemindPwd();";
+
+            var loginEmail = jq("#login").val();
+            if (loginEmail != null && loginEmail != undefined && jq.isValidEmail(loginEmail)) {
+                jq("#studio_emailPwdReminder").val(loginEmail).parent().addClass("focus");
+            }
+
+            jq(".auth-form-container").hide();
+            jq("#loginPopup").hide();
+            createAccountShown = false;
+            loginPopupShown = false;
+            passwordRecoveryShown = true;
+        });
+
+        jq("#goToMainPage").on("click", function () {
+            jq("#sendEmailSuccessPopup").hide();
+            jq(".first-screen-content").append(jq(".auth-form-with_form_w").removeClass("separate-window"));
+            jq(".auth-form-with_form").css({ "paddingTop": "", "paddingBottom": "" });
+            jq(".auth-form-with_form").show();
+            positionConfirmEmailBtn();
+            jq(".auth-form-container").fadeIn(1000);
+            jq("body").removeClass("auth-maincontent-hidden");
+            jq("#personalCreateNow").removeClass("web-shown");
+            jq("#personalAccountLogin").removeClass("web-shown");
+            jq("#confirmEmail").val("").parent().removeClass("valid");
+            successRegisteringShown = false;
+        });
+
+        jq("#studio_emailPwdReminder").wrap('<div class="auth-input-wrapper"></div>');
+        jq("#pswdRecoveryDialogText .auth-input-wrapper").append(jq("label[for='studio_emailPwdReminder']"));
 
         var loginMessage = jq(".login-message[value!='']").val();
         if (loginMessage && loginMessage.length) {
@@ -308,111 +359,44 @@ jq(function () {
         }
     }
 
-    function getReviewList () {
-        var lng = jq("#reviewsContainer").attr("data-lng");
-        lng = lng ? lng.toLowerCase() : "en";
+    jq("input[type='email'], input[type='password']").focus(inputFocus).focusout(inputFocusOut);
 
-        jq.getJSON("/UserControls/Common/AuthorizeDocs/js/reviews.json", function (data) {
-            var reviews = data.en.reviews;
+    function inputFocus() {
+        var currentInput = jq(this);
 
-            jq.each(data, function (key, val) {
-                if (key == lng) {
-                    reviews = val.reviews;
-                }
-            });
-
-            //shuffle(reviews);
-            reviews.forEach(function (review) {
-                review.stars = new Array(parseInt(review.rating));
-                if (review.photo) {
-                    review.photoUrl = "/UserControls/Common/AuthorizeDocs/css/images/foto_commets/" + review.photo;
-                }
-                jq("#personalReviewTmpl").tmpl(review).appendTo("#reviewsContainer");
-            });
-            
-            carouselAuto(reviews.length);
-        });
-    }
-
-    function shuffle (array) {
-        var counter = array.length, temp, index;
-
-        // While there are elements in the array
-        while (counter > 0) {
-            // Pick a random index
-            index = Math.floor(Math.random() * counter);
-
-            // Decrease counter by 1
-            counter--;
-
-            // And swap the last element with it
-            temp = array[counter];
-            array[counter] = array[index];
-            array[index] = temp;
-        }
-    }
-
-    function carouselSlider ($carousel) {
-        var blockWidth = $carousel.find('.carousel-block').outerWidth(true);
-        $carousel.animate({ left: "-" + blockWidth + "px" }, 800, function () {
-            $carousel.find(".carousel-block").eq(0).clone().appendTo($carousel);
-            $carousel.find(".carousel-block").eq(0).remove();
-            $carousel.css({ "left": "0px" });
-        });
-    }
-    var StickyElement = function (node) {
-        var doc = jq(document),
-            fixed = false,
-            anchor = node.find('.auth-form-with_form_w_anchor'),
-            content = node.find('.auth-form-with_form_w');
-       /* var onScroll = function (e) {
-            var docTop = doc.scrollTop(),
-                anchorTop = anchor.offset().top;
-
-            if (docTop > anchorTop) {
-                if (!fixed) {
-                    anchor.height(content.outerHeight());
-                    content.addClass('fixed');
-                    fixed = true;
-                }
-            } else {
-                if (fixed) {
-                    anchor.height(0);
-                    content.removeClass('fixed');
-                    fixed = false;
-                }
-            }
-        };
-
-        jq(window).on('scroll', onScroll);*/
+        currentInput.parent()
+            .removeClass('error')
+            .removeClass('valid')
+            .addClass('focus');
     };
 
-    
-    var StEl = jq(window).width() >= '700'? new StickyElement(jq('.auth-form-head')) : null;
-    
-    jq('.share-collaborate-picture-carousel').slick({
-           slidesToShow: 1,
-           dots: true,
-           arrows: true,
-        });
-    function carouselAuto(slidesCount) {
-       jq('.carousel').slick({
-           slidesToShow: slidesCount < 3 ? slidesCount : 2,
-           centerMode: false,
-           responsive: [
-            {
-                breakpoint: 1041,
-                settings: {
-                    slidesToShow: 1,
+    function inputFocusOut() {
+        var currentInput = jq(this);
+        var currentInputValue = currentInput[0].value;
+
+        var currentInputId = currentInput[0].id;
+        var currentInputWrapper = currentInput.parent();
+        currentInputWrapper.removeClass('focus');
+
+        if (currentInput.attr("type") == "email") {
+            if (jq.isValidEmail(currentInputValue)) {
+                currentInput.removeClass("error");
+                currentInputWrapper.addClass('valid').next("[class*='error']").hide();
+            } else {
+                if (currentInputValue.length > 0) {
+                    currentInput.parent().addClass("error");
+                } else {
+                    currentInputWrapper.next("[class*='error']").hide();
                 }
-            }]
-        });
-       
-       /* var $carousel = jq("#reviewsContainer");
-        setInterval(function () {
-            carouselSlider($carousel);
-        }, 8000);*/
-    }
+            }
+        } else if (currentInputValue.length > 0) {
+            currentInput.parent().addClass('valid');
+        }
+    };
+
+    jq("span[data-span-for]").on("click", function () {
+        jq("input[id=" + jq(this).attr("data-span-for") + "]").trigger('click');
+    });
 
     jq.fn.duplicate = function (count, cloneEvents) {
         var tmp = [];
@@ -432,12 +416,83 @@ jq(function () {
     jq('.slick-carousel').slick({
         slidesToShow: 1,
         arrows: true,
-        dots: true,
         centerMode: true,
         asNavFor: '.create-carousel'
     });
 
     bindEvents();
-    getReviewList();
     
+    reviewBuilder(reviewsDataObject, reviewsDataObjectLocale, "#heartheweb-reviews-template-list-item");
+    maxCreateFormWidth();
+    positionConfirmEmailBtn();
+    AddPaddingWithoutScrollTo(jq("#loginPopup"), jq("#loginPopup"));
+
+    jq(window).resize(function () {
+        maxCreateFormWidth();
+        if (loginPopupShown) {
+            positionPersonalCreateNowForLogin();
+            AddPaddingWithoutScrollTo(jq("#loginPopup"), jq("#loginPopup"));
+        }
+        if (passwordRecoveryShown) {
+            positionPersonalCreateNowForPasswordRecovery();
+            AddPaddingWithoutScrollTo(jq("#passwordRecovery"), jq("#loginPopup"));
+        }
+        if (createAccountShown) {
+            positionConfirmEmailBtn();
+            positionPersonalAccountLogin();
+            AddPaddingWithoutScrollTo(jq(".auth-form-with_form_w.separate-window .auth-form-with_form"), jq("#loginPopup"));
+        }
+        if (!createAccountShown && !loginPopupShown && !passwordRecoveryShown) {
+            positionConfirmEmailBtn();
+        };
+    });
+
+    function maxCreateFormWidth() {
+        var wInnerWidth = jq(window).innerWidth();
+        jq(".auth-form-with_form_w").css("maxWidth", wInnerWidth);
+    };
+
+    function positionConfirmEmailBtn() {
+        if (jq(window).outerWidth() <= 592) {
+            jq(".first-screen-content .auth-form-with_form > .auth-form-settings").append(jq(".first-screen-content #confirmEmailBtn"));
+        } else {
+            jq(".first-screen-content .auth-input-row").append(jq(".first-screen-content #confirmEmailBtn"));
+        }
+    };
+
+    function positionPersonalAccountLogin() {
+        if (jq(window).width() < 768) {
+            jq(".auth-form-with_form").append(jq("#personalAccountLogin"));
+        } else {
+            jq("#personalLogin").before(jq("#personalAccountLogin"));
+        }
+    };
+
+    function positionPersonalCreateNowForLogin() {
+        if (jq(window).width() < 768) {
+            jq("#loginPopup").append(jq("#personalCreateNow"));
+        } else {
+            jq("#personalLogin").before(jq("#personalCreateNow"));
+        }
+    };
+
+    function positionPersonalCreateNowForPasswordRecovery() {
+        if (jq(window).width() < 768) {
+            jq(".popupContainerClass").append(jq("#personalCreateNow"));
+        } else {
+            jq("#personalLogin").before(jq("#personalCreateNow"));
+        }
+    };
 });
+
+/*Call from another .js file.*/
+function onSuccessRemindPwd() {
+    jq("#passwordRecovery").hide();
+    jq("#personalCreateNow").removeClass("web-shown");
+    if (jq('body').hasClass('desktop')) {
+        jq("#loginPopup").fadeIn(1000);
+    } else {
+        jq("#personalLogin a").click();
+    }
+};
+/*---------------------------*/

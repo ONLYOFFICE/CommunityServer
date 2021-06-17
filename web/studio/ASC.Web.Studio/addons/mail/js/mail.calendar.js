@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -201,7 +201,7 @@ window.mailCalendar = (function ($) {
 
         if (icalInfo.method === "REQUEST") {
             icalInfo.action = !icalInfo.alienEvent && !icalInfo.fromOrganizer && icalInfo.fromAttendee
-                    ? ASC.Resources.Master.Resource.MailIcsRequestDescription.format(icalInfo.orgName || icalInfo.orgEmail)
+                    ? ASC.Resources.Master.ResourceJS.MailIcsRequestDescription.format(icalInfo.orgName || icalInfo.orgEmail)
                     : undefined;
 
         } else if (icalInfo.method === "REPLY") {
@@ -210,18 +210,18 @@ window.mailCalendar = (function ($) {
                 switch (icalInfo.curAttendee.getParameter("partstat")) {
                 case "ACCEPTED":
                     action = icalInfo.fromAttendee
-                        ? ASC.Resources.Master.Resource.MailIcsYouReplyYesDescription
-                        : ASC.Resources.Master.Resource.MailIcsReplyYesDescription;
+                        ? ASC.Resources.Master.ResourceJS.MailIcsYouReplyYesDescription
+                        : ASC.Resources.Master.ResourceJS.MailIcsReplyYesDescription;
                     break;
                 case "TENTATIVE":
                     action = icalInfo.fromAttendee
-                        ? ASC.Resources.Master.Resource.MailIcsYouReplyMaybeDescription
-                        : ASC.Resources.Master.Resource.MailIcsReplyMaybeDescription;
+                        ? ASC.Resources.Master.ResourceJS.MailIcsYouReplyMaybeDescription
+                        : ASC.Resources.Master.ResourceJS.MailIcsReplyMaybeDescription;
                     break;
                 case "DECLINED":
                     action = icalInfo.fromAttendee
-                        ? ASC.Resources.Master.Resource.MailIcsYouReplyNoDescription
-                        : ASC.Resources.Master.Resource.MailIcsReplyNoDescription;
+                        ? ASC.Resources.Master.ResourceJS.MailIcsYouReplyNoDescription
+                        : ASC.Resources.Master.ResourceJS.MailIcsReplyNoDescription;
                     break;
                 default:
                     throw "Unsupported attendee partstart";
@@ -232,7 +232,7 @@ window.mailCalendar = (function ($) {
             icalInfo.attendees = [];
 
         } else if (icalInfo.method === "CANCEL") {
-            icalInfo.action = !icalInfo.alienEvent ? ASC.Resources.Master.Resource.MailIcsCancelDescription : undefined;
+            icalInfo.action = !icalInfo.alienEvent ? ASC.Resources.Master.ResourceJS.MailIcsCancelDescription : undefined;
         }
 
         return icalInfo;
@@ -620,7 +620,7 @@ window.mailCalendar = (function ($) {
                                                 hasChanges = eventSummaryChanged || eventDateEventChanged || eventLocationChanged || eventOrganizerChanged || eventRRuleEventChanged;
 
                                             if (calEventInfo.eventSequence !== mailEventInfo.eventSequence || hasChanges) {
-                                                iCal.eventDisplayInfo = ASC.Resources.Master.Resource.MailIcsUpdateDescription;
+                                                iCal.eventDisplayInfo = ASC.Resources.Master.ResourceJS.MailIcsUpdateDescription;
                                                 iCal.eventDisplayInfoClass = "info-region";
                                                 iCal.eventSummaryChanged = eventSummaryChanged;
                                                 iCal.eventDateEventChanged = eventDateEventChanged;
@@ -633,7 +633,7 @@ window.mailCalendar = (function ($) {
                                             else if (!iCal.recurrence &&
                                                 (iCal.dtEndAllDay && iCal.dtEnd.isBefore(now, 'day')) ||
                                                 (!iCal.dtEndAllDay && iCal.dtEnd.isBefore(now))) {
-                                                iCal.eventDisplayInfo = ASC.Resources.Master.Resource.MailIcsFinishDescription;
+                                                iCal.eventDisplayInfo = ASC.Resources.Master.ResourceJS.MailIcsFinishDescription;
                                                 iCal.eventDisplayInfoClass = "success-region";
                                                 iCal.showButtons = false;
                                                 iCal.needAgenda = false;
@@ -642,8 +642,8 @@ window.mailCalendar = (function ($) {
                                                     ? calEventInfo
                                                     : mailEventInfo;
                                                 iCal.eventDisplayInfo = iCal.fromOrganizer
-                                                        ? ASC.Resources.Master.Resource.MailIcsYouSentRequestDescription
-                                                        : ASC.Resources.Master.Resource.MailIcsRequestDescription.format(
+                                                        ? ASC.Resources.Master.ResourceJS.MailIcsYouSentRequestDescription
+                                                        : ASC.Resources.Master.ResourceJS.MailIcsRequestDescription.format(
                                                             iCal.orgName || iCal.orgEmail);
                                                 iCal.eventDisplayInfoClass = "info-region";
 
@@ -660,7 +660,7 @@ window.mailCalendar = (function ($) {
                                             }
                                             break;
                                         case "CANCEL":
-                                            iCal.eventDisplayInfo = ASC.Resources.Master.Resource.MailIcsCancelDescription;
+                                            iCal.eventDisplayInfo = ASC.Resources.Master.ResourceJS.MailIcsCancelDescription;
                                             iCal.eventDisplayInfoClass = "error-region";
                                             iCal.showButtons = false;
                                             iCal.needAgenda = false;
@@ -694,7 +694,7 @@ window.mailCalendar = (function ($) {
                                     break;
                                 case "CANCEL":
                                     iCal = calEventInfo;
-                                    iCal.eventDisplayInfo = ASC.Resources.Master.Resource.MailIcsCancelDescription;
+                                    iCal.eventDisplayInfo = ASC.Resources.Master.ResourceJS.MailIcsCancelDescription;
                                     iCal.eventDisplayInfoClass = "error-region";
                                     break;
                             }
@@ -706,12 +706,12 @@ window.mailCalendar = (function ($) {
                                     if (!iCal.recurrence &&
                                         (iCal.dtEndAllDay && iCal.dtEnd.isBefore(now, 'day')) ||
                                         (!iCal.dtEndAllDay && iCal.dtEnd.isBefore(now))) {
-                                        iCal.eventDisplayInfo = ASC.Resources.Master.Resource.MailIcsFinishDescription;
+                                        iCal.eventDisplayInfo = ASC.Resources.Master.ResourceJS.MailIcsFinishDescription;
                                         iCal.eventDisplayInfoClass = "success-region";
                                     } else {
                                         iCal.eventDisplayInfo = iCal.fromOrganizer
-                                                        ? ASC.Resources.Master.Resource.MailIcsYouSentRequestDescription
-                                                        : ASC.Resources.Master.Resource.MailIcsRequestDescription.format(
+                                                        ? ASC.Resources.Master.ResourceJS.MailIcsYouSentRequestDescription
+                                                        : ASC.Resources.Master.ResourceJS.MailIcsRequestDescription.format(
                                                             iCal.orgName || iCal.orgEmail);
                                         iCal.eventDisplayInfoClass = "info-region";
 

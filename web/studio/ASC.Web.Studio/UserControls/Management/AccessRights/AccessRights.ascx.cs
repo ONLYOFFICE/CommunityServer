@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.Core;
 using ASC.Core.Users;
@@ -28,16 +31,14 @@ using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Controls.Users;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
 
-using Resources;
-
-using AjaxPro;
-using ASC.Web.Core.WhiteLabel;
 using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -63,12 +64,32 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected List<string> LdapRights { get; set; }
 
+        protected bool EnableAddAdmin
+        {
+            get
+            {
+                return CoreContext.Configuration.Standalone ||
+                    (TenantExtra.GetTenantQuota().CountAdmin > GetCountAdmins);
+            }
+        }
+
+        protected int GetCountAdmins
+        {
+            get
+            {
+                return WebItemSecurity.GetProductAdministrators(Guid.Empty).Count();
+            }
+        }
+
+        protected string TariffPageLink { get; set; }
+
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            TariffPageLink = TenantExtra.GetTariffPageLink();
             InitControl();
             RegisterClientScript();
         }
@@ -87,11 +108,11 @@ namespace ASC.Web.Studio.UserControls.Management
             CanOwnerEdit = currentOwner.ID.Equals(SecurityContext.CurrentAccount.ID);
 
             _phOwnerCard.Controls.Add(new EmployeeUserCard
-                {
-                    EmployeeInfo = currentOwner,
-                    EmployeeUrl = currentOwner.GetUserProfilePageURL(),
-                    Width = 330
-                });
+            {
+                EmployeeInfo = currentOwner,
+                EmployeeUrl = currentOwner.GetUserProfilePageURL(),
+                Width = 330
+            });
 
             FullAccessOpportunities = Resource.AccessRightsFullAccessOpportunities.Split('|');
         }
@@ -121,24 +142,24 @@ namespace ASC.Web.Studio.UserControls.Management
             sb.AppendFormat("ownerId = \"{0}\";", curTenant.OwnerId);
 
             sb.AppendFormat("adminList = {0};", JsonConvert.SerializeObject(admins.ConvertAll(u => new
-                {
-                    id = u.ID,
-                    smallFotoUrl = u.GetSmallPhotoURL(),
-                    bigFotoUrl = isRetina ? u.GetBigPhotoURL() : "",
-                    displayName = u.DisplayUserName(),
-                    title = u.Title.HtmlEncode(),
-                    userUrl = CommonLinkUtility.GetUserProfile(u.ID),
-                    accessList = GetAccessList(u.ID, WebItemSecurity.IsProductAdministrator(Guid.Empty, u.ID)),
-                    ldap = LdapRights.Contains(u.ID.ToString())
-                })));
+            {
+                id = u.ID,
+                smallFotoUrl = u.GetSmallPhotoURL(),
+                bigFotoUrl = isRetina ? u.GetBigPhotoURL() : "",
+                displayName = u.DisplayUserName(),
+                title = u.Title.HtmlEncode(),
+                userUrl = CommonLinkUtility.GetUserProfile(u.ID),
+                accessList = GetAccessList(u.ID, WebItemSecurity.IsProductAdministrator(Guid.Empty, u.ID)),
+                ldap = LdapRights.Contains(u.ID.ToString())
+            })));
 
             sb.AppendFormat("imageHelper = {0};", JsonConvert.SerializeObject(new
-                {
-                    PeopleImgSrc = WebImageSupplier.GetAbsoluteWebPath("user_12.png"),
-                    GroupImgSrc = WebImageSupplier.GetAbsoluteWebPath("group_12.png"),
-                    TrashImgSrc = WebImageSupplier.GetAbsoluteWebPath("trash_12.png"),
-                    TrashImgTitle = Resource.DeleteButton
-                }));
+            {
+                PeopleImgSrc = WebImageSupplier.GetAbsoluteWebPath("user_12.png"),
+                GroupImgSrc = WebImageSupplier.GetAbsoluteWebPath("group_12.png"),
+                TrashImgSrc = WebImageSupplier.GetAbsoluteWebPath("trash_12.png"),
+                TrashImgTitle = Resource.DeleteButton
+            }));
 
             var managementPage = Page as Studio.Management;
             var tenantAccess = managementPage != null ? managementPage.TenantAccess : TenantAccessSettings.Load();
@@ -189,25 +210,25 @@ namespace ASC.Web.Studio.UserControls.Management
                 var userOpportunities = p.GetUserOpportunities();
 
                 var item = new Item
-                    {
-                        ID = p.ID,
-                        Name = p.Name.HtmlEncode(),
-                        IconUrl = p.GetIconAbsoluteURL(),
-                        DisabledIconUrl = p.GetDisabledIconAbsoluteURL(),
-                        SubItems = new List<Item>(),
-                        ItemName = p.GetSysName(),
-                        UserOpportunitiesLabel = String.Format(CustomNamingPeople.Substitute<Resource>("AccessRightsProductUsersCan"), p.Name).HtmlEncode(),
-                        UserOpportunities = userOpportunities != null ? userOpportunities.ConvertAll(uo => uo.HtmlEncode()) : null,
-                        CanNotBeDisabled = p.CanNotBeDisabled()
-                    };
+                {
+                    ID = p.ID,
+                    Name = p.Name.HtmlEncode(),
+                    IconUrl = p.GetIconAbsoluteURL(),
+                    DisabledIconUrl = p.GetDisabledIconAbsoluteURL(),
+                    SubItems = new List<Item>(),
+                    ItemName = p.GetSysName(),
+                    UserOpportunitiesLabel = String.Format(CustomNamingPeople.Substitute<Resource>("AccessRightsProductUsersCan"), p.Name).HtmlEncode(),
+                    UserOpportunities = userOpportunities != null ? userOpportunities.ConvertAll(uo => uo.HtmlEncode()) : null,
+                    CanNotBeDisabled = p.CanNotBeDisabled()
+                };
 
                 if (p.HasComplexHierarchyOfAccessRights())
                     item.UserOpportunitiesLabel = String.Format(CustomNamingPeople.Substitute<Resource>("AccessRightsProductUsersWithRightsCan"), item.Name).HtmlEncode();
 
                 var productInfo = WebItemSecurity.GetSecurityInfo(item.ID.ToString());
                 item.Disabled = !productInfo.Enabled;
-                item.SelectedGroups = productInfo.Groups.Select(g => new SelectedItem {ID = g.ID, Name = g.Name});
-                item.SelectedUsers = productInfo.Users.Select(g => new SelectedItem {ID = g.ID, Name = g.DisplayUserName()});
+                item.SelectedGroups = productInfo.Groups.Select(g => new SelectedItem { ID = g.ID, Name = g.Name });
+                item.SelectedUsers = productInfo.Users.Select(g => new SelectedItem { ID = g.ID, Name = g.DisplayUserName() });
 
                 data.Add(item);
             }
@@ -230,12 +251,12 @@ namespace ASC.Web.Studio.UserControls.Management
 
             foreach (var p in Products)
                 res.Add(new
-                    {
-                        pId = p.ID,
-                        pName = p.GetSysName(),
-                        pAccess = fullAccess || WebItemSecurity.IsProductAdministrator(p.ID, uId),
-                        disabled = LdapRights.Contains(uId.ToString()) || fullAccess
-                    });
+                {
+                    pId = p.ID,
+                    pName = p.GetSysName(),
+                    pAccess = fullAccess || WebItemSecurity.IsProductAdministrator(p.ID, uId),
+                    disabled = LdapRights.Contains(uId.ToString()) || fullAccess
+                });
 
             return res;
         }
@@ -288,6 +309,11 @@ namespace ASC.Web.Studio.UserControls.Management
             if (user.IsVisitor())
                 throw new System.Security.SecurityException("Collaborator can not be an administrator");
 
+            if (!EnableAddAdmin)
+            {
+                throw new System.Security.SecurityException("Maximum number of administrator exceeded");
+            }
+
             WebItemSecurity.SetProductAdministrator(Guid.Empty, id, true);
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.AdministratorAdded, MessageTarget.Create(user.ID), user.DisplayUserName(false));
@@ -295,15 +321,16 @@ namespace ASC.Web.Studio.UserControls.Management
             InitLdapRights();
 
             return new
-                {
-                    id = user.ID,
-                    smallFotoUrl = user.GetSmallPhotoURL(),
-                    bigFotoUrl = isRetina ? user.GetBigPhotoURL() : "",
-                    displayName = user.DisplayUserName(),
-                    title = user.Title.HtmlEncode(),
-                    userUrl = CommonLinkUtility.GetUserProfile(user.ID),
-                    accessList = GetAccessList(user.ID, true)
-                };
+            {
+                id = user.ID,
+                smallFotoUrl = user.GetSmallPhotoURL(),
+                bigFotoUrl = isRetina ? user.GetBigPhotoURL() : "",
+                displayName = user.DisplayUserName(),
+                title = user.Title.HtmlEncode(),
+                userUrl = CommonLinkUtility.GetUserProfile(user.ID),
+                accessList = GetAccessList(user.ID, true),
+                enable = EnableAddAdmin
+            };
         }
 
         #endregion

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,16 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Web.Core.Subscriptions;
+
 using ASC.Notify.Model;
+using ASC.Web.Core.Subscriptions;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.Core.Notify
 {
     internal class StudioSubscriptionManager : ISubscriptionManager
     {
-        private static StudioSubscriptionManager _instance = new StudioSubscriptionManager();
+        private static readonly StudioSubscriptionManager _instance = new StudioSubscriptionManager();
 
         public static StudioSubscriptionManager Instance
         {
@@ -47,7 +49,7 @@ namespace ASC.Web.Studio.Core.Notify
             types.Add(new SubscriptionType()
             {
                 ID = new Guid("{148B5E30-C81A-4ff8-B749-C46BAE340093}"),
-                Name = Resources.Resource.WhatsNewSubscriptionName,
+                Name = Resource.WhatsNewSubscriptionName,
                 NotifyAction = Actions.SendWhatsNew,
                 Single = true
             });
@@ -55,11 +57,11 @@ namespace ASC.Web.Studio.Core.Notify
             var astype = new SubscriptionType()
             {
                 ID = new Guid("{A4FFC01F-BDB5-450e-88C4-03FED17D67C5}"),
-                Name = Resources.Resource.AdministratorNotifySenderTypeName,
+                Name = Resource.AdministratorNotifySenderTypeName,
                 NotifyAction = Actions.SendWhatsNew,
                 Single = false
             };
-            
+
             types.Add(astype);
 
             return types;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace ASC.Api.Batch
         public ApiBatchRequest()
         {
             //Defaults
-            BodyContentType = new ContentType("application/x-www-form-urlencoded"){CharSet = Encoding.UTF8.WebName}.ToString();
+            BodyContentType = new ContentType("application/x-www-form-urlencoded") { CharSet = Encoding.UTF8.WebName }.ToString();
             Method = "GET";
         }
 
@@ -41,7 +41,7 @@ namespace ASC.Api.Batch
         private string _method;
         public string Method
         {
-            get { return string.IsNullOrEmpty(_method)?"GET":_method; }
+            get { return string.IsNullOrEmpty(_method) ? "GET" : _method; }
             set { _method = value; }
         }
 

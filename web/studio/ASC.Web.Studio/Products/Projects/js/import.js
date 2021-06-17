@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 
 ASC.Projects.Import = (function($) {
     var quotaEndFlag = false;
-    var resources = ASC.Projects.Resources.ImportResource;
+    var ImportResource = ASC.Projects.Resources.ImportResource;
     var $chooseProjects,
         $importClosed,
         $sendInvitations,
@@ -261,14 +261,14 @@ ASC.Projects.Import = (function($) {
 
         if ($tbxURL.val().trim() == "") {
             $urlTbContainer.addClass(requiredFieldErrorClass);
-            $urlTbContainer.find(requiredErrorTextClass).text(resources.EmptyURL);
+            $urlTbContainer.find(requiredErrorTextClass).text(ImportResource.EmptyURL);
             return false;
         } else {
             $urlTbContainer.removeClass(requiredFieldErrorClass);
         }
         if ($tbxUserName.val().trim() == "") {
             $emailTbContainer.addClass(requiredFieldErrorClass);
-            $emailTbContainer.find(requiredErrorTextClass).text(resources.EmptyEmail);
+            $emailTbContainer.find(requiredErrorTextClass).text(ImportResource.EmptyEmail);
             return false;
         } else {
             $emailTbContainer.removeClass(requiredFieldErrorClass);
@@ -287,14 +287,14 @@ ASC.Projects.Import = (function($) {
         var url = $tbxURL.val().trim();
         if (!regExpForCompanyUrl.test(url)) {
             $urlTbContainer.addClass(requiredFieldErrorClass);
-            $urlTbContainer.find(requiredErrorTextClass).text(resources.InvalidCompaniUrl);
+            $urlTbContainer.find(requiredErrorTextClass).text(ImportResource.InvalidCompaniUrl);
             return false;
         }
         // company url
         var email = $tbxUserName.val().trim();
         if (!regExpForEmail.test(email)) {
             $emailTbContainer.addClass(requiredFieldErrorClass);
-            $emailTbContainer.find(requiredErrorTextClass).text(resources.InvalidEmail);
+            $emailTbContainer.find(requiredErrorTextClass).text(ImportResource.InvalidEmail);
             return false;
         }
         return true;
@@ -334,8 +334,8 @@ ASC.Projects.Import = (function($) {
             errorText = response.error.Message;
         }
         if (errorText.indexOf("404") < 0) {
-            errorText = resources.ImportFailed + ":" + errorText;
-            $popupImportErrorContainerHeader.text(resources.ImportFailed);
+            errorText = ImportResource.ImportFailed + ":" + errorText;
+            $popupImportErrorContainerHeader.text(ImportResource.ImportFailed);
             $popupImportErrorContainerMessage.text(errorText);
         }
         viewImportInfoPanel($popupImportErrorContainer);
@@ -349,7 +349,7 @@ ASC.Projects.Import = (function($) {
         else {
             lockImportTools();
             viewImportInfoPanel(jq("#import_info_popup"));
-            var spanStatusAwaiting = "<span class='gray-text'>" + resources.StatusAwaiting + " </span>";
+            var spanStatusAwaiting = "<span class='gray-text'>" + ImportResource.StatusAwaiting + " </span>";
             $importPeopleStatus.html(spanStatusAwaiting);
             $importProjectsStatus.html(spanStatusAwaiting);
             $importFilesStatus.html(spanStatusAwaiting);
@@ -384,8 +384,8 @@ ASC.Projects.Import = (function($) {
             buildErrorList(status);
             unlockImportTools();
             if (!jq("#import_info_popup").is(":visible")) {
-                $popupImportErrorContainerHeader.text(resources.PopupPanelHeader);
-                $popupImportErrorContainerMessage.text(resources.ImportCompleted);
+                $popupImportErrorContainerHeader.text(ImportResource.PopupPanelHeader);
+                $popupImportErrorContainerMessage.text(ImportResource.ImportCompleted);
                 viewImportInfoPanel($popupImportErrorContainer);
             }
         }

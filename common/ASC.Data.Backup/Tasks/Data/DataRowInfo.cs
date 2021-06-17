@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ namespace ASC.Data.Backup.Tasks.Data
     internal class DataRowInfo
     {
         private readonly List<string> _columnNames = new List<string>();
-        private readonly List<object> _values = new List<object>(); 
+        private readonly List<object> _values = new List<object>();
 
         public string TableName { get; private set; }
 
@@ -70,9 +70,9 @@ namespace ASC.Data.Backup.Tasks.Data
         public override string ToString()
         {
             const int maxStrLength = 150;
-            
+
             var sb = new StringBuilder(maxStrLength);
-            
+
             int i = 0;
             while (i < _values.Count && sb.Length <= maxStrLength)
             {
@@ -80,7 +80,7 @@ namespace ASC.Data.Backup.Tasks.Data
                 sb.AppendFormat("\"{0}\", ", strVal);
                 i++;
             }
-            
+
             if (sb.Length > maxStrLength + 2)
             {
                 sb.Length = maxStrLength - 3;

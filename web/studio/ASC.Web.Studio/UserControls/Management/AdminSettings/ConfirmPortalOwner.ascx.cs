@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,12 @@
 using System;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -72,7 +73,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     _confirmContentHolder.Visible = true;
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 ((Confirm)Page).ErrorMessage = err.Message.HtmlEncode();
                 _messageHolder.Visible = true;

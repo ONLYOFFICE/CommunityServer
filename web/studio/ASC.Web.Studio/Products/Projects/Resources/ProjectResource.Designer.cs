@@ -61,38 +61,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access.
-        /// </summary>
-        public static string Access {
-            get {
-                return ResourceManager.GetString("Access", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Portal Access Rights.
         /// </summary>
         public static string AccessRightSettings {
             get {
                 return ResourceManager.GetString("AccessRightSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Active.
-        /// </summary>
-        public static string ActiveProject {
-            get {
-                return ResourceManager.GetString("ActiveProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Active Projects.
-        /// </summary>
-        public static string ActiveProjects {
-            get {
-                return ResourceManager.GetString("ActiveProjects", resourceCulture);
             }
         }
         
@@ -129,24 +102,6 @@ namespace ASC.Web.Projects.Resources {
         public static string AddTask {
             get {
                 return ResourceManager.GetString("AddTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All Projects.
-        /// </summary>
-        public static string AllProjects {
-            get {
-                return ResourceManager.GetString("AllProjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Closed.
-        /// </summary>
-        public static string ClosedProject {
-            get {
-                return ResourceManager.GetString("ClosedProject", resourceCulture);
             }
         }
         
@@ -223,24 +178,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comments.
-        /// </summary>
-        public static string Comments {
-            get {
-                return ResourceManager.GetString("Comments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create.
-        /// </summary>
-        public static string Create {
-            get {
-                return ResourceManager.GetString("Create", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create the First Project.
         /// </summary>
         public static string CreateFirstProject {
@@ -255,15 +192,6 @@ namespace ASC.Web.Projects.Resources {
         public static string CreateNewProject {
             get {
                 return ResourceManager.GetString("CreateNewProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dashboard.
-        /// </summary>
-        public static string Dashboard {
-            get {
-                return ResourceManager.GetString("Dashboard", resourceCulture);
             }
         }
         
@@ -331,7 +259,7 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create the projects and work effectively.
+        ///   Looks up a localized string similar to Use the projects to work effectively.
         /// </summary>
         public static string EmptyListProjDescribeVisitor {
             get {
@@ -349,38 +277,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the needed tags separating them with commas.
-        /// </summary>
-        public static string EnterTheTags {
-            get {
-                return ResourceManager.GetString("EnterTheTags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Files.
-        /// </summary>
-        public static string Files {
-            get {
-                return ResourceManager.GetString("Files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Follow this project.
         /// </summary>
         public static string FollowingProjects {
             get {
                 return ResourceManager.GetString("FollowingProjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Follow Projects.
-        /// </summary>
-        public static string FollowProjects {
-            get {
-                return ResourceManager.GetString("FollowProjects", resourceCulture);
             }
         }
         
@@ -862,38 +763,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I understand it - DELETE this project..
-        /// </summary>
-        public static string IUnerstand {
-            get {
-                return ResourceManager.GetString("IUnerstand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save this project as private.
         /// </summary>
         public static string IUnerstandForEditHidden {
             get {
                 return ResourceManager.GetString("IUnerstandForEditHidden", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading....
-        /// </summary>
-        public static string LoadingProcessing {
-            get {
-                return ResourceManager.GetString("LoadingProcessing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string LoadingWait {
-            get {
-                return ResourceManager.GetString("LoadingWait", resourceCulture);
             }
         }
         
@@ -912,42 +786,6 @@ namespace ASC.Web.Projects.Resources {
         public static string ManualTimeInput {
             get {
                 return ResourceManager.GetString("ManualTimeInput", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Me.
-        /// </summary>
-        public static string Me {
-            get {
-                return ResourceManager.GetString("Me", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to milestone(s).
-        /// </summary>
-        public static string Milestones {
-            get {
-                return ResourceManager.GetString("Milestones", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Me.
-        /// </summary>
-        public static string My {
-            get {
-                return ResourceManager.GetString("My", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to My Projects.
-        /// </summary>
-        public static string MyProjects {
-            get {
-                return ResourceManager.GetString("MyProjects", resourceCulture);
             }
         }
         
@@ -972,15 +810,6 @@ namespace ASC.Web.Projects.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Notify project manager by email.
         /// </summary>
-        public static string NotifyProjectLeader {
-            get {
-                return ResourceManager.GetString("NotifyProjectLeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notify project manager by email.
-        /// </summary>
         public static string NotifyProjectManager {
             get {
                 return ResourceManager.GetString("NotifyProjectManager", resourceCulture);
@@ -993,15 +822,6 @@ namespace ASC.Web.Projects.Resources {
         public static string OkButton {
             get {
                 return ResourceManager.GetString("OkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Paused.
-        /// </summary>
-        public static string PausedProject {
-            get {
-                return ResourceManager.GetString("PausedProject", resourceCulture);
             }
         }
         
@@ -1105,15 +925,6 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to responsible users.
-        /// </summary>
-        public static string Responsibles {
-            get {
-                return ResourceManager.GetString("Responsibles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save Project.
         /// </summary>
         public static string SaveProject {
@@ -1141,38 +952,11 @@ namespace ASC.Web.Projects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project Settings.
-        /// </summary>
-        public static string Settings {
-            get {
-                return ResourceManager.GetString("Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Tags.
         /// </summary>
         public static string Tags {
             get {
                 return ResourceManager.GetString("Tags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to task(s).
-        /// </summary>
-        public static string Tasks {
-            get {
-                return ResourceManager.GetString("Tasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Team.
-        /// </summary>
-        public static string Team {
-            get {
-                return ResourceManager.GetString("Team", resourceCulture);
             }
         }
         

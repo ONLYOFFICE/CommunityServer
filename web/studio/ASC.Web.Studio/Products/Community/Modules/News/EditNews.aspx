@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/News/News.Master" AutoEventWireup="true" CodeBehind="EditNews.aspx.cs" Inherits="ASC.Web.Community.News.EditNews" %>
 
-<%@ Import Namespace="ASC.Web.Community.News.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.News.Resources" %>
 
 
 <asp:Content ContentPlaceHolderID="NewsTitleContent" runat="server">

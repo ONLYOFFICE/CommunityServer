@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.CRM.Core.Entities;
 using ASC.Specific;
@@ -84,17 +85,17 @@ namespace ASC.Api.CRM.Wrappers
         public static TaskWrapper GetSample()
         {
             return new TaskWrapper(0)
-                {
-                    Created = ApiDateTime.GetSample(),
-                    CreateBy = EmployeeWraper.GetSample(),
-                    DeadLine = ApiDateTime.GetSample(),
-                    IsClosed = false,
-                    Responsible = EmployeeWraper.GetSample(),
-                    Category = TaskCategoryBaseWrapper.GetSample(),
-                    CanEdit = true,
-                    Title = "Send a commercial offer",
-                    AlertValue = 0
-                };
+            {
+                Created = ApiDateTime.GetSample(),
+                CreateBy = EmployeeWraper.GetSample(),
+                DeadLine = ApiDateTime.GetSample(),
+                IsClosed = false,
+                Responsible = EmployeeWraper.GetSample(),
+                Category = TaskCategoryBaseWrapper.GetSample(),
+                CanEdit = true,
+                Title = "Send a commercial offer",
+                AlertValue = 0
+            };
         }
     }
 
@@ -145,15 +146,15 @@ namespace ASC.Api.CRM.Wrappers
         public static TaskBaseWrapper GetSample()
         {
             return new TaskBaseWrapper(0)
-                {
-                    DeadLine = (ApiDateTime)DateTime.UtcNow.AddMonths(1),
-                    IsClosed = false,
-                    Responsible = EmployeeWraper.GetSample(),
-                    Category = TaskCategoryBaseWrapper.GetSample(),
-                    CanEdit = true,
-                    Title = "Send a commercial offer",
-                    AlertValue = 0
-                };
+            {
+                DeadLine = (ApiDateTime)DateTime.UtcNow.AddMonths(1),
+                IsClosed = false,
+                Responsible = EmployeeWraper.GetSample(),
+                Category = TaskCategoryBaseWrapper.GetSample(),
+                CanEdit = true,
+                Title = "Send a commercial offer",
+                AlertValue = 0
+            };
         }
     }
 }

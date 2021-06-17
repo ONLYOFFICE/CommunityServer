@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.News.Resources {
+namespace ASC.Web.Community.Modules.News.Resources {
     using System;
     
     
@@ -65,11 +65,11 @@ namespace ASC.Web.Community.News.Resources {
         ///  &lt;formatter type=&quot;ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common&quot; /&gt;
         ///
         ///  &lt;pattern id=&quot;new feed&quot; sender=&quot;email.sender&quot;&gt;
-        ///    &lt;subject resource=&quot;|subject_new_text|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News&quot; /&gt;
-        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_new_text|ASC.Web.Community.News.Resources.NewsPatternResource,ASC.Web.Community.News&quot; /&gt;
+        ///    &lt;subject resource=&quot;|subject_new_text|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community&quot; /&gt;
+        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_new_text|ASC.Web.Community.Modules.News.Resources.NewsPatternResource,ASC.Web.Community&quot; /&gt;
         ///  &lt;/pattern&gt;
         ///
-        ///  &lt;pattern id=&quot;new feed&quot; sender=&quot;messanger.sender [rest of string was truncated]&quot;;.
+        ///  &lt;pattern id=&quot;new feed&quot; sender=&quot;messanger. [rest of string was truncated]&quot;;.
         /// </summary>
         public static string news_patterns {
             get {

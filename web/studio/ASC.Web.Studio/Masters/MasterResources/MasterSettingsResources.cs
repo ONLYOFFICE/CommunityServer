@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
@@ -29,8 +30,8 @@ using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio.Masters.MasterResources
 {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,9 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Studio.Controls.FileUploader;
-using ASC.Web.Studio.Controls.FileUploader.HttpModule;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Web.UserControls.Forum.Resources;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.ElasticSearch;
@@ -37,8 +33,13 @@ using ASC.Forum;
 using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Recipients;
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Community.Search;
+using ASC.Web.Studio.Controls.FileUploader;
+using ASC.Web.Studio.Controls.FileUploader.HttpModule;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Forum.Common;
 
 namespace ASC.Web.UserControls.Forum
@@ -78,13 +79,13 @@ namespace ASC.Web.UserControls.Forum
                     result.FileName = newFileName;
                     result.FileURL = store.Save(offsetPhysicalPath + "\\" + newFileName, file.InputStream).ToString();
                     result.Data = new
-                        {
-                            OffsetPhysicalPath = offsetPhysicalPath + "\\" + newFileName,
-                            FileName = newFileName,
-                            Size = file.ContentLength,
-                            ContentType = file.FileContentType,
-                            SettingsID = settingsID
-                        };
+                    {
+                        OffsetPhysicalPath = offsetPhysicalPath + "\\" + newFileName,
+                        FileName = newFileName,
+                        Size = file.ContentLength,
+                        ContentType = file.FileContentType,
+                        SettingsID = settingsID
+                    };
                     result.Success = true;
                 }
             }
@@ -445,7 +446,7 @@ namespace ASC.Web.UserControls.Forum
                 if (recentPosts.Count > 0)
                 {
                     Label titleRecentPosts = new Label();
-                    titleRecentPosts.Text = "<div class=\"headerPanelSmall-splitter\" style='margin-top:20px;'><b>" + Resources.ForumUCResource.RecentPostFromTopic + ":</b></div>";
+                    titleRecentPosts.Text = "<div class=\"headerPanelSmall-splitter\" style='margin-top:20px;'><b>" + ForumUCResource.RecentPostFromTopic + ":</b></div>";
                     _recentPostsHolder.Controls.Add(titleRecentPosts);
 
 
@@ -455,7 +456,7 @@ namespace ASC.Web.UserControls.Forum
                         PostControl postControl = (PostControl)LoadControl(_settings.UserControlsVirtualPath + "/PostControl.ascx");
                         postControl.Post = post;
                         postControl.SettingsID = SettingsID;
-                        postControl.IsEven = (i%2 == 0);
+                        postControl.IsEven = (i % 2 == 0);
                         _recentPostsHolder.Controls.Add(postControl);
                         i++;
                     }
@@ -560,7 +561,7 @@ namespace ASC.Web.UserControls.Forum
                 if (String.IsNullOrEmpty(_subject) && PostType != NewPostType.Post)
                 {
                     _subject = "";
-                    _errorMessage = "<div class=\"errorBox\">" + Resources.ForumUCResource.ErrorSubjectEmpty + "</div>";
+                    _errorMessage = "<div class=\"errorBox\">" + ForumUCResource.ErrorSubjectEmpty + "</div>";
                     return;
                 }
 
@@ -575,7 +576,7 @@ namespace ASC.Web.UserControls.Forum
                 {
                     _text = "";
 
-                    Page.RegisterInlineScript("ForumManager.ShowInfoMessage('" + Resources.ForumUCResource.ErrorTextEmpty + "');");
+                    Page.RegisterInlineScript("ForumManager.ShowInfoMessage('" + ForumUCResource.ErrorTextEmpty + "');");
                     return;
                 }
                 else
@@ -677,7 +678,7 @@ namespace ASC.Web.UserControls.Forum
                                 }
                             }
 
-                            int numb_page = Convert.ToInt32(Math.Ceiling(Topic.PostCount/(_settings.PostCountOnPage*1.0)));
+                            int numb_page = Convert.ToInt32(Math.Ceiling(Topic.PostCount / (_settings.PostCountOnPage * 1.0)));
 
                             var postURL = _settings.LinkProvider.Post(post.ID, Topic.ID, numb_page);
 
@@ -697,7 +698,7 @@ namespace ASC.Web.UserControls.Forum
                 {
                     if (PostType == NewPostType.Poll && _pollMaster.AnswerVariants.Count < 2)
                     {
-                        _errorMessage = "<div class=\"errorBox\">" + Resources.ForumUCResource.ErrorPollVariantCount + "</div>";
+                        _errorMessage = "<div class=\"errorBox\">" + ForumUCResource.ErrorPollVariantCount + "</div>";
                         return;
                     }
 
@@ -751,7 +752,7 @@ namespace ASC.Web.UserControls.Forum
                                                                             _pollMaster.Singleton ? QuestionType.OneAnswer : QuestionType.SeveralAnswer,
                                                                             topic.Title, answerVariants);
 
-                            var topicWrapper = (TopicWrapper) topic;
+                            var topicWrapper = (TopicWrapper)topic;
 
                             FactoryIndexer<TopicWrapper>.IndexAsync(topicWrapper);
                         }
@@ -814,7 +815,7 @@ namespace ASC.Web.UserControls.Forum
 
         private void NotifyAboutNewPost(Post post)
         {
-            int numb_page = Convert.ToInt32(Math.Ceiling(Topic.PostCount/(_settings.PostCountOnPage*1.0)));
+            int numb_page = Convert.ToInt32(Math.Ceiling(Topic.PostCount / (_settings.PostCountOnPage * 1.0)));
 
             string hostUrl = CommonLinkUtility.ServerRootPath;
 
@@ -838,14 +839,17 @@ namespace ASC.Web.UserControls.Forum
                 {
                     if (PostType == NewPostType.Poll || PostType == NewPostType.Topic)
                         SendNotify(this, new NotifyEventArgs(SubscriptionConstants.NewTopicInForum,
-                                                             null) { ThreadTitle = Topic.ThreadTitle, TopicId = Topic.ID, TopicTitle = Topic.Title, Poster = poster, Date = post.CreateDate.ToShortString(), PostURL = postURL, TopicURL = topicURL, ThreadURL = threadURL, UserURL = userURL, PostText = postText });
+                                                             null)
+                        { ThreadTitle = Topic.ThreadTitle, TopicId = Topic.ID, TopicTitle = Topic.Title, Poster = poster, Date = post.CreateDate.ToShortString(), PostURL = postURL, TopicURL = topicURL, ThreadURL = threadURL, UserURL = userURL, PostText = postText });
 
 
                     SendNotify(this, new NotifyEventArgs(SubscriptionConstants.NewPostInThread,
-                                                         Topic.ThreadID.ToString()) { ThreadTitle = Topic.ThreadTitle, TopicTitle = Topic.Title, Poster = poster, Date = post.CreateDate.ToShortString(), PostURL = postURL, TopicURL = topicURL, ThreadURL = threadURL, UserURL = userURL, PostText = postText, TopicId = Topic.ID, PostId = post.ID, TenantId = Topic.TenantID });
+                                                         Topic.ThreadID.ToString())
+                    { ThreadTitle = Topic.ThreadTitle, TopicTitle = Topic.Title, Poster = poster, Date = post.CreateDate.ToShortString(), PostURL = postURL, TopicURL = topicURL, ThreadURL = threadURL, UserURL = userURL, PostText = postText, TopicId = Topic.ID, PostId = post.ID, TenantId = Topic.TenantID });
 
                     SendNotify(this, new NotifyEventArgs(SubscriptionConstants.NewPostInTopic,
-                                                         Topic.ID.ToString()) { ThreadTitle = Topic.ThreadTitle, TopicTitle = Topic.Title, Poster = poster, Date = post.CreateDate.ToShortString(), PostURL = postURL, TopicURL = topicURL, ThreadURL = threadURL, UserURL = userURL, PostText = postText, TopicId = Topic.ID, PostId = post.ID, TenantId = Topic.TenantID });
+                                                         Topic.ID.ToString())
+                    { ThreadTitle = Topic.ThreadTitle, TopicTitle = Topic.Title, Poster = poster, Date = post.CreateDate.ToShortString(), PostURL = postURL, TopicURL = topicURL, ThreadURL = threadURL, UserURL = userURL, PostText = postText, TopicId = Topic.ID, PostId = post.ID, TenantId = Topic.TenantID });
 
 
                 }
@@ -866,7 +870,7 @@ namespace ASC.Web.UserControls.Forum
             sb.Append("<div class=\"headerPanel-splitter requiredField\">");
             sb.Append("<span class=\"requiredErrorText\"></span>");
             sb.Append("<div class=\"headerPanelSmall-splitter headerPanelSmall\"><b>");
-            sb.Append(Resources.ForumUCResource.Topic);
+            sb.Append(ForumUCResource.Topic);
             sb.Append(":</b></div>");
             sb.Append("<div>");
             sb.Append("<input class=\"textEdit\" style=\"width:100%;\" maxlength=\"450\" name=\"forum_subject\" id=\"forum_subject\" type=\"text\" value=\"" + HttpUtility.HtmlEncode(_subject) + "\" />");
@@ -890,7 +894,7 @@ namespace ASC.Web.UserControls.Forum
             StringBuilder sb = new StringBuilder();
             sb.Append("<div class=\"headerPanel-splitter\">");
             sb.Append("<div class=\"headerPanelSmall-splitter\"><b>");
-            sb.Append(Resources.ForumUCResource.Thread);
+            sb.Append(ForumUCResource.Thread);
             sb.Append(":</b></div>");
 
             sb.Append("<div>");
@@ -902,8 +906,8 @@ namespace ASC.Web.UserControls.Forum
             {
                 var category = _categories.FirstOrDefault(c => c.ID == forumGroup.Key);
 
-                if(category != null)
-                    sb.Append("<optgroup label=\"" + category.Title  + "\">");
+                if (category != null)
+                    sb.Append("<optgroup label=\"" + category.Title + "\">");
 
                 foreach (var forum in forumGroup)
                 {
@@ -965,15 +969,15 @@ namespace ASC.Web.UserControls.Forum
             var sb = new StringBuilder();
             sb.AppendLine("var ForumTagSearchHelper = new SearchHelper('forum_tags','forum_sh_item','forum_sh_itemselect','',\"ForumManager.SaveSearchTags(\'forum_search_tags\',ForumTagSearchHelper.SelectedItem.Value,ForumTagSearchHelper.SelectedItem.Help);\",\"TagSuggest\", \"GetSuggest\",\"'" + _settings.ID + "',\",true,false);");
             Page.RegisterInlineScript(sb.ToString());
-            
+
             sb = new StringBuilder();
             sb.Append("<div class=\"headerPanel-splitter\">");
-            sb.Append("<div class=\"headerPanelSmall-splitter\"><b>" + Resources.ForumUCResource.Tags + ":</b></div>");
+            sb.Append("<div class=\"headerPanelSmall-splitter\"><b>" + ForumUCResource.Tags + ":</b></div>");
             sb.Append("<div>");
             sb.Append("<input autocomplete=\"off\" class=\"textEdit\" style=\"width:100%\" type=\"text\" value=\"" + HttpUtility.HtmlEncode(_tagString) + "\" maxlength=\"3000\" id=\"forum_tags\" name=\"forum_tags\"/>");
             sb.Append("<input type='hidden' id='forum_search_tags' name='forum_search_tags'/>");
             sb.Append("</div>");
-            sb.Append("<div class=\"text-medium-describe\">" + Resources.ForumUCResource.HelpForTags + "</div>");
+            sb.Append("<div class=\"text-medium-describe\">" + ForumUCResource.HelpForTags + "</div>");
             sb.Append("</div>");
 
             Response.Write(sb.ToString());
@@ -1040,7 +1044,7 @@ namespace ASC.Web.UserControls.Forum
             if (_subscribeViewType == SubscriveViewType.Disable)
                 return "";
 
-            return "<input id='forum_topSubscriptionState' name='forum_topSubscription' value='" + (_subscribeViewType == SubscriveViewType.Checked ? "1" : "0") + "' type='hidden'/><input id=\"forum_topSubscription\" " + (_subscribeViewType == SubscriveViewType.Checked ? "checked='checked'" : "") + " type=\"checkbox\"/><label style='margin-left:5px; vertical-align: top;' for=\"forum_topSubscription\">" + Resources.ForumUCResource.SubscribeOnTopic + "</label>";
+            return "<input id='forum_topSubscriptionState' name='forum_topSubscription' value='" + (_subscribeViewType == SubscriveViewType.Checked ? "1" : "0") + "' type='hidden'/><input id=\"forum_topSubscription\" " + (_subscribeViewType == SubscriveViewType.Checked ? "checked='checked'" : "") + " type=\"checkbox\"/><label style='margin-left:5px; vertical-align: top;' for=\"forum_topSubscription\">" + ForumUCResource.SubscribeOnTopic + "</label>";
         }
 
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+
 using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility.BBCodeParser;
 
@@ -185,12 +187,12 @@ namespace ASC.Web.Studio.Utility
             if (tempInfo == null)
             {
                 tempInfo = new FCKTempUploadsInfo
-                    {
-                        FolderID = folderID,
-                        StoreDomain = domain,
-                        IsEdit = isEdit,
-                        TenantID = TenantProvider.CurrentTenantID
-                    };
+                {
+                    FolderID = folderID,
+                    StoreDomain = domain,
+                    IsEdit = isEdit,
+                    TenantID = TenantProvider.CurrentTenantID
+                };
                 uploads.Add(tempInfo);
             }
             tempInfo.Files.Add(filename);
@@ -332,7 +334,7 @@ namespace ASC.Web.Studio.Utility
         {
             commentList.BehaviorID = "_commentObj";
 
-            commentList.ConfirmRemoveCommentMessage = Resources.Resource.ConfirmRemoveCommentMessage;
+            commentList.ConfirmRemoveCommentMessage = Resource.ConfirmRemoveCommentMessage;
 
             commentList.OnEditedCommentJS = "FCKCommentsController.EditCommentHandler";
             commentList.OnCanceledCommentJS = "FCKCommentsController.CancelCommentHandler";
@@ -349,27 +351,27 @@ namespace ASC.Web.Studio.Utility
             {
                 var smiles = new List<Smile>
                     {
-                        new Smile(":-)", WebImageSupplier.GetAbsoluteWebPath("smile1.gif"), Resources.Resource.SmlSmile, ":-)"),
-                        new Smile(";-)", WebImageSupplier.GetAbsoluteWebPath("smile2.gif"), Resources.Resource.SmlEye, ";-)"),
-                        new Smile(":-\\", WebImageSupplier.GetAbsoluteWebPath("smile3.gif"), Resources.Resource.SmlSmirk, ":-\\\\"),
-                        new Smile(":-D", WebImageSupplier.GetAbsoluteWebPath("smile4.gif"), Resources.Resource.SmlHollywood, ":-D"),
-                        new Smile(":-(", WebImageSupplier.GetAbsoluteWebPath("smile5.gif"), Resources.Resource.SmlMourning, ":-("),
-                        new Smile("8-)", WebImageSupplier.GetAbsoluteWebPath("smile6.gif"), Resources.Resource.SmlSpectacles, "8-)"),
-                        new Smile("*DANCE*", WebImageSupplier.GetAbsoluteWebPath("smile7.gif"), Resources.Resource.SmlDance, "*DANCE*"),
-                        new Smile("[:-}", WebImageSupplier.GetAbsoluteWebPath("smile8.gif"), Resources.Resource.SmlMusic, "[:-}"),
-                        new Smile("*CRAZY*", WebImageSupplier.GetAbsoluteWebPath("smile9.gif"), Resources.Resource.SmlCrazy, "*CRAZY*"),
-                        new Smile("=-O", WebImageSupplier.GetAbsoluteWebPath("smile10.gif"), Resources.Resource.SmlAmazement, "=-O"),
-                        new Smile(":-P", WebImageSupplier.GetAbsoluteWebPath("smile11.gif"), Resources.Resource.SmlTongue, ":-P"),
-                        new Smile(":'(", WebImageSupplier.GetAbsoluteWebPath("smile12.gif"), Resources.Resource.SmlCry, ":\\'("),
-                        new Smile(":-!", WebImageSupplier.GetAbsoluteWebPath("smile13.gif"), Resources.Resource.SmlGreen, ":-!"),
-                        new Smile("*SUPER*", WebImageSupplier.GetAbsoluteWebPath("smile14.gif"), Resources.Resource.SmlSuper, "*SUPER*"),
-                        new Smile("*SORRY*", WebImageSupplier.GetAbsoluteWebPath("smile15.gif"), Resources.Resource.SmlSorry, "*SORRY*"),
-                        new Smile("*YAHOO*", WebImageSupplier.GetAbsoluteWebPath("smile16.gif"), Resources.Resource.SmlYAHOO, "*YAHOO*"),
-                        new Smile("*OK*", WebImageSupplier.GetAbsoluteWebPath("smile17.gif"), Resources.Resource.SmlOK, "*OK*"),
-                        new Smile("]-:)", WebImageSupplier.GetAbsoluteWebPath("smile18.gif"), Resources.Resource.SmlEvil, "]-:)"),
-                        new Smile("*SOS*", WebImageSupplier.GetAbsoluteWebPath("smile19.gif"), Resources.Resource.SmlSOS, "*SOS*"),
-                        new Smile("*DRINK*", WebImageSupplier.GetAbsoluteWebPath("smile20.gif"), Resources.Resource.SmlDrink, "*DRINK*"),
-                        new Smile("@=", WebImageSupplier.GetAbsoluteWebPath("smile21.gif"), Resources.Resource.SmlBomb, "@=")
+                        new Smile(":-)", WebImageSupplier.GetAbsoluteWebPath("smile1.gif"), Resource.SmlSmile, ":-)"),
+                        new Smile(";-)", WebImageSupplier.GetAbsoluteWebPath("smile2.gif"), Resource.SmlEye, ";-)"),
+                        new Smile(":-\\", WebImageSupplier.GetAbsoluteWebPath("smile3.gif"), Resource.SmlSmirk, ":-\\\\"),
+                        new Smile(":-D", WebImageSupplier.GetAbsoluteWebPath("smile4.gif"), Resource.SmlHollywood, ":-D"),
+                        new Smile(":-(", WebImageSupplier.GetAbsoluteWebPath("smile5.gif"), Resource.SmlMourning, ":-("),
+                        new Smile("8-)", WebImageSupplier.GetAbsoluteWebPath("smile6.gif"), Resource.SmlSpectacles, "8-)"),
+                        new Smile("*DANCE*", WebImageSupplier.GetAbsoluteWebPath("smile7.gif"), Resource.SmlDance, "*DANCE*"),
+                        new Smile("[:-}", WebImageSupplier.GetAbsoluteWebPath("smile8.gif"), Resource.SmlMusic, "[:-}"),
+                        new Smile("*CRAZY*", WebImageSupplier.GetAbsoluteWebPath("smile9.gif"), Resource.SmlCrazy, "*CRAZY*"),
+                        new Smile("=-O", WebImageSupplier.GetAbsoluteWebPath("smile10.gif"), Resource.SmlAmazement, "=-O"),
+                        new Smile(":-P", WebImageSupplier.GetAbsoluteWebPath("smile11.gif"), Resource.SmlTongue, ":-P"),
+                        new Smile(":'(", WebImageSupplier.GetAbsoluteWebPath("smile12.gif"), Resource.SmlCry, ":\\'("),
+                        new Smile(":-!", WebImageSupplier.GetAbsoluteWebPath("smile13.gif"), Resource.SmlGreen, ":-!"),
+                        new Smile("*SUPER*", WebImageSupplier.GetAbsoluteWebPath("smile14.gif"), Resource.SmlSuper, "*SUPER*"),
+                        new Smile("*SORRY*", WebImageSupplier.GetAbsoluteWebPath("smile15.gif"), Resource.SmlSorry, "*SORRY*"),
+                        new Smile("*YAHOO*", WebImageSupplier.GetAbsoluteWebPath("smile16.gif"), Resource.SmlYAHOO, "*YAHOO*"),
+                        new Smile("*OK*", WebImageSupplier.GetAbsoluteWebPath("smile17.gif"), Resource.SmlOK, "*OK*"),
+                        new Smile("]-:)", WebImageSupplier.GetAbsoluteWebPath("smile18.gif"), Resource.SmlEvil, "]-:)"),
+                        new Smile("*SOS*", WebImageSupplier.GetAbsoluteWebPath("smile19.gif"), Resource.SmlSOS, "*SOS*"),
+                        new Smile("*DRINK*", WebImageSupplier.GetAbsoluteWebPath("smile20.gif"), Resource.SmlDrink, "*DRINK*"),
+                        new Smile("@=", WebImageSupplier.GetAbsoluteWebPath("smile21.gif"), Resource.SmlBomb, "@=")
                     };
 
                 //OK
@@ -396,12 +398,12 @@ namespace ASC.Web.Studio.Utility
 
                 var tc = new TagConfiguration("URL", "<a target=\"_blank\" href=\"{1}\">{0}</a>") { IsParseTextReqularExpressions = false };
                 var tpo = new TagParamOption
-                    {
-                        PreValue = "http://",
-                        ParamNumber = 1,
-                        IsUseAnotherParamValue = true,
-                        AnotherParamNumber = 0
-                    };
+                {
+                    PreValue = "http://",
+                    ParamNumber = 1,
+                    IsUseAnotherParamValue = true,
+                    AnotherParamNumber = 0
+                };
                 tc.ParamOptions.Add(tpo);
                 config.TagConfigurations.Add(tc);
 

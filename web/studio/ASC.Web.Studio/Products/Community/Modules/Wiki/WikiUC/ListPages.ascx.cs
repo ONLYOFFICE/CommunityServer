@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ namespace ASC.Web.UserControls.Wiki.UC
         {
             get
             {
-                if(ViewState["mainPath"] == null)
+                if (ViewState["mainPath"] == null)
                     return string.Empty;
                 else
                     return ViewState["mainPath"].ToString();
@@ -37,12 +37,12 @@ namespace ASC.Web.UserControls.Wiki.UC
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
                 BindListPages();
-            }           
+            }
         }
-     
+
         protected string GetPageLink(string PageName)
         {
             return ActionHelper.GetViewPagePath(mainPath, PageName);

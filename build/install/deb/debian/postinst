@@ -65,7 +65,7 @@ apply_core_machinekey(){
 	fi
 	
 	if [ ! -z $CORE_MACHINEKEY ]; then
-		sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\"!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
+		sed "s!\"core\.machinekey\":.*!\"core\.machinekey\":\"${CORE_MACHINEKEY}\",!" -i ${APP_SERVICES_DIR}/ASC.UrlShortener/config/config.json		
 	fi			
 }
 
@@ -174,7 +174,6 @@ install_db(){
 	
 		$MYSQL "$DB_NAME" < $DIR/Sql/{{package_sysname}}.sql
 		$MYSQL "$DB_NAME" < $DIR/Sql/{{package_sysname}}.data.sql
-		$MYSQL "$DB_NAME" < $DIR/Sql/{{package_sysname}}.resources.sql
 	else
 		for i in $(ls $DIR/Sql/{{package_sysname}}.upgrade*); do
 				$MYSQL "$DB_NAME" < ${i};
@@ -195,8 +194,17 @@ case "$1" in
 		if ! cat /etc/passwd | grep -q "{{package_sysname}}:"; then
 			adduser --quiet --home $DIR --system --group {{package_sysname}}
 		fi
+		
+		if ! cat /etc/group | grep -q "nginx:"; then
+			addgroup --quiet --system nginx
+		fi
+		
+		if ! cat /etc/passwd | grep -q "nginx:"; then
+			adduser --quiet --system nginx
+			usermod -aG nginx nginx
+		fi
 
-		usermod -aG {{package_sysname}},www-data {{package_sysname}}
+		usermod -aG {{package_sysname}},nginx {{package_sysname}}
 
 		install_db
 		apply_connection_string
@@ -210,6 +218,11 @@ case "$1" in
 		mkdir -p /var/cache/nginx/{{package_sysname}}
 		mkdir -p /var/run/{{package_sysname}}
 
+		# clear cache
+		rm -dfr /tmp/{{package_sysname}}*
+		rm -dfr /var/run/{{package_sysname}}/*
+		rm -dfr /var/cache/nginx/{{package_sysname}}/*
+
 		# needed for signalr service
         mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
 	
@@ -219,11 +232,12 @@ case "$1" in
 		chown {{package_sysname}}:{{package_sysname}} -R $DIR/WebStudio/
 		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Sql/
 		chown {{package_sysname}}:{{package_sysname}} -R $DIR/Tools/
-		chown {{package_sysname}}:{{package_sysname}} -R $DIR/ApiSystem/				
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/ApiSystem/
+		chown {{package_sysname}}:{{package_sysname}} -R $DIR/.config/
 		chown {{package_sysname}}:{{package_sysname}} $LOG_DIR
 		
-		chown www-data:www-data -R /var/cache/nginx/{{package_sysname}}
-		chown {{package_sysname}}:www-data -R /var/run/{{package_sysname}}
+		chown nginx:nginx -R /var/cache/nginx/{{package_sysname}}
+		chown {{package_sysname}}:nginx -R /var/run/{{package_sysname}}
 		chmod g+s+w /var/run/{{package_sysname}}
 
 		# configure ngninx for {{package_sysname}}
@@ -238,11 +252,14 @@ case "$1" in
 
 		if [ -d /etc/apport/blacklist.d ] && [ ! -f /etc/apport/blacklist.d/{{package_sysname}} ]; then
 cat > /etc/apport/blacklist.d/{{package_sysname}} <<END
-/usr/lib/hyperfastcgi/4.0/HyperFastCgi.exe
-/usr/lib/mono/4.5/mono-service.exe
+/usr/bin/hyperfastcgi4
+/usr/bin/mono
+/usr/bin/mono-service
 END
-			service apport restart
 
+			if service --status-all | grep -Fq 'apport'; then    
+				service apport restart || true
+			fi
 		fi
 		
 		python3 -m pip install --upgrade pip
@@ -359,7 +376,7 @@ END
     			sed '/files\.docservice\.url\.public/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${DOCUMENT_SERVER_API_URL}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
     			sed '/files\.docservice\.url\.portal/s!\(value\s*=\s*\"\)[^\"]*\"!\1http:\/\/'${SERVER_HOST}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config
 
-				if dpkg -l "{{package_sysname}}-documentserver-ee"; then
+				if dpkg -l "{{package_sysname}}-documentserver-ee" &> /dev/null; then
 					sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_ROOT_DIR}/web.appsettings.config
 					sed '/license\.file\.path/s!\(value\s*=\s*\"\)[^\"]*\"!\1'${LICENSE_FILE_PATH}'\"!' -i ${APP_SERVICES_DIR}/TeamLabSvc/TeamLabSvc.exe.config		
 					
@@ -397,8 +414,7 @@ EOF
 
 		# setup xmppserver
 		if dpkg -l | grep -q "{{package_sysname}}-xmppserver"; then
-			sed '/web\.talk/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
-			sed '/web\.chat/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config
+			sed '/web\.talk/s/value=\"\S*\"/value=\"true\"/g' -i  ${APP_ROOT_DIR}/web.appsettings.config			
 		fi
 		# end
 

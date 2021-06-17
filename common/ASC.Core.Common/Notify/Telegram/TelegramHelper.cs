@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,10 @@
 using System;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Web.Configuration;
 
-using ASC.Notify.Messages;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Common.Notify.Telegram;
+using ASC.Notify.Messages;
 
 namespace ASC.Core.Common.Notify
 {

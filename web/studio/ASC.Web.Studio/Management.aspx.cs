@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,17 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 
-using ASC.Common.Logging;
 using ASC.Core;
-using ASC.Core.Billing;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.InviteLink;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.UserForum;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
-
-using Resources;
 
 namespace ASC.Web.Studio
 {
@@ -74,7 +71,6 @@ namespace ASC.Web.Studio
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
             CurrentModule = GetCurrentModule();
-            LogManager.GetLogger("ASC").Debug("Test " + CurrentModule);
             NavigationList = GetNavigationList();
             Page.Title = HeaderStringHelper.GetPageTitle(GetNavigationTitle(CurrentModule));
 
@@ -120,38 +116,69 @@ namespace ASC.Web.Studio
         {
             switch (module)
             {
-                case ManagementType.Statistic:
-                    return Resource.StatisticsTitle;
-                case ManagementType.AuditTrail:
-                    return AuditResource.AuditTrailNav;
-                case ManagementType.LoginHistory:
-                    return AuditResource.LoginHistoryNav;
-                case ManagementType.PortalSecurity:
-                    return Resource.PortalSecurity;
-                case ManagementType.SmtpSettings:
-                    return Resource.SmtpSettings;
-                case ManagementType.FullTextSearch:
-                    return Resource.FullTextSearchSettings;
-                case ManagementType.DeletionPortal:
-                    return Resource.DeactivationDeletionPortal;
-                case ManagementType.DocService:
-                    return Resource.DocService;
-                case ManagementType.WhiteLabel:
-                    return Resource.WhiteLabel;
-                case ManagementType.MailService:
-                    return Resource.MailService;
                 case ManagementType.Customization:
                     return Resource.Customization;
-                case ManagementType.ThirdPartyAuthorization:
-                    return Resource.ThirdPartyAuthorization;
-                case ManagementType.AccessRights:
-                    return Resource.AccessRights;
+
                 case ManagementType.ProductsAndInstruments:
                     return Resource.ProductsAndInstruments;
+
+                case ManagementType.PortalSecurity:
+                    return Resource.PortalSecurity;
+
+                case ManagementType.AccessRights:
+                    return Resource.AccessRights;
+
                 case ManagementType.Backup:
                     return Resource.Backup;
+
+                case ManagementType.LoginHistory:
+                    return AuditResource.LoginHistoryNav;
+
+                case ManagementType.AuditTrail:
+                    return AuditResource.AuditTrailNav;
+
+                case ManagementType.LdapSettings:
+                    return Resource.LdapSettings;
+
+                case ManagementType.ThirdPartyAuthorization:
+                    return Resource.ThirdPartyAuthorization;
+
+                case ManagementType.SmtpSettings:
+                    return Resource.SmtpSettings;
+
+                case ManagementType.Statistic:
+                    return Resource.StatisticsTitle;
+
+                case ManagementType.Monitoring:
+                    return Resource.Monitoring;
+
+                case ManagementType.SingleSignOnSettings:
+                    return Resource.SingleSignOnSettings;
+
+                case ManagementType.Migration:
+                    return Resource.Migration;
+
+                case ManagementType.DeletionPortal:
+                    return Resource.DeactivationDeletionPortal;
+
+                case ManagementType.HelpCenter:
+                    return Resource.HelpCenter;
+
+                case ManagementType.DocService:
+                    return Resource.DocService;
+
+                case ManagementType.FullTextSearch:
+                    return Resource.FullTextSearchSettings;
+
+                case ManagementType.WhiteLabel:
+                    return Resource.WhiteLabel;
+
+                case ManagementType.MailService:
+                    return Resource.MailService;
+
                 case ManagementType.Storage:
                     return Resource.Storage;
+
                 case ManagementType.PrivacyRoom:
                     return Resource.Encryption;
                 default:
@@ -283,6 +310,7 @@ namespace ASC.Web.Studio
             var integrationCategorySettings = new CategorySettings(new[]
                                                                    {
                                                                        ManagementType.LdapSettings,
+                                                                       ManagementType.SingleSignOnSettings,
                                                                        ManagementType.ThirdPartyAuthorization,
                                                                        ManagementType.DocService,
                                                                        ManagementType.MailService,

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -139,7 +139,7 @@ namespace ASC.Data.Backup.Tasks
         private void RestoreFromDump(IDataReadOperator dataReader)
         {
             var keyBase = KeyHelper.GetDatabaseSchema();
-            var keys = dataReader.Entries.Where(r => r.StartsWith(keyBase)).ToList();
+            var keys = dataReader.GetEntries(keyBase).Select(r=> Path.GetFileName(r)).ToList();
             var upgrades = new List<string>();
 
             var upgradesPath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), UpgradesPath));
@@ -173,7 +173,7 @@ namespace ASC.Data.Backup.Tasks
 
                 for (var j = 0; j < TasksLimit && i + j < keys.Count; j++)
                 {
-                    var key1 = keys[i + j];
+                    var key1 = Path.Combine(KeyHelper.GetDatabaseSchema(), keys[i + j]);
                     tasks.Add(RestoreFromDumpFile(dataReader, key1).ContinueWith(r => RestoreFromDumpFile(dataReader, KeyHelper.GetDatabaseData(key1.Substring(keyBase.Length + 1)))));
                 }
 

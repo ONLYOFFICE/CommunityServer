@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ namespace ASC.Data.Backup.Tasks
     public class ColumnMapper
     {
         private readonly Dictionary<string, object> mappings = new Dictionary<string, object>();
-        private readonly Dictionary<string, object> newMappings = new Dictionary<string, object>(); 
+        private readonly Dictionary<string, object> newMappings = new Dictionary<string, object>();
         private readonly DateTime now = DateTime.UtcNow;
 
         public int GetTenantMapping()
@@ -71,7 +71,7 @@ namespace ASC.Data.Backup.Tasks
         {
             if (tableName == "tenants_tenants")
             {
-                var mapping = new MappingWithCondition { NewValue = newValue, OldValue = oldValue};
+                var mapping = new MappingWithCondition { NewValue = newValue, OldValue = oldValue };
                 AddMappingInternal(GetMappingKey(tableName, columnName), mapping);
 
             }

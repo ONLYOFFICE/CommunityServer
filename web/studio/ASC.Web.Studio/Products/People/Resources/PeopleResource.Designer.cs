@@ -97,15 +97,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Image.
-        /// </summary>
-        public static string AddImage {
-            get {
-                return ResourceManager.GetString("AddImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add members.
         /// </summary>
         public static string AddMembers {
@@ -250,15 +241,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose {!user}.
-        /// </summary>
-        public static string ChooseUser {
-            get {
-                return ResourceManager.GetString("ChooseUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reset filter.
         /// </summary>
         public static string ClearButton {
@@ -273,15 +255,6 @@ namespace ASC.Web.People.Resources {
         public static string Confirmation {
             get {
                 return ResourceManager.GetString("Confirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create New User.
-        /// </summary>
-        public static string CreateNewProfile {
-            get {
-                return ResourceManager.GetString("CreateNewProfile", resourceCulture);
             }
         }
         
@@ -304,7 +277,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete profile when reassignment will be finished.
+        ///   Looks up a localized string similar to Delete profile when reassignment is finished.
         /// </summary>
         public static string DeleteProfileAfterReassignment {
             get {
@@ -322,7 +295,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Personal documents of these users that are available to others will be deleted. To avoid this, you must start the data transfer process before deleting..
+        ///   Looks up a localized string similar to Personal documents of these users which are available to others will be deleted. To avoid this, you must start the data transfer process before deleting..
         /// </summary>
         public static string DeleteUsersDataConfirmation {
             get {
@@ -358,38 +331,20 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum numbers of user and guest exceeded.
+        /// </summary>
+        public static string DisableImportAndCreateLink {
+            get {
+                return ResourceManager.GetString("DisableImportAndCreateLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable.
         /// </summary>
         public static string DisableUserButton {
             get {
                 return ResourceManager.GetString("DisableUserButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The {!user} will not be displayed in the list of active {!users}.
-        /// </summary>
-        public static string DisableUserHelp {
-            get {
-                return ResourceManager.GetString("DisableUserHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        public static string EditButton {
-            get {
-                return ResourceManager.GetString("EditButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit Image.
-        /// </summary>
-        public static string EditImage {
-            get {
-                return ResourceManager.GetString("EditImage", resourceCulture);
             }
         }
         
@@ -408,15 +363,6 @@ namespace ASC.Web.People.Resources {
         public static string EnableUserButton {
             get {
                 return ResourceManager.GetString("EnableUserButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The {!user} will be displayed as active again.
-        /// </summary>
-        public static string EnableUserHelp {
-            get {
-                return ResourceManager.GetString("EnableUserHelp", resourceCulture);
             }
         }
         
@@ -484,7 +430,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fields on the portal OnlyOffice.
+        ///   Looks up a localized string similar to Fields on the ONLYOFFICE portal.
         /// </summary>
         public static string FieldsOnPortal {
             get {
@@ -502,29 +448,11 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide.
-        /// </summary>
-        public static string Hide {
-            get {
-                return ResourceManager.GetString("Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide the selected users list.
         /// </summary>
         public static string HideSelectedUserList {
             get {
                 return ResourceManager.GetString("HideSelectedUserList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string ImportClear {
-            get {
-                return ResourceManager.GetString("ImportClear", resourceCulture);
             }
         }
         
@@ -628,7 +556,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import People.
+        ///   Looks up a localized string similar to Import users.
         /// </summary>
         public static string ImportPeople {
             get {
@@ -700,7 +628,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setting up compliance.
+        ///   Looks up a localized string similar to Set up compliance.
         /// </summary>
         public static string ImportWizardSecondStep {
             get {
@@ -709,7 +637,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Contacts.
+        ///   Looks up a localized string similar to Edit сontacts.
         /// </summary>
         public static string ImportWizardThirdStep {
             get {
@@ -718,7 +646,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invitation Link.
+        ///   Looks up a localized string similar to Invite users.
         /// </summary>
         public static string InviteLink {
             get {
@@ -741,24 +669,6 @@ namespace ASC.Web.People.Resources {
         public static string LblActive {
             get {
                 return ResourceManager.GetString("LblActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string LblByName {
-            get {
-                return ResourceManager.GetString("LblByName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type.
-        /// </summary>
-        public static string LblByType {
-            get {
-                return ResourceManager.GetString("LblByType", resourceCulture);
             }
         }
         
@@ -790,7 +700,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create New.
+        ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string LblCreateNew {
             get {
@@ -817,56 +727,11 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import accounts.
-        /// </summary>
-        public static string LblImportAccounts {
-            get {
-                return ResourceManager.GetString("LblImportAccounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Primary Mobile Phone.
-        /// </summary>
-        public static string LblMobilePhone {
-            get {
-                return ResourceManager.GetString("LblMobilePhone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string LblOKButton {
             get {
                 return ResourceManager.GetString("LblOKButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other.
-        /// </summary>
-        public static string LblOther {
-            get {
-                return ResourceManager.GetString("LblOther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password.
-        /// </summary>
-        public static string LblPassword {
-            get {
-                return ResourceManager.GetString("LblPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pending.
-        /// </summary>
-        public static string LblPending {
-            get {
-                return ResourceManager.GetString("LblPending", resourceCulture);
             }
         }
         
@@ -925,15 +790,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string LblStatus {
-            get {
-                return ResourceManager.GetString("LblStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Subscriptions.
         /// </summary>
         public static string LblSubscriptions {
@@ -961,29 +817,11 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main Email.
-        /// </summary>
-        public static string MainEmail {
-            get {
-                return ResourceManager.GetString("MainEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {
             get {
                 return ResourceManager.GetString("Members", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fields in the portal cannot have the same values!.
-        /// </summary>
-        public static string NoSameValuesOptions {
-            get {
-                return ResourceManager.GetString("NoSameValuesOptions", resourceCulture);
             }
         }
         
@@ -1123,7 +961,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data transfer interrupted due to server error.
+        ///   Looks up a localized string similar to Data transfer interrupted due to a server error.
         /// </summary>
         public static string ReassignErrorToastrMsg {
             get {
@@ -1141,7 +979,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reassignment of data.
+        ///   Looks up a localized string similar to Data reassignment.
         /// </summary>
         public static string ReassignmentData {
             get {
@@ -1177,7 +1015,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The process of reassign data from user {0} to user {1} is started, it can take a considerable time..
+        ///   Looks up a localized string similar to The process of reassignment data from user {0} to user {1} started, it can take a considerable time..
         /// </summary>
         public static string ReassignsProgressUserInfo {
             get {
@@ -1213,7 +1051,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All data transfered.
+        ///   Looks up a localized string similar to All data transferred.
         /// </summary>
         public static string ReassignStatusFinished {
             get {
@@ -1222,7 +1060,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data was not transmitted.
+        ///   Looks up a localized string similar to Data was not transferred.
         /// </summary>
         public static string ReassignStatusNotStarted {
             get {
@@ -1249,7 +1087,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Employee to whom the data will be transferred —.
+        ///   Looks up a localized string similar to Employee to whom the data will be transferred -.
         /// </summary>
         public static string ReassignsToUser {
             get {
@@ -1267,7 +1105,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General documents and personal documents that are available to other portal users;.
+        ///   Looks up a localized string similar to General and personal documents available to other portal users;.
         /// </summary>
         public static string ReassignsTransferedListItem1 {
             get {
@@ -1285,7 +1123,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contacts, open tasks, unclosed opportunities and CRM cases;.
+        ///   Looks up a localized string similar to Contacts, open tasks, not closed opportunities and CRM cases;.
         /// </summary>
         public static string ReassignsTransferedListItem3 {
             get {
@@ -1294,7 +1132,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tak.
+        ///   Looks up a localized string similar to Talk.
         /// </summary>
         public static string ReassignTalkModule {
             get {
@@ -1303,7 +1141,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abort removing.
+        ///   Looks up a localized string similar to Abort removal.
         /// </summary>
         public static string RemovingAbortButton {
             get {
@@ -1330,7 +1168,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data deletion interrupted due to server error.
+        ///   Looks up a localized string similar to Data deletion interrupted due to a server error.
         /// </summary>
         public static string RemovingErrorToastrMsg {
             get {
@@ -1384,7 +1222,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The process of deleting personal data from user {0} is started, it can take a considerable time..
+        ///   Looks up a localized string similar to The process of deleting personal data for user {0} started, it can take a considerable time..
         /// </summary>
         public static string RemovingProgressUserInfo {
             get {
@@ -1393,7 +1231,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to More about deleting personal data.
+        ///   Looks up a localized string similar to More about deleting the personal data.
         /// </summary>
         public static string RemovingReadMore {
             get {
@@ -1465,15 +1303,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string SaveButton {
-            get {
-                return ResourceManager.GetString("SaveButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Select all.
         /// </summary>
         public static string SelectAll {
@@ -1483,29 +1312,11 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} selected.
-        /// </summary>
-        public static string SelectedCount {
-            get {
-                return ResourceManager.GetString("SelectedCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show.
-        /// </summary>
-        public static string Show {
-            get {
-                return ResourceManager.GetString("Show", resourceCulture);
             }
         }
         
@@ -1528,15 +1339,6 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Social Profiles.
-        /// </summary>
-        public static string SocialProfiles {
-            get {
-                return ResourceManager.GetString("SocialProfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to User has been successfully deleted.
         /// </summary>
         public static string SuccessfullyDeleteUserInfoMessage {
@@ -1546,38 +1348,11 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The instructions for your profile deletion have been sent to email address.
-        /// </summary>
-        public static string SuccessfullySentNotificationDeleteUserInfoMessage {
-            get {
-                return ResourceManager.GetString("SuccessfullySentNotificationDeleteUserInfoMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your current pricing plan allows you to add {0}{1} active users{2}..
-        /// </summary>
-        public static string TariffActiveUserLimit {
-            get {
-                return ResourceManager.GetString("TariffActiveUserLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change Thumbnails.
-        /// </summary>
-        public static string TitleThumbnailPhoto {
-            get {
-                return ResourceManager.GetString("TitleThumbnailPhoto", resourceCulture);
             }
         }
         
@@ -1600,7 +1375,7 @@ namespace ASC.Web.People.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Write Letter.
+        ///   Looks up a localized string similar to Send email.
         /// </summary>
         public static string WriteButton {
             get {

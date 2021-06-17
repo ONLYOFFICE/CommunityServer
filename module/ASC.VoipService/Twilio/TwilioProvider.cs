@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
 using ASC.Common.Logging;
+
 using Twilio.Clients;
 using Twilio.Exceptions;
 using Twilio.Jwt;
@@ -27,6 +29,7 @@ using Twilio.Jwt.Client;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Rest.Api.V2010.Account.AvailablePhoneNumberCountry;
 using Twilio.Types;
+
 using RecordingResource = Twilio.Rest.Api.V2010.Account.Call.RecordingResource;
 
 
@@ -73,7 +76,7 @@ namespace ASC.VoipService.Twilio
                         continue;
                     }
 
-                    result.Price = (-1)*record.Price.Value;
+                    result.Price = (-1) * record.Price.Value;
                     logger.DebugFormat("recordSid {0} price {1}", recordSid, result.Price);
 
                     result.Duration = Convert.ToInt32(record.Duration);
@@ -111,7 +114,7 @@ namespace ASC.VoipService.Twilio
                     PhoneNumber = new PhoneNumber(phoneNumber)
                 }, client);
 
-            return new TwilioPhone(client) {Id = newNumber.Sid, Number = phoneNumber.Substring(1)};
+            return new TwilioPhone(client) { Id = newNumber.Sid, Number = phoneNumber.Substring(1) };
         }
 
         public VoipPhone DeleteNumber(VoipPhone phone)
@@ -123,7 +126,7 @@ namespace ASC.VoipService.Twilio
         public IEnumerable<VoipPhone> GetExistingPhoneNumbers()
         {
             var result = IncomingPhoneNumberResource.Read(client: client);
-            return result.Select(r => new TwilioPhone(client) {Id = r.Sid, Number = r.PhoneNumber.ToString()});
+            return result.Select(r => new TwilioPhone(client) { Id = r.Sid, Number = r.PhoneNumber.ToString() });
         }
 
         public IEnumerable<VoipPhone> GetAvailablePhoneNumbers(PhoneNumberType phoneNumberType, string isoCountryCode)
@@ -145,7 +148,7 @@ namespace ASC.VoipService.Twilio
 
             var result = new TwilioPhone(client) { Id = phone.Sid, Number = phone.PhoneNumber.ToString(), Settings = new TwilioVoipSettings() };
 
-            if (phone.VoiceUrl  == null)
+            if (phone.VoiceUrl == null)
             {
                 result.Settings.VoiceUrl = result.Settings.Connect(false);
             }
@@ -156,17 +159,17 @@ namespace ASC.VoipService.Twilio
         public VoipPhone GetPhone(object[] data)
         {
             return new TwilioPhone(client)
-                {
-                    Id = (string) data[0],
-                    Number = (string) data[1],
-                    Alias = (string) data[2],
-                    Settings = new TwilioVoipSettings((string) data[3])
-                };
+            {
+                Id = (string)data[0],
+                Number = (string)data[1],
+                Alias = (string)data[2],
+                Settings = new TwilioVoipSettings((string)data[3])
+            };
         }
 
         public VoipCall GetCall(string callId)
         {
-            var result = new VoipCall {Id = callId};
+            var result = new VoipCall { Id = callId };
             var count = 6;
 
             while (count > 0)
@@ -181,7 +184,7 @@ namespace ASC.VoipService.Twilio
                         continue;
                     }
 
-                    result.Price = (-1)*call.Price.Value;
+                    result.Price = (-1) * call.Price.Value;
                     result.DialDuration = Convert.ToInt32(call.Duration);
                     break;
                 }
@@ -195,7 +198,7 @@ namespace ASC.VoipService.Twilio
             return result;
         }
 
-        public string GetToken(Agent agent, int seconds = 60*60*24)
+        public string GetToken(Agent agent, int seconds = 60 * 60 * 24)
         {
             var scopes = new HashSet<IScope>
             {
@@ -219,7 +222,7 @@ namespace ASC.VoipService.Twilio
         #endregion
     }
 
-   
+
 
     public enum PhoneNumberType
     {

@@ -2,7 +2,7 @@
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.People.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <div id="manager-empty-screen">

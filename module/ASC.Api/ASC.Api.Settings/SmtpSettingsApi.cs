@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Settings.Smtp;
 using ASC.Common.Threading;
@@ -25,8 +26,8 @@ using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Configuration;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Api.Settings
 {
@@ -64,7 +65,7 @@ namespace ASC.Api.Settings
 
             //TODO: Add validation check
 
-            if(smtpSettings == null)
+            if (smtpSettings == null)
                 throw new ArgumentNullException("smtpSettings");
 
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
@@ -97,7 +98,7 @@ namespace ASC.Api.Settings
             }
 
             var current = CoreContext.Configuration.Standalone ? CoreContext.Configuration.SmtpSettings : SmtpSettings.Empty;
-            
+
             return ToSmtpSettings(current, true);
         }
 

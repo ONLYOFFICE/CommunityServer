@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Common.Logging;
 using ASC.Core.Common.Settings;
 using ASC.Core.Tenants;
@@ -29,6 +30,7 @@ using ASC.Data.Storage;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Utility;
+
 using TMResourceData;
 
 namespace ASC.Web.Core.WhiteLabel
@@ -96,23 +98,45 @@ namespace ASC.Web.Core.WhiteLabel
         public override ISettings GetDefault()
         {
             return new TenantWhiteLabelSettings
-                {
-                    _logoLightSmallExt = null,
-                    _logoDarkExt = null,
-                    _logoFaviconExt = null,
-                    _logoDocsEditorExt = null,
+            {
+                _logoLightSmallExt = null,
+                _logoDarkExt = null,
+                _logoFaviconExt = null,
+                _logoDocsEditorExt = null,
 
-                    _isDefaultLogoLightSmall = true,
-                    _isDefaultLogoDark = true,
-                    _isDefaultLogoFavicon = true,
-                    _isDefaultLogoDocsEditor = true,
+                _isDefaultLogoLightSmall = true,
+                _isDefaultLogoDark = true,
+                _isDefaultLogoFavicon = true,
+                _isDefaultLogoDocsEditor = true,
 
-                    LogoText = null
-                };
+                LogoText = null
+            };
         }
         #endregion
 
         #region Restore default
+
+        public bool IsDefault
+        {
+            get
+            {
+                var defaultSettings = GetDefault() as TenantWhiteLabelSettings;
+
+                if (defaultSettings == null) return false;
+
+                return _logoLightSmallExt == defaultSettings._logoLightSmallExt &&
+                       _logoDarkExt == defaultSettings._logoDarkExt &&
+                       _logoFaviconExt == defaultSettings._logoFaviconExt &&
+                       _logoDocsEditorExt == defaultSettings._logoDocsEditorExt &&
+
+                       _isDefaultLogoLightSmall == defaultSettings._isDefaultLogoLightSmall &&
+                       _isDefaultLogoDark == defaultSettings._isDefaultLogoDark &&
+                       _isDefaultLogoFavicon == defaultSettings._isDefaultLogoFavicon &&
+                       _isDefaultLogoDocsEditor == defaultSettings._isDefaultLogoDocsEditor &&
+
+                       LogoText == defaultSettings.LogoText;
+            }
+        }
 
         public void RestoreDefault(int tenantId, IDataStore storage = null)
         {
@@ -246,10 +270,10 @@ namespace ASC.Web.Core.WhiteLabel
         public void SetLogoFromStream(WhiteLabelLogoTypeEnum type, string fileExt, Stream fileStream, IDataStore storage = null)
         {
             byte[] data = null;
-            using(var memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-              fileStream.CopyTo(memoryStream);
-              data = memoryStream.ToArray();
+                fileStream.CopyTo(memoryStream);
+                data = memoryStream.ToArray();
             }
 
             if (data != null)
@@ -367,13 +391,13 @@ namespace ASC.Web.Core.WhiteLabel
             switch (type)
             {
                 case WhiteLabelLogoTypeEnum.LightSmall:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small_general.svg") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small.svg");
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/light_small_general.svg") : WebImageSupplier.GetAbsoluteWebPath("logo/light_small.svg");
                 case WhiteLabelLogoTypeEnum.Dark:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/dark_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/dark.png");
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/dark_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/dark.png");
                 case WhiteLabelLogoTypeEnum.DocsEditor:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/editor_logo_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/editor_logo.png");
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo_general.png") : WebImageSupplier.GetAbsoluteWebPath("logo/editor_logo.png");
                 case WhiteLabelLogoTypeEnum.Favicon:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/favicon_general.ico") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/favicon.ico");
+                    return general ? WebImageSupplier.GetAbsoluteWebPath("logo/favicon_general.ico") : WebImageSupplier.GetAbsoluteWebPath("logo/favicon.ico");
             }
             return "";
         }
@@ -518,8 +542,6 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static void Apply(int tenantId)
         {
-            if (!DBResourceManager.ResourcesFromDataBase) return;
-
             if (AppliedTenants.Contains(tenantId)) return;
 
             var whiteLabelSettings = LoadForTenant(tenantId);

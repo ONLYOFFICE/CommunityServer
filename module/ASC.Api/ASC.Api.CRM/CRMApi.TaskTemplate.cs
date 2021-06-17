@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.CRM.Wrappers;
 using ASC.Api.Employee;
@@ -46,10 +47,10 @@ namespace ASC.Api.CRM
             if (string.IsNullOrEmpty(title)) throw new ArgumentException();
 
             var taskTemplateContainer = new TaskTemplateContainer
-                {
-                    EntityType = ToEntityType(entityType),
-                    Title = title
-                };
+            {
+                EntityType = ToEntityType(entityType),
+                Title = title
+            };
 
             taskTemplateContainer.ID = DaoFactory.TaskTemplateContainerDao.SaveOrUpdate(taskTemplateContainer);
             return ToTaskTemplateContainerWrapper(taskTemplateContainer);
@@ -205,16 +206,16 @@ namespace ASC.Api.CRM
             if (container == null) throw new ItemNotFoundException();
 
             var item = new TaskTemplate
-                {
-                    CategoryID = categoryid,
-                    ContainerID = containerid,
-                    DeadLineIsFixed = deadLineIsFixed,
-                    Description = description,
-                    isNotify = isNotify,
-                    ResponsibleID = responsibleid,
-                    Title = title,
-                    Offset = TimeSpan.FromTicks(offsetTicks)
-                };
+            {
+                CategoryID = categoryid,
+                ContainerID = containerid,
+                DeadLineIsFixed = deadLineIsFixed,
+                Description = description,
+                isNotify = isNotify,
+                ResponsibleID = responsibleid,
+                Title = title,
+                Offset = TimeSpan.FromTicks(offsetTicks)
+            };
 
             item.ID = DaoFactory.TaskTemplateDao.SaveOrUpdate(item);
 
@@ -261,17 +262,17 @@ namespace ASC.Api.CRM
             if (container == null) throw new ItemNotFoundException();
 
             var item = new TaskTemplate
-                {
-                    CategoryID = categoryid,
-                    ContainerID = containerid,
-                    DeadLineIsFixed = deadLineIsFixed,
-                    Description = description,
-                    isNotify = isNotify,
-                    ResponsibleID = responsibleid,
-                    Title = title,
-                    ID = id,
-                    Offset = TimeSpan.FromTicks(offsetTicks)
-                };
+            {
+                CategoryID = categoryid,
+                ContainerID = containerid,
+                DeadLineIsFixed = deadLineIsFixed,
+                Description = description,
+                isNotify = isNotify,
+                ResponsibleID = responsibleid,
+                Title = title,
+                ID = id,
+                Offset = TimeSpan.FromTicks(offsetTicks)
+            };
 
             item.ID = DaoFactory.TaskTemplateDao.SaveOrUpdate(item);
 
@@ -327,17 +328,17 @@ namespace ASC.Api.CRM
         protected TaskTemplateWrapper ToTaskTemplateWrapper(TaskTemplate taskTemplate)
         {
             return new TaskTemplateWrapper
-                {
-                    Category = GetTaskCategoryByID(taskTemplate.CategoryID),
-                    ContainerID = taskTemplate.ContainerID,
-                    DeadLineIsFixed = taskTemplate.DeadLineIsFixed,
-                    Description = taskTemplate.Description,
-                    ID = taskTemplate.ID,
-                    isNotify = taskTemplate.isNotify,
-                    Title = taskTemplate.Title,
-                    OffsetTicks = taskTemplate.Offset.Ticks,
-                    Responsible = EmployeeWraper.Get(taskTemplate.ResponsibleID)
-                };
+            {
+                Category = GetTaskCategoryByID(taskTemplate.CategoryID),
+                ContainerID = taskTemplate.ContainerID,
+                DeadLineIsFixed = taskTemplate.DeadLineIsFixed,
+                Description = taskTemplate.Description,
+                ID = taskTemplate.ID,
+                isNotify = taskTemplate.isNotify,
+                Title = taskTemplate.Title,
+                OffsetTicks = taskTemplate.Offset.Ticks,
+                Responsible = EmployeeWraper.Get(taskTemplate.ResponsibleID)
+            };
         }
 
         protected IEnumerable<TaskTemplateContainerWrapper> ToTaskListTemplateContainerWrapper(IEnumerable<TaskTemplateContainer> items)
@@ -351,11 +352,11 @@ namespace ASC.Api.CRM
             foreach (var item in items)
             {
                 var taskTemplateContainer = new TaskTemplateContainerWrapper
-                    {
-                        Title = item.Title,
-                        EntityType = item.EntityType.ToString(),
-                        ID = item.ID
-                    };
+                {
+                    Title = item.Title,
+                    EntityType = item.EntityType.ToString(),
+                    ID = item.ID
+                };
 
                 if (taskTemplateDictionary.ContainsKey(taskTemplateContainer.ID))
                 {

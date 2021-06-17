@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,18 @@
 
 using System;
 using System.Collections.Generic;
+
+using ASC.Common.Threading.Progress;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Common.Threading.Progress;
+using ASC.Mail.Data.Contracts;
+using ASC.Mail.Utils;
 using ASC.MessagingSystem;
 using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using Constants = ASC.Core.Users.Constants;
-using ASC.Mail.Utils;
-using ASC.Mail.Data.Contracts;
 
 namespace ASC.Web.People.Core.Import
 {
@@ -43,12 +44,13 @@ namespace ASC.Web.People.Core.Import
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public EmployeeType Status { get; set; }
     }
 
     public class ImportUsersTask : IProgressItem
     {
         private readonly string userList;
-        private bool importUsersAsCollaborators;
+        private readonly bool importUsersAsCollaborators;
         private readonly Dictionary<string, string> httpHeaders;
 
         public readonly List<UserResults> Data = new List<UserResults>();
@@ -63,8 +65,8 @@ namespace ASC.Web.People.Core.Import
         public ImportUsersTask(string userList, bool importUsersAsCollaborators, Dictionary<string, string> httpHeaders)
         {
             this.userList = userList;
-            this.importUsersAsCollaborators = importUsersAsCollaborators;
             this.httpHeaders = httpHeaders;
+            this.importUsersAsCollaborators = importUsersAsCollaborators;
         }
 
         public object Clone()
@@ -95,6 +97,7 @@ namespace ASC.Web.People.Core.Import
 
                 foreach (var userData in ruleObj)
                 {
+                    var isGuest = userData.Status == EmployeeType.All ? importUsersAsCollaborators : userData.Status == EmployeeType.Visitor;
                     var isValidEmail = Parser.TryParseAddress(userData.Email, out address);
 
                     if (!isValidEmail || String.IsNullOrEmpty(userData.FirstName) || String.IsNullOrEmpty(userData.LastName))
@@ -125,9 +128,9 @@ namespace ASC.Web.People.Core.Import
                         continue;
                     }
 
-                    if (!importUsersAsCollaborators && TenantStatisticsProvider.GetUsersCount() >= TenantExtra.GetTenantQuota().ActiveUsers)
+                    if (isGuest && !(CoreContext.Configuration.Standalone || CoreContext.UserManager.GetUsersByGroup(Constants.GroupVisitor.ID).Length < Constants.CoefficientOfVisitors * TenantExtra.GetTenantQuota().ActiveUsers))
                     {
-                        importUsersAsCollaborators = true;
+                        break;
                     }
 
                     var userInfo = new UserInfo
@@ -137,9 +140,9 @@ namespace ASC.Web.People.Core.Import
                         LastName = userData.LastName
                     };
 
-                    UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), false, true, importUsersAsCollaborators);
+                    UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), false, true, isGuest);
 
-                    var messageAction = importUsersAsCollaborators ? MessageAction.GuestImported : MessageAction.UserImported;
+                    var messageAction = isGuest ? MessageAction.GuestImported : MessageAction.UserImported;
                     MessageService.Send(httpHeaders, messageAction, MessageTarget.Create(userInfo.ID), string.Format("{0} ({1})", userInfo.DisplayUserName(false), userInfo.Email));
 
                     Data.Add(new UserResults { Email = userData.Email, Result = String.Empty });

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using System.Security;
 using System.ServiceModel.Security;
 using System.Web;
 using System.Web.Optimization;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Employee;
@@ -38,12 +39,13 @@ using ASC.Core.Billing;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Common.Contracts;
 using ASC.Core.Common.Notify;
+using ASC.Core.Encryption;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Data.Storage;
 using ASC.Data.Storage.Configuration;
-using ASC.Data.Storage.Migration;
 using ASC.Data.Storage.Encryption;
+using ASC.Data.Storage.Migration;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Specific;
@@ -60,8 +62,9 @@ using ASC.Web.Studio.Core.Quota;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Statistic;
 using ASC.Web.Studio.Core.TFA;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using SecurityContext = ASC.Core.SecurityContext;
 using StorageHelper = ASC.Web.Studio.UserControls.CustomNavigation.StorageHelper;
 
@@ -254,13 +257,13 @@ namespace ASC.Api.Settings
 
             return ids.Select(WebItemSecurity.GetSecurityInfo)
                       .Select(i => new SecurityWrapper
-                          {
-                              WebItemId = i.WebItemId,
-                              Enabled = i.Enabled,
-                              Users = i.Users.Select(EmployeeWraper.Get),
-                              Groups = i.Groups.Select(g => new GroupWrapperSummary(g)),
-                              IsSubItem = subItemList.Contains(i.WebItemId),
-                          }).ToList();
+                      {
+                          WebItemId = i.WebItemId,
+                          Enabled = i.Enabled,
+                          Users = i.Users.Select(EmployeeWraper.Get),
+                          Groups = i.Groups.Select(g => new GroupWrapperSummary(g)),
+                          IsSubItem = subItemList.Contains(i.WebItemId),
+                      }).ToList();
         }
 
         [Read("security/{id}")]
@@ -556,7 +559,7 @@ namespace ASC.Api.Settings
             foreach (var f in attachments)
             {
                 var parts = f.FileName.Split('.');
-                var logoType = (WhiteLabelLogoTypeEnum) (Convert.ToInt32(parts[0]));
+                var logoType = (WhiteLabelLogoTypeEnum)(Convert.ToInt32(parts[0]));
                 var fileExt = parts[1];
                 settings.SetLogoFromStream(logoType, fileExt, f.InputStream, storage);
             }
@@ -603,8 +606,6 @@ namespace ASC.Api.Settings
 
             if (isDefault)
             {
-                DemandRebrandingPermission();
-
                 result.Add((int)WhiteLabelLogoTypeEnum.LightSmall, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.LightSmall, !retina)));
                 result.Add((int)WhiteLabelLogoTypeEnum.Dark, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, !retina)));
                 result.Add((int)WhiteLabelLogoTypeEnum.Favicon, CommonLinkUtility.GetFullAbsolutePath(TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Favicon, !retina)));
@@ -630,11 +631,6 @@ namespace ASC.Api.Settings
             if (!TenantLogoManager.WhiteLabelEnabled)
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
-            }
-
-            if (isDefault)
-            {
-                DemandRebrandingPermission();
             }
 
             var settings = isDefault ? TenantWhiteLabelSettings.LoadForDefaultTenant() : TenantWhiteLabelSettings.Load();
@@ -863,7 +859,7 @@ namespace ASC.Api.Settings
             if (result)
             {
                 CookiesManager.ResetTenantCookie();
-        }
+            }
 
             MessageService.Send(Request, action);
             return result;
@@ -1239,13 +1235,13 @@ namespace ASC.Api.Settings
 
             return webtem.Context.SpaceUsageStatManager.GetStatData()
                          .ConvertAll(it => new UsageSpaceStatItemWrapper
-                             {
-                                 Name = it.Name.HtmlEncode(),
-                                 Icon = it.ImgUrl,
-                                 Disabled = it.Disabled,
-                                 Size = FileSizeComment.FilesSizeToString(it.SpaceUsage),
-                                 Url = it.Url
-                             });
+                         {
+                             Name = it.Name.HtmlEncode(),
+                             Icon = it.ImgUrl,
+                             Disabled = it.Disabled,
+                             Size = FileSizeComment.FilesSizeToString(it.SpaceUsage),
+                             Url = it.Url
+                         });
         }
 
         /// <summary>
@@ -1269,12 +1265,12 @@ namespace ASC.Api.Settings
             for (var d = new DateTime(from.Ticks); d.Date.CompareTo(to.Date) <= 0; d = d.AddDays(1))
             {
                 points.Add(new ChartPointWrapper
-                    {
-                        DisplayDate = d.Date.ToShortDateString(),
-                        Date = d.Date,
-                        Hosts = 0,
-                        Hits = 0
-                    });
+                {
+                    DisplayDate = d.Date.ToShortDateString(),
+                    Date = d.Date,
+                    Hosts = 0,
+                    Hits = 0
+                });
             }
 
             var hits = StatisticManager.GetHitsByPeriod(TenantProvider.CurrentTenantID, from, to);
@@ -1346,20 +1342,20 @@ namespace ASC.Api.Settings
             try
             {
                 LogManager.GetLogger("ASC").Debug("UpdateStorage");
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-            if (!CoreContext.Configuration.Standalone) return null;
+                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+                if (!CoreContext.Configuration.Standalone) return null;
 
                 TenantExtra.DemandControlPanelPermission();
 
-            var consumer = ConsumerFactory.GetByName(module);
-            if (!consumer.IsSet)
-                throw new ArgumentException("module");
+                var consumer = ConsumerFactory.GetByName(module);
+                if (!consumer.IsSet)
+                    throw new ArgumentException("module");
 
-            var settings = StorageSettings.Load();
-            if (settings.Module == module) return settings;
+                var settings = StorageSettings.Load();
+                if (settings.Module == module) return settings;
 
-            settings.Module = module;
-            settings.Props = props.ToDictionary(r => r.Key, b => b.Value);
+                settings.Module = module;
+                settings.Props = props.ToDictionary(r => r.Key, b => b.Value);
 
                 StartMigrate(settings);
                 return settings;
@@ -1377,15 +1373,15 @@ namespace ASC.Api.Settings
             try
             {
                 LogManager.GetLogger("ASC").Debug("ResetStorageToDefault");
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-            if (!CoreContext.Configuration.Standalone) return;
+                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+                if (!CoreContext.Configuration.Standalone) return;
 
                 TenantExtra.DemandControlPanelPermission();
 
-            var settings = StorageSettings.Load();
+                var settings = StorageSettings.Load();
 
-            settings.Module = null;
-            settings.Props = null;
+                settings.Module = null;
+                settings.Props = null;
 
 
                 StartMigrate(settings);
@@ -1517,7 +1513,7 @@ namespace ASC.Api.Settings
                 if (!hubUrl.EndsWith("/"))
                 {
                     hubUrl += "/";
-    }
+                }
             }
 
             return new { Url = hubUrl };
@@ -1528,7 +1524,7 @@ namespace ASC.Api.Settings
         public TenantControlPanelSettings GetTenantControlPanelSettings()
         {
             return TenantControlPanelSettings.Instance;
-    }
+        }
 
         ///<visible>false</visible>
         [Create("rebranding/company")]
@@ -1556,7 +1552,7 @@ namespace ASC.Api.Settings
         {
             DemandRebrandingPermission();
 
-            var defaultSettings = (CompanyWhiteLabelSettings) CompanyWhiteLabelSettings.Instance.GetDefault();
+            var defaultSettings = (CompanyWhiteLabelSettings)CompanyWhiteLabelSettings.Instance.GetDefault();
 
             defaultSettings.SaveForDefaultTenant();
 
@@ -1641,7 +1637,7 @@ namespace ASC.Api.Settings
         private static void DemandRebrandingPermission()
         {
             TenantExtra.DemandControlPanelPermission();
-            
+
             if (!CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).SSBranding)
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "SSBranding");
@@ -1663,6 +1659,11 @@ namespace ASC.Api.Settings
         {
             try
             {
+                if (CoreContext.Configuration.CustomMode)
+                {
+                    return null;
+                }
+
                 if (!SetupInfo.IsVisibleSettings<EncryptionSettings>())
                 {
                     throw new NotSupportedException();
@@ -1703,6 +1704,11 @@ namespace ASC.Api.Settings
         [Read("encryption/progress", checkPayment: false)]
         public double GetStorageEncryptionProgress()
         {
+            if (CoreContext.Configuration.CustomMode)
+            {
+                return -1;
+            }
+
             if (!SetupInfo.IsVisibleSettings<EncryptionSettings>())
             {
                 throw new NotSupportedException();
@@ -1734,6 +1740,11 @@ namespace ASC.Api.Settings
         [Create("encryption/start")]
         public void StartStorageEncryption(bool notifyUsers)
         {
+            if (CoreContext.Configuration.CustomMode)
+            {
+                return;
+            }
+
             lock (Locker)
             {
                 var activeTenants = CoreContext.TenantManager.GetTenants();

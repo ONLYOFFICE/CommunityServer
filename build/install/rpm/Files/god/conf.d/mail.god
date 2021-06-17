@@ -17,16 +17,15 @@ God.watch do |w|
   end
 
   w.restart_if do |restart|
-    restart.condition(:memory_usage) do |c|
-      c.above = 1000.megabytes
-      c.times = 5
-      c.interval = 10.seconds
-    end
-    restart.condition(:cpu_usage) do |c|
-      c.above = 90.percent
-      c.times = 5
-      c.interval = 10.seconds
-    end
+    restart.condition(:http_response_code) do |c|
+ 	  c.host = 'localhost'
+ 	  c.port = 9810
+ 	  c.path = '/teamlabMailAggregator/health/check'
+ 	  c.code_is_not = 200
+ 	  c.times = 5
+ 	  c.interval = 5.seconds
+ 	end
+    
     restart.condition(:lambda) do |c|
       c.interval = 10.seconds
       c.lambda = lambda{!File.exist?("/var/log/onlyoffice/mail.agg.log")}

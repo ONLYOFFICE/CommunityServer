@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,23 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Web.Core;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core.Search;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common.Search;
 using ASC.Web.Studio.Utility;
-using Resources;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web.UI;
 
 namespace ASC.Web.Studio
 {
@@ -66,7 +68,7 @@ namespace ASC.Web.Studio
 
                         handlers = SearchHandlerManager.GetHandlersExForProductModule(productsGuid);
                     }
-                    catch(Exception err)
+                    catch (Exception err)
                     {
                         Log.Error(err);
                     }
@@ -83,11 +85,11 @@ namespace ASC.Web.Studio
             if (searchResultsData.Count <= 0)
             {
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_search.png"),
-                        Header = Resource.SearchNotFoundMessage,
-                        Describe = Resource.SearchNotFoundDescript
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_search.png"),
+                    Header = Resource.SearchNotFoundMessage,
+                    Describe = Resource.SearchNotFoundDescript
+                };
                 SearchContent.Controls.Add(emptyScreenControl);
             }
             else
@@ -162,11 +164,11 @@ namespace ASC.Web.Studio
         {
             var certainProduct = WebItemManager.Instance[productID];
             var container = new SearchResult
-                {
-                    ProductID = productID,
-                    Name = (certainProduct != null) ? certainProduct.Name : string.Empty,
-                    LogoURL = (certainProduct != null) ? certainProduct.GetIconAbsoluteURL() : string.Empty
-                };
+            {
+                ProductID = productID,
+                Name = (certainProduct != null) ? certainProduct.Name : string.Empty,
+                LogoURL = (certainProduct != null) ? certainProduct.GetIconAbsoluteURL() : string.Empty
+            };
 
             if (productID == WebItemManager.CommunityProductID || productID == Guid.Empty)
                 container.PresentationControl = new CommonResultsView { MaxCount = 7, Text = SearchText };
@@ -189,14 +191,14 @@ namespace ASC.Web.Studio
                     continue;
 
                 var searchResult = new SearchResult
-                    {
-                        ProductID = sh.ProductID,
-                        PresentationControl = (ItemSearchControl)sh.Control,
-                        Name = module != null ? module.Name : sh.SearchName,
-                        LogoURL = module != null
+                {
+                    ProductID = sh.ProductID,
+                    PresentationControl = (ItemSearchControl)sh.Control,
+                    Name = module != null ? module.Name : sh.SearchName,
+                    LogoURL = module != null
                                       ? module.GetIconAbsoluteURL()
                                       : WebImageSupplier.GetAbsoluteWebPath(sh.Logo.ImageFileName, sh.Logo.PartID)
-                    };
+                };
 
                 searchResult.PresentationControl.Text = searchText;
                 searchResult.PresentationControl.MaxCount = 7;

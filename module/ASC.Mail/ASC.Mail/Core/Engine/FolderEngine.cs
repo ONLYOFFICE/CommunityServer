@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.Mail.Core.Dao.Expressions.Conversation;
@@ -74,7 +75,7 @@ namespace ASC.Mail.Core.Engine
 
                 foreach (var folder in DefaultFolders)
                 {
-                    if (folderList.Exists(f => f.FolderType == folder)) 
+                    if (folderList.Exists(f => f.FolderType == folder))
                         continue;
 
                     needRecalculation = true;
@@ -132,7 +133,7 @@ namespace ASC.Mail.Core.Engine
             {
                 var dao = daoFactory.CreateFolderDao(Tenant, User);
 
-                var res = dao 
+                var res = dao
                     .ChangeFolderCounters(folder, unreadMessDiff, totalMessDiff, unreadConvDiff, totalConvDiff);
 
                 if (res == 0)
@@ -163,7 +164,7 @@ namespace ASC.Mail.Core.Engine
                             TimeModified = DateTime.UtcNow
                         });
 
-                        if(res == 0)
+                        if (res == 0)
                             throw new Exception("Need recalculation");
                     }
                     else
@@ -239,33 +240,33 @@ namespace ASC.Mail.Core.Engine
                     var now = DateTime.UtcNow;
 
                     var folders = (from folderId in folderTypes
-                        let unreadMessCount =
-                            unreadMessagesCountByFolder.ContainsKey(folderId)
-                                ? unreadMessagesCountByFolder[folderId]
-                                : 0
-                        let totalMessCount =
-                            totalMessagesCountByFolder.ContainsKey(folderId)
-                                ? totalMessagesCountByFolder[folderId]
-                                : 0
-                        let unreadConvCount =
-                            unreadConversationsCountByFolder.ContainsKey(folderId)
-                                ? unreadConversationsCountByFolder[folderId]
-                                : 0
-                        let totalConvCount =
-                            totalConversationsCountByFolder.ContainsKey(folderId)
-                                ? totalConversationsCountByFolder[folderId]
-                                : 0
-                        select new Folder
-                        {
-                            FolderType = (FolderType) folderId,
-                            Tenant = Tenant,
-                            UserId = User,
-                            UnreadCount = unreadMessCount,
-                            UnreadChainCount = unreadConvCount,
-                            TotalCount = totalMessCount,
-                            TotalChainCount = totalConvCount,
-                            TimeModified = now
-                        })
+                                   let unreadMessCount =
+                                       unreadMessagesCountByFolder.ContainsKey(folderId)
+                                           ? unreadMessagesCountByFolder[folderId]
+                                           : 0
+                                   let totalMessCount =
+                                       totalMessagesCountByFolder.ContainsKey(folderId)
+                                           ? totalMessagesCountByFolder[folderId]
+                                           : 0
+                                   let unreadConvCount =
+                                       unreadConversationsCountByFolder.ContainsKey(folderId)
+                                           ? unreadConversationsCountByFolder[folderId]
+                                           : 0
+                                   let totalConvCount =
+                                       totalConversationsCountByFolder.ContainsKey(folderId)
+                                           ? totalConversationsCountByFolder[folderId]
+                                           : 0
+                                   select new Folder
+                                   {
+                                       FolderType = (FolderType)folderId,
+                                       Tenant = Tenant,
+                                       UserId = User,
+                                       UnreadCount = unreadMessCount,
+                                       UnreadChainCount = unreadConvCount,
+                                       TotalCount = totalMessCount,
+                                       TotalChainCount = totalConvCount,
+                                       TimeModified = now
+                                   })
                         .ToList();
 
                     foreach (var folder in folders)
@@ -307,36 +308,36 @@ namespace ASC.Mail.Core.Engine
                                 callback(MailOperationRecalculateMailboxProgress.CountUreadUserFolderConversation);
 
                             var newUserFolders = (from folder in userFolders
-                                let unreadMessCount =
-                                    unreadMessagesCountByUserFolder.ContainsKey(folder.Id)
-                                        ? unreadMessagesCountByUserFolder[folder.Id]
-                                        : 0
-                                let totalMessCount =
-                                    totalMessagesCountByUserFolder.ContainsKey(folder.Id)
-                                        ? totalMessagesCountByUserFolder[folder.Id]
-                                        : 0
-                                let unreadConvCount =
-                                    unreadConversationsCountByUserFolder.ContainsKey(folder.Id)
-                                        ? unreadConversationsCountByUserFolder[folder.Id]
-                                        : 0
-                                let totalConvCount =
-                                    totalConversationsCountByUserFolder.ContainsKey(folder.Id)
-                                        ? totalConversationsCountByUserFolder[folder.Id]
-                                        : 0
-                                select new UserFolder
-                                {
-                                    Id = folder.Id,
-                                    ParentId = folder.ParentId,
-                                    Name = folder.Name,
-                                    FolderCount = folder.FolderCount,
-                                    Tenant = Tenant,
-                                    User = User,
-                                    UnreadCount = unreadMessCount,
-                                    UnreadChainCount = unreadConvCount,
-                                    TotalCount = totalMessCount,
-                                    TotalChainCount = totalConvCount,
-                                    TimeModified = now
-                                })
+                                                  let unreadMessCount =
+                                                      unreadMessagesCountByUserFolder.ContainsKey(folder.Id)
+                                                          ? unreadMessagesCountByUserFolder[folder.Id]
+                                                          : 0
+                                                  let totalMessCount =
+                                                      totalMessagesCountByUserFolder.ContainsKey(folder.Id)
+                                                          ? totalMessagesCountByUserFolder[folder.Id]
+                                                          : 0
+                                                  let unreadConvCount =
+                                                      unreadConversationsCountByUserFolder.ContainsKey(folder.Id)
+                                                          ? unreadConversationsCountByUserFolder[folder.Id]
+                                                          : 0
+                                                  let totalConvCount =
+                                                      totalConversationsCountByUserFolder.ContainsKey(folder.Id)
+                                                          ? totalConversationsCountByUserFolder[folder.Id]
+                                                          : 0
+                                                  select new UserFolder
+                                                  {
+                                                      Id = folder.Id,
+                                                      ParentId = folder.ParentId,
+                                                      Name = folder.Name,
+                                                      FolderCount = folder.FolderCount,
+                                                      Tenant = Tenant,
+                                                      User = User,
+                                                      UnreadCount = unreadMessCount,
+                                                      UnreadChainCount = unreadConvCount,
+                                                      TotalCount = totalMessCount,
+                                                      TotalChainCount = totalConvCount,
+                                                      TimeModified = now
+                                                  })
                                 .ToList();
 
                             if (callback != null)
@@ -396,7 +397,7 @@ namespace ASC.Mail.Core.Engine
         {
             get
             {
-                return ((FolderType[]) Enum.GetValues(typeof(FolderType)))
+                return ((FolderType[])Enum.GetValues(typeof(FolderType)))
                     .Where(folderType => folderType != FolderType.Sending && folderType != FolderType.UserFolder)
                     .ToList();
             }

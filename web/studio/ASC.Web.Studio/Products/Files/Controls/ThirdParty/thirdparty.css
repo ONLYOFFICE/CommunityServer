@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +77,43 @@ body .OwnCloud {
     background-image: url("images/svg/icon_owncloud.svg");
 }
 
+body .thumbnails .thumb-img .Box,
+body .thumbnails .thumb-img .BoxNet {
+    background-image: url("images/svg/thumb/box.svg");
+}
+body .thumbnails .thumb-img .DropBox,
+body .thumbnails .thumb-img .DropboxV2 {
+    background-image: url("images/svg/thumb/dropbox.svg");
+}
+body .thumbnails .thumb-img .Google,
+body .thumbnails .thumb-img .GoogleDrive {
+    background-image: url("images/svg/thumb/google.svg");
+}
+body .thumbnails .thumb-img .SharePoint {
+    background-image: url("images/svg/thumb/sharepoint.svg");
+}
+body .thumbnails .thumb-img .OneDrive,
+body .thumbnails .thumb-img .SkyDrive {
+    background-image: url("images/svg/thumb/onedrive.svg");
+}
+body .thumbnails .thumb-img .WebDav {
+    background-image: url("images/svg/thumb/webdav.svg");
+}
+body .thumbnails .thumb-img .kDrive {
+    background-image: url("images/svg/thumb/kdrive.svg");
+}
+body .thumbnails .thumb-img .Yandex {
+    background-image: url("images/svg/thumb/yandex.svg");
+}
+body .thumbnails .thumb-img .Yandex.ru {
+    background-image: url("images/svg/thumb/yandex.svg");
+}
+body .thumbnails .thumb-img .Nextcloud {
+    background-image: url("images/svg/thumb/nextcloud.svg");
+}
+body .thumbnails .thumb-img .OwnCloud {
+    background-image: url("images/svg/thumb/owncloud.svg");
+}
 
 /*******************************************************************************
    For Retina
@@ -105,6 +142,15 @@ only screen and (                min-resolution: 2dppx)
     right: 0;
     width: 18px;
     background-size:100%;
+}
+.thumbnails .file-row .thumb-folder .provider-key {
+    height: 14px;
+    width: 14px;
+}
+.thumbnails .file-row .thumb-img .provider-key {
+    height: 96px;
+    width: 96px;
+    right: 13px;
 }
 #filesMainContent.compact .thumb-folder .provider-key,
 .files-news-panel .thumb-folder .provider-key {

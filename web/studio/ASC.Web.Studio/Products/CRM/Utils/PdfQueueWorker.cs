@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,18 @@
 
 using System;
 using System.Web;
+
 using ASC.Common.Logging;
-using ASC.CRM.Core;
 using ASC.Common.Threading.Progress;
 using ASC.Common.Web;
 using ASC.Core;
+using ASC.CRM.Core;
 
 namespace ASC.Web.CRM.Classes
 {
     public class PdfQueueWorker
     {
-        private static readonly ProgressQueue Queue = new ProgressQueue(1, TimeSpan.FromMinutes(5), true);
+        private static readonly ProgressQueue Queue = new ProgressQueue(Global.GetQueueWorkerCount("pdf"), Global.GetQueueWaitInterval("pdf"), true);
 
         public static string GetTaskId(int tenantId, int invoiceId)
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Impl;
 using ASC.Core;
 using ASC.Core.Users;
@@ -95,12 +96,12 @@ namespace ASC.Api.Employee
         public static EmployeeWraper GetSample()
         {
             return new EmployeeWraper
-                {
-                    Id = Guid.Empty,
-                    DisplayName = "Mike Zanyatski",
-                    Title = "Manager",
-                    AvatarSmall = "url to small avatar",
-                };
+            {
+                Id = Guid.Empty,
+                DisplayName = "Mike Zanyatski",
+                Title = "Manager",
+                AvatarSmall = "url to small avatar",
+            };
         }
     }
 }

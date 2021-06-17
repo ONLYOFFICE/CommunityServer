@@ -3,7 +3,7 @@
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
     <div id="GreetingBlock" class="<%= (7 <= ProductsCount && ProductsCount <= 10) ? "five-column-block" : "greating-block" %>">
@@ -56,6 +56,8 @@
             </div>
         </div>
     </div>
+
+    <asp:PlaceHolder ID="WelcomePanelHolder" runat="server" />
 
     <% if (!string.IsNullOrEmpty(SetupInfo.UserVoiceURL))
        { %>

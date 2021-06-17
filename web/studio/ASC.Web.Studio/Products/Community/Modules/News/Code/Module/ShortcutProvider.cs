@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,39 +16,39 @@
 
 
 using System;
-using System.Web;
+
 using ASC.Core;
 using ASC.Web.Core.ModuleManagement.Common;
 
 namespace ASC.Web.Community.News.Code.Module
 {
-	public class ShortcutProvider : IShortcutProvider
-	{
+    public class ShortcutProvider : IShortcutProvider
+    {
 
         public static string GetCreateContentPageUrl()
         {
-            if(SecurityContext.CheckPermissions(NewsConst.Action_Add))
+            if (SecurityContext.CheckPermissions(NewsConst.Action_Add))
                 return FeedUrls.EditNewsUrl;
-            
+
             return null;
         }
 
-		public string GetAbsoluteWebPathForShortcut(Guid shortcutID, string currentUrl)
-		{
-			if (shortcutID.Equals(new Guid("499FCB8B-F715-45b2-A112-E99826F4B401")))//News
-			{
-				return FeedUrls.EditNewsUrl;
-			}
-			return string.Empty;
-		}
+        public string GetAbsoluteWebPathForShortcut(Guid shortcutID, string currentUrl)
+        {
+            if (shortcutID.Equals(new Guid("499FCB8B-F715-45b2-A112-E99826F4B401")))//News
+            {
+                return FeedUrls.EditNewsUrl;
+            }
+            return string.Empty;
+        }
 
-		public bool CheckPermissions(Guid shortcutID, string currentUrl)
-		{
-			if (shortcutID.Equals(new Guid("499FCB8B-F715-45b2-A112-E99826F4B401")))//News
-			{
-				return SecurityContext.CheckPermissions(NewsConst.Action_Edit);
-			}
-			return true;
-		}
-	}
+        public bool CheckPermissions(Guid shortcutID, string currentUrl)
+        {
+            if (shortcutID.Equals(new Guid("499FCB8B-F715-45b2-A112-E99826F4B401")))//News
+            {
+                return SecurityContext.CheckPermissions(NewsConst.Action_Edit);
+            }
+            return true;
+        }
+    }
 }

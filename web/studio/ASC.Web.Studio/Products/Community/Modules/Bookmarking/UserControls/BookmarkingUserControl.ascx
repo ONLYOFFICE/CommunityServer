@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BookmarkingUserControl.ascx.cs"
     Inherits="ASC.Web.UserControls.Bookmarking.BookmarkingUserControl" %>
-<%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Bookmarking.UserControls.Resources" %>
 
 <div class="clearFix" id="BookmarksMainPanel" runat="server">
     <%if(!IsSelectedBookmarkDisplayMode()){ %>

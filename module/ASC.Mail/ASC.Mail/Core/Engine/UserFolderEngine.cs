@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Logging;
 using ASC.ElasticSearch;
@@ -176,7 +177,7 @@ namespace ASC.Mail.Core.Engine
             if (string.IsNullOrEmpty(name))
                 throw new EmptyFolderException(@"Name is empty");
 
-            if(parentId.HasValue && id == parentId.Value)
+            if (parentId.HasValue && id == parentId.Value)
                 throw new ArgumentException(@"id equals to parentId", "parentId");
 
             using (var daoFactory = new DaoFactory())
@@ -288,7 +289,7 @@ namespace ASC.Mail.Core.Engine
                     var removeFolderIds = userFolderTreeDao.Get(expTree)
                         .ConvertAll(f => f.FolderId);
 
-                    if(!removeFolderIds.Contains(folderId))
+                    if (!removeFolderIds.Contains(folderId))
                         removeFolderIds.Add(folderId);
 
                     //Remove folder with subfolders
@@ -410,7 +411,7 @@ namespace ASC.Mail.Core.Engine
         }
 
         public void ChangeFolderCounters(
-            IDaoFactory daoFactory, 
+            IDaoFactory daoFactory,
             uint userFolderId,
             int? unreadMessDiff = null,
             int? totalMessDiff = null,
@@ -453,7 +454,7 @@ namespace ASC.Mail.Core.Engine
             //Find folder sub-folders
             var exp = SimpleUserFoldersExp.CreateBuilder(Tenant, User)
                 .SetParent(newUserFolder.Id)
-                .SetIds(new List<uint> { newUserFolder.ParentId})
+                .SetIds(new List<uint> { newUserFolder.ParentId })
                 .Build();
 
             var listExistinFolders = userFolderDao.GetList(exp);

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Bookmarking.Resources {
+namespace ASC.Web.Community.Modules.Bookmarking.Core.Resources {
     using System;
     
     
@@ -58,60 +58,6 @@ namespace ASC.Bookmarking.Resources {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to bookmark added to favorites.
-        /// </summary>
-        public static string BookmarkAddedToFavouritesAction {
-            get {
-                return ResourceManager.GetString("BookmarkAddedToFavouritesAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to new bookmark created.
-        /// </summary>
-        public static string BookmarkCreatedAction {
-            get {
-                return ResourceManager.GetString("BookmarkCreatedAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to bookmark removed from favorites.
-        /// </summary>
-        public static string BookmarkRemovedAction {
-            get {
-                return ResourceManager.GetString("BookmarkRemovedAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to new comment added.
-        /// </summary>
-        public static string CommentCreatedAction {
-            get {
-                return ResourceManager.GetString("CommentCreatedAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The comment has been edited.
-        /// </summary>
-        public static string CommentModifiedAction {
-            get {
-                return ResourceManager.GetString("CommentModifiedAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The comment has been deleted.
-        /// </summary>
-        public static string CommentRemovedAction {
-            get {
-                return ResourceManager.GetString("CommentRemovedAction", resourceCulture);
             }
         }
         

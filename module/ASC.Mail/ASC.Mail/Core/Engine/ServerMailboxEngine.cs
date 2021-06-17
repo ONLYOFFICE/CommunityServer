@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Security;
+
 using ASC.Api.Exceptions;
 using ASC.Common.Logging;
 using ASC.Common.Threading;
@@ -38,6 +39,7 @@ using ASC.Mail.Server.Utils;
 using ASC.Mail.Utils;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
+
 using Mailbox = ASC.Mail.Core.Entities.Mailbox;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -79,18 +81,18 @@ namespace ASC.Mail.Core.Engine
                 var domains = serverDomainDao.GetDomains();
 
                 list.AddRange(from mailbox in mailboxes
-                    let address =
-                        addresses.FirstOrDefault(
-                            a => a.MailboxId == mailbox.Id && a.IsAlias == false && a.IsMailGroup == false)
-                    where address != null
-                    let domain = domains.FirstOrDefault(d => d.Id == address.DomainId)
-                    where domain != null
-                    let serverAddressData = ToServerDomainAddressData(address, domain)
-                    let aliases =
-                        addresses.Where(a => a.MailboxId == mailbox.Id && a.IsAlias && !a.IsMailGroup)
-                            .ToList()
-                            .ConvertAll(a => ToServerDomainAddressData(a, domain))
-                    select ToMailboxData(mailbox, serverAddressData, aliases));
+                              let address =
+                                  addresses.FirstOrDefault(
+                                      a => a.MailboxId == mailbox.Id && a.IsAlias == false && a.IsMailGroup == false)
+                              where address != null
+                              let domain = domains.FirstOrDefault(d => d.Id == address.DomainId)
+                              where domain != null
+                              let serverAddressData = ToServerDomainAddressData(address, domain)
+                              let aliases =
+                                  addresses.Where(a => a.MailboxId == mailbox.Id && a.IsAlias && !a.IsMailGroup)
+                                      .ToList()
+                                      .ConvertAll(a => ToServerDomainAddressData(a, domain))
+                              select ToMailboxData(mailbox, serverAddressData, aliases));
             }
 
             return list;
@@ -268,7 +270,8 @@ namespace ASC.Mail.Core.Engine
 
                 var existMailbox = mailboxDao.GetMailBox(new СoncreteUserMailboxExp(new MailAddress(login), Tenant, userId));
 
-                if (existMailbox != null) {
+                if (existMailbox != null)
+                {
                     throw new DuplicateNameException("You want to create a mailbox that is already connected.");
                 }
 
@@ -286,7 +289,7 @@ namespace ASC.Mail.Core.Engine
                         Name = name,
                         Address = login,
                         OAuthToken = null,
-                        OAuthType = (int) AuthorizationServiceType.None,
+                        OAuthType = (int)AuthorizationServiceType.None,
                         ServerId = server.ImapSettingsId,
                         Password = password,
                         SmtpServerId = server.SmtpSettingsId,
@@ -755,9 +758,6 @@ namespace ASC.Mail.Core.Engine
 
         public void ChangePassword(int mailboxId, string password)
         {
-            if (!CoreContext.Configuration.Standalone)
-                throw new SecurityException("Not allowed in this version");
-
             if (mailboxId < 0)
                 throw new ArgumentException(@"Invalid mailbox id.", "mailboxId");
 
@@ -780,7 +780,7 @@ namespace ASC.Mail.Core.Engine
                 var mailboxDao = daoFactory.CreateMailboxDao();
 
                 var exp = IsAdmin
-                    ? (IMailboxExp) new ConcreteTenantMailboxExp(mailboxId, Tenant)
+                    ? (IMailboxExp)new ConcreteTenantMailboxExp(mailboxId, Tenant)
                     : new СoncreteUserMailboxExp(mailboxId, Tenant, User);
 
                 var mailbox =
@@ -812,10 +812,23 @@ namespace ASC.Mail.Core.Engine
         public static ServerMailboxData ToMailboxData(Mailbox mailbox, ServerDomainAddressData address,
             List<ServerDomainAddressData> aliases)
         {
+            var userDisplayName = "";
+
+            try
+            {
+                var user = CoreContext.UserManager.GetUsers(new Guid(mailbox.User));
+                userDisplayName = user.DisplayUserName();
+            }
+            catch
+            {
+                // skip any errors
+            }
+
             return new ServerMailboxData
             {
                 Id = mailbox.Id,
                 UserId = mailbox.User,
+                UserDisplayName = userDisplayName,
                 Address = address,
                 Name = mailbox.Name,
                 Aliases = aliases

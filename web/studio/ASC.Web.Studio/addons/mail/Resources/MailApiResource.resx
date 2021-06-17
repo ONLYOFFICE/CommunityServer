@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AttachmentsBadInputParamsError" xml:space="preserve">
     <value>Some input parameters are invalid.</value>
@@ -138,6 +79,9 @@
   <data name="AttachmentsUnknownError" xml:space="preserve">
     <value>Some unexpected error has occurred. Please try again later.</value>
   </data>
+  <data name="CreatingLinkHeader" xml:space="preserve">
+    <value>Creating link</value>
+  </data>
   <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
     <value>This message was created automatically by mail delivery software.</value>
   </data>
@@ -146,9 +90,6 @@
   </data>
   <data name="DeliveryFailureFAQInformation" xml:space="preserve">
     <value>In case the error persists, please read the {url_begin}FAQ section{url_end} to learn more about the problem.</value>
-  </data>
-  <data name="DeliveryFailureHeaders" xml:space="preserve">
-    <value>Message headers follow</value>
   </data>
   <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
     <value>Delivery failed for message with subject "{subject}" from {date}.</value>
@@ -177,6 +118,12 @@
   <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
     <value>Tag name cannot be empty</value>
   </data>
+  <data name="ErrorUserFoldeNameCantBeEmpty" xml:space="preserve">
+    <value>Folder name cannot be empty</value>
+  </data>
+  <data name="ErrorUserFolderNameAlreadyExists" xml:space="preserve">
+    <value>Folder %1 already exists</value>
+  </data>
   <data name="FieldNameBcc" xml:space="preserve">
     <value>Bcc</value>
   </data>
@@ -188,6 +135,12 @@
   </data>
   <data name="FieldNameTo" xml:space="preserve">
     <value>To</value>
+  </data>
+  <data name="FinishedHeader" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="GetAttachmentsHeader" xml:space="preserve">
+    <value>Get attachments</value>
   </data>
   <data name="ImapConnectionTimeoutError" xml:space="preserve">
     <value>IMAP server connection timeout exceeded.</value>
@@ -201,49 +154,19 @@
   <data name="Pop3Response" xml:space="preserve">
     <value>POP3 response:</value>
   </data>
+  <data name="PreparationArchiveHeader" xml:space="preserve">
+    <value>Getting the archive ready</value>
+  </data>
+  <data name="SetupTenantAndUserHeader" xml:space="preserve">
+    <value>Setup tenant and user</value>
+  </data>
   <data name="SmtpConnectionTimeoutError" xml:space="preserve">
     <value>SMTP server connection timeout exceeded.</value>
   </data>
   <data name="SmtRresponse" xml:space="preserve">
     <value>SMTP response:</value>
   </data>
-  <data name="ErrorUserFoldeNameCantBeEmpty" xml:space="preserve">
-    <value>Folder name cannot be empty</value>
-  </data>
-  <data name="ErrorUserFolderNameAlreadyExists" xml:space="preserve">
-    <value>Folder %1 already exists</value>
-  </data>
-  <data name="CreatingLinkHeader" xml:space="preserve">
-    <value>Creating link</value>
-  </data>
-  <data name="FinishedHeader" xml:space="preserve">
-    <value>Finished</value>
-  </data>
-  <data name="GetAttachmentsHeader" xml:space="preserve">
-    <value>Get attachments</value>
-  </data>
-  <data name="PreparationArchiveHeader" xml:space="preserve">
-    <value>Preparation archive</value>
-  </data>
-  <data name="SetupTenantAndUserHeader" xml:space="preserve">
-    <value>Setup tenant and user</value>
-  </data>
   <data name="ZippingAttachmentsHeader" xml:space="preserve">
     <value>Zipping attachments</value>
-  </data>
-  <data name="ClearAccountsCacheHeader" xml:space="preserve">
-    <value>Clear accounts cache</value>
-  </data>
-  <data name="DecreaseQuotaSpaceHeader" xml:space="preserve">
-    <value>Decrease newly freed quota space</value>
-  </data>
-  <data name="RecalculateFoldersCountersHeader" xml:space="preserve">
-    <value>Recalculate folders counters</value>
-  </data>
-  <data name="RemoveElasticSearchIndexMessagesHeader" xml:space="preserve">
-    <value>Remove Elastic Search index by messages</value>
-  </data>
-  <data name="RemoveMailboxFromDbHeader" xml:space="preserve">
-    <value>Remove mailbox from Db</value>
   </data>
 </root>

@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="GreetingLogoSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.GreetingLogoSettings" %>
 
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix">
     <div id="studio_greetingLogoSettings" class="settings-block">

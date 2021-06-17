@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+
 using ASC.Api.Attributes;
 using ASC.Api.Blogs;
 using ASC.Api.Collections;
@@ -32,6 +33,7 @@ using ASC.Web.Core.Users;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Api.Community
@@ -92,13 +94,13 @@ namespace ASC.Api.Community
         public BlogPostWrapperFull CreatePost(string title, string content, string tags, bool subscribeComments)
         {
             var newPost = new Post
-                              {
-                                  Content = content,
-                                  Datetime = Core.Tenants.TenantUtil.DateTimeNow(),
-                                  Title = title,/*TODO: maybe we should trim this */
-                                  UserID = SecurityContext.CurrentAccount.ID,
-                                  TagList = !string.IsNullOrEmpty(tags) ? tags.Split(',').Distinct().Select(x => new Tag() { Content = x }).ToList() : new List<Tag>()
-                              };
+            {
+                Content = content,
+                Datetime = Core.Tenants.TenantUtil.DateTimeNow(),
+                Title = title,/*TODO: maybe we should trim this */
+                UserID = SecurityContext.CurrentAccount.ID,
+                TagList = !string.IsNullOrEmpty(tags) ? tags.Split(',').Distinct().Select(x => new Tag() { Content = x }).ToList() : new List<Tag>()
+            };
 
             BlogEngine.SavePost(newPost, true, subscribeComments);
             return new BlogPostWrapperFull(newPost);
@@ -286,12 +288,12 @@ namespace ASC.Api.Community
             var post = BlogEngine.GetPostById(postid).NotFoundIfNull();
 
             var newComment = new Comment
-                                 {
-                                     PostId = postid,
-                                     Content = content,
-                                     Datetime = DateTime.UtcNow,
-                                     UserID = SecurityContext.CurrentAccount.ID
-                                 };
+            {
+                PostId = postid,
+                Content = content,
+                Datetime = DateTime.UtcNow,
+                UserID = SecurityContext.CurrentAccount.ID
+            };
 
             if (parentId != Guid.Empty)
                 newComment.ParentId = parentId;

@@ -7,18 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Studio.UserControls.Management {
-    
-    
-    public partial class TransferPortal {
-        
+namespace ASC.Web.Studio.UserControls.Management
+{
+
+
+    public partial class TransferPortal
+    {
+
         /// <summary>
-        /// popupTransferStart control.
+        /// PopupTransferStartContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.Container popupTransferStart;
+        protected global::ASC.Web.Studio.Controls.Common.Container PopupTransferStartContainer;
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,14 @@
 */
 
 
-using System.Web;
-using ASC.Core.Configuration;
-using ASC.Core.Tenants;
 using System;
 using System.Configuration;
 using System.Text;
+using System.Web;
+
+using ASC.Core.Configuration;
+using ASC.Core.Tenants;
+
 using Newtonsoft.Json;
 
 namespace ASC.Core
@@ -69,7 +71,7 @@ namespace ASC.Core
 
                 if (quotaSettings.MaxSpace != long.MaxValue)
                     return quotaSettings.MaxSpace;
-                
+
                 if (personalMaxSpace.HasValue)
                     return personalMaxSpace.Value;
 

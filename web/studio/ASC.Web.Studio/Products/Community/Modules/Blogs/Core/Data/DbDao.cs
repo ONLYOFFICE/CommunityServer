@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Data;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 
@@ -69,7 +70,7 @@ namespace ASC.Blogs.Core.Data
         }
 
         protected string TenantColumnName { get { return "Tenant"; } }
-        
+
         protected string GetTenantColumnName(string table)
         {
             return String.Format("{0}.{1}", table, TenantColumnName);

@@ -3,7 +3,7 @@
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 
 <%@ Register TagPrefix="client" Namespace="ASC.Web.Core.Client.Bundling" Assembly="ASC.Web.Core" %>
@@ -62,7 +62,6 @@
 
         <master:HeadStyles ID="HeadStyles" runat="server" />
 
-        <%= RenderCustomScript() %>
         <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 
         <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
@@ -77,8 +76,6 @@
     <%= Request.SailfishApp() ? "sailfish" : "" %>
     <%= CoreContext.Configuration.CustomMode ? "custom-mode" : "" %>"
     >
-
-    <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />
 
     <form runat="server" id="Form" style="margin: 0; height: 100%; padding: 0;" enctype="multipart/form-data" method="post">
         

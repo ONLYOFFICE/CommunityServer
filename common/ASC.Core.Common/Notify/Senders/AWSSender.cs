@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,11 @@ using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
+
+using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
-using ASC.Common.Logging;
 
 namespace ASC.Core.Notify.Senders
 {
@@ -47,7 +48,7 @@ namespace ASC.Core.Notify.Senders
         public override void Init(IDictionary<string, string> properties)
         {
             base.Init(properties);
-            var region = properties.ContainsKey("region") ? RegionEndpoint.GetBySystemName(properties["region"]): RegionEndpoint.USEast1;
+            var region = properties.ContainsKey("region") ? RegionEndpoint.GetBySystemName(properties["region"]) : RegionEndpoint.USEast1;
             ses = new AmazonSimpleEmailServiceClient(properties["accessKey"], properties["secretKey"], region);
             refreshTimeout = TimeSpan.Parse(properties.ContainsKey("refreshTimeout") ? properties["refreshTimeout"] : "0:30:0");
             lastRefresh = DateTime.UtcNow - refreshTimeout; //set to refresh on first send
@@ -144,14 +145,14 @@ namespace ASC.Core.Notify.Senders
             }
 
             var from = MailAddressUtils.Create(m.From).ToEncodedString();
-            var request = new SendEmailRequest {Source = from, Destination = dest, Message = new Message(subject, body)};
+            var request = new SendEmailRequest { Source = from, Destination = dest, Message = new Message(subject, body) };
             if (!string.IsNullOrEmpty(m.ReplyTo))
             {
                 request.ReplyToAddresses.Add(MailAddressUtils.Create(m.ReplyTo).Address);
             }
 
             ThrottleIfNeeded();
-                     
+
             var response = ses.SendEmail(request);
             lastSend = DateTime.UtcNow;
 

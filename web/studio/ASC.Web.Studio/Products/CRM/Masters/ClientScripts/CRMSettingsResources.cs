@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.CRM.Core;
@@ -86,7 +87,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                                EmptyScrImgs = imgs,
                                ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(ProductEntryPoint.ID),
 
-                               ContactSelectorTypeEnum = 
+                               ContactSelectorTypeEnum =
                                     new Dictionary<string, int>
                                     {
                                         {"All", (int)ContactSelectorTypeEnum.All},
@@ -96,7 +97,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                                         {"PersonsWithoutCompany", (int)ContactSelectorTypeEnum.PersonsWithoutCompany}
                                     },
 
-                               HistoryCategorySystem = 
+                               HistoryCategorySystem =
                                    new Dictionary<string, int>
                                        {
                                            {"TaskClosed", (int)HistoryCategorySystem.TaskClosed},
@@ -104,7 +105,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                                            {"MailMessage", (int)HistoryCategorySystem.MailMessage}
                                        },
 
-                               DefaultContactPhoto = 
+                               DefaultContactPhoto =
                                    new Dictionary<string, string>
                                        {
                                            {"CompanyBigSizePhoto", ContactPhotoManager.GetBigSizePhoto(0, true)},
@@ -113,7 +114,7 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                                            {"PersonMediumSizePhoto", ContactPhotoManager.GetMediumSizePhoto(0, false)}
                                        },
 
-                               CookieKeyForPagination = 
+                               CookieKeyForPagination =
                                    new Dictionary<string, string>
                                        {
                                            {"contacts", "contactPageNumber"},

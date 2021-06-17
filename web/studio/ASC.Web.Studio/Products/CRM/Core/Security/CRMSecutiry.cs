@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
@@ -32,11 +33,13 @@ using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Configuration;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Enums;
+using ASC.Web.CRM.Resources;
+
+using Autofac;
+
 using Action = ASC.Common.Security.Authorizing.Action;
 using Constants = ASC.Core.Users.Constants;
 using SecurityContext = ASC.Core.SecurityContext;
-using ASC.Web.CRM.Resources;
-using Autofac;
 
 namespace ASC.CRM.Core
 {
@@ -279,7 +282,8 @@ namespace ASC.CRM.Core
             {
                 return true;
             }
-            if (entityType == EntityType.Company){
+            if (entityType == EntityType.Company)
+            {
                 var fakeContact = new Company() { ID = contactID };
                 return GetAccessSubjectTo(fakeContact).ContainsKey(SecurityContext.CurrentAccount.ID);
             }
@@ -397,7 +401,7 @@ namespace ASC.CRM.Core
                     var contactObj = daoFactory.ContactDao.GetByID(relationshipEvent.ContactID);
                     if (contactObj != null)
                     {
-                        if(CanEdit(contactObj)) return true;
+                        if (CanEdit(contactObj)) return true;
 
                         return CanAccessTo(contactObj, userId) && relationshipEvent.CreateBy == userId;
                     }
@@ -653,7 +657,7 @@ namespace ASC.CRM.Core
 
         public static void DemandDelete(RelationshipEvent relationshipEvent)
         {
-           if (!CanDelete(relationshipEvent)) throw CreateSecurityException();
+            if (!CanDelete(relationshipEvent)) throw CreateSecurityException();
         }
 
         #endregion
@@ -740,7 +744,7 @@ namespace ASC.CRM.Core
                 String.IsNullOrEmpty(invoice.Currency) ||
                 invoice.ExchangeRate <= 0 ||
                 String.IsNullOrEmpty(invoice.Terms))
-                    throw new ArgumentException();
+                throw new ArgumentException();
 
             using (var scope = DIHelper.Resolve())
             {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,20 @@
 
 using System;
 using System.Globalization;
-using ASC.Web.Studio.UserControls.Common.PollForm;
-using ASC.Web.Studio.Utility.HtmlUtility;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Web.Community.Modules.News.Resources;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
-using ASC.Web.Community.News.Resources;
 using ASC.Web.Community.Product;
+using ASC.Web.Studio.UserControls.Common.PollForm;
 using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
+
 using FeedNS = ASC.Web.Community.News.Code;
 
 namespace ASC.Web.Community.News.Controls
@@ -96,23 +99,23 @@ namespace ASC.Web.Community.News.Controls
                 var isMakeVote = TenantUtil.DateTimeNow() <= poll.EndDate && !poll.IsUserVote(SecurityContext.CurrentAccount.ID.ToString());
 
                 var pollForm = new PollForm
-                    {
-                        VoteHandlerType = typeof(PollVoteHandler),
-                        Answered = !isMakeVote,
-                        Name = poll.Caption,
-                        PollID = poll.Id.ToString(CultureInfo.CurrentCulture),
-                        Singleton = (poll.PollType == FeedPollType.SimpleAnswer),
-                        AdditionalParams = poll.Id.ToString(CultureInfo.CurrentCulture)
-                    };
+                {
+                    VoteHandlerType = typeof(PollVoteHandler),
+                    Answered = !isMakeVote,
+                    Name = poll.Caption,
+                    PollID = poll.Id.ToString(CultureInfo.CurrentCulture),
+                    Singleton = (poll.PollType == FeedPollType.SimpleAnswer),
+                    AdditionalParams = poll.Id.ToString(CultureInfo.CurrentCulture)
+                };
 
                 foreach (var variant in poll.Variants)
                 {
                     pollForm.AnswerVariants.Add(new PollForm.AnswerViarint()
-                        {
-                            ID = variant.ID.ToString(CultureInfo.CurrentCulture),
-                            Name = variant.Name,
-                            VoteCount = poll.GetVariantVoteCount(variant.ID)
-                        });
+                    {
+                        ID = variant.ID.ToString(CultureInfo.CurrentCulture),
+                        Name = variant.Name,
+                        VoteCount = poll.GetVariantVoteCount(variant.ID)
+                    });
                 }
                 pollHolder.Controls.Add(pollForm);
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Web.UserControls.Wiki.Resources;
+
 using HtmlAgilityPack;
 
 namespace ASC.Web.UserControls.Wiki
@@ -66,11 +68,11 @@ namespace ASC.Web.UserControls.Wiki
 
     public partial class HtmlWikiUtil
     {
-        private static string _imgExtensions = @"gif;jpg;jpeg;png;svg";
-        private static string _validProtocols = @"http;https;ftp;mailto";
-        private static string _urlChars = @"a-z0-9;/\?:@&=\+\$,\-_\.!~\*'\(\)#%\\";
-        private static string _urlEndChars = @"a-z0-9;/\?:@&=\+\$\-_\\\)";
-        private static string _convertNoWikitemplate = @"~~{0}~~";
+        private static readonly string _imgExtensions = @"gif;jpg;jpeg;png;svg";
+        private static readonly string _validProtocols = @"http;https;ftp;mailto";
+        private static readonly string _urlChars = @"a-z0-9;/\?:@&=\+\$,\-_\.!~\*'\(\)#%\\";
+        private static readonly string _urlEndChars = @"a-z0-9;/\?:@&=\+\$\-_\\\)";
+        private static readonly string _convertNoWikitemplate = @"~~{0}~~";
 
         private List<TempContainer> tableList;
         private List<TempContainer> preList;
@@ -79,20 +81,20 @@ namespace ASC.Web.UserControls.Wiki
         private int intOpenTab = 0;
         private int thumbWidth = 0;
 
-        private int[] arrNr = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-        private string[] arrRef = new string[200];
-        private string[][] arrTOC = new string[200][];
+        private readonly int[] arrNr = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+        private readonly string[] arrRef = new string[200];
+        private readonly string[][] arrTOC = new string[200][];
 
         private int intRef, intTOC;
 
         private Regex rexLin, rexI, rexB, rexU, rexLnk, rexDB, rexEmptyTags, rexS, rexSpetial, rexNoWiki, rexLinkContainer,
                       tags, spaces, rexTablesContainer, rexTableCell, rexLinkTabContainer, rexPreContainer, rexSimpleContent;
 
-        private static Regex rexCode = new Regex(@"<code([\s\S]*?)<\/code>");
-        private static Regex rexScript = new Regex(@"<\s*script([\s\S]*?)<\s*\/\s*script\s*>", mainOptions);
+        private static readonly Regex rexCode = new Regex(@"<code([\s\S]*?)<\/code>");
+        private static readonly Regex rexScript = new Regex(@"<\s*script([\s\S]*?)<\s*\/\s*script\s*>", mainOptions);
         private int intMaxTOC;
         private Dictionary<string, string> dctDB;
-        private bool shouldCloaseAll = true;
+        private readonly bool shouldCloaseAll = true;
 
         private string internalMainLink = string.Empty;
         private string fileNameProcessing = string.Empty;
@@ -104,10 +106,10 @@ namespace ASC.Web.UserControls.Wiki
         private bool convertCode = true;
         private bool convertTOC = true;
 
-        private static Regex rexSection = new Regex(@"(\n|^)(={1,6})([^=]+)", mainOptions);
+        private static readonly Regex rexSection = new Regex(@"(\n|^)(={1,6})([^=]+)", mainOptions);
         internal static Regex rexNoSection = new Regex(@"<nowiki>[\s\S]*?<\/nowiki>", mainOptions | RegexOptions.Multiline);
 
-        private static string RegExCategorySearch = string.Format(@"\[\[{0}:([^\|^\]]+)(\|[^]]+)*\]\]", Constants.WikiCategoryKeyCaption);
+        private static readonly string RegExCategorySearch = string.Format(@"\[\[{0}:([^\|^\]]+)(\|[^]]+)*\]\]", Constants.WikiCategoryKeyCaption);
 
         public static string GetWikiSectionNameBySectionNumber(string wiki, int section)
         {
@@ -1355,19 +1357,19 @@ namespace ASC.Web.UserControls.Wiki
                             {
                                 s = Replace(s, match.Groups[4].Value, Ref("mailto:" + match.Groups[4].Value, match.Groups[4].Value, match.Groups[4].Value, match.Groups[4].Value), 0, 1);
                             }
-                                //else if (!string.IsNullOrEmpty(match.Groups[5].Value))
-                                //{
-                                //    arr = match.Groups[5].Value.Split('|');
+                            //else if (!string.IsNullOrEmpty(match.Groups[5].Value))
+                            //{
+                            //    arr = match.Groups[5].Value.Split('|');
 
-                                //    if (!string.IsNullOrEmpty(dctDB["WIKI"]))
-                                //    {
-                                //        s = Replace(s, match.Groups[5].Value, Ref(dctDB["WIKI"].Replace("[1]", arr[5]), arr[arr.Length - 1], string.Empty, match.Groups[5].Value), 0, 1);
-                                //    }
-                                //    else
-                                //    {
-                                //        s = Replace(s, match.Groups[5].Value, arr[arr.Length - 1], 0, 1);
-                                //    }
-                                //}
+                            //    if (!string.IsNullOrEmpty(dctDB["WIKI"]))
+                            //    {
+                            //        s = Replace(s, match.Groups[5].Value, Ref(dctDB["WIKI"].Replace("[1]", arr[5]), arr[arr.Length - 1], string.Empty, match.Groups[5].Value), 0, 1);
+                            //    }
+                            //    else
+                            //    {
+                            //        s = Replace(s, match.Groups[5].Value, arr[arr.Length - 1], 0, 1);
+                            //    }
+                            //}
                             else if (!string.IsNullOrEmpty(match.Groups[5].Value))
                             {
                                 s = Replace(s, match.Groups[0].Value, Ref(match.Groups[5].Value.Split('|')[0], match.Groups[5].Value.Split('|').Length > 1 ? match.Groups[5].Value.Remove(0, match.Groups[5].Value.Split('|')[0].Length).TrimStart('|') : match.Groups[5].Value, "_blank", match.Groups[5].Value), 0, 1);

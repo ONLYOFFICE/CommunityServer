@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -207,11 +207,11 @@ window.filtersManager = (function($) {
                                                     progressBarIntervalId = null;
 
                                                     if (data.error !== "") {
-                                                        toastr.error(ASC.Resources.Master.Resource.OperationFailedMsg);
+                                                        toastr.error(ASC.Resources.Master.ResourceJS.OperationFailedMsg);
                                                         console.log(data.error);
                                                     } else {
                                                         toastr
-                                                            .success(ASC.Resources.Master.Resource
+                                                            .success(ASC.Resources.Master.ResourceJS
                                                                 .OperationSuccededMsg);
                                                     }
 

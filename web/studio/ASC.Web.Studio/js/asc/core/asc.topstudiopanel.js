@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,17 @@
 jq(document).ready(function () {
 
     jq("#logout_ref").on('click', function () {
+
+        if ('serviceWorker' in navigator && !jQuery.browser.msie && !jQuery.browser.safari) {
+            document.cookie = "tmtalk" + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+            document.cookie = "tmtalk" + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                Array.prototype.forEach.call(registrations, function (registration) {
+                    registration.unregister();
+                });
+            });
+        }
+
         if (localStorage.getItem('onlyoffice') == 'logout') {
             localStorage.setItem('onlyoffice', 'logout_');
         } else {
@@ -348,7 +359,7 @@ var UnreadMailManager = new function () {
                                 break;
 
                             if (!mails[i].subject || mails[i].subject.length === 0)
-                                mails[i].subject = ASC.Resources.Master.Resource.MailNoSubject;
+                                mails[i].subject = ASC.Resources.Master.ResourceJS.MailNoSubject;
 
                             var unreadMail = getMailTemplate(mails[i]);
                             unreadMails.push(unreadMail);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ jq(document).ready(function () {
     TMTalk.init();
     var tmTalk = ASC.TMTalk,
         config = tmTalk.Config,
-        resource = tmTalk.Resources;
+        TalkResource = tmTalk.TalkResource;
 
     tmTalk.properties.init("2.0");
     tmTalk.iconManager.init();
@@ -33,7 +33,7 @@ jq(document).ready(function () {
     tmTalk.mucManager.init(config.validSymbols);
     tmTalk.roomsManager.init();
     tmTalk.contactsManager.init();
-    tmTalk.messagesManager.init(resource.ShortDateFormat, resource.FullDateFormat, tmTalk.abbreviatedMonthNames, config.historyLength, tmTalk.abbreviatedDayNames);
+    tmTalk.messagesManager.init(TalkResource.ShortDateFormat, TalkResource.FullDateFormat, tmTalk.abbreviatedMonthNames, config.historyLength, tmTalk.abbreviatedDayNames);
     tmTalk.connectionManager.init(config.boshUri, config.jabberAccount, config.resourcePriority, config.clientInactivity);
     tmTalk.properties.item("addonID", config.addonID);
     tmTalk.properties.item("enabledMassend", config.enabledMassend);

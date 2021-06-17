@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,14 +28,14 @@ using ASC.Common.Caching;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Common.Notify;
+using ASC.ElasticSearch;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Community.Product;
+using ASC.Web.Community.Search;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
-using ASC.ElasticSearch;
-using ASC.Web.Community.Search;
 
 namespace ASC.Blogs.Core
 {
@@ -163,7 +163,7 @@ namespace ASC.Blogs.Core
         {
             if (query.SearchText != null)
                 return SearchPosts(query.SearchText, new PagingQuery(query));
-            
+
             return
                 _storage.GetPostDao()
                         .Select(
@@ -265,7 +265,7 @@ namespace ASC.Blogs.Core
                 }
             }
             if (!notifyComments) return;
-            
+
             var subscriptionProvider = NotifySource.GetSubscriptionProvider();
 
             subscriptionProvider.Subscribe(

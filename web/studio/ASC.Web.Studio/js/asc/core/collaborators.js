@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,22 +33,22 @@ window.WelcomeCollaboratorsManager = new function () {
 
         jq.tmpl("template-blockUIPanel", {
             id: "studio_welcomeCollaboratorContainer",
-            headerTest: ASC.Resources.Master.Resource.WelcomeCollaboratorPopupHeader,
+            headerTest: ASC.Resources.Master.ResourceJS.WelcomeCollaboratorPopupHeader,
 
             innerHtmlText: ["<div class=\"welcome-to-teamlab-with-logo\">",
                 "<p class=\"welcome\">",
-                Encoder.XSSEncode(ASC.Resources.Master.Resource.WelcomeToTeamlab),
+                Encoder.XSSEncode(ASC.Resources.Master.ResourceJS.WelcomeToTeamlab),
                 "</p>",
                 "<p>",
-                ASC.Resources.Master.Resource.WelcomeCollaboratorRole,
+                ASC.Resources.Master.ResourceJS.WelcomeCollaboratorRole,
                 "</p>",
-                jq.format(ASC.Resources.Master.Resource.WelcomeCollaboratorCan,
+                jq.format(ASC.Resources.Master.ResourceJS.WelcomeCollaboratorCan,
                     "<p>", "</p><ul class='welcome-collaborator-can'><li>", "</li><li>", "</li><li>", "</li></ul>"),
                 "<p>",
-                ASC.Resources.Master.Resource.WelcomeCollaboratorOtherActions,
+                ASC.Resources.Master.ResourceJS.WelcomeCollaboratorOtherActions,
                 "</p>",
                 "</div>"].join(''),
-            OKBtn: ASC.Resources.Master.Resource.WelcomeCollaboratorStartWork
+            OKBtn: ASC.Resources.Master.ResourceJS.WelcomeCollaboratorStartWork
         }).appendTo("#studioPageContent .mainPageContent:first");
 
         jq("#studio_welcomeCollaboratorContainer").on("click", ".button.blue, .cancelButton", function () {

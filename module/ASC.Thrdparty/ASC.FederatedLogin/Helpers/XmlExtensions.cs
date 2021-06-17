@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ namespace ASC.FederatedLogin.Helpers
         public static string SelectNodeValue(this XPathNavigator nav, string xpath)
         {
             var node = nav.SelectSingleNode(xpath);
-            return node!=null ? node.Value : string.Empty;
+            return node != null ? node.Value : string.Empty;
         }
     }
 }

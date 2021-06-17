@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using ASC.Web.Studio.Utility;
@@ -126,17 +127,17 @@ namespace ASC.Api.Documents
         public static FileOperationWraper GetSample()
         {
             return new FileOperationWraper
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    OperationType = FileOperationType.Move,
-                    Progress = 100,
-                    //Source = "folder_1,file_1",
-                    //Result = "folder_1,file_1",
-                    Error = "",
-                    Processed = "1",
-                    Files = new List<FileWrapper> { FileWrapper.GetSample() },
-                    Folders = new List<FolderWrapper> { FolderWrapper.GetSample() }
-                };
+            {
+                Id = Guid.NewGuid().ToString(),
+                OperationType = FileOperationType.Move,
+                Progress = 100,
+                //Source = "folder_1,file_1",
+                //Result = "folder_1,file_1",
+                Error = "",
+                Processed = "1",
+                Files = new List<FileWrapper> { FileWrapper.GetSample() },
+                Folders = new List<FolderWrapper> { FolderWrapper.GetSample() }
+            };
         }
     }
 }

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AbortExport" xml:space="preserve">
     <value>Cancel</value>
@@ -129,8 +70,8 @@
   <data name="AccessRightsSettings" xml:space="preserve">
     <value>Portal Access Rights</value>
   </data>
-  <data name="AddNewTag" xml:space="preserve">
-    <value>Add new tag</value>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Add rate</value>
   </data>
   <data name="AddNewTaskTemplate" xml:space="preserve">
     <value>Add new task template</value>
@@ -144,17 +85,11 @@
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
-  <data name="AddTag" xml:space="preserve">
-    <value>Add tag</value>
-  </data>
   <data name="AddTagInProgressing" xml:space="preserve">
     <value>Adding tag</value>
   </data>
   <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
     <value>Do not show the Linking Contacts dialog again</value>
-  </data>
-  <data name="AddTaskTemplate" xml:space="preserve">
-    <value>Add task template</value>
   </data>
   <data name="AddTaskTemplateContainer" xml:space="preserve">
     <value>Add task template container</value>
@@ -189,6 +124,9 @@
   <data name="AddThisTaskTemplateContainer" xml:space="preserve">
     <value>Add this task template container</value>
   </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Authentication</value>
+  </data>
   <data name="BasicInformation" xml:space="preserve">
     <value>Basic Information</value>
   </data>
@@ -200,9 +138,6 @@
   </data>
   <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
     <value>Do not show the Linking Contacts dialog again</value>
-  </data>
-  <data name="ChangeDefaultCurrencyConfText" xml:space="preserve">
-    <value>Are you sure you want to change the default currency?</value>
   </data>
   <data name="ChangeIcon" xml:space="preserve">
     <value>Change icon</value>
@@ -218,12 +153,6 @@
   </data>
   <data name="CommonSettings" xml:space="preserve">
     <value>Common Settings</value>
-  </data>
-  <data name="ConfigureTheSMTP" xml:space="preserve">
-    <value>Configure the SMTP</value>
-  </data>
-  <data name="ConfigureTheSMTPInfo" xml:space="preserve">
-    <value>SMTP server is not configured. Fill in the fields and click Save. You can set up the necessary parameters in the 'Settings' section.</value>
   </data>
   <data name="ContactTypes" xml:space="preserve">
     <value>Contact Types</value>
@@ -242,9 +171,6 @@
   </data>
   <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
     <value>Creating stage</value>
-  </data>
-  <data name="CreateField" xml:space="preserve">
-    <value>Create field</value>
   </data>
   <data name="CreateFieldInProgressing" xml:space="preserve">
     <value>Creating field</value>
@@ -285,8 +211,14 @@
   <data name="CreateNewTagListButton" xml:space="preserve">
     <value>New Tag</value>
   </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Currency rate</value>
+  </data>
   <data name="CurrencySettings" xml:space="preserve">
     <value>Currency Settings</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Set up the default currency which will be used to calculate the 'Sum total' for all the opportunities present in the CRM module of your portal. The conversion rates are available for the currencies from the list only and are calculated using the 'The Money Converter.com' website.{0}This currency will be set as the default one for your Products &amp; Services catalog and used for the invoices.</value>
   </data>
   <data name="CustomFields" xml:space="preserve">
     <value>User Fields</value>
@@ -340,13 +272,13 @@
     <value>Description</value>
   </data>
   <data name="DescriptionTextContactStage" xml:space="preserve">
-    <value>Contact temperature levels let you characterize your potential buyers in a certain way. For instance, the temperature levels can be "Cold", "Hot", "Warm", which will mean the contact's willingness to buy your product.</value>
+    <value>Set temperatures of your contacts to characterize the willingness of the potential buyers to buy your product or service. For instance, the temperature levels can be "Cold", "Hot", and "Warm".</value>
   </data>
   <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
     <value>You can edit or delete the contact temperature levels only in case there are no contacts of this level.</value>
   </data>
   <data name="DescriptionTextContactType" xml:space="preserve">
-    <value>Contact types let you characterize your contacts in a certain way. The default contact types are "Client", "Competitor", "Partner", "Supplier" which classify the contacts based on their role in relation to the organization.</value>
+    <value>Contact types let you characterize your contacts based on their role in relation to the organization. The default contact types are "Client", "Competitor", "Partner",  and "Supplier".</value>
   </data>
   <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
     <value>You can edit or delete the contact type only in case there are no contacts of this type.</value>
@@ -451,6 +383,9 @@ call" or "Expression of gratitude".</value>
   <data name="EmptyTitleError" xml:space="preserve">
     <value>The field title cannot be empty</value>
   </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Enable SSL</value>
+  </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
   </data>
@@ -493,11 +428,23 @@ call" or "Expression of gratitude".</value>
   <data name="GenerateForm" xml:space="preserve">
     <value>Generate Form</value>
   </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Get default settings</value>
+  </data>
   <data name="Heading" xml:space="preserve">
     <value>Title</value>
   </data>
   <data name="HistoryCategories" xml:space="preserve">
     <value>History Event Categories</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host Login</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Host Password</value>
   </data>
   <data name="InternalSMTP" xml:space="preserve">
     <value>Internal SMTP ({0} email recipients maximum)</value>
@@ -510,9 +457,6 @@ call" or "Expression of gratitude".</value>
   </data>
   <data name="Label" xml:space="preserve">
     <value>Title</value>
-  </data>
-  <data name="LearnMore" xml:space="preserve">
-    <value>Learn more...</value>
   </data>
   <data name="Likelihood" xml:space="preserve">
     <value>Success probability</value>
@@ -535,8 +479,8 @@ call" or "Expression of gratitude".</value>
   <data name="OtherFields" xml:space="preserve">
     <value>Other fields</value>
   </data>
-  <data name="pattern_TestMailSMTPMainBody" xml:space="preserve">
-    <value>This is a test mail message created by the ONLYOFFICE™ portal automatically to check the mass mailing feature.\nPlease do not reply to this message.\n\nWe are sorry for any inconveniences caused.\nBest regards,\nPortal {0} administration</value>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
   </data>
   <data name="RemoveOption" xml:space="preserve">
     <value>Delete option</value>
@@ -565,18 +509,21 @@ call" or "Expression of gratitude".</value>
   <data name="SelectTaskCategoryForReplace" xml:space="preserve">
     <value>Please select a category stage to be replaced with the current category in tasks</value>
   </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Sender Display Name</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Sender Email Address</value>
+  </data>
   <data name="SettingCustomFields" xml:space="preserve">
     <value>Customize user fields</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="SettingsCompanyAddressHelp" xml:space="preserve">
-    <value>Set your organization billing address which will be placed to all your invoices. Fill the fields with the {0}Address{1}, {0}City{1}, {0}State{1}, {0}Country{1} and {0}Zip Code{1}.</value>
+    <value>Set your organization billing address which will be placed to all your invoices. Select the {0}Country{1} from the list and fill in the fields with the {0}Address{1}, {0}City{1}, {0}State{1} and {0}Zip Code{1}.</value>
   </data>
   <data name="SettingsCompanyLogoHelp" xml:space="preserve">
     <value>The default {0}logo{1} of your organization will be displayed on your {0}Invoices{1}.{3}
-To replace the logo click the 'Change Logo' link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image file in PNG or JPG format not larger than {0}{4}x{5} pixels{1}, otherwise resizing will take place. The maximum image size cannot exceed  {0}{2}{1}.</value>
+To replace the logo click the 'Change Logo' link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image no larger than {0}{4}x{5} pixels{1}, otherwise, it will be automatically resized. The maximum image size cannot exceed {0}{2}{1}.</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
@@ -606,7 +553,7 @@ To replace the logo click the 'Change Logo' link and select the image stored on 
     <value>Web Form Key</value>
   </data>
   <data name="WebFormKeyDescription" xml:space="preserve">
-    <value>A unique web form key which serves for the authentication of the form used to send the data and necessary for the form correct work. This is done for the security reasons to prevent spam, fraud and protect your web form from unauthorized use. When you generate a new key the existing forms with the old key will stop working.</value>
+    <value>A unique web form key which serves for the authentication of the form used to send the data and necessary for the correct work of the form. This is done for security reasons to prevent spam, fraud, and protect your web form from unauthorized use. When you generate a new key the existing forms with the old key will stop working.</value>
   </data>
   <data name="WebToLeadsForm" xml:space="preserve">
     <value>Website Contact Form</value>
@@ -616,14 +563,5 @@ To replace the logo click the 'Change Logo' link and select the image stored on 
   </data>
   <data name="WebToLeadsFormHeader" xml:space="preserve">
     <value>Use the Website Contact Form functionality to build a form that you can publish on your site. It will allow you to capture new contacts automatically. Define the form properties, select the necessary fields and generate the code to create your own web form.</value>
-  </data>
-  <data name="AddCurrencyRate" xml:space="preserve">
-    <value>Add rate</value>
-  </data>
-  <data name="CurrencyRate" xml:space="preserve">
-    <value>Currency rate</value>
-  </data>
-  <data name="CurrencySettingsHelp" xml:space="preserve">
-    <value>Set up the default currency which will be used to calculate the 'Sum total' for all the opportunities present in the CRM module of your portal. The conversion rates are available for currencies from the list only and are taken from the 'The Money Converter.com' web site.{0}This currency will be the currency for your Products &amp; Services catalog which is used to invoice.</value>
   </data>
 </root>

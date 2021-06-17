@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -303,7 +303,9 @@ ASC.Feed.Reader = (function() {
                 template.itemClass = 'events';
                 break;
             case 'forum':
+            case 'forumTopic':
             case 'forumPoll':
+            case 'forumPost':
                 template.itemClass = 'forum';
                 break;
             case 'bookmark':

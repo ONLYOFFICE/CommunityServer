@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,16 +33,20 @@
     display:inline-block;
     margin-bottom:15px;
 }
-.restore-setting_filename {
-    height: 18px;
-    width: 65%;
-    margin-right: 5px;
-    vertical-align: middle;
-}
+.input-button-box {
+    width: 350px;
+    display: flex;
+    align-items: center;
+    height: 25px;
 
-.restore-setting_teamlab-file {
-    #restoreChooseTeamlabFile {
-        min-width: 15%;
+    .textEdit {
+        width: 100%;
+        height: 18px;
+        margin-right: 5px;
+    }
+
+    .button {
+        white-space: nowrap;
         padding-left: 16px;
         padding-right: 16px;
     }
@@ -98,10 +102,16 @@
     }
 }
 
+.disable .settings-block p{
+    color:#9e9e9e;
+}
+
+.disable .settings-block h3 {
+    color: #9e9e9e;
+}
 /*******************************************************************************
     Backup List
 *******************************************************************************/
-
 #restoreChooseBackupDialog {
     .containerBodyBlock {
         text-align: center;
@@ -133,4 +143,9 @@
 .restore-backup-text {
     margin-bottom: 25px;
     text-align: left;
+}
+
+.indent {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

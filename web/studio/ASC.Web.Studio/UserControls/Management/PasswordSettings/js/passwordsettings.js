@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,10 @@ PasswordSettingsManager = new function () {
             var jsonObj = JSON.parse(res);
 
             var onSlide = function (event, ui) {
-                var value = jq("#slider").slider("value");
-                jq("#count").html(value);
+                setTimeout(function () {
+                    var value = jq("#slider").slider("value");
+                    jq("#count").html(value);
+                }, 0);
             };
 
             jq("#slider").slider({

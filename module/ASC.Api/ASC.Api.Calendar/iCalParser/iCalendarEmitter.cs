@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Utils;
 using ASC.Web.Core.Calendars;
-using System.Globalization;
 
 namespace ASC.Api.Calendar.iCalParser
 {
@@ -29,7 +29,7 @@ namespace ASC.Api.Calendar.iCalParser
         private iCalendar _curCalendar;
         private iCalEvent _curEvent;
 
-        private Stack<Token> _component= new Stack<Token>();
+        private readonly Stack<Token> _component = new Stack<Token>();
         private Token _curPropToken = null;
 
         public Parser VParser { get; set; }
@@ -39,12 +39,12 @@ namespace ASC.Api.Calendar.iCalParser
             return _curCalendar;
         }
 
-        public void doIntro(){}
+        public void doIntro() { }
         public void doOutro()
         {
         }
         public void doComponent() { }
-      
+
         public void doResource(Token t) { }
         public void emit(string val) { }
 
@@ -59,44 +59,44 @@ namespace ASC.Api.Calendar.iCalParser
         }
 
         public void doBegin(Token t)
-        {            
+        {
         }
 
-        public void doEndComponent() 
+        public void doEndComponent()
         {
             _component.Pop();
         }
 
         public void doComponentBegin(Token t)
-        {  
+        {
             _component.Push(t);
 
             switch (t.TokenVal)
             {
-                case TokenValue.Tvcalendar:                    
+                case TokenValue.Tvcalendar:
                     _curCalendar = new iCalendar();
                     break;
 
                 case TokenValue.Tvevent:
-                case TokenValue.Tvjournal:                    
+                case TokenValue.Tvjournal:
                     _curEvent = new iCalEvent();
                     _curCalendar.Events.Add(_curEvent);
                     _curEvent.CalendarId = _curCalendar.Id;
                     break;
             }
-        }       
+        }
 
         public void doID(Token t)
         {
-            _curPropToken = t;            
+            _curPropToken = t;
         }
 
         public void doSymbolic(Token t)
-        {           
+        {
         }
 
         public void doURIResource(Token t)
-        {         
+        {
         }
 
         public void doMailto(Token t)
@@ -109,7 +109,7 @@ namespace ASC.Api.Calendar.iCalParser
             bool isAllDay = true;
             bool isUTC = true;
 
-            if (_curPropToken.TokenVal == TokenValue.Tdtstart 
+            if (_curPropToken.TokenVal == TokenValue.Tdtstart
                 || _curPropToken.TokenVal == TokenValue.Tdtend
                 || _curPropToken.TokenVal == TokenValue.Texdate)
             {
@@ -129,11 +129,18 @@ namespace ASC.Api.Calendar.iCalParser
 
                         if (_curPropToken.TokenVal == TokenValue.Tdtstart)
                         {
+                            _curEvent.TimeZone = isUTC ? TimeZoneInfo.Utc : _curCalendar.TimeZone;
                             _curEvent.AllDayLong = isAllDay;
                             _curEvent.OriginalStartDate = dateTime;
 
+                            if (dateTime == DateTime.MinValue)
+                            {
+                                _curEvent.UtcStartDate = dateTime;
+                                break;
+                            }
+
                             if (!isAllDay && !isUTC && _curCalendar.TimeZone != null)
-                                _curEvent.UtcStartDate = dateTime.Subtract(_curCalendar.TimeZone.GetOffset());
+                                _curEvent.UtcStartDate = dateTime.Subtract(_curCalendar.TimeZone.GetUtcOffset(dateTime));
                             else
                                 _curEvent.UtcStartDate = dateTime;
 
@@ -141,9 +148,17 @@ namespace ASC.Api.Calendar.iCalParser
 
                         else if (_curPropToken.TokenVal == TokenValue.Tdtend)
                         {
+                            _curEvent.TimeZone = isUTC ? TimeZoneInfo.Utc : _curCalendar.TimeZone;
                             _curEvent.OriginalEndDate = dateTime;
+
+                            if (dateTime == DateTime.MinValue)
+                            {
+                                _curEvent.UtcEndDate = dateTime;
+                                break;
+                            }
+
                             if (!isAllDay && !isUTC && _curCalendar.TimeZone != null)
-                                _curEvent.UtcEndDate = dateTime.Subtract(_curCalendar.TimeZone.GetOffset());
+                                _curEvent.UtcEndDate = dateTime.Subtract(_curCalendar.TimeZone.GetUtcOffset(dateTime));
                             else if (isAllDay)
                                 _curEvent.UtcEndDate = dateTime.AddDays(-1);
                             else
@@ -160,7 +175,7 @@ namespace ASC.Api.Calendar.iCalParser
         }
 
         public void doIprop(Token t, Token iprop)
-        {         
+        {
         }
 
         public void doRest(Token t, Token id)
@@ -183,7 +198,7 @@ namespace ASC.Api.Calendar.iCalParser
                         case "x:wrtimezone":
                             _curCalendar.xTimeZone = t.TokenText;
                             break;
-        
+
                         case "x:wrcalname":
                             _curCalendar.Name = t.TokenText;
                             break;
@@ -226,12 +241,12 @@ namespace ASC.Api.Calendar.iCalParser
                     case "tzid":
                         if (!_curEvent.AllDayLong)
                         {
-                            var tz = TimeZoneConverter.GetTimeZone(val.TokenText);
+                            _curEvent.TimeZone = TimeZoneConverter.GetTimeZone(val.TokenText);
                             if (_curPropToken.TokenVal == TokenValue.Tdtstart)
-                                _curEvent.UtcStartDate = _curEvent.OriginalStartDate.Subtract(tz.GetOffset());
+                                _curEvent.UtcStartDate = _curEvent.OriginalStartDate.Subtract(_curEvent.TimeZone.GetUtcOffset(_curEvent.OriginalStartDate));
 
                             else if (_curPropToken.TokenVal == TokenValue.Tdtend)
-                                _curEvent.UtcEndDate = _curEvent.OriginalEndDate.Subtract(tz.GetOffset());
+                                _curEvent.UtcEndDate = _curEvent.OriginalEndDate.Subtract(_curEvent.TimeZone.GetUtcOffset(_curEvent.OriginalEndDate));
                         }
                         break;
                 }
@@ -240,7 +255,7 @@ namespace ASC.Api.Calendar.iCalParser
             //event rrule
             if (_curPropToken.TokenVal == TokenValue.Trrule && _component.Peek().TokenVal == TokenValue.Tvevent)
             {
-                switch(key.TokenText.ToLowerInvariant())
+                switch (key.TokenText.ToLowerInvariant())
                 {
                     case "freq":
                         _curEvent.RecurrenceRule.Freq = RecurrenceRule.ParseFrequency(val.TokenText);
@@ -264,7 +279,7 @@ namespace ASC.Api.Calendar.iCalParser
                         break;
 
                     case "byminute":
-                        _curEvent.RecurrenceRule.ByMinute= val.TokenText.Split(',').Select(v => Convert.ToInt32(v)).ToArray();
+                        _curEvent.RecurrenceRule.ByMinute = val.TokenText.Split(',').Select(v => Convert.ToInt32(v)).ToArray();
                         break;
 
                     case "byhour":
@@ -292,7 +307,7 @@ namespace ASC.Api.Calendar.iCalParser
                         break;
 
                     case "bysetpos":
-                        _curEvent.RecurrenceRule.BySetPos= val.TokenText.Split(',').Select(v => Convert.ToInt32(v)).ToArray();
+                        _curEvent.RecurrenceRule.BySetPos = val.TokenText.Split(',').Select(v => Convert.ToInt32(v)).ToArray();
                         break;
 
                     case "wkst":
@@ -301,5 +316,5 @@ namespace ASC.Api.Calendar.iCalParser
                 }
             }
         }
-    }    
+    }
 }

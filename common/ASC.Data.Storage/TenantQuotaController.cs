@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using System.Threading;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 
@@ -28,23 +29,22 @@ namespace ASC.Data.Storage
         private readonly int _tenant;
         private long _currentSize;
 
-
         public TenantQuotaController(int tenant)
         {
             _tenant = tenant;
-            _currentSize = CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(tenant))
+            _currentSize = CoreContext.TenantManager.FindTenantQuotaRows(tenant)
                                       .Where(r => UsedInQuota(r.Tag))
                                       .Sum(r => r.Counter);
         }
 
         #region IQuotaController Members
 
-        public void QuotaUsedAdd(string module, string domain, string dataTag, long size)
+        public void QuotaUsedAdd(string module, string domain, string dataTag, long size, bool quotaCheckFileSize = true)
         {
             size = Math.Abs(size);
             if (UsedInQuota(dataTag))
             {
-                QuotaUsedCheck(size);
+                QuotaUsedCheck(size, quotaCheckFileSize);
                 Interlocked.Add(ref _currentSize, size);
             }
             SetTenantQuotaRow(module, domain, size, dataTag, true);
@@ -70,20 +70,17 @@ namespace ASC.Data.Storage
             SetTenantQuotaRow(module, domain, size, dataTag, false);
         }
 
-        public long QuotaUsedGet(string module, string domain)
+        public void QuotaUsedCheck(long size)
         {
-            var path = string.IsNullOrEmpty(module) ? null : string.Format("/{0}/{1}", module, domain);
-            return CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(_tenant).WithPath(path))
-                              .Where(r => UsedInQuota(r.Tag))
-                              .Sum(r => r.Counter);
+            QuotaUsedCheck(size, true);
         }
 
-        public void QuotaUsedCheck(long size)
+        public void QuotaUsedCheck(long size, bool quotaCheckFileSize)
         {
             var quota = CoreContext.TenantManager.GetTenantQuota(_tenant);
             if (quota != null)
             {
-                if (quota.MaxFileSize != 0 && quota.MaxFileSize < size)
+                if (quotaCheckFileSize && quota.MaxFileSize != 0 && quota.MaxFileSize < size)
                 {
                     throw new TenantQuotaException(string.Format("Exceeds the maximum file size ({0}MB)", BytesToMegabytes(quota.MaxFileSize)));
                 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Bookmarking.Resources {
+namespace ASC.Web.Community.Modules.Bookmarking.Resources {
     using System;
     
     
@@ -75,15 +75,6 @@ namespace ASC.Web.Community.Bookmarking.Resources {
         public static string AddonName {
             get {
                 return ResourceManager.GetString("AddonName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bookmarks.
-        /// </summary>
-        public static string ModuleName {
-            get {
-                return ResourceManager.GetString("ModuleName", resourceCulture);
             }
         }
         

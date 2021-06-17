@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Pojo;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Util
 {
@@ -57,20 +58,20 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             var userID = comment.UserID;
 
             var c = new CommentInfo
-                {
-                    CommentID = comment.ID.ToString(),
-                    UserID = userID,
-                    TimeStamp = comment.Datetime,
-                    TimeStampStr = comment.Datetime.Ago(),
-                    Inactive = comment.Inactive,
-                    CommentBody = HtmlUtility.GetFull(comment.Content),
-                    UserFullName = DisplayUserSettings.GetFullUserName(userID),
-                    UserProfileLink = CommonLinkUtility.GetUserProfile(userID),
-                    UserAvatarPath = UserPhotoManager.GetBigPhotoURL(userID),
-                    IsEditPermissions = BookmarkingPermissionsCheck.PermissionCheckEditComment(comment),
-                    IsResponsePermissions = BookmarkingPermissionsCheck.PermissionCheckCreateComment(),
-                    UserPost = BookmarkingServiceHelper.GetUserInfo(userID).Title
-                };
+            {
+                CommentID = comment.ID.ToString(),
+                UserID = userID,
+                TimeStamp = comment.Datetime,
+                TimeStampStr = comment.Datetime.Ago(),
+                Inactive = comment.Inactive,
+                CommentBody = HtmlUtility.GetFull(comment.Content),
+                UserFullName = DisplayUserSettings.GetFullUserName(userID),
+                UserProfileLink = CommonLinkUtility.GetUserProfile(userID),
+                UserAvatarPath = UserPhotoManager.GetBigPhotoURL(userID),
+                IsEditPermissions = BookmarkingPermissionsCheck.PermissionCheckEditComment(comment),
+                IsResponsePermissions = BookmarkingPermissionsCheck.PermissionCheckCreateComment(),
+                UserPost = BookmarkingServiceHelper.GetUserInfo(userID).Title
+            };
 
             var commentsList = new List<CommentInfo>();
 

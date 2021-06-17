@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TimeAndLanguage.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TimeAndLanguage" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix langTimeZoneBlock">
     <div class="header-base-small headertitle">

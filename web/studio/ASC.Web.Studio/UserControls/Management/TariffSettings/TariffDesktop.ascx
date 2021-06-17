@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TariffDesktop.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TariffDesktop" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="auth-form-page">
     <div id="GreetingBlock" class="authForm help-block-none">

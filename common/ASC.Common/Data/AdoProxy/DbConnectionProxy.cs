@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ namespace ASC.Common.Data.AdoProxy
         private readonly ProxyContext context;
         private bool disposed;
 
-        
+
         public DbConnectionProxy(DbConnection connection, ProxyContext ctx)
         {
             if (connection == null) throw new ArgumentNullException("connection");
@@ -55,7 +55,7 @@ namespace ASC.Common.Data.AdoProxy
             connection.Close();
         }
 
-        public override string  ConnectionString
+        public override string ConnectionString
         {
             get { return connection.ConnectionString; }
             set { connection.ConnectionString = value; }

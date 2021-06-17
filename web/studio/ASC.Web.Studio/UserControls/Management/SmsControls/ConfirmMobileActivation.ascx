@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmMobileActivation.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ConfirmMobileActivation" %>
 <%@ Import Namespace="ASC.Web.Core.Sms" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="mobilephone-panel">
     <div id="errorMobileActivate" class="errorBox" style="display: none;"></div>

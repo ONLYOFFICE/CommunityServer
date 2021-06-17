@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+
 using TMResourceData.Model;
 
 namespace TMResourceData
@@ -657,7 +659,7 @@ namespace TMResourceData
             using (var dbManager = new DbManager(Dbid))
             {
                 var sql = new SqlQuery(ResDataTable + " r1")
-                    .SelectCount("r1.title")
+                    .Select("sum(LENGTH(r1.textvalue) - LENGTH(REPLACE(r1.textvalue, ' ', '')) + 1)")
                     .Select("rc.value", "rf.projectName")
                     .Select("sum(LENGTH(r2.textvalue) - LENGTH(REPLACE(r2.textvalue, ' ', '')) + 1)")
                     .InnerJoin(ResFilesTable + " as rf", Exp.EqColumns("rf.id", "r1.fileid"))
@@ -667,7 +669,7 @@ namespace TMResourceData
                     .Where("r1.resourceType", "text")
                     .Where("rf.isLock", 0)
                     .Where("r2.cultureTitle", "Neutral")
-                    .Where(!Exp.In("rf.id", new List<int>{259, 260, 261}))
+                    .Where(!Exp.In("rf.id", new List<int> { 259, 260, 261 }))
                     .GroupBy("rc.value", "rf.projectName")
                     .OrderBy("rc.value", true)
                     .OrderBy("rf.projectName", true);
@@ -681,7 +683,7 @@ namespace TMResourceData
 
                     foreach (var project in stat.Select(data => (string)data[2]).Distinct())
                     {
-                        var data = stat.Where(r => (string) r[1] == culture && (string) r[2] == project).ToList();
+                        var data = stat.Where(r => (string)r[1] == culture && (string)r[2] == project).ToList();
                         cultureData.Counts.Add(project, new Tuple<int, int>(data.Sum(r => Convert.ToInt32(r[0])), data.Sum(r => Convert.ToInt32(r[3]))));
                     }
 
@@ -703,7 +705,7 @@ namespace TMResourceData
             {
                 var sql = new SqlQuery(ResDataTable + " as r1");
 
-                sql.SelectCount().Select(ResCultureTable + ".title", "r1.authorLogin", "sum(length(r2.textvalue))")
+                sql.SelectCount().Select(ResCultureTable + ".title", "r1.authorLogin", "sum(LENGTH(r2.textvalue) - LENGTH(REPLACE(r2.textvalue, ' ', '')) + 1)")
                    .InnerJoin(ResDataTable + " as r2", Exp.And(Exp.EqColumns("r1.fileID", "r2.fileID"), Exp.EqColumns("r1.title", "r2.title")))
                    .InnerJoin(ResCultureTable, Exp.EqColumns("r1.cultureTitle", ResCultureTable + ".title"))
                    .Where(!Exp.Eq("r1.flag", 4))

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,8 +71,8 @@ namespace ASC.Core
             var tenantService = new CachedTenantService(new DbTenantService(cs));
             var userService = new CachedUserService(new DbUserService(cs));
             var azService = new CachedAzService(new DbAzService(cs));
-            var quotaService = QuotaCacheEnabled ? (IQuotaService) new CachedQuotaService(new DbQuotaService(cs)) : new DbQuotaService(cs);
-            var subService = new CachedSubscriptionService(new DbSubscriptionService(cs));
+            var quotaService = QuotaCacheEnabled ? (IQuotaService)new CachedQuotaService(new DbQuotaService(cs)) : new DbQuotaService(cs);
+            var subService = new DbSubscriptionService(cs);// new CachedSubscriptionService();
             var tariffService = new TariffService(cs, quotaService, tenantService);
 
             Configuration = new CoreConfiguration(tenantService);

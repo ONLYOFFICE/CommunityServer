@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
 using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
@@ -186,11 +187,11 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var fromFileTemplateTag = tagDao.GetTags(fromFile.ID, FileEntryType.File, TagType.Template);
 
                 var toFile = new File
-                    {
-                        Title = fromFile.Title,
-                        Encrypted = fromFile.Encrypted,
-                        FolderID = toSelector.ConvertId(toFolderId)
-                    };
+                {
+                    Title = fromFile.Title,
+                    Encrypted = fromFile.Encrypted,
+                    FolderID = toSelector.ConvertId(toFolderId)
+                };
 
                 fromFile.ID = fromSelector.ConvertId(fromFile.ID);
 
@@ -201,6 +202,15 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 {
                     toFile.ContentLength = fromFileStream.CanSeek ? fromFileStream.Length : fromFile.ContentLength;
                     toFile = toFileDao.SaveFile(toFile, fromFileStream);
+                }
+
+                if (fromFile.ThumbnailStatus == Thumbnail.Created)
+                {
+                    using (var thumbnail = fromFileDao.GetThumbnail(fromFile))
+                    {
+                        toFileDao.SaveThumbnail(toFile, thumbnail);
+                    }
+                    toFile.ThumbnailStatus = Thumbnail.Created;
                 }
 
                 if (deleteSourceFile)
@@ -249,10 +259,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                  ? toFolder.ID
                                  : toFolderDao.SaveFolder(
                                      new Folder
-                                         {
-                                             Title = fromFolder.Title,
-                                             ParentFolderID = toSelector.ConvertId(toRootFolderId)
-                                         });
+                                     {
+                                         Title = fromFolder.Title,
+                                         ParentFolderID = toSelector.ConvertId(toRootFolderId)
+                                     });
 
             var foldersToCopy = fromFolderDao.GetFolders(fromSelector.ConvertId(fromFolderId));
             var fileIdsToCopy = fromFileDao.GetFiles(fromSelector.ConvertId(fromFolderId));

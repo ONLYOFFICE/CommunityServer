@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
@@ -72,11 +74,11 @@ namespace ASC.FederatedLogin.LoginProviders
         private static LoginProfile RequestProfile(string accessToken)
         {
             var linkedInProfile = RequestHelper.PerformRequest(LinkedInProfileUrl,
-                headers: new Dictionary<string, string> {{"Authorization", "Bearer " + accessToken}});
+                headers: new Dictionary<string, string> { { "Authorization", "Bearer " + accessToken } });
             var loginProfile = ProfileFromLinkedIn(linkedInProfile);
 
             var linkedInEmail = RequestHelper.PerformRequest(LinkedInEmailUrl,
-                headers: new Dictionary<string, string> {{"Authorization", "Bearer " + accessToken}});
+                headers: new Dictionary<string, string> { { "Authorization", "Bearer " + accessToken } });
             loginProfile.EMail = EmailFromLinkedIn(linkedInEmail);
 
             return loginProfile;

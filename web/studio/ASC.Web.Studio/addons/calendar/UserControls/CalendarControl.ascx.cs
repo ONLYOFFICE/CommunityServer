@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Web.Studio.UserControls.Common;
 
 namespace ASC.Web.Calendar.UserControls
@@ -77,7 +78,7 @@ namespace ASC.Web.Calendar.UserControls
                                      .Select(tz => string.Format("{{name:\"{0}\", id:\"{1}\", offset:{2}}}",
                                                                  Common.Utils.TimeZoneConverter.GetTimeZoneName(tz),
                                                                  tz.Id,
-                                                                 (int) tz.GetOffset().TotalMinutes)));
+                                                                 (int)tz.GetOffset().TotalMinutes)));
         }
     }
 }

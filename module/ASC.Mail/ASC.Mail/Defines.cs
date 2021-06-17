@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+
 using ASC.Core;
 using ASC.Web.Studio.Core;
 
@@ -198,7 +199,7 @@ namespace ASC.Mail
         public const string ORDER_BY_SUBJECT = "subject";
         public const string CONNECTION_STRING_NAME = "mail";
         public const string DNS_DEFAULT_ORIGIN = "@";
-        public const string ARCHIVE_NAME = "download.zip";
+        public const string ARCHIVE_NAME = "download.tar.gz";
         public static readonly DateTime BaseJsDateTime = new DateTime(1970, 1, 1);
 
         public enum TariffType
@@ -385,8 +386,8 @@ namespace ASC.Mail
         }
 
         public static Dictionary<string, string> MxToDomainBusinessVendorsList
-        { 
-            get; private set; 
+        {
+            get; private set;
         }
 
         public static int MailOperationsLimit

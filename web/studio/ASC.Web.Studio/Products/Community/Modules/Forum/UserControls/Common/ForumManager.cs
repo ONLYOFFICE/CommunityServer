@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections;
 using System.Web;
+
 using ASC.Data.Storage;
 using ASC.Forum;
 using ASC.Web.Core.Users;
@@ -48,11 +49,11 @@ namespace ASC.Web.UserControls.Forum.Common
         internal static string ForumScriptKey { get { return "__forum_core_script"; } }
         internal static string SearchHelperScriptKey { get { return "__searchhelper_core_script"; } }
 
-        private static object _syncObj = new object();
+        private static readonly object _syncObj = new object();
 
-        private static Hashtable _settingsCollection;
+        private static readonly Hashtable _settingsCollection;
 
-        private SecurityActionValidator _securityValidator;
+        private readonly SecurityActionValidator _securityValidator;
 
         public IPresenterFactory PresenterFactory { get; private set; }
 

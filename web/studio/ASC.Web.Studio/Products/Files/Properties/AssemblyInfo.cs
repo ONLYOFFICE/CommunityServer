@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
+
 using ASC.Web.Core;
 
 [assembly: AssemblyTitle("ASC.Web.Files")]

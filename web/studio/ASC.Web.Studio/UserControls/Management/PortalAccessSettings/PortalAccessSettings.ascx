@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortalAccessSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PortalAccessSettings" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <% if (Enabled)
    { %>
 <div class="clearFix">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,15 @@
 
 
 using System;
+
 using ASC.Web.Core.Utility.Skins;
 
 namespace ASC.Web.Core
 {
     public static class ProductModuleExtension
     {
-        
-        
+
+
         public static string GetSmallIconAbsoluteURL(this IModule module)
         {
             if (module == null || module.Context == null || String.IsNullOrEmpty(module.Context.SmallIconFileName))

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,10 @@
 
 using ASC.Bookmarking;
 using ASC.Bookmarking.Common;
-using ASC.Web.Community.Bookmarking.Resources;
 using ASC.Web.Community.Bookmarking.Util;
+using ASC.Web.Community.Modules.Bookmarking.Resources;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common;
-using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 
 namespace ASC.Web.Community.Bookmarking
 {

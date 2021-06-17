@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,13 @@
 
 using System;
 using System.Web;
+
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
+
 using Report = ASC.Web.Projects.Classes.Report;
 
 namespace ASC.Web.Projects.Controls.Reports
@@ -34,7 +36,7 @@ namespace ASC.Web.Projects.Controls.Reports
         {
             reportTemplateContainer.Options.IsPopup = true;
             InitReport();
-            Page.Title = HeaderStringHelper.GetPageTitle(string.Format(ReportResource.ReportPageTitle, Report.ReportInfo.Title)); 
+            Page.Title = HeaderStringHelper.GetPageTitle(string.Format(ReportResource.ReportPageTitle, Report.ReportInfo.Title));
         }
 
         private void InitReport()
@@ -43,7 +45,7 @@ namespace ASC.Web.Projects.Controls.Reports
             var reportType = Request["reportType"];
             if (string.IsNullOrEmpty(reportType)) return;
 
-            Report = Report.CreateNewReport((ReportType) int.Parse(reportType), filter);
+            Report = Report.CreateNewReport((ReportType)int.Parse(reportType), filter);
 
             var filters = (ReportFilters)LoadControl(PathProvider.GetFileStaticRelativePath("Reports/ReportFilters.ascx"));
             filters.Report = Report;

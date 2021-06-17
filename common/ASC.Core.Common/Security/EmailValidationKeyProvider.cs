@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
 */
 
 
-using ASC.Core;
 using System;
-using System.Configuration;
 using System.Text;
+
 using ASC.Common.Logging;
+using ASC.Core;
 
 namespace ASC.Security.Cryptography
 {
@@ -95,7 +95,7 @@ namespace ASC.Security.Cryptography
             var key2_good = String.Compare(parts[1], key2, StringComparison.InvariantCultureIgnoreCase) == 0;
             if (!key2_good) return ValidationResult.Invalid;
             var ms_current = (long)(DateTime.UtcNow - _from).TotalMilliseconds;
-            return validInterval >= TimeSpan.FromMilliseconds(ms_current - ms)?ValidationResult.Ok : ValidationResult.Expired;
+            return validInterval >= TimeSpan.FromMilliseconds(ms_current - ms) ? ValidationResult.Ok : ValidationResult.Expired;
         }
 
         internal static string DoStringFromBytes(byte[] data)

@@ -97,15 +97,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Additional information.
-        /// </summary>
-        public static string AdditionalContactInformation {
-            get {
-                return ResourceManager.GetString("AdditionalContactInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add new address.
         /// </summary>
         public static string AddNewAddress {
@@ -129,24 +120,6 @@ namespace ASC.Web.CRM.Resources {
         public static string AddNewContact {
             get {
                 return ResourceManager.GetString("AddNewContact", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add email.
-        /// </summary>
-        public static string AddNewEmail {
-            get {
-                return ResourceManager.GetString("AddNewEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add phone.
-        /// </summary>
-        public static string AddNewPhone {
-            get {
-                return ResourceManager.GetString("AddNewPhone", resourceCulture);
             }
         }
         
@@ -524,7 +497,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can upload an image file in PNG or JPG format not larger than {1}200x300 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}{0}{2}..
+        ///   Looks up a localized string similar to You can upload an image not larger than {1}200x300 pixels{2}, otherwise resizing will take place. The maximum image size cannot exceed {1}{0}{2}..
         /// </summary>
         public static string ContactPhotoInfo {
             get {
@@ -641,15 +614,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your Twitter account name. For example, teamlabdotcom.
-        /// </summary>
-        public static string ContactTwitterDescription {
-            get {
-                return ResourceManager.GetString("ContactTwitterDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contact Type.
         /// </summary>
         public static string ContactType {
@@ -749,29 +713,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create task.
-        /// </summary>
-        public static string CreateTask {
-            get {
-                return ResourceManager.GetString("CreateTask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customer.
         /// </summary>
         public static string Customer {
             get {
                 return ResourceManager.GetString("Customer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Companies.
-        /// </summary>
-        public static string Dashboard {
-            get {
-                return ResourceManager.GetString("Dashboard", resourceCulture);
             }
         }
         
@@ -830,29 +776,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deselect all.
-        /// </summary>
-        public static string DeselectAll {
-            get {
-                return ResourceManager.GetString("DeselectAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Do not import this field.
         /// </summary>
         public static string DoNotImportThisField {
             get {
                 return ResourceManager.GetString("DoNotImportThisField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        public static string Edit {
-            get {
-                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -898,15 +826,6 @@ namespace ASC.Web.CRM.Resources {
         public static string EditProfilePerson {
             get {
                 return ResourceManager.GetString("EditProfilePerson", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -1010,15 +929,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The uploaded file could not be found.
-        /// </summary>
-        public static string ErrorEmptyUploadFileSelected {
-            get {
-                return ResourceManager.GetString("ErrorEmptyUploadFileSelected", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid email.
         /// </summary>
         public static string ErrorInvalidEmail {
@@ -1033,24 +943,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ErrorInvalidPhone {
             get {
                 return ResourceManager.GetString("ErrorInvalidPhone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to all users (including the deleted users).
-        /// </summary>
-        public static string Everyone {
-            get {
-                return ResourceManager.GetString("Everyone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Files.
-        /// </summary>
-        public static string Files {
-            get {
-                return ResourceManager.GetString("Files", resourceCulture);
             }
         }
         
@@ -1271,15 +1163,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload photo.
-        /// </summary>
-        public static string LoadPhoto {
-            get {
-                return ResourceManager.GetString("LoadPhoto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Upload photo from PC.
         /// </summary>
         public static string LoadPhotoFromPC {
@@ -1424,7 +1307,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select the contact which is duplicated by the current contact. The two contact data will be combined and the current contact will be deleted..
+        ///   Looks up a localized string similar to Please select the contact which is duplicated by the current contact. Once the contact is selected, click Start Merging Contacts. The two contact data will be combined and the current contact will be deleted..
         /// </summary>
         public static string MergePanelDescriptionText {
             get {
@@ -1519,15 +1402,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Overview {
             get {
                 return ResourceManager.GetString("Overview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to People.
-        /// </summary>
-        public static string People {
-            get {
-                return ResourceManager.GetString("People", resourceCulture);
             }
         }
         
@@ -1640,42 +1514,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a text to search.
-        /// </summary>
-        public static string SearchText {
-            get {
-                return ResourceManager.GetString("SearchText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select a CSV file.
-        /// </summary>
-        public static string SelectCSVFileButton {
-            get {
-                return ResourceManager.GetString("SelectCSVFileButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show.
-        /// </summary>
-        public static string Show {
-            get {
-                return ResourceManager.GetString("Show", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show all the results.
-        /// </summary>
-        public static string ShowAllSearchResult {
-            get {
-                return ResourceManager.GetString("ShowAllSearchResult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Go to profile.
         /// </summary>
         public static string ShowContactProfile {
@@ -1703,29 +1541,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show on page.
-        /// </summary>
-        public static string ShowOnPage {
-            get {
-                return ResourceManager.GetString("ShowOnPage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Staff.
         /// </summary>
         public static string Staff {
             get {
                 return ResourceManager.GetString("Staff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact type.
-        /// </summary>
-        public static string Stage {
-            get {
-                return ResourceManager.GetString("Stage", resourceCulture);
             }
         }
         
@@ -1748,38 +1568,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tag.
-        /// </summary>
-        public static string Tag {
-            get {
-                return ResourceManager.GetString("Tag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tags.
-        /// </summary>
-        public static string Tags {
-            get {
-                return ResourceManager.GetString("Tags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to We will add the text watermark to your letter like &quot;Powered by ONLYOFFICE.com&quot;. You can see it in the next (message preview) step..
         /// </summary>
         public static string TeamlabWatermarkInfo {
             get {
                 return ResourceManager.GetString("TeamlabWatermarkInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Position.
-        /// </summary>
-        public static string Title {
-            get {
-                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
         
@@ -1793,7 +1586,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact types let you characterize your potential customers in a certain way. The default contact types are cold, warm and hot which mean the contact&apos;s willingness to purchase your product. To be able to edit them, the administrator rights are needed..
+        ///   Looks up a localized string similar to Contact types let you characterize your contacts based on their role in relation to the organization. The default contact types are &quot;Client&quot;, &quot;Competitor&quot;, &quot;Partner&quot;,  and &quot;Supplier&quot;. To be able to edit them, administrator rights are required..
         /// </summary>
         public static string TooltipTypes {
             get {
@@ -1807,24 +1600,6 @@ namespace ASC.Web.CRM.Resources {
         public static string TotalContacts {
             get {
                 return ResourceManager.GetString("TotalContacts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total found.
-        /// </summary>
-        public static string TotalFinded {
-            get {
-                return ResourceManager.GetString("TotalFinded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show info.
-        /// </summary>
-        public static string ViewInfo {
-            get {
-                return ResourceManager.GetString("ViewInfo", resourceCulture);
             }
         }
         

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddDiscussion" xml:space="preserve">
     <value>Save</value>
@@ -131,6 +72,12 @@
   </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>No comments for this discussion could be found.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>No comments found</value>
   </data>
   <data name="CreateDiscussion" xml:space="preserve">
     <value>Create new discussion</value>
@@ -150,8 +97,14 @@
   <data name="DescrEmptyListMilFilter" xml:space="preserve">
     <value>No discussions matching your filter can be displayed in this section.</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="DiscussionNotFound_Describe" xml:space="preserve">
     <value>Discussions are used to find the right solution with your project team to any sort of problems which may occur once the project is underway. Discuss all the issues with your colleagues, invite users from other projects to join your discussion.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>Discussions are used to find the right solution with your project team to any sort of problems which may occur once the project is underway. Discuss all the issues with your colleagues.</value>
   </data>
   <data name="DiscussionNotFound_Header" xml:space="preserve">
     <value>No discussions have been started yet</value>
@@ -168,9 +121,6 @@
   <data name="FilterNoDiscussions" xml:space="preserve">
     <value>There are no discussions matching this filter</value>
   </data>
-  <data name="From" xml:space="preserve">
-    <value>Author</value>
-  </data>
   <data name="Message" xml:space="preserve">
     <value>Discussion</value>
   </data>
@@ -183,17 +133,11 @@
   <data name="MessageTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="NewMessage" xml:space="preserve">
-    <value>New Discussion</value>
-  </data>
   <data name="OpenDiscussion" xml:space="preserve">
     <value>Open</value>
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Read more</value>
-  </data>
-  <data name="SavingMessage" xml:space="preserve">
-    <value>Saving message...</value>
   </data>
   <data name="SelectProject" xml:space="preserve">
     <value>Select the project</value>
@@ -201,25 +145,10 @@
   <data name="StartFirstDiscussion" xml:space="preserve">
     <value>Start the first discussion</value>
   </data>
-  <data name="SubscribePeopleInfo" xml:space="preserve">
-    <value>Invite project participants to discussion</value>
-  </data>
   <data name="SubscribePeopleInfoComment" xml:space="preserve">
     <value>The people you select will be informed about the message and the comments to it.</value>
   </data>
   <data name="SubscribeUsers" xml:space="preserve">
     <value>Notify</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
-    <value>No comments for this discussion could be found.</value>
-  </data>
-  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
-    <value>No comments found</value>
-  </data>
-  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
-    <value>Discussions are used to find the right solution with your project team to any sort of problems which may occur once the project is underway. Discuss all the issues with your colleagues, invite users from other projects to join your discussion.</value>
   </data>
 </root>

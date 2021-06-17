@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Routing;
+
 using ASC.Api.Attributes;
 
 namespace ASC.Api.Interfaces
@@ -40,6 +41,6 @@ namespace ASC.Api.Interfaces
         bool CheckPayment { get; set; }
         object Invoke(object instance, object[] args);
         IEnumerable<ApiCallFilter> Filters { get; set; }
-        ICollection<IApiResponder> Responders { get; set; } 
+        ICollection<IApiResponder> Responders { get; set; }
     }
 }

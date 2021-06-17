@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.Core.Quota;
 
@@ -55,7 +56,7 @@ namespace ASC.Web.Files.Controls
 
             using (var ms = new MemoryStream())
             {
-                var serializer = new DataContractJsonSerializer(typeof (QuotaWrapper));
+                var serializer = new DataContractJsonSerializer(typeof(QuotaWrapper));
                 serializer.WriteObject(ms, quota);
                 ms.Seek(0, SeekOrigin.Begin);
 

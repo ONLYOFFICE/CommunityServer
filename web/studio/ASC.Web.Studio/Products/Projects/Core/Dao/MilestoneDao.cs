@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Collections;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
+using ASC.ElasticSearch;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
-using ASC.ElasticSearch;
 using ASC.Web.Projects;
 using ASC.Web.Projects.Core.Search;
 
@@ -140,6 +141,8 @@ namespace ASC.Projects.Data.DAO
 
         public List<Tuple<Guid, int, int>> GetByFilterCountForReport(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
+            filter = (TaskFilter)filter.Clone();
+
             var query = new SqlQuery(MilestonesTable + " t")
                 .InnerJoin(ProjectsTable + " p", Exp.EqColumns("t.project_id", "p.id") & Exp.EqColumns("t.tenant_id", "p.tenant_id"))
                 .Select("t.create_by", "t.project_id")
@@ -238,8 +241,8 @@ namespace ASC.Projects.Data.DAO
                 .Where("p.status", ProjectStatus.Open)
                 .Where("t.is_notify", 1);
 
-                return Db.ExecuteList(q)
-                    .ConvertAll(r => new object[] { Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2]) });
+            return Db.ExecuteList(q)
+                .ConvertAll(r => new object[] { Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2]) });
         }
 
         public virtual Milestone Save(Milestone milestone)

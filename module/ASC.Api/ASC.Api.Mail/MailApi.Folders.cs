@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+
 using ASC.Api.Attributes;
 using ASC.Mail;
 using ASC.Mail.Core.Engine.Operations.Base;
@@ -59,7 +60,7 @@ namespace ASC.Api.Mail
         [Delete(@"folders/{folderid:[0-9]+}/messages")]
         public int RemoveFolderMessages(int folderid)
         {
-            var folderType = (FolderType) folderid;
+            var folderType = (FolderType)folderid;
 
             if (folderType == FolderType.Trash || folderType == FolderType.Spam)
             {

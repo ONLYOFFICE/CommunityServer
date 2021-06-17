@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 */
 
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Forum;
 using ASC.Specific;
@@ -26,19 +26,19 @@ using ASC.Specific;
 namespace ASC.Api.Forums
 {
     [DataContract(Name = "topic", Namespace = "")]
-    public class ForumTopicWrapperFull:ForumTopicWrapper
+    public class ForumTopicWrapperFull : ForumTopicWrapper
     {
         [DataMember(Order = 100)]
         public List<ForumTopicPostWrapper> Posts { get; set; }
 
 
-        public ForumTopicWrapperFull(Topic topic,IEnumerable<Post> posts) : base(topic)
+        public ForumTopicWrapperFull(Topic topic, IEnumerable<Post> posts) : base(topic)
         {
-            if (topic.Type==TopicType.Poll)
+            if (topic.Type == TopicType.Poll)
             {
                 //TODO: Deal with polls
             }
-            Posts = posts.Where(x=>x.IsApproved).Select(x => new ForumTopicPostWrapper(x)).ToList();
+            Posts = posts.Where(x => x.IsApproved).Select(x => new ForumTopicPostWrapper(x)).ToList();
         }
 
         private ForumTopicWrapperFull()
@@ -59,7 +59,7 @@ namespace ASC.Api.Forums
                 Tags = new List<string> { "Tag1", "Tag2" },
                 Title = "Sample topic",
                 Type = TopicType.Informational,
-                Posts = new List<ForumTopicPostWrapper> { ForumTopicPostWrapper.GetSample()}
+                Posts = new List<ForumTopicPostWrapper> { ForumTopicPostWrapper.GetSample() }
             };
         }
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,16 @@
 
 
 using System;
-using System.Linq;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
-using ASC.Data.Storage.Configuration;
+
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+
 using ASC.Core;
+using ASC.Data.Storage.Configuration;
 
 namespace ASC.Data.Storage.S3
 {
@@ -87,7 +89,7 @@ namespace ASC.Data.Storage.S3
                     nextUploadIdMarker = response.NextUploadIdMarker;
                 }
                 while (isTruncated);
-                
+
             }
         }
 
@@ -105,7 +107,7 @@ namespace ASC.Data.Storage.S3
 
         private AmazonS3Client GetClient()
         {
-            var s3Config = new AmazonS3Config {UseHttp = true, MaxErrorRetry = 3, RegionEndpoint = RegionEndpoint.GetBySystemName(region)};
+            var s3Config = new AmazonS3Config { UseHttp = true, MaxErrorRetry = 3, RegionEndpoint = RegionEndpoint.GetBySystemName(region) };
             return new AmazonS3Client(accessKey, secretAccessKey, s3Config);
         }
 

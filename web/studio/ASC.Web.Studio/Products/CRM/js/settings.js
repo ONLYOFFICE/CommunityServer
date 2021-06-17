@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -202,8 +202,8 @@ ASC.CRM.SettingsPage = (function() {
                 var selectedItem = new Array();
                 jq("#manageField dd.select_options :input").each(function() {
                     var value = jq(this).val().trim();
-                    if (value == "") { return; }
-                    selectedItem.push(jq(this).val());
+                    if (value == "" || selectedItem.indexOf(value) != -1) { return; }
+                    selectedItem.push(value);
                 });
 
                 if (selectedItem.length == 0) {
@@ -656,7 +656,9 @@ ASC.CRM.SettingsPage = (function() {
 
         toSelectBox: function(buttonObj) {
             var ulObj = jq(buttonObj).prev();
-            ulObj.children(":first").clone().show().appendTo(ulObj).focus();
+            var optionObj = ulObj.children(":first").clone().show();
+            optionObj.appendTo(ulObj);
+            optionObj.find("input.textEdit").focus();
         },
 
         toggleCollapceExpand: function(elem) {
@@ -696,7 +698,7 @@ ASC.CRM.SettingsPage = (function() {
                         } else {
                             if (response.isCompleted) {
                                 $edt.find("#exportLinkBox span").html(
-                                    jq("<a></a>").attr("href", response.fileUrl).text(response.fileName)
+                                    jq("<a></a>").attr("href", response.fileUrl).attr("download", response.fileName).text(response.fileName)
                                 );
                                 $edt.find("p.header-base-small").hide();
                                 $edt.find("#exportLinkBox").show();

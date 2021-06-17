@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -70,7 +71,7 @@ namespace ASC.Mail.Core.Dao
                         Exp.EqColumns(CrmContactTable.Columns.Id.Prefix(CC_ALIAS),
                             CrmContactInfoTable.Columns.ContactId.Prefix(CCI_ALIAS)))
                     .Where(CrmContactTable.Columns.Tenant.Prefix(CC_ALIAS), Tenant)
-                    .Where(CrmContactInfoTable.Columns.Type.Prefix(CCI_ALIAS), (int) ContactInfoType.Email)
+                    .Where(CrmContactInfoTable.Columns.Type.Prefix(CCI_ALIAS), (int)ContactInfoType.Email)
                     .Where(CrmContactInfoTable.Columns.Data.Prefix(CCI_ALIAS), email);
 
                 var contactList = Db.ExecuteList(q)
@@ -80,7 +81,7 @@ namespace ASC.Mail.Core.Dao
                             {
                                 Id = Convert.ToInt32(r[0]),
                                 Company = Convert.ToBoolean(r[1]),
-                                ShareType = (ShareType) Convert.ToInt32(r[2])
+                                ShareType = (ShareType)Convert.ToInt32(r[2])
                             });
 
                 if (!contactList.Any())
@@ -93,7 +94,7 @@ namespace ASC.Mail.Core.Dao
                 {
                     var contact = info.Company
                         ? new Company()
-                        : (Contact) new Person();
+                        : (Contact)new Person();
 
                     contact.ID = info.Id;
                     contact.ShareType = info.ShareType;

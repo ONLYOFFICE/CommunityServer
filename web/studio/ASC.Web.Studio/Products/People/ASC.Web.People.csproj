@@ -15,10 +15,8 @@
     <RootNamespace>ASC.Web.People</RootNamespace>
     <AssemblyName>ASC.Web.People</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
     <OutputPath>..\..\bin\</OutputPath>
@@ -41,6 +39,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Compile Include="Classes\ImportParameters.cs" />
@@ -106,16 +105,6 @@
       <DependentUpon>ProfileAction.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\PeopleJSResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PeopleJSResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\PeopleResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PeopleResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\SideButtonsPanel.ascx.cs">
       <DependentUpon>SideButtonsPanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -198,15 +187,250 @@
     <Content Include="UserControls\SideNavigationPanel.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\PeopleJSResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\PeopleJSResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleJSResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\PeopleJSResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\PeopleResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PeopleResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\PeopleResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\PeopleResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.be.resx" Condition="$(Cultures.Contains('be'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.sr-Latn-CS.resx" Condition="$(Cultures.Contains('sr-Latn-CS'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.tg-Cyrl-TJ.resx" Condition="$(Cultures.Contains('tg-Cyrl-TJ'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>PeopleResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.be.resx" Condition="$(Cultures.Contains('be'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.ga.resx" Condition="$(Cultures.Contains('ga'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.tg-Cyrl-TJ.resx" Condition="$(Cultures.Contains('tg-Cyrl-TJ'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PeopleJSResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>PeopleJSResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

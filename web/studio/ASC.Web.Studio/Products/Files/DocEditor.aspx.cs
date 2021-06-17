@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,9 +41,8 @@ using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-
-using Resources;
 
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
@@ -165,7 +164,7 @@ namespace ASC.Web.Files
 
             if (_configuration != null && !string.IsNullOrEmpty(_configuration.DocumentType))
             {
-                Favicon = WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/" + _configuration.DocumentType + ".ico");
+                Favicon = WebImageSupplier.GetAbsoluteWebPath("logo/" + _configuration.DocumentType + ".ico");
             }
         }
 
@@ -399,12 +398,12 @@ namespace ASC.Web.Files
                 docServiceParams.FileProviderKey = _configuration.Document.Info.File.ProviderKey;
                 docServiceParams.FileVersion = _configuration.Document.Info.File.Version;
 
-                _configuration.Token = DocumentServiceHelper.GetSignature(_configuration);
-
-                if (!string.IsNullOrEmpty(_configuration.Token))
+                if (!string.IsNullOrEmpty(FileUtility.SignatureSecret))
                 {
                     _configuration.EditorConfig.CallbackUrl = DocumentServiceTracker.GetCallbackUrl(_configuration.Document.Info.File.ID.ToString());
                 }
+
+                _configuration.Token = DocumentServiceHelper.GetSignature(_configuration);
             }
 
             if (Request.DesktopApp() && SecurityContext.IsAuthenticated)
@@ -422,18 +421,6 @@ namespace ASC.Web.Files
                                       Services.DocumentService.Configuration.Serialize(_configuration));
 
             InlineScripts.Scripts.Add(new Tuple<string, bool>(inlineScript.ToString(), false));
-        }
-
-        protected string RenderCustomScript()
-        {
-            var sb = new StringBuilder();
-            //custom scripts
-            foreach (var script in SetupInfo.CustomScripts.Where(script => !String.IsNullOrEmpty(script)))
-            {
-                sb.AppendFormat("<script language=\"javascript\" src=\"{0}\" type=\"text/javascript\"></script>", script);
-            }
-
-            return sb.ToString();
         }
 
         private string GetPageTitlePostfix()

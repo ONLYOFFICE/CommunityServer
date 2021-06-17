@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,21 +24,21 @@ namespace ASC.Data.Storage.Configuration
         [ConfigurationProperty(Schema.NAME, IsRequired = true, IsKey = true)]
         public string Name
         {
-            get { return (string) this[Schema.NAME]; }
+            get { return (string)this[Schema.NAME]; }
             set { this[Schema.NAME] = value; }
         }
 
         [ConfigurationProperty(Schema.APPEND, IsRequired = true)]
         public string Append
         {
-            get { return (string) this[Schema.APPEND]; }
+            get { return (string)this[Schema.APPEND]; }
             set { this[Schema.APPEND] = value; }
         }
 
         [ConfigurationProperty(Schema.APPENDSECURE)]
         public string AppendSecure
         {
-            get { return (string) this[Schema.APPENDSECURE]; }
+            get { return (string)this[Schema.APPENDSECURE]; }
             set { this[Schema.APPENDSECURE] = value; }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.People.Core
 {
@@ -77,13 +78,13 @@ namespace ASC.Web.People.Core
                                         }
 
                                         return new SearchResultItem
-                                            {
-                                                Name = user.DisplayUserName(false),
-                                                Description = description,
-                                                URL = CommonLinkUtility.GetUserProfile(user.ID),
-                                                Date = user.WorkFromDate,
-                                                Additional = new Dictionary<string, object> { { "imageRef", user.GetSmallPhotoURL() }, { "showIcon", true }, { "Hint", Resources.PeopleResource.ProductName } }
-                                            };
+                                        {
+                                            Name = user.DisplayUserName(false),
+                                            Description = description,
+                                            URL = CommonLinkUtility.GetUserProfile(user.ID),
+                                            Date = user.WorkFromDate,
+                                            Additional = new Dictionary<string, object> { { "imageRef", user.GetSmallPhotoURL() }, { "showIcon", true }, { "Hint", Resources.PeopleResource.ProductName } }
+                                        };
                                     }).ToArray();
         }
     }

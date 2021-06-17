@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PwdTool.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Users.UserProfile.PwdTool" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 

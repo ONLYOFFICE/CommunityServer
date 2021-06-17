@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+
 using ASC.Common.Logging;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Data.Storage;

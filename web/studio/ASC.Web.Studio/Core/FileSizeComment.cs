@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 
 
 using System;
+
 using ASC.Core.Tenants;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.Core
 {
@@ -125,15 +126,15 @@ namespace ASC.Web.Studio.Core
         /// <returns>10 b, 100 Kb, 25 Mb, 1 Gb</returns>
         public static string FilesSizeToString(long size)
         {
-            var sizeNames = !string.IsNullOrEmpty(Resource.FileSizePostfix) ? Resource.FileSizePostfix.Split(',') : new[] {"bytes", "KB", "MB", "GB", "TB"};
+            var sizeNames = !string.IsNullOrEmpty(Resource.FileSizePostfix) ? Resource.FileSizePostfix.Split(',') : new[] { "bytes", "KB", "MB", "GB", "TB" };
             var power = 0;
 
             double resultSize = size;
             if (1024 <= resultSize)
             {
-                power = (int) Math.Log(resultSize, 1024);
+                power = (int)Math.Log(resultSize, 1024);
                 power = power < sizeNames.Length ? power : sizeNames.Length - 1;
-                resultSize = resultSize/Math.Pow(1024d, power);
+                resultSize = resultSize / Math.Pow(1024d, power);
             }
             return string.Format("{0:#,0.##} {1}", resultSize, sizeNames[power]);
         }

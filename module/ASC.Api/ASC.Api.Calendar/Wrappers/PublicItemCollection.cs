@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,10 @@
 */
 
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
+
 using ASC.Core;
-using ASC.Api.Calendar.BusinessObjects;
 using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Calendar.Wrappers
@@ -46,7 +43,7 @@ namespace ASC.Api.Calendar.Wrappers
 
         public static object GetSample()
         {
-            return new {actions=new List<object>(){AccessOption.GetSample()}, items = new List<object>(){PublicItemWrapper.GetSample()}};
+            return new { actions = new List<object>() { AccessOption.GetSample() }, items = new List<object>() { PublicItemWrapper.GetSample() } };
         }
 
         public static PublicItemCollection GetDefault()
@@ -54,10 +51,10 @@ namespace ASC.Api.Calendar.Wrappers
             var sharingOptions = new PublicItemCollection();
             sharingOptions.Items.Add(new PublicItemWrapper(
                 new ASC.Web.Core.Calendars.SharingOptions.PublicItem()
-                    {
-                        Id = SecurityContext.CurrentAccount.ID,
-                        IsGroup = false
-                    },
+                {
+                    Id = SecurityContext.CurrentAccount.ID,
+                    IsGroup = false
+                },
             "0", SecurityContext.CurrentAccount.ID));
             return sharingOptions;
         }
@@ -66,14 +63,14 @@ namespace ASC.Api.Calendar.Wrappers
         {
             var sharingOptions = new PublicItemCollection();
             sharingOptions.Items.Add(new PublicItemWrapper(new ASC.Web.Core.Calendars.SharingOptions.PublicItem()
-                   {
-                       Id = calendar.OwnerId,
-                       IsGroup = false
-                   },
+            {
+                Id = calendar.OwnerId,
+                IsGroup = false
+            },
                   calendar.Id.ToString(), calendar.OwnerId));
-            foreach (var item in calendar.SharingOptions.PublicItems)            
+            foreach (var item in calendar.SharingOptions.PublicItems)
                 sharingOptions.Items.Add(new PublicItemWrapper(item, calendar.Id.ToString(), calendar.OwnerId));
-            
+
             return sharingOptions;
         }
 

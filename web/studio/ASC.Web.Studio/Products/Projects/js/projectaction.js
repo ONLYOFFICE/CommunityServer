@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -164,7 +164,7 @@ ASC.Projects.ProjectAction = (function() {
                 return item.id !== projectResponsible;
             });
             if ($projectManagerSelector.attr("data-id") == currentUserId) {
-                $projectManagerSelector.useradvancedSelector("selectBeforeShow", { id: currentUserId, title: ASC.Resources.Master.Resource.MeLabel });
+                $projectManagerSelector.useradvancedSelector("selectBeforeShow", { id: currentUserId, title: ASC.Resources.Master.ResourceJS.MeLabel });
             }
             displayProjectTeam();
         }
@@ -390,9 +390,9 @@ ASC.Projects.ProjectAction = (function() {
                 security: [
                     security(item, "canReadMessages", resources.MessageResource.Messages),
                     security(item, "canReadFiles", resources.ProjectsFileResource.Documents),
-                    security(item, "canReadTasks", resources.TasksResource.AllTasks),
+                    security(item, "canReadTasks", resources.TaskResource.AllTasks),
                     security(item, "canReadMilestones", resources.MilestoneResource.Milestones),
-                    security(item, "canReadContacts", resources.CommonResource.ModuleContacts, item.isVisitor)
+                    security(item, "canReadContacts", resources.ProjectsCommonResource.ModuleContacts, item.isVisitor)
                 ]
             }, item);
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Core.Tenants;
 
 namespace ASC.Web.UserControls.Wiki.Data
@@ -38,7 +39,7 @@ namespace ASC.Web.UserControls.Wiki.Data
         {
             get { return _FileName; }
             set { _FileName = value.Replace("[", "(").Replace("]", ")"); }
-        }               
+        }
         public string UploadFileName { get; set; }
         public string FileLocation { get; set; }
         public int FileSize { get; set; }
@@ -48,6 +49,6 @@ namespace ASC.Web.UserControls.Wiki.Data
         {
             UploadFileName = FileLocation = string.Empty;
             Date = TenantUtil.DateTimeNow();
-        }      
+        }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,12 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+
 using ASC.Api;
 using ASC.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.Files.Utils
@@ -81,7 +83,7 @@ namespace ASC.Web.Files.Utils
             var responseCreateString = Encoding.UTF8.GetString(Convert.FromBase64String(Api.GetApiResponse(apiUrlCreate, "PUT", bodyCreate)));
             var responseCreate = JObject.Parse(responseCreateString);
 
-            if (responseCreate["statusCode"].Value<int>() != (int) HttpStatusCode.OK)
+            if (responseCreate["statusCode"].Value<int>() != (int)HttpStatusCode.OK)
             {
                 throw new Exception("Create draft failed: " + responseCreate["error"]["message"].Value<string>());
             }
@@ -101,7 +103,7 @@ namespace ASC.Web.Files.Utils
                                              MessageId,
                                              AttachTitle);
 
-            var request = (HttpWebRequest) WebRequest.Create(CommonLinkUtility.GetFullAbsolutePath(apiUrlAttach));
+            var request = (HttpWebRequest)WebRequest.Create(CommonLinkUtility.GetFullAbsolutePath(apiUrlAttach));
             request.Method = "POST";
             request.ContentType = MimeMapping.GetMimeMapping(AttachTitle);
             request.ContentLength = Attach.Length;
@@ -134,7 +136,7 @@ namespace ASC.Web.Files.Utils
 
             var responseAttach = JObject.Parse(responseAttachString);
 
-            if (responseAttach["statusCode"].Value<int>() != (int) HttpStatusCode.Created)
+            if (responseAttach["statusCode"].Value<int>() != (int)HttpStatusCode.Created)
             {
                 throw new Exception("Attach failed: " + responseAttach["error"]["message"].Value<string>());
             }

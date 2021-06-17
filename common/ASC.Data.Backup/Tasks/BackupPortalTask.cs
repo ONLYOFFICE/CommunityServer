@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+using ASC.Common;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -95,9 +96,10 @@ namespace ASC.Data.Backup.Tasks
 
         private void DoDump(IDataWriteOperator writer)
         {
-            var tmp = Path.GetTempFileName();
-            File.AppendAllText(tmp, true.ToString());
-            writer.WriteEntry(KeyHelper.GetDumpKey(), tmp);
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(true.ToString())))
+            {
+                writer.WriteEntry(KeyHelper.GetDumpKey(), stream);
+            }
 
             List<string> tables;
             var files = new List<BackupFileInfo>();
@@ -237,7 +239,7 @@ namespace ASC.Data.Backup.Tasks
                 using (var dbManager = new DbManager("default", 100000))
                 {
                     dbManager.ExecuteNonQuery("analyze table " + t);
-                    return dbManager.ExecuteScalar<int>(new SqlQuery("information_schema.`TABLES`").Select("table_rows").Where("TABLE_NAME", t));
+                    return dbManager.ExecuteScalar<int>(new SqlQuery("information_schema.`TABLES`").Select("table_rows").Where("TABLE_NAME", t).Where("TABLE_SCHEMA", dbManager.Connection.Database));
                 }
             }
             catch (Exception e)
@@ -460,13 +462,12 @@ namespace ASC.Data.Backup.Tasks
             var tmpPath = Path.Combine(subDir, KeyHelper.GetStorageRestoreInfoZipKey());
             Directory.CreateDirectory(Path.GetDirectoryName(tmpPath));
 
-            using (var tmpFile = File.OpenWrite(tmpPath))
+            using (var tmpFile = new FileStream(tmpPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 4096, FileOptions.DeleteOnClose))
             {
                 restoreInfoXml.WriteTo(tmpFile);
+                writer.WriteEntry(KeyHelper.GetStorageRestoreInfoZipKey(), tmpFile);
             }
 
-            writer.WriteEntry(KeyHelper.GetStorageRestoreInfoZipKey(), tmpPath);
-            File.Delete(tmpPath);
             SetStepCompleted();
 
             Directory.Delete(subDir, true);
@@ -511,8 +512,10 @@ namespace ASC.Data.Backup.Tasks
                 {
                     f = @"\\?\" + f;
                 }
-                writer.WriteEntry(enumerateFile.Substring(subDir.Length), f);
-                File.Delete(f);
+                using (var tmpFile = new FileStream(f, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 4096, FileOptions.DeleteOnClose))
+                {
+                    writer.WriteEntry(enumerateFile.Substring(subDir.Length), tmpFile);
+                }
                 SetStepCompleted();
             }
             Logger.DebugFormat("archive dir end {0}", subDir);
@@ -586,15 +589,13 @@ namespace ASC.Data.Backup.Tasks
 
                         Logger.DebugFormat("begin saving table {0}", table.Name);
 
-                        var tmp = Path.GetTempFileName();
-                        using (var file = File.OpenWrite(tmp))
+                        using (var file = TempStream.Create())
                         {
                             data.WriteXml(file, XmlWriteMode.WriteSchema);
                             data.Clear();
-                        }
 
-                        writer.WriteEntry(KeyHelper.GetTableZipKey(module, data.TableName), tmp);
-                        File.Delete(tmp);
+                            writer.WriteEntry(KeyHelper.GetTableZipKey(module, data.TableName), file);
+                        }
 
                         Logger.DebugFormat("end saving table {0}", table.Name);
                     }
@@ -623,23 +624,7 @@ namespace ASC.Data.Backup.Tasks
                         var f = (BackupFileInfo)state;
                         using (var fileStream = storage.GetReadStream(f.Domain, f.Path))
                         {
-                            var tmp = Path.GetTempFileName();
-                            try
-                            {
-                                using (var tmpFile = File.OpenWrite(tmp))
-                                {
-                                    fileStream.CopyTo(tmpFile);
-                                }
-
-                                writer.WriteEntry(file1.GetZipKey(), tmp);
-                            }
-                            finally
-                            {
-                                if (File.Exists(tmp))
-                                {
-                                    File.Delete(tmp);
-                                }
-                            }
+                            writer.WriteEntry(file1.GetZipKey(), fileStream);
                         }
                     }, file, 5, error => Logger.WarnFormat("can't backup file ({0}:{1}): {2}", file1.Module, file1.Path, error));
 
@@ -653,15 +638,11 @@ namespace ASC.Data.Backup.Tasks
                     .SelectMany(group => group.Select(file => (object)file.ToXElement()))
                     .ToArray());
 
-            var tmpPath = Path.GetTempFileName();
-            using (var tmpFile = File.OpenWrite(tmpPath))
+            using (var tmpFile = TempStream.Create())
             {
                 restoreInfoXml.WriteTo(tmpFile);
+                writer.WriteEntry(KeyHelper.GetStorageRestoreInfoZipKey(), tmpFile);
             }
-
-            writer.WriteEntry(KeyHelper.GetStorageRestoreInfoZipKey(), tmpPath);
-            File.Delete(tmpPath);
-
 
             Logger.Debug("end backup storage");
         }

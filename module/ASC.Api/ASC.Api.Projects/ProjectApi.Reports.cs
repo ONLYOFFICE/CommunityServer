@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ using ASC.Specific;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Api.Projects
 {
@@ -114,16 +113,16 @@ namespace ASC.Api.Projects
             if (name == null || name.Trim().Length == 0) throw new ArgumentNullException("name");
 
             var filter = new TaskFilter
-                {
-                    TagId = tag,
-                    DepartmentId = departament,
-                    UserId = userId,
-                    TimeInterval = reportTimeInterval,
-                    FromDate = fromDate,
-                    ToDate = toDate,
-                    ViewType = viewType,
-                    NoResponsible = noResponsible
-                };
+            {
+                TagId = tag,
+                DepartmentId = departament,
+                UserId = userId,
+                TimeInterval = reportTimeInterval,
+                FromDate = fromDate,
+                ToDate = toDate,
+                ViewType = viewType,
+                NoResponsible = noResponsible
+            };
 
             if (project != 0)
             {
@@ -191,16 +190,16 @@ namespace ASC.Api.Projects
             ProjectSecurity.DemandAuthentication();
 
             var filter = new TaskFilter
-                {
-                    TagId = tag,
-                    DepartmentId = departament,
-                    UserId = userId,
-                    TimeInterval = reportTimeInterval,
-                    FromDate = fromDate,
-                    ToDate = toDate,
-                    ViewType = viewType,
-                    NoResponsible = noResponsible
-                };
+            {
+                TagId = tag,
+                DepartmentId = departament,
+                UserId = userId,
+                TimeInterval = reportTimeInterval,
+                FromDate = fromDate,
+                ToDate = toDate,
+                ViewType = viewType,
+                NoResponsible = noResponsible
+            };
 
             if (project != 0)
             {
@@ -265,7 +264,7 @@ namespace ASC.Api.Projects
 
             var fileIds = EngineFactory.ReportEngine.Get().Select(r => r.FileId).ToArray();
 
-            return EngineFactory.FileEngine.GetFiles(fileIds).Select(r => new FileWrapper(r)).OrderByDescending(r=> r.Id).ToList();
+            return EngineFactory.FileEngine.GetFiles(fileIds).Select(r => new FileWrapper(r)).OrderByDescending(r => r.Id).ToList();
         }
 
         [Delete(@"report/files/{fileid:[0-9]+}")]

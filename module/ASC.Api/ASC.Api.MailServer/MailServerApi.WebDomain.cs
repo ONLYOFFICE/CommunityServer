@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,16 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Core;
 using ASC.Mail.Core.Engine.Operations.Base;
 using ASC.Mail.Data.Contracts;
+
+using ASC.Web.Studio.PublicResources;
 
 // ReSharper disable InconsistentNaming
 
@@ -37,12 +41,13 @@ namespace ASC.Api.MailServer
         [Read(@"domains/get")]
         public List<ServerDomainData> GetDomains()
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var listDomainData = MailEngineFactory.ServerDomainEngine.GetDomains();
 
             if (CoreContext.Configuration.Standalone)
             {
                 //Skip common domain
-               listDomainData = listDomainData.Where(d => !d.IsSharedDomain).ToList();
+                listDomainData = listDomainData.Where(d => !d.IsSharedDomain).ToList();
             }
 
             return listDomainData;
@@ -72,6 +77,7 @@ namespace ASC.Api.MailServer
         [Create(@"domains/add")]
         public ServerDomainData AddDomain(string name, int id_dns)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var domain = MailEngineFactory.ServerDomainEngine.AddDomain(name, id_dns);
             return domain;
         }
@@ -86,6 +92,7 @@ namespace ASC.Api.MailServer
         [Delete(@"domains/remove/{id}")]
         public MailOperationStatus RemoveDomain(int id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var status = MailEngineFactory.ServerDomainEngine.RemoveDomain(id);
             return status;
         }
@@ -100,6 +107,7 @@ namespace ASC.Api.MailServer
         [Read(@"domains/dns/get")]
         public ServerDomainDnsData GetDnsRecords(int id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var dns = MailEngineFactory.ServerDomainEngine.GetDnsData(id);
             return dns;
         }
@@ -114,6 +122,7 @@ namespace ASC.Api.MailServer
         [Read(@"domains/exists")]
         public bool IsDomainExists(string name)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var isExists = MailEngineFactory.ServerDomainEngine.IsDomainExists(name);
             return isExists;
         }
@@ -128,6 +137,7 @@ namespace ASC.Api.MailServer
         [Read(@"domains/ownership/check")]
         public bool CheckDomainOwnership(string name)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var isOwnershipProven = MailEngineFactory.ServerEngine.CheckDomainOwnership(name);
             return isOwnershipProven;
         }

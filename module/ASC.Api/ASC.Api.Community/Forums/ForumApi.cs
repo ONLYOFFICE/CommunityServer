@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,19 @@
 */
 
 
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Security;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Forums;
 using ASC.Api.Utils;
 using ASC.Core;
 using ASC.Forum;
-using System;
 using ASC.Web.Community.Forum;
-using ASC.Web.Community.Forum.Resources;
+using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Api.Community
@@ -163,7 +163,7 @@ namespace ASC.Api.Community
             categoryName = categoryName.Trim();
             threadName = threadName.Trim();
             threadDescription = threadDescription.Trim();
-            
+
             if (!ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 throw new Exception("Error access denied");
@@ -315,9 +315,9 @@ namespace ASC.Api.Community
 
             var result = RemoveDataHelper.RemovePost(post);
 
-            if(result != DeletePostResult.Successfully)
+            if (result != DeletePostResult.Successfully)
                 throw new Exception("DeletePostResult: " + result);
-            
+
             return new ForumTopicPostWrapper(post);
         }
 

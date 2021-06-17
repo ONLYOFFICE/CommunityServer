@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@ namespace ASC.Web.Studio
                     var authUrl = "~/Auth.aspx";
                     if (Request.DesktopApp())
                     {
-                        authUrl += "?desktop=" + Request["desktop"];
+                        authUrl += "?desktop=true";
                     }
                     Response.Redirect(authUrl, true);
                 }
@@ -101,7 +101,7 @@ namespace ASC.Web.Studio
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
             if (!MayNotPaid
-                && TenantExtra.EnableTarrifSettings
+                && TenantExtra.EnableTariffSettings
                 && (TenantStatisticsProvider.IsNotPaid() || TenantExtra.UpdatedWithoutLicense)
                 && WarmUp.Instance.CheckCompleted() && Request.QueryString["warmup"] != "true")
             {
@@ -227,11 +227,11 @@ namespace ASC.Web.Studio
                 var ipGeolocationInfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();
                 if (checkIp && ipGeolocationInfo != null && !string.IsNullOrEmpty(ipGeolocationInfo.Key))
                 {
-                    var cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.TwoLetterISOLanguageName, ipGeolocationInfo.Key, StringComparison.InvariantCultureIgnoreCase));
-                    if (cultureInfo != null)
+                    var culture = SetupInfo.GetPersonalCulture(ipGeolocationInfo.Key);
+                    if (culture.Value != null)
                     {
 
-                        var redirectUrl = String.Format("/{0}/{1}", cultureInfo.TwoLetterISOLanguageName, Request.Path);
+                        var redirectUrl = String.Format("/{0}/{1}", culture.Key, Request.Path);
 
                         if (redirectUrl.EndsWith("Auth.aspx", StringComparison.InvariantCultureIgnoreCase))
                             redirectUrl = redirectUrl.Remove(redirectUrl.IndexOf("Auth.aspx", StringComparison.OrdinalIgnoreCase));
@@ -244,7 +244,8 @@ namespace ASC.Web.Studio
             else if (!String.IsNullOrEmpty(Request["lang"]))
             {
                 var lang = Request["lang"].Split(',')[0];
-                var cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
+                var cultureInfo = SetupInfo.GetPersonalCulture(lang).Value;
+
                 if (cultureInfo != null)
                 {
                     Thread.CurrentThread.CurrentUICulture = cultureInfo;

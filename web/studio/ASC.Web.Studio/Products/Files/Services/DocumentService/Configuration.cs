@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Users;
@@ -38,6 +39,7 @@ using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Utility;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Services.DocumentService
@@ -65,12 +67,12 @@ namespace ASC.Web.Files.Services.DocumentService
         public Configuration(File file)
         {
             Document = new DocumentConfig
-                {
-                    Info =
+            {
+                Info =
                         {
                             File = file,
                         },
-                };
+            };
             EditorConfig = new EditorConfiguration(this);
         }
 
@@ -107,7 +109,7 @@ namespace ASC.Web.Files.Services.DocumentService
         [DataMember(Name = "type")]
         public string TypeString
         {
-            set { Type = (EditorType)Enum.Parse(typeof (EditorType), value, true); }
+            set { Type = (EditorType)Enum.Parse(typeof(EditorType), value, true); }
             get { return Type.ToString().ToLower(); }
         }
 
@@ -131,7 +133,7 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             using (var ms = new MemoryStream())
             {
-                var serializer = new DataContractJsonSerializer(typeof (Configuration));
+                var serializer = new DataContractJsonSerializer(typeof(Configuration));
                 serializer.WriteObject(ms, configuration);
                 ms.Seek(0, SeekOrigin.Begin);
                 return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
@@ -209,20 +211,16 @@ namespace ASC.Web.Files.Services.DocumentService
                 private string _breadCrumbs;
 
 
-                //todo: obsolete since DS v5.4
-                [DataMember(Name = "author")]
-                public string Author
+                [DataMember(Name = "favorite", EmitDefaultValue = false)]
+                public bool? Favorite
                 {
                     set { }
-                    get { return File.CreateByString; }
-                }
-
-                //todo: obsolete since DS v5.4
-                [DataMember(Name = "created")]
-                public string Created
-                {
-                    set { }
-                    get { return File.CreateOnString; }
+                    get
+                    {
+                        if (!SecurityContext.IsAuthenticated || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()) return null;
+                        if (File.Encrypted) return null;
+                        return File.IsFavorite;
+                    }
                 }
 
                 [DataMember(Name = "folder", EmitDefaultValue = false)]
@@ -324,21 +322,20 @@ namespace ASC.Web.Files.Services.DocumentService
                 _configuration = configuration;
 
                 Customization = new CustomizationConfig(_configuration);
+
                 Plugins = new PluginsConfig();
+
                 Embedded = new EmbeddedConfig();
                 _userInfo = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-                User = _userInfo.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                           ? new UserConfig
-                               {
-                                   Id = Guid.NewGuid().ToString(),
-                                   Name = FilesCommonResource.Guest,
-                               }
-                           : new UserConfig
-                               {
-                                   Id = _userInfo.ID.ToString(),
-                                   Name = _userInfo.DisplayUserName(false),
-                               };
+                if (!_userInfo.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID))
+                {
+                    User = new UserConfig
+                    {
+                        Id = _userInfo.ID.ToString(),
+                        Name = _userInfo.DisplayUserName(false),
+                    };
+                }
             }
 
             public bool ModeWrite = false;
@@ -359,7 +356,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     {
                         using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(value)))
                         {
-                            var serializer = new DataContractJsonSerializer(typeof (ActionLinkConfig));
+                            var serializer = new DataContractJsonSerializer(typeof(ActionLinkConfig));
                             ActionLink = (ActionLinkConfig)serializer.ReadObject(ms);
                         }
                     }
@@ -394,9 +391,10 @@ namespace ASC.Web.Files.Services.DocumentService
                             break;
                     }
 
+                    using (var folderDao = Global.DaoFactory.GetFolderDao())
                     using (var fileDao = Global.DaoFactory.GetFileDao())
                     {
-                        var files = EntryManager.GetTemplates(fileDao, filter, false, Guid.Empty, string.Empty, false);
+                        var files = EntryManager.GetTemplates(folderDao, fileDao, filter, false, Guid.Empty, string.Empty, false);
                         var listTemplates = from file in files
                                             select
                                                 new TemplatesConfig
@@ -489,7 +487,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     using (var folderDao = Global.DaoFactory.GetFolderDao())
                     using (var fileDao = Global.DaoFactory.GetFileDao())
                     {
-                        var files = EntryManager.GetRecent(fileDao, filter, false, Guid.Empty, string.Empty, false);
+                        var files = EntryManager.GetRecent(folderDao, fileDao, filter, false, Guid.Empty, string.Empty, false);
 
                         var listRecent = from file in files
                                          where !Equals(_configuration.Document.Info.File.ID, file.ID)
@@ -562,7 +560,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     using (var ms = new MemoryStream())
                     {
-                        var serializer = new DataContractJsonSerializer(typeof (ActionLinkConfig));
+                        var serializer = new DataContractJsonSerializer(typeof(ActionLinkConfig));
                         serializer.WriteObject(ms, actionLinkConfig);
                         ms.Seek(0, SeekOrigin.Begin);
                         return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
@@ -624,18 +622,22 @@ namespace ASC.Web.Files.Services.DocumentService
                     {
                         var plugins = new List<string>();
 
-                        var easyBibHelper = ConsumerFactory.Get<EasyBibHelper>();
-                        if (!string.IsNullOrEmpty(easyBibHelper.AppKey))
+                        if (CoreContext.Configuration.Standalone
+                            || !TenantExtra.GetTenantQuota().Free)
                         {
-                            plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/easybib/config.json"));
-                        }
+                            var easyBibHelper = ConsumerFactory.Get<EasyBibHelper>();
+                            if (!string.IsNullOrEmpty(easyBibHelper.AppKey))
+                            {
+                                plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/easybib/config.json"));
+                            }
 
-                        var wordpressLoginProvider = ConsumerFactory.Get<WordpressLoginProvider>();
-                        if (!string.IsNullOrEmpty(wordpressLoginProvider.ClientID) &&
-                            !string.IsNullOrEmpty(wordpressLoginProvider.ClientSecret) &&
-                            !string.IsNullOrEmpty(wordpressLoginProvider.RedirectUri))
-                        {
-                            plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/wordpress/config.json"));
+                            var wordpressLoginProvider = ConsumerFactory.Get<WordpressLoginProvider>();
+                            if (!string.IsNullOrEmpty(wordpressLoginProvider.ClientID) &&
+                                !string.IsNullOrEmpty(wordpressLoginProvider.ClientSecret) &&
+                                !string.IsNullOrEmpty(wordpressLoginProvider.RedirectUri))
+                            {
+                                plugins.Add(CommonLinkUtility.GetFullAbsolutePath("ThirdParty/plugin/wordpress/config.json"));
+                            }
                         }
 
                         return plugins.ToArray();
@@ -679,11 +681,11 @@ namespace ASC.Web.Files.Services.DocumentService
                         if (!AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportEnabled) return null;
 
                         return new FeedbackConfig
-                            {
-                                Url = CommonLinkUtility.GetRegionalUrl(
+                        {
+                            Url = CommonLinkUtility.GetRegionalUrl(
                                     AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportUrl,
                                     CultureInfo.CurrentCulture.TwoLetterISOLanguageName),
-                            };
+                        };
                     }
                 }
 
@@ -711,9 +713,9 @@ namespace ASC.Web.Files.Services.DocumentService
                         if (GobackUrl != null)
                         {
                             return new GobackConfig
-                                {
-                                    Url = GobackUrl,
-                                };
+                            {
+                                Url = GobackUrl,
+                            };
                         }
 
                         using (var folderDao = Global.DaoFactory.GetFolderDao())
@@ -729,17 +731,17 @@ namespace ASC.Web.Files.Services.DocumentService
                                     if (fileSecurity.CanRead(_configuration.Document.Info.File))
                                     {
                                         return new GobackConfig
-                                            {
-                                                Url = PathProvider.GetFolderUrl(Global.FolderShare),
-                                            };
+                                        {
+                                            Url = PathProvider.GetFolderUrl(Global.FolderShare),
+                                        };
                                     }
                                     return null;
                                 }
 
                                 return new GobackConfig
-                                    {
-                                        Url = PathProvider.GetFolderUrl(parent),
-                                    };
+                                {
+                                    Url = PathProvider.GetFolderUrl(parent),
+                                };
                             }
                             catch (Exception)
                             {
@@ -884,7 +886,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 [DataMember(Name = "image", EmitDefaultValue = false)]
                 public string Image;
 
-                //todo: obsolete since DS v5.6
+                //todo: obsolete since DS v6.0
                 [DataMember(Name = "name", EmitDefaultValue = false)]
                 public string Name;
 

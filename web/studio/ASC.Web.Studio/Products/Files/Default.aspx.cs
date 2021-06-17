@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 
 using System;
-using System.IO;
 using System.Web;
 
 using ASC.Core;
@@ -37,8 +36,6 @@ namespace ASC.Web.Files
 {
     public partial class _Default : MainPage, IStaticBundle
     {
-        private bool AddCustomScript;
-
         protected UserInfo CurrentUser;
 
         protected bool Desktop
@@ -60,20 +57,6 @@ namespace ASC.Web.Files
             {
                 PersonalProcess();
             }
-
-
-            #region third-party scripts
-
-            if (AddCustomScript)
-            {
-                using (var streamReader = new StreamReader(HttpContext.Current.Server.MapPath(PathProvider.GetFileControlPath("AnalyticsPersonalFirstVisit.js"))))
-                {
-                    var yaScriptText = streamReader.ReadToEnd();
-                    Page.RegisterInlineScript(yaScriptText);
-                }
-            }
-
-            #endregion
         }
 
         public ScriptBundleData GetStaticJavaScript()
@@ -101,7 +84,6 @@ namespace ASC.Web.Files
                                   "~/js/uploader/jquery.fileupload.js")
                        .AddSource(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
                                   "Controls/AccessRights/accessrights.js",
-                                  "Controls/AppBanner/appbanner.js",
                                   "Controls/ChunkUploadDialog/chunkuploadmanager.js",
                                   "Controls/ConvertFile/convertfile.js",
                                   "Controls/ConvertFile/confirmconvert.js",
@@ -196,7 +178,6 @@ namespace ASC.Web.Files
             if (PersonalSettings.IsNewUser)
             {
                 PersonalSettings.IsNewUser = false;
-                AddCustomScript = SetupInfo.CustomScripts.Length != 0 && !SetupInfo.IsSecretEmail(CurrentUser.Email);
 
                 Classes.Global.Logger.Info("New personal user " + SecurityContext.CurrentAccount.ID);
             }

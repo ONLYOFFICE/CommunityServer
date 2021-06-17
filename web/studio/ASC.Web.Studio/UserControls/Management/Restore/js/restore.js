@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,6 +52,8 @@ ASC.RestoreManager = (function () {
             jq("#restoreChosenFileField").val(jq(this).val());
         });
 
+        jq("#understand").on("change", checkButtonState);
+
         jq('#startRestoreBtn').on('click', onClickRestoreBtn);
 
         jq("#helpRestoreThirdStorageDisable").on("click", function () {
@@ -86,7 +88,7 @@ ASC.RestoreManager = (function () {
 
             var onlyThirdParty = jq("#restoreThirdStorage").is(":checked");
             ASC.Files.FileSelector.openDialog(null, false, onlyThirdParty);
-            ASC.Files.FileSelector.setTitle(ASC.Resources.Master.Resource.SelectFile);
+            ASC.Files.FileSelector.setTitle(ASC.Resources.Master.ResourceJS.SelectFile);
         });
     };
 
@@ -103,7 +105,7 @@ ASC.RestoreManager = (function () {
 
     function initConsumerStorages(storages) {
         storages.forEach(function (item) {
-            item.properties.push({ name: "filePath", title: ASC.Resources.Master.Resource.RestoreConsumerPath });
+            item.properties.push({ name: "filePath", title: ASC.Resources.Master.ResourceJS.RestoreConsumerPath });
         });
         var $backupConsumerStorageSettingsBox = jq("#restoreConsumerStorageSettingsBox");
         var selectedConsumer = storages.find(function (item) { return item.isSet }) || storages[0];
@@ -200,7 +202,7 @@ ASC.RestoreManager = (function () {
     };
 
     function initBackupList() {
-        Teamlab.getbackuphistory({},
+        Teamlab.getBackupHistory({},
         {
             success: function(params, data) {
                 var $restoreListBlock = jq("#restoreChooseBackupDialog");
@@ -284,7 +286,7 @@ ASC.RestoreManager = (function () {
             case storageTypes.ThirdPartyDocs:
                 var $path = jq("#restoreChosenTeamlabFile");
                 var val = $path.attr("data-fileid");
-                storage.params.push({ key: "filePath", value: val });
+                source.params.push({ key: "filePath", value: val });
                 if (!val) {
                     $path.addClass(withErrorClass);
                     return false;
@@ -293,7 +295,7 @@ ASC.RestoreManager = (function () {
                 break;
             case storageTypes.Local:
                 var val = jq("#restoreChosenFileField").val();
-                storage.params.push({ key: "filePath", value: val });
+                //source.params.push({ key: "filePath", value: val });
                 if (!val) {
                     jq("#restoreChosenFileField").addClass(withErrorClass);
                     return false;
@@ -323,6 +325,10 @@ ASC.RestoreManager = (function () {
         }
         return source;
     };
+
+    var checkButtonState = function () {
+        jq("#startRestoreBtn").toggleClass("disable", !jq("#understand").is(':checked'));
+    }
 
     function onClickRestoreBtn() {
         if (uploadData) uploadData.submit();

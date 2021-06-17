@@ -3,7 +3,7 @@
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainContentFilter.ascx.cs" Inherits="ASC.Web.Files.Controls.MainContentFilter" %>
 
-<%@ Import Namespace="ASC.ElasticSearch" %>
+<%@ Import Namespace="ASC.ElasticSearch.Core" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Core.Search" %>
@@ -14,7 +14,7 @@
 <div class="files-filter"
     data-sort="<%= FilesSettings.DefaultOrder.SortedBy %>"
     data-asc="<%= FilesSettings.DefaultOrder.IsAsc.ToString().ToLower() %>"
-    data-content="<%= FactoryIndexer<FilesWrapper>.CanSearchByContent().ToString().ToLower() %>">
+    data-content="<%= SearchSettings.CanSearchByContent<FilesWrapper>().ToString().ToLower() %>">
     <div></div>
 </div>
 
@@ -72,7 +72,10 @@
         <span><%= FilesUCResource.ButtonEmptyTrash %></span>
     </li>
     <% } %>
-    <li id="switchViewFolder" class="menuSwitchViewFolder">
+    <li id="switchViewFolder" class="normal">
+        <div id="switchToThumbnails" class="switchToThumbnails" title="<%= FilesUCResource.switchToThumbnails %>">
+            &nbsp;
+        </div>
         <div id="switchToNormal" class="switchToNormal" title="<%= FilesUCResource.SwitchViewToNormal %>">
             &nbsp;
         </div>

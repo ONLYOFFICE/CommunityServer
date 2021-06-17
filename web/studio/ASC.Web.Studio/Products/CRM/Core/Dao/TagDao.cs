@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Common.Data;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.CRM.Core.Entities;
-using Newtonsoft.Json;
 using ASC.Web.CRM.Resources;
+
+using Newtonsoft.Json;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -90,7 +90,7 @@ namespace ASC.CRM.Core.Dao
                 .Select("title", "entity_type")
                 .OrderBy("title", true))
                 .ConvertAll(row => new KeyValuePair<EntityType, string>(
-                    (EntityType)Enum.Parse(typeof(EntityType), row[1].ToString(), true), 
+                    (EntityType)Enum.Parse(typeof(EntityType), row[1].ToString(), true),
                     row[0].ToString()));
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Mail.Core.Dao.Interfaces;
@@ -52,7 +53,7 @@ namespace ASC.Mail.Core.Dao
                 .ConvertAll(r => new CrmContactData
                 {
                     Id = Convert.ToInt32(r[0]),
-                    Type = (CrmContactData.EntityTypes) r[1]
+                    Type = (CrmContactData.EntityTypes)r[1]
                 });
         }
 
@@ -69,7 +70,7 @@ namespace ASC.Mail.Core.Dao
             {
                 query.Values(chainId, mailboxId, Tenant, contactEntity.Id, contactEntity.Type);
             }
-            
+
             return Db.ExecuteNonQuery(query);
         }
 
@@ -92,7 +93,7 @@ namespace ASC.Mail.Core.Dao
                 .Where(ChainXCrmContactEntityTable.Columns.MailboxId, mailboxId)
                 .Where(ChainXCrmContactEntityTable.Columns.Tenant, Tenant);
 
-           return Db.ExecuteNonQuery(query);
+            return Db.ExecuteNonQuery(query);
         }
 
         public void RemoveCrmLinks(string chainId, int mailboxId, IEnumerable<CrmContactData> crmContactEntities)

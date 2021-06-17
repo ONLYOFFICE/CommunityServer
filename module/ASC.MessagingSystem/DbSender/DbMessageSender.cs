@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Configuration;
+
 using ASC.Common.Logging;
 
 namespace ASC.MessagingSystem.DbSender
@@ -40,12 +41,12 @@ namespace ASC.MessagingSystem.DbSender
             try
             {
                 if (!MessagingEnabled) return;
-                
+
                 if (message == null) return;
-                
+
                 MessagesRepository.Add(message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error("Failed to send a message", ex);
             }

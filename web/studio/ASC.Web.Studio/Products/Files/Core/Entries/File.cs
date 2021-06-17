@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,15 @@
 */
 
 
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Services.WCFService;
-using ASC.Web.Files.Utils;
-using ASC.Web.Studio.Core;
 using System;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
+
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Files.Core
 {
@@ -164,7 +165,7 @@ namespace ASC.Files.Core
                 if (value)
                     _status |= FileStatus.IsNew;
                 else
-                    _status ^= FileStatus.IsNew;
+                    _status &= ~FileStatus.IsNew;
             }
         }
 
@@ -176,7 +177,7 @@ namespace ASC.Files.Core
                 if (value)
                     _status |= FileStatus.IsFavorite;
                 else
-                    _status ^= FileStatus.IsFavorite;
+                    _status &= ~FileStatus.IsFavorite;
             }
         }
 
@@ -188,12 +189,15 @@ namespace ASC.Files.Core
                 if (value)
                     _status |= FileStatus.IsTemplate;
                 else
-                    _status ^= FileStatus.IsTemplate;
+                    _status &= ~FileStatus.IsTemplate;
             }
         }
 
         [DataMember(EmitDefaultValue = false, Name = "encrypted")]
         public bool Encrypted { get; set; }
+
+        [DataMember(Name = "thumbnail_status")]
+        public Thumbnail ThumbnailStatus { get; set; }
 
         public ForcesaveType Forcesave { get; set; }
 

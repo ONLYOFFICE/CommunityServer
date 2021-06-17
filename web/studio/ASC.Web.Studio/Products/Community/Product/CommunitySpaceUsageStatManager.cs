@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using ASC.Web.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 
@@ -29,12 +30,12 @@ namespace ASC.Web.Community.Product
         {
             return WebItemManager.Instance.GetSubItems(CommunityProduct.ID, ItemAvailableState.All)
                 .Select(webItem => new UsageSpaceStatItem
-                    {
-                        Name = webItem.Name,
-                        ImgUrl = webItem.GetIconAbsoluteURL(),
-                        SpaceUsage = TenantStatisticsProvider.GetUsedSize(webItem.ID),
-                        Url = VirtualPathUtility.ToAbsolute(webItem.StartURL)
-                    })
+                {
+                    Name = webItem.Name,
+                    ImgUrl = webItem.GetIconAbsoluteURL(),
+                    SpaceUsage = TenantStatisticsProvider.GetUsedSize(webItem.ID),
+                    Url = VirtualPathUtility.ToAbsolute(webItem.StartURL)
+                })
                 .Where(statItem => statItem.SpaceUsage > 0)
                 .ToList();
         }

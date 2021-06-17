@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Text;
 
 using ASC.Collections;
 using ASC.Common.Data.Sql;
@@ -31,7 +31,6 @@ using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.ElasticSearch;
 using ASC.Files.Core;
-
 using ASC.Web.CRM;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Search;
@@ -41,8 +40,8 @@ using ASC.Web.Studio.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-using OrderBy = ASC.CRM.Core.Entities.OrderBy;
 using File = ASC.Files.Core.File;
+using OrderBy = ASC.CRM.Core.Entities.OrderBy;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -210,7 +209,7 @@ namespace ASC.CRM.Core.Dao
                                       if (!filesTemp.ContainsKey(item.ID))
                                           filesTemp.Add(item.ID, item);
                                   });
-                                
+
                 return findedTags.Where(x => filesTemp.ContainsKey(x.EntryId)).GroupBy(x => x.TagName).ToDictionary(x => Convert.ToInt32(x.Key.Split(new[] { '_' })[1]),
                                                                   x => x.Select(item => filesTemp[item.EntryId]).ToList());
 
@@ -244,7 +243,7 @@ namespace ASC.CRM.Core.Dao
             {
                 throw new ArgumentException();
             }
-            
+
             var files = GetAllFiles(contactID, entityType, entityID);
             using (var dao = FilesIntegration.GetFileDao())
             {
@@ -334,9 +333,9 @@ namespace ASC.CRM.Core.Dao
 
                 using (var fileStream = new MemoryStream(Encoding.UTF8.GetBytes(htmlBody)))
                 {
-                    var filePath = String.Format("folder_{0}/message_{1}.html", (messageId/1000 + 1)*1000, messageId);
+                    var filePath = String.Format("folder_{0}/message_{1}.html", (messageId / 1000 + 1) * 1000, messageId);
 
-                    Global.GetStore().Save("mail_messages",filePath,fileStream);
+                    Global.GetStore().Save("mail_messages", filePath, fileStream);
 
                     messageUrl = String.Format("{0}HttpHandlers/filehandler.ashx?action=mailmessage&message_id={1}", PathProvider.BaseAbsolutePath, messageId);
 
@@ -345,20 +344,20 @@ namespace ASC.CRM.Core.Dao
                 var msg_date_created = msgRequestObj.Value<String>("date");
                 var message_id = msgRequestObj.Value<Int32>("id");
                 item.Content = JsonConvert.SerializeObject(new
-                     {
-                         @from = msgRequestObj.Value<String>("from"),
-                         to = msgRequestObj.Value<String>("to"),
-                         cc = msgRequestObj.Value<String>("cc"),
-                         bcc = msgRequestObj.Value<String>("bcc"),
-                         subject = msgRequestObj.Value<String>("subject"),
-                         important = msgRequestObj.Value<Boolean>("important"),
-                         chain_id = msgRequestObj.Value<String>("chainId"),
-                         is_sended = msgRequestObj.Value<Int32>("folder") != 1,
-                         date_created = msg_date_created,
-                         introduction = msgRequestObj.Value<String>("introduction"),
-                         message_id = message_id,
-                         message_url = messageUrl
-                     });
+                {
+                    @from = msgRequestObj.Value<String>("from"),
+                    to = msgRequestObj.Value<String>("to"),
+                    cc = msgRequestObj.Value<String>("cc"),
+                    bcc = msgRequestObj.Value<String>("bcc"),
+                    subject = msgRequestObj.Value<String>("subject"),
+                    important = msgRequestObj.Value<Boolean>("important"),
+                    chain_id = msgRequestObj.Value<String>("chainId"),
+                    is_sended = msgRequestObj.Value<Int32>("folder") != 1,
+                    date_created = msg_date_created,
+                    introduction = msgRequestObj.Value<String>("introduction"),
+                    message_id = message_id,
+                    message_url = messageUrl
+                });
 
                 item.CreateOn = DateTime.Parse(msg_date_created, CultureInfo.InvariantCulture);
 
@@ -398,8 +397,8 @@ namespace ASC.CRM.Core.Dao
 
         public virtual RelationshipEvent GetByID(int eventID)
         {
-              return Db.ExecuteList(GetRelationshipEventQuery(Exp.Eq("id", eventID)))
-                 .ConvertAll(ToRelationshipEvent).FirstOrDefault();
+            return Db.ExecuteList(GetRelationshipEventQuery(Exp.Eq("id", eventID)))
+               .ConvertAll(ToRelationshipEvent).FirstOrDefault();
         }
 
         public int GetAllItemsCount()
@@ -535,17 +534,17 @@ namespace ASC.CRM.Core.Dao
         private static RelationshipEvent ToRelationshipEvent(object[] row)
         {
             return new RelationshipEvent
-                       {
+            {
 
-                           ID = Convert.ToInt32(row[0]),
-                           ContactID = Convert.ToInt32(row[1]),
-                           Content = Convert.ToString(row[2]),
-                           EntityID = Convert.ToInt32(row[3]),
-                           EntityType = (EntityType)Convert.ToInt32(row[4]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
-                           CreateBy = ToGuid(row[6]),
-                           CategoryID = Convert.ToInt32(row[7])
-                       };
+                ID = Convert.ToInt32(row[0]),
+                ContactID = Convert.ToInt32(row[1]),
+                Content = Convert.ToString(row[2]),
+                EntityID = Convert.ToInt32(row[3]),
+                EntityType = (EntityType)Convert.ToInt32(row[4]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
+                CreateBy = ToGuid(row[6]),
+                CategoryID = Convert.ToInt32(row[7])
+            };
         }
 
         private SqlQuery GetRelationshipEventQuery(Exp where)
@@ -571,7 +570,7 @@ namespace ASC.CRM.Core.Dao
         {
             var item = GetByID(id);
             if (item == null) throw new ArgumentException();
-            
+
             DeleteItem(item);
         }
 
@@ -625,19 +624,19 @@ namespace ASC.CRM.Core.Dao
         private static string GetHistoryContentJson(JObject apiResponse)
         {
             var content_struct = new CrmHistoryContent
-                {
-                    @from = apiResponse.Value<String>("from"),
-                    to = apiResponse.Value<String>("to"),
-                    cc = apiResponse.Value<String>("cc"),
-                    bcc = apiResponse.Value<String>("bcc"),
-                    subject = apiResponse.Value<String>("subject"),
-                    important = apiResponse.Value<Boolean>("important"),
-                    chain_id = apiResponse.Value<String>("chainId"),
-                    is_sended = apiResponse.Value<Int32>("folder") == 1,
-                    date_created = apiResponse.Value<String>("date"),
-                    introduction = apiResponse.Value<String>("introduction"),
-                    message_id = apiResponse.Value<Int32>("id")
-                };
+            {
+                @from = apiResponse.Value<String>("from"),
+                to = apiResponse.Value<String>("to"),
+                cc = apiResponse.Value<String>("cc"),
+                bcc = apiResponse.Value<String>("bcc"),
+                subject = apiResponse.Value<String>("subject"),
+                important = apiResponse.Value<Boolean>("important"),
+                chain_id = apiResponse.Value<String>("chainId"),
+                is_sended = apiResponse.Value<Int32>("folder") == 1,
+                date_created = apiResponse.Value<String>("date"),
+                introduction = apiResponse.Value<String>("introduction"),
+                message_id = apiResponse.Value<Int32>("id")
+            };
 
             var serializer = new DataContractJsonSerializer(typeof(CrmHistoryContent));
             using (var stream = new MemoryStream())

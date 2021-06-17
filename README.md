@@ -79,4 +79,3 @@ If you have any problems with or questions about [ONLYOFFICE][2], please visit o
   [1]: http://dev.onlyoffice.org
   [2]: https://github.com/ONLYOFFICE
   [3]: http://stackoverflow.com/questions/tagged/onlyoffice
-

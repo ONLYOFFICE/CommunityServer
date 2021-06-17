@@ -4,7 +4,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Users.UserProfile" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="authForm" class="auth-form">
     <% if (EnableSso)
@@ -52,7 +52,7 @@
             <% if (EnableLdap)
                { %>
             <div class="auth-ldap-checkbox">
-                <input type="checkbox" id="ldapPassword" checked="checked" />
+                <input type="checkbox" id="ldapPassword" checked="checked" name="ldapPassword"/>
                 <label for="ldapPassword">
                     <%= string.Format(Resource.SignInLDAP, ASC.ActiveDirectory.Base.Settings.LdapCurrentDomain.Load().CurrentDomain) %>
                 </label>
@@ -79,7 +79,7 @@
         <div id="authMessage" class="auth-form_message"><%= ErrorMessage + LoginMessage %></div>
         <% if (ThirdpartyEnable)
            { %>
-        <div id="social">
+        <div id="social" <%if(!EnableSso) { %> class="disable" <%} %>>
             <div><%= Resource.LoginWithAccount %></div>
             <asp:PlaceHolder ID="signInPlaceholder" runat="server" />
         </div>

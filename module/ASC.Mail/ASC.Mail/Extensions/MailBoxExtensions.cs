@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Security.Authentication;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -126,7 +127,7 @@ namespace ASC.Mail.Extensions
                 var quota = CoreContext.TenantManager.GetTenantQuota(mailbox.TenantId);
                 var usedQuota = quotaController.QuotaCurrentGet();
                 quotaEnded = quota.MaxTotalSize - usedQuota < minBalance;
-                log.DebugFormat("IsTenantQuotaEnded: {0} Tenant = {1}. Tenant quota = {2}Mb ({3}), used quota = {4}Mb ({5}) ", 
+                log.DebugFormat("IsTenantQuotaEnded: {0} Tenant = {1}. Tenant quota = {2}Mb ({3}), used quota = {4}Mb ({5}) ",
                     quotaEnded,
                     mailbox.TenantId,
                     MailUtil.BytesToMegabytes(quota.MaxTotalSize), quota.MaxTotalSize,

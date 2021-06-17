@@ -94,8 +94,22 @@
 
 <script id="administrationPageHeaderTmpl" type="text/x-jquery-tmpl">
     <div class="content-header">
+    {{if ASC.Mail.Constants.ENABLE_MAIL_SERVER}} 
         <a title="${ASC.Mail.Resources.MailAdministrationResource.AddNewDomainButton}" class="button gray" id="mail-server-add-domain">
             <div class="plus" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailAdministrationResource.AddNewDomainButton}</div>
         </a>&nbsp;
+    {{else}}
+        <a title="${ASC.Mail.Resources.MailAdministrationResource.AddNewDomainButton}" class="button gray disable" style="margin-bottom: 20px; margin-right: 10px;" id="">
+            <div class="plus disable" style="background-position: -2px 1px;">${ASC.Mail.Resources.MailAdministrationResource.AddNewDomainButton}</div>
+         </a>&nbsp;
+        <span class="disable">
+            <div class="settings-help-block" style="margin: 8px 0 0 10px;">
+                <div>
+                    ${ASC.Mail.Resources.MailResource.ErrorNotAllowedOption}
+                </div>&nbsp;
+                <a href="${ASC.Mail.Constants.LinkToTariff}">${ASC.Mail.Resources.MailResource.ViewTariffPlans}</a>
+            </div><p>
+        </span>
+    {{/if}}
     </div>
 </script>

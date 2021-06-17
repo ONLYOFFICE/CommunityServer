@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
@@ -102,21 +102,21 @@ namespace ASC.Api.Projects.Wrappers
         public static TimeWrapper GetSample()
         {
             return new TimeWrapper
-                {
-                    Id = 10,
-                    Date = ApiDateTime.GetSample(),
-                    Hours = 3.5F,
-                    Note = "Sample note",
-                    RelatedProject = 123,
-                    RelatedTask = 13456,
-                    RelatedTaskTitle = "Sample task",
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Person = EmployeeWraper.GetSample(),
-                    CanEdit = true,
-                    PaymentStatus = PaymentStatus.Billed,
-                    StatusChanged = ApiDateTime.GetSample(),
-                    CanEditPaymentStatus = true
-                };
+            {
+                Id = 10,
+                Date = ApiDateTime.GetSample(),
+                Hours = 3.5F,
+                Note = "Sample note",
+                RelatedProject = 123,
+                RelatedTask = 13456,
+                RelatedTaskTitle = "Sample task",
+                CreatedBy = EmployeeWraper.GetSample(),
+                Person = EmployeeWraper.GetSample(),
+                CanEdit = true,
+                PaymentStatus = PaymentStatus.Billed,
+                StatusChanged = ApiDateTime.GetSample(),
+                CanEditPaymentStatus = true
+            };
         }
     }
 }

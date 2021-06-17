@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -111,7 +111,7 @@ namespace System.Web
                                                         rewrittenUri.Host + ":" + requestUri.Port);
                         }
                         //Hack:
-                        typeof (HttpRequest).InvokeMember("_url",
+                        typeof(HttpRequest).InvokeMember("_url",
                                                           BindingFlags.NonPublic | BindingFlags.SetField |
                                                           BindingFlags.Instance,
                                                           null, HttpContext.Current.Request,
@@ -143,7 +143,9 @@ namespace System.Web
 
         public static bool DesktopApp(this HttpRequest request)
         {
-            return request != null && !string.IsNullOrEmpty(request["desktop"]);
+            return request != null
+                && (!string.IsNullOrEmpty(request["desktop"])
+                    || (request.UserAgent ?? "").Contains("AscDesktopEditor"));
         }
 
         public static bool SailfishApp(this HttpRequest request)

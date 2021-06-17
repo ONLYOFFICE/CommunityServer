@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -35,7 +36,7 @@ namespace ASC.Mail.Core.Dao
 
         protected string CurrentUserId { get; private set; }
 
-        public UserFolderXMailDao(IDbManager dbManager, int tenant, string user) 
+        public UserFolderXMailDao(IDbManager dbManager, int tenant, string user)
             : base(table, dbManager, tenant)
         {
             CurrentUserId = user;
@@ -185,7 +186,7 @@ namespace ASC.Mail.Core.Dao
 
         public int RemoveByMailbox(int mailboxId)
         {
-            return Db.ExecuteNonQuery(QueryDeleteFormat, new {mailbox_id = mailboxId, tenant = Tenant, user = CurrentUserId});
+            return Db.ExecuteNonQuery(QueryDeleteFormat, new { mailbox_id = mailboxId, tenant = Tenant, user = CurrentUserId });
         }
 
         protected UserFolderXMail ToUserFolderXMail(object[] r)

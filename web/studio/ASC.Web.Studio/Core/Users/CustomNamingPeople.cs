@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml;
+
 using ASC.Core.Common.Settings;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.Core.Users
 {
@@ -82,7 +84,7 @@ namespace ASC.Web.Studio.Core.Users
         [DataMember(Name = "GuestsCaption")]
         private string guestsCaption;
 
-        
+
         public static string DefaultID
         {
             get { return "common"; }
@@ -201,7 +203,7 @@ namespace ASC.Web.Studio.Core.Users
             Load();
 
             var dict = items.ToDictionary(i => i.Id.ToLower(), i => i.SchemaName);
-            dict.Add(PeopleNamesItem.CustomID, Resources.Resource.CustomNamingPeopleSchema);
+            dict.Add(PeopleNamesItem.CustomID, Resource.CustomNamingPeopleSchema);
             return dict;
         }
 
@@ -223,7 +225,7 @@ namespace ASC.Web.Studio.Core.Users
                         UsersCaption = string.Empty,
                         GuestCaption = string.Empty,
                         GuestsCaption = string.Empty,
-                        SchemaName = Resources.Resource.CustomNamingPeopleSchema
+                        SchemaName = Resource.CustomNamingPeopleSchema
                     };
             }
 

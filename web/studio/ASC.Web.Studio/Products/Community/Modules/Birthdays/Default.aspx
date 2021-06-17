@@ -6,7 +6,7 @@
 
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Web.Community.Birthdays.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Birthdays.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 

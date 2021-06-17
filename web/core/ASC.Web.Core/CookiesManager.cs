@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,12 @@
 using System;
 using System.Security;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Studio.Utility;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Core
@@ -69,7 +71,17 @@ namespace ASC.Web.Core
                 HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
 
                 if (HttpContext.Current.Request.GetUrlRewriter().Scheme == "https")
+                {
                     HttpContext.Current.Response.Cookies[GetCookiesName(type)].Secure = true;
+                    if (CoreContext.Configuration.Personal)
+                    {
+                        var cookies = HttpContext.Current.Response.Cookies[GetCookiesName(type)];
+
+                        cookies.GetType()
+                               .GetProperty("SameSite")
+                               .SetValue(cookies, 0);                            
+                    }
+                }
 
             }
         }
@@ -87,7 +99,17 @@ namespace ASC.Web.Core
                 HttpContext.Current.Response.Cookies[GetCookiesName(type)].HttpOnly = true;
 
                 if (HttpContext.Current.Request.GetUrlRewriter().Scheme == "https")
+                {
                     HttpContext.Current.Response.Cookies[GetCookiesName(type)].Secure = true;
+                    if (CoreContext.Configuration.Personal)
+                    {
+                        var cookies = HttpContext.Current.Response.Cookies[GetCookiesName(type)];
+
+                        cookies.GetType()
+                               .GetProperty("SameSite")
+                               .SetValue(cookies, 0);                            
+                    }
+                }
             }
         }
 

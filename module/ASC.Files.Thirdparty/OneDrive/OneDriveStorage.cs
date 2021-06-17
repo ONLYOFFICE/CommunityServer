@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,14 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
+
 using Microsoft.Graph;
 using Microsoft.OneDrive.Sdk;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Files.Thirdparty.OneDrive
@@ -59,7 +62,7 @@ namespace ASC.Files.Thirdparty.OneDrive
 
         public bool IsOpened { get; private set; }
 
-        public long MaxChunkedUploadFileSize = 10L*1024L*1024L*1024L;
+        public long MaxChunkedUploadFileSize = 10L * 1024L * 1024L * 1024L;
 
         public void Open(OAuth20Token token)
         {
@@ -137,10 +140,10 @@ namespace ASC.Files.Thirdparty.OneDrive
         public Item CreateFolder(string title, string parentId)
         {
             var newFolderItem = new Item
-                {
-                    Folder = new Folder(),
-                    Name = title
-                };
+            {
+                Folder = new Folder(),
+                Name = title
+            };
 
             return GetItemRequest(parentId)
                 .Children
@@ -233,9 +236,9 @@ namespace ASC.Files.Thirdparty.OneDrive
             var fileName = onedriveFile.Name;
 
             var uploadUriBuilder = new UriBuilder(OneDriveLoginProvider.OneDriveApiUrl)
-                {
-                    Path = "/" + ApiVersion + "/drive/items/" + folderId + ":/" + fileName + ":/oneDrive.createUploadSession"
-                };
+            {
+                Path = "/" + ApiVersion + "/drive/items/" + folderId + ":/" + fileName + ":/oneDrive.createUploadSession"
+            };
 
             var request = WebRequest.Create(uploadUriBuilder.Uri);
             request.Method = "POST";

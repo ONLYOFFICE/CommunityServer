@@ -23,7 +23,9 @@ override_dh_systemd_enable:
 	dh_systemd_enable --name={{package_sysname}}StorageEncryption
 	dh_systemd_enable --name={{package_sysname}}MailAggregator
 	dh_systemd_enable --name={{package_sysname}}MailWatchdog
-	dh_systemd_enable --name={{package_sysname}}MailCleaner	
+	dh_systemd_enable --name={{package_sysname}}MailCleaner
+	dh_systemd_enable --name={{package_sysname}}ThumbnailBuilder
+	dh_systemd_enable --name={{package_sysname}}SsoAuth
 	dh_systemd_enable --name=god
 
 override_dh_installinit:
@@ -43,6 +45,8 @@ override_dh_installinit:
 	dh_installinit --name={{package_sysname}}MailAggregator
 	dh_installinit --name={{package_sysname}}MailWatchdog
 	dh_installinit --name={{package_sysname}}MailCleaner
+	dh_installinit --name={{package_sysname}}ThumbnailBuilder
+	dh_installinit --name={{package_sysname}}SsoAuth
 	dh_installinit --name=god
 
 override_dh_systemd_start:
@@ -62,4 +66,6 @@ override_dh_systemd_start:
 	dh_systemd_start --name={{package_sysname}}MailAggregator
 	dh_systemd_start --name={{package_sysname}}MailWatchdog
 	dh_systemd_start --name={{package_sysname}}MailCleaner
-	dh_systemd_start --name=god	
+	dh_systemd_start --name={{package_sysname}}ThumbnailBuilder
+	dh_systemd_start --name={{package_sysname}}SsoAuth
+	dh_systemd_start --name=god

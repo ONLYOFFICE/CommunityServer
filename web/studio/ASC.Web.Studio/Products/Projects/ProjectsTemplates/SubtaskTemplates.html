@@ -6,13 +6,13 @@
 
 <script id="projects_subtaskTemplate" type="text/x-jquery-tmpl">
     <div id="${id}" class="with-entity-menu subtask clearFix {{if $item.data.status == 2}} closed{{/if}}{{if $item.data.canEdit}} canedit{{/if}}">
-        {{if $item.data.canEdit}}<div class="entity-menu" title="${ASC.Projects.Resources.CommonResource.Actions}"></div>
+        {{if $item.data.canEdit}}<div class="entity-menu" title="${ASC.Projects.Resources.ProjectsCommonResource.Actions}"></div>
         {{else}}<div class="nomenupoint"></div>{{/if}}
         <div class="check"><input type="checkbox" {{if $item.data.status == 2}} checked="checked" {{/if}} {{if !$item.data.canEdit || $item.taskStatus == 2}} disabled="true" {{/if}} /></div>
         <div class="taskName{{if $item.data.canEdit}} canedit{{/if}}"><span>{{html jq.linksParser(jq.htmlEncodeLight($item.data.title))}}</span></div>
         {{if $item.data.responsible == null}}
         <div class="not user">
-            <span>${ASC.Projects.Resources.TasksResource.NoResponsible}</span>
+            <span>${ASC.Projects.Resources.TaskResource.NoResponsible}</span>
         </div>
         {{else}}
         <div class="user" title="${$item.data.responsible.displayName}">
@@ -29,7 +29,7 @@
                 <input class="subtask-name-input" type="text" value="${title}" data-subtaskid="${subtaskid}" maxlength="255"/>
             </td>
             <td class="subtask-responsible border-style">
-                <span class="subtask-responsible-selector link dotline">{{if responsible != null}}${responsible.displayName}{{else}}${ASC.Projects.Resources.TasksResource.NoResponsible}{{/if}}</span>
+                <span class="subtask-responsible-selector link dotline">{{if responsible != null}}${responsible.displayName}{{else}}${ASC.Projects.Resources.TaskResource.NoResponsible}{{/if}}</span>
             </td>
             <td class="subtask-add-button">
                 <a class="button gray">${ASC.Projects.Resources.ProjectResource.OkButton}</a>

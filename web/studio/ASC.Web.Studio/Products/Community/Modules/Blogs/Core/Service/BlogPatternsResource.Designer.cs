@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Blogs.Core.Service {
+namespace ASC.Web.Community.Modules.Blogs.Core.Service {
     using System;
     
     
@@ -65,8 +65,8 @@ namespace ASC.Blogs.Core.Service {
         ///  &lt;formatter type=&quot;ASC.Notify.Patterns.NVelocityPatternFormatter, ASC.Common&quot; /&gt;
         ///
         ///  &lt;pattern id=&quot;new post&quot; sender=&quot;email.sender&quot;&gt;
-        ///    &lt;subject resource=&quot;|subject_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community&quot; /&gt;
-        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_new_post|ASC.Web.Community.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community&quot; /&gt;
+        ///    &lt;subject resource=&quot;|subject_new_post|ASC.Web.Community.Modules.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community&quot; /&gt;
+        ///    &lt;body styler=&quot;ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile&quot; resource=&quot;|pattern_new_post|ASC.Web.Community.Modules.Blogs.Core.Service.BlogPatternResource,ASC.Web.Community&quot; /&gt;
         ///  &lt;/pattern&gt;
         ///  &lt;pattern id=&quot;new post&quot; sender=&quot;messanger.sender&quot;&gt;
         /// [rest of string was truncated]&quot;;.

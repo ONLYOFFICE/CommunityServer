@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
+
 using Event = ASC.Web.Community.News.Code.Feed;
 using EventComment = ASC.Web.Community.News.Code.FeedComment;
 
@@ -143,17 +145,17 @@ namespace ASC.Feed.Aggregator.Modules.Community
         private static EventComment ToComment(object[] r)
         {
             var comment = new EventComment
+            {
+                Feed = new Event
                 {
-                    Feed = new Event
-                        {
-                            Id = Convert.ToInt64(r[0]),
-                            FeedType = (FeedType)Convert.ToInt32(r[1]),
-                            Caption = Convert.ToString(r[2]),
-                            Text = Convert.ToString(r[3]),
-                            Date = Convert.ToDateTime(r[4]),
-                            Creator = Convert.ToString(r[5])
-                        }
-                };
+                    Id = Convert.ToInt64(r[0]),
+                    FeedType = (FeedType)Convert.ToInt32(r[1]),
+                    Caption = Convert.ToString(r[2]),
+                    Text = Convert.ToString(r[3]),
+                    Date = Convert.ToDateTime(r[4]),
+                    Creator = Convert.ToString(r[5])
+                }
+            };
 
             if (r[6] != null)
             {
@@ -179,23 +181,23 @@ namespace ASC.Feed.Aggregator.Modules.Community
             var feedAuthor = comments.Any() ? comments.Last().Creator : evt.Creator;
 
             var feed = new Feed(new Guid(evt.Creator), evt.Date)
-                {
-                    Item = item,
-                    ItemId = evt.Id.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    ModifiedBy = new Guid(feedAuthor),
-                    ModifiedDate = feedDate,
-                    Product = Product,
-                    Module = Name,
-                    Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
-                    Title = evt.Caption,
-                    Description = HtmlUtility.GetFull(evt.Text),
-                    HasPreview = false,
-                    CanComment = true,
-                    CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
-                    Comments = comments.Select(ToFeedComment),
-                    GroupId = string.Format("{0}_{1}", item, evt.Id)
-                };
+            {
+                Item = item,
+                ItemId = evt.Id.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                ModifiedBy = new Guid(feedAuthor),
+                ModifiedDate = feedDate,
+                Product = Product,
+                Module = Name,
+                Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
+                Title = evt.Caption,
+                Description = HtmlUtility.GetFull(evt.Text),
+                HasPreview = false,
+                CanComment = true,
+                CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
+                Comments = comments.Select(ToFeedComment),
+                GroupId = string.Format("{0}_{1}", item, evt.Id)
+            };
             feed.Keywords = string.Format("{0} {1} {2}",
                                           evt.Caption,
                                           Helper.GetText(evt.Text),
@@ -207,11 +209,11 @@ namespace ASC.Feed.Aggregator.Modules.Community
         private static FeedComment ToFeedComment(EventComment comment)
         {
             return new FeedComment(new Guid(comment.Creator))
-                {
-                    Id = comment.Id.ToString(CultureInfo.InvariantCulture),
-                    Description = HtmlUtility.GetFull(comment.Comment),
-                    Date = comment.Date
-                };
+            {
+                Id = comment.Id.ToString(CultureInfo.InvariantCulture),
+                Description = HtmlUtility.GetFull(comment.Comment),
+                Date = comment.Date
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Web.Files.Resources;
@@ -27,8 +28,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
     class FileOperationsManager
     {
-        private DistributedTaskQueue tasks = new DistributedTaskQueue("fileOperations", 10);
-        
+        private readonly DistributedTaskQueue tasks = new DistributedTaskQueue("fileOperations", 10);
+
 
         public ItemList<FileOperationResult> GetOperationResults()
         {
@@ -52,16 +53,16 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             var results = operations
                 .Where(o => o.GetProperty<bool>(FileOperation.HOLD) || o.GetProperty<int>(FileOperation.PROGRESS) != 100)
                 .Select(o => new FileOperationResult
-                    {
-                        Id = o.Id,
-                        OperationType = o.GetProperty<FileOperationType>(FileOperation.OPERATION_TYPE),
-                        Source = o.GetProperty<string>(FileOperation.SOURCE),
-                        Progress = o.GetProperty<int>(FileOperation.PROGRESS),
-                        Processed = o.GetProperty<int>(FileOperation.PROCESSED).ToString(),
-                        Result = o.GetProperty<string>(FileOperation.RESULT),
-                        Error = o.GetProperty<string>(FileOperation.ERROR),
-                        Finished = o.GetProperty<bool>(FileOperation.FINISHED),
-                    });
+                {
+                    Id = o.Id,
+                    OperationType = o.GetProperty<FileOperationType>(FileOperation.OPERATION_TYPE),
+                    Source = o.GetProperty<string>(FileOperation.SOURCE),
+                    Progress = o.GetProperty<int>(FileOperation.PROGRESS),
+                    Processed = o.GetProperty<int>(FileOperation.PROCESSED).ToString(),
+                    Result = o.GetProperty<string>(FileOperation.RESULT),
+                    Error = o.GetProperty<string>(FileOperation.ERROR),
+                    Finished = o.GetProperty<bool>(FileOperation.FINISHED),
+                });
 
             return new ItemList<FileOperationResult>(results);
         }

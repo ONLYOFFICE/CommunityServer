@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,24 @@
 
 
 using System;
-using ASC.Web.UserControls.Bookmarking.Resources;
+
+using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
-	public partial class BookmarkingRemoverFromFavouritePopup : System.Web.UI.UserControl
-	{
+    public partial class BookmarkingRemoverFromFavouritePopup : System.Web.UI.UserControl
+    {
 
-		public const string Location = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingRemoverFromFavouritePopup.ascx";
+        public const string Location = "~/Products/Community/Modules/Bookmarking/UserControls/BookmarkingRemoverFromFavouritePopup.ascx";
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			BookmarkingRemoveFromFavouriteContainer.Options.IsPopup = true;
-			BookmarkingRemoveFromFavouriteLink.ButtonText = BookmarkingUCResource.RemoveButton;
-			BookmarkingRemoveFromFavouriteLink.AjaxRequestText = BookmarkingUCResource.RemovingBookmarkFromFavouriteIsInProgressLabel;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            BookmarkingRemoveFromFavouriteContainer.Options.IsPopup = true;
+            BookmarkingRemoveFromFavouriteLink.ButtonText = BookmarkingUCResource.RemoveButton;
+            BookmarkingRemoveFromFavouriteLink.AjaxRequestText = BookmarkingUCResource.RemovingBookmarkFromFavouriteIsInProgressLabel;
 
             BookmarkingRemoveContainer.Options.IsPopup = true;
             BookmarkingRemoveLink.ButtonText = BookmarkingUCResource.RemoveButton;
-		}
-	}
+        }
+    }
 }

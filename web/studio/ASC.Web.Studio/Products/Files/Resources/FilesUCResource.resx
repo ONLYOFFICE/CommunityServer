@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AceStatusEnum_Comment" xml:space="preserve">
     <value>Comment</value>
@@ -139,19 +80,10 @@
     <value>Review</value>
   </data>
   <data name="AddAccount" xml:space="preserve">
-    <value>Add account</value>
-  </data>
-  <data name="AddShareMessage" xml:space="preserve">
-    <value>Add message</value>
+    <value>Connect</value>
   </data>
   <data name="AdminSettings" xml:space="preserve">
     <value>Admin Settings</value>
-  </data>
-  <data name="Author" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="ButtonAccess" xml:space="preserve">
-    <value>Access</value>
   </data>
   <data name="ButtonAddBoxNet" xml:space="preserve">
     <value>Add Box account</value>
@@ -183,8 +115,11 @@
   <data name="ButtonCancelAll" xml:space="preserve">
     <value>Cancel all</value>
   </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Change owner</value>
+  </data>
   <data name="ButtonChangeThirdParty" xml:space="preserve">
-    <value>Change the third party info</value>
+    <value>Change connection settings</value>
   </data>
   <data name="ButtonClearFilter" xml:space="preserve">
     <value>Clear Filter</value>
@@ -195,6 +130,9 @@
   <data name="ButtonCopy" xml:space="preserve">
     <value>Create a copy</value>
   </data>
+  <data name="ButtonCopyExternalLink" xml:space="preserve">
+    <value>Copy external link</value>
+  </data>
   <data name="ButtonCopyTo" xml:space="preserve">
     <value>Copy</value>
   </data>
@@ -202,19 +140,19 @@
     <value>Copy</value>
   </data>
   <data name="ButtonCreate" xml:space="preserve">
-    <value>Create...</value>
+    <value>Create</value>
   </data>
   <data name="ButtonCreateByTemplate" xml:space="preserve">
-    <value>Create by Template</value>
+    <value>Create from template</value>
   </data>
   <data name="ButtonCreateByTemplateShort" xml:space="preserve">
-    <value>By Template</value>
-  </data>
-  <data name="ButtonCreateFolder" xml:space="preserve">
-    <value>Folder</value>
+    <value>From template</value>
   </data>
   <data name="ButtonCreateDocument2" xml:space="preserve">
     <value>Create Document</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Folder</value>
   </data>
   <data name="ButtonCreatePresentation" xml:space="preserve">
     <value>Presentation</value>
@@ -235,10 +173,13 @@
     <value>Delete</value>
   </data>
   <data name="ButtonDeleteThirdParty" xml:space="preserve">
-    <value>Delete third party</value>
+    <value>Disconnect third party</value>
   </data>
   <data name="ButtonDownload" xml:space="preserve">
     <value>Download</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Create file copy</value>
   </data>
   <data name="ButtonEdit" xml:space="preserve">
     <value>Edit</value>
@@ -247,7 +188,7 @@
     <value>Embedding document</value>
   </data>
   <data name="ButtonEmptyTrash" xml:space="preserve">
-    <value>Empty Recycle Bin</value>
+    <value>Empty Trash</value>
   </data>
   <data name="ButtonFilterArchive" xml:space="preserve">
     <value>Archives</value>
@@ -273,20 +214,17 @@
   <data name="ButtonFilterSpreadsheet" xml:space="preserve">
     <value>Spreadsheets</value>
   </data>
-  <data name="ButtonFullScale" xml:space="preserve">
-    <value>Actual Size</value>
-  </data>
   <data name="ButtonGotoFolder" xml:space="preserve">
     <value>Go to '{0}'</value>
   </data>
   <data name="ButtonGotoMy" xml:space="preserve">
-    <value>Go to My Documents</value>
+    <value>Go to My documents</value>
   </data>
   <data name="ButtonLearnMore" xml:space="preserve">
     <value>Learn more...</value>
   </data>
   <data name="ButtonLock" xml:space="preserve">
-    <value>Block</value>
+    <value>Block for co-authors</value>
   </data>
   <data name="ButtonMoveCopy" xml:space="preserve">
     <value>Move or Copy</value>
@@ -294,23 +232,14 @@
   <data name="ButtonMoveTo" xml:space="preserve">
     <value>Move to</value>
   </data>
-  <data name="ButtonNextImg" xml:space="preserve">
-    <value>Next Image</value>
-  </data>
   <data name="ButtonOk" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="ButtonOpenFile" xml:space="preserve">
     <value>Open</value>
   </data>
-  <data name="ButtonOtherAction" xml:space="preserve">
-    <value>More Actions</value>
-  </data>
   <data name="ButtonOverwrite" xml:space="preserve">
     <value>Overwrite with version update</value>
-  </data>
-  <data name="ButtonPrevImg" xml:space="preserve">
-    <value>Previous Image</value>
   </data>
   <data name="ButtonRemoveFavorite" xml:space="preserve">
     <value>Remove from Favorites</value>
@@ -330,17 +259,17 @@
   <data name="ButtonRestore" xml:space="preserve">
     <value>Restore</value>
   </data>
-  <data name="ButtonRotateLeft" xml:space="preserve">
-    <value>Rotate Counterclockwise</value>
-  </data>
-  <data name="ButtonRotateRight" xml:space="preserve">
-    <value>Rotate Clockwise</value>
-  </data>
   <data name="ButtonSave" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="ButtonSelectAll" xml:space="preserve">
     <value>All</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Sign with DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Send</value>
   </data>
   <data name="ButtonSendInEmail" xml:space="preserve">
     <value>Send by email</value>
@@ -351,71 +280,41 @@
   <data name="ButtonShareAccessShort" xml:space="preserve">
     <value>Sharing Settings</value>
   </data>
-  <data name="ButtonChangeOwner" xml:space="preserve">
-    <value>Change owner</value>
-  </data>
-  <data name="ButtonShowMore" xml:space="preserve">
-    <value>Show more</value>
-  </data>
   <data name="ButtonShowVersions" xml:space="preserve">
     <value>Show version history</value>
   </data>
   <data name="ButtonSkip" xml:space="preserve">
     <value>Skip</value>
   </data>
-  <data name="ButtonDuplicate" xml:space="preserve">
-    <value>Create file copy</value>
-  </data>
-  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
-    <value>Cancel uploading and close</value>
-  </data>
-  <data name="ButtonUploadMinimize" xml:space="preserve">
-    <value>Minimize dialog</value>
-  </data>
-  <data name="ButtonUploadMaximize" xml:space="preserve">
-    <value>Maximize dialog</value>
-  </data>
-  <data name="ButtonVersion" xml:space="preserve">
-    <value>Version history</value>
-  </data>
-  <data name="SelectOverwrite" xml:space="preserve">
-    <value>Please select the action:</value>
-  </data>
-  <data name="OverwriteListShow" xml:space="preserve">
-    <value>Show documents list</value>
-  </data>
-  <data name="OverwriteListHide" xml:space="preserve">
-    <value>Hide documents list</value>
-  </data>
-  <data name="ConfirmOverwriteDescr" xml:space="preserve">
-    <value>The file will be added to the file with the same name as a version.</value>
-  </data>
-  <data name="ConfirmDuplicateDescr" xml:space="preserve">
-    <value>There will be two different files in the folder.</value>
-  </data>
-  <data name="ConfirmSkipDescr" xml:space="preserve">
-    <value>No file will be copied. The orginal file be in the destination folder.</value>
-  </data>
-  <data name="ConnectionUrl" xml:space="preserve">
-    <value>Connection url</value>
-  </data>
-  <data name="ButtonSendDocuSign" xml:space="preserve">
-    <value>Send with DocuSign</value>
-  </data>
-  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
-    <value>Send</value>
-  </data>
   <data name="ButtonToParentFolder" xml:space="preserve">
     <value>Back to parent folder</value>
   </data>
   <data name="ButtonUnlock" xml:space="preserve">
-    <value>Unblock</value>
+    <value>Unblock / Check-in</value>
   </data>
   <data name="ButtonUp" xml:space="preserve">
     <value>On top</value>
   </data>
   <data name="ButtonUpload" xml:space="preserve">
     <value>Upload</value>
+  </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>Cancel uploading and close</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Upload folder</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>Maximize dialog</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>Minimize dialog</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Version history</value>
   </data>
   <data name="ButtonVersionComplete" xml:space="preserve">
     <value>Finalize version</value>
@@ -426,14 +325,11 @@
   <data name="ButtonViaTwitter" xml:space="preserve">
     <value>Twitter</value>
   </data>
-  <data name="ButtonZoomIn" xml:space="preserve">
-    <value>Zoom In</value>
-  </data>
-  <data name="ButtonZoomOut" xml:space="preserve">
-    <value>Zoom Out</value>
-  </data>
   <data name="Canceled" xml:space="preserve">
     <value>Canceled</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>The file is password protected. Enter the password for conversion.</value>
   </data>
   <data name="CaptionCopyConvertOpen" xml:space="preserve">
     <value>Convert and open document</value>
@@ -444,8 +340,11 @@
   <data name="CaptionCopyConvertSave" xml:space="preserve">
     <value>Document uploading</value>
   </data>
-  <data name="CaptionConvertPassword" xml:space="preserve">
-    <value>The file is password protected. Enter the password for conversion.</value>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Once the changes are applied, the current file/folder owner gets access rights according to the access settings of the group he/she belongs to or according to the default folder permissions.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Change owner</value>
   </data>
   <data name="ChooseFormatToDownload" xml:space="preserve">
     <value>Choose format for each file to be downloaded</value>
@@ -454,13 +353,19 @@
     <value>Common Settings</value>
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
-    <value>Confirmation dialog for deletion to recycle bin</value>
+    <value>Display notification when moving the element to the trash</value>
   </data>
   <data name="ConfirmDontShow" xml:space="preserve">
     <value>Do not show this message again</value>
   </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>There will be two different files in the folder.</value>
+  </data>
   <data name="ConfirmOverwrite" xml:space="preserve">
     <value>Overwrite confirmation</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>The file will be added to the file with the same name as a version.</value>
   </data>
   <data name="ConfirmRemove" xml:space="preserve">
     <value>Confirmation</value>
@@ -471,23 +376,23 @@
   <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
     <value>Note: removal from your account can not be undone.</value>
   </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>No file will be copied. The original file will be retained in the destination folder.</value>
+  </data>
   <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
     <value>Save the file copy in the original format as well</value>
   </data>
   <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
-    <value>To edit the file its copy in the Office Open XML format (docx, xlsx or pptx) will be created on the portal. The source file will not be changed.</value>
-  </data>
-  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
-    <value>All the documents you upload will be converted into the corresponding Office Open XML format (docx, xlsx or pptx) for faster editing.</value>
+    <value>The document file you open will be converted to the Office Open XML format for faster viewing and editing.</value>
   </data>
   <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
     <value>The file copy will be created in the {0}My documents{1} folder</value>
   </data>
-  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
-    <value>Upload the documents in original format as well</value>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>All the documents you upload will be converted into the corresponding Office Open XML format (docx, xlsx or pptx) for faster editing.</value>
   </data>
-  <data name="ConfirmStoreOriginalUploadTitle" xml:space="preserve">
-    <value>All the documents you upload will be converted to the Office Open XML format for faster editing.</value>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Save the file copy in the original format as well</value>
   </data>
   <data name="ConfirmThirdPartyMove" xml:space="preserve">
     <value>Move confirmation</value>
@@ -497,6 +402,9 @@
   </data>
   <data name="ConfirmUpdateIfExist" xml:space="preserve">
     <value>Update the file version for the existing file with the same name. {0}Otherwise, a copy of the file will be created.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Connection URL</value>
   </data>
   <data name="Convert" xml:space="preserve">
     <value>Convert</value>
@@ -517,19 +425,25 @@
     <value>Is converting ...</value>
   </data>
   <data name="CorporateFiles" xml:space="preserve">
-    <value>Common Documents</value>
+    <value>Common</value>
   </data>
-  <data name="CreatingDate" xml:space="preserve">
-    <value>Creation date</value>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>You have just created your ONLYOFFICE portal.{0} Upload your offline files to the portal to collaborate on them without leaving the app.{0}{0} Open your portal in browser to find more features, including {1}Projects{2}, {1}CRM{2}, {1}Calendar{2}, {1}Mail{2} and more.</value>
   </data>
-  <data name="Department" xml:space="preserve">
-    <value>Department</value>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Open in browser</value>
   </data>
-  <data name="Departments" xml:space="preserve">
-    <value>Departments</value>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>For any purchase questions, email us at {0}.</value>
   </data>
-  <data name="DocumentName" xml:space="preserve">
-    <value>Document Name</value>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>If you have some technical problems, contact us at {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Welcome to your portal!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Congratulations</value>
   </data>
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
@@ -541,7 +455,7 @@
     <value>DocuSign</value>
   </data>
   <data name="DocuSignConnect" xml:space="preserve">
-    <value>To sign document, you need to connect the DocuSign service.</value>
+    <value>To sign a document, you need to connect the DocuSign service.</value>
   </data>
   <data name="DocuSignFolder" xml:space="preserve">
     <value>Save to folder:</value>
@@ -579,6 +493,9 @@
   <data name="DownloadFolder" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="DownloadTarGz" xml:space="preserve">
+    <value>Download files in .tar.gz format. Otherwise, the files will be downloaded in .zip format.</value>
+  </data>
   <data name="EmbeddedSize" xml:space="preserve">
     <value>Size</value>
   </data>
@@ -592,76 +509,67 @@
     <value>Width</value>
   </data>
   <data name="EmptyScreenDescrCorporate" xml:space="preserve">
-    <value>In this section, you can access files available to all portal members. Note that only admins can create folders here.</value>
+    <value>The 'Common' section shows all the documents shared by the portal administrators for common access. Only portal administrators can create folders in this section, but with the access granted the portal users can also upload their files here.</value>
   </data>
   <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
     <value>Drag-and-drop the files from your computer here to upload them to your portal even more easily.</value>
   </data>
-  <data name="EmptyScreenDescrRecent" xml:space="preserve">
-    <value>In this section, you can access your recently edited files.</value>
-  </data>
   <data name="EmptyScreenDescrFavorites" xml:space="preserve">
-    <value>In this section, you can access files marked as favorites. To mark files as favorites or remove them from this list, use the context menu.</value>
+    <value>To mark files as favorites or remove them from this list, use the context menu.</value>
   </data>
   <data name="EmptyScreenDescrForme" xml:space="preserve">
-    <value>In this section, you can access files your teammates shared with you.</value>
+    <value>The 'Shared with me' section shows the files which your friends or colleagues gave you access to. In case you haven't seen the latest changes in the documents they are marked 'new'. You can remove the files from the list by clicking the appropriate button.</value>
   </data>
   <data name="EmptyScreenDescrMy" xml:space="preserve">
-    <value>{2}Upload{3}, {0}create{1}, and {4}open{5} documents. Share and {6}edit{7} them together with your teammates.</value>
+    <value>The documents and image files you {0}create{1} or {2}upload{3} to the portal are kept here in 'My documents' section. You can {4}open{5} and {6}edit{7} them using the ONLYOFFICE™ portal editor, share them with friends or colleagues, organize into folders.</value>
   </data>
   <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
-    <value>The documents and image files you {2}upload{3} to the portal are kept here in 'My Documents' section. You can share them with friends or colleagues, organize into folders.</value>
-  </data>
-  <data name="EmptyScreenDescrPrivacyList" xml:space="preserve">
-    <value>{0}The safest storage for docx, xlsx and pptx.{1} {0}Secure sharing with trusted teammates.{1} {0}Encrypted editing and real-time collaboration.{1} {0}Unbreakable AES-256 algorithm.{1}</value>
+    <value>The documents and image files you {2}upload{3} to the portal are kept here in the 'My documents' section. You can share them with friends or colleagues, organize them into folders.</value>
   </data>
   <data name="EmptyScreenDescrPrivacyAsk" xml:space="preserve">
     <value>Ask your administrator to enable Private Room.</value>
   </data>
   <data name="EmptyScreenDescrPrivacyBrowser" xml:space="preserve">
-    <value>Work in Private Room is available via lastest ONLYOFFICE desktop app. {0}Instructions{1}</value>
+    <value>Work in Private Room is available via ONLYOFFICE desktop app. {0}Instructions{1}</value>
   </data>
   <data name="EmptyScreenDescrPrivacyEnable" xml:space="preserve">
     <value>{0}Enable Private Room{1}</value>
   </data>
+  <data name="EmptyScreenDescrPrivacyList" xml:space="preserve">
+    <value>{0}The safest storage for docx, xlsx and pptx.{1} {0}Secure sharing with trusted teammates.{1} {0}Encrypted editing and real-time collaboration.{1} {0}Unbreakable AES-256 algorithm.{1}</value>
+  </data>
   <data name="EmptyScreenDescrProject" xml:space="preserve">
-    <value>In this section, you can access documents attached to your projects.</value>
+    <value>The documents and image files you create or upload for your project are kept in this section. You can open and edit them using the ONLYOFFICE™ portal editor, organize into folders.</value>
   </data>
   <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
     <value>The documents and image files uploaded for the project are kept in this section. You can view them using the ONLYOFFICE portal editor.</value>
   </data>
+  <data name="EmptyScreenDescrRecent" xml:space="preserve">
+    <value>The 'Recent' section shows you last viewed or edited files.</value>
+  </data>
   <data name="EmptyScreenDescrTemplates" xml:space="preserve">
-    <value>In this section, you can access files saved as templates. To save file as template, use the context menu.</value>
+    <value>To mark files as a template or remove them from this list, use the context menu.</value>
   </data>
   <data name="EmptyScreenDescrTrash" xml:space="preserve">
-    <value>Your deleted files are moved to this section. You can restore files or delete them permanently.</value>
+    <value>All deleted files are moved to 'Trash'. Restore files deleted by mistake or delete them permanently. Please note, that the files deleted from the 'Trash' cannot be restored any longer.</value>
   </data>
   <data name="EmptyScreenFilter" xml:space="preserve">
-    <value>No files found</value>
+    <value>No files to be displayed for this filter here</value>
   </data>
   <data name="EmptyScreenFilterDescr" xml:space="preserve">
-    <value>No files and folders matching your filter found. Please, select other filter options or clear it.</value>
-  </data>
-  <data name="EmptyScreenHeader" xml:space="preserve">
-    <value>No files here yet</value>
+    <value>No files or folders matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the files in this section. You can also look for the file you need in other sections.</value>
   </data>
   <data name="EmptyScreenFolderHeader" xml:space="preserve">
     <value>No files in this folder</value>
   </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>No files to be displayed in this section</value>
+  </data>
   <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
-    <value>No connected accounts</value>
+    <value>You haven't connected any third-party clouds yet</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
-  </data>
-  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
-    <value>The uploaded file was not found</value>
-  </data>
-  <data name="Everyone" xml:space="preserve">
-    <value>All Users</value>
-  </data>
-  <data name="Recent" xml:space="preserve">
-    <value>Recent Documents</value>
   </data>
   <data name="Favorites" xml:space="preserve">
     <value>Favorites</value>
@@ -672,7 +580,10 @@
   <data name="FileChoiceType" xml:space="preserve">
     <value>Select files of type: {0}</value>
   </data>
-  <data name="FilesWillBeCompressed" xml:space="preserve">
+  <data name="FilesWillBeCompressedTarGz" xml:space="preserve">
+    <value>Files will be compressed into the {0}.tar.gz file{1}</value>
+  </data>
+  <data name="FilesWillBeCompressedZip" xml:space="preserve">
     <value>Files will be compressed into the {0}.zip file{1}</value>
   </data>
   <data name="Filter" xml:space="preserve">
@@ -687,23 +598,8 @@
   <data name="GetShorten" xml:space="preserve">
     <value>Shorten</value>
   </data>
-  <data name="Group" xml:space="preserve">
-    <value>Group</value>
-  </data>
-  <data name="ImportFromGoogle" xml:space="preserve">
-    <value>Import from Google Drive</value>
-  </data>
-  <data name="IsNew" xml:space="preserve">
-    <value>new</value>
-  </data>
-  <data name="Link" xml:space="preserve">
-    <value>Link</value>
-  </data>
   <data name="LinkViaMail" xml:space="preserve">
     <value>via email</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
   </data>
   <data name="LostDataConvert" xml:space="preserve">
     <value>If you choose to convert the file to the format different from the original, some data might be lost.</value>
@@ -754,13 +650,10 @@
     <value>Invite your colleagues or subcontractors and benefit from additional features:</value>
   </data>
   <data name="MoreFeaturesTitle" xml:space="preserve">
-    <value>Welcome ONLYOFFICE™ for teams!</value>
+    <value>Welcome to ONLYOFFICE™ for teams!</value>
   </data>
   <data name="MyFiles" xml:space="preserve">
-    <value>My Documents</value>
-  </data>
-  <data name="NewFile" xml:space="preserve">
-    <value>New File</value>
+    <value>My documents</value>
   </data>
   <data name="OpenFile" xml:space="preserve">
     <value>Preview</value>
@@ -771,41 +664,35 @@
   <data name="OpenParent" xml:space="preserve">
     <value>Open location</value>
   </data>
-  <data name="OriginalFormat" xml:space="preserve">
-    <value>Original format</value>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Hide document list</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Show documents list</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="PreviewError" xml:space="preserve">
-    <value>Warning! Possibly this file is a renamed executable file and it cannot be previewed.</value>
-  </data>
   <data name="PrivacyRoom" xml:space="preserve">
-    <value>Privacy Room</value>
+    <value>Private Room</value>
   </data>
   <data name="PrivacyRoomEmptyFolder" xml:space="preserve">
     <value>Welcome to ONLYOFFICE private room where every symbol you type is encrypted</value>
   </data>
-  <data name="ProductDescription" xml:space="preserve">
-    <value>This is a web application for internal use designed to store and share files and work on them in team.</value>
-  </data>
   <data name="ProjectFiles" xml:space="preserve">
-    <value>Project Documents</value>
+    <value>In projects</value>
   </data>
-  <data name="Remove" xml:space="preserve">
-    <value>delete</value>
+  <data name="Recent" xml:space="preserve">
+    <value>Recent</value>
   </data>
   <data name="RemoveIsNew" xml:space="preserve">
-    <value>Mark as Read</value>
-  </data>
-  <data name="RemoveIsNewShort" xml:space="preserve">
     <value>Mark as Read</value>
   </data>
   <data name="RemoveIsNewAll" xml:space="preserve">
     <value>Mark all as read</value>
   </data>
-  <data name="RemoveShareMessage" xml:space="preserve">
-    <value>Remove message</value>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Mark as Read</value>
   </data>
   <data name="SaveAsFileTitle" xml:space="preserve">
     <value>File name</value>
@@ -813,26 +700,20 @@
   <data name="SaveAsOpenTab" xml:space="preserve">
     <value>Open saved document in new tab</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="SearchText" xml:space="preserve">
-    <value>Search</value>
-  </data>
   <data name="SelectFolder" xml:space="preserve">
     <value>Select folder</value>
   </data>
-  <data name="SendShareNotify" xml:space="preserve">
-    <value>Send notification</value>
-  </data>
-  <data name="SettingRecent" xml:space="preserve">
-    <value>Display Recent Documents</value>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Please select the action:</value>
   </data>
   <data name="SettingFavorite" xml:space="preserve">
     <value>Display Favorites</value>
   </data>
   <data name="SettingForcesave" xml:space="preserve">
     <value>Keep intermediate versions when editing</value>
+  </data>
+  <data name="SettingRecent" xml:space="preserve">
+    <value>Display Recent</value>
   </data>
   <data name="SettingSection" xml:space="preserve">
     <value>Additional sections</value>
@@ -841,7 +722,7 @@
     <value>Keep all saved intermediate versions</value>
   </data>
   <data name="SettingTemplates" xml:space="preserve">
-    <value>Using Document Templates</value>
+    <value>Display Templates</value>
   </data>
   <data name="SettingUpdateIfExist" xml:space="preserve">
     <value>Common Settings</value>
@@ -853,13 +734,13 @@
     <value>Share</value>
   </data>
   <data name="SharedForMe" xml:space="preserve">
-    <value>Shared with Me</value>
+    <value>Shared with me</value>
   </data>
   <data name="SharingLinkCaption" xml:space="preserve">
-    <value>Set up the access right for the link</value>
+    <value>External link access</value>
   </data>
   <data name="SharingLinkDescr" xml:space="preserve">
-    <value>Provides access to the link</value>
+    <value>Share via the link or embed</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
     <value>Show more</value>
@@ -870,6 +751,9 @@
   <data name="SideCaptionSettings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="switchToThumbnails" xml:space="preserve">
+    <value>Switch to thumbnails view</value>
+  </data>
   <data name="SwitchViewToCompact" xml:space="preserve">
     <value>Switch to compact view</value>
   </data>
@@ -877,10 +761,10 @@
     <value>Switch to common view</value>
   </data>
   <data name="Templates" xml:space="preserve">
-    <value>Document Templates</value>
+    <value>Templates</value>
   </data>
   <data name="TemplatesEmpty" xml:space="preserve">
-    <value>No Document Templates</value>
+    <value>No templates</value>
   </data>
   <data name="TemplatesLoader" xml:space="preserve">
     <value>Loading...</value>
@@ -892,13 +776,13 @@
     <value>Box</value>
   </data>
   <data name="ThirdPartyConnectAccount" xml:space="preserve">
-    <value>Connect account</value>
+    <value>Connect cloud</value>
   </data>
   <data name="ThirdPartyConnectAccounts" xml:space="preserve">
-    <value>Connect Accounts</value>
+    <value>Connected clouds</value>
   </data>
   <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
-    <value>You can connect the following accounts to the ONLYOFFICE™ Documents. They will be displayed in 'My Documents' folder and you will be able to edit and save them right on the portal all in one place.</value>
+    <value>You can connect the following services to your ONLYOFFICE™ account. They will be displayed in the 'My documents' folder and you will be able to edit and save all your documents in a single workspace.</value>
   </data>
   <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
     <value>For successful connection enter the necessary data at {0}this page{1}.</value>
@@ -907,19 +791,19 @@
     <value>Connecting account</value>
   </data>
   <data name="ThirdPartyCorrect" xml:space="preserve">
-    <value>Specify for change</value>
+    <value>Fill in to change</value>
   </data>
   <data name="ThirdPartyDeleteCaption" xml:space="preserve">
-    <value>Delete Third Party</value>
-  </data>
-  <data name="ThirdPartyDropBox" xml:space="preserve">
-    <value>DropBox</value>
+    <value>Disconnect Third Party</value>
   </data>
   <data name="ThirdPartyDocuSign" xml:space="preserve">
     <value>DocuSign</value>
   </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
   <data name="ThirdPartyEnableSettings" xml:space="preserve">
-    <value>Enable third party settings for users</value>
+    <value>Allow users to connect third-party storages</value>
   </data>
   <data name="ThirdPartyFolderTitle" xml:space="preserve">
     <value>Folder title</value>
@@ -927,23 +811,23 @@
   <data name="ThirdPartyGoogleDrive" xml:space="preserve">
     <value>Google Drive</value>
   </data>
-  <data name="ThirdPartyNextcloud" xml:space="preserve">
-    <value>Nextcloud</value>
-  </data>
   <data name="ThirdPartykDrive" xml:space="preserve">
     <value>kDrive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
   </data>
   <data name="ThirdPartyOwnCloud" xml:space="preserve">
     <value>ownCloud</value>
   </data>
-  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
-    <value>Account</value>
-  </data>
   <data name="ThirdPartyReconnect" xml:space="preserve">
     <value>Reconnect</value>
   </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
   <data name="ThirdPartySetCorporate" xml:space="preserve">
-    <value>Make shared and put into Common Documents</value>
+    <value>Make shared and put into Common</value>
   </data>
   <data name="ThirdPartySharePoint" xml:space="preserve">
     <value>SharePoint</value>
@@ -967,7 +851,7 @@
     <value>and {0}all subfolders{1}</value>
   </data>
   <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
-    <value>Click for searchibg without subfolders</value>
+    <value>Click to search without subfolders</value>
   </data>
   <data name="TitleSelectFile" xml:space="preserve">
     <value>Select</value>
@@ -985,10 +869,7 @@
     <value>You can upload any files you want to Documents.</value>
   </data>
   <data name="Trash" xml:space="preserve">
-    <value>Recycle Bin</value>
-  </data>
-  <data name="Types" xml:space="preserve">
-    <value>Types</value>
+    <value>Trash</value>
   </data>
   <data name="Unsubscribe" xml:space="preserve">
     <value>Remove from List</value>
@@ -998,44 +879,5 @@
   </data>
   <data name="UpgradeYourPlan" xml:space="preserve">
     <value>Upgrade your plan</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>User</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
-  </data>
-  <data name="ChangeOwnerHeader" xml:space="preserve">
-    <value>Change owner</value>
-  </data>
-  <data name="ChangeOwnerDescription" xml:space="preserve">
-    <value>Once the changes are applied, the current folder owner gets access rights to the access settings of the group he/she belongs to or according to the default folder permissions.</value>
-  </data>
-  <data name="DesktopWelcomeHeader" xml:space="preserve">
-    <value>Congratulations</value>
-  </data>
-  <data name="DesktopOpenBrowser" xml:space="preserve">
-    <value>Open in browser</value>
-  </data>
-  <data name="DesktopWelcome" xml:space="preserve">
-    <value>Welcome to your portal!</value>
-  </data>
-  <data name="DesktopDescr" xml:space="preserve">
-    <value>You have just created your ONLYOFFICE portal.{0} Upload your offline files to the portal to collaborate on them without leaving the app.{0}{0} Open your portal in browser to find more features, including {1}Projects{2}, {1}CRM{2}, {1}Calendar{2}, {1}Mail{2} and more.</value>
-  </data>
-  <data name="DesktopSupport" xml:space="preserve">
-    <value>If you have some technical problems, contact us at {0}.</value>
-  </data>
-  <data name="DesktopSales" xml:space="preserve">
-    <value>For any purchase questions, email us at {0}.</value>
-  </data>
-  <data name="ButtonUploadFiles" xml:space="preserve">
-    <value>Upload files</value>
-  </data>
-  <data name="ButtonUploadFolder" xml:space="preserve">
-    <value>Upload folder</value>
-  </data>
-  <data name="ButtonCopyExternalLink" xml:space="preserve">
-    <value>Copy external link</value>
   </data>
 </root>

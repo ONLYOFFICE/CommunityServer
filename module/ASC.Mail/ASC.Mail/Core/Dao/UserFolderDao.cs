@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -37,7 +38,7 @@ namespace ASC.Mail.Core.Dao
 
         protected string CurrentUserId { get; private set; }
 
-        public UserFolderDao(IDbManager dbManager, int tenant, string user) 
+        public UserFolderDao(IDbManager dbManager, int tenant, string user)
             : base(table, dbManager, tenant)
         {
             CurrentUserId = user;
@@ -180,7 +181,7 @@ namespace ASC.Mail.Core.Dao
                 .InColumnValue(UserFolderTable.Columns.UnreadConversationsCount, folder.UnreadChainCount)
                 .InColumnValue(UserFolderTable.Columns.TotalConversationsCount, folder.TotalChainCount)
                 .InColumnValue(UserFolderTable.Columns.TimeModified, folder.TimeModified)
-                .Identity(0, (uint) 0, true);
+                .Identity(0, (uint)0, true);
 
             return Db.ExecuteScalar<uint>(query);
         }
@@ -223,7 +224,7 @@ namespace ASC.Mail.Core.Dao
                 .Where(Exp.In(UserFolderTable.Columns.Id, subQuery));
 
             // ReSharper disable once UnusedVariable
-            var result =  Db.ExecuteNonQuery(query);
+            var result = Db.ExecuteNonQuery(query);
         }
 
         private const string INCR_VALUE_FORMAT = "{0}={0}+({1})";
@@ -311,10 +312,10 @@ namespace ASC.Mail.Core.Dao
             {
                 Id = Convert.ToUInt32(r[0]),
                 ParentId = Convert.ToUInt32(r[1]),
-                
+
                 Tenant = Convert.ToInt32(r[2]),
                 User = Convert.ToString(r[3]),
-                
+
                 Name = Convert.ToString(r[4]),
                 FolderCount = Convert.ToInt32(r[5]),
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 // ReSharper disable InconsistentNaming
 
 using System.Collections.Generic;
+
 using ASC.Mail.Core.DbSchema.Interfaces;
 
 namespace ASC.Mail.Core.DbSchema.Tables
@@ -41,7 +42,7 @@ namespace ASC.Mail.Core.DbSchema.Tables
             public const string DkimDateChecked = "dkim_date_checked";
 
             public const string DomainCheck = "domain_check";
-            
+
             public const string Spf = "spf";
             public const string SpfTtl = "spf_ttl";
             public const string SpfVerified = "spf_verified";
@@ -73,7 +74,7 @@ namespace ASC.Mail.Core.DbSchema.Tables
                 Columns.DomainCheck,
                 Columns.DkimSelector,
                 Columns.DkimPrivateKey,
-                Columns.DkimPublicKey, 
+                Columns.DkimPublicKey,
                 Columns.DkimTtl,
                 Columns.DkimVerified,
                 Columns.DkimDateChecked,

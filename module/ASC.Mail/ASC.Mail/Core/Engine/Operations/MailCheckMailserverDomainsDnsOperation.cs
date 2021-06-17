@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+
 using ASC.Common.Security.Authentication;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -49,7 +50,7 @@ namespace ASC.Mail.Core.Engine.Operations
         {
             try
             {
-                SetProgress((int?) MailOperationCheckDomainDnsProgress.Init, "Setup tenant and user");
+                SetProgress((int?)MailOperationCheckDomainDnsProgress.Init, "Setup tenant and user");
 
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
 
@@ -82,21 +83,21 @@ namespace ASC.Mail.Core.Engine.Operations
 
                 var hasChanges = false;
 
-                SetProgress((int?) MailOperationCheckDomainDnsProgress.CheckMx, "Check DNS MX record");
+                SetProgress((int?)MailOperationCheckDomainDnsProgress.CheckMx, "Check DNS MX record");
 
                 if (_dns.UpdateMx(domain.Name))
                 {
                     hasChanges = true;
                 }
 
-                SetProgress((int?) MailOperationCheckDomainDnsProgress.CheckSpf, "Check DNS SPF record");
+                SetProgress((int?)MailOperationCheckDomainDnsProgress.CheckSpf, "Check DNS SPF record");
 
                 if (_dns.UpdateSpf(domain.Name))
                 {
                     hasChanges = true;
                 }
 
-                SetProgress((int?) MailOperationCheckDomainDnsProgress.CheckDkim, "Check DNS DKIM record");
+                SetProgress((int?)MailOperationCheckDomainDnsProgress.CheckDkim, "Check DNS DKIM record");
 
                 if (_dns.UpdateDkim(domain.Name))
                 {
@@ -106,7 +107,7 @@ namespace ASC.Mail.Core.Engine.Operations
                 if (!hasChanges)
                     return;
 
-                SetProgress((int?) MailOperationCheckDomainDnsProgress.UpdateResults,
+                SetProgress((int?)MailOperationCheckDomainDnsProgress.UpdateResults,
                     "Update domain dns check results");
 
                 using (var daoFactory = new DaoFactory())

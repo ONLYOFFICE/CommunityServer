@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Resources {
+namespace ASC.Web.Calendar.Resources {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CalendarJSResource {
@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create New.
+        ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string calendarAddNewLabel {
             get {
@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Todo.
+        ///   Looks up a localized string similar to To-do.
         /// </summary>
         public static string calendarButtonNewText_todo {
             get {
@@ -430,8 +430,8 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start typing email address or contact name from your personal, CRM contacts or
-        ///portal users or use any other email to invite people to your event..
+        ///   Looks up a localized string similar to Start typing an email address or  a name from the list of your personal/CRM/portal 
+        ///users&apos; contacts, or add any other email to invite people to your event..
         /// </summary>
         public static string calendarEventEditor_attendeesLabelHelpInfo {
             get {
@@ -683,7 +683,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sent invitations.
+        ///   Looks up a localized string similar to Send invitations.
         /// </summary>
         public static string calendarEventEditor_sentInvitationsLabel {
             get {
@@ -773,7 +773,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Todo.
+        ///   Looks up a localized string similar to To-do.
         /// </summary>
         public static string calendarEventEditor_todoButton {
             get {
@@ -800,7 +800,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By link.
+        ///   Looks up a localized string similar to Via link.
         /// </summary>
         public static string calendarExportEvents_byLink {
             get {
@@ -818,7 +818,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sync with calendar by link.
+        ///   Looks up a localized string similar to Sync with a calendar via the link.
         /// </summary>
         public static string calendarExportEvents_syncByLink {
             get {
@@ -998,7 +998,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete todo.
+        ///   Looks up a localized string similar to Delete to-do.
         /// </summary>
         public static string calendarTodoDeleteDialog_dialogHeader {
             get {
@@ -1007,7 +1007,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The deleted todo cannot be restored. Are you sure you want to continue?.
+        ///   Looks up a localized string similar to The deleted to-do cannot be restored. Are you sure you want to continue?.
         /// </summary>
         public static string calendarTodoDeleteDialog_dialogSingleBody {
             get {
@@ -1034,7 +1034,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create todo.
+        ///   Looks up a localized string similar to Create to-do.
         /// </summary>
         public static string calendarTodoEditor_dialogHeader_add {
             get {
@@ -1043,7 +1043,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit todo.
+        ///   Looks up a localized string similar to Edit to-do.
         /// </summary>
         public static string calendarTodoEditor_dialogHeader_edit {
             get {
@@ -1061,7 +1061,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New todo.
+        ///   Looks up a localized string similar to New to-do.
         /// </summary>
         public static string calendarTodoList_addTodoLabel {
             get {
@@ -1070,7 +1070,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to new todo.
+        ///   Looks up a localized string similar to new to-do.
         /// </summary>
         public static string calendarTodoList_newTodoTitle {
             get {
@@ -1448,7 +1448,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection instructions in the.
+        ///   Looks up a localized string similar to Find detailed instructions in the.
         /// </summary>
         public static string icalStream_export_help {
             get {
@@ -1475,7 +1475,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To configure the export of todos  to another calendar, copy the corresponding link and add it to the required calendar..
+        ///   Looks up a localized string similar to To configure the export of to-dos to another calendar, copy the corresponding link and add it to the required calendar..
         /// </summary>
         public static string icalStream_export_todo_description {
             get {
@@ -1637,7 +1637,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show to-do in calendar.
+        ///   Looks up a localized string similar to Show to-dos in the calendar.
         /// </summary>
         public static string menuTodoInCalendar {
             get {

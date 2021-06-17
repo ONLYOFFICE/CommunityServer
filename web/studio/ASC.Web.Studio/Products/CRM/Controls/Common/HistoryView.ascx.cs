@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,15 @@
 
 #region Import
 
-using ASC.Core;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
+using ASC.Core;
+using ASC.CRM.Core;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Core.Enums;
 
 #endregion
 
@@ -60,7 +61,8 @@ namespace ASC.Web.CRM.Controls.Common
 
         #region Methods
 
-        private void initUserSelectorListView(){
+        private void initUserSelectorListView()
+        {
 
             List<Guid> users = null;
 

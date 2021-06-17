@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 */
 
 
-using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
+
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Data;
 using ASC.ActiveDirectory.Base.Expressions;
@@ -143,7 +144,7 @@ namespace ASC.ActiveDirectory.Novell
 
         public override bool CheckUserDn(string userDn)
         {
-            string[] attributes = {LdapConstants.ADSchemaAttributes.OBJECT_CLASS};
+            string[] attributes = { LdapConstants.ADSchemaAttributes.OBJECT_CLASS };
 
             var searchResult = LDAPSearcher.Search(userDn, NovellLdapSearcher.LdapScope.Base,
                 LdapConstants.OBJECT_FILTER, attributes, 1);
@@ -157,7 +158,7 @@ namespace ASC.ActiveDirectory.Novell
 
         public override bool CheckGroupDn(string groupDn)
         {
-            string[] attributes = {LdapConstants.ADSchemaAttributes.OBJECT_CLASS};
+            string[] attributes = { LdapConstants.ADSchemaAttributes.OBJECT_CLASS };
 
             var searchResult = LDAPSearcher.Search(groupDn, NovellLdapSearcher.LdapScope.Base,
                 LdapConstants.OBJECT_FILTER, attributes, 1);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,6 +79,7 @@ window.ASC.Files.Mouse = (function () {
              .files-content-panel,\
              #mainContentHeader,\
              #mainContent,\
+             #filesMainContent.thumbnails,\
              .file-row:not(.row-rename):not(.row-selected),\
              .file-row:not(.row-rename):not(.row-selected) *")) {
             return true;
@@ -144,6 +145,9 @@ window.ASC.Files.Mouse = (function () {
         if (jq(target)
             .is(".folder-row:not(.error-entry) .thumb-folder," +
                 ".file-row:not(.error-entry) .thumb-file," +
+                ".file-row:not(.error-entry) .thumb-img," +
+                ".file-row:not(.error-entry) .thumb-img img," +
+                ".file-row.min:not(.error-entry) .entry-title .name," +
                 ".file-row:not(.error-entry) .entry-title .name a," +
                 ".file-row:not(.error-entry) .entry-title .name span")) {
             if (ASC.Files.Folders.folderContainer !== "trash") {
@@ -414,10 +418,10 @@ window.ASC.Files.Mouse = (function () {
         }
 
         if (!ASC.Files.UI.accessEdit() || !ASC.Files.UI.accessDelete() || e.ctrlKey) {
-            var textFormat = ASC.Files.FilesJSResources.InfoCopyDescribe;
+            var textFormat = ASC.Files.FilesJSResource.InfoCopyDescribe;
             jq("body").addClass("file-mouse-copy");
         } else {
-            textFormat = ASC.Files.FilesJSResources.InfoMoveDescribe;
+            textFormat = ASC.Files.FilesJSResource.InfoMoveDescribe;
             jq("body").removeClass("file-mouse-copy");
         }
 
@@ -430,7 +434,7 @@ window.ASC.Files.Mouse = (function () {
         if (list.length == 1) {
             textInfo = ASC.Files.UI.getObjectTitle(list[0]);
         } else {
-            textInfo = ASC.Files.FilesJSResources.InfoCountDescribe.format(list.length);
+            textInfo = ASC.Files.FilesJSResource.InfoCountDescribe.format(list.length);
         }
         textInfo = textFormat.format(textInfo, "<b>", "</b>", "<br/>");
         jq("#filesMovingTooltip").html(textInfo);
@@ -565,8 +569,7 @@ window.ASC.Files.Mouse = (function () {
     $(function () {
         jq("#filesMainContent").on("mousedown", ".file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)", ASC.Files.Mouse.preparingMoveTo);
 
-        jq("#mainContent").on("mouseover", "#filesMainContent.compact .file-row:not(.checkloading):not(.new-folder):not(.new-file) .entry-title .name a", ASC.Files.Mouse.overCompactTitle);
-
+        jq("#mainContent").on("mouseover", "#filesMainContent.compact .file-row:not(.checkloading):not(.new-folder):not(.new-file) .entry-title .name a, #filesMainContent.thumbnails .file-row:not(.checkloading):not(.new-folder):not(.new-file) .name a", ASC.Files.Mouse.overCompactTitle);
         jq(document).on("mousedown.MouseSelect", "#studioPageContent:has(#filesMainContent .file-row:visible:not(.checkloading):not(.new-folder):not(.new-file))", ASC.Files.Mouse.beginSelecting);
 
         jq(document).bind("mouseup.Mouse", function () {

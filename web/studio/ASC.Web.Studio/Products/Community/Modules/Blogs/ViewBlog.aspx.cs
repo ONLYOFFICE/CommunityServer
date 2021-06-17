@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,13 @@
 
 using System;
 using System.Collections.Generic;
+
 using AjaxPro;
+
 using ASC.Blogs.Core;
 using ASC.Blogs.Core.Domain;
-using ASC.Blogs.Core.Resources;
 using ASC.Core;
+using ASC.Web.Community.Modules.Blogs.Core.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.UserControls.Common.Comments;
@@ -116,22 +118,22 @@ namespace ASC.Web.Community.Blogs
             foreach (var comment in Comment.SelectChildLevel(parentId, loaded))
             {
                 var info = new CommentInfo
-                    {
-                        CommentID = comment.ID.ToString(),
-                        UserID = comment.UserID,
-                        TimeStamp = comment.Datetime,
-                        TimeStampStr = comment.Datetime.Ago(),
-                        IsRead = true,
-                        Inactive = comment.Inactive,
-                        CommentBody = HtmlUtility.GetFull(comment.Content),
-                        UserFullName = DisplayUserSettings.GetFullUserName(comment.UserID),
-                        UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserID),
-                        UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserID),
-                        UserPost = CoreContext.UserManager.GetUsers(comment.UserID).Title,
-                        IsEditPermissions = CommunitySecurity.CheckPermissions(comment, Constants.Action_EditRemoveComment),
-                        IsResponsePermissions = CommunitySecurity.CheckPermissions(post, Constants.Action_AddComment),
-                        CommentList = BuildCommentsList(post, loaded, comment.ID)
-                    };
+                {
+                    CommentID = comment.ID.ToString(),
+                    UserID = comment.UserID,
+                    TimeStamp = comment.Datetime,
+                    TimeStampStr = comment.Datetime.Ago(),
+                    IsRead = true,
+                    Inactive = comment.Inactive,
+                    CommentBody = HtmlUtility.GetFull(comment.Content),
+                    UserFullName = DisplayUserSettings.GetFullUserName(comment.UserID),
+                    UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserID),
+                    UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserID),
+                    UserPost = CoreContext.UserManager.GetUsers(comment.UserID).Title,
+                    IsEditPermissions = CommunitySecurity.CheckPermissions(comment, Constants.Action_EditRemoveComment),
+                    IsResponsePermissions = CommunitySecurity.CheckPermissions(post, Constants.Action_AddComment),
+                    CommentList = BuildCommentsList(post, loaded, comment.ID)
+                };
 
                 result.Add(info);
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 */
 
 
-using System.Globalization;
-using ASC.Web.Core.WhiteLabel;
 using System;
+using System.Globalization;
 using System.Web.UI;
+
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.Support
@@ -41,7 +42,7 @@ namespace ASC.Web.Studio.UserControls.Common.Support
 
                 return CommonLinkUtility.GetRegionalUrl(settings.FeedbackAndSupportUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             }
-        }   
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

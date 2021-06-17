@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Web.Studio.Utility;
+
 using Ionic.Zip;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -38,7 +40,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             Page.RegisterBodyScripts("~/UserControls/Management/Monitoring/js/loghelper.js")
                 .RegisterStyle("~/uUserControls/Management/Monitoring/css/monitoring.less");
-            
+
             if (IsDownloadRequest())
                 DownloadArchive();
 
@@ -53,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Management
             CreateArchive(Response.OutputStream);
             Response.End();
         }
-        
+
         private void CreateArchive(Stream outputStream)
         {
             using (var zip = new ZipFile())
@@ -84,7 +86,7 @@ namespace ASC.Web.Studio.UserControls.Management
             string endDate = HttpContext.Current.Request["end"];
             return !string.IsNullOrEmpty(endDate) ? Convert.ToDateTime(endDate) : DateTime.MaxValue;
         }
-        
+
         private IEnumerable<string> EnumerateLogFiles(DateTime startDate, DateTime endDate)
         {
             return GetLogFolders()
@@ -95,7 +97,7 @@ namespace ASC.Web.Studio.UserControls.Management
         private IEnumerable<string> GetLogFolders()
         {
             var paths = ConfigurationManagerExtension.AppSettings["monitoring.log-folder"] ?? @"..\Logs\";
-            return paths.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+            return paths.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                         .Select(path =>
                             {
                                 if (!Path.IsPathRooted(path))

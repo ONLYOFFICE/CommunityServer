@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,11 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Web;
-using ASC.Web.Community.Forum.Common;
-using ASC.Web.Community.Forum.Resources;
+
+using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
 using ASC.Web.Core.ModuleManagement;
-using ASC.Web.UserControls.Forum.Common;
 
 namespace ASC.Web.Community.Forum.Common
 {
@@ -53,7 +50,7 @@ namespace ASC.Web.Community.Forum.Common
         {
             get { return "~/Products/Community/Modules/Forum/"; }
         }
-     
+
         public ForumModule()
         {
             Context = new ModuleContext

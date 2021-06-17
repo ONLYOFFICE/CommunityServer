@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,15 @@
 
 using System;
 using System.Web;
-using ASC.Web.Files.Classes;
+
 using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.Exceptions;
 using AppLimit.CloudComputing.SharpBox.StorageProvider;
+
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Files.Core;
+using ASC.Web.Files.Classes;
 
 namespace ASC.Files.Thirdparty.Sharpbox
 {

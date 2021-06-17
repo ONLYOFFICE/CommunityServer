@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.SharePoint
@@ -215,7 +218,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             if (fileToDownload == null)
                 throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
 
-            var fileStream = ProviderInfo.GetFileStream(fileToDownload.ServerRelativeUrl, (int) offset);
+            var fileStream = ProviderInfo.GetFileStream(fileToDownload.ServerRelativeUrl, (int)offset);
 
             return fileStream;
         }
@@ -296,8 +299,8 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public object FileRename(File file, string newTitle)
         {
-            var newFileId = ProviderInfo.RenameFile((string) file.ID, newTitle);
-            UpdatePathInDB(ProviderInfo.MakeId((string) file.ID), (string) newFileId);
+            var newFileId = ProviderInfo.RenameFile((string)file.ID, newTitle);
+            UpdatePathInDB(ProviderInfo.MakeId((string)file.ID), (string)newFileId);
             return newFileId;
         }
 
@@ -324,7 +327,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return new ChunkedUploadSession(FixId(file), contentLength) { UseChunks = false };
         }
 
-        public void UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
+        public File UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength)
         {
             if (!uploadSession.UseChunks)
             {
@@ -333,7 +336,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
                 uploadSession.File = SaveFile(uploadSession.File, chunkStream);
                 uploadSession.BytesUploaded = chunkLength;
-                return;
+                return uploadSession.File;
             }
 
             throw new NotImplementedException();
@@ -394,6 +397,26 @@ namespace ASC.Files.Thirdparty.SharePoint
         public bool ContainChanges(object fileId, int fileVersion)
         {
             return false;
+        }
+
+        public void SaveThumbnail(File file, Stream thumbnail)
+        {
+            //Do nothing
+        }
+
+        public Stream GetThumbnail(File file)
+        {
+            return null;
+        }
+
+        public Task<Stream> GetFileStreamAsync(File file)
+        {
+            return Task.FromResult(GetFileStream(file));
+        }
+
+        public Task<bool> IsExistOnStorageAsync(File file)
+        {
+            return Task.FromResult(IsExistOnStorage(file));
         }
 
         #endregion

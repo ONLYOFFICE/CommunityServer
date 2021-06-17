@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 
 using System;
 using System.IO;
-using System.Web;
-using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using ASC.Common.Security;
+using System.Web;
+
 using ASC.CRM.Core.Dao;
 using ASC.Web.CRM.Core;
 using ASC.Web.Studio;
+
 using Autofac;
 
 namespace ASC.Web.CRM
@@ -58,7 +58,7 @@ namespace ASC.Web.CRM
 
             Page.RegisterInlineScript(String.Format(" var {1} = {0};", json, jsonClassName), onReady: false);
         }
-      
+
         protected abstract void PageLoad();
 
         protected override void OnUnload(EventArgs e)

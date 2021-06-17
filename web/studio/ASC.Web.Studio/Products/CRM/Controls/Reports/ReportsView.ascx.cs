@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Web;
-using ASC.CRM.Core;
+
 using ASC.Core;
+using ASC.CRM.Core;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Resources;
 
@@ -68,8 +68,8 @@ namespace ASC.Web.CRM.Controls.Reports
 
                 Int32.TryParse(UrlParameters.ReportType, out reportType);
 
-                if (Enum.IsDefined(typeof (ReportType), reportType))
-                    CurrentReportType = (ReportType) reportType;
+                if (Enum.IsDefined(typeof(ReportType), reportType))
+                    CurrentReportType = (ReportType)reportType;
 
                 if (CurrentReportType == ReportType.WorkloadByVoip && CoreContext.Configuration.CustomMode)
                 {
@@ -275,7 +275,7 @@ namespace ASC.Web.CRM.Controls.Reports
             RegisterClientScriptHelper.DataReportsView(Page);
 
             Page.RegisterInlineScript(string.Format("ASC.CRM.Reports.init({0}, {1});",
-                                                    (int) CurrentReportType,
+                                                    (int)CurrentReportType,
                                                     ViewFiles.ToString().ToLowerInvariant()));
 
             RegisterClientScriptHelper.DataUserSelectorListView(Page, "_Reports", null);

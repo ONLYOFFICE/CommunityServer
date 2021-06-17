@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,10 @@
 
 
 using System;
+
 using ASC.Notify.Model;
-using ASC.Notify.Patterns;
-using ASC.Web.UserControls.Wiki.Resources;
+using ASC.Web.Community.Modules.Wiki.Resources;
+
 using AuthAction = ASC.Common.Security.Authorizing.Action;
 
 namespace ASC.Web.Community.Wiki.Common

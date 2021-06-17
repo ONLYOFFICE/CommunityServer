@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,10 @@
 
 
 using System;
-using System.Text;
-using System.Web.UI;
-using ASC.Web.Community.Controls;
-using ASC.Data.Storage;
 using System.Web;
-using ASC.Web.Community.Resources;
+using System.Web.UI;
+
+using ASC.Web.Community.Controls;
 
 namespace ASC.Web.Community
 {

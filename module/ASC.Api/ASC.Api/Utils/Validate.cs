@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,21 @@
 
 
 using System;
+
 using ASC.Api.Exceptions;
 
 namespace ASC.Api.Utils
 {
     public static class Validate
     {
-        public static T If<T>(this T item,Func<T,bool> @if, Func<T> then) where T : class
+        public static T If<T>(this T item, Func<T, bool> @if, Func<T> then) where T : class
         {
             return @if(item) ? then() : item;
         }
 
-        public static T IfNull<T>(this T item, Func<T> func) where T:class
+        public static T IfNull<T>(this T item, Func<T> func) where T : class
         {
-            return item.If((x)=>x==default(T),func);
+            return item.If((x) => x == default(T), func);
         }
 
         public static T ThrowIfNull<T>(this T item, Exception e) where T : class

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Caching;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
@@ -86,8 +85,8 @@ namespace ASC.CRM.Core.Dao
 
         public Boolean IsExistInDb(int invoiceItemID)
         {
-             return Db.ExecuteScalar<bool>(@"select exists(select 1 from crm_invoice_item where tenant_id = @tid and id = @id)",
-                            new { tid = TenantID, id = invoiceItemID });
+            return Db.ExecuteScalar<bool>(@"select exists(select 1 from crm_invoice_item where tenant_id = @tid and id = @id)",
+                           new { tid = TenantID, id = invoiceItemID });
         }
 
         public Boolean CanDelete(int invoiceItemID)
@@ -143,7 +142,7 @@ namespace ASC.CRM.Core.Dao
 
 
             var whereConditional = WhereConditional(new List<int>(), searchText, status, inventoryStock);
-                // WhereConditional(CRMSecurity.GetPrivateItems(typeof(Invoice)).ToList(), searchText);
+            // WhereConditional(CRMSecurity.GetPrivateItems(typeof(Invoice)).ToList(), searchText);
 
             if (withParams && whereConditional == null)
                 return new List<InvoiceItem>();
@@ -223,10 +222,10 @@ namespace ASC.CRM.Core.Dao
 
                 if (privateCount > countWithoutPrivate)
                 {
-                    _log.ErrorFormat(@"Private invoice items count more than all cases. Tenant: {0}. CurrentAccount: {1}", 
-                                                            TenantID, 
+                    _log.ErrorFormat(@"Private invoice items count more than all cases. Tenant: {0}. CurrentAccount: {1}",
+                                                            TenantID,
                                                             SecurityContext.CurrentAccount.ID);
-                 
+
                     privateCount = 0;
                 }
 
@@ -263,7 +262,8 @@ namespace ASC.CRM.Core.Dao
 
             if (!CRMSecurity.IsAdmin) CRMSecurity.CreateSecurityException();
 
-            if (String.IsNullOrEmpty(invoiceItem.Description)) {
+            if (String.IsNullOrEmpty(invoiceItem.Description))
+            {
                 invoiceItem.Description = String.Empty;
             }
             if (String.IsNullOrEmpty(invoiceItem.StockKeepingUnit))
@@ -291,7 +291,7 @@ namespace ASC.CRM.Core.Dao
                               .InColumnValue("last_modifed_by", SecurityContext.CurrentAccount.ID)
                               .Identity(1, 0, true));
 
-                invoiceItem.CreateOn =  DateTime.UtcNow;
+                invoiceItem.CreateOn = DateTime.UtcNow;
                 invoiceItem.LastModifedOn = invoiceItem.CreateOn;
                 invoiceItem.CreateBy = SecurityContext.CurrentAccount.ID;
                 invoiceItem.LastModifedBy = invoiceItem.CreateBy;
@@ -374,7 +374,7 @@ namespace ASC.CRM.Core.Dao
 
             //using (var tx = db.BeginTransaction(true))
             ///{
-                Db.ExecuteNonQuery(Delete("crm_invoice_item").Where(Exp.In("id", ids)));
+            Db.ExecuteNonQuery(Delete("crm_invoice_item").Where(Exp.In("id", ids)));
             //    tx.Commit();
             //}
         }
@@ -382,22 +382,22 @@ namespace ASC.CRM.Core.Dao
         private static InvoiceItem ToInvoiceItem(object[] row)
         {
             return new InvoiceItem
-                {
-                    ID = Convert.ToInt32(row[0]),
-                    Title = Convert.ToString(row[1]),
-                    Description = Convert.ToString(row[2]),
-                    StockKeepingUnit = Convert.ToString(row[3]),
-                    Price = Convert.ToDecimal(row[4]),
-                    StockQuantity = Convert.ToDecimal(row[5]),
-                    TrackInventory = Convert.ToBoolean(row[6]),
-                    InvoiceTax1ID = Convert.ToInt32(row[7]),
-                    InvoiceTax2ID = Convert.ToInt32(row[8]),
-                    Currency = Convert.ToString(row[9]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[10].ToString())),
-                    CreateBy = ToGuid(row[11]),
-                    LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[12].ToString())),
-                    LastModifedBy = ToGuid(row[13])
-                };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Title = Convert.ToString(row[1]),
+                Description = Convert.ToString(row[2]),
+                StockKeepingUnit = Convert.ToString(row[3]),
+                Price = Convert.ToDecimal(row[4]),
+                StockQuantity = Convert.ToDecimal(row[5]),
+                TrackInventory = Convert.ToBoolean(row[6]),
+                InvoiceTax1ID = Convert.ToInt32(row[7]),
+                InvoiceTax2ID = Convert.ToInt32(row[8]),
+                Currency = Convert.ToString(row[9]),
+                CreateOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[10].ToString())),
+                CreateBy = ToGuid(row[11]),
+                LastModifedOn = TenantUtil.DateTimeFromUtc(DateTime.Parse(row[12].ToString())),
+                LastModifedBy = ToGuid(row[13])
+            };
         }
 
         private SqlQuery GetInvoiceItemSqlQuery(Exp where)
@@ -458,7 +458,7 @@ namespace ASC.CRM.Core.Dao
                     //    if (ids.Count == 0) return null;
                     //}
                     //else
-                    conditions.Add(BuildLike(new[] {"title", "description", "stock_keeping_unit" }, keywords));
+                    conditions.Add(BuildLike(new[] { "title", "description", "stock_keeping_unit" }, keywords));
             }
 
             if (exceptIDs.Count > 0)
@@ -467,7 +467,8 @@ namespace ASC.CRM.Core.Dao
             }
 
 
-            if (inventoryStock.HasValue) {
+            if (inventoryStock.HasValue)
+            {
                 conditions.Add(Exp.Eq("track_inventory", inventoryStock.Value));
             }
 

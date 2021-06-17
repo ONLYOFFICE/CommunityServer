@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -27,13 +28,13 @@ using ASC.Mail.Core.DbSchema.Tables;
 
 namespace ASC.Mail.Core.Dao
 {
-    public class TagAddressDao: BaseDao, ITagAddressDao
+    public class TagAddressDao : BaseDao, ITagAddressDao
     {
         protected static ITable table = new MailTableFactory().Create<TagAddressTable>();
 
         protected string CurrentUserId { get; private set; }
 
-        public TagAddressDao(IDbManager dbManager, int tenant, string user) 
+        public TagAddressDao(IDbManager dbManager, int tenant, string user)
             : base(table, dbManager, tenant)
         {
             CurrentUserId = user;

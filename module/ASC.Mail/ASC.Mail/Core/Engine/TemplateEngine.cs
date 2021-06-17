@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,35 +17,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
+
 using ASC.Common.Logging;
-using ASC.Core;
-using ASC.Core.Notify.Signalr;
-using ASC.Mail.Clients;
-using ASC.Mail.Core.Dao.Expressions.Attachment;
-using ASC.Mail.Core.Dao.Expressions.Contact;
 using ASC.Mail.Core.Dao.Expressions.Mailbox;
-using ASC.Mail.Core.Dao.Expressions.Message;
-using ASC.Mail.Core.DbSchema.Tables;
-using ASC.Mail.Core.Entities;
 using ASC.Mail.Data.Contracts;
-using ASC.Mail.Data.Contracts.Base;
-using ASC.Mail.Data.Search;
-using ASC.Mail.Data.Storage;
 using ASC.Mail.Enums;
-using ASC.Mail.Exceptions;
 using ASC.Mail.Extensions;
 using ASC.Mail.Utils;
-using MimeKit;
+
 using MailMessage = ASC.Mail.Data.Contracts.MailMessageData;
 
 namespace ASC.Mail.Core.Engine
@@ -131,7 +112,8 @@ namespace ASC.Mail.Core.Engine
             var fromAddress = MailUtil.CreateFullEmail(mbox.Name, mbox.EMail.Address);
 
             var template = new MailTemplateData(id, mbox, fromAddress, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
-                    tags, body, streamId, attachments, calendarIcs) { PreviousMailboxId = previousMailboxId };
+                    tags, body, streamId, attachments, calendarIcs)
+            { PreviousMailboxId = previousMailboxId };
 
             DaemonLabels = translates ?? DeliveryFailureMessageTranslates.Defauilt;
 

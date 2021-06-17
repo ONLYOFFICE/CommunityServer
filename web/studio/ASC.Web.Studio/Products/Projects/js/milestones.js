@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ ASC.Projects.AllMilestones = (function () {
             var actions = [
                 {
                     id: "gaDelete",
-                    title: resources.CommonResource.Delete,
+                    title: resources.ProjectsCommonResource.Delete,
                     handler: gaRemoveHandler,
                     checker: function(milestone) {
                         return milestone.canDelete;
@@ -266,6 +266,7 @@ ASC.Projects.AllMilestones = (function () {
         } else {
             template.responsible = null;
             template.responsibleId = null;
+            template.isTerminated = false;
         }
 
         var today = new Date();
@@ -291,12 +292,12 @@ ASC.Projects.AllMilestones = (function () {
             ActionMenuItem = ASC.Projects.ActionMenuItem;
 
         if (milestone.status !== 'closed') {
-            menuItems.push(new ActionMenuItem("updateMilestoneButton", resources.TasksResource.Edit, updateMilestoneActionHandler.bind(null, milestoneId), "edit"));
-            menuItems.push(new ActionMenuItem("addMilestoneTaskButton", resources.TasksResource.AddTask, addMilestoneTaskActionHandler.bind(null, milestoneId), "new-task"));
+            menuItems.push(new ActionMenuItem("updateMilestoneButton", resources.TaskResource.Edit, updateMilestoneActionHandler.bind(null, milestoneId), "edit"));
+            menuItems.push(new ActionMenuItem("addMilestoneTaskButton", resources.TaskResource.AddTask, addMilestoneTaskActionHandler.bind(null, milestoneId), "new-task"));
         }
 
         if (milestone.canDelete) {
-            menuItems.push(new ActionMenuItem("removeMilestoneButton", resources.CommonResource.Delete, maRemoveHandler.bind(null, milestoneId), "delete"));
+            menuItems.push(new ActionMenuItem("removeMilestoneButton", resources.ProjectsCommonResource.Delete, maRemoveHandler.bind(null, milestoneId), "delete"));
         }
 
         return { menuItems: menuItems };

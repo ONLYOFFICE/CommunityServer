@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomNavigation.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.CustomNavigation" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <% if (Enabled) { %>
 <div class="clearFix">

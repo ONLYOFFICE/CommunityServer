@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Security;
+
 using ASC.Core.Billing;
 using ASC.Core.Data;
 using ASC.Core.Security.Authentication;
@@ -151,7 +152,6 @@ namespace ASC.Core
             tenant.OwnerId = user.ID;
             tenant = tenantService.SaveTenant(tenant);
 
-            settingsManager.SaveSettings(new TenantAnalyticsSettings { Analytics = ri.Analytics }, tenant.TenantId);
             settingsManager.SaveSettings(new TenantControlPanelSettings { LimitedAccess = ri.LimitedControlPanel }, tenant.TenantId);
         }
 

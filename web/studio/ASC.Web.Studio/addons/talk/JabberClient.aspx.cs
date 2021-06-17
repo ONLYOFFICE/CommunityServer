@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web;
+
 using AjaxPro;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
@@ -155,8 +157,8 @@ namespace ASC.Web.Talk
             {
                 Page.RegisterInlineScript("ASC.TMTalk.notifications && ASC.TMTalk.notifications.initialiseFirebase(" + GetFirebaseConfig() + ");");
             }
-            catch (Exception){}
-            
+            catch (Exception) { }
+
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite), Core.Security.SecurityPassthrough]

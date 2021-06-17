@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.Projects.Wrappers;
 using ASC.Projects.Core.Domain;
@@ -38,7 +39,7 @@ namespace ASC.Api.Projects
         [Read(@"tag")]
         public IEnumerable<ObjectWrapperBase> GetAllTags()
         {
-            return EngineFactory.TagEngine.GetTags().Select(x => new ObjectWrapperBase {Id = x.Key, Title = x.Value});
+            return EngineFactory.TagEngine.GetTags().Select(x => new ObjectWrapperBase { Id = x.Key, Title = x.Value });
         }
 
         ///<summary>
@@ -55,9 +56,9 @@ namespace ASC.Api.Projects
             if (string.IsNullOrEmpty(data)) throw new ArgumentException("data");
             ProjectSecurity.DemandCreate<Project>(null);
 
-            var result =  EngineFactory.TagEngine.Create(data);
-            
-            return new ObjectWrapperBase {Id = result.Key, Title = result.Value};
+            var result = EngineFactory.TagEngine.Create(data);
+
+            return new ObjectWrapperBase { Id = result.Key, Title = result.Value };
         }
 
         ///<summary>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,10 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
+
 using ASC.Common.Logging;
 using ASC.Common.Module;
+using ASC.Core;
 using ASC.TeamLabSvc.Configuration;
 
 namespace ASC.TeamLabSvc
@@ -31,7 +33,7 @@ namespace ASC.TeamLabSvc
     sealed class Program : ServiceBase
     {
         private static readonly ILog log;
-        private static List<IServiceController> services;
+        private static readonly List<IServiceController> services;
 
         static Program()
         {
@@ -41,6 +43,26 @@ namespace ASC.TeamLabSvc
 
         private static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                log.ErrorFormat("Fatal Exception : " + Environment.NewLine +
+                                e.ExceptionObject);
+
+                if (!WorkContext.IsMono)
+                {
+                    string eventLogSourceName = "Application";
+
+                    if (services.Count() == 1)
+                    {
+                        eventLogSourceName = GetServiceName(services[0]);
+                    }
+
+                    EventLog.WriteEntry(eventLogSourceName,
+                        "Fatal Exception : " + Environment.NewLine +
+                        e.ExceptionObject, EventLogEntryType.Error);
+                }
+            };
+
 #if DEBUG
             if (Convert.ToBoolean(ConfigurationManagerExtension.AppSettings["debugBreak"]))
             {
@@ -112,7 +134,8 @@ namespace ASC.TeamLabSvc
             catch (Exception error)
             {
                 log.ErrorFormat("Can not start services: {0}", error);
-                return;
+                ExitCode = 1064; // An exception occurred in the service when handling the control request
+                throw;
             }
 
             foreach (var s in services)
@@ -125,6 +148,8 @@ namespace ASC.TeamLabSvc
                 catch (Exception error)
                 {
                     log.ErrorFormat("Can not start service {0}: {1}", GetServiceName(s), error);
+                    ExitCode = 1064; // An exception occurred in the service when handling the control request
+                    throw;
                 }
             }
         }
@@ -141,13 +166,15 @@ namespace ASC.TeamLabSvc
                 catch (Exception error)
                 {
                     log.ErrorFormat("Can not stop service {0}: {1}", GetServiceName(s), error);
+                    ExitCode = 1064; // An exception occurred in the service when handling the control request
+                    throw;
                 }
             }
 
             services.Clear();
         }
 
-        private string GetServiceName(IServiceController controller)
+        private static string GetServiceName(IServiceController controller)
         {
             var type = controller.GetType();
             var attributes = type.GetCustomAttributes(typeof(DisplayNameAttribute), false);

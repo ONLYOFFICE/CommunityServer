@@ -4,7 +4,7 @@
 <%@ Import Namespace="ASC.Web.People.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <div class="page-menu">
@@ -14,7 +14,7 @@
             <li class="menu-item none-sub-list open <%= Page is Help ? "" : "currentCategory active" %>" data-id="@persons">
                 <div class="category-wrapper">
                     <span class="expander"></span>
-                    <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %>" href="/Products/People/#sortorder=ascending">
+                    <a id="defaultLinkPeople" class="menu-item-label outer-text text-overflow" title="<%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %>" >
                         <span class="menu-item-icon people"><svg class="menu-item-svg"><use base="<%= WebPath.GetPath("/")%>" href="/skins/default/images/svg/top-studio-menu.svg#svgTopStudioMenupeople"></use></svg></span>
                         <span class="menu-item-label inner-text"><%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode() %></span>
                     </a>
@@ -69,7 +69,7 @@
         <asp:PlaceHolder ID="VideoGuides" runat="server"/>
     </ul>
 
-    <% if (CurrentUserAdmin && ASC.Web.Studio.ThirdParty.ImportContacts.Import.Enable)
+    <% if (CurrentUserAdmin && ASC.Web.Studio.ThirdParty.ImportContacts.Import.Enable && (EnableAddVisitors || EnableAddUsers))
         { %>
     <div class="people-import-banner">
         <div class="people-import-banner_text"><%= PeopleResource.ImportPeople %></div>

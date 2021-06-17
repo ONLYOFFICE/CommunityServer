@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,12 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Blogs.Core.Security;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core.Users;
+
 using HtmlAgilityPack;
 
 #endregion
@@ -184,7 +186,8 @@ namespace ASC.Blogs.Core.Domain
                 if (sourceStr.Length > startPos + len)
                 {
                     outStr += " ...";
-                } return 1;
+                }
+                return 1;
             }
             outStr += str;
             charCount += str.Replace("&nbsp;", " ").Length;

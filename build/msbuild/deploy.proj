@@ -59,6 +59,10 @@
       <Launcher>ASC.Thumbnails.Svc.Launcher, ASC.Thumbnails.Svc</Launcher>
       <ProjPath>module\ASC.Thumbnails.Svc\ASC.Thumbnails.Svc.csproj</ProjPath>
     </ServiceToDeploy>
+    <ServiceToDeploy Include="SsoAuth">
+      <Launcher>ASC.SsoAuth.Svc.Launcher, ASC.SsoAuth.Svc</Launcher>
+      <ProjPath>module\ASC.SsoAuth.Svc\ASC.SsoAuth.Svc.csproj</ProjPath>
+    </ServiceToDeploy>
     <ServiceToDeploy Include="UrlShortener">
       <Launcher>ASC.UrlShortener.Svc.Launcher, ASC.UrlShortener.Svc</Launcher>
       <ProjPath>module\ASC.UrlShortener.Svc\ASC.UrlShortener.Svc.csproj</ProjPath>
@@ -90,6 +94,10 @@
     <ServiceToDeploy Include="Encryption">
       <Launcher>ASC.Data.Storage.Encryption.Launcher, ASC.Data.Storage.Encryption</Launcher>
       <ProjPath>common\ASC.Data.Storage.Encryption\ASC.Data.Storage.Encryption.csproj</ProjPath>
+    </ServiceToDeploy>
+    <ServiceToDeploy Include="ThumbnailBuilder">
+      <Launcher>ASC.Files.ThumbnailBuilder.Launcher, ASC.Files.ThumbnailBuilder</Launcher>
+      <ProjPath>module\ASC.Files.ThumbnailBuilder\ASC.Files.ThumbnailBuilder.csproj</ProjPath>
     </ServiceToDeploy>
   </ItemGroup>
   <ItemGroup>
@@ -128,8 +136,8 @@
     <Copy Condition="Exists('$(OutDir)Uploads\')" SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFiles="$(OutDir)Services\MailAggregator\web.storage.config" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
-    <Copy SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.storage.config" DestinationFolder="$(OutDir)Services\MailCleaner\" />
-    <Copy SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.autofac.config" DestinationFolder="$(OutDir)Services\%(MailServiceToDeploy.Identity)\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFolder="$(OutDir)Services\MailCleaner\" />
+    <Copy SourceFiles="$(OutDir)WebStudio\web.autofac.config" DestinationFolder="$(OutDir)Services\%(MailServiceToDeploy.Identity)\" />
     <Copy SourceFiles="$(RootDir)build\config\private\sp.pfx" DestinationFolder="$(OutDir)WebStudio\Certificates\" Condition="'$(DeployTo)'=='COM' Or '$(DeployTo)'=='EU.COM' Or '$(DeployTo)'=='SG.COM' Or '$(DeployTo)'=='INFO'" />
     <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition="'$(DeployTo)'=='SERVER' Or '$(DeployTo)'=='UNIX.SERVER' Or '$(DeployTo)'=='AMI.SERVER'" />
     <Delete Files="$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll" Condition=" Exists( '$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll' ) " />
@@ -156,6 +164,7 @@
     <MSBuild Condition="$(ServiceName) == 'Backup' OR $(ServiceName) == 'Notify'" BuildInParallel="true" Projects="$(RootDir)module\ASC.Api\ASC.Api.Calendar\ASC.Api.Calendar.csproj" Targets="$(BuildTargets)" Properties="Configuration=$(Configuration);OutDir=$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)$(ServicePath)'));AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants);Disable_CopyWebApplication=true" StopOnFirstFailure="true" />
     <CopyDirectory Condition=" $(ServiceName) == 'SocketIO' AND Exists('$(RootDir)module\ASC.Socket.IO\') " SourceFolder="$(RootDir)module\ASC.Socket.IO\" DestinationFolder="$(OutDir)Services\ASC.Socket.IO" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
     <CopyDirectory Condition=" $(ServiceName) == 'Thumbnails' AND Exists('$(RootDir)module\ASC.Thumbnails\') " SourceFolder="$(RootDir)module\ASC.Thumbnails\" DestinationFolder="$(OutDir)Services\ASC.Thumbnails" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
+    <CopyDirectory Condition=" $(ServiceName) == 'SsoAuth' AND Exists('$(RootDir)module\ASC.SsoAuth\') " SourceFolder="$(RootDir)module\ASC.SsoAuth\" DestinationFolder="$(OutDir)Services\ASC.SsoAuth" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
     <CopyDirectory Condition=" $(ServiceName) == 'UrlShortener' AND Exists('$(RootDir)module\ASC.UrlShortener\') " SourceFolder="$(RootDir)module\ASC.UrlShortener\" DestinationFolder="$(OutDir)Services\ASC.UrlShortener" ExcludeRegex="\\typings\\|\.njsproj$|typings\.json$" />
     <RegexReplace Expression=".+\." Input="$(DeployTo)">
       <Output PropertyName="Substitution" TaskParameter="Output" />

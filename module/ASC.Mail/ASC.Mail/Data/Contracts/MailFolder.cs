@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Mail.Enums;
 
 namespace ASC.Mail.Data.Contracts
@@ -38,7 +39,7 @@ namespace ASC.Mail.Data.Contracts
 
             Folder = folder;
             Name = name;
-            Tags = tags ?? new string[] {};
+            Tags = tags ?? new string[] { };
         }
 
         public bool Equals(MailFolder other)

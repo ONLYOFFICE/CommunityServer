@@ -19,7 +19,7 @@ namespace ASC.AuditTrail {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AuditReportResource {
@@ -160,7 +160,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Third party authorization keys updated.
+        ///   Looks up a localized string similar to Third-party authorization keys updated.
         /// </summary>
         public static string AuthorizationKeysSetting {
             get {
@@ -174,15 +174,6 @@ namespace ASC.AuditTrail {
         public static string BrowserCol {
             get {
                 return ResourceManager.GetString("BrowserCol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cases [{0}]. Member Added: {1}.
-        /// </summary>
-        public static string CaseAddedMember {
-            get {
-                return ResourceManager.GetString("CaseAddedMember", resourceCulture);
             }
         }
         
@@ -264,15 +255,6 @@ namespace ASC.AuditTrail {
         public static string CaseDetachedFile {
             get {
                 return ResourceManager.GetString("CaseDetachedFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cases [{0}]. Member Excluded: {1}.
-        /// </summary>
-        public static string CaseExcludedMember {
-            get {
-                return ResourceManager.GetString("CaseExcludedMember", resourceCulture);
             }
         }
         
@@ -583,15 +565,6 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Companies [{0}]. Opportunity Unlinked: {1}.
-        /// </summary>
-        public static string CompanyUnlinkedOpportunity {
-            get {
-                return ResourceManager.GetString("CompanyUnlinkedOpportunity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Companies [{0}]. Person Unlinked: {1}.
         /// </summary>
         public static string CompanyUnlinkedPerson {
@@ -795,15 +768,6 @@ namespace ASC.AuditTrail {
         public static string ContactsTagSettingsUpdated {
             get {
                 return ResourceManager.GetString("ContactsTagSettingsUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact Statuses.
-        /// </summary>
-        public static string ContactStatusesModule {
-            get {
-                return ResourceManager.GetString("ContactStatusesModule", resourceCulture);
             }
         }
         
@@ -1015,15 +979,6 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM History.
-        /// </summary>
-        public static string CrmHistoryModule {
-            get {
-                return ResourceManager.GetString("CrmHistoryModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CRM.
         /// </summary>
         public static string CrmProduct {
@@ -1047,24 +1002,6 @@ namespace ASC.AuditTrail {
         public static string CrmSmtpSettingsUpdated {
             get {
                 return ResourceManager.GetString("CrmSmtpSettingsUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CRM Tags.
-        /// </summary>
-        public static string CrmTagsModule {
-            get {
-                return ResourceManager.GetString("CrmTagsModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CRM Task Categories.
-        /// </summary>
-        public static string CrmTaskCategories {
-            get {
-                return ResourceManager.GetString("CrmTaskCategories", resourceCulture);
             }
         }
         
@@ -1204,29 +1141,11 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom Fields.
-        /// </summary>
-        public static string CustomFieldsModule {
-            get {
-                return ResourceManager.GetString("CustomFieldsModule", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Custom Navigation Settings Updated.
         /// </summary>
         public static string CustomNavigationSettingsUpdated {
             get {
                 return ResourceManager.GetString("CustomNavigationSettingsUpdated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Custom Team Template Updated.
-        /// </summary>
-        public static string CustomTeamTemplateUpdated {
-            get {
-                return ResourceManager.GetString("CustomTeamTemplateUpdated", resourceCulture);
             }
         }
         
@@ -1393,7 +1312,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overwriting Settings Updated.
+        ///   Looks up a localized string similar to  Overwriting Settings Updated.
         /// </summary>
         public static string DocumentsOverwritingSettingsUpdated {
             get {
@@ -1429,7 +1348,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Third Party Settings Updated.
+        ///   Looks up a localized string similar to Third-Party Settings Updated.
         /// </summary>
         public static string DocumentsThirdPartySettingsUpdated {
             get {
@@ -1645,7 +1564,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Document {1} send to sign via {0}.
+        ///   Looks up a localized string similar to Document {1} sent to sign via {0}.
         /// </summary>
         public static string FilesRequestSign {
             get {
@@ -1902,15 +1821,6 @@ namespace ASC.AuditTrail {
         public static string GuestImported {
             get {
                 return ResourceManager.GetString("GuestImported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to History Categories.
-        /// </summary>
-        public static string HistoryCategoriesModule {
-            get {
-                return ResourceManager.GetString("HistoryCategoriesModule", resourceCulture);
             }
         }
         
@@ -2320,7 +2230,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login Via Social Application Success.
+        ///   Looks up a localized string similar to Successful login via social application.
         /// </summary>
         public static string LoginSuccessSocialApp {
             get {
@@ -2451,15 +2361,6 @@ namespace ASC.AuditTrail {
         public static string MilestoneUpdatedStatus {
             get {
                 return ResourceManager.GetString("MilestoneUpdatedStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mobile.
-        /// </summary>
-        public static string MobileCol {
-            get {
-                return ResourceManager.GetString("MobileCol", resourceCulture);
             }
         }
         
@@ -2658,15 +2559,6 @@ namespace ASC.AuditTrail {
         public static string OpportunityStageDeleted {
             get {
                 return ResourceManager.GetString("OpportunityStageDeleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opportunity Stages.
-        /// </summary>
-        public static string OpportunityStagesModule {
-            get {
-                return ResourceManager.GetString("OpportunityStagesModule", resourceCulture);
             }
         }
         
@@ -3139,7 +3031,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Privacy Room is disabled.
+        ///   Looks up a localized string similar to Private Room is disabled.
         /// </summary>
         public static string PrivacyRoomDisable {
             get {
@@ -3148,7 +3040,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Privacy Room is enabled.
+        ///   Looks up a localized string similar to Private Room is enabled.
         /// </summary>
         public static string PrivacyRoomEnable {
             get {
@@ -3868,7 +3760,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trusted Mail Domain Settings Updated.
+        ///   Looks up a localized string similar to Trusted mail domain settings updated.
         /// </summary>
         public static string TrustedMailDomainSettingsUpdated {
             get {
@@ -4165,7 +4057,7 @@ namespace ASC.AuditTrail {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New backup codes for the authentication app are created.
+        ///   Looks up a localized string similar to New backup codes are created.
         /// </summary>
         public static string UserTfaGenerateCodes {
             get {

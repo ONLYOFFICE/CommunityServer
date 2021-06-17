@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,8 @@ namespace ASC.ActiveDirectory.Base.Expressions
         {
         }
 
-        public string Name {
+        public string Name
+        {
             get { return _attributeName; }
         }
 
@@ -123,7 +124,7 @@ namespace ASC.ActiveDirectory.Base.Expressions
             var expressionString = "({0}{1}{2}{3})";
             expressionString = string.Format(expressionString,
                 //positive or negative
-                (((int) _op & 0x010000) == 0x010000 || _negative) ? "!" : "", _attributeName, sop, 
+                (((int)_op & 0x010000) == 0x010000 || _negative) ? "!" : "", _attributeName, sop,
                 EscapeLdapSearchFilter(_attributeValue));
 
             return expressionString;

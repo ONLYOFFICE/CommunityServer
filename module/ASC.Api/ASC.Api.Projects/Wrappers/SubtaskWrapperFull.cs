@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Runtime.Serialization;
+
 using ASC.Projects.Core.Domain;
 
 namespace ASC.Api.Projects.Wrappers
@@ -26,7 +27,7 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Name = "parent")]
         public SimpleTaskWrapper ParentTask { get; set; }
 
-        public SubtaskWrapperFull(ProjectApiBase projectApiBase,Subtask subtask)
+        public SubtaskWrapperFull(ProjectApiBase projectApiBase, Subtask subtask)
             : base(projectApiBase, subtask, subtask.ParentTask)
         {
             ParentTask = new SimpleTaskWrapper(projectApiBase, subtask.ParentTask);

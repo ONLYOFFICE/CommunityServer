@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Api.Calendar.BusinessObjects;
 using ASC.Common.Logging;
 using ASC.Core;
@@ -34,9 +35,9 @@ namespace ASC.Api.Calendar.Notification
 {
     public class CalendarNotifyClient
     {
-        private static INotifyClient _notifyClient;
+        private static readonly INotifyClient _notifyClient;
 
-        private static string _syncName = "calendarNotifySyncName";
+        private static readonly string _syncName = "calendarNotifySyncName";
 
 
         static CalendarNotifyClient()

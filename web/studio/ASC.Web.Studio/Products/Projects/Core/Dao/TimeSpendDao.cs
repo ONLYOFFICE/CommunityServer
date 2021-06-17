@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -30,7 +31,7 @@ namespace ASC.Projects.Data.DAO
 {
     class TimeSpendDao : BaseDao, ITimeSpendDao
     {
-        private readonly string[] columns = { "id", "note", "date", "hours", "relative_task_id", "person_id", "project_id", "create_on", "create_by", 
+        private readonly string[] columns = { "id", "note", "date", "hours", "relative_task_id", "person_id", "project_id", "create_on", "create_by",
             "payment_status", "status_changed" };
         private readonly Converter<object[], TimeSpend> converter;
 
@@ -273,18 +274,18 @@ namespace ASC.Projects.Data.DAO
         private static TimeSpend ToTimeSpend(IList<object> r)
         {
             return new TimeSpend
-                       {
-                           ID = Convert.ToInt32(r[0]),
-                           Note = (string) r[1],
-                           Date = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[2])),
-                           Hours = Convert.ToSingle(r[3]),
-                           Task = new Task {ID = Convert.ToInt32(r[4])},
-                           Person = ToGuid(r[5]),
-                           CreateOn = r[7] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[7])) : default(DateTime),
-                           CreateBy = r[8] != null ? ToGuid(r[8]) : ToGuid(r[5]),
-                           PaymentStatus = (PaymentStatus)r[9],
-                           StatusChangedOn = r[10] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[10])) : default(DateTime)
-                       };
+            {
+                ID = Convert.ToInt32(r[0]),
+                Note = (string)r[1],
+                Date = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[2])),
+                Hours = Convert.ToSingle(r[3]),
+                Task = new Task { ID = Convert.ToInt32(r[4]) },
+                Person = ToGuid(r[5]),
+                CreateOn = r[7] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[7])) : default(DateTime),
+                CreateBy = r[8] != null ? ToGuid(r[8]) : ToGuid(r[5]),
+                PaymentStatus = (PaymentStatus)r[9],
+                StatusChangedOn = r[10] != null ? TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[10])) : default(DateTime)
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="WhiteLabel.ascx.cs" Inherits="ASC.Web.UserControls.WhiteLabel.WhiteLabel" %>
 <%@ Import Namespace="System" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Web.Core.WhiteLabel" %>
 

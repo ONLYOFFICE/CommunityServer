@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 using System;
 
 namespace ASC.Web.UserControls.Forum.Common
-{   
+{
     public enum ForumPage
     {
         Default,
@@ -33,9 +33,9 @@ namespace ASC.Web.UserControls.Forum.Common
 
     public class PageLocation : ICloneable
     {
-        public ForumPage Page{get; set;}
-        public string Url { get; set;}
-        
+        public ForumPage Page { get; set; }
+        public string Url { get; set; }
+
         public PageLocation(ForumPage page, string url)
         {
             this.Page = page;

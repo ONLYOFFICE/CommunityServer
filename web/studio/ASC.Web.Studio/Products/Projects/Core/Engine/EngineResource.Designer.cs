@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Projects.Engine {
+namespace ASC.Web.Projects.Core.Engine {
     using System;
     
     

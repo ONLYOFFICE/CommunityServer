@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,18 @@
 */
 
 
-using ASC.Data.Storage.Configuration;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Hosting;
+
 using ASC.Core;
+using ASC.Data.Storage.Configuration;
 
 namespace ASC.Data.Storage
 {
@@ -81,11 +81,12 @@ namespace ASC.Data.Storage
                 }
                 catch (Exception)
                 {
-                    
+
                 }
             }
-            
-            if (Appenders.Any()) {
+
+            if (Appenders.Any())
+            {
                 var avaliableAppenders = Appenders.Where(x => x.Extensions.Split('|').Contains(ext) || String.IsNullOrEmpty(ext)).ToList();
                 var avaliableAppendersCount = avaliableAppenders.LongCount();
 

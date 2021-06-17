@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Web;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -75,7 +75,7 @@ namespace ASC.Web.Studio.Core.Statistic
                             .GroupBy(1)
                             .OrderBy("FirstVisitTime", true)
                     )
-                    .ConvertAll(r => new Guid((string) r[0]));
+                    .ConvertAll(r => new Guid((string)r[0]));
                 lock (cache)
                 {
                     foreach (var visit in cache.Values)
@@ -103,7 +103,7 @@ namespace ASC.Web.Studio.Core.Statistic
                     .OrderBy("VisitDate", true))
                     .ConvertAll(
                         r =>
-                            new UserVisit {VisitDate = Convert.ToDateTime(r[0]), VisitCount = Convert.ToInt32(r[1])});
+                            new UserVisit { VisitDate = Convert.ToDateTime(r[0]), VisitCount = Convert.ToInt32(r[1]) });
             }
         }
 
@@ -139,7 +139,7 @@ namespace ASC.Web.Studio.Core.Statistic
                 lastSave = DateTime.UtcNow;
             }
 
-            using(var db = GetDb())
+            using (var db = GetDb())
             using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 foreach (var v in visits)

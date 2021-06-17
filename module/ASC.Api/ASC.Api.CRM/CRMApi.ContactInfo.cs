@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
-using ASC.Api.CRM.Wrappers;
 using ASC.Api.Collections;
+using ASC.Api.CRM.Wrappers;
 using ASC.Api.Exceptions;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -28,6 +29,7 @@ using ASC.ElasticSearch;
 using ASC.MessagingSystem;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Search;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -148,13 +150,13 @@ namespace ASC.Api.CRM
 
 
             var contactInfo = new ContactInfo
-                {
-                    Data = data,
-                    InfoType = infoType,
-                    ContactID = contactid,
-                    IsPrimary = isPrimary,
-                    Category = (int)Enum.Parse(categoryType, category)
-                };
+            {
+                Data = data,
+                InfoType = infoType,
+                ContactID = contactid,
+                IsPrimary = isPrimary,
+                Category = (int)Enum.Parse(categoryType, category)
+            };
 
             if (contactInfo.InfoType == ContactInfoType.Address)
             {
@@ -203,22 +205,22 @@ namespace ASC.Api.CRM
             address.CategoryName = ((AddressCategory)address.Category).ToLocalizedString();
 
             var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
                 {
-                    ContractResolver = new DefaultContractResolver
-                        {
-                            NamingStrategy = new CamelCaseNamingStrategy()
-                        },
-                    Formatting = Formatting.Indented
-                };
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                },
+                Formatting = Formatting.Indented
+            };
 
             var contactInfo = new ContactInfo
-                {
-                    InfoType = ContactInfoType.Address,
-                    ContactID = contactid,
-                    IsPrimary = address.IsPrimary,
-                    Category = address.Category,
-                    Data = JsonConvert.SerializeObject(address, settings)
-                };
+            {
+                InfoType = ContactInfoType.Address,
+                ContactID = contactid,
+                IsPrimary = address.IsPrimary,
+                Category = address.Category,
+                Data = JsonConvert.SerializeObject(address, settings)
+            };
 
             contactInfo.ID = DaoFactory.ContactInfoDao.Save(contactInfo);
 
@@ -262,7 +264,7 @@ namespace ASC.Api.CRM
                 if (contactInfo.InfoType == ContactInfoType.Address)
                 {
                     Address res;
-                    if(!Address.TryParse(contactInfo, out res))
+                    if (!Address.TryParse(contactInfo, out res))
                         throw new ArgumentException();
                 }
                 contactInfo.ContactID = contactid;
@@ -372,7 +374,7 @@ namespace ASC.Api.CRM
 
             if (!Enum.IsDefined(typeof(AddressCategory), address.Category)) throw new ArgumentException("Value does not fall within the expected range.", "address.Category");
 
-            address.CategoryName = ((AddressCategory) address.Category).ToLocalizedString();
+            address.CategoryName = ((AddressCategory)address.Category).ToLocalizedString();
 
             var settings = new JsonSerializerSettings
             {
@@ -498,7 +500,7 @@ namespace ASC.Api.CRM
 
             if (contactInfo.InfoType == ContactInfoType.Email)
             {
-                FactoryIndexer<EmailWrapper>.DeleteAsync(EmailWrapper.ToEmailWrapper(contact, new List<ContactInfo> { contactInfo}));
+                FactoryIndexer<EmailWrapper>.DeleteAsync(EmailWrapper.ToEmailWrapper(contact, new List<ContactInfo> { contactInfo }));
             }
             FactoryIndexer<InfoWrapper>.DeleteAsync(contactInfo);
 
@@ -514,13 +516,13 @@ namespace ASC.Api.CRM
         private static ContactInfo FromContactInfoWrapper(ContactInfoWrapper contactInfoWrapper)
         {
             return new ContactInfo
-                {
-                    ID = contactInfoWrapper.ID,
-                    Category = contactInfoWrapper.Category,
-                    Data = contactInfoWrapper.Data,
-                    InfoType = contactInfoWrapper.InfoType,
-                    IsPrimary = contactInfoWrapper.IsPrimary
-                };
+            {
+                ID = contactInfoWrapper.ID,
+                Category = contactInfoWrapper.Category,
+                Data = contactInfoWrapper.Data,
+                InfoType = contactInfoWrapper.InfoType,
+                IsPrimary = contactInfoWrapper.IsPrimary
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,31 +99,24 @@ sliders
     top: -0.25em;
     width: 8px;
 }
-.ui-slider .ui-slider-tooltip{
+#loyaltySliderDetails .ui-slider-tooltip {
     display: none;
-    min-width: 20px;
-}
-.ui-slider .ui-state-active .ui-slider-tooltip,
-.ui-slider .ui-state-focus .ui-slider-tooltip,
-.ui-slider .ui-state-hover .ui-slider-tooltip{
-    display: block;
     position: absolute;
-    bottom: 100%;
     margin-bottom: 9px;
     text-align: center;
     padding: 5px;
     font-size: .9em;
     width: auto;
     height: auto;
-    left: -17px;
     margin-left: 0;
     white-space: nowrap;
 }
-.ui-slider .ui-slider-tooltip-hide .ui-slider-tooltip{
-    display: none;
+#loyaltySliderDetails .ui-slider-tooltip.visible {
+    display: block;
 }
-.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down,
-.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down-inner{
+
+#loyaltySliderDetails .ui-slider-tooltip .ui-tooltip-pointer-down,
+#loyaltySliderDetails .ui-slider-tooltip .ui-tooltip-pointer-down-inner {
     position: absolute;
     display: block;
     width: 0;
@@ -131,7 +124,7 @@ sliders
     border-bottom-width: 0;
     background: none;
 }
-.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down{
+#loyaltySliderDetails .ui-slider-tooltip .ui-tooltip-pointer-down {
     border-left: 7px dashed transparent;
     border-right: 7px dashed transparent;
     border-top-width: 8px;
@@ -140,7 +133,7 @@ sliders
     left: 20px;
     margin-left: -7px;
 }
-.ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down-inner{
+#loyaltySliderDetails .ui-slider-tooltip .ui-tooltip-pointer-down-inner {
     border-left: 6px dashed transparent;
     border-right: 6px dashed transparent;
     border-top: 7px solid #fff;

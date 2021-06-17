@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using ASC.Mail.Data.Contracts;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.PublicResources;
+
 using MimeKit;
-using Resources;
 
 namespace ASC.Mail.Utils
 {

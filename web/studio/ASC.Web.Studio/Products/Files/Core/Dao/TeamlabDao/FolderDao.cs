@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -311,7 +311,10 @@ namespace ASC.Files.Core.Data
                 RecalculateFoldersCount(folder.ID);
             }
 
-            FactoryIndexer<FoldersWrapper>.IndexAsync(folder);
+            if (folder.FolderType == FolderType.DEFAULT || folder.FolderType == FolderType.BUNCH)
+            {
+                FactoryIndexer<FoldersWrapper>.IndexAsync(folder);
+            }
             return folder.ID;
         }
 
@@ -341,10 +344,13 @@ namespace ASC.Files.Core.Data
                 dbManager.ExecuteNonQuery(new SqlDelete("files_folder_tree").Where(Exp.In("folder_id", subfolders)));
                 dbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", subfolders.Select(subfolder => subfolder.ToString()).ToArray())).Where("entry_type", (int)FileEntryType.Folder));
 
+
                 var tagsToRemove = dbManager.ExecuteList(
-                    Query("files_tag")
-                    .Select("id")
-                    .Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))))
+                    Query("files_tag tbl_ft ")
+                        .Select("tbl_ft.id")
+                        .LeftOuterJoin("files_tag_link tbl_ftl", Exp.EqColumns("tbl_ft.tenant_id", "tbl_ftl.tenant_id") &
+                                                                 Exp.EqColumns("tbl_ft.id", "tbl_ftl.tag_id"))
+                        .Where("tbl_ftl.tag_id is null"))
                     .ConvertAll(r => Convert.ToInt32(r[0]));
 
                 dbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.In("id", tagsToRemove)));
@@ -819,6 +825,9 @@ namespace ASC.Files.Core.Data
 
         private String GetProjectTitle(object folderID)
         {
+            if (HttpContext.Current == null || !SecurityContext.IsAuthenticated)
+                return string.Empty;
+
             if (!ApiServer.Available)
             {
                 return string.Empty;
@@ -844,9 +853,6 @@ namespace ASC.Files.Core.Data
                 throw new Exception("Bunch object id is not supported format");
 
             var projectID = Convert.ToInt32(bunchObjectIDParts[bunchObjectIDParts.Length - 1]);
-
-            if (HttpContext.Current == null)
-                return string.Empty;
 
             var apiServer = new ApiServer();
 
@@ -922,6 +928,7 @@ namespace ASC.Files.Core.Data
                     catch (Exception e)
                     {
                         Global.Logger.Error(e);
+                        Global.Logger.Debug(Environment.StackTrace);
                     }
                     break;
             }

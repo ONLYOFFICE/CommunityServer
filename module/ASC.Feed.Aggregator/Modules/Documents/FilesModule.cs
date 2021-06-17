@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -197,7 +198,7 @@ namespace ASC.Feed.Aggregator.Modules.Documents
             var folderIDs = files.Select(r => r.Item1.FolderID).ToArray();
             var folders = new FolderDao(Tenant, DbId).GetFolders(folderIDs, checkShare: false);
 
-            return files.Select(f => new Tuple<Feed, object>(ToFeed(f, folders.FirstOrDefault(r=> r.ID.Equals(f.Item1.FolderID))), f));
+            return files.Select(f => new Tuple<Feed, object>(ToFeed(f, folders.FirstOrDefault(r => r.ID.Equals(f.Item1.FolderID))), f));
         }
 
 
@@ -224,34 +225,34 @@ namespace ASC.Feed.Aggregator.Modules.Documents
         private static Tuple<File, SmallShareRecord> ToFile(object[] r)
         {
             var file = new File
-                {
-                    ID = r[0],
-                    Version = Convert.ToInt32(r[1]),
-                    VersionGroup = Convert.ToInt32(r[2]),
-                    FolderID = Convert.ToInt32(r[3]),
-                    Title = Convert.ToString(r[4]),
-                    ContentLength = Convert.ToInt64(r[5]),
-                    FileStatus = (FileStatus)Convert.ToInt32(r[6]),
-                    CreateBy = new Guid(Convert.ToString(r[7])),
-                    CreateOn = Convert.ToDateTime(r[8]),
-                    ModifiedBy = new Guid(Convert.ToString(r[9])),
-                    ModifiedOn = Convert.ToDateTime(r[10]),
-                    ConvertedType = Convert.ToString(r[11]),
-                    Comment = Convert.ToString(r[12]),
-                    RootFolderType = DocumentsDbHelper.ParseRootFolderType(r[13]),
-                    RootFolderCreator = DocumentsDbHelper.ParseRootFolderCreator(r[13]),
-                    RootFolderId = DocumentsDbHelper.ParseRootFolderId(r[13])
-                };
+            {
+                ID = r[0],
+                Version = Convert.ToInt32(r[1]),
+                VersionGroup = Convert.ToInt32(r[2]),
+                FolderID = Convert.ToInt32(r[3]),
+                Title = Convert.ToString(r[4]),
+                ContentLength = Convert.ToInt64(r[5]),
+                FileStatus = (FileStatus)Convert.ToInt32(r[6]),
+                CreateBy = new Guid(Convert.ToString(r[7])),
+                CreateOn = Convert.ToDateTime(r[8]),
+                ModifiedBy = new Guid(Convert.ToString(r[9])),
+                ModifiedOn = Convert.ToDateTime(r[10]),
+                ConvertedType = Convert.ToString(r[11]),
+                Comment = Convert.ToString(r[12]),
+                RootFolderType = DocumentsDbHelper.ParseRootFolderType(r[13]),
+                RootFolderCreator = DocumentsDbHelper.ParseRootFolderCreator(r[13]),
+                RootFolderId = DocumentsDbHelper.ParseRootFolderId(r[13])
+            };
 
             SmallShareRecord shareRecord = null;
             if (r[14] != null && r[15] != null && r[16] != null)
             {
                 shareRecord = new SmallShareRecord
-                    {
-                        ShareOn = Convert.ToDateTime(r[14]),
-                        ShareBy = new Guid(Convert.ToString(r[15])),
-                        ShareTo = new Guid(Convert.ToString(r[16]))
-                    };
+                {
+                    ShareOn = Convert.ToDateTime(r[14]),
+                    ShareBy = new Guid(Convert.ToString(r[15])),
+                    ShareTo = new Guid(Convert.ToString(r[16]))
+                };
             }
 
             return new Tuple<File, SmallShareRecord>(file, shareRecord);
@@ -265,35 +266,12 @@ namespace ASC.Feed.Aggregator.Modules.Documents
             if (shareRecord != null)
             {
                 var feed = new Feed(shareRecord.ShareBy, shareRecord.ShareOn, true)
-                    {
-                        Item = sharedFileItem,
-                        ItemId = string.Format("{0}_{1}", file.ID, shareRecord.ShareTo),
-                        ItemUrl = FilesLinkUtility.GetFileRedirectPreviewUrl(file.ID, true),
-                        Product = Product,
-                        Module = Name,
-                        Title = file.Title,
-                        ExtraLocation = rootFolder.FolderType == FolderType.DEFAULT ? rootFolder.Title : string.Empty,
-                        ExtraLocationUrl = rootFolder.FolderType == FolderType.DEFAULT ? FilesLinkUtility.GetFileRedirectPreviewUrl(file.FolderID, false) : string.Empty,
-                        AdditionalInfo = file.ContentLengthString,
-                        Keywords = string.Format("{0}", file.Title),
-                        HasPreview = false,
-                        CanComment = false,
-                        Target = shareRecord.ShareTo,
-                        GroupId = GetGroupId(sharedFileItem, shareRecord.ShareBy, file.FolderID.ToString())
-                    };
-
-                return feed;
-            }
-
-            var updated = file.Version != 1;
-            return new Feed(file.ModifiedBy, file.ModifiedOn, true)
                 {
-                    Item = fileItem,
-                    ItemId = string.Format("{0}_{1}", file.ID, file.Version > 1 ? 1 : 0),
+                    Item = sharedFileItem,
+                    ItemId = string.Format("{0}_{1}", file.ID, shareRecord.ShareTo),
                     ItemUrl = FilesLinkUtility.GetFileRedirectPreviewUrl(file.ID, true),
                     Product = Product,
                     Module = Name,
-                    Action = updated ? FeedAction.Updated : FeedAction.Created,
                     Title = file.Title,
                     ExtraLocation = rootFolder.FolderType == FolderType.DEFAULT ? rootFolder.Title : string.Empty,
                     ExtraLocationUrl = rootFolder.FolderType == FolderType.DEFAULT ? FilesLinkUtility.GetFileRedirectPreviewUrl(file.FolderID, false) : string.Empty,
@@ -301,9 +279,32 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                     Keywords = string.Format("{0}", file.Title),
                     HasPreview = false,
                     CanComment = false,
-                    Target = null,
-                    GroupId = GetGroupId(fileItem, file.ModifiedBy, file.FolderID.ToString(), updated ? 1 : 0)
+                    Target = shareRecord.ShareTo,
+                    GroupId = GetGroupId(sharedFileItem, shareRecord.ShareBy, file.FolderID.ToString())
                 };
+
+                return feed;
+            }
+
+            var updated = file.Version != 1;
+            return new Feed(file.ModifiedBy, file.ModifiedOn, true)
+            {
+                Item = fileItem,
+                ItemId = string.Format("{0}_{1}", file.ID, file.Version > 1 ? 1 : 0),
+                ItemUrl = FilesLinkUtility.GetFileRedirectPreviewUrl(file.ID, true),
+                Product = Product,
+                Module = Name,
+                Action = updated ? FeedAction.Updated : FeedAction.Created,
+                Title = file.Title,
+                ExtraLocation = rootFolder.FolderType == FolderType.DEFAULT ? rootFolder.Title : string.Empty,
+                ExtraLocationUrl = rootFolder.FolderType == FolderType.DEFAULT ? FilesLinkUtility.GetFileRedirectPreviewUrl(file.FolderID, false) : string.Empty,
+                AdditionalInfo = file.ContentLengthString,
+                Keywords = string.Format("{0}", file.Title),
+                HasPreview = false,
+                CanComment = false,
+                Target = null,
+                GroupId = GetGroupId(fileItem, file.ModifiedBy, file.FolderID.ToString(), updated ? 1 : 0)
+            };
         }
 
         private bool IsTarget(object target, Guid userId)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Web;
+
 using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Projects.Classes;
@@ -46,7 +47,7 @@ namespace ASC.Web.Projects
 
             var button = "";
 
-            if(CanLinkContact)
+            if (CanLinkContact)
             {
                 button = "<a class='link-with-entity link dotline'>" + ProjectsCommonResource.EmptyScreenContactsButton + "</a>";
             }

@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IpSecurity.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.IpSecurity.IpSecurity" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <% if (Enabled)
    { %>

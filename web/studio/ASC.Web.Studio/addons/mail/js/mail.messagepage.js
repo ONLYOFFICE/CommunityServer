@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,10 @@ window.messagePage = (function ($) {
         attachmentEditMenuItems,
         messageMenuItems,
         toEmailAddresses = [],
+        ccEmailAddresses = [],
+        bccEmailAddresses = [],
+        composeSubject = null,
+        composeBody = null,
         savingLock = false,
         repeatSaveFlag = false,
         conversationMoved = false,
@@ -75,7 +79,6 @@ window.messagePage = (function ($) {
         messageMenuItems = [
             {
                 selector: "#messageActionMenu .replyMail", handler: function (id) {
-                    window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "reply");
                     return checkhBlockedImagesBeforeCompose(id, function () {
                         return TMMail.moveToReply(id);
                     });
@@ -83,7 +86,6 @@ window.messagePage = (function ($) {
             },
             {
                 selector: "#messageActionMenu .replyAllMail", handler: function (id) {
-                    window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "replyAll");
                     return checkhBlockedImagesBeforeCompose(id, function () {
                         return TMMail.moveToReplyAll(id);
                     });
@@ -92,7 +94,6 @@ window.messagePage = (function ($) {
             {
                 selector: "#messageActionMenu .forwardMail",
                 handler: function (id) {
-                    window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "forward");
                     return checkhBlockedImagesBeforeCompose(id, function () {
                         return TMMail.moveToForward(id);
                     });
@@ -169,7 +170,7 @@ window.messagePage = (function ($) {
                     success: onGetMailMessage,
                     error: onOpenMessageError
                 },
-                ASC.Resources.Master.Resource.LoadingProcessing);
+                ASC.Resources.Master.ResourceJS.LoadingProcessing);
         } else {
             console.log("%s found in cache", id);
 
@@ -204,7 +205,7 @@ window.messagePage = (function ($) {
                     success: onGetMailConversation,
                     error: onOpenMessageError
                 },
-                ASC.Resources.Master.Resource.LoadingProcessing);
+                ASC.Resources.Master.ResourceJS.LoadingProcessing);
         } else {
             console.log("%s found in cache", id);
 
@@ -344,13 +345,27 @@ window.messagePage = (function ($) {
     }
 
     function onComposeTo(params) {
-        var addresses;
-        if (params) {
-            addresses = params.join(', ');
-        } else {
-            addresses = toEmailAddresses.join(', ');
-        }
-        return openEmptyComposeForm(addresses ? { email: addresses } : {});
+        var result = {};
+        var toAddresses = params ? params.join(', ') : toEmailAddresses.join(', ');
+
+        if (toAddresses)
+            result["email"] = toAddresses;
+
+        var ccAddresses = ccEmailAddresses ? ccEmailAddresses.join(', ') : undefined;
+        if (ccAddresses)
+            result["cc"] = ccAddresses;
+
+        var bccAddresses = bccEmailAddresses ? bccEmailAddresses.join(', ') : undefined;
+        if (bccAddresses)
+            result["bcc"] = bccAddresses;
+
+        if (composeSubject)
+            result["subject"] = composeSubject;
+
+        if (composeBody)
+            result["body"] = composeBody;
+
+        return openEmptyComposeForm(result);
     }
 
     function onComposeFromCrm(params) {
@@ -384,7 +399,7 @@ window.messagePage = (function ($) {
         {
             success: onGetMailMessage,
             error: onOpenMessageError
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function deleteMessage(id) {
@@ -416,7 +431,7 @@ window.messagePage = (function ($) {
         {
             success: onGetMailMessage,
             error: onOpenMessageError
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function replyAll(id) {
@@ -425,7 +440,7 @@ window.messagePage = (function ($) {
         {
             success: onGetMailMessage,
             error: onOpenMessageError
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function forward(id) {
@@ -434,7 +449,7 @@ window.messagePage = (function ($) {
         {
             success: onGetMailMessage,
             error: onOpenMessageError
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
+        }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     // obtains message saving "lock" flag and remembers repeat attempts
@@ -657,14 +672,14 @@ window.messagePage = (function ($) {
         }
 
         $("#newmessageTo").removeClass("invalidField");
-        if (message.to.length === 0) {
+        if (!message.to.length && !message.cc.length && !message.bcc.length) {
             $("#newmessageTo").addClass("invalidField");
             errors.push(window.MailScriptResource.ErrorEmptyToField);
         }
-        else if (hasInvalidEmails(message.to)) {
+        else if (message.to.length > 0 && hasInvalidEmails(message.to)) {
             $("#newmessageTo").addClass("invalidField");
             collectErrors(message.to);
-        }   
+        }
 
         $("#newmessageCopy").removeClass("invalidField");
         if (message.cc.length > 0 && hasInvalidEmails(message.cc)) {
@@ -752,7 +767,7 @@ window.messagePage = (function ($) {
         }
 
         window.LoadingBanner.hideLoading();
-        window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
+        window.LoadingBanner.strLoading = ASC.Resources.Master.ResourceJS.LoadingProcessing;
         clearTimeout(saveTimeout);
 
         LoadingBanner.displayMailLoading(window.MailScriptResource.SendingMessage);
@@ -940,7 +955,18 @@ window.messagePage = (function ($) {
                 $messageBody.html(htmlText);
                 $messageBody.find("a[href*='mailto:']").removeAttr('target');
                 $messageBody.find("a[href*='mailto:']").click(function () {
-                    messagePage.setToEmailAddresses([$(this).attr('href').substr(7, $(this).attr('href').length - 1)]);
+                    var mailtoStr = $(this).attr('href');
+
+                    var mailToObj = ASC.Mail.Utility.ParseMailTo(mailtoStr);
+
+                    console.log("ASC.Mail.Utility.ParseMailTo", mailtoStr, mailToObj);
+
+                    messagePage.setToEmailAddresses(mailToObj && mailToObj.email ? [mailToObj.email] : []);
+                    messagePage.setCcEmailAddresses(mailToObj && mailToObj.cc ? [mailToObj.cc] : []);
+                    messagePage.setBccEmailAddresses(mailToObj && mailToObj.bcc ? [mailToObj.bcc] : []);
+                    messagePage.setSubject(mailToObj && mailToObj.subject ? mailToObj.subject : "");
+                    messagePage.setBody(mailToObj && mailToObj.body ? mailToObj.body : "");
+
                     window.location.href = "#composeto";
                     return false;
                 });
@@ -1263,8 +1289,6 @@ window.messagePage = (function ($) {
         var contentMenu = $("#pageActionContainer .contentMenuWrapper:visible");
 
         contentMenu.find('.btnReply.unlockAction').unbind('click').click(function () {
-            // Google Analytics
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "reply");
             var messageId = mailBox.currentMessageId;
 
             if (TMMail.pageIs('conversation')) {
@@ -1277,8 +1301,6 @@ window.messagePage = (function ($) {
         });
 
         contentMenu.find('.btnReplyAll.unlockAction').unbind('click').click(function () {
-            // Google Analytics
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "replyAll");
             var messageId = mailBox.currentMessageId;
 
             if (TMMail.pageIs('conversation')) {
@@ -1291,8 +1313,6 @@ window.messagePage = (function ($) {
         });
 
         contentMenu.find('.btnForward.unlockAction').unbind('click').click(function () {
-            // Google Analytics
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "forward");
             var messageId = mailBox.currentMessageId;
 
             if (TMMail.pageIs('conversation')) {
@@ -1650,8 +1670,7 @@ window.messagePage = (function ($) {
         if ($(this).hasClass('disable')) {
             return false;
         }
-        // Google Analytics
-        window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "delete");
+
         TMMail.disableButton($('#editMessagePageHeader .btnDelete'), true);
         TMMail.disableButton($('#editMessagePageHeader .btnSend'), true);
         TMMail.disableButton($('#editMessagePageHeader .btnSave'), true);
@@ -1665,8 +1684,7 @@ window.messagePage = (function ($) {
         if ($(this).hasClass('disable')) {
             return false;
         }
-        // Google Analytics
-        window.ASC.Mail.ga_track(ga_Categories.createMail, ga_Actions.buttonClick, "save");
+
         TMMail.disableButton($('#editMessagePage .btnSave'), true);
 
         if (TMMail.isTemplate()) {
@@ -1687,8 +1705,7 @@ window.messagePage = (function ($) {
         if ($(this).hasClass('disable')) {
             return false;
         }
-        // Google Analytics
-        window.ASC.Mail.ga_track(ga_Categories.createMailTemplate, ga_Actions.buttonClick, "saveTemplate");
+
         TMMail.disableButton($('#editMessagePage .btnSaveTemplate'), true);
 
         if (isNotTemplateItem()) {
@@ -1716,8 +1733,6 @@ window.messagePage = (function ($) {
             return false;
         }
 
-        //google analytics
-        window.ASC.Mail.ga_track(ga_Categories.createMail, ga_Actions.buttonClick, "send");
         TMMail.disableButton($('#editMessagePageHeader .btnSend'), true);
         TMMail.disableButton($('#editMessagePageHeader .btnSave'), true);
         TMMail.disableButton($('#editMessagePageHeader .btnDelete'), true);
@@ -1769,9 +1784,6 @@ window.messagePage = (function ($) {
     }
 
     function restoreMessageAction() {
-        // Google Analytics
-        window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "restore");
-
         if (TMMail.pageIs('conversation')) {
             mailBox.restoreConversations([getActualConversationLastMessageId()]);
         } else {
@@ -1786,12 +1798,6 @@ window.messagePage = (function ($) {
 
     function readUnreadMessageAction() {
         isMessageRead = !isMessageRead;
-        // Google Analytics
-        if (isMessageRead) {
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "read");
-        } else {
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "unread");
-        }
 
         if (TMMail.pageIs('conversation')) {
             mailBox.setConversationReadUnread([getActualConversationLastMessageId()], isMessageRead);
@@ -1804,12 +1810,8 @@ window.messagePage = (function ($) {
 
     function spamUnspamAction(event, params) {
         if (params.spam) {
-            // Google Analytics
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "spam");
             spamCurrent();
         } else {
-            // Google Analytics
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.actionClick, "not_spam");
             unspamCurrent();
         }
     }
@@ -2157,7 +2159,7 @@ window.messagePage = (function ($) {
         setEditingMessage(message);
 
         if (needCrmLink()) {
-            serviceManager.markChainAsCrmLinked(mailBox.currentMessageId, crmContactsInfo, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+            serviceManager.markChainAsCrmLinked(mailBox.currentMessageId, crmContactsInfo, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
         }
     }
 
@@ -2231,7 +2233,7 @@ window.messagePage = (function ($) {
         var editMessagePageHeaderHtml = $.tmpl('editMessagePageHeaderTmpl');
         $('#pageActionContainer').append(editMessagePageHeaderHtml);
 
-        var writeMessageHtml = $.tmpl('writeMessageTmpl');
+        var writeMessageHtml = $.tmpl('writeMessageTmpl', params);
         var editMessageContainer = $('#itemContainer').find('#editMessagePage');
         if (editMessageContainer.length > 0) {
             editMessageContainer.replaceWith(writeMessageHtml);
@@ -2250,9 +2252,20 @@ window.messagePage = (function ($) {
 
         mailBox.currentMessageId = 0;
 
-        if (params.email) {
+        if (params.email)
             messageTemplate.to = params.email;
-        }
+
+        if (params.cc)
+            messageTemplate.cc = params.cc;
+
+        if (params.bcc)
+            messageTemplate.bcc = params.bcc;
+
+        if (params.subject)
+            messageTemplate.subject = params.subject;
+
+        if (params.body)
+            messageTemplate.htmlBody = params.body;
 
         showComposeMessageCommon(messageTemplate, action);
 
@@ -3365,7 +3378,7 @@ window.messagePage = (function ($) {
                         },
                         error: onErrorExportAttachmentsToMyDocuments
                     },
-                    ASC.Resources.Master.Resource.LoadingProcessing);
+                    ASC.Resources.Master.ResourceJS.LoadingProcessing);
             };
 
             $('#filesFolderUnlinkButton').hide();
@@ -3563,6 +3576,22 @@ window.messagePage = (function ($) {
         toEmailAddresses = emails;
     }
 
+    function setCcEmailAddresses(cc) {
+        ccEmailAddresses = cc;
+    }
+
+    function setBccEmailAddresses(bcc) {
+        bccEmailAddresses = bcc;
+    }
+
+    function setSubject(subject) {
+        composeSubject = subject;
+    }
+
+    function setBody(body) {
+        composeBody = body;
+    }
+
     function bindAllAttachmentsCommonActions() {
         $('#itemContainer .attachments-buttons .exportAttachemntsToMyDocs')
             .unbind('click')
@@ -3579,7 +3608,7 @@ window.messagePage = (function ($) {
                                 .replace('%count%', params.count));
                         },
                         error: onErrorExportAttachmentsToMyDocuments
-                    }, ASC.Resources.Master.Resource.LoadingProcessing);
+                    }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
                 });
 
         $('#itemContainer .attachments-buttons .downloadAllAttachments')
@@ -3773,6 +3802,10 @@ window.messagePage = (function ($) {
         initImageZoom: initImageZoom,
         updateFromSelected: updateFromSelected,
         setToEmailAddresses: setToEmailAddresses,
+        setCcEmailAddresses: setCcEmailAddresses,
+        setBccEmailAddresses: setBccEmailAddresses,
+        setSubject: setSubject,
+        setBody: setBody,
         conversation_moved: conversationMoved,
         dstFolderType : dstFolderType,
         dstUserFolderId: dstUserFolderId,

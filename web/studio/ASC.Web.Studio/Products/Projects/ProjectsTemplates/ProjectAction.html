@@ -9,7 +9,7 @@
             ${ASC.Projects.Resources.ProjectResource.SelectProjectTemplate}
         </div>
         <span id="templateSelect" data-id="" class="link dotline advansed-select-container">
-             ${ASC.Projects.Resources.CommonResource.Select}
+             ${ASC.Projects.Resources.ProjectsCommonResource.Select}
         </span>
     </div>
     {{/if}}
@@ -26,7 +26,7 @@
     </div>
 
     <div class="popup_helper" id="AnswerForFollowProject">
-        <p>{{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerFollowProject), "<br/>", "<b>", "</b>")}}
+        <p>{{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerFollowProject), "<br/>", "<b>", "</b>")}}
         </p>
     </div>
     <div id="projectDescriptionContainer" class="block-cnt-splitter">
@@ -60,13 +60,13 @@
             <div class="float-left">
                 ${ASC.Projects.Resources.ProjectResource.ProjectTeam}
             </div>
-            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectTeam' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectTeam}"></div>
+            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectTeam' });" title="${ASC.Projects.Resources.ProjectsCommonResource.HelpQuestionProjectTeam}"></div>
             <div class="popup_helper" id="AnswerForProjectTeam">
                 <p>
-                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerProjectTeam), "<br/>", "<b>", "</b>")}}
+                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerProjectTeam), "<br/>", "<b>", "</b>")}}
                     <br/>
                     {{if ASC.Resources.Master.HelpLink}}
-                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.ProjectsCommonResource.LearnMoreLink}</a>
                     {{/if}}
                 </p>
             </div>
@@ -85,8 +85,8 @@
 
     {{if IsProjectCreatedFromCrm}}
     <div id="projectContactsContainer">
-        <div class="headerPanelSmall">${ASC.Projects.Resources.CommonResource.ProjectLinkedWithContacts}</div>
-        <div class="no-linked-contacts">${ASC.Projects.Resources.CommonResource.NoCRMContactsForLink}</div>
+        <div class="headerPanelSmall">${ASC.Projects.Resources.ProjectsCommonResource.ProjectLinkedWithContacts}</div>
+        <div class="no-linked-contacts">${ASC.Projects.Resources.ProjectsCommonResource.NoCRMContactsForLink}</div>
         <div id="contactListBox">
             <table id="contactTable" class="table-list padding4">
                 <tbody>
@@ -101,9 +101,9 @@
         <div class="headerPanelSmall clearFix">
             <div class="float-left">${ASC.Projects.Resources.ProjectResource.ProjectStatus}</div>
             <div class="HelpCenterSwitcher" onclick="
-jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionProjectStatus}"></div>
+jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Projects.Resources.ProjectsCommonResource.HelpQuestionProjectStatus}"></div>
             <div class="popup_helper" id="AnswerForProjectStatus">
-                <p>{{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerProjectStatus), "<br/>", "<b>", "</b>")}}
+                <p>{{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerProjectStatus), "<br/>", "<b>", "</b>")}}
                 </p>
             </div>
         </div>
@@ -131,10 +131,10 @@ jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Proj
         <div class="headerPanelSmall clearFix">
             <div class="popup_helper" id="AnswerForPrivateProject">
                 <p>
-                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.CommonResource.HelpAnswerPrivateProject), "<br/>", "<b>", "</b>")}}
+                    {{html jq.format(Encoder.htmlEncode(ASC.Projects.Resources.ProjectsCommonResource.HelpAnswerPrivateProject), "<br/>", "<b>", "</b>")}}
                     <br/>
                     {{if ASC.Resources.Master.HelpLink}}
-                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.CommonResource.LearnMoreLink}</a>
+                    <a target="_blank" href="${ASC.Resources.Master.HelpLink + '/gettingstarted/projects.aspx#ManagingYourTeam_block'}"> ${ASC.Projects.Resources.ProjectsCommonResource.LearnMoreLink}</a>
                     {{/if}}
                 </p>
             </div>
@@ -143,7 +143,7 @@ jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus' });" title="${ASC.Proj
             <input id="projectPrivacyCkeckbox" type="checkbox" {{if project.private}}checked{{/if}}/>
             <label for="projectPrivacyCkeckbox">${ASC.Projects.Resources.ProjectResource.IUnerstandForEditHidden}</label>
             <div class="HelpCenterSwitcher" onclick="
-jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionPrivateProject}"></div>
+jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject' });" title="${ASC.Projects.Resources.ProjectsCommonResource.HelpQuestionPrivateProject}"></div>
         </div>
     </div>
     {{/if}}
@@ -153,7 +153,7 @@ jq(this).helper({ BlockHelperID: 'AnswerForPrivateProject' });" title="${ASC.Pro
         <input id="followingProjectCheckbox" type="checkbox"/>
         <label for="followingProjectCheckbox">${ASC.Projects.Resources.ProjectResource.FollowingProjects}</label>
         <div class="HelpCenterSwitcher" onclick="
-jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Projects.Resources.CommonResource.HelpQuestionFollowProject}"></div>
+jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Projects.Resources.ProjectsCommonResource.HelpQuestionFollowProject}"></div>
     </div>
     <div class="checkboxContainer">
         <input id="notifyProjectCheckbox" type="checkbox" disabled="disabled"/>
@@ -167,7 +167,7 @@ jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Proj
         <span class="splitter-buttons"></span>
         {{if project.url}}
         <a id="cancelEditProject" href="${project.url}" class="button gray big">
-            ${ASC.Projects.Resources.CommonResource.Cancel}
+            ${ASC.Projects.Resources.ProjectsCommonResource.Cancel}
         </a>
         <span class="splitter-buttons"></span>
         {{if project.canDelete}}
@@ -176,7 +176,7 @@ jq(this).helper({ BlockHelperID: 'AnswerForFollowProject' });" title="${ASC.Proj
         </a>
         {{/if}}
         {{else}}
-        <a id="cancelEditProject" class="button gray big">${ASC.Projects.Resources.CommonResource.Cancel}</a>
+        <a id="cancelEditProject" class="button gray big">${ASC.Projects.Resources.ProjectsCommonResource.Cancel}</a>
         {{/if}}
     </div>
 </script>

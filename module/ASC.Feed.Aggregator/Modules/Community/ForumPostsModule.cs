@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -102,33 +103,33 @@ namespace ASC.Feed.Aggregator.Modules.Community
         private static Post ToPost(object[] r)
         {
             return new Post
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    TopicID = Convert.ToInt32(r[1]),
-                    PosterID = new Guid(Convert.ToString(r[2])),
-                    CreateDate = Convert.ToDateTime(r[3]),
-                    Subject = Convert.ToString(r[4]),
-                    Text = Convert.ToString(r[5])
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                TopicID = Convert.ToInt32(r[1]),
+                PosterID = new Guid(Convert.ToString(r[2])),
+                CreateDate = Convert.ToDateTime(r[3]),
+                Subject = Convert.ToString(r[4]),
+                Text = Convert.ToString(r[5])
+            };
         }
 
         private Feed ToFeed(Post post)
         {
             var itemUrl = "/Products/Community/Modules/Forum/Posts.aspx?t=" + post.TopicID + "&post=" + post.ID;
             return new Feed(post.PosterID, post.CreateDate)
-                {
-                    Item = item,
-                    ItemId = post.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    Product = Product,
-                    Module = Name,
-                    Title = post.Subject,
-                    Description = HtmlUtility.GetFull(post.Text),
-                    Keywords = string.Format("{0} {1}", post.Subject, post.Text),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = string.Format("{0}_{1}", item, post.ID)
-                };
+            {
+                Item = item,
+                ItemId = post.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                Product = Product,
+                Module = Name,
+                Title = post.Subject,
+                Description = HtmlUtility.GetFull(post.Text),
+                Keywords = string.Format("{0} {1}", post.Subject, post.Text),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = string.Format("{0}_{1}", item, post.ID)
+            };
         }
     }
 }

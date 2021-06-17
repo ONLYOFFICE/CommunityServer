@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -406,7 +406,7 @@ ASC.CRM.ListTaskView = new function() {
                             '</b>',
                             '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
                             '</a>'),
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxfilters  : -1,
                 colcount    : 2,
                 maxlength   : "100",
@@ -870,23 +870,6 @@ ASC.CRM.ListTaskView = new function() {
 
             _initFilter();
 
-            ASC.CRM.ListTaskView.advansedFilter.one("adv-ready", function () {
-                var crmAdvansedFilterContainer = jq("#tasksAdvansedFilter .advansed-filter-list");
-                crmAdvansedFilterContainer.find("li[data-id='my'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'me_manager');
-                crmAdvansedFilterContainer.find("li[data-id='responsibleID'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'custom_manager');
-                crmAdvansedFilterContainer.find("li[data-id='openTask'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'open_task');
-                crmAdvansedFilterContainer.find("li[data-id='closedTask'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'closed_task');
-                crmAdvansedFilterContainer.find("li[data-id='overdue'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'overdue');
-                crmAdvansedFilterContainer.find("li[data-id='today'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'today');
-                crmAdvansedFilterContainer.find("li[data-id='theNext'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'the_next');
-                crmAdvansedFilterContainer.find("li[data-id='fromToDate'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'from_to_date');
-                crmAdvansedFilterContainer.find("li[data-id='categoryID'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'by_category');
-                crmAdvansedFilterContainer.find("li[data-id='contactID'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'contact');
-
-                jq("#tasksAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'sort');
-                jq("#tasksAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, "search_text", "enter");
-            });
-            
             ASC.CRM.PartialExport.init(ASC.CRM.ListTaskView.advansedFilter, "task");
         },
 

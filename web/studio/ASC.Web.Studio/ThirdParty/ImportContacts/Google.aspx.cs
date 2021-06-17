@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Web;
-using System.Xml.Linq;
+
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
+
+using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.ThirdParty.ImportContacts
 {
@@ -62,29 +65,75 @@ namespace ASC.Web.Studio.ThirdParty.ImportContacts
 
         private void ImportContacts(OAuth20Token token)
         {
-            var doc = RequestContacts(token);
+            var response = RequestContacts(token);
 
-            //selecting from xdocument
-            var contacts = doc.Root.Elements("{http://www.w3.org/2005/Atom}entry")
-                .Select(e => new
-                {
-                    Name = e.Element("{http://www.w3.org/2005/Atom}title").Value,
-                    Email = e.Elements("{http://schemas.google.com/g/2005}email")
-                        .Where(a => a.Attribute("address") != null)
-                        .Select(a => a.Attribute("address").Value)
-                        .FirstOrDefault()
-                }).ToList();
-            foreach (var contact in contacts)
+            if (response != null)
             {
-                Master.AddContactInfo(contact.Name, contact.Email);
+                foreach (var contact in response.Connections)
+                {
+                    string name = null;
+                    if (contact.Names != null)
+                    {
+                        var first = contact.Names.FirstOrDefault(contactName => !string.IsNullOrEmpty(contactName.displayName));
+                        if (first != null)
+                        {
+                            name = first.displayName;
+                        }
+                    }
+                    string email = null;
+                    if (contact.EmailAddresses != null)
+                    {
+                        var first = contact.EmailAddresses.FirstOrDefault(contactEmail => !string.IsNullOrEmpty(contactEmail.value));
+                        if (first != null)
+                        {
+                            email = first.value;
+                        }
+                    }
+
+                    Master.AddContactInfo(name, email);
+                }
             }
         }
 
-        public XDocument RequestContacts(OAuth20Token token)
+        protected GoogleContacts RequestContacts(OAuth20Token token)
         {
             var response = RequestHelper.PerformRequest(GoogleLoginProvider.GoogleUrlContacts, headers: new Dictionary<string, string> { { "Authorization", "Bearer " + token.AccessToken } });
 
-            return XDocument.Parse(response);
+            var contacts = JsonConvert.DeserializeObject<GoogleContacts>(response);
+            return contacts;
+        }
+
+
+        [DataContract(Name = "GoogleContact", Namespace = "")]
+        protected class GoogleContacts
+        {
+            [DataMember(Name = "connections")]
+            public List<People> Connections;
+
+            [DataContract(Name = "People", Namespace = "")]
+            public class People
+            {
+                [DataMember(Name = "emailAddresses")]
+                public List<EmailAddress> EmailAddresses;
+
+                [DataMember(Name = "names")]
+                public List<Name> Names;
+
+
+                [DataContract(Name = "EmailAddress", Namespace = "")]
+                public class EmailAddress
+                {
+                    [DataMember(Name = "value")]
+                    public string value;
+                }
+
+                [DataContract(Name = "Name", Namespace = "")]
+                public class Name
+                {
+                    [DataMember(Name = "displayName")]
+                    public string displayName;
+                }
+            }
         }
     }
 }

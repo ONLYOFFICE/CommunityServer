@@ -19,7 +19,7 @@ namespace ASC.Web.Talk.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class TalkResource {
@@ -124,16 +124,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Sent Files.
-        /// </summary>
-        public static string BtnDeleteSentFiles {
-            get {
-                return ResourceManager.GetString("BtnDeleteSentFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string BtnKick {
             get {
@@ -259,7 +250,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The files you send via chat are stored in the &lt;b&gt;&lt;/b&gt; portal. You can delete these files to free up space. After the deletion, the files will no longer be accessible through the links in the history of all the participants in the conversation..
+        ///   Looks up a localized string similar to The files you sent via chat occupy &lt;b&gt;&lt;/b&gt; of the portal disk space. If you choose to delete these files, it will free up space, but the files will no longer be accessible through the links in the history for all the conversation participants. Select what to delete:.
         /// </summary>
         public static string DeleteSentFilesInfo {
             get {
@@ -282,15 +273,6 @@ namespace ASC.Web.Talk.Resources {
         public static string DeleteSentFilesYear {
             get {
                 return ResourceManager.GetString("DeleteSentFilesYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to bytes,KB,MB,GB.
-        /// </summary>
-        public static string FileSizePostfix {
-            get {
-                return ResourceManager.GetString("FileSizePostfix", resourceCulture);
             }
         }
         
@@ -412,33 +394,6 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turn browser notifications on/off.
-        /// </summary>
-        public static string HintNotifications {
-            get {
-                return ResourceManager.GetString("HintNotifications", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show/Hide offline contacts.
-        /// </summary>
-        public static string HintOfflineContacts {
-            get {
-                return ResourceManager.GetString("HintOfflineContacts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Possible conflict.
-        /// </summary>
-        public static string HintPossibleClientConflict {
-            get {
-                return ResourceManager.GetString("HintPossibleClientConflict", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string HintSearch {
@@ -493,15 +448,6 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send message.
-        /// </summary>
-        public static string HintSendMessage {
-            get {
-                return ResourceManager.GetString("HintSendMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Show tab on the left.
         /// </summary>
         public static string HintShowLeftTab {
@@ -520,15 +466,6 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable/Disable sounds.
-        /// </summary>
-        public static string HintSounds {
-            get {
-                return ResourceManager.GetString("HintSounds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to read.
         /// </summary>
         public static string HintUnreadMessages {
@@ -538,52 +475,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to you may download it here.
-        /// </summary>
-        public static string HintUpdateHrefText {
-            get {
-                return ResourceManager.GetString("HintUpdateHrefText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to all.
-        /// </summary>
-        public static string HistoryFilterAll {
-            get {
-                return ResourceManager.GetString("HistoryFilterAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to last day.
-        /// </summary>
-        public static string HistoryFilterLastDay {
-            get {
-                return ResourceManager.GetString("HistoryFilterLastDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to last month.
-        /// </summary>
-        public static string HistoryFilterLastMonth {
-            get {
-                return ResourceManager.GetString("HistoryFilterLastMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to last week.
-        /// </summary>
-        public static string HistoryFilterLastWeek {
-            get {
-                return ResourceManager.GetString("HistoryFilterLastWeek", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search in messages content.
+        ///   Looks up a localized string similar to Search in chat messages content.
         /// </summary>
         public static string IndexTitle {
             get {
@@ -682,15 +574,6 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string LabelStatus {
-            get {
-                return ResourceManager.GetString("LabelStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Temporary room (will be deleted when all users leave it).
         /// </summary>
         public static string LabelTemporaryRoom {
@@ -736,16 +619,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ready.
-        /// </summary>
-        public static string Ready {
-            get {
-                return ResourceManager.GetString("Ready", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to Find Contact.
         /// </summary>
         public static string Search {
             get {
@@ -754,20 +628,11 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search on history messages.
+        ///   Looks up a localized string similar to Search in message history.
         /// </summary>
         public static string SearchOnHistory {
             get {
                 return ResourceManager.GetString("SearchOnHistory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mass Message.
-        /// </summary>
-        public static string SelectUserBookmarkTitle {
-            get {
-                return ResourceManager.GetString("SelectUserBookmarkTitle", resourceCulture);
             }
         }
         
@@ -880,7 +745,7 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove user from chat.
+        ///   Looks up a localized string similar to Delete user from chat.
         /// </summary>
         public static string TitleKickOccupantDialog {
             get {
@@ -912,15 +777,6 @@ namespace ASC.Web.Talk.Resources {
         public static string TotalUsers {
             get {
                 return ResourceManager.GetString("TotalUsers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to http://get.adobe.com/flashplayer/.
-        /// </summary>
-        public static string UpdateFlashPlayerUrl {
-            get {
-                return ResourceManager.GetString("UpdateFlashPlayerUrl", resourceCulture);
             }
         }
         

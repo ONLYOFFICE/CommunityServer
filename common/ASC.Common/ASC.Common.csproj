@@ -61,6 +61,7 @@
     <Compile Include="Data\DbTransaction.cs" />
     <Compile Include="Data\IDbManager.cs" />
     <Compile Include="Data\MultiRegionalDbManager.cs" />
+    <Compile Include="Data\TempPath.cs" />
     <Compile Include="Data\Sql\Expressions\SumExp.cs" />
     <Compile Include="Data\Sql\Expressions\IfExp.cs" />
     <Compile Include="Data\Sql\SqlDebugView.cs" />
@@ -252,7 +253,7 @@
       <Version>3.1.4</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.19</Version>
+      <Version>8.0.23</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
@@ -273,7 +274,7 @@
       <Version>4.5.1</Version>
     </PackageReference>
     <PackageReference Include="System.Memory">
-      <Version>4.5.3</Version>
+      <Version>4.5.4</Version>
     </PackageReference>
     <PackageReference Include="Ubiety.Dns.Core">
       <Version>2.4.1</Version>

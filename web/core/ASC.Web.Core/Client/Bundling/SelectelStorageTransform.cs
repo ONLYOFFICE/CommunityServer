@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,14 +39,14 @@ namespace ASC.Web.Core.Client.Bundling
     class SelectelStorageTransform : IBundleTransform
     {
         private static readonly ILog log = LogManager.GetLogger("ASC.Web.Bundle.SelectelStorageTransform");
-        private static bool successInitialized = false;
+        private static readonly bool successInitialized = false;
         private static readonly Dictionary<string, string> appenders = new Dictionary<string, string>();
         private static int work = 0;
         private static readonly ConcurrentQueue<CdnItem> queue = new ConcurrentQueue<CdnItem>();
 
-        private static string _authUser = string.Empty;
-        private static string _authPwd = string.Empty;
-        private static string _container = string.Empty;
+        private static readonly string _authUser = string.Empty;
+        private static readonly string _authPwd = string.Empty;
+        private static readonly string _container = string.Empty;
 
         static SelectelStorageTransform()
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Configuration;
 using System.Web;
+
 using ASC.Web.UserControls.Bookmarking.Common.Util;
 
 namespace ASC.Web.UserControls.Bookmarking.Util
@@ -32,9 +33,9 @@ namespace ASC.Web.UserControls.Bookmarking.Util
 
     public class ThumbnailHelper
     {
-        private static IThumbnailHelper _processHelper = new WebSiteThumbnailHelper();
-        private static IThumbnailHelper _serviceHelper = new ServiceThumbnailHelper();
-        private static IThumbnailHelper _nullHelper = new NullThumbnailHelper();
+        private static readonly IThumbnailHelper _processHelper = new WebSiteThumbnailHelper();
+        private static readonly IThumbnailHelper _serviceHelper = new ServiceThumbnailHelper();
+        private static readonly IThumbnailHelper _nullHelper = new NullThumbnailHelper();
 
         public static bool HasService
         {
@@ -90,7 +91,7 @@ namespace ASC.Web.UserControls.Bookmarking.Util
     internal class NullThumbnailHelper : IThumbnailHelper
     {
         public void MakeThumbnail(string url, bool async, bool notOverride, HttpContext context, int tenantID)
-        {            
+        {
         }
 
         public void DeleteThumbnail(string Url)

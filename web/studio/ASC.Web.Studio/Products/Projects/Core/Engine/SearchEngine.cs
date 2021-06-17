@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Common.Utils;
 using ASC.Files.Core;
@@ -29,7 +30,9 @@ using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
+
 using Autofac;
+
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
@@ -53,12 +56,12 @@ namespace ASC.Projects.Engine
             Title = title;
             Description = desc;
             CreateOn = createOn;
-            
+
             if (!string.IsNullOrEmpty(itemPath))
             {
                 ItemPath = ItemPathToAbsolute(itemPath);
             }
-            else if(container != null)
+            else if (container != null)
             {
                 ItemPath = container.ItemPath;
             }
@@ -99,7 +102,7 @@ namespace ASC.Projects.Engine
 
             while (true)
             {
-                if(container == null) break;
+                if (container == null) break;
 
                 projectID = container.ID;
 
@@ -138,35 +141,35 @@ namespace ASC.Projects.Engine
                     switch (r.EntityType)
                     {
                         case EntityType.Project:
-                            var project = (Project) r;
+                            var project = (Project)r;
                             if (projectSecurity.CanRead(project))
                             {
                                 searchItems.Add(new SearchItem(project));
                             }
                             continue;
                         case EntityType.Milestone:
-                            var milestone = (Milestone) r;
+                            var milestone = (Milestone)r;
                             if (projectSecurity.CanRead(milestone))
                             {
                                 searchItems.Add(new SearchItem(milestone));
                             }
                             continue;
                         case EntityType.Message:
-                            var message = (Message) r;
+                            var message = (Message)r;
                             if (projectSecurity.CanRead(message))
                             {
                                 searchItems.Add(new SearchItem(message));
                             }
                             continue;
                         case EntityType.Task:
-                            var task = (Task) r;
+                            var task = (Task)r;
                             if (projectSecurity.CanRead(task))
                             {
                                 searchItems.Add(new SearchItem(task));
                             }
                             continue;
                         case EntityType.Comment:
-                            var comment = (Comment) r;
+                            var comment = (Comment)r;
                             var entity = CommentEngine.GetEntityByTargetUniqId(comment);
                             if (entity == null) continue;
 
@@ -175,7 +178,7 @@ namespace ASC.Projects.Engine
                                 comment.CreateOn, new SearchItem(entity)));
                             continue;
                         case EntityType.SubTask:
-                            var subtask = (Subtask) r;
+                            var subtask = (Subtask)r;
                             var parentTask = TaskEngine.GetByID(subtask.Task);
                             if (parentTask == null) continue;
 
@@ -198,7 +201,7 @@ namespace ASC.Projects.Engine
                     fileEntries.AddRange(fileDao.Search(searchText, true));
 
                     var projectIds = projectId != 0
-                                         ? new List<int> {projectId}
+                                         ? new List<int> { projectId }
                                          : fileEntries.GroupBy(f => f.RootFolderId)
                                                .Select(g => folderDao.GetFolder(g.Key))
                                                .Select(f => f != null ? folderDao.GetBunchObjectID(f.RootFolderId).Split('/').Last() : null)
@@ -220,7 +223,7 @@ namespace ASC.Projects.Engine
                         {
                             var itemId = f.FileEntryType == FileEntryType.File
                                              ? FilesLinkUtility.GetFileWebPreviewUrl(f.Title, f.ID)
-                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Folder) f, project.ID);
+                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Folder)f, project.ID);
                             searchItems.Add(new SearchItem(EntityType.File, itemId, f.Title, f.CreateOn, new SearchItem(project), itemPath: "{2}"));
                         }
                     }

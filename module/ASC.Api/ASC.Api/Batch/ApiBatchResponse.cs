@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Runtime.Serialization;
+
 using ASC.Api.Collections;
 
 namespace ASC.Api.Batch
@@ -31,13 +32,13 @@ namespace ASC.Api.Batch
         [DataMember(Order = 100)]
         public string Data { get; set; }
 
-        [DataMember(Order = 10,EmitDefaultValue = false)]
+        [DataMember(Order = 10, EmitDefaultValue = false)]
         public ItemDictionary<string, string> Headers { get; set; }
 
         [DataMember(Order = 5)]
         public int Status { get; set; }
 
-        [DataMember(Order = 1,EmitDefaultValue = false)]
+        [DataMember(Order = 1, EmitDefaultValue = false)]
         public string Name { get; set; }
     }
 }

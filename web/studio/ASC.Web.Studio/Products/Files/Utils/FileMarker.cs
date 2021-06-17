@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,11 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
+
 using ASC.Common.Caching;
 using ASC.Common.Threading.Workers;
 using ASC.Core;
@@ -24,10 +29,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
+
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -232,10 +234,10 @@ namespace ASC.Web.Files.Utils
             userIDs = userIDs ?? new List<Guid>();
 
             var taskData = new AsyncTaskData
-                {
-                    FileEntry = (FileEntry)fileEntry.Clone(),
-                    UserIDs = userIDs
-                };
+            {
+                FileEntry = (FileEntry)fileEntry.Clone(),
+                UserIDs = userIDs
+            };
 
             if (fileEntry.RootFolderType == FolderType.BUNCH && !userIDs.Any())
             {

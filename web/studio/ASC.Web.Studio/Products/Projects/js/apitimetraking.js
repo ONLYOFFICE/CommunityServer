@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ ASC.Projects.TimeTraking = (function($) {
         $inputDate,
         $errorPanel,
         $addLog,
-        resources = ASC.Projects.Resources.ProjectsJSResource;
+        ProjectsJSResource = ASC.Projects.Resources.ProjectsJSResource;
 
     var teamlab = Teamlab;
     var $hours, $minutes, $seconds, $startButton, $resetButton, $textareaTimeDesc, $openTasks, $closedTasks;
@@ -216,7 +216,7 @@ ASC.Projects.TimeTraking = (function($) {
             } else {
                 if ($inputHours.val() === "" && $inputMinutes.val() === "") {
                     $errorPanel.addClass(errorClass).removeClass(successClass);
-                    $errorPanel.text(resources.TimerNoData);
+                    $errorPanel.text(ProjectsJSResource.TimerNoData);
                     unlockStartAndAddButtons();
                     return;
                 }
@@ -235,7 +235,7 @@ ASC.Projects.TimeTraking = (function($) {
 
                 if (invalidTime) {
                     $errorPanel.addClass(errorClass).removeClass(successClass);
-                    $errorPanel.text(resources.InvalidTime).show();
+                    $errorPanel.text(ProjectsJSResource.InvalidTime).show();
                     unlockStartAndAddButtons();
                     return;
                 }
@@ -248,7 +248,7 @@ ASC.Projects.TimeTraking = (function($) {
 
             if (!$.isDateFormat($inputDate.val().trim())) {
                 $errorPanel.addClass(errorClass).removeClass(successClass);
-                $errorPanel.text(resources.IncorrectDate).show();
+                $errorPanel.text(ProjectsJSResource.IncorrectDate).show();
                 unlockStartAndAddButtons();
                 return;
             }
@@ -421,7 +421,7 @@ ASC.Projects.TimeTraking = (function($) {
 
     function onAddTaskTime() {
         $errorPanel.removeClass(errorClass).addClass(successClass);
-        $errorPanel.text(resources.SuccessfullyAdded);
+        $errorPanel.text(ProjectsJSResource.SuccessfullyAdded);
         $textareaTimeDesc.val('');
         $inputHours.val('');
         $inputMinutes.val('');
@@ -494,7 +494,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
         inputMinutes,
         inputHours,
         errorPanel,
-        resources = ASC.Projects.Resources.ProjectsJSResource;
+        ProjectsJSResource = ASC.Projects.Resources.ProjectsJSResource;
 
     var teamlab = Teamlab, prjTask;
 
@@ -512,7 +512,7 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
                 IsPopup: true
             },
             header: {
-                data: { title: ASC.Projects.Resources.CommonResource.TimeTracking },
+                data: { title: ASC.Projects.Resources.ProjectsCommonResource.TimeTracking },
                 title: "projects_common_popup_header"
             },
             body: {
@@ -576,18 +576,18 @@ ASC.Projects.TimeTrakingEdit = (function ($) {
         var error = false;
         
         if (parseInt(m, 10) > 59 || parseInt(m, 10) < 0 || !isInt(m)) {
-            errorPanel.text(resources.InvalidTime);
+            errorPanel.text(ProjectsJSResource.InvalidTime);
             inputMinutes.focus();
             error = true;
         }
         if (parseInt(h, 10) < 0 || !isInt(h)) {
-            errorPanel.text(resources.InvalidTime);
+            errorPanel.text(ProjectsJSResource.InvalidTime);
             inputHours.focus();
             error = true;
         }
         
         if ($.trim(d) === "" || d == null || !$.isDateFormat(d)) {
-            errorPanel.text(resources.IncorrectDate);
+            errorPanel.text(ProjectsJSResource.IncorrectDate);
             $('#timeTrakingPopup #timeTrakingDate').focus();
             error = true;
         }

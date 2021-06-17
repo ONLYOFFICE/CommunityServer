@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
+
 using ASC.Common.Logging;
 using ASC.Common.Threading.Progress;
 using ASC.Core;
+using ASC.Core.Encryption;
 using ASC.Core.Tenants;
 using ASC.Data.Storage.DiscStorage;
-using System.IO;
-using System.Threading.Tasks;
-using Resources;
-using System.Configuration;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Data.Storage.Encryption
 {

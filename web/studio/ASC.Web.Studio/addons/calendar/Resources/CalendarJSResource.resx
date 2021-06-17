@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AcceptedCount" xml:space="preserve">
     <value>Accepted:</value>
@@ -136,10 +77,16 @@
     <value>Create new event</value>
   </data>
   <data name="calendarAddNewLabel" xml:space="preserve">
-    <value>Create New</value>
+    <value>Create</value>
   </data>
   <data name="calendarAllDayText" xml:space="preserve">
     <value>all-day</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="calendarButtonNewText_todo" xml:space="preserve">
+    <value>To-do</value>
   </data>
   <data name="calendarButtonText_day" xml:space="preserve">
     <value>Day</value>
@@ -170,6 +117,9 @@
   </data>
   <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
     <value>Edit calendar</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Import events</value>
   </data>
   <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
     <value>Save</value>
@@ -232,8 +182,8 @@
     <value>Guests:</value>
   </data>
   <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
-    <value>Start typing email address or contact name from your personal, CRM contacts or
-portal users or use any other email to invite people to your event.</value>
+    <value>Start typing an email address or  a name from the list of your personal/CRM/portal 
+users' contacts, or add any other email to invite people to your event.</value>
   </data>
   <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
     <value>Calendar:</value>
@@ -255,6 +205,9 @@ portal users or use any other email to invite people to your event.</value>
   </data>
   <data name="calendarEventEditor_editButton" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Event</value>
   </data>
   <data name="calendarEventEditor_fromLabel" xml:space="preserve">
     <value>From:</value>
@@ -313,6 +266,9 @@ portal users or use any other email to invite people to your event.</value>
   <data name="calendarEventEditor_saveButton" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="calendarEventEditor_sentInvitationsLabel" xml:space="preserve">
+    <value>Send invitations</value>
+  </data>
   <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
     <value>Users for sharing</value>
   </data>
@@ -337,11 +293,29 @@ portal users or use any other email to invite people to your event.</value>
   <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
     <value>Event name:</value>
   </data>
+  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
+    <value>Time:</value>
+  </data>
+  <data name="calendarEventEditor_todoButton" xml:space="preserve">
+    <value>To-do</value>
+  </data>
   <data name="calendarEventEditor_toLabel" xml:space="preserve">
     <value>To:</value>
   </data>
   <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
     <value>Unsubscribe</value>
+  </data>
+  <data name="calendarExportEvents_byLink" xml:space="preserve">
+    <value>Via link</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>From file</value>
+  </data>
+  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
+    <value>Sync with a calendar via the link</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>Import to</value>
   </data>
   <data name="calendarListView_noEventsMessage" xml:space="preserve">
     <value>There are no events to show.</value>
@@ -354,6 +328,9 @@ portal users or use any other email to invite people to your event.</value>
   </data>
   <data name="calendarMoreEventsLabel" xml:space="preserve">
     <value>+%d events</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>New calendar</value>
   </data>
   <data name="calendarSharedList_addLink" xml:space="preserve">
     <value>Add users for sharing</value>
@@ -387,6 +364,48 @@ portal users or use any other email to invite people to your event.</value>
   </data>
   <data name="calendarTodayLabel" xml:space="preserve">
     <value>Today</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogHeader" xml:space="preserve">
+    <value>Delete to-do</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogSingleBody" xml:space="preserve">
+    <value>The deleted to-do cannot be restored. Are you sure you want to continue?</value>
+  </data>
+  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Date:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_add" xml:space="preserve">
+    <value>Create to-do</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_edit" xml:space="preserve">
+    <value>Edit to-do</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="calendarTodoList_addTodoLabel" xml:space="preserve">
+    <value>New to-do</value>
+  </data>
+  <data name="calendarTodoList_newTodoTitle" xml:space="preserve">
+    <value>new to-do</value>
+  </data>
+  <data name="calendarTodoList_noDueDate" xml:space="preserve">
+    <value>No due date</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="calendarTodoList_title" xml:space="preserve">
+    <value>To-do</value>
   </data>
   <data name="calendarViewLabelText_calendar" xml:space="preserve">
     <value>Calendar view</value>
@@ -457,8 +476,20 @@ portal users or use any other email to invite people to your event.</value>
   <data name="deleteSettings_header" xml:space="preserve">
     <value>Delete recurring event</value>
   </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>The deleted event cannot be restored. Are you sure you want to continue?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Delete event</value>
+  </data>
   <data name="deleteSettings_thisLabel" xml:space="preserve">
     <value>This event only</value>
+  </data>
+  <data name="dialogCopyMessage" xml:space="preserve">
+    <value>Link has been copied to the clipboard</value>
+  </data>
+  <data name="dialogErrorMassageSpecCharacter" xml:space="preserve">
+    <value>The title cannot contain any of the following characters: {0}</value>
   </data>
   <data name="editorInfoText" xml:space="preserve">
     <value>All subsequent changes will be applied to your calendar only.</value>
@@ -478,6 +509,33 @@ portal users or use any other email to invite people to your event.</value>
   <data name="icalStream_description" xml:space="preserve">
     <value>Use the following address to access your calendar from other applications. You can copy and enter this information into any calendar supporting iCal format. You can save the data into a file in iCal format and export the events into another calendar or application.</value>
   </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="icalStream_export_description" xml:space="preserve">
+    <value>To configure the export of events from this calendar to another calendar, copy the corresponding link and add it to the required calendar.</value>
+  </data>
+  <data name="icalStream_export_header" xml:space="preserve">
+    <value>Export and Sync</value>
+  </data>
+  <data name="icalStream_export_help" xml:space="preserve">
+    <value>Find detailed instructions in the</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Help Center</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_export_todo_description" xml:space="preserve">
+    <value>To configure the export of to-dos to another calendar, copy the corresponding link and add it to the required calendar.</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Try again</value>
+  </data>
   <data name="icalStream_exportLink" xml:space="preserve">
     <value>Export events from ONLYOFFICE™ calendar</value>
   </data>
@@ -490,8 +548,14 @@ portal users or use any other email to invite people to your event.</value>
   <data name="icalStream_header" xml:space="preserve">
     <value>Calendar event export</value>
   </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Import events</value>
+  </data>
   <data name="icalStream_importExport" xml:space="preserve">
     <value>Import/Export</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>Select iCal file</value>
   </data>
   <data name="icalStream_importtLink" xml:space="preserve">
     <value>Import events into ONLYOFFICE™ calendar</value>
@@ -505,8 +569,23 @@ portal users or use any other email to invite people to your event.</value>
   <data name="icalStream_newLabel" xml:space="preserve">
     <value>Calendar from iCal feed</value>
   </data>
+  <data name="icalStream_preparing_error_message" xml:space="preserve">
+    <value>Link preparation failed</value>
+  </data>
+  <data name="icalStream_preparing_message" xml:space="preserve">
+    <value>Preparing the link for export</value>
+  </data>
   <data name="icalStream_savedLinkLabel" xml:space="preserve">
     <value>iCal feed link:</value>
+  </data>
+  <data name="menuDeleteMarkedTodo" xml:space="preserve">
+    <value>Hide to-do marked as done on page load</value>
+  </data>
+  <data name="menuSyncLinks" xml:space="preserve">
+    <value>Export and Sync</value>
+  </data>
+  <data name="menuTodoInCalendar" xml:space="preserve">
+    <value>Show to-dos in the calendar</value>
   </data>
   <data name="repeatSetting_fromLabel" xml:space="preserve">
     <value>starting with</value>
@@ -598,114 +677,6 @@ portal users or use any other email to invite people to your event.</value>
   <data name="replyLabelText" xml:space="preserve">
     <value>Attending</value>
   </data>
-  <data name="deleteSettings_singleBody" xml:space="preserve">
-    <value>The deleted event cannot be restored. Are you sure you want to continue?</value>
-  </data>
-  <data name="deleteSettings_singleHeader" xml:space="preserve">
-    <value>Delete event</value>
-  </data>
-  <data name="calendarExportEvents_byLink" xml:space="preserve">
-    <value>By link</value>
-  </data>
-  <data name="calendarExportEvents_fromFile" xml:space="preserve">
-    <value>From file</value>
-  </data>
-  <data name="icalStream_export_caldav" xml:space="preserve">
-    <value>CalDAV</value>
-  </data>
-  <data name="icalStream_export_copy_button" xml:space="preserve">
-    <value>Copy</value>
-  </data>
-  <data name="icalStream_export_description" xml:space="preserve">
-    <value>To configure the export of events from this calendar to another calendar, copy the corresponding link and add it to the required calendar.</value>
-  </data>
-  <data name="icalStream_export_header" xml:space="preserve">
-    <value>Export and Sync</value>
-  </data>
-  <data name="icalStream_export_ical" xml:space="preserve">
-    <value>iCal</value>
-  </data>
-  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
-    <value>Sync with calendar by link</value>
-  </data>
-  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
-    <value>Import events</value>
-  </data>
-  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
-    <value>Import to</value>
-  </data>
-  <data name="calendarNewLabel" xml:space="preserve">
-    <value>New calendar</value>
-  </data>
-  <data name="icalStream_importEventsLabel" xml:space="preserve">
-    <value>Import events</value>
-  </data>
-  <data name="icalStream_importLinkNew" xml:space="preserve">
-    <value>Select iCal file</value>
-  </data>
-  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
-    <value>Time:</value>
-  </data>
-  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
-    <value>Description:</value>
-  </data>
-  <data name="calendarTodoEditor_dialogHeader_add" xml:space="preserve">
-    <value>Create todo</value>
-  </data>
-  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
-    <value>Title:</value>
-  </data>
-  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="calendarTodoDeleteDialog_dialogHeader" xml:space="preserve">
-    <value>Delete todo</value>
-  </data>
-  <data name="calendarTodoDeleteDialog_dialogSingleBody" xml:space="preserve">
-    <value>The deleted todo cannot be restored. Are you sure you want to continue?</value>
-  </data>
-  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
-    <value>Date:</value>
-  </data>
-  <data name="calendarTodoList_addTodoLabel" xml:space="preserve">
-    <value>New todo</value>
-  </data>
-  <data name="calendarTodoList_noDueDate" xml:space="preserve">
-    <value>No due date</value>
-  </data>
-  <data name="calendarTodoList_Overdue" xml:space="preserve">
-    <value>Overdue</value>
-  </data>
-  <data name="calendarTodoList_title" xml:space="preserve">
-    <value>To-do</value>
-  </data>
-  <data name="calendarTodoEditor_dialogHeader_edit" xml:space="preserve">
-    <value>Edit todo</value>
-  </data>
-  <data name="icalStream_export_todo_description" xml:space="preserve">
-    <value>To configure the export of todos  to another calendar, copy the corresponding link and add it to the required calendar.</value>
-  </data>
-  <data name="menuDeleteMarkedTodo" xml:space="preserve">
-    <value>Hide to-do marked as done on page load</value>
-  </data>
-  <data name="menuSyncLinks" xml:space="preserve">
-    <value>Export and Sync</value>
-  </data>
-  <data name="menuTodoInCalendar" xml:space="preserve">
-    <value>Show to-do in calendar</value>
-  </data>
-  <data name="calendarEventEditor_eventButton" xml:space="preserve">
-    <value>Event</value>
-  </data>
-  <data name="calendarEventEditor_todoButton" xml:space="preserve">
-    <value>Todo</value>
-  </data>
-  <data name="calendarTodoList_newTodoTitle" xml:space="preserve">
-    <value>new todo</value>
-  </data>
   <data name="todoViewer_dialogButton_delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -717,35 +688,5 @@ portal users or use any other email to invite people to your event.</value>
   </data>
   <data name="todoViewer_dialogButton_mark_on" xml:space="preserve">
     <value>Mark as done</value>
-  </data>
-  <data name="calendarButtonNewText_list" xml:space="preserve">
-    <value>List</value>
-  </data>
-  <data name="calendarButtonNewText_todo" xml:space="preserve">
-    <value>Todo</value>
-  </data>
-  <data name="calendarEventEditor_sentInvitationsLabel" xml:space="preserve">
-    <value>Sent invitations</value>
-  </data>
-  <data name="icalStream_export_try_again_button" xml:space="preserve">
-    <value>Try again</value>
-  </data>
-  <data name="icalStream_preparing_error_message" xml:space="preserve">
-    <value>Link preparation failed</value>
-  </data>
-  <data name="icalStream_preparing_message" xml:space="preserve">
-    <value>Preparing the link for export</value>
-  </data>
-  <data name="dialogErrorMassageSpecCharacter" xml:space="preserve">
-    <value>The title cannot contain any of the following characters: {0}</value>
-  </data>
-  <data name="icalStream_export_help" xml:space="preserve">
-    <value>Connection instructions in the</value>
-  </data>
-  <data name="icalStream_export_help_center" xml:space="preserve">
-    <value>Help Center</value>
-  </data>
-  <data name="dialogCopyMessage" xml:space="preserve">
-    <value>Link has been copied to the clipboard</value>
   </data>
 </root>

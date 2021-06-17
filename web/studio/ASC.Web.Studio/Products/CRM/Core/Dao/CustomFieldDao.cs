@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,18 +20,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Core.Tenants;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Classes;
-using Newtonsoft.Json;
-using ASC.Common.Data;
 using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.CRM.Core.Entities;
 using ASC.ElasticSearch;
+using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Core.Search;
-using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Resources;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
@@ -115,7 +116,7 @@ namespace ASC.CRM.Core.Dao
             if (customFieldType == CustomFieldType.CheckBox || customFieldType == CustomFieldType.Heading || customFieldType == CustomFieldType.Date)
                 return String.Empty;
 
-            if(String.IsNullOrEmpty(mask))
+            if (String.IsNullOrEmpty(mask))
                 throw new ArgumentException(CRMErrorsResource.CustomFieldMaskNotValid);
 
             try
@@ -285,7 +286,7 @@ namespace ASC.CRM.Core.Dao
                         else
                         {
                             var maskObjOld = JToken.Parse(oldMask);
-                            var maskObjNew =JToken.Parse(customField.Mask);
+                            var maskObjNew = JToken.Parse(customField.Mask);
 
                             if (!(maskObjOld is JArray && maskObjNew is JArray))
                             {
@@ -381,17 +382,17 @@ namespace ASC.CRM.Core.Dao
             return Db.ExecuteScalar<int>(sqlQuery);
         }
 
-        public List<CustomField> GetEnityFields(EntityType entityType, int entityID, bool includeEmptyFields)
+        public List<CustomField> GetEntityFields(EntityType entityType, int entityID, bool includeEmptyFields)
         {
-            return GetEnityFields(entityType, entityID == 0 ? null : new[] { entityID }, includeEmptyFields);
+            return GetEntityFields(entityType, entityID == 0 ? null : new[] { entityID }, includeEmptyFields);
         }
 
-        public List<CustomField> GetEnityFields(EntityType entityType, int[] entityID)
+        public List<CustomField> GetEntityFields(EntityType entityType, int[] entityID)
         {
-            return GetEnityFields(entityType, entityID, false);
+            return GetEntityFields(entityType, entityID, false);
         }
 
-        private List<CustomField> GetEnityFields(EntityType entityType, int[] entityID, bool includeEmptyFields)
+        private List<CustomField> GetEntityFields(EntityType entityType, int[] entityID, bool includeEmptyFields)
         {
             // TODO: Refactoring Query!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -413,6 +414,7 @@ namespace ASC.CRM.Core.Dao
             if (entityID != null && entityID.Length > 0)
                 sqlQuery.LeftOuterJoin("crm_field_value tbl_field_value",
                                    Exp.EqColumns("tbl_field_value.field_id", "tbl_field.id") &
+                                   Exp.Eq("tbl_field_value.tenant_id", TenantID) &
                                    Exp.In("tbl_field_value.entity_id", entityID))
                 .OrderBy("tbl_field.sort_order", true);
             else

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,11 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
+
+using ASC.Api.Employee;
 using ASC.Specific;
 using ASC.Web.UserControls.Wiki.Data;
-using ASC.Api.Employee;
 
 namespace ASC.Api.Wiki.Wrappers
 {
@@ -63,21 +61,21 @@ namespace ASC.Api.Wiki.Wrappers
 
         public CommentWrapper()
         {
-            
+
         }
 
         public static CommentWrapper GetSample()
         {
             return new CommentWrapper
-                       {
-                           Author = EmployeeWraper.GetSample(),
-                           Content = "Comment content",
-                           Id = Guid.Empty,
-                           Page = "Some page",
-                           Inactive = false,
-                           LastModified = ApiDateTime.GetSample(),
-                           ParentId = Guid.Empty
-                       };
+            {
+                Author = EmployeeWraper.GetSample(),
+                Content = "Comment content",
+                Id = Guid.Empty,
+                Page = "Some page",
+                Inactive = false,
+                LastModified = ApiDateTime.GetSample(),
+                ParentId = Guid.Empty
+            };
         }
     }
 }

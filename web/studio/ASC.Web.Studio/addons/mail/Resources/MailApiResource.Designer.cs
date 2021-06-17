@@ -19,7 +19,7 @@ namespace ASC.Web.Mail.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class MailApiResource {
@@ -124,29 +124,11 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear accounts cache.
-        /// </summary>
-        public static string ClearAccountsCacheHeader {
-            get {
-                return ResourceManager.GetString("ClearAccountsCacheHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Creating link.
         /// </summary>
         public static string CreatingLinkHeader {
             get {
                 return ResourceManager.GetString("CreatingLinkHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Decrease newly freed quota space.
-        /// </summary>
-        public static string DecreaseQuotaSpaceHeader {
-            get {
-                return ResourceManager.GetString("DecreaseQuotaSpaceHeader", resourceCulture);
             }
         }
         
@@ -174,15 +156,6 @@ namespace ASC.Web.Mail.Resources {
         public static string DeliveryFailureFAQInformation {
             get {
                 return ResourceManager.GetString("DeliveryFailureFAQInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Message headers follow.
-        /// </summary>
-        public static string DeliveryFailureHeaders {
-            get {
-                return ResourceManager.GetString("DeliveryFailureHeaders", resourceCulture);
             }
         }
         
@@ -376,38 +349,11 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preparation archive.
+        ///   Looks up a localized string similar to Getting the archive ready.
         /// </summary>
         public static string PreparationArchiveHeader {
             get {
                 return ResourceManager.GetString("PreparationArchiveHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recalculate folders counters.
-        /// </summary>
-        public static string RecalculateFoldersCountersHeader {
-            get {
-                return ResourceManager.GetString("RecalculateFoldersCountersHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove Elastic Search index by messages.
-        /// </summary>
-        public static string RemoveElasticSearchIndexMessagesHeader {
-            get {
-                return ResourceManager.GetString("RemoveElasticSearchIndexMessagesHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove mailbox from Db.
-        /// </summary>
-        public static string RemoveMailboxFromDbHeader {
-            get {
-                return ResourceManager.GetString("RemoveMailboxFromDbHeader", resourceCulture);
             }
         }
         

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,6 @@ namespace ASC.Data.Backup.Service
 {
     public class BackupConfigurationSection : ConfigurationSection
     {
-        [ConfigurationProperty("tmpFolder", DefaultValue = "..\\Data\\Backup\\")]
-        public string TempFolder
-        {
-            get
-            {
-                var path = (string)this["tmpFolder"];
-                return string.IsNullOrEmpty(path) ? path : path.Replace('\\', Path.DirectorySeparatorChar);
-            }
-            set { this["tmpFolder"] = value; }
-        }
-
         [ConfigurationProperty("upgradesPath", DefaultValue = "../../Sql")]
         public string UpgradesPath
         {

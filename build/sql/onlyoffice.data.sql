@@ -18,10 +18,10 @@ BEGIN
 		commit;
 	END IF;
 
-	replace into tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) values (-1, 'default', 102400, 10995116277760, 10000, 'domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom');
+	replace into tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) values (-1, 'default', 102400, 10995116277760, 10000, 'domain,audit,controlpanel,healthcheck,ldap,sso,whitelabel,branding,ssbranding,update,support,portals:10000,discencryption,privacyroom,restore');
 	replace into core_settings(tenant, id, value) values (-1, 'SmtpSettings', 0xF052E090A1A3750DADCD4E9961DA04AA51EF0197E2C0623CF12C5838BFA40A9B48BAEFCBE371587731D7E3DC9E7C6009742F9E415D56DB0F0AE08E32F8904B2C441CC657C64543EAEE262044A28B4335DCB0F0C4E9401D891FA06369F984CA2D475C86C237917961C5827769831585230A66AC7787E6FB56FD3E37389267A46A);
 	insert ignore into core_settings(tenant, id, value) values (-1, 'FullTextSearchSettings', 0x0878CF0599B517CAA2D3DAED9D064C3EDCEEAF431F35A6F642DCADA04817E3513227BBB1DE6E2BABEB9E1077B2CF318C489814545E877501F633FBBE94022CFCDD025B5395973AF510943408BB56962EE35DA35F2F8374CF5FD12695359449D7CEFBC2C7BD112AE58752179AA2A59E5E17801E580CCC60FAEC8EBDD3D612C4886666D96D6CF060605E64C90A1FAA80C0);
-	insert ignore into core_settings(tenant, id, value) values (-1, 'CompanyWhiteLabelSettings', 0xF547048A4865171587D9CEBC8A496C601D96031F2C1C3E9160353942EE765DACD316F4B5F42892436FC4A21B9A6DF8FFD3BC4036B47E3A5A1B4C881B26609869FEBB6848BD88C02EEAC6A4CCB3E8F404290812F0E6E124A552BE81A58C64BB8BD3C9A8C0EDE1F9421281DE0C7AF82733C0B754E97EFFFA5A75607A91957896CBECF9563FC831300DC8E7C930A55B298EB82D6F69E0ED6E4D8752607F1881F61B032306E0F069A5F69F086A177EB41AC06F889EB0B39CBFD4B5CDB763E996554DEADB9C71CF3EF86F4A0354A864A10639DFD29B5C6D5DCDA9D4B0988EE406948BCB54C6A70ADC6C00577174285CEBCD76);
+	insert ignore into core_settings(tenant, id, value) values (-1, 'CompanyWhiteLabelSettings', 0xF547048A4865171587D9CEBC8A496C601D96031F2C1C3E9160353942EE765DACD316F4B5F42892436FC4A21B9A6DF8FFD3BC4036B47E3A5A1B4C881B26609869FEBB6848BD88C02EEAC6A4CCB3E8F404290812F0E6E124A552BE81A58C64BB8BD3C9A8C0EDE1F9421281DE0C7AF82733A4BCE515E85694C4DDA78E22652BA2891FCE9578F97285A81E12FEDF5D6558611E3AA3E03EADDCAA98287C64A5510757A881B00C3345E6FC1E22B607CA2D753C63F1ED94C92366DBA0E4C2E6DB16F44A8AB091007AA7505D17E41530643C1FFAE822F8F99FD2E30C0DEF82DF65C43324507F3E5C68E4C5E22BE8A40C24423485);
 
 	start transaction;
 	insert ignore into core_subscription(source, action, recipient, object, tenant) values('asc.web.studio','send_whats_new','c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e','',-1);
@@ -187,6 +187,7 @@ BEGIN
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_MauritianRupee', 'MUR', 'Rs', 'MU', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_MexicanPeso', 'MXN', 'MEX$', 'MX', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_MoldovanLeu', 'MDL', 'lei', 'MD', 1, 0);
+	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_MongolianTugrik', 'MNT', '₮', 'MN', 0, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_MoroccanDirham', 'MAD', 'د.م', 'MA', 1, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_NewBelarusianRuble', 'BYN', 'Br', 'BY', 0, 0);
 	insert ignore into crm_currency_info (resource_key, abbreviation, symbol, culture_name, is_convertable, is_basic) values ('Currency_NewZealandDollar', 'NZD', 'NZ$', 'NZ', 1, 0);
@@ -261,6 +262,11 @@ BEGIN
 	insert into files_converts (input, output) values ('.epub', '.pdf');
 	insert into files_converts (input, output) values ('.epub', '.rtf');
 	insert into files_converts (input, output) values ('.epub', '.txt');
+	insert into files_converts (input, output) values ('.fb2', '.docx');
+	insert into files_converts (input, output) values ('.fb2', '.odt');
+	insert into files_converts (input, output) values ('.fb2', '.pdf');
+	insert into files_converts (input, output) values ('.fb2', '.rtf');
+	insert into files_converts (input, output) values ('.fb2', '.txt');
 	insert into files_converts (input, output) values ('.fodp', '.odp');
 	insert into files_converts (input, output) values ('.fodp', '.pdf');
 	insert into files_converts (input, output) values ('.fodp', '.pptx');

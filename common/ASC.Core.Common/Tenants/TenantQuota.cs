@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ namespace ASC.Core.Tenants
     public class TenantQuota : ICloneable
     {
         public static readonly TenantQuota Default = new TenantQuota(Tenant.DEFAULT_TENANT)
-            {
-                Name = "Default",
-                MaxFileSize = 25*1024*1024, // 25Mb
-                MaxTotalSize = long.MaxValue,
-                ActiveUsers = int.MaxValue,
-            };
+        {
+            Name = "Default",
+            MaxFileSize = 25 * 1024 * 1024, // 25Mb
+            MaxTotalSize = long.MaxValue,
+            ActiveUsers = int.MaxValue,
+        };
 
         [DataMember(Name = "Id", Order = 10)]
         public int Id { get; private set; }
@@ -198,6 +198,62 @@ namespace ASC.Core.Tenants
             set { SetFeature("privacyroom", value); }
         }
 
+        public bool EnableMailServer
+        {
+            get { return GetFeature("mailserver"); }
+            set { SetFeature("mailserver", value); }
+        }
+
+        public int CountAdmin
+        {
+            get
+            {
+                var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
+                var admin = features.FirstOrDefault(f => f.StartsWith("admin:"));
+                int countAdmin;
+                if (admin == null || !Int32.TryParse(admin.Replace("admin:", ""), out countAdmin))
+                {
+                    countAdmin = Int32.MaxValue;
+                }
+                return countAdmin;
+            }
+            set
+            {
+                var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
+                var admin = features.FirstOrDefault(f => f.StartsWith("admin:"));
+                features.Remove(admin);
+                if (value > 0)
+                {
+                    features.Add("admin:" + value);
+                }
+                Features = string.Join(",", features.ToArray());
+            }
+        }
+
+        public bool Restore
+        {
+            get { return GetFeature("restore"); }
+            set { SetFeature("restore", value); }
+        }
+
+        public bool AutoBackup
+        {
+            get { return GetFeature("autobackup"); }
+            set { SetFeature("autobackup", value); }
+        }
+
+        public bool Oauth
+        {
+            get { return GetFeature("oauth"); }
+            set { SetFeature("oauth", value); }
+        }
+
+        public bool ContentSearch
+        {
+            get { return GetFeature("contentsearch"); }
+            set { SetFeature("contentsearch", value); }
+        }
+
         public int CountPortals
         {
             get
@@ -224,6 +280,11 @@ namespace ASC.Core.Tenants
             }
         }
 
+        public bool ThirdParty
+        {
+            get { return GetFeature("thirdparty"); }
+            set { SetFeature("thirdparty", value); }
+        }
 
         public TenantQuota(int tenant)
         {

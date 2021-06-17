@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ASC.Web.Studio.Utility;
+
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
-using ASC.Web.Community.Birthdays.Resources;
+using ASC.Web.Community.Modules.Birthdays.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Birthdays
 {
@@ -45,11 +46,11 @@ namespace ASC.Web.Community.Birthdays
             if (upcomingBirthdays == null || !upcomingBirthdays.Any())
             {
                 upcomingEmptyContent.Controls.Add(new EmptyScreenControl
-                    {
-                        ImgSrc = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Birthdays/App_Themes/default/images/birthday.png"),
-                        Header = BirthdaysResource.BirthdayEmptyScreenCaption,
-                        Describe = BirthdaysResource.BirthdaysEmptyModuleDescription
-                    });
+                {
+                    ImgSrc = VirtualPathUtility.ToAbsolute("~/Products/Community/Modules/Birthdays/App_Themes/default/images/birthday.png"),
+                    Header = BirthdaysResource.BirthdayEmptyScreenCaption,
+                    Describe = BirthdaysResource.BirthdaysEmptyModuleDescription
+                });
             }
 
             Title = HeaderStringHelper.GetPageTitle(BirthdaysResource.BirthdaysModuleTitle);
@@ -97,7 +98,7 @@ namespace ASC.Web.Community.Birthdays
                               .Where(x => x.BirthDate.HasValue)
                               .OrderBy(x => x.BirthDate.Value, new BirthDateComparer())
                               .GroupBy(x => new DateTime(2000, x.BirthDate.Value.Month, x.BirthDate.Value.Day)) // 29 february
-                              .Select(x => new BirthdayWrapper {Date = x.Key, Users = x.ToList()})
+                              .Select(x => new BirthdayWrapper { Date = x.Key, Users = x.ToList() })
                               .SkipWhile(x => x.Date.Month.Equals(today.Month) && x.Date.Day.Equals(today.Day))
                               .Take(10);
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,12 +28,14 @@ namespace ASC.Mail.Core.Entities
     public class MailAttachGarbage : MailGarbage
     {
         private readonly int _id;
-        public override int Id {
+        public override int Id
+        {
             get { return _id; }
         }
 
         private readonly string _path;
-        public override string Path {
+        public override string Path
+        {
             get { return _path; }
         }
 

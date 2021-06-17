@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
 */
 
 
-using System;
-using System.Web;
 using System.Collections.Generic;
-using ASC.Web.Core.Client.HttpHandlers;
+using System.Web;
+
 using ASC.Web.Community.Resources;
+using ASC.Web.Core.Client.HttpHandlers;
 
 namespace ASC.Web.Community.ClientScripts
 {
@@ -32,7 +32,7 @@ namespace ASC.Web.Community.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterResourceSet("Resources", CommunityResource.ResourceManager);
+            yield return RegisterResourceSet("CommunityResource", CommunityResource.ResourceManager);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,15 @@ using System.Web;
 namespace ASC.Bookmarking.Common
 {
 
-	public static class BookmarkingBusinessFactory
-	{
-		public static T GetObjectFromSession<T>() where T : class, new()
-		{
-		    T obj;
-			var key = typeof(T).ToString();
+    public static class BookmarkingBusinessFactory
+    {
+        public static T GetObjectFromSession<T>() where T : class, new()
+        {
+            T obj;
+            var key = typeof(T).ToString();
             if (HttpContext.Current.Session != null)
             {
-                obj = (T) HttpContext.Current.Session[key];
+                obj = (T)HttpContext.Current.Session[key];
                 if (obj == null)
                 {
                     obj = new T();
@@ -44,8 +44,8 @@ namespace ASC.Bookmarking.Common
                     HttpContext.Current.Items[key] = obj;
                 }
             }
-		    return obj;
-		}
+            return obj;
+        }
 
         public static void UpdateObjectInSession<T>(T obj) where T : class, new()
         {
@@ -60,22 +60,31 @@ namespace ASC.Bookmarking.Common
             }
         }
 
-	    public static void UpdateDisplayMode(BookmarkDisplayMode mode)
-	    {
-	        var key = typeof (BookmarkDisplayMode).Name;
+        public static void UpdateDisplayMode(BookmarkDisplayMode mode)
+        {
+            var key = typeof(BookmarkDisplayMode).Name;
 
-	        if (HttpContext.Current != null && HttpContext.Current.Session != null)
-	            HttpContext.Current.Session.Add(key, mode);
-	    }
+            if (HttpContext.Current != null && HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session.Add(key, mode);
+            }
+        }
 
-	    public static BookmarkDisplayMode GetDisplayMode()
-	    {
-	        var key = typeof (BookmarkDisplayMode).Name;
+        public static BookmarkDisplayMode GetDisplayMode()
+        {
+            var key = typeof(BookmarkDisplayMode).Name;
 
-	        if (HttpContext.Current != null && HttpContext.Current.Session != null)
-	            return (BookmarkDisplayMode) HttpContext.Current.Session[key];
+            if (HttpContext.Current != null && HttpContext.Current.Session != null)
+            {
+                var value = HttpContext.Current.Session[key];
 
-	        return BookmarkDisplayMode.AllBookmarks;
-	    }
-	}
+                if (value != null)
+                {
+                    return (BookmarkDisplayMode)value;
+                }
+            }
+
+            return BookmarkDisplayMode.AllBookmarks;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,15 @@
 #region Usings
 
 using System;
-using System.Web;
-using ASC.Core.Users;
-using ASC.Web.Core;
-using ASC.Web.Community.Product;
-using ASC.Core;
-using ASC.Web.Studio.Core;
 using System.Text;
+using System.Web;
+
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Web.Community.Product;
+using ASC.Web.Core;
+using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json.Linq;
 
 
@@ -81,7 +83,7 @@ namespace ASC.Web.Community.Controls
         }
 
         private void InitPermission()
-        {           
+        {
             foreach (var module in WebItemManager.Instance.GetSubItems(CommunityProduct.ID))
             {
                 switch (module.GetSysName())
@@ -132,7 +134,7 @@ namespace ASC.Web.Community.Controls
                 apiServer = new Api.ApiServer();
                 apiResponse = apiServer.GetApiResponse(String.Format("{0}community/forum/topic/{1}.json", SetupInfo.WebApiBaseUrl, TopicID), "GET");
                 obj = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(apiResponse)));
-                if(obj["response"]!=null)
+                if (obj["response"] != null)
                 {
                     obj = JObject.Parse(obj["response"].ToString());
                     var status = 0;

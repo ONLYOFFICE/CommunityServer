@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 
@@ -116,13 +117,13 @@ namespace ASC.Web.Studio.Core.Users
             var template = node != null ? node.GetElementsByTagName("template")[0].InnerXml : "{0}";
 
             return new MyContact
-                {
-                    type = type,
-                    classname = type,
-                    label = title,
-                    text = HttpUtility.HtmlEncode(value),
-                    link = String.Format(template, HttpUtility.HtmlEncode(value))
-                };
+            {
+                type = type,
+                classname = type,
+                label = title,
+                text = HttpUtility.HtmlEncode(value),
+                link = String.Format(template, HttpUtility.HtmlEncode(value))
+            };
         }
 
         private List<MyContact> GetContacts()

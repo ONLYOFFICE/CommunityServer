@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 using AjaxPro;
+
 using ASC.Common.Security;
 using ASC.Core.Users;
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Community.Forum
 {
@@ -48,7 +51,7 @@ namespace ASC.Web.Community.Forum
 
             Utility.RegisterTypeForAjax(typeof(ForumEditor), Page);
 
-            Page.Title = HeaderStringHelper.GetPageTitle((Page.Master as ForumMasterPage).CurrentPageCaption ?? Resources.ForumResource.AddonName);
+            Page.Title = HeaderStringHelper.GetPageTitle((Page.Master as ForumMasterPage).CurrentPageCaption ?? ForumResource.AddonName);
         }
 
         protected string RenderForumCategories()
@@ -69,12 +72,12 @@ namespace ASC.Web.Community.Forum
             else
             {
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
-                        Header = Resources.ForumResource.EmptyScreenForumCaption,
-                        Describe = Resources.ForumResource.EmptyScreenForumText,
-                        ButtonHTML = String.Format("<a class='link underline blue plus' href='NewForum.aspx'>{0}</a>", Resources.ForumResource.EmptyScreenForumLink)
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
+                    Header = ForumResource.EmptyScreenForumCaption,
+                    Describe = ForumResource.EmptyScreenForumText,
+                    ButtonHTML = String.Format("<a class='link underline blue plus' href='NewForum.aspx'>{0}</a>", ForumResource.EmptyScreenForumLink)
+                };
                 EmptyContent.Controls.Add(emptyScreenControl);
             }
 
@@ -106,11 +109,11 @@ namespace ASC.Web.Community.Forum
 
             sb.Append("<div align=right style='margin-right:8px; padding-top:5px; float:right;'>");
 
-            sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.ShowEditCategoryDialog('" + category.ID + "','" + category.Title.HtmlEncode().ReplaceSingleQuote() + "','" + category.Description.HtmlEncode().ReplaceSingleQuote() + "');\">" + Resources.ForumResource.EditShortButton + "</a>");
+            sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.ShowEditCategoryDialog('" + category.ID + "','" + category.Title.HtmlEncode().ReplaceSingleQuote() + "','" + category.Description.HtmlEncode().ReplaceSingleQuote() + "');\">" + ForumResource.EditShortButton + "</a>");
 
             sb.Append("<span class='splitter'>|</span>");
 
-            sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.RemoveCategory('" + category.ID + "');\">" + Resources.ForumResource.DeleteButton + "</a>");
+            sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.RemoveCategory('" + category.ID + "');\">" + ForumResource.DeleteButton + "</a>");
 
             sb.Append("</div>");
             sb.Append("</div>");
@@ -157,11 +160,11 @@ namespace ASC.Web.Community.Forum
 
             //edit
             sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.ShowEditThreadDialog('" + thread.ID + "','" + thread.CategoryID + "','"
-                      + thread.Title.HtmlEncode().ReplaceSingleQuote() + "','" + thread.Description.HtmlEncode().ReplaceSingleQuote() + "');\">" + Resources.ForumResource.EditShortButton + "</a>");
+                      + thread.Title.HtmlEncode().ReplaceSingleQuote() + "','" + thread.Description.HtmlEncode().ReplaceSingleQuote() + "');\">" + ForumResource.EditShortButton + "</a>");
             sb.Append("<span class='splitter'>|</span>");
 
             //remove
-            sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.DeleteThread('" + thread.ID + "','" + thread.CategoryID + "');\">" + Resources.ForumResource.DeleteButton + "</a>");
+            sb.Append("<a class = 'link' href=\"javascript:ForumMakerProvider.DeleteThread('" + thread.ID + "','" + thread.CategoryID + "');\">" + ForumResource.DeleteButton + "</a>");
 
 
             sb.Append("</div>");
@@ -182,8 +185,8 @@ namespace ASC.Web.Community.Forum
             var isCategory = securityObj is ThreadCategory;
             var sb = new StringBuilder();
 
-            sb.Append("<div style='margin:10px 0px 5px 0px;'><span style='font-weight:bolder;'>" + Resources.ForumResource.Moderators + ":&nbsp;</span>");
-            sb.Append("<a href=\"javascript:ForumMakerProvider.SelectModerators('" + securityObj.SecurityId + "'," + (isCategory ? "true" : "false") + ");\">" + Resources.ForumResource.MakeModeratorsButton + "</a>");
+            sb.Append("<div style='margin:10px 0px 5px 0px;'><span style='font-weight:bolder;'>" + ForumResource.Moderators + ":&nbsp;</span>");
+            sb.Append("<a href=\"javascript:ForumMakerProvider.SelectModerators('" + securityObj.SecurityId + "'," + (isCategory ? "true" : "false") + ");\">" + ForumResource.MakeModeratorsButton + "</a>");
 
             sb.Append("<div id=\"forum_modNames" + (isCategory ? "Category" : "Thread") + "_" + securityObj.SecurityId + "\" style='padding:5px;'>");
 
@@ -231,8 +234,8 @@ namespace ASC.Web.Community.Forum
             var isCategory = securityObj is ThreadCategory;
             var sb = new StringBuilder();
 
-            sb.Append("<div style='margin:10px 0px 5px 0px;'><span style='font-weight:bolder;'>" + Resources.ForumResource.VisibleList + ":&nbsp;</span>");
-            sb.Append("<a href=\"javascript:ForumMakerProvider.SelectVisibleList('" + securityObj.SecurityId + "'," + (isCategory ? "true" : "false") + ");\">" + Resources.ForumResource.MakeModeratorsButton + "</a>");
+            sb.Append("<div style='margin:10px 0px 5px 0px;'><span style='font-weight:bolder;'>" + ForumResource.VisibleList + ":&nbsp;</span>");
+            sb.Append("<a href=\"javascript:ForumMakerProvider.SelectVisibleList('" + securityObj.SecurityId + "'," + (isCategory ? "true" : "false") + ");\">" + ForumResource.MakeModeratorsButton + "</a>");
 
             sb.Append("<div id=\"forum_vlNames" + (isCategory ? "Category" : "Thread") + "_" + securityObj.SecurityId + "\" style='padding:5px;'>");
 
@@ -272,7 +275,7 @@ namespace ASC.Web.Community.Forum
             }
 
             if (isEmpty)
-                sb.Append(Resources.ForumResource.All);
+                sb.Append(ForumResource.All);
 
             sb.Append("</div>");
             sb.Append("</div>");
@@ -292,10 +295,10 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse SaveModerators(int id, bool isCategory, string userIDs)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = id.ToString(),
-                    rs4 = isCategory ? "1" : "0"
-                };
+            {
+                rs2 = id.ToString(),
+                rs4 = isCategory ? "1" : "0"
+            };
             try
             {
                 throw new NotSupportedException();
@@ -313,15 +316,15 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse SaveMembers(int id, bool isCategory, string userIDs)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = id.ToString(),
-                    rs4 = isCategory ? "1" : "0"
-                };
+            {
+                rs2 = id.ToString(),
+                rs4 = isCategory ? "1" : "0"
+            };
 
             try
             {
                 if (!ForumManager.Instance.ValidateAccessSecurityAction(ASC.Forum.ForumAction.GetAccessForumEditor, null))
-                    throw new Exception(Resources.ForumResource.ErrorAccessDenied);
+                    throw new Exception(ForumResource.ErrorAccessDenied);
 
                 List<ThreadCategory> categories;
                 List<Thread> threads;
@@ -346,7 +349,7 @@ namespace ASC.Web.Community.Forum
             try
             {
                 if (!ForumManager.Instance.ValidateAccessSecurityAction(ASC.Forum.ForumAction.GetAccessForumEditor, null))
-                    throw new Exception(Resources.ForumResource.ErrorAccessDenied);
+                    throw new Exception(ForumResource.ErrorAccessDenied);
 
                 List<ThreadCategory> categories;
                 List<Thread> threads;
@@ -380,7 +383,7 @@ namespace ASC.Web.Community.Forum
             try
             {
                 if (!ForumManager.Instance.ValidateAccessSecurityAction(ASC.Forum.ForumAction.GetAccessForumEditor, null))
-                    throw new Exception(Resources.ForumResource.ErrorAccessDenied);
+                    throw new Exception(ForumResource.ErrorAccessDenied);
 
                 List<ThreadCategory> categories;
                 List<Thread> threads;
@@ -429,23 +432,23 @@ namespace ASC.Web.Community.Forum
             if (!ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
-                resp.rs2 = "<div class='errorBox'>" + Resources.ForumResource.ErrorAccessDenied + "</div>";
+                resp.rs2 = "<div class='errorBox'>" + ForumResource.ErrorAccessDenied + "</div>";
                 return resp;
             }
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(name.Trim()))
             {
                 resp.rs1 = "0";
-                resp.rs2 = "<div class='errorBox'>" + Resources.ForumResource.ErrorEmptyName + "</div>";
+                resp.rs2 = "<div class='errorBox'>" + ForumResource.ErrorEmptyName + "</div>";
                 return resp;
             }
 
             var category = new ThreadCategory()
-                {
-                    Title = name.Trim(),
-                    Description = description ?? "",
-                    SortOrder = 100
-                };
+            {
+                Title = name.Trim(),
+                Description = description ?? "",
+                SortOrder = 100
+            };
 
             try
             {
@@ -457,7 +460,7 @@ namespace ASC.Web.Community.Forum
             catch
             {
                 resp.rs1 = "0";
-                resp.rs2 = "<div>" + Resources.ForumResource.ErrorCreateThreadCategory + "</div>";
+                resp.rs2 = "<div>" + ForumResource.ErrorCreateThreadCategory + "</div>";
             }
             return resp;
         }
@@ -466,9 +469,9 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse SaveCategory(int id, string name, string description)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = id.ToString()
-                };
+            {
+                rs2 = id.ToString()
+            };
 
             List<Thread> threads;
             var category = ForumDataProvider.GetCategoryByID(TenantProvider.CurrentTenantID, id, out threads);
@@ -476,14 +479,14 @@ namespace ASC.Web.Community.Forum
             if (category == null || !ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div'>" + Resources.ForumResource.ErrorAccessDenied + "</div>";
+                resp.rs3 = "<div'>" + ForumResource.ErrorAccessDenied + "</div>";
                 return resp;
             }
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(name.Trim()))
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorEmptyName + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorEmptyName + "</div>";
                 return resp;
             }
 
@@ -500,7 +503,7 @@ namespace ASC.Web.Community.Forum
             catch
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorEditThreadCategory + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorEditThreadCategory + "</div>";
             }
             return resp;
         }
@@ -509,9 +512,9 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse DoDeleteThreadCategory(int id)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = id.ToString()
-                };
+            {
+                rs2 = id.ToString()
+            };
 
             List<Thread> threads;
             var category = ForumDataProvider.GetCategoryByID(TenantProvider.CurrentTenantID, id, out threads);
@@ -523,7 +526,7 @@ namespace ASC.Web.Community.Forum
             if (!ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumResource.ErrorAccessDenied;
+                resp.rs3 = ForumResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -548,9 +551,9 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse DoCreateThread(int categoryId, string name, string description)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = categoryId.ToString()
-                };
+            {
+                rs2 = categoryId.ToString()
+            };
 
             List<Thread> threads;
             var category = ForumDataProvider.GetCategoryByID(TenantProvider.CurrentTenantID, categoryId, out threads);
@@ -558,24 +561,24 @@ namespace ASC.Web.Community.Forum
             if (category == null || !ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorAccessDenied + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorAccessDenied + "</div>";
                 return resp;
             }
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(name.Trim()))
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorEmptyName + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorEmptyName + "</div>";
                 return resp;
             }
 
             var thread = new Thread()
-                {
-                    Title = name.Trim(),
-                    Description = description ?? "",
-                    SortOrder = 100,
-                    CategoryID = category.ID
-                };
+            {
+                Title = name.Trim(),
+                Description = description ?? "",
+                SortOrder = 100,
+                CategoryID = category.ID
+            };
 
             try
             {
@@ -588,7 +591,7 @@ namespace ASC.Web.Community.Forum
             catch
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorEditThreadCategory + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorEditThreadCategory + "</div>";
             }
             return resp;
         }
@@ -597,14 +600,14 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse SaveThread(int id, int categoryID, string name, string description)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = categoryID.ToString()
-                };
+            {
+                rs2 = categoryID.ToString()
+            };
 
             if (String.IsNullOrEmpty(name) || String.IsNullOrEmpty(name.Trim()))
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorEmptyName + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorEmptyName + "</div>";
                 return resp;
             }
 
@@ -615,7 +618,7 @@ namespace ASC.Web.Community.Forum
                 if (thread == null || !ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
                 {
                     resp.rs1 = "0";
-                    resp.rs3 = "<div>" + Resources.ForumResource.ErrorAccessDenied + "</div>";
+                    resp.rs3 = "<div>" + ForumResource.ErrorAccessDenied + "</div>";
                     return resp;
                 }
 
@@ -635,7 +638,7 @@ namespace ASC.Web.Community.Forum
             catch
             {
                 resp.rs1 = "0";
-                resp.rs3 = "<div>" + Resources.ForumResource.ErrorAccessDenied + "</div>";
+                resp.rs3 = "<div>" + ForumResource.ErrorAccessDenied + "</div>";
             }
             return resp;
         }
@@ -644,10 +647,10 @@ namespace ASC.Web.Community.Forum
         public AjaxResponse DoDeleteThread(int threadID, int categoryID)
         {
             var resp = new AjaxResponse
-                {
-                    rs2 = threadID.ToString(),
-                    rs3 = categoryID.ToString()
-                };
+            {
+                rs2 = threadID.ToString(),
+                rs3 = categoryID.ToString()
+            };
 
             var thread = ForumDataProvider.GetThreadByID(TenantProvider.CurrentTenantID, threadID);
 
@@ -655,7 +658,7 @@ namespace ASC.Web.Community.Forum
                 !ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
-                resp.rs4 = Resources.ForumResource.ErrorAccessDenied;
+                resp.rs4 = ForumResource.ErrorAccessDenied;
                 return resp;
             }
 

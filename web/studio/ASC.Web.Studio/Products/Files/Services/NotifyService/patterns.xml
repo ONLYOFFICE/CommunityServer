@@ -61,13 +61,40 @@ $Message
 $DocumentURL
     </body>
   </pattern>
-    <pattern id="ShareDocument" sender="telegram.sender">
+  <pattern id="ShareDocument" sender="telegram.sender">
     <subject resource="|subject_ShareDocument_tg|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
     <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
 
 $AccessRights
 
 $Message
+    </body>
+  </pattern>
+
+  <pattern id="ShareEncryptedDocument" sender="email.sender">
+    <subject resource="|subject_ShareEncryptedDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_ShareEncryptedDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+  </pattern>
+  <pattern id="ShareEncryptedDocument" sender="messanger.sender">
+    <subject resource="|subject_ShareEncryptedDocument|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">
+      $__AuthorName
+
+      $AccessRights
+
+      $Message
+
+      $DocumentURL
+    </body>
+  </pattern>
+  <pattern id="ShareEncryptedDocument" sender="telegram.sender">
+    <subject resource="|subject_ShareEncryptedDocument_tg|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">
+      $__AuthorName
+
+      $AccessRights
+
+      $Message
     </body>
   </pattern>
 
@@ -109,6 +136,13 @@ $DocumentTitle
 $Message
 
 $DocumentURL
+    </body>
+  </pattern>
+  <pattern id="EditorMentions" sender="telegram.sender">
+    <subject resource="|subject_EditorMentions_tg|ASC.Web.Files.Services.NotifyService.FilesPatternResource,ASC.Web.Files" />
+    <body styler="ASC.Notify.Textile.JabberStyler, ASC.Notify.Textile">$__AuthorName
+
+      $Message
     </body>
   </pattern>
 </patterns>

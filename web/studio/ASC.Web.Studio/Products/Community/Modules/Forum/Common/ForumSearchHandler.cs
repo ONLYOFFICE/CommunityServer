@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@
 using System;
 using System.Linq;
 using System.Web;
+
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
@@ -36,12 +38,12 @@ namespace ASC.Web.Community.Forum
             var findTopicList = ForumDataProvider.SearchTopicsByText(TenantProvider.CurrentTenantID, text, 1, -1, out topicCount);
 
             return findTopicList.Select(topic => new SearchResultItem
-                {
-                    Name = topic.Title,
-                    Description = String.Format(Resources.ForumResource.FindTopicDescription, topic.ThreadTitle),
-                    URL = VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/Posts.aspx") + "?t=" + topic.ID,
-                    Date = topic.CreateDate
-                }).ToArray();
+            {
+                Name = topic.Title,
+                Description = String.Format(ForumResource.FindTopicDescription, topic.ThreadTitle),
+                URL = VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/Posts.aspx") + "?t=" + topic.ID,
+                Date = topic.CreateDate
+            }).ToArray();
         }
 
         public override ImageOptions Logo
@@ -51,7 +53,7 @@ namespace ASC.Web.Community.Forum
 
         public override string SearchName
         {
-            get { return Resources.ForumResource.SearchDefaultString; }
+            get { return ForumResource.SearchDefaultString; }
         }
 
         public override Guid ModuleID

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Security.Authorizing;
 using ASC.Core.Tenants;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 
 namespace ASC.Core.Data
 {
@@ -148,7 +149,8 @@ namespace ASC.Core.Data
                 new Guid((string)r[0]),
                 new Guid((string)r[1]),
                 (AceType)Convert.ToInt32(r[3]),
-                string.Empty.Equals(r[2]) ? null : (string)r[2]) { Tenant = tenant };
+                string.Empty.Equals(r[2]) ? null : (string)r[2])
+            { Tenant = tenant };
         }
     }
 }

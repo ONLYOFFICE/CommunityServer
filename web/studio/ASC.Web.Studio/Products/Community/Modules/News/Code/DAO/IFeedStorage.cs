@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,41 +20,41 @@ using System.Collections.Generic;
 
 namespace ASC.Web.Community.News.Code.DAO
 {
-	public interface IFeedStorage : IDisposable
-	{
-		List<FeedType> GetUsedFeedTypes();
+    public interface IFeedStorage : IDisposable
+    {
+        List<FeedType> GetUsedFeedTypes();
 
-		
-		List<Feed> GetFeeds(FeedType feedType, Guid userId, int count, int offset);
 
-		List<Feed> SearchFeeds(string s, FeedType feedType, Guid userId, int count, int offset);
+        List<Feed> GetFeeds(FeedType feedType, Guid userId, int count, int offset);
 
-		long GetFeedsCount(FeedType feedType, Guid userId);
+        List<Feed> SearchFeeds(string s, FeedType feedType, Guid userId, int count, int offset);
 
-		long SearchFeedsCount(string s, FeedType feedType, Guid userId);
+        long GetFeedsCount(FeedType feedType, Guid userId);
 
-		List<Feed> SearchFeeds(string s);
+        long SearchFeedsCount(string s, FeedType feedType, Guid userId);
 
-		Feed GetFeed(long id);
+        List<Feed> SearchFeeds(string s);
 
-	    List<Feed> GetFeedByDate(DateTime from, DateTime to, Guid userId);
+        Feed GetFeed(long id);
 
-	    List<FeedComment> GetCommentsByDate(DateTime from, DateTime to);
+        List<Feed> GetFeedByDate(DateTime from, DateTime to, Guid userId);
 
-		Feed SaveFeed(Feed feed, bool isEdit, FeedType poll);
-		
-		void RemoveFeed(Feed feed);
+        List<FeedComment> GetCommentsByDate(DateTime from, DateTime to);
 
-		void ReadFeed(long feedId, string reader);
+        Feed SaveFeed(Feed feed, bool isEdit, FeedType poll);
 
-		void PollVote(string userId, ICollection<long> variantIds);
+        void RemoveFeed(Feed feed);
 
-		
-		List<FeedComment> GetFeedComments(long feedId);
-		
-		FeedComment GetFeedComment(long commentId);
-		
-		void RemoveFeedComment(long commentId);
+        void ReadFeed(long feedId, string reader);
+
+        void PollVote(string userId, ICollection<long> variantIds);
+
+
+        List<FeedComment> GetFeedComments(long feedId);
+
+        FeedComment GetFeedComment(long commentId);
+
+        void RemoveFeedComment(long commentId);
         FeedComment SaveFeedComment(Feed feed, FeedComment comment);
         void RemoveFeedComment(FeedComment comment);
         void UpdateFeedComment(FeedComment comment);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,10 @@
 
 
 using System.Collections.Generic;
+
+using ASC.Web.Community.Modules.Bookmarking.UserControls.Resources;
 using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
-using ASC.Web.UserControls.Bookmarking.Resources;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Util
 {
@@ -35,11 +36,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.MostRecent == SortBy,
-                        SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.MostRecentParam),
-                        SortLabel = BookmarkingUCResource.MostRecentLabel
-                    };
+                {
+                    IsSelected = SortByEnum.MostRecent == SortBy,
+                    SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.MostRecentParam),
+                    SortLabel = BookmarkingUCResource.MostRecentLabel
+                };
             }
         }
 
@@ -48,11 +49,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.TopOfTheDay == SortBy,
-                        SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.TopOfTheDayParam),
-                        SortLabel = BookmarkingUCResource.TopOfTheDayLabel
-                    };
+                {
+                    IsSelected = SortByEnum.TopOfTheDay == SortBy,
+                    SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.TopOfTheDayParam),
+                    SortLabel = BookmarkingUCResource.TopOfTheDayLabel
+                };
             }
         }
 
@@ -61,11 +62,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Week == SortBy,
-                        SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.WeekParam),
-                        SortLabel = BookmarkingUCResource.WeekLabel
-                    };
+                {
+                    IsSelected = SortByEnum.Week == SortBy,
+                    SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.WeekParam),
+                    SortLabel = BookmarkingUCResource.WeekLabel
+                };
             }
         }
 
@@ -74,11 +75,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Month == SortBy,
-                        SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.MonthParam),
-                        SortLabel = BookmarkingUCResource.MonthLabel
-                    };
+                {
+                    IsSelected = SortByEnum.Month == SortBy,
+                    SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.MonthParam),
+                    SortLabel = BookmarkingUCResource.MonthLabel
+                };
             }
         }
 
@@ -87,11 +88,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Year == SortBy,
-                        SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.YearParam),
-                        SortLabel = BookmarkingUCResource.YearLabel,
-                    };
+                {
+                    IsSelected = SortByEnum.Year == SortBy,
+                    SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.YearParam),
+                    SortLabel = BookmarkingUCResource.YearLabel,
+                };
             }
         }
 
@@ -100,11 +101,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Popularity == SortBy,
-                        SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.PopularityParam),
-                        SortLabel = BookmarkingUCResource.PopularityLabel,
-                    };
+                {
+                    IsSelected = SortByEnum.Popularity == SortBy,
+                    SortUrl = _serviceHelper.GenerateSortUrl(BookmarkingRequestConstants.PopularityParam),
+                    SortLabel = BookmarkingUCResource.PopularityLabel,
+                };
             }
         }
 
@@ -115,11 +116,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.MostRecent == SortBy,
-                        SortUrl = _serviceHelper.GetSearchMostRecentBookmarksUrl(),
-                        SortLabel = BookmarkingUCResource.MostRecentLabel
-                    };
+                {
+                    IsSelected = SortByEnum.MostRecent == SortBy,
+                    SortUrl = _serviceHelper.GetSearchMostRecentBookmarksUrl(),
+                    SortLabel = BookmarkingUCResource.MostRecentLabel
+                };
             }
         }
 
@@ -128,11 +129,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Popularity == SortBy,
-                        SortUrl = _serviceHelper.GetSearchMostPopularBookmarksUrl(),
-                        SortLabel = BookmarkingUCResource.PopularityLabel,
-                    };
+                {
+                    IsSelected = SortByEnum.Popularity == SortBy,
+                    SortUrl = _serviceHelper.GetSearchMostPopularBookmarksUrl(),
+                    SortLabel = BookmarkingUCResource.PopularityLabel,
+                };
             }
         }
 
@@ -141,11 +142,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.MostRecent == SortBy,
-                        SortUrl = _serviceHelper.GetMostRecentBookmarksCreateByUserUrl(),
-                        SortLabel = BookmarkingUCResource.MostRecentLabel
-                    };
+                {
+                    IsSelected = SortByEnum.MostRecent == SortBy,
+                    SortUrl = _serviceHelper.GetMostRecentBookmarksCreateByUserUrl(),
+                    SortLabel = BookmarkingUCResource.MostRecentLabel
+                };
             }
         }
 
@@ -154,11 +155,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Popularity == SortBy,
-                        SortUrl = _serviceHelper.GetMostPopularBookmarksCreateByUserUrl(),
-                        SortLabel = BookmarkingUCResource.PopularityLabel,
-                    };
+                {
+                    IsSelected = SortByEnum.Popularity == SortBy,
+                    SortUrl = _serviceHelper.GetMostPopularBookmarksCreateByUserUrl(),
+                    SortLabel = BookmarkingUCResource.PopularityLabel,
+                };
             }
         }
 
@@ -171,11 +172,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.MostRecent == SortBy,
-                        SortUrl = _serviceHelper.GetSearchMostRecentBookmarksByTagUrl(),
-                        SortLabel = BookmarkingUCResource.MostRecentLabel
-                    };
+                {
+                    IsSelected = SortByEnum.MostRecent == SortBy,
+                    SortUrl = _serviceHelper.GetSearchMostRecentBookmarksByTagUrl(),
+                    SortLabel = BookmarkingUCResource.MostRecentLabel
+                };
             }
         }
 
@@ -184,11 +185,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
             get
             {
                 return new ViewSwitcherLinkItem
-                    {
-                        IsSelected = SortByEnum.Popularity == SortBy,
-                        SortUrl = _serviceHelper.GetSearchMostPopularBookmarksByTagUrl(),
-                        SortLabel = BookmarkingUCResource.PopularityLabel,
-                    };
+                {
+                    IsSelected = SortByEnum.Popularity == SortBy,
+                    SortUrl = _serviceHelper.GetSearchMostPopularBookmarksByTagUrl(),
+                    SortLabel = BookmarkingUCResource.PopularityLabel,
+                };
             }
         }
 

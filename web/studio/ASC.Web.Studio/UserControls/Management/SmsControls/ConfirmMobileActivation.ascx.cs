@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Geolocation;
@@ -30,9 +32,9 @@ using ASC.Web.Core.Security;
 using ASC.Web.Core.Sms;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -136,7 +138,7 @@ namespace ASC.Web.Studio.UserControls.Management
             var queryString = HttpUtility.ParseQueryString(query);
 
             var email = (queryString["email"] ?? "").Trim();
-            var type = typeof (ConfirmType).TryParseEnum(queryString["type"] ?? "", ConfirmType.EmpInvite);
+            var type = typeof(ConfirmType).TryParseEnum(queryString["type"] ?? "", ConfirmType.EmpInvite);
             var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(email + type, queryString["key"], SetupInfo.ValidAuthKeyInterval);
 
             if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Expired)
@@ -178,11 +180,11 @@ namespace ASC.Web.Studio.UserControls.Management
 
             return
                 new
-                    {
-                        phoneNoise = SmsSender.BuildPhoneNoise(mobilePhone),
-                        confirm = mustConfirm,
-                        RefererURL = mustConfirm ? string.Empty : GetRefererURL()
-                    };
+                {
+                    phoneNoise = SmsSender.BuildPhoneNoise(mobilePhone),
+                    confirm = mustConfirm,
+                    RefererURL = mustConfirm ? string.Empty : GetRefererURL()
+                };
         }
 
         [SecurityPassthrough]
@@ -194,10 +196,10 @@ namespace ASC.Web.Studio.UserControls.Management
 
             return
                 new
-                    {
-                        phoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
-                        confirm = true,
-                    };
+                {
+                    phoneNoise = SmsSender.BuildPhoneNoise(user.MobilePhone),
+                    confirm = true,
+                };
         }
 
         [SecurityPassthrough]

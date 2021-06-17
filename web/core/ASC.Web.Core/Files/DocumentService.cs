@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -27,11 +28,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using ASC.Core;
+
 using JWT;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace ASC.Web.Core.Files
@@ -44,7 +49,7 @@ namespace ASC.Web.Core.Files
         /// <summary>
         /// Timeout to request conversion
         /// </summary>
-        public static int Timeout = 120000;
+        public static int Timeout = Convert.ToInt32(ConfigurationManagerExtension.AppSettings["files.docservice.timeout"] ?? "120000");
 
         /// <summary>
         /// Number of tries request conversion
@@ -74,6 +79,7 @@ namespace ASC.Web.Core.Files
         /// <param name="toExtension">Extension to which to convert</param>
         /// <param name="documentRevisionId">Key for caching on service</param>
         /// <param name="password">Password</param>
+        /// <param name="thumbnail">Thumbnail settings</param>
         /// <param name="isAsync">Perform conversions asynchronously</param>
         /// <param name="signatureSecret">Secret key to generate the token</param>
         /// <param name="convertedDocumentUri">Uri to the converted document</param>
@@ -91,6 +97,8 @@ namespace ASC.Web.Core.Files
             string toExtension,
             string documentRevisionId,
             string password,
+            ThumbnailData thumbnail,
+            SpreadsheetLayout spreadsheetLayout,
             bool isAsync,
             string signatureSecret,
             out string convertedDocumentUri)
@@ -114,14 +122,16 @@ namespace ASC.Web.Core.Files
             request.Timeout = Timeout;
 
             var body = new ConvertionBody
-                {
-                    Async = isAsync,
-                    FileType = fromExtension.Trim('.'),
-                    Key = documentRevisionId,
-                    OutputType = toExtension.Trim('.'),
-                    Title = title,
-                    Url = documentUri,
-                };
+            {
+                Async = isAsync,
+                FileType = fromExtension.Trim('.'),
+                Key = documentRevisionId,
+                OutputType = toExtension.Trim('.'),
+                Title = title,
+                Thumbnail = thumbnail,
+                SpreadsheetLayout = spreadsheetLayout,
+                Url = documentUri,
+            };
 
             if (!string.IsNullOrEmpty(password))
             {
@@ -231,10 +241,10 @@ namespace ASC.Web.Core.Files
             request.Timeout = Timeout;
 
             var body = new CommandBody
-                {
-                    Command = method,
-                    Key = documentRevisionId,
-                };
+            {
+                Command = method,
+                Key = documentRevisionId,
+            };
 
             if (!string.IsNullOrEmpty(callbackUrl)) body.Callback = callbackUrl;
             if (users != null && users.Length > 0) body.Users = users;
@@ -316,11 +326,11 @@ namespace ASC.Web.Core.Files
             request.Timeout = Timeout;
 
             var body = new BuilderBody
-                {
-                    Async = isAsync,
-                    Key = requestKey,
-                    Url = scriptUrl
-                };
+            {
+                Async = isAsync,
+                Key = requestKey,
+                Url = scriptUrl
+            };
 
             if (!string.IsNullOrEmpty(signatureSecret))
             {
@@ -475,6 +485,84 @@ namespace ASC.Web.Core.Files
         }
 
         [Serializable]
+        [DataContract(Name = "thumbnail", Namespace = "")]
+        [DebuggerDisplay("{Height}x{Width}")]
+        public class ThumbnailData
+        {
+            [DataMember(Name = "aspect")]
+            public int Aspect;
+
+            [DataMember(Name = "first")]
+            public bool First;
+
+            [DataMember(Name = "height")]
+            public int Height;
+
+            [DataMember(Name = "width")]
+            public int Width;
+        }
+
+        [Serializable]
+        [DataContract(Name = "spreadsheetLayout", Namespace = "")]
+        [DebuggerDisplay("SpreadsheetLayout {IgnorePrintArea} {Orientation} {FitToHeight} {FitToWidth} {Headings} {GridLines}")]
+        public class SpreadsheetLayout
+        {
+            [DataMember(Name = "ignorePrintArea")]
+            public bool IgnorePrintArea;
+
+            [DataMember(Name = "orientation")]
+            public string Orientation;
+
+            [DataMember(Name = "fitToHeight")]
+            public int FitToHeight;
+
+            [DataMember(Name = "fitToWidth")]
+            public int FitToWidth;
+
+            [DataMember(Name = "headings")]
+            public bool Headings;
+
+            [DataMember(Name = "gridLines")]
+            public bool GridLines;
+
+            [DataMember(Name = "margins")]
+            public Margins Margins;
+
+            [DataMember(Name = "pageSize")]
+            public PageSize PageSize;
+        }
+
+        [Serializable]
+        [DataContract(Name = "margins", Namespace = "")]
+        [DebuggerDisplay("Margins {Top} {Right} {Bottom} {Left}")]
+        public class Margins
+        {
+            [DataMember(Name = "left")]
+            public string Left;
+
+            [DataMember(Name = "right")]
+            public string Right;
+
+            [DataMember(Name = "top")]
+            public string Top;
+
+            [DataMember(Name = "bottom")]
+            public string Bottom;
+        }
+
+        [Serializable]
+        [DataContract(Name = "pageSize", Namespace = "")]
+        [DebuggerDisplay("PageSize {Width} {Height}")]
+        public class PageSize
+        {
+            [DataMember(Name = "height")]
+            public string Height;
+
+            [DataMember(Name = "width")]
+            public string Width;
+        }
+
+        [Serializable]
         [DataContract(Name = "Converion", Namespace = "")]
         [DebuggerDisplay("{Title} from {FileType} to {OutputType} ({Key})")]
         private class ConvertionBody
@@ -496,6 +584,12 @@ namespace ASC.Web.Core.Files
 
             [DataMember(Name = "title")]
             public string Title { get; set; }
+
+            [DataMember(Name = "thumbnail", EmitDefaultValue = false)]
+            public ThumbnailData Thumbnail { get; set; }
+
+            [DataMember(Name = "spreadsheetLayout", EmitDefaultValue = false)]
+            public SpreadsheetLayout SpreadsheetLayout { get; set; }
 
             [DataMember(Name = "url", IsRequired = true)]
             public string Url { get; set; }
@@ -536,6 +630,7 @@ namespace ASC.Web.Core.Files
             public string Url;
         }
 
+        [Serializable]
         public class DocumentServiceException : Exception
         {
             public ErrorCode Code;
@@ -546,6 +641,24 @@ namespace ASC.Web.Core.Files
                 Code = errorCode;
             }
 
+            protected DocumentServiceException(SerializationInfo info, StreamingContext context)
+                : base(info, context)
+            {
+                if (info != null)
+                {
+                    Code = (ErrorCode)info.GetValue("Code", typeof(ErrorCode));
+                }
+            }
+
+            public override void GetObjectData(SerializationInfo info, StreamingContext context)
+            {
+                base.GetObjectData(info, context);
+
+                if (info != null)
+                {
+                    info.AddValue("Code", Code);
+                }
+            }
 
             public static void ProcessResponseError(string errorCode)
             {
@@ -675,10 +788,10 @@ namespace ASC.Web.Core.Files
             public string Serialize(object obj)
             {
                 var settings = new JsonSerializerSettings
-                    {
-                        ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-                        NullValueHandling = NullValueHandling.Ignore,
-                    };
+                {
+                    ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                };
 
                 return JsonConvert.SerializeObject(obj, Formatting.Indented, settings);
             }
@@ -686,10 +799,10 @@ namespace ASC.Web.Core.Files
             public T Deserialize<T>(string json)
             {
                 var settings = new JsonSerializerSettings
-                    {
-                        ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
-                        NullValueHandling = NullValueHandling.Ignore,
-                    };
+                {
+                    ContractResolver = new CamelCaseExceptDictionaryKeysResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                };
 
                 return JsonConvert.DeserializeObject<T>(json, settings);
             }

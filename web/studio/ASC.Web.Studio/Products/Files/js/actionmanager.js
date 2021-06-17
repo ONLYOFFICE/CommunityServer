@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +84,6 @@ window.ASC.Files.Actions = (function () {
 
     var afterShowFunction = function (dropdownPanel) {
         showSeporators(dropdownPanel);
-        resizeDropdownPanel(dropdownPanel);
         createClipboardLinks();
     };
 
@@ -100,20 +99,22 @@ window.ASC.Files.Actions = (function () {
     };
 
     var resizeDropdownPanel = function (dropdownPanel) {
-        var content = dropdownPanel.find(".dropdown-content:visible");
+        var contents = dropdownPanel.find(".dropdown-content:not(.display-none)").filter(function(index, item) {
+            return item.style.display != "none";
+        });
 
-        if (content.get(0).style.minWidth) return;
+        var content = contents.length > 0 ? contents[0] : null;
 
-        var items = content.find("li");
-        var itemsWidth = items.map(function () { return jq(this).width(); });
-        var maxItemWidth = Math.max.apply(Math, itemsWidth);
-        var correction = maxItemWidth - content.width();
-        content.css({ minWidth: maxItemWidth });
+        if (!content) return;
+        if (content.style.minWidth) return;
 
-        var dropdownPanelPosition = dropdownPanel.position();
-        if (dropdownPanelPosition.left + dropdownPanel.outerWidth() > document.documentElement.clientWidth) {
-            dropdownPanel.css({ left: dropdownPanelPosition.left - correction });
-        }
+        var tmpDropdownPanel = dropdownPanel.clone().appendTo('body');
+        tmpDropdownPanel.show().removeClass("display-none");
+        var tmpContent = tmpDropdownPanel.find(".dropdown-content:visible");
+        tmpContent.css({overflow: "auto", maxHeight: "none"});
+        tmpContent.find("li").show().removeClass("display-none");
+        jq(content).css({ minWidth: tmpContent.width() });
+        tmpDropdownPanel.remove();
     };
 
     var createClipboardLinks = function () {
@@ -135,7 +136,7 @@ window.ASC.Files.Actions = (function () {
 
         ASC.Files.Actions.clipGetLink = ASC.Clipboard.create(url, id, {
             onComplete: function () {
-                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.Resource.LinkCopySuccess);
+                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
                 ASC.Files.Actions.hideAllActionPanels();
             }
         });
@@ -173,7 +174,7 @@ window.ASC.Files.Actions = (function () {
                     ASC.Files.Actions.setAceFileLink();
                 }
 
-                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.Resource.LinkCopySuccess);
+                ASC.Files.UI.displayInfoPanel(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
 
                 if (!ASC.Files.Actions.clipGetExternalLink.fromToggleBtn) {
                     ASC.Files.Actions.hideAllActionPanels();
@@ -211,7 +212,8 @@ window.ASC.Files.Actions = (function () {
 
         var countNotFavorite = 0;
         if (ASC.Files.Tree.displayFavorites()
-            && ASC.Files.Folders.folderContainer != "trash") {
+            && ASC.Files.Folders.folderContainer != "trash"
+            && ASC.Files.Folders.folderContainer != "privacy") {
             countNotFavorite = jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.on-favorite):not(.folder-row):has(.checkbox input:checked)").length;
         }
 
@@ -325,7 +327,9 @@ window.ASC.Files.Actions = (function () {
             }
             jq("#buttonEmptyTrash").show();
             jq("#mainEmptyTrash").addClass("unlockAction");
-        } else if (ASC.Files.Folders.folderContainer != "project" && countCanShare > 0) {
+        } else if (ASC.Files.Folders.folderContainer != "project"
+            && ASC.Files.Folders.folderContainer != "privacy"
+            && countCanShare > 0) {
             jq("#buttonShare").show().find("span").html(countCanShare);
             jq("#mainShare").addClass("unlockAction");
         }
@@ -346,6 +350,7 @@ window.ASC.Files.Actions = (function () {
                 "left": e.pageX - correctionX
             });
 
+            resizeDropdownPanel(dropdownItem);
             dropdownItem.toggle();
             afterShowFunction(dropdownItem);
             ASC.Files.Mouse.disableHover = true;
@@ -732,6 +737,8 @@ window.ASC.Files.Actions = (function () {
 
         var dropdownItem = jq("#filesActionPanel");
 
+        resizeDropdownPanel(dropdownItem);
+
         jq.showDropDownByContext(e, target, dropdownItem, function () {
             ASC.Files.Mouse.disableHover = true;
         });
@@ -801,6 +808,8 @@ window.ASC.Files.Actions = (function () {
         jq("#filesMainContent .file-row.row-lonely-select").removeClass("row-lonely-select");
         jq("#filesMainContent .file-row .menu-small").removeClass("active");
         ASC.Files.UI.hideEntryTooltip();
+
+        ASC.Files.Mouse.disableHover = false;
     };
 
     var checkEditFile = function (fileId, winEditor) {
@@ -876,7 +885,7 @@ window.ASC.Files.Actions = (function () {
                 });
 
                 if (!listWithAccess.length) {
-                    ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveGroup.format(0));
+                    ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoMoveGroup.format(0));
                     return;
                 }
             }
@@ -886,7 +895,7 @@ window.ASC.Files.Actions = (function () {
 
         if (!isCopy
             && jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.on-edit):has(.checkbox input:checked)").length == 0) {
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveGroup.format(0));
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoMoveGroup.format(0));
             return;
         }
 
@@ -894,7 +903,7 @@ window.ASC.Files.Actions = (function () {
             && !ASC.Files.Folders.isCopyTo
             && !ASC.Files.ThirdParty.isThirdParty()
             && jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.third-party-entry):has(.checkbox input:checked)").length == 0) {
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveGroup.format(0));
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResource.InfoMoveGroup.format(0));
             return;
         }
 

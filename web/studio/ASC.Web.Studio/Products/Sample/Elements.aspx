@@ -13,7 +13,7 @@
             </select>
         </p>
 
-<pre class="bottom"><code>jq("#select").tlCombobox();</code></pre>
+<pre class="bottom"><code>jq("#select").tlCombobox({ "align": "left"});</code></pre>
 
         <p>
             <a id="dropdownBtn" class="button gray group"><span>button gray group</span></a>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Collections;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
-using ASC.Common.Data;
 using ASC.CRM.Core.Entities;
 using ASC.ElasticSearch;
 using ASC.Web.CRM.Core.Search;
@@ -121,7 +121,7 @@ namespace ASC.CRM.Core.Dao
         public virtual int Update(ContactInfo contactInfo)
         {
             var result = UpdateInDb(contactInfo);
-            
+
             if (contactInfo.InfoType == ContactInfoType.Email)
             {
                 var infos = GetList(contactInfo.ContactID, ContactInfoType.Email, null, null);
@@ -165,8 +165,8 @@ namespace ASC.CRM.Core.Dao
             {
                 FactoryIndexer<EmailWrapper>.Index(new EmailWrapper
                 {
-                    Id = contactInfo.ContactID, 
-                    TenantId = TenantID, 
+                    Id = contactInfo.ContactID,
+                    TenantId = TenantID,
                     EmailInfoWrapper = new List<EmailInfoWrapper>
                     {
                         contactInfo
@@ -303,14 +303,14 @@ namespace ASC.CRM.Core.Dao
         protected static ContactInfo ToContactInfo(object[] row)
         {
             return new ContactInfo
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           Category = Convert.ToInt32(row[1]),
-                           Data = row[2].ToString(),
-                           InfoType = (ContactInfoType)Convert.ToInt32(row[3]),
-                           IsPrimary = Convert.ToBoolean(row[4]),
-                           ContactID = Convert.ToInt32(row[5])
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Category = Convert.ToInt32(row[1]),
+                Data = row[2].ToString(),
+                InfoType = (ContactInfoType)Convert.ToInt32(row[3]),
+                IsPrimary = Convert.ToBoolean(row[4]),
+                ContactID = Convert.ToInt32(row[5])
+            };
         }
 
         private SqlQuery GetSqlQuery(Exp where)

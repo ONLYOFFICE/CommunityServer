@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,55 +23,55 @@ using System;
 
 namespace ASC.Bookmarking.Pojo
 {
-	public class Comment
-	{
-	    public virtual Guid ID { get; set; }		
+    public class Comment
+    {
+        public virtual Guid ID { get; set; }
 
-		public virtual Guid UserID { get; set; }
+        public virtual Guid UserID { get; set; }
 
-		public virtual string Content { get; set; }
+        public virtual string Content { get; set; }
 
-		public virtual DateTime Datetime { get; set; }
+        public virtual DateTime Datetime { get; set; }
 
-		public virtual string Parent { get; set; }
+        public virtual string Parent { get; set; }
 
-		public virtual long BookmarkID { get; set; }
+        public virtual long BookmarkID { get; set; }
 
-	    public virtual Bookmark Bookmark { get; set; }
+        public virtual Bookmark Bookmark { get; set; }
 
         public Comment()
         {
         }
 
-	    public Comment(Bookmark bookmark)
+        public Comment(Bookmark bookmark)
         {
             Bookmark = bookmark;
         }
 
-		public virtual bool Inactive { get; set; }
+        public virtual bool Inactive { get; set; }
 
-		// override object.Equals
-		public override bool Equals(object obj)
-		{
-			//       
-			// See the full list of guidelines at
-			//   http://go.microsoft.com/fwlink/?LinkID=85237  
-			// and also the guidance for operator== at
-			//   http://go.microsoft.com/fwlink/?LinkId=85238
-			//
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            //       
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
 
-			var c = obj as Comment;
-			return c != null && ID.Equals(c.ID);
-		}
+            var c = obj as Comment;
+            return c != null && ID.Equals(c.ID);
+        }
 
-		public override int GetHashCode()
-		{
-			return (GetType().FullName + "|" + ID).GetHashCode();
-		}						
-	}
+        public override int GetHashCode()
+        {
+            return (GetType().FullName + "|" + ID).GetHashCode();
+        }
+    }
 }

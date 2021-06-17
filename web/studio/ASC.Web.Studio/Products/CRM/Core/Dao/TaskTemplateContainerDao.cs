@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -136,8 +137,8 @@ namespace ASC.CRM.Core.Dao
             if (!_supportedEntityType.Contains(entityType))
                 throw new ArgumentException("", entityType.ToString());
 
-                return Db.ExecuteList(GetQuery(Exp.Eq("entity_type", (int)entityType)))
-                                                  .ConvertAll(row => ToObject(row));
+            return Db.ExecuteList(GetQuery(Exp.Eq("entity_type", (int)entityType)))
+                                              .ConvertAll(row => ToObject(row));
         }
 
         #endregion
@@ -159,11 +160,11 @@ namespace ASC.CRM.Core.Dao
         protected TaskTemplateContainer ToObject(object[] row)
         {
             return new TaskTemplateContainer
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           Title = Convert.ToString(row[1]),
-                           EntityType = (EntityType)Convert.ToInt32(row[2])
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Title = Convert.ToString(row[1]),
+                EntityType = (EntityType)Convert.ToInt32(row[2])
+            };
         }
     }
 
@@ -293,19 +294,19 @@ namespace ASC.CRM.Core.Dao
         protected TaskTemplate ToObject(object[] row)
         {
             return new TaskTemplate
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           Title = Convert.ToString(row[1]),
-                           CategoryID = Convert.ToInt32(row[2]),
-                           Description = Convert.ToString(row[3]),
-                           ResponsibleID = ToGuid(row[4]),
-                           isNotify = Convert.ToBoolean(row[5]),
-                           Offset = TimeSpan.FromTicks((long)row[6]),
-                           DeadLineIsFixed = Convert.ToBoolean(row[7]),
-                           ContainerID = Convert.ToInt32(row[8]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[9])),
-                           CreateBy = ToGuid(row[10])
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Title = Convert.ToString(row[1]),
+                CategoryID = Convert.ToInt32(row[2]),
+                Description = Convert.ToString(row[3]),
+                ResponsibleID = ToGuid(row[4]),
+                isNotify = Convert.ToBoolean(row[5]),
+                Offset = TimeSpan.FromTicks((long)row[6]),
+                DeadLineIsFixed = Convert.ToBoolean(row[7]),
+                ContainerID = Convert.ToInt32(row[8]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[9])),
+                CreateBy = ToGuid(row[10])
+            };
         }
 
         protected SqlQuery GetQuery(Exp where)

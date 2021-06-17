@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Users;
@@ -38,10 +39,13 @@ using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+
 using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
+
 using Newtonsoft.Json;
+
 using File = ASC.Files.Core.File;
 using Folder = ASC.Files.Core.Folder;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -115,7 +119,7 @@ namespace ASC.Web.Files.Helpers
                 ".csv", ".et", ".ett", ".xls", ".xlsm", ".xlsx", ".xlt"
             };
 
-        public static long MaxFileSize = 25L*1024L*1024L;
+        public static long MaxFileSize = 25L * 1024L * 1024L;
 
         public static int MaxEmailLength = 10000;
 
@@ -147,11 +151,11 @@ namespace ASC.Web.Files.Helpers
             if (token == null) throw new ArgumentNullException("token");
 
             var userInfoString = RequestHelper.PerformRequest(DocuSignLoginProvider.Instance.DocuSignHost + "/oauth/userinfo",
-                                                              headers: new Dictionary<string, string> {{"Authorization", "Bearer " + DocuSignToken.GetRefreshedToken(token)}});
+                                                              headers: new Dictionary<string, string> { { "Authorization", "Bearer " + DocuSignToken.GetRefreshedToken(token) } });
 
             Log.Debug("DocuSing userInfo: " + userInfoString);
 
-            var userInfo = (DocuSignUserInfo) JsonConvert.DeserializeObject(userInfoString, typeof (DocuSignUserInfo));
+            var userInfo = (DocuSignUserInfo)JsonConvert.DeserializeObject(userInfoString, typeof(DocuSignUserInfo));
 
             if (userInfo.Accounts == null || userInfo.Accounts.Count == 0) throw new Exception("Account is null");
 
@@ -166,7 +170,7 @@ namespace ASC.Web.Files.Helpers
 
             var apiClient = new ApiClient(account.BaseUri + "/restapi");
 
-            var configuration = new DocuSign.eSign.Client.Configuration {ApiClient = apiClient};
+            var configuration = new DocuSign.eSign.Client.Configuration { ApiClient = apiClient };
             configuration.AddDefaultHeader("Authorization", "Bearer " + DocuSignToken.GetRefreshedToken(token));
 
             return configuration;
@@ -185,7 +189,7 @@ namespace ASC.Web.Files.Helpers
                 byte[] fileBytes;
                 using (var stream = fileDao.GetFileStream(file))
                 {
-                    var buffer = new byte[16*1024];
+                    var buffer = new byte[16 * 1024];
                     using (var ms = new MemoryStream())
                     {
                         int read;
@@ -203,17 +207,17 @@ namespace ASC.Web.Files.Helpers
                 }
 
                 var document = new Document
-                    {
-                        DocumentBase64 = Convert.ToBase64String(fileBytes),
-                        DocumentFields = new List<NameValue>
+                {
+                    DocumentBase64 = Convert.ToBase64String(fileBytes),
+                    DocumentFields = new List<NameValue>
                             {
                                 new NameValue {Name = FilesLinkUtility.FolderId, Value = folderId},
                                 new NameValue {Name = FilesLinkUtility.FileTitle, Value = file.Title},
                             },
-                        DocumentId = "1", //file.ID.ToString(),
-                        FileExtension = FileUtility.GetFileExtension(file.Title),
-                        Name = documentName,
-                    };
+                    DocumentId = "1", //file.ID.ToString(),
+                    FileExtension = FileUtility.GetFileExtension(file.Title),
+                    Name = documentName,
+                };
 
                 return document;
             }
@@ -222,8 +226,8 @@ namespace ASC.Web.Files.Helpers
         private static string CreateEnvelope(string accountId, Document document, DocuSignData docuSignData, DocuSign.eSign.Client.Configuration configuration)
         {
             var eventNotification = new EventNotification
-                {
-                    EnvelopeEvents = new List<EnvelopeEvent>
+            {
+                EnvelopeEvents = new List<EnvelopeEvent>
                         {
                             //new EnvelopeEvent {EnvelopeEventStatusCode = DocuSignStatus.Sent.ToString()},
                             //new EnvelopeEvent {EnvelopeEventStatusCode = DocuSignStatus.Delivered.ToString()},
@@ -231,18 +235,18 @@ namespace ASC.Web.Files.Helpers
                             new EnvelopeEvent {EnvelopeEventStatusCode = DocuSignStatus.Declined.ToString()},
                             new EnvelopeEvent {EnvelopeEventStatusCode = DocuSignStatus.Voided.ToString()},
                         },
-                    IncludeDocumentFields = "true",
-                    //RecipientEvents = new List<RecipientEvent>
-                    //    {
-                    //        new RecipientEvent {RecipientEventStatusCode = "Sent"},
-                    //        new RecipientEvent {RecipientEventStatusCode = "Delivered"},
-                    //        new RecipientEvent {RecipientEventStatusCode = "Completed"},
-                    //        new RecipientEvent {RecipientEventStatusCode = "Declined"},
-                    //        new RecipientEvent {RecipientEventStatusCode = "AuthenticationFailed"},
-                    //        new RecipientEvent {RecipientEventStatusCode = "AutoResponded"},
-                    //    },
-                    Url = CommonLinkUtility.GetFullAbsolutePath(DocuSignHandler.Path + "?" + FilesLinkUtility.Action + "=webhook"),
-                };
+                IncludeDocumentFields = "true",
+                //RecipientEvents = new List<RecipientEvent>
+                //    {
+                //        new RecipientEvent {RecipientEventStatusCode = "Sent"},
+                //        new RecipientEvent {RecipientEventStatusCode = "Delivered"},
+                //        new RecipientEvent {RecipientEventStatusCode = "Completed"},
+                //        new RecipientEvent {RecipientEventStatusCode = "Declined"},
+                //        new RecipientEvent {RecipientEventStatusCode = "AuthenticationFailed"},
+                //        new RecipientEvent {RecipientEventStatusCode = "AutoResponded"},
+                //    },
+                Url = CommonLinkUtility.GetFullAbsolutePath(DocuSignHandler.Path + "?" + FilesLinkUtility.Action + "=webhook"),
+            };
             Global.Logger.Debug("DocuSign hook url: " + eventNotification.Url);
 
             var signers = new List<Signer>();
@@ -252,11 +256,11 @@ namespace ASC.Web.Files.Helpers
                     {
                         var user = CoreContext.UserManager.GetUsers(uid);
                         signers.Add(new Signer
-                            {
-                                Email = user.Email,
-                                Name = user.DisplayUserName(false),
-                                RecipientId = user.ID.ToString(),
-                            });
+                        {
+                            Email = user.Email,
+                            Name = user.DisplayUserName(false),
+                            RecipientId = user.ID.ToString(),
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -265,24 +269,24 @@ namespace ASC.Web.Files.Helpers
                 });
 
             var envelopeDefinition = new EnvelopeDefinition
+            {
+                CustomFields = new CustomFields
                 {
-                    CustomFields = new CustomFields
-                        {
-                            TextCustomFields = new List<TextCustomField>
+                    TextCustomFields = new List<TextCustomField>
                                 {
                                     new TextCustomField {Name = UserField, Value = SecurityContext.CurrentAccount.ID.ToString()},
                                 }
-                        },
-                    Documents = new List<Document> {document},
-                    EmailBlurb = docuSignData.Message,
-                    EmailSubject = docuSignData.Name,
-                    EventNotification = eventNotification,
-                    Recipients = new Recipients
-                        {
-                            Signers = signers,
-                        },
-                    Status = "created",
-                };
+                },
+                Documents = new List<Document> { document },
+                EmailBlurb = docuSignData.Message,
+                EmailSubject = docuSignData.Name,
+                EventNotification = eventNotification,
+                Recipients = new Recipients
+                {
+                    Signers = signers,
+                },
+                Status = "created",
+            };
 
             var envelopesApi = new EnvelopesApi(configuration);
             var envelopeSummary = envelopesApi.CreateEnvelope(accountId, envelopeDefinition);
@@ -291,9 +295,9 @@ namespace ASC.Web.Files.Helpers
 
             var envelopeId = envelopeSummary.EnvelopeId;
             var url = envelopesApi.CreateSenderView(accountId, envelopeId, new ReturnUrlRequest
-                {
-                    ReturnUrl = CommonLinkUtility.GetFullAbsolutePath(DocuSignHandler.Path + "?" + FilesLinkUtility.Action + "=redirect")
-                });
+            {
+                ReturnUrl = CommonLinkUtility.GetFullAbsolutePath(DocuSignHandler.Path + "?" + FilesLinkUtility.Action + "=redirect")
+            });
             Global.Logger.Debug("DocuSign senderView: " + url.Url);
 
             return url.Url;
@@ -333,11 +337,11 @@ namespace ASC.Web.Files.Helpers
                 }
 
                 var file = new File
-                    {
-                        FolderID = folderId,
-                        Comment = FilesCommonResource.CommentCreateByDocuSign,
-                        Title = FileUtility.ReplaceFileExtension(documentName, ".pdf"),
-                    };
+                {
+                    FolderID = folderId,
+                    Comment = FilesCommonResource.CommentCreateByDocuSign,
+                    Title = FileUtility.ReplaceFileExtension(documentName, ".pdf"),
+                };
 
                 var envelopesApi = new EnvelopesApi(configuration);
                 Log.Info("DocuSign webhook get stream: " + documentId);

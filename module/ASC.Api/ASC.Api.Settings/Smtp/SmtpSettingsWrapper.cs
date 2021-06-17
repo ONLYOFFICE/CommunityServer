@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,16 +49,16 @@ namespace ASC.Api.Settings.Smtp
         public static SmtpSettingsWrapper GetSample()
         {
             return new SmtpSettingsWrapper
-                {
-                    Host = "mail.example.com",
-                    Port = 25,
-                    CredentialsUserName = "notify@example.com",
-                    CredentialsUserPassword = "{password}",
-                    EnableAuth = true,
-                    EnableSSL = false,
-                    SenderAddress = "notify@example.com",
-                    SenderDisplayName = "Postman"
-                };
+            {
+                Host = "mail.example.com",
+                Port = 25,
+                CredentialsUserName = "notify@example.com",
+                CredentialsUserPassword = "{password}",
+                EnableAuth = true,
+                EnableSSL = false,
+                SenderAddress = "notify@example.com",
+                SenderDisplayName = "Postman"
+            };
         }
     }
 }

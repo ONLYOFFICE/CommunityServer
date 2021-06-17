@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Projects.Core.Domain;
-using ASC.Projects.Engine;
 using ASC.Specific;
 
 namespace ASC.Api.Projects.Wrappers
@@ -71,15 +71,15 @@ namespace ASC.Api.Projects.Wrappers
         public static CommentWrapper GetSample()
         {
             return new CommentWrapper
-                {
-                    Id = Guid.Empty,
-                    ParentId = Guid.Empty,
-                    Text = "comment text",
-                    Created = ApiDateTime.GetSample(),
-                    CreatedBy = EmployeeWraper.GetSample(),
-                    Updated = ApiDateTime.GetSample(),
-                    Inactive = false
-                };
+            {
+                Id = Guid.Empty,
+                ParentId = Guid.Empty,
+                Text = "comment text",
+                Created = ApiDateTime.GetSample(),
+                CreatedBy = EmployeeWraper.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                Inactive = false
+            };
         }
     }
 }

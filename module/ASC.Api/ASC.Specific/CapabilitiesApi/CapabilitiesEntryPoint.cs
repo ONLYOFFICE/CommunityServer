@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
@@ -65,12 +66,12 @@ namespace ASC.Specific.CapabilitiesApi
         public CapabilitiesData GetPortalCapabilities()
         {
             var result = new CapabilitiesData
-                {
-                    LdapEnabled = false,
-                    Providers = null,
-                    SsoLabel = string.Empty,
-                    SsoUrl = string.Empty
-                };
+            {
+                LdapEnabled = false,
+                Providers = null,
+                SsoLabel = string.Empty,
+                SsoUrl = string.Empty
+            };
 
             try
             {
@@ -106,8 +107,7 @@ namespace ASC.Specific.CapabilitiesApi
             try
             {
                 if (SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString())
-                    && (!CoreContext.Configuration.Standalone
-                        || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso))
+                    && CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
                 {
                     var settings = SsoSettingsV2.Load();
 

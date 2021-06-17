@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,10 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using AjaxPro;
-using Resources;
+
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Common.PollForm
 {
@@ -262,7 +264,7 @@ namespace ASC.Web.Studio.UserControls.Common.PollForm
             }
 
             if (max != 0)
-                k = width/max;
+                k = width / max;
 
             var sb = new StringBuilder();
 
@@ -273,9 +275,9 @@ namespace ASC.Web.Studio.UserControls.Common.PollForm
                 sb.AppendFormat(@"<div class=""{0}"">", variantNameCSSClass);
                 sb.AppendFormat("<b>{0}</b>", HttpUtility.HtmlEncode(variant.Name));
                 sb.Append(@"<span class=""splitter""></span>");
-                sb.AppendFormat(@"<span class=""gray-text"">{0} ({1}%)</span>", userCount, fullCount != 0 ? Math.Round((userCount*100)/fullCount) : 0);
+                sb.AppendFormat(@"<span class=""gray-text"">{0} ({1}%)</span>", userCount, fullCount != 0 ? Math.Round((userCount * 100) / fullCount) : 0);
                 sb.Append("</div>");
-                sb.AppendFormat(@"<div class=""{1}"" style=""width:{0}%;"">&nbsp;</div>", Math.Round(k*userCount), max == userCount ? liderBarCSSClass : statBarCSSClass);
+                sb.AppendFormat(@"<div class=""{1}"" style=""width:{0}%;"">&nbsp;</div>", Math.Round(k * userCount), max == userCount ? liderBarCSSClass : statBarCSSClass);
                 sb.Append(@"<div style=""clear:both;"">&nbsp;</div>");
             }
             sb.AppendFormat(@"<div class=""{2}"">{0}: {1}</div>", UserControlsCommonResource.AllVoting, fullCount, variantNameCSSClass);

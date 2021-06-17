@@ -42,6 +42,7 @@ map $request_uri $header_access_control_allow_origin {
 
 map $request_uri $header_x_frame_options {
   ~*^/(favicon\.ico|products\/files\/share\.aspx|products\/files\/saveas\.aspx|products\/files\/filechoice\.aspx|products\/files\/doceditor\.aspx|thirdparty\/plugin) "";
+  ~*^/ds-vpath "SAMEORIGIN";
   default "SAMEORIGIN";
 }
 

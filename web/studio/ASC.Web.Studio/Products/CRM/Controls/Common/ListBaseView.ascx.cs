@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Core;
-using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.EmptyScreens;
@@ -51,9 +51,9 @@ namespace ASC.Web.CRM.Controls.Common
             Page.RegisterClientScript(new Masters.ClientScripts.ExchangeRateViewData());
 
             var privatePanel = (PrivatePanel)LoadControl(PrivatePanel.Location);
-            var usersWhoHasAccess = new List<string> {CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser")};
+            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser") };
             privatePanel.UsersWhoHasAccess = usersWhoHasAccess;
-            privatePanel.DisabledUsers = new List<Guid> {SecurityContext.CurrentAccount.ID};
+            privatePanel.DisabledUsers = new List<Guid> { SecurityContext.CurrentAccount.ID };
             privatePanel.HideNotifyPanel = true;
             _phPrivatePanel.Controls.Add(privatePanel);
         }

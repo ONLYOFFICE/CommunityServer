@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 
 namespace ASC.Api.CRM.Wrappers
@@ -47,14 +48,14 @@ namespace ASC.Api.CRM.Wrappers
         public static TaskTemplateContainerWrapper GetSample()
         {
             return new TaskTemplateContainerWrapper
-                {
-                    EntityType = "contact",
-                    Title = "Birthday greetings",
-                    Items = new List<TaskTemplateWrapper>
+            {
+                EntityType = "contact",
+                Title = "Birthday greetings",
+                Items = new List<TaskTemplateWrapper>
                         {
                             TaskTemplateWrapper.GetSample()
                         }
-                };
+            };
         }
     }
 
@@ -97,16 +98,16 @@ namespace ASC.Api.CRM.Wrappers
         public static TaskTemplateWrapper GetSample()
         {
             return new TaskTemplateWrapper
-                {
-                    Title = "Send an Email",
-                    Category = TaskCategoryWrapper.GetSample(),
-                    isNotify = true,
-                    Responsible = EmployeeWraper.GetSample(),
-                    ContainerID = 12,
-                    DeadLineIsFixed = false,
-                    OffsetTicks = TimeSpan.FromDays(10).Ticks,
-                    Description = ""
-                };
+            {
+                Title = "Send an Email",
+                Category = TaskCategoryWrapper.GetSample(),
+                isNotify = true,
+                Responsible = EmployeeWraper.GetSample(),
+                ContainerID = 12,
+                DeadLineIsFixed = false,
+                OffsetTicks = TimeSpan.FromDays(10).Ticks,
+                Description = ""
+            };
         }
     }
 }

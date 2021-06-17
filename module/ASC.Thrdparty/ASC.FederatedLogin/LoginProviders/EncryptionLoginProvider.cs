@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,11 @@
 
 using System;
 using System.Linq;
+
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
 using ASC.Security.Cryptography;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Studio.Core
@@ -31,10 +33,10 @@ namespace ASC.Web.Studio.Core
             if (string.IsNullOrEmpty(keys)) return;
 
             var loginProfile = new LoginProfile
-                {
-                    Provider = ProviderConstants.Encryption,
-                    Name = InstanceCrypto.Encrypt(keys),
-                };
+            {
+                Provider = ProviderConstants.Encryption,
+                Name = InstanceCrypto.Encrypt(keys),
+            };
 
             var linker = new AccountLinker("webstudio");
             linker.AddLink(userId.ToString(), loginProfile);

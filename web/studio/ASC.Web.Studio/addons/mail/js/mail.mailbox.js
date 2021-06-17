@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -101,9 +101,6 @@ window.mailBox = (function($) {
 
         window.Teamlab.bind(window.Teamlab.events.getNextMailMessageId, onGetNextPrevMessageId);
         window.Teamlab.bind(window.Teamlab.events.getPrevMailMessageId, onGetNextPrevMessageId);
-
-        $('#createNewMailBtn').trackEvent(ga_Categories.leftPanel, ga_Actions.buttonClick, "create-new-Email");
-        $('#check_email_btn').trackEvent(ga_Categories.leftPanel, ga_Actions.buttonClick, "check_email");
 
         $(document).on("click", '.menu-list a.menu-item-label', messagePage.onLeaveMessage);
         $('#createNewMailBtn').click(messagePage.onLeaveMessage);
@@ -508,13 +505,7 @@ window.mailBox = (function($) {
                 setCurrentMessageTag(tagId);
             }
 
-            // Google Analytics
-            window.ASC.Mail.ga_track(
-                TMMail.pageIs('message') ? ga_Categories.message : ga_Categories.createMail, ga_Actions.buttonClick, "set_tag");
         } else {
-            // Google Analytics
-            window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.buttonClick, "set_tag");
-
             setMessagesTag(tagId, messageIds);
         }
 
@@ -831,7 +822,7 @@ window.mailBox = (function($) {
         if (needSkip)
             serviceManager.getMailFolders();
         else
-            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     // Removes messages from the specified folder to trash. And removes them completely if we delete them from trash.
@@ -1478,9 +1469,6 @@ window.mailBox = (function($) {
     }
 
     function actionPanelSelectAll() {
-        // google analytics track
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.actionClick, 'all_select');
-
         $('.messages:visible .row').each(function() {
             selection.AddId($(this).attr('data_id'));
         });
@@ -1492,8 +1480,6 @@ window.mailBox = (function($) {
     }
 
     function actionPanelSelectNone() {
-        // google analytics track
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.actionClick, 'none_select');
         unselectAll();
     }
 
@@ -1509,36 +1495,24 @@ window.mailBox = (function($) {
     }
 
     function actionPanelSelectUnread() {
-        // google analytics track
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.actionClick, 'unread_select');
-
         unselectAll();
         lastSelectedConcept = selectionConcept.unread;
         actionPanelSelect('.new');
     }
 
     function actionPanelSelectRead() {
-        // google analytics track
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.actionClick, 'read_select');
-
         unselectAll();
         lastSelectedConcept = selectionConcept.read;
         actionPanelSelect(':not(.new)');
     }
 
     function actionPanelSelectImportant() {
-        // google analytics track
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.actionClick, 'important_select');
-
         unselectAll();
         lastSelectedConcept = selectionConcept.important;
         actionPanelSelect(':has(.icon-important)');
     }
 
     function actionPanelSelectWithAttachments() {
-        // google analytics track
-        window.ASC.Mail.ga_track(ga_Categories.folder, ga_Actions.actionClick, 'whith_atachments_select');
-
         unselectAll();
         lastSelectedConcept = selectionConcept.with_attachments;
         actionPanelSelect(':has(.icon-attachment)');
@@ -2073,7 +2047,7 @@ window.mailBox = (function($) {
             updateAnchor(true);
         }
         else {
-            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
         }
         // Clear checkboxes
         selection.RemoveIds(ids);
@@ -2092,7 +2066,7 @@ window.mailBox = (function($) {
                 updateAnchor(true);
             }
             else {
-                serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+                serviceManager.updateFolders({}, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
             }
 
             selection.RemoveIds(ids); // Clear checkboxes
@@ -2189,7 +2163,7 @@ window.mailBox = (function($) {
             updateAnchor(true);
         }
         else {
-            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
         }
     }
 
@@ -2264,7 +2238,7 @@ window.mailBox = (function($) {
 
         MailFilter.fromAnchor(folderName, params);
 
-        serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+        serviceManager.updateFolders({}, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
     }
 
     function updateView() {
@@ -2310,7 +2284,7 @@ window.mailBox = (function($) {
                 var ids = TMMail.getParamsValue(params, /crm=([^\/]+)/);
                 if (ids) {
                     serviceManager.getCrmContactsById({}, { contactids: ids.split(',') }, { success: onGetCrmContacts },
-                        ASC.Resources.Master.Resource.LoadingProcessing);
+                        ASC.Resources.Master.ResourceJS.LoadingProcessing);
                 } else {
                     messagePage.onComposeTo();
                 }

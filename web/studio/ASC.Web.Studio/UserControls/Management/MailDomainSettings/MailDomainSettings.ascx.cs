@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.UI;
-using ASC.MessagingSystem;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Web.Studio.Core;
+using ASC.MessagingSystem;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
-using System.Web;
-using Resources;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -71,7 +73,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private bool CheckTrustedDomain(string domain)
         {
-            return !string.IsNullOrEmpty(domain) && new Regex("^[a-z0-9]([a-z0-9-.]){1,98}[a-z0-9]$").IsMatch(domain);
+            return !string.IsNullOrEmpty(domain) && new Regex("^[(?\\*)a-z0-9]([a-z0-9-.]){1,98}[a-z0-9]$").IsMatch(domain);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
@@ -89,7 +91,7 @@ namespace ASC.Web.Studio.UserControls.Management
                     foreach (var d in domains.Select(domain => (domain ?? "").Trim().ToLower()))
                     {
                         if (!CheckTrustedDomain(d))
-                            return new {Status = 0, Message = Resource.ErrorNotCorrectTrustedDomain};
+                            return new { Status = 0, Message = Resource.ErrorNotCorrectTrustedDomain };
 
                         tenant.TrustedDomains.Add(d);
                     }
@@ -100,17 +102,17 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 tenant.TrustedDomainsType = type;
 
-                new StudioTrustedDomainSettings {InviteUsersAsVisitors = inviteUsersAsVisitors}.Save();
+                new StudioTrustedDomainSettings { InviteUsersAsVisitors = inviteUsersAsVisitors }.Save();
 
                 CoreContext.TenantManager.SaveTenant(tenant);
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.TrustedMailDomainSettingsUpdated);
 
-                return new {Status = 1, Message = Resource.SuccessfullySaveSettingsMessage};
+                return new { Status = 1, Message = Resource.SuccessfullySaveSettingsMessage };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
+                return new { Status = 0, Message = e.Message.HtmlEncode() };
             }
         }
     }

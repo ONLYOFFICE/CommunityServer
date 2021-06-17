@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 }
 
 .smtp-settings-item {
-    clear: both;
     margin: 0 0 10px 0;
     width: 350px;
 }
@@ -75,6 +74,10 @@
 #smtpSettingsView .middle-button-container {
     margin-top: 23px;
     width: 530px;
+}
+
+#smtpSettingsView .textEdit {
+    padding: 1px;
 }
 
 #settingsSwitch {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ window.crmFilter = (function($) {
                 anykey: true,
                 anykeytimeout: 1000,
                 maxfilters: -1,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 sorters: [
                     { id: 'displayname', title: MailScriptResource.FilterByTitle, sortOrder: 'ascending', def: true },
                     { id: 'contacttype', title: MailScriptResource.FilterByContactStage, sortOrder: 'ascending' }

@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="ASC.Web.Studio" Namespace="ASC.Web.Studio.UserControls.Common.PollForm" TagPrefix="sc" %>
 
-<%@ Import Namespace="ASC.Web.Community.News.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.News.Resources" %>
 
 
 <asp:Content ContentPlaceHolderID="NewsTitleContent" runat="server">

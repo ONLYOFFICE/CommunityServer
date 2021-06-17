@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 
 (function ($) {
-    var resources = ASC.Resources.Master.Resource, teamlab = Teamlab;
+    var ResourceJS = ASC.Resources.Master.ResourceJS, teamlab = Teamlab;
 
     var projectadvancedSelector = function (element, options) {
         this.$element = $(element);
@@ -33,10 +33,10 @@
                 itemsSimpleSelect = [];
 
             opts.newoptions = [
-                      { title: resources.SelectorTitle, type: "input", tag: "title" },
-                      { title: resources.SelectorManager, type: "select", tag: "manager" }
+                      { title: ResourceJS.SelectorTitle, type: "input", tag: "title" },
+                      { title: ResourceJS.SelectorManager, type: "select", tag: "manager" }
             ];
-            opts.newbtn = resources.CreateButton;
+            opts.newbtn = ResourceJS.CreateButton;
 
             that.displayAddItemBlock.call(that, opts);
 
@@ -55,7 +55,7 @@
                         if (data[i].id == teamlab.profile.id) {
                             itemsSimpleSelect.unshift(
                                 {
-                                    title: resources.MeLabel,
+                                    title: ResourceJS.MeLabel,
                                     id: data[i].id
                                 }
                             );
@@ -109,15 +109,15 @@
             };
 
             if (!newProject.title) {
-                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: resources.ProjectSelectorEmptyTitleError });
+                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: ResourceJS.ProjectSelectorEmptyTitleError });
                 isError = true;
             }
             if (!newProject.responsibleid) {
-                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: resources.ProjectSelectorEmptyManagerError });
+                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: ResourceJS.ProjectSelectorEmptyManagerError });
                 isError = true;
             }
             if (!newProject.responsibleid && $addPanel.find(".manager input").val()) {
-                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: resources.ProjectSelectorNotPersonError });
+                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: ResourceJS.ProjectSelectorNotPersonError });
                 isError = true;
             }
             if (isError) {
@@ -126,7 +126,7 @@
             }
             teamlab.addPrjProject({}, newProject, {
                 before: function() {
-                    that.displayLoadingBtn.call(that, { btn: $btn, text: resources.LoadingProcessing });
+                    that.displayLoadingBtn.call(that, { btn: $btn, text: ResourceJS.LoadingProcessing });
                 },
                 error: function(params, errors) {
                     that.showServerError.call(that, { field: $btn, error: errors });
@@ -164,10 +164,10 @@
     
     $.fn.projectadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
         showme: true,
-        addtext: resources.ProjectSelectorAddText,
-        noresults: resources.ProjectSelectorNoResult,
-        noitems: resources.ProjectSelectorNoItems,
-        emptylist: resources.ProjectSelectorEmptyList
+        addtext: ResourceJS.ProjectSelectorAddText,
+        noresults: ResourceJS.ProjectSelectorNoResult,
+        noitems: ResourceJS.ProjectSelectorNoItems,
+        emptylist: ResourceJS.ProjectSelectorEmptyList
     });
 
 })(jQuery);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ namespace ASC.ElasticSearch
             ColumnsFrom = new string[columns.Length];
             ColumnsTo = new string[columns.Length];
 
-            for (var i = 0; i< columns.Length; i++)
+            for (var i = 0; i < columns.Length; i++)
             {
                 var column = columns[i].Split(':');
                 ColumnsFrom[i] = column[0];

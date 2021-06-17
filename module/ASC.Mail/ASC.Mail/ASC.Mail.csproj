@@ -420,11 +420,6 @@
     <Compile Include="Core\Engine\MessageEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\Entities\Folder.cs" />
-    <Compile Include="Resources\MailCoreResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MailCoreResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Utils\ApiHelper.cs" />
     <Compile Include="Utils\Converter.cs" />
     <Compile Include="Utils\CryptoUtil.cs" />
@@ -497,10 +492,48 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\MailCoreResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailCoreResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MailCoreResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailCoreResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\MailCoreResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\MailCoreResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MailCoreResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>MailCoreResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -526,13 +559,13 @@
       <Version>4.1.11</Version>
     </PackageReference>
     <PackageReference Include="MailKit">
-      <Version>2.5.2</Version>
+      <Version>2.11.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost">
       <Version>4.0.20505</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.19</Version>
+      <Version>8.0.23</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
@@ -548,6 +581,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Caching" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

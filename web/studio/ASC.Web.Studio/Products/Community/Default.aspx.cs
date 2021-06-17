@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Core;
@@ -23,11 +27,7 @@ using ASC.Web.Community.Product;
 using ASC.Web.Core;
 using ASC.Web.Studio;
 using ASC.Web.Studio.UserControls.EmptyScreens;
-using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Web.Community
 {

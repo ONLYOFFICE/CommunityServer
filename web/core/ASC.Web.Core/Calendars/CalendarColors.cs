@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,8 @@ namespace ASC.Web.Core.Calendars
         public string TextColor { get; set; }
         public static List<CalendarColors> BaseColors
         {
-            get {
+            get
+            {
                 return new List<CalendarColors>(){
                     new CalendarColors(){ BackgroudColor = "#e34603", TextColor="#ffffff"},
                     new CalendarColors(){ BackgroudColor = "#f88e14", TextColor="#000000"},

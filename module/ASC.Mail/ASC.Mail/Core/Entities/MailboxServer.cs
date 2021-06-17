@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,18 @@ namespace ASC.Mail.Core.Entities
         public string SocketType { get; set; }
 
         private string _username;
-        public string Username {
+        public string Username
+        {
             get { return _username; }
             set { _username = value ?? ""; }
         }
 
         private string _auth;
-        public string Authentication {
+        public string Authentication
+        {
             get { return _auth; }
-            set {
+            set
+            {
                 _auth = value ?? "";
             }
         }

@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
     <value>Add and Create New Invoice</value>
@@ -178,10 +119,7 @@
     <value>Client notes</value>
   </data>
   <data name="ClientNotessHelpInfoText" xml:space="preserve">
-    <value>Will be displayed on the invoice and in the letter body if you send the invoice per ONLYOFFICE™ Mail.</value>
-  </data>
-  <data name="Consignee" xml:space="preserve">
-    <value>Consignee</value>
+    <value>Use this field to express your gratitude to a customer for the purchase and/or to provide a special offer, for example, a 20% discount if the invoice is paid within 5 days.</value>
   </data>
   <data name="ConsigneeEqualClient" xml:space="preserve">
     <value>coincides with the client</value>
@@ -366,6 +304,9 @@
   <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
     <value>You must fill this field</value>
   </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>The tax name already exists</value>
+  </data>
   <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
     <value>Inventory stock</value>
   </data>
@@ -397,7 +338,7 @@
     <value>Consignee</value>
   </data>
   <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
-    <value>Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href="Settings.aspx?type=common" target="_blank"&gt;Common Settings&lt;/a&gt;</value>
+    <value>Your default CRM currency is used to set prices in Products &amp; Services Catalog.&lt;br/&gt;To change it, please go to &lt;a href="settings.aspx?type=currency" target="_blank"&gt;Currency Settings&lt;/a&gt;</value>
   </data>
   <data name="InvoiceItemActiveStatus" xml:space="preserve">
     <value>Active</value>
@@ -433,7 +374,7 @@
     <value>The invoice number is already taken</value>
   </data>
   <data name="Invoices" xml:space="preserve">
-    <value>Invoices</value>
+    <value>Invoice</value>
   </data>
   <data name="InvoicesByStatus" xml:space="preserve">
     <value>Status</value>
@@ -457,7 +398,7 @@
     <value>Tax categories let you create additional taxes specific for the countries or areas you or your clients live in. You can add the tax name, interest rate and description.</value>
   </data>
   <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
-    <value>You can delete the tax category only in case it is not used in the Products&amp;Services section.</value>
+    <value>You can delete the tax category only in case it is not used in the Products &amp; Services section.</value>
   </data>
   <data name="InvoiceTaxName" xml:space="preserve">
     <value>Tax name</value>
@@ -475,7 +416,7 @@
     <value>Item</value>
   </data>
   <data name="ItemCurrencyHelpInfo" xml:space="preserve">
-    <value>Your default CRM currency.&lt;br/&gt;To change it, please go to &lt;a href="?type=common" target="_blank"&gt;Common Settings&lt;/a&gt;</value>
+    <value>Your default CRM currency.&lt;br/&gt;To change it, please go to &lt;a href="?type=currency" target="_blank"&gt;Currency Settings&lt;/a&gt;</value>
   </data>
   <data name="IventoryStockHelpInfo" xml:space="preserve">
     <value>Add the quantity of items you currently have in stock. This number will decrease every time the item is added to an invoice. When you receive more inventory, simply add it to your current inventory here.</value>
@@ -585,9 +526,6 @@
   <data name="Subtotal" xml:space="preserve">
     <value>Subtotal</value>
   </data>
-  <data name="Tax" xml:space="preserve">
-    <value>Tax</value>
-  </data>
   <data name="TaxCol" xml:space="preserve">
     <value>Tax</value>
   </data>
@@ -617,8 +555,5 @@
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
-  </data>
-  <data name="ExistTaxNameError" xml:space="preserve">
-    <value>The tax name already exist</value>
   </data>
 </root>

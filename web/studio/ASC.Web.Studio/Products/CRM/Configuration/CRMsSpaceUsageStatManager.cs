@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
+using System.Web;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
 using ASC.Web.Core;
-using System.Web;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.CRM.Configuration
 {
     public class CRMSpaceUsageStatManager : SpaceUsageStatManager
-    {        
+    {
         public override List<UsageSpaceStatItem> GetStatData()
         {
             using (var filedb = new DbManager(FileConstant.DatabaseId))
@@ -46,14 +46,14 @@ namespace ASC.Web.CRM.Configuration
 
                 return filedb.ExecuteList(q)
                     .Select(r => new UsageSpaceStatItem
-                        {
+                    {
 
-                            Name = Resources.CRMCommonResource.WholeCRMModule,
-                            SpaceUsage = Convert.ToInt64(r[1]),
-                            Url = VirtualPathUtility.ToAbsolute(PathProvider.StartURL())
-                        })
+                        Name = Resources.CRMCommonResource.WholeCRMModule,
+                        SpaceUsage = Convert.ToInt64(r[1]),
+                        Url = VirtualPathUtility.ToAbsolute(PathProvider.StartURL())
+                    })
                     .ToList();
-            }        
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -512,7 +512,7 @@ ASC.Projects.GroupActionPanel = (function () {
 
                 for (var k = 0; k < action.multi.length; k++) {
                     addActionHandler(action.multi[k], function () {
-                        return !$action.hasClass(unlockAction) && jq(this).find("a").hasClass(disable);
+                        return !$action.hasClass(unlockAction) || jq(this).find("a").hasClass(disable);
                     });
                 }
 
@@ -828,14 +828,19 @@ ASC.Projects.StatusList = (function () {
 
     function getDefaultById(id) {
         return currentSettings.statuses.find(function(item) {
-            return item.statusType === id && item.isDefault;
+            return item.hasOwnProperty("statusType") ?
+                item.statusType === id && item.isDefault :
+                item.id === id;
         });
     }
 
     function getByData(data) {
-        var id = typeof data.customTaskStatus !== 'undefined' ? data.customTaskStatus : data.status;
-        var result = getById(id);
-
+        var result;
+        if (typeof data.customTaskStatus !== 'undefined') {
+            result = getById(data.customTaskStatus);
+        } else {
+            result = getDefaultById(data.status);
+        }
         return result || getDefaultById(data.status);
     }
 

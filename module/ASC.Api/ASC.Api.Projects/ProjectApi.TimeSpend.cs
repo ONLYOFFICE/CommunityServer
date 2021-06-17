@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -194,14 +194,14 @@ namespace ASC.Api.Projects
             if (!EngineFactory.ProjectEngine.IsExists(projectId)) throw new ItemNotFoundException("project");
 
             var ts = new TimeSpend
-                {
-                    Date = date.Date,
-                    Person = personId,
-                    Hours = hours,
-                    Note = note,
-                    Task = task,
-                    CreateBy = SecurityContext.CurrentAccount.ID
-                };
+            {
+                Date = date.Date,
+                Person = personId,
+                Hours = hours,
+                Note = note,
+                Task = task,
+                CreateBy = SecurityContext.CurrentAccount.ID
+            };
 
             ts = EngineFactory.TimeTrackingEngine.SaveOrUpdate(ts);
             MessageService.Send(Request, MessageAction.TaskTimeCreated, MessageTarget.Create(ts.ID), task.Project.Title, task.Title, ts.Note);

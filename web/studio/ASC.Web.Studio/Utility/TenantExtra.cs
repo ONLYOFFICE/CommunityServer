@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 
@@ -32,14 +34,15 @@ namespace ASC.Web.Studio.Utility
 {
     public static class TenantExtra
     {
-        public static bool EnableTarrifSettings
+        public static bool EnableTariffSettings
         {
             get
             {
                 return
                     SetupInfo.IsVisibleSettings<TariffSettings>()
                     && !TenantAccessSettings.Load().Anyone
-                    && (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(LicenseReader.LicensePath));
+                    && (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(LicenseReader.LicensePath))
+                    && string.IsNullOrEmpty(SetupInfo.AmiMetaUrl);
             }
         }
 
@@ -80,8 +83,8 @@ namespace ASC.Web.Studio.Utility
 
         public static string GetTariffPageLink()
         {
-            return EnableControlPanel
-                ? CommonLinkUtility.GetFullAbsolutePath(SetupInfo.ControlPanelUrl.TrimEnd('/') + "/activate")
+            return EnableControlPanel && !CoreContext.Configuration.CustomMode
+                ? VirtualPathUtility.ToAbsolute(SetupInfo.ControlPanelUrl.TrimEnd('/') + "/activate")
                 : VirtualPathUtility.ToAbsolute("~/Tariffs.aspx");
         }
 
@@ -167,7 +170,7 @@ namespace ASC.Web.Studio.Utility
         {
             if (!CoreContext.Configuration.Standalone || TenantControlPanelSettings.Instance.LimitedAccess)
             {
-                throw new System.Security.SecurityException(Resources.Resource.ErrorAccessDenied);
+                throw new System.Security.SecurityException(Resource.ErrorAccessDenied);
             }
         }
     }

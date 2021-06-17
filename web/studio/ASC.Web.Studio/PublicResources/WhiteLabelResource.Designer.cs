@@ -160,7 +160,7 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We recommended that you use images in {0}PNG{1} format with transparent background.
+        ///   Looks up a localized string similar to Use {0}PNG{1} images with a transparent background..
         /// </summary>
         public static string LogoUploadRecommendation {
             get {

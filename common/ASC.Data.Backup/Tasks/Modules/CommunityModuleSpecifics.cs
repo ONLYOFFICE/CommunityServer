@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
 */
 
 
-using ASC.Data.Backup.Tasks.Data;
-using ASC.Data.Backup.Utils;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 using System.Linq;
+
+using ASC.Data.Backup.Tasks.Data;
+using ASC.Data.Backup.Utils;
 
 namespace ASC.Data.Backup.Tasks.Modules
 {
@@ -58,7 +58,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                         DateColumns = new Dictionary<string, bool> {{"created_when", false}, {"LastModified", false}}
                     },
                 new TableInfo("blogs_reviewposts", "Tenant")
-                    {                        
+                    {
                         UserIDColumns = new[] {"reviewed_by"},
                         DateColumns = new Dictionary<string, bool> {{"timestamp", false}}
                     },
@@ -148,7 +148,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new RelationInfo("bookmarking_bookmark", "ID", "bookmarking_bookmarktag", "BookmarkID"),
                 new RelationInfo("bookmarking_tag", "TagID", "bookmarking_bookmarktag", "TagID"),
                 new RelationInfo("bookmarking_bookmark", "ID", "bookmarking_comment", "BookmarkID"),
-                new RelationInfo("bookmarking_comment", "ID", "bookmarking_comment", "Parent"), 
+                new RelationInfo("bookmarking_comment", "ID", "bookmarking_comment", "Parent"),
                 new RelationInfo("bookmarking_bookmark", "ID", "bookmarking_userbookmark", "BookmarkID"),
                 new RelationInfo("bookmarking_tag", "TagID", "bookmarking_userbookmarktag", "TagID"),
                 new RelationInfo("bookmarking_userbookmark", "UserBookmarkID", "bookmarking_userbookmarktag", "UserBookmarkID"),
@@ -159,7 +159,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new RelationInfo("blogs_posts", "id", "blogs_tags", "post_id"),
                 new RelationInfo("events_feed", "Id", "events_comment", "Feed"),
                 new RelationInfo("events_comment", "Id", "events_comment", "Parent"),
-                new RelationInfo("events_feed", "Id", "events_poll", "Id"), 
+                new RelationInfo("events_feed", "Id", "events_poll", "Id"),
                 new RelationInfo("events_pollvariant", "Id", "events_pollanswer", "Variant"),
                 new RelationInfo("events_feed", "Id", "events_pollvariant", "Poll"),
                 new RelationInfo("events_feed", "Id", "events_reader", "Feed"),
@@ -168,7 +168,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new RelationInfo("forum_variant", "id", "forum_answer_variant", "variant_id"),
                 new RelationInfo("forum_post", "id", "forum_attachment", "post_id"),
                 new RelationInfo("forum_category", "id", "forum_attachment", "path"),
-                new RelationInfo("forum_thread", "id", "forum_attachment", "path"), 
+                new RelationInfo("forum_thread", "id", "forum_attachment", "path"),
                 new RelationInfo("forum_thread", "id", "forum_lastvisit", "thread_id"),
                 new RelationInfo("forum_topic", "id", "forum_post", "topic_id"),
                 new RelationInfo("forum_post", "id", "forum_post", "parent_post_id"),
@@ -183,7 +183,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new RelationInfo("forum_topic", "id", "forum_topic_tag", "topic_id"),
                 new RelationInfo("forum_tag", "id", "forum_topic_tag", "tag_id"),
                 new RelationInfo("forum_question", "id", "forum_variant", "question_id"),
-                new RelationInfo("wiki_comments", "Id", "wiki_comments", "ParentId") 
+                new RelationInfo("wiki_comments", "Id", "wiki_comments", "ParentId")
             };
 
         public override ModuleName ModuleName
@@ -262,7 +262,7 @@ namespace ASC.Data.Backup.Tasks.Modules
             var categoryId = columnMapper.GetMapping("forum_category", "id", parts[0]);
             if (categoryId == null)
             {
-                if(!dump) return null;
+                if (!dump) return null;
                 categoryId = parts[0];
             }
 

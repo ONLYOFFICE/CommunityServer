@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,13 +41,13 @@ namespace ASC.Api.Settings
         public static UsageSpaceStatItemWrapper GetSample()
         {
             return new UsageSpaceStatItemWrapper
-                {
-                    Name = "Item name",
-                    Icon = "Item icon path",
-                    Disabled = false,
-                    Size = "0 Byte",
-                    Url = "Item url"
-                };
+            {
+                Name = "Item name",
+                Icon = "Item icon path",
+                Disabled = false,
+                Size = "0 Byte",
+                Url = "Item url"
+            };
         }
     }
 
@@ -69,12 +69,12 @@ namespace ASC.Api.Settings
         public static ChartPointWrapper GetSample()
         {
             return new ChartPointWrapper
-                {
-                    DisplayDate = DateTime.Now.ToShortDateString(),
-                    Date = DateTime.Now,
-                    Hosts = 0,
-                    Hits = 0
-                };
+            {
+                DisplayDate = DateTime.Now.ToShortDateString(),
+                Date = DateTime.Now,
+                Hosts = 0,
+                Hits = 0
+            };
         }
     }
 }

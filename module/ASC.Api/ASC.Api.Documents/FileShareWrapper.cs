@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Api.Employee;
 using ASC.Core;
 using ASC.Files.Core;
@@ -44,10 +45,10 @@ namespace ASC.Api.Documents
                 if (aceWrapper.SubjectId == FileConstant.ShareLinkId)
                 {
                     SharedTo = new FileShareLink
-                        {
-                            Id = aceWrapper.SubjectId,
-                            ShareLink = aceWrapper.Link
-                        };
+                    {
+                        Id = aceWrapper.SubjectId,
+                        ShareLink = aceWrapper.Link
+                    };
                 }
                 else
                 {
@@ -84,12 +85,12 @@ namespace ASC.Api.Documents
         public static FileShareWrapper GetSample()
         {
             return new FileShareWrapper
-                {
-                    Access = FileShare.ReadWrite,
-                    IsLocked = false,
-                    IsOwner = true,
-                    SharedTo = EmployeeWraper.GetSample()
-                };
+            {
+                Access = FileShare.ReadWrite,
+                IsLocked = false,
+                IsOwner = true,
+                SharedTo = EmployeeWraper.GetSample()
+            };
         }
     }
 

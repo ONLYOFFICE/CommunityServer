@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,14 @@
 */
 
 
+using System;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Core;
 using ASC.Mail.Data.Contracts;
+
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Api.MailServer
 {
@@ -33,6 +37,7 @@ namespace ASC.Api.MailServer
         [Read(@"server")]
         public ServerData GetMailServer()
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             return MailEngineFactory.ServerEngine.GetMailServer();
         }
 
@@ -71,6 +76,7 @@ namespace ASC.Api.MailServer
         [Read(@"freedns/get")]
         public ServerDomainDnsData GetUnusedDnsRecords()
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             return MailEngineFactory.ServerEngine.GetOrCreateUnusedDnsData();
         }
     }

@@ -71,7 +71,7 @@
                     }
 
                     if ((i == options.elems.length - 1) || (collection == 0)) {
-                        jq('#' + id + ' .nextHelp').replaceWith("<a class='button gray close-tour'>" + ASC.Resources.Master.Resource.CloseButton + "</a>");
+                        jq('#' + id + ' .nextHelp').replaceWith("<a class='button gray close-tour'>" + ASC.Resources.Master.ResourceJS.CloseButton + "</a>");
                     }
 
                     jq(".close-tour, .neverShow, .closeBlock").on('click', function () {

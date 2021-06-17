@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
 using ASC.Api.CRM.Wrappers;
-using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
 using ASC.Specific;
-using ASC.Web.CRM.Services.NotifyService;
 using ASC.Web.CRM.Resources;
+using ASC.Web.CRM.Services.NotifyService;
 
 namespace ASC.Api.CRM
 {
@@ -295,18 +295,18 @@ namespace ASC.Api.CRM
             if (listItem == null) throw new ItemNotFoundException(CRMErrorsResource.TaskCategoryNotFound);
 
             var task = new Task
-                {
-                    Title = title,
-                    Description = description,
-                    ResponsibleID = responsibleId,
-                    CategoryID = categoryId,
-                    DeadLine = deadline,
-                    ContactID = contactId,
-                    EntityType = ToEntityType(entityType),
-                    EntityID = entityId,
-                    IsClosed = false,
-                    AlertValue = alertValue
-                };
+            {
+                Title = title,
+                Description = description,
+                ResponsibleID = responsibleId,
+                CategoryID = categoryId,
+                DeadLine = deadline,
+                ContactID = contactId,
+                EntityType = ToEntityType(entityType),
+                EntityID = entityId,
+                IsClosed = false,
+                AlertValue = alertValue
+            };
 
             task = DaoFactory.TaskDao.SaveOrUpdateTask(task);
 
@@ -385,18 +385,18 @@ namespace ASC.Api.CRM
             foreach (var cid in contactId)
             {
                 tasks.Add(new Task
-                    {
-                        Title = title,
-                        Description = description,
-                        ResponsibleID = responsibleId,
-                        CategoryID = categoryId,
-                        DeadLine = deadline,
-                        ContactID = cid,
-                        EntityType = ToEntityType(entityType),
-                        EntityID = entityId,
-                        IsClosed = false,
-                        AlertValue = alertValue
-                    });
+                {
+                    Title = title,
+                    Description = description,
+                    ResponsibleID = responsibleId,
+                    CategoryID = categoryId,
+                    DeadLine = deadline,
+                    ContactID = cid,
+                    EntityType = ToEntityType(entityType),
+                    EntityID = entityId,
+                    IsClosed = false,
+                    AlertValue = alertValue
+                });
             }
 
             tasks = DaoFactory.TaskDao.SaveOrUpdateTaskList(tasks).ToList();
@@ -448,7 +448,7 @@ namespace ASC.Api.CRM
                 var task = tasks.First();
                 MessageService.Send(Request, MessageAction.ContactsCreatedCrmTasks, MessageTarget.Create(tasks.Select(x => x.ID)), contacts.Select(x => x.GetTitle()), task.Title);
             }
-            
+
             return ToTaskListWrapper(tasks);
         }
 
@@ -494,18 +494,18 @@ namespace ASC.Api.CRM
             if (listItem == null) throw new ItemNotFoundException(CRMErrorsResource.TaskCategoryNotFound);
 
             var task = new Task
-                {
-                    ID = taskid,
-                    Title = title,
-                    Description = description,
-                    DeadLine = deadline,
-                    AlertValue = alertValue,
-                    ResponsibleID = responsibleid,
-                    CategoryID = categoryid,
-                    ContactID = contactid,
-                    EntityID = entityid,
-                    EntityType = ToEntityType(entityType)
-                };
+            {
+                ID = taskid,
+                Title = title,
+                Description = description,
+                DeadLine = deadline,
+                AlertValue = alertValue,
+                ResponsibleID = responsibleid,
+                CategoryID = categoryid,
+                ContactID = contactid,
+                EntityID = entityid,
+                EntityType = ToEntityType(entityType)
+            };
 
 
             task = DaoFactory.TaskDao.SaveOrUpdateTask(task);
@@ -624,11 +624,11 @@ namespace ASC.Api.CRM
                                           entityWrappers.Add(
                                               string.Format("{0}_{1}", (int)entityType, item.ID),
                                               new EntityWrapper
-                                                  {
-                                                      EntityId = item.ID,
-                                                      EntityTitle = item.Title,
-                                                      EntityType = "opportunity"
-                                                  });
+                                              {
+                                                  EntityId = item.ID,
+                                                  EntityTitle = item.Title,
+                                                  EntityType = "opportunity"
+                                              });
                                       });
                         break;
                     case EntityType.Case:
@@ -640,11 +640,11 @@ namespace ASC.Api.CRM
                                           entityWrappers.Add(
                                               string.Format("{0}_{1}", (int)entityType, item.ID),
                                               new EntityWrapper
-                                                  {
-                                                      EntityId = item.ID,
-                                                      EntityTitle = item.Title,
-                                                      EntityType = "case"
-                                                  });
+                                              {
+                                                  EntityId = item.ID,
+                                                  EntityTitle = item.Title,
+                                                  EntityType = "case"
+                                              });
                                       });
                         break;
                 }
@@ -658,7 +658,7 @@ namespace ASC.Api.CRM
 
             foreach (var item in itemList)
             {
-                var taskWrapper = new TaskWrapper(item) {CanEdit = CRMSecurity.CanEdit(item)};
+                var taskWrapper = new TaskWrapper(item) { CanEdit = CRMSecurity.CanEdit(item) };
 
                 if (contacts.ContainsKey(item.ContactID))
                 {

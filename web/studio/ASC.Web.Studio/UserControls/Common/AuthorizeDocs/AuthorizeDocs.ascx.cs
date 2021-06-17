@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,6 @@ using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 
-using Resources;
-
 namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 {
     public partial class AuthorizeDocs : UserControl
@@ -61,6 +59,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
         protected string LoginMessage;
         protected int LoginMessageType = 0;
+        protected bool DontShowMainPage;
 
         protected string HelpLink;
 
@@ -69,7 +68,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
             LoginMessage = Auth.GetAuthMessage(Request["am"]);
 
             Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/authorizedocs.less", "~/UserControls/Common/AuthorizeDocs/css/slick.less")
-                .RegisterBodyScripts("~/UserControls/Common/AuthorizeDocs/js/authorizedocs.js", "~/UserControls/Common/Authorize/js/authorize.js", "~/js/third-party/slick.min.js");
+                .RegisterBodyScripts("~/js/third-party/lodash.min.js", "~/js/third-party/masonry.pkgd.min.js", "~/UserControls/Common/AuthorizeDocs/js/reviews.js", "~/UserControls/Common/AuthorizeDocs/js/review_builder_script.js", "~/UserControls/Common/AuthorizeDocs/js/authorizedocs.js", "~/UserControls/Common/Authorize/js/authorize.js", "~/js/third-party/slick.min.js");
 
             if (CoreContext.Configuration.CustomMode)
                 Page.RegisterStyle("~/UserControls/Common/AuthorizeDocs/css/custom-mode.less");
@@ -84,9 +83,9 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     .RegisterBodyScripts("~/UserControls/Common/Authorize/js/desktop.js");
             }
 
-            Page.Title = CoreContext.Configuration.CustomMode ? CustomModeResource.TitlePageNewCustomMode : Resource.AuthDocsTitlePage;
-            Page.MetaDescription = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaDescriptionCustomMode.HtmlEncode() : Resource.AuthDocsMetaDescription.HtmlEncode();
-            Page.MetaKeywords = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaKeywordsCustomMode : Resource.AuthDocsMetaKeywords;
+            Page.Title = CoreContext.Configuration.CustomMode ? CustomModeResource.TitlePageNewCustomMode : PersonalResource.AuthDocsTitlePage;
+            Page.MetaDescription = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaDescriptionCustomMode.HtmlEncode() : PersonalResource.AuthDocsMetaDescription.HtmlEncode();
+            Page.MetaKeywords = CoreContext.Configuration.CustomMode ? CustomModeResource.AuthDocsMetaKeywordsCustomMode : PersonalResource.AuthDocsMetaKeywords;
 
             HelpLink = GetHelpLink();
 
@@ -96,8 +95,12 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 
             if (ThirdpartyEnable)
             {
-                HolderLoginWithThirdParty.Controls.Add(LoadControl(LoginWithThirdParty.Location));
-                LoginSocialNetworks.Controls.Add(LoadControl(LoginWithThirdParty.Location));
+                var loginWithThirdParty = (LoginWithThirdParty)LoadControl(LoginWithThirdParty.Location);
+                loginWithThirdParty.RenderDisabled = true;
+                HolderLoginWithThirdParty.Controls.Add(loginWithThirdParty);
+                var loginWithThirdPartySocial = (LoginWithThirdParty)LoadControl(LoginWithThirdParty.Location);
+                loginWithThirdPartySocial.RenderDisabled = true;
+                LoginSocialNetworks.Controls.Add(loginWithThirdPartySocial);
             }
             pwdReminderHolder.Controls.Add(LoadControl(PwdTool.Location));
 
@@ -183,6 +186,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     {
                         LoginMessage = Resource.InvalidUsernameOrPassword;
                         messageAction = MessageAction.LoginFailInvalidCombination;
+                        DontShowMainPage = true;
                     }
 
                     var loginName = string.IsNullOrWhiteSpace(Login) ? AuditResource.EmailNotSpecified : Login;

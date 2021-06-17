@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Routing;
+
 using ASC.Api.Batch;
 using ASC.Api.Impl.Constraints;
 using ASC.Api.Interfaces;
+
 using Autofac;
 
 namespace ASC.Api.Impl.Routing
@@ -33,7 +35,7 @@ namespace ASC.Api.Impl.Routing
 
         public void RegisterRoutes(RouteCollection routes)
         {
-            var constrasints = new RouteValueDictionary {{"method", new ApiHttpMethodConstraint("POST", "GET")}};
+            var constrasints = new RouteValueDictionary { { "method", new ApiHttpMethodConstraint("POST", "GET") } };
             var basePath = Config.GetBasePath();
             foreach (var extension in Container.Resolve<IEnumerable<IApiResponder>>().ToList().SelectMany(apiSerializer => apiSerializer.GetSupportedExtensions().Select(x => x.StartsWith(".") ? x : "." + x)))
             {

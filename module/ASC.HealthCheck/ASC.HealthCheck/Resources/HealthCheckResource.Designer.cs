@@ -376,15 +376,6 @@ namespace ASC.HealthCheck.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ключ {0} не найден в конфигурационном файле.
-        /// </summary>
-        public static string KeyElementError {
-            get {
-                return ResourceManager.GetString("KeyElementError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ONLYOFFICE Mail Aggregator.
         /// </summary>
         public static string MailAggregatorServiceTitle {
@@ -426,15 +417,6 @@ namespace ASC.HealthCheck.Resources {
         public static string MonoServeRestartError {
             get {
                 return ResourceManager.GetString("MonoServeRestartError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Service monoserve restart error: {0}.
-        /// </summary>
-        public static string NginxRestartError {
-            get {
-                return ResourceManager.GetString("NginxRestartError", resourceCulture);
             }
         }
         
@@ -592,42 +574,6 @@ namespace ASC.HealthCheck.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cервис уже запущен.
-        /// </summary>
-        public static string ServiceAlreadyRun {
-            get {
-                return ResourceManager.GetString("ServiceAlreadyRun", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сервис уже остановлен.
-        /// </summary>
-        public static string ServiceAlreadyStop {
-            get {
-                return ResourceManager.GetString("ServiceAlreadyStop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Проверка сервиса уже включена.
-        /// </summary>
-        public static string ServiceCheckAlreadyRun {
-            get {
-                return ResourceManager.GetString("ServiceCheckAlreadyRun", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Проверка сервиса уже отключена.
-        /// </summary>
-        public static string ServiceCheckAlreadyStop {
-            get {
-                return ResourceManager.GetString("ServiceCheckAlreadyStop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ошибка при проверке сервиса.
         /// </summary>
         public static string ServiceCheckFailed {
@@ -637,38 +583,11 @@ namespace ASC.HealthCheck.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Проверка сервиса включена.
-        /// </summary>
-        public static string ServiceCheckRun {
-            get {
-                return ResourceManager.GetString("ServiceCheckRun", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Проверка сервиса отключена.
-        /// </summary>
-        public static string ServiceCheckStop {
-            get {
-                return ResourceManager.GetString("ServiceCheckStop", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ошибка сервиса.
         /// </summary>
         public static string ServiceError {
             get {
                 return ResourceManager.GetString("ServiceError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ошибка при получении статуса сервиса.
-        /// </summary>
-        public static string ServiceGetStatusError {
-            get {
-                return ResourceManager.GetString("ServiceGetStatusError", resourceCulture);
             }
         }
         

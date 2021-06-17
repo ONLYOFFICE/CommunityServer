@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -286,7 +286,7 @@ namespace ASC.Web.Studio
             var handlerType = typeof(BackupAjaxHandler);
             var backupHandler = handlerType.FullName + "," + handlerType.Assembly.GetName().Name + ".ashx";
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx", "portal/getrestoreprogress.json", "capabilities.json" };
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".ico", ".png", backupHandler, "PreparationPortal.aspx", "TenantLogo.ashx", "portal/getrestoreprogress.json", "capabilities.json" };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -302,8 +302,8 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png", "MigrationPortal.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true", "capabilities.json" };
-            if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)) || Request.Url.AbsoluteUri.Contains("settings/storage/progress.json"))
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".ico", ".png", "MigrationPortal.aspx", "TenantLogo.ashx", "settings/storage/progress.json", "capabilities.json" };
+            if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
             }
@@ -318,8 +318,8 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".png", "PortalEncryption.aspx", "TenantLogo.ashx?logotype=2&defifnoco=true", "capabilities.json" };
-            if (passthroughtRequestEndings.Any(path => Request.Url.AbsoluteUri.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)) || Request.Url.AbsoluteUri.Contains("settings/encryption/progress.json"))
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", ".ico", ".png", "PortalEncryption.aspx", "TenantLogo.ashx", "settings/encryption/progress.json", "capabilities.json" };
+            if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
             }
@@ -337,7 +337,7 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            if (!TenantExtra.EnableTarrifSettings && TenantExtra.GetCurrentTariff().State >= TariffState.NotPaid)
+            if (!TenantExtra.EnableTariffSettings && TenantExtra.GetCurrentTariff().State >= TariffState.NotPaid)
             {
                 if (string.IsNullOrEmpty(AdditionalWhiteLabelSettings.Instance.BuyUrl)
                     || AdditionalWhiteLabelSettings.Instance.BuyUrl == AdditionalWhiteLabelSettings.DefaultBuyUrl)

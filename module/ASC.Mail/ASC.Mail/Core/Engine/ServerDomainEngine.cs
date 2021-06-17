@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Security;
+
 using ASC.Common.Logging;
 using ASC.Common.Threading;
 using ASC.Common.Utils;
@@ -33,6 +34,7 @@ using ASC.Mail.Data.Contracts;
 using ASC.Mail.Extensions;
 using ASC.Mail.Utils;
 using ASC.Web.Core;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Mail.Core.Engine
@@ -330,7 +332,7 @@ namespace ASC.Mail.Core.Engine
             return operationEngine.QueueTask(op);
         }
 
-        private ServerDomainDnsData UpdateDnsStatus(ServerDomain domain, 
+        private ServerDomainDnsData UpdateDnsStatus(ServerDomain domain,
             IServerDnsDao serverDnsDao, IServerDomainDao serverDomainDao, bool force = false)
         {
             var serverDns = serverDnsDao.Get(domain.Id);

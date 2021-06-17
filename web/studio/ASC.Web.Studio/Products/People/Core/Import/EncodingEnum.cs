@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,29 @@
 
 namespace ASC.Web.People.Core.Import
 {
-    public enum EncodingEnum {
+    public enum EncodingEnum
+    {
         UTF8,
         ASCII,
         Windows1251,
         CP866,
         KOI8R
     }
-    public enum SeparatorEnum {
+    public enum SeparatorEnum
+    {
         Comma,
         Semicolon,
         Colon,
         Tab,
         Space
     }
-    public enum DelimiterEnum {
+    public enum DelimiterEnum
+    {
         Doublequote,
         Singlequote
     }
-    public enum ImportFromWhatEnum {
+    public enum ImportFromWhatEnum
+    {
         FromFile,
         Google,
         Yahoo

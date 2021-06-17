@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,7 +128,7 @@ namespace ASC.Web.Core.Client.Bundling
                 Thread.CurrentThread.CurrentCulture = oldCulture;
                 Thread.CurrentThread.CurrentUICulture = oldCulture;
             }
-            
+
             return content.ToString();
         }
 
@@ -182,12 +182,12 @@ namespace ASC.Web.Core.Client.Bundling
                     includes = fromCache.Select(r =>
                     {
                         var rSplit = r.Split(',');
-                        return (ClientScript) Activator.CreateInstance(rSplit[1].Trim(), rSplit[0].Trim()).Unwrap();
+                        return (ClientScript)Activator.CreateInstance(rSplit[1].Trim(), rSplit[0].Trim()).Unwrap();
                     }).ToList();
                 }
             }
 
             return includes;
-        } 
+        }
     }
 }

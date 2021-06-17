@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Api.Interfaces;
 using ASC.Api.Interfaces.ResponseTypes;
 using ASC.Api.Utils;
@@ -55,7 +56,7 @@ namespace ASC.Api.Impl.Responders
 
         public void RespondTo(IApiStandartResponce responce, HttpContextBase context)
         {
-            var contentResponce = (IApiContentResponce) responce.Response;
+            var contentResponce = (IApiContentResponce)responce.Response;
             if (contentResponce.ContentDisposition != null)
             {
                 context.Response.AddHeader("Content-Disposition", contentResponce.ContentDisposition.ToString());

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Net;
 using System.Security;
 using System.Threading;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Impl;
@@ -46,17 +47,15 @@ using ASC.Web.Core;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.PublicResources;
-using ASC.Web.Studio.UserControls.FirstTime;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using SecurityContext = ASC.Core.SecurityContext;
 using UrlShortener = ASC.Web.Core.Utility.UrlShortener;
 
@@ -174,7 +173,7 @@ namespace ASC.Api.Portal
         public double GetUsedSpace()
         {
             return Math.Round(
-                CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(CoreContext.TenantManager.GetCurrentTenant().TenantId))
+                CoreContext.TenantManager.FindTenantQuotaRows(CoreContext.TenantManager.GetCurrentTenant().TenantId)
                            .Where(q => !string.IsNullOrEmpty(q.Tag) && new Guid(q.Tag) != Guid.Empty)
                            .Sum(q => q.Counter) / 1024f / 1024f / 1024f, 2);
         }
@@ -190,7 +189,7 @@ namespace ASC.Api.Portal
         [Read("userscount")]
         public long GetUsersCount()
         {
-            return CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
+            return CoreContext.Configuration.Personal ? 1 : CoreContext.UserManager.GetUserNames(EmployeeStatus.Active).Count();
         }
 
         ///<visible>false</visible>
@@ -328,12 +327,17 @@ namespace ASC.Api.Portal
         {
             return new
             {
+                customMode = CoreContext.Configuration.CustomMode,
                 opensource = TenantExtra.Opensource,
                 enterprise = TenantExtra.Enterprise,
                 tariff = TenantExtra.GetCurrentTariff(),
                 quota = TenantExtra.GetTenantQuota(),
                 notPaid = TenantStatisticsProvider.IsNotPaid(),
-                licenseAccept = Web.Studio.UserControls.Management.TariffSettings.LicenseAccept
+                licenseAccept = Web.Studio.UserControls.Management.TariffSettings.LicenseAccept,
+                enableTariffPage = //TenantExtra.EnableTariffSettings - think about hide-settings for opensource
+                    (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(LicenseReader.LicensePath))
+                    && string.IsNullOrEmpty(SetupInfo.AmiMetaUrl)
+                    && !CoreContext.Configuration.CustomMode
             };
         }
 
@@ -585,8 +589,15 @@ namespace ASC.Api.Portal
             {
                 TenantExtra.DemandControlPanelPermission();
             }
+            else
+            {
+                if (!TenantExtra.GetTenantQuota().AutoBackup)
+                {
+                    throw new SecurityException(Resource.ErrorNotAllowedOption);
+                }
+            }
 
-            backupHandler.CreateSchedule(storageType, storageParams.ToDictionary(r=> r.Key, r=> r.Value), backupsStored, cronParams, backupMail);
+            backupHandler.CreateSchedule(storageType, storageParams.ToDictionary(r => r.Key, r => r.Value), backupsStored, cronParams, backupMail);
         }
 
         /// <summary>
@@ -599,6 +610,13 @@ namespace ASC.Api.Portal
             if (CoreContext.Configuration.Standalone)
             {
                 TenantExtra.DemandControlPanelPermission();
+            }
+            else
+            {
+                if (!TenantExtra.GetTenantQuota().AutoBackup)
+                {
+                    throw new SecurityException(Resource.ErrorAccessDenied);
+                }
             }
 
             backupHandler.DeleteSchedule();
@@ -620,7 +638,7 @@ namespace ASC.Api.Portal
                 TenantExtra.DemandControlPanelPermission();
             }
 
-            return backupHandler.StartBackup(storageType, storageParams.ToDictionary(r=> r.Key, r=> r.Value), backupMail);
+            return backupHandler.StartBackup(storageType, storageParams.ToDictionary(r => r.Key, r => r.Value), backupMail);
         }
 
         /// <summary>
@@ -797,35 +815,11 @@ namespace ASC.Api.Portal
 
             var reference = CreateReference(Request, tenant.TenantDomain, tenant.TenantId, user.Email);
 
-            return new {
+            return new
+            {
                 message = Resource.SuccessfullyPortalRenameMessage,
                 reference = reference
             };
-        }
-
-        ///<visible>false</visible>
-        [Update("portalanalytics")]
-        public bool UpdatePortalAnalytics(bool enable)
-        {
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-            if (!(TenantExtra.Opensource || (TenantExtra.Saas && SetupInfo.CustomScripts.Length != 0)) || CoreContext.Configuration.CustomMode)
-                throw new SecurityException();
-
-            if (TenantExtra.Opensource)
-            {
-                var wizardSettings = WizardSettings.Load();
-                wizardSettings.Analytics = enable;
-                wizardSettings.Save();
-            }
-            else if (TenantExtra.Saas)
-            {
-                var analyticsSettings = TenantAnalyticsSettings.Load();
-                analyticsSettings.Analytics = enable;
-                analyticsSettings.Save();
-            }
-
-            return enable;
         }
 
         #region create reference for auth on renamed tenant
@@ -856,7 +850,6 @@ namespace ASC.Api.Portal
 
                     StudioNotifyService.Instance.SendCongratulations(currentUser);
                     StudioNotifyService.Instance.SendRegData(currentUser);
-                    FirstTimeTenantSettings.SendInstallInfo(currentUser);
 
                     if (!SetupInfo.IsSecretEmail(currentUser.Email))
                     {
@@ -1006,7 +999,7 @@ namespace ASC.Api.Portal
 
         ///<visible>false</visible>
         [Read("bar/tips")]
-        public string GetBarTips(string page, bool productAdmin, bool desktop)
+        public string GetBarTips(string domain, string page, bool productAdmin, bool desktop)
         {
             try
             {
@@ -1025,6 +1018,7 @@ namespace ASC.Api.Portal
 
                 query["userId"] = user.ID.ToString();
                 query["tenantId"] = tenant.TenantId.ToString(CultureInfo.InvariantCulture);
+                query["domain"] = domain;
                 query["page"] = page;
                 query["language"] = Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant();
                 query["admin"] = user.IsAdmin().ToString();
@@ -1105,7 +1099,7 @@ namespace ASC.Api.Portal
 
             return SearchSettings.GetAllItems().Select(r => new
             {
-                id =r.ID,
+                id = r.ID,
                 title = r.Title,
                 enabled = r.Enabled
             });
@@ -1187,7 +1181,7 @@ namespace ASC.Api.Portal
         {
             GeolocationHelper helper = new GeolocationHelper("teamlabsite");
             return helper.GetIPGeolocation(ipAddress);
-   
+
         }
 
         ///<visible>false</visible>

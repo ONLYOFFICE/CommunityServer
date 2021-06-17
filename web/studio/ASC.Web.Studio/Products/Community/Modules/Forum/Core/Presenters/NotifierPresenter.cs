@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,10 @@
 
 
 using System;
-using System.Collections.Generic;
-using ASC.Common.Web;
+
 using ASC.Core.Common.Notify;
 using ASC.Forum.Module;
 using ASC.Notify.Patterns;
-using ASC.Web.Studio.Core.Notify;
 
 namespace ASC.Forum
 {
@@ -34,7 +32,7 @@ namespace ASC.Forum
 
         private void SendNotifyHandler(object sender, NotifyEventArgs e)
         {
-            
+
             if (String.Equals(e.NotifyAction.ID, Constants.NewPostInTopic.ID, StringComparison.InvariantCultureIgnoreCase))
             {
 
@@ -72,7 +70,7 @@ namespace ASC.Forum
             }
 
             else if (String.Equals(e.NotifyAction.ID, Constants.NewPostByTag.ID, StringComparison.InvariantCultureIgnoreCase))
-            {   
+            {
                 ForumNotifyClient.NotifyClient.SendNoticeAsync(Constants.NewPostByTag, e.ObjectID, null,
                                                                new TagValue(Constants.TagDate, e.Date),
                                                                 new TagValue(Constants.TagThreadTitle, e.ThreadTitle),
@@ -87,7 +85,7 @@ namespace ASC.Forum
             }
 
             else if (String.Equals(e.NotifyAction.ID, Constants.NewTopicInForum.ID, StringComparison.InvariantCultureIgnoreCase))
-            {   
+            {
                 ForumNotifyClient.NotifyClient.SendNoticeAsync(Constants.NewTopicInForum, e.ObjectID, null,
                                                                 new TagValue(Constants.TagDate, e.Date),
                                                                 new TagValue(Constants.TagThreadTitle, e.ThreadTitle),

@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserForum.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.UserForum.UserForum" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <% if(!String.IsNullOrEmpty(UserForumLink)) { %>

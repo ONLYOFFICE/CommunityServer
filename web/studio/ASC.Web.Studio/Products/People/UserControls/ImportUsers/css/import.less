@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -336,6 +336,14 @@
                 width: 192px;
                 margin-right: 3px;
                 padding-left: 0px;
+            }
+
+            td.status .statusValue {
+                white-space: nowrap;
+                display: inline-block;
+                max-width: 90px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .check input {
@@ -747,6 +755,7 @@
 
     #file-name {
         font-weight: 800;
+        margin-left: 10px;
     }
 
     #importFrom {
@@ -827,15 +836,12 @@ select {
         }
     }
 
-    #deleteUserButton {
+    #addAsUser, #addAsGuest, #notAdd  {
         vertical-align: middle;
-        background: url(../images/trash_fu.png) 6px center no-repeat;
         color: #999999;
         cursor: default;
         overflow: hidden;
-        text-align: center;
         background-color: #f7f7f7;
-        border-width: 1px;
         border-style: solid;
         border-color: #ebebeb;
         border-radius: 3px;
@@ -902,4 +908,15 @@ select {
             z-index: 11;
             box-shadow: none;
         }
+}
+
+
+.disableList {
+    pointer-events: none;
+    color: #b8b8b8;
+}
+
+.error-container {
+    margin: 90px 7px -30px;
+    position: static;
 }

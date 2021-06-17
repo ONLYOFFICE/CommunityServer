@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Web;
+
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Controls.Settings;
@@ -44,13 +45,13 @@ namespace ASC.Web.CRM
             var typeValue = (HttpContext.Current.Request["type"] ?? "common").ToLower();
             ListItemView listItemViewControl;
 
-            var headerView = (SettingsHeaderView) LoadControl(SettingsHeaderView.Location);
+            var headerView = (SettingsHeaderView)LoadControl(SettingsHeaderView.Location);
 
             switch (typeValue)
             {
                 case "common":
                     PageTitle = CRMSettingResource.CommonSettings;
-                    
+
                     headerView.HeaderText = CRMSettingResource.ExportData;
                     TitleContentHolder.Controls.Add(headerView);
 
@@ -219,16 +220,16 @@ namespace ASC.Web.CRM
 
                         headerView.HeaderText = PageTitle;
                         TitleContentHolder.Controls.Add(headerView);
-                        
+
                         IsInvoiceItemsList = true;
-                        
+
                         CommonContainerHolder.Controls.Add(LoadControl(InvoiceItemsView.Location));
                     }
                     break;
 
                 case "invoice_tax":
                     PageTitle = CRMCommonResource.InvoiceTaxes;
-                    
+
                     headerView.HeaderText = PageTitle;
                     headerView.DescriptionText = CRMInvoiceResource.InvoiceTaxesDescriptionText;
                     headerView.DescriptionTextEditDelete = CRMInvoiceResource.InvoiceTaxesDescriptionTextEditDelete;

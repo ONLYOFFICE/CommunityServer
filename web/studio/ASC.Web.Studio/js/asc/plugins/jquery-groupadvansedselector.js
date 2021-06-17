@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 
 (function ($) {
-    var resources = ASC.Resources.Master.Resource, teamlab = Teamlab;
+    var ResourceJS = ASC.Resources.Master.ResourceJS, teamlab = Teamlab;
 
     var groupadvancedSelector = function (element, options) {
         this.$element = $(element);
@@ -33,10 +33,10 @@
                 itemsSimpleSelect = [];
 
             opts.newoptions = [
-                { title: resources.SelectorTitle, type: "input", tag: "title" },
-                { title: resources.SelectorHead, type: "select", tag: "manager" }
+                { title: ResourceJS.SelectorTitle, type: "input", tag: "title" },
+                { title: ResourceJS.SelectorHead, type: "select", tag: "manager" }
             ];
-            opts.newbtn = resources.CreateButton;
+            opts.newbtn = ResourceJS.CreateButton;
             that.displayAddItemBlock.call(that, opts);
 
             var filter = {
@@ -52,7 +52,7 @@
                         if (data[i].id == teamlab.profile.id) {
                             itemsSimpleSelect.unshift(
                                 {
-                                    title: resources.MeLabel,
+                                    title: ResourceJS.MeLabel,
                                     id: data[i].id
                                 }
                             );
@@ -143,15 +143,15 @@
                 members: []
             };
             if (!newGroup.groupName) {
-                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: resources.ErrorEmptyGroupTitle });
+                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: ResourceJS.ErrorEmptyGroupTitle });
                 isError = true;
             }
             if (newGroup.groupName && newGroup.groupName.length > 64) {
-                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: resources.ErrorMesLongField64 });
+                that.showErrorField.call(that, { field: $addPanel.find(".title"), error: ResourceJS.ErrorMesLongField64 });
                 isError = true;
             }
             if (newGroup.groupManager == "00000000-0000-0000-0000-000000000000" && $addPanel.find(".manager input").val().trim()) {
-                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: resources.ErrorHeadNotExist });
+                that.showErrorField.call(that, { field: $addPanel.find(".manager"), error: ResourceJS.ErrorHeadNotExist });
                 isError = true;
             }
             if (isError) {
@@ -160,7 +160,7 @@
             }
             teamlab.addGroup(null, newGroup, {
                 before: function(){
-                    that.displayLoadingBtn.call(that, { btn: $btn, text: resources.LoadingProcessing });
+                    that.displayLoadingBtn.call(that, { btn: $btn, text: ResourceJS.LoadingProcessing });
                 },
                 after: function(){
                     that.hideLoadingBtn.call(that, $btn);
@@ -175,7 +175,7 @@
                         title: group.name,
                         head: group.manager
                     }
-                    toastr.success(resources.GroupSelectorAddSuccess.format("<b>" + Encoder.htmlEncode(newgroup.title) + "</b>"));
+                    toastr.success(ResourceJS.GroupSelectorAddSuccess.format("<b>" + Encoder.htmlEncode(newgroup.title) + "</b>"));
                     that.actionsAfterCreateItem.call(that, { newitem: newgroup, response: group });
                 }
             })  
@@ -207,9 +207,9 @@
         });
     }
     $.fn.groupadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
-        addtext: resources.GroupSelectorAddText,
-        noresults: resources.GroupSelectorNoResults,
-        emptylist: resources.GroupSelectorEmptyList,
+        addtext: ResourceJS.GroupSelectorAddText,
+        noresults: ResourceJS.GroupSelectorNoResults,
+        emptylist: ResourceJS.GroupSelectorEmptyList,
         witheveryone: false,
         withadmin: false,
         isInitializeItems: true

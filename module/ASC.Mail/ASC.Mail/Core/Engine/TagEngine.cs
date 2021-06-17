@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+
 using ASC.Common.Logging;
 using ASC.ElasticSearch;
 using ASC.Mail.Core.Dao.Expressions.Message;
@@ -388,7 +389,7 @@ namespace ASC.Mail.Core.Engine
             daoTagMail.SetMessagesTag(validIds, tag.Id);
 
             UpdateTagsCount(daoTagMail, daoTag, tag);
-            
+
             foreach (var chain in chains)
             {
                 Factory.ChainEngine.UpdateChainTags(daoFactory, chain.Id, chain.Folder, chain.MailboxId, Tenant, User);
@@ -422,7 +423,7 @@ namespace ASC.Mail.Core.Engine
 
                     var tag = daoTag.GetTag(tagId);
 
-                    if(tag != null)
+                    if (tag != null)
                         UpdateTagsCount(daoTagMail, daoTag, tag);
 
                     foreach (var chain in chains)
@@ -477,7 +478,7 @@ namespace ASC.Mail.Core.Engine
 
                     validIds = foundedChains.Select(r => r.Id).ToList();
                     var chains =
-                        foundedChains.GroupBy(r => new {r.ChainId, r.Folder, r.MailboxId})
+                        foundedChains.GroupBy(r => new { r.ChainId, r.Folder, r.MailboxId })
                             .Select(
                                 r =>
                                     new ChainInfo
@@ -576,7 +577,7 @@ namespace ASC.Mail.Core.Engine
             if (!FactoryIndexer<MailWrapper>.Support || !FactoryIndexer.CheckState(false))
                 return;
 
-            if(ids == null || !ids.Any())
+            if (ids == null || !ids.Any())
                 return;
 
             var data = new MailWrapper

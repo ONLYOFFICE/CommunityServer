@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,14 @@
 
 using System;
 using System.Web;
+
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.HttpHandlers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.ThirdPartyApp;
 using ASC.Web.Studio;
+
 using Global = ASC.Web.Files.Classes.Global;
 
 namespace ASC.Web.Files
@@ -114,10 +116,6 @@ namespace ASC.Web.Files
             Master.Master.TopStudioPanel.DisableGift = true;
 
             Page.RegisterStyle(PathProvider.GetFileStaticRelativePath, "app.css");
-            Page.RegisterInlineScript(@"
-jq("".files-app-create"").trackEvent(""files_app"", ""action-click"", ""create"");
-jq("".files-app-convert"").trackEvent(""files_app"", ""action-click"", ""convert"");
-");
 
             if (IsConvert)
             {

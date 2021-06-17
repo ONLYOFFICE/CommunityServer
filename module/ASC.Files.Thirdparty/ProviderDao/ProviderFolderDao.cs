@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,12 @@
 */
 
 
-using System.Threading;
-using ASC.Files.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+
+using ASC.Files.Core;
 
 namespace ASC.Files.Thirdparty.ProviderDao
 {
@@ -38,7 +39,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
                 if (result != null && !Default.IsMatch(folderId))
                 {
-                    SetSharedProperty(new[] {result});
+                    SetSharedProperty(new[] { result });
                 }
 
                 return result;
@@ -294,7 +295,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                 var storageMaxUploadSize = folderDao.GetMaxUploadSize(selector.ConvertId(folderId), chunkedUpload);
 
                 if (storageMaxUploadSize == -1 || storageMaxUploadSize == long.MaxValue)
-                    storageMaxUploadSize = 1024L*1024L*1024L;
+                    storageMaxUploadSize = 1024L * 1024L * 1024L;
 
                 return storageMaxUploadSize;
             }

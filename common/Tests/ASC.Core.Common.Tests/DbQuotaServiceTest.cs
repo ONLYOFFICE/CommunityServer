@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,14 +95,6 @@ namespace ASC.Core.Common.Tests
                 var json = Encoding.UTF8.GetString(ms.ToArray());
                 Assert.AreEqual("{\"Id\":1024,\"Name\":\"quota1\",\"MaxFileSize\":3,\"MaxTotalSize\":4,\"ActiveUsers\":30,\"Features\":\"trial,year\",\"Price\":12.5,\"Price2\":45.23,\"AvangateId\":\"1\",\"Visible\":true}", json);
             }
-        }
-
-        [TestMethod]
-        public void SyncTest()
-        {
-            var client = new TariffSyncClient();
-            var quotas = client.GetTariffs(1, "key");
-            Assert.AreNotEqual(0, quotas.Count());
         }
 
         private void CompareQuotas(TenantQuota q1, TenantQuota q2)

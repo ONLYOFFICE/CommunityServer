@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,15 @@
 
 
 using System;
+using System.Text;
 using System.Web;
-using ASC.Web.CRM.Resources;
+
 using ASC.CRM.Core;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM.Configuration;
-using System.Text;
-using ASC.Web.Studio.Controls.Users;
+using ASC.Web.CRM.Resources;
+using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
-using ASC.Core.Users;
-using ASC.Web.Studio.Core.Users;
 
 namespace ASC.Web.CRM.Controls.Settings
 {
@@ -58,13 +56,13 @@ namespace ASC.Web.CRM.Controls.Settings
             //phCategorySelector.Controls.Add(cntrlCategorySelector);
 
             var emptyScreenControl = new EmptyScreenControl
-                {
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_tasks.png", ProductEntryPoint.ID),
-                    Header = CRMSettingResource.EmptyContentTaskTemplates,
-                    Describe = CRMSettingResource.EmptyContentTaskTemplatesDescript,
-                    ButtonHTML = String.Format("<a id='addTag' class='link dotline plus' onclick='ASC.CRM.TaskTemplateView.showTemplateConatainerPanel();'>{0}</a>",
+            {
+                ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_tasks.png", ProductEntryPoint.ID),
+                Header = CRMSettingResource.EmptyContentTaskTemplates,
+                Describe = CRMSettingResource.EmptyContentTaskTemplatesDescript,
+                ButtonHTML = String.Format("<a id='addTag' class='link dotline plus' onclick='ASC.CRM.TaskTemplateView.showTemplateConatainerPanel();'>{0}</a>",
                                                CRMSettingResource.AddTaskTemplateContainer)
-                };
+            };
 
             _phEmptyContent.Controls.Add(emptyScreenControl);
 

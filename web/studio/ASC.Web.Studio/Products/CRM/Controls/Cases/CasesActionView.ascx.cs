@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,23 +18,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
-using ASC.MessagingSystem;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Controls.Common;
-using ASC.Core;
-using ASC.Web.Studio.Core.Users;
-using Newtonsoft.Json.Linq;
-using System.Web;
 using System.Text;
+using System.Web;
+using System.Web.UI.WebControls;
+
 using ASC.Common.Logging;
+using ASC.Core;
+using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.ElasticSearch;
+using ASC.MessagingSystem;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Core;
 using ASC.Web.CRM.Core.Search;
+using ASC.Web.CRM.Resources;
+using ASC.Web.Studio.Core.Users;
+
 using Autofac;
+
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.CRM.Controls.Cases
 {
@@ -204,14 +207,14 @@ namespace ASC.Web.CRM.Controls.Cases
                     cntrlPrivatePanel.SelectedUsers = CRMSecurity.GetAccessSubjectTo(TargetCase);
             }
 
-            var usersWhoHasAccess = new List<string> {CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser")};
+            var usersWhoHasAccess = new List<string> { CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser") };
 
             cntrlPrivatePanel.UsersWhoHasAccess = usersWhoHasAccess;
-            cntrlPrivatePanel.DisabledUsers = new List<Guid> {SecurityContext.CurrentAccount.ID};
+            cntrlPrivatePanel.DisabledUsers = new List<Guid> { SecurityContext.CurrentAccount.ID };
             phPrivatePanel.Controls.Add(cntrlPrivatePanel);
         }
 
-         protected void SetPermission(ASC.CRM.Core.Entities.Cases caseItem)
+        protected void SetPermission(ASC.CRM.Core.Entities.Cases caseItem)
         {
             if (HavePermission)
             {
@@ -237,7 +240,7 @@ namespace ASC.Web.CRM.Controls.Cases
 
                     if (notifyPrivateUsers)
                     {
-                        Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, caseItem.ID, DaoFactory,selectedUserList.ToArray());
+                        Services.NotifyService.NotifyClient.Instance.SendAboutSetAccess(EntityType.Case, caseItem.ID, DaoFactory, selectedUserList.ToArray());
                     }
 
                     selectedUserList.Add(SecurityContext.CurrentAccount.ID);

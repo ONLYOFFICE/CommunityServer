@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Forum.Core.Module {
+namespace ASC.Web.Community.Modules.Forum.Core.Module {
     using System;
     
     
@@ -67,7 +67,9 @@ namespace ASC.Web.Community.Forum.Core.Module {
         ///
         ///$PostText
         ///
-        ///&quot;Read More&quot;:&quot;$PostURL&quot;.
+        ///&quot;Read More&quot;:&quot;$PostURL&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new posts in this forum topic, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
         /// </summary>
         public static string pattern_PostInTopicEmailPattern {
             get {
@@ -82,7 +84,9 @@ namespace ASC.Web.Community.Forum.Core.Module {
         ///
         ///$PostText
         ///
-        ///&quot;Read More&quot;:&quot;$PostURL&quot;.
+        ///&quot;Read More&quot;:&quot;$PostURL&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new topics created in forums, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
         /// </summary>
         public static string pattern_TopicInForumEmailPattern {
             get {

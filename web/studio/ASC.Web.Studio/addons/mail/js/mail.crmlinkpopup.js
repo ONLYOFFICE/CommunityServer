@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -270,7 +270,6 @@ window.crmLinkPopup = (function($) {
         html.find('.buttons .link_btn').unbind('click').bind('click', function() {
             var messageId;
             if (needAddContactIds.length > 0) {
-                window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "link_chain_with_crm");
                 messageId = getMessageId();
 
                 serviceManager.linkChainToCrm(messageId, needAddContactIds, {},
@@ -281,7 +280,7 @@ window.crmLinkPopup = (function($) {
                         window.LoadingBanner.hideLoading();
                         window.toastr.error(window.MailScriptResource.LinkFailurePopupText);
                     }
-                }, ASC.Resources.Master.Resource.LoadingProcessing);
+                }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
 
                 selectedContactIds = [];
                 needAddContactIds = [];
@@ -299,7 +298,7 @@ window.crmLinkPopup = (function($) {
                         console.error(error);
                         window.LoadingBanner.hideLoading();
                     }
-                }, ASC.Resources.Master.Resource.LoadingProcessing);
+                }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
 
                 if (needAddContactIds.length === 0 && selectedContactIds.length === needDeleteContactIds.length) {
                     $('.header-crm-link').hide();
@@ -320,10 +319,8 @@ window.crmLinkPopup = (function($) {
             var htmlTmpl = $.tmpl('crmUnlinkAllPopupTmpl');
             htmlTmpl.find('.buttons .unlink').bind('click', function() {
                 if (selectedContactIds.length > 0) {
-                    window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "unlink_chain_with_crm");
-
                     var messageId = getMessageId();
-                    serviceManager.unmarkChainAsCrmLinked(messageId, selectedContactIds, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+                    serviceManager.unmarkChainAsCrmLinked(messageId, selectedContactIds, {}, ASC.Resources.Master.ResourceJS.LoadingProcessing);
                     $('.header-crm-link').hide();
                     messagePage.setHasLinked(false);
                 }
@@ -359,7 +356,6 @@ window.crmLinkPopup = (function($) {
         addAutocomplete(html, true);
 
         html.find('.buttons .link_btn').unbind('click').bind('click', function () {
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "export_mail_to_crm");
             serviceManager.exportMessageToCrm(getMessageId(), needAddContactIds, {},
             {
                 success: onExportMessageToCrm,
@@ -367,7 +363,7 @@ window.crmLinkPopup = (function($) {
                     window.LoadingBanner.hideLoading();
                     window.toastr.error(window.MailScriptResource.ExportFailurePopupText);
                 }
-            }, ASC.Resources.Master.Resource.LoadingProcessing);
+            }, ASC.Resources.Master.ResourceJS.LoadingProcessing);
             needAddContactIds = [];
             exportMessageId = -1;
             window.LoadingBanner.displayMailLoading();

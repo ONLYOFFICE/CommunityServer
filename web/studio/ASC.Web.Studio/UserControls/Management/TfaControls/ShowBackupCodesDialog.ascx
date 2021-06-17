@@ -1,6 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Core.Common" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ShowBackupCodesDialog.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ShowBackupCodesDialog" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 

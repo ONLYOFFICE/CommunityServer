@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" encoding="utf-8" standalone="yes" indent="yes" omit-xml-declaration="yes" media-type="text/xhtml" />
 
-  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
+  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="FilesCommonResource" />
 
   <xsl:template match="third_partyList">
     <xsl:for-each select="entry">
@@ -12,7 +12,7 @@
           <xsl:if test="isNew = 'false'">
             <div class="menu-small">
               <xsl:attribute name="title">
-                <resource name="fres.TitleShowFolderActions" />
+                <resource name="FilesCommonResource.TitleShowFolderActions" />
               </xsl:attribute>
             </div>
           </xsl:if>
@@ -61,13 +61,13 @@
             <div class="account-log-pass-container">
               <div class="account-field-url account-field-row">
                 <div class="account-field-title">
-                  <resource name="fres.ConnectionUrl" />
+                  <resource name="FilesCommonResource.ConnectionUrl" />
                 </div>
                 <div class="account-field-body">
                   <input type="url" class="textEdit account-input-url" name="account-field" autocomplete="off">
                     <xsl:if test="isNew != 'true'">
                       <xsl:attribute name="placeholder">
-                        <resource name="fres.ThirdPartyCorrect"/>
+                        <resource name="FilesCommonResource.ThirdPartyCorrect"/>
                       </xsl:attribute>
                     </xsl:if>
                   </input>
@@ -76,7 +76,7 @@
               <xsl:if test="isNew = 'true'">
                 <div class="account-field-row">
                   <div class="account-field-title">
-                    <resource name="fres.Login" />
+                    <resource name="FilesCommonResource.Login" />
                   </div>
                   <div class="account-field-body">
                     <input type="text" class="textEdit account-input-login" name="account-field" autocomplete="off"/>
@@ -85,13 +85,13 @@
               </xsl:if>
               <div class="account-field-row">
                 <div class="account-field-title">
-                  <resource name="fres.Password" />
+                  <resource name="FilesCommonResource.Password" />
                 </div>
                 <div class="account-field-body">
                   <input type="password" class="textEdit account-input-pass" name="account-field" autocomplete="new-password">
                     <xsl:if test="isNew != 'true'">
                       <xsl:attribute name="placeholder">
-                        <resource name="fres.ThirdPartyCorrect"/>
+                        <resource name="FilesCommonResource.ThirdPartyCorrect"/>
                       </xsl:attribute>
                     </xsl:if>
                   </input>
@@ -102,7 +102,7 @@
               <xsl:if test="getTokenUrl != ''">
                 <div class="account-field-row">
                   <div class="account-field-title">
-                    <resource name="fres.ThirdPartyReconnectTitle" />
+                    <resource name="FilesCommonResource.ThirdPartyReconnectTitle" />
                   </div>
                   <div class="account-field-body">
                     <div class="edit-account-button button white">
@@ -114,7 +114,7 @@
                           <xsl:value-of select="provider_key"/>
                         </xsl:attribute>
                       </span>
-                      <resource name="fres.ThirdPartyReconnect" />
+                      <resource name="FilesCommonResource.ThirdPartyReconnect" />
                     </div>
                   </div>
                 </div>
@@ -124,7 +124,7 @@
                   account-field-row <xsl:if test="canCorporate = 'true'">account-field-row-large</xsl:if>
                 </xsl:attribute>
                 <div class="account-field-title">
-                  <resource name="fres.ThirdPartyFolderTitle" />
+                  <resource name="FilesCommonResource.ThirdPartyFolderTitle" />
                 </div>
                 <div class="account-field-body">
                   <input type="text" class="textEdit account-input-folder">
@@ -145,18 +145,18 @@
                           <xsl:attribute name="checked">checked</xsl:attribute>
                         </xsl:if>
                       </input>
-                      <resource name="fres.ThirdPartySetCorporate" />
+                      <resource name="FilesCommonResource.ThirdPartySetCorporate" />
                     </label>
                   </xsl:if>
                 </div>
               </div>
               <div class="account-action-container">
                 <a class="button middle blue account-save-link">
-                  <resource name="fres.ButtonSave"/>
+                  <resource name="FilesCommonResource.ButtonSave"/>
                 </a>
                 <span class="splitter-buttons"></span>
                 <a class="button middle gray account-cancel-link">
-                  <resource name="fres.ButtonCancel"/>
+                  <resource name="FilesCommonResource.ButtonCancel"/>
                 </a>
               </div>
             </div>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using ASC.Common.Caching;
 using ASC.Common.Logging;
 using ASC.Common.Threading.Workers;
@@ -161,7 +162,7 @@ namespace ASC.Web.Core.Users
             }
             catch (Exception)
             {
-                
+
             }
         }
 
@@ -261,12 +262,12 @@ namespace ASC.Web.Core.Users
             get { return new Size(32, 32); }
         }
 
-        private static string _defaultRetinaAvatar = "default_user_photo_size_360-360.png";
-        private static string _defaultAvatar = "default_user_photo_size_200-200.png";
-        private static string _defaultSmallAvatar = "default_user_photo_size_32-32.png";
-        private static string _defaultMediumAvatar = "default_user_photo_size_48-48.png";
-        private static string _defaultBigAvatar = "default_user_photo_size_82-82.png";
-        private static string _tempDomainName = "temp";
+        private static readonly string _defaultRetinaAvatar = "default_user_photo_size_360-360.png";
+        private static readonly string _defaultAvatar = "default_user_photo_size_200-200.png";
+        private static readonly string _defaultSmallAvatar = "default_user_photo_size_32-32.png";
+        private static readonly string _defaultMediumAvatar = "default_user_photo_size_48-48.png";
+        private static readonly string _defaultBigAvatar = "default_user_photo_size_82-82.png";
+        private static readonly string _tempDomainName = "temp";
 
 
         public static bool UserHasAvatar(Guid userID)
@@ -275,7 +276,7 @@ namespace ASC.Web.Core.Users
             var fileName = Path.GetFileName(path);
             return fileName != _defaultAvatar;
         }
-        
+
         public static string GetPhotoAbsoluteWebPath(Guid userID)
         {
             var path = SearchInCache(userID, Size.Empty);
@@ -451,7 +452,7 @@ namespace ASC.Web.Core.Users
         {
             if (CacheNotify != null)
             {
-                CacheNotify.Publish(new UserPhotoManagerCacheItem {UserID = userID}, CacheNotifyAction.Remove);
+                CacheNotify.Publish(new UserPhotoManagerCacheItem { UserID = userID }, CacheNotifyAction.Remove);
             }
         }
 
@@ -459,7 +460,7 @@ namespace ASC.Web.Core.Users
         {
             if (CacheNotify != null)
             {
-                CacheNotify.Publish(new UserPhotoManagerCacheItem {UserID = userId, Size = size, FileName = fileName}, CacheNotifyAction.InsertOrUpdate);
+                CacheNotify.Publish(new UserPhotoManagerCacheItem { UserID = userId, Size = size, FileName = fileName }, CacheNotifyAction.InsertOrUpdate);
             }
         }
 
@@ -479,6 +480,14 @@ namespace ASC.Web.Core.Users
         {
             CoreContext.UserManager.SaveUserPhoto(idUser, null);
             ClearCache(idUser);
+        }
+
+        public static void SyncPhoto(Guid userID, byte[] data)
+        {
+            data = TryParseImage(data, -1, OriginalFotoSize, out _, out int width, out int height);
+            CoreContext.UserManager.SaveUserPhoto(userID, data);
+            SetUserPhotoThumbnailSettings(userID, width, height);
+            ClearCache(userID);
         }
 
         private static string SaveOrUpdatePhoto(Guid userID, byte[] data, long maxFileSize, Size size, bool saveInCoreContext, out string fileName)
@@ -658,7 +667,7 @@ namespace ASC.Web.Core.Users
                     var imgFormat = img.RawFormat;
                     if (item.Size != img.Size)
                     {
-                        using (var img2 = item.Settings.IsDefault ? 
+                        using (var img2 = item.Settings.IsDefault ?
                             CommonPhotoManager.DoThumbnail(img, item.Size, true, true, true) :
                             UserPhotoThumbnailManager.GetBitmap(img, item.Size, item.Settings))
                         {
@@ -822,7 +831,7 @@ namespace ASC.Web.Core.Users
                 using (var s = GetDataStore().GetReadStream("", fileName))
                 {
                     var data = new MemoryStream();
-                    var buffer = new Byte[1024*10];
+                    var buffer = new Byte[1024 * 10];
                     while (true)
                     {
                         var count = s.Read(buffer, 0, buffer.Length);
@@ -895,12 +904,12 @@ namespace ASC.Web.Core.Users
             }
             catch (Exception err)
             {
-                LogManager.GetLogger("ASC.Web.Photo").Error(err); 
+                LogManager.GetLogger("ASC.Web.Photo").Error(err);
             }
 
             return data;
         }
-        
+
         /// <summary>
         /// Rotate the given image file according to Exif Orientation data
         /// </summary>

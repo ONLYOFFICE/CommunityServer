@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,11 +30,10 @@ using ASC.Web.Core.Users;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
-
-using Resources;
 
 using LdapMapping = ASC.ActiveDirectory.Base.Settings.LdapSettings.MappingFields;
 
@@ -53,6 +52,10 @@ namespace ASC.Web.Studio.UserControls.Users
         protected UserInfo UserInfo { get; set; }
 
         protected bool ShowSocialLogins { get; set; }
+
+        protected bool EnableOauth { get; set; }
+
+        protected string TariffPageLink { get; set; }
 
         protected bool ShowPrimaryMobile;
 
@@ -108,6 +111,11 @@ namespace ASC.Web.Studio.UserControls.Users
             }
             UserInfo = UserProfileHelper.UserInfo;
             ShowSocialLogins = UserInfo.IsMe();
+
+            EnableOauth = CoreContext.Configuration.Standalone ||
+                 CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Oauth;
+
+            TariffPageLink = TenantExtra.GetTariffPageLink();
 
             IsAdmin = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin() ||
                       WebItemSecurity.IsProductAdministrator(WebItemManager.PeopleProductID, SecurityContext.CurrentAccount.ID);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -133,8 +133,8 @@ var defineBodyMediaClass = function () {
     Teamlab.init();
 
     // init LoadingBanner
-    LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
-    LoadingBanner.strDescription = ASC.Resources.Master.Resource.LoadingDescription;
+    LoadingBanner.strLoading = ASC.Resources.Master.ResourceJS.LoadingProcessing;
+    LoadingBanner.strDescription = ASC.Resources.Master.ResourceJS.LoadingDescription;
 
     // init image zoom
     StudioManager.initImageZoom();
@@ -149,7 +149,7 @@ var defineBodyMediaClass = function () {
     jq.blockUI.defaults.overlayCSS = {};
     jq.blockUI.defaults.fadeOut = 0;
     jq.blockUI.defaults.fadeIn = 0;
-    jq.blockUI.defaults.message = "<div class=\"loader-text-block\">" + ASC.Resources.Master.Resource.LoadingPleaseWait + "</div>";
+    jq.blockUI.defaults.message = "<div class=\"loader-text-block\">" + ASC.Resources.Master.ResourceJS.LoadingPleaseWait + "</div>";
 
     if (jq("#studio_sidePanel").length) {
         LeftMenuManager.init(StudioManager.getBasePathToModule(), jq(".menu-list .menu-item.sub-list, .menu-list>.menu-item.sub-list>.menu-sub-list>.menu-sub-item"));

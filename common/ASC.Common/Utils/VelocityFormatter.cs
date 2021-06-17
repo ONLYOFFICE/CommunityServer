@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,14 @@
 */
 
 
-using NVelocity;
-using NVelocity.App;
-using NVelocity.Runtime.Resource.Loader;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+
+using NVelocity;
+using NVelocity.App;
+using NVelocity.Runtime.Resource.Loader;
 
 namespace ASC.Common.Utils
 {

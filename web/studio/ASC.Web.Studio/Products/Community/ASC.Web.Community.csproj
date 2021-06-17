@@ -18,10 +18,8 @@
     <SignAssembly>false</SignAssembly>
     <TrunkDir>..\..\..\..\..\</TrunkDir>
     <OutputPath>$(TrunkDir)\web\studio\ASC.Web.Studio\bin\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -208,25 +206,10 @@
     <Compile Include="Modules\Bookmarking\FavouriteBookmarks.aspx.designer.cs">
       <DependentUpon>FavouriteBookmarks.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookmarkingSubscriptionPatterns.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Bookmarking\Resources\BookmarkingResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BookmarkingResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Bookmarking\UserBookmarks.aspx.cs">
       <DependentUpon>UserBookmarks.aspx</DependentUpon>
@@ -321,11 +304,6 @@
     </Compile>
     <Compile Include="Modules\Bookmarking\UserControls\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.Designer.cs">
-      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx.cs">
       <DependentUpon>SingleBookmarkUserControl.ascx</DependentUpon>
@@ -517,23 +495,8 @@
     <Compile Include="Modules\Forum\UserTopics.aspx.designer.cs">
       <DependentUpon>UserTopics.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Forum\Core\Module\ForumPatternResource.Designer.cs">
-      <DependentUpon>ForumPatternResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Modules\Forum\Core\Module\Patterns.Designer.cs">
       <DependentUpon>Patterns.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Modules\Forum\Resources\ForumResource.Designer.cs">
-      <DependentUpon>ForumResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Modules\Forum\UserControls\Resources\ForumUCResource.Designer.cs">
-      <DependentUpon>ForumUCResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -608,18 +571,8 @@
     </Compile>
     <Compile Include="Modules\News\NewsConst.cs" />
     <Compile Include="Modules\News\NewsModule.cs" />
-    <Compile Include="Modules\News\Resources\NewsPatternResource.Designer.cs">
-      <DependentUpon>NewsPatternResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Modules\News\Resources\NewsPatternsResource.Designer.cs">
       <DependentUpon>NewsPatternsResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Modules\News\Resources\NewsResource.Designer.cs">
-      <DependentUpon>NewsResource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -698,25 +651,10 @@
     <Compile Include="Modules\Wiki\PageHistoryList.aspx.designer.cs">
       <DependentUpon>PageHistoryList.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WikiPatternResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WikiPatternsResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Wiki\Resources\WikiResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WikiResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Wiki\Resources\WikiUCResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WikiUCResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Wiki\Wiki.Master.cs">
       <DependentUpon>Wiki.Master</DependentUpon>
@@ -793,26 +731,158 @@
     <Compile Include="Product\CommunitySubscriptionManager.cs" />
     <Compile Include="Product\CommunitySpaceUsageStatManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\CommunityResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CommunityResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\Birthdays\Resources\BirthdayPatternResource.Designer.cs">
-      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Modules\Birthdays\Resources\BirthdaysResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BirthdaysResource.resx</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BlogsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Modules\Blogs\Core\Resources\BlogsResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BlogsResource.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.resx">
+      <SubType>Designer</SubType>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Modules\Blogs\Core\Service\BlogPatternResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -829,138 +899,1634 @@
     <Compile Include="Search\PostWrapper.cs" />
     <Compile Include="Search\TopicWrapper.cs" />
     <Compile Include="Search\WikiWrapper.cs" />
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BlogsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BlogPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BirthdayPatternResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Web.Community.Birthdays.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Birthdays\Resources\BirthdayPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BirthdaysResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Web.Community.Birthdays.Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Blogs\Core\Resources\BlogsResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BlogsResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Blogs.Core.Resources</CustomToolNamespace>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BlogPatternResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Web.Community.Blogs.Core.Service</CustomToolNamespace>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Birthdays\Resources\BirthdaysResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Modules\Blogs\Core\Service\BlogPatternsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BlogPatternsResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Blogs.Core.Service</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingPatternResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Web.Community.Bookmarking.Core.Patterns</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingBusinessResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Bookmarking.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingSubscriptionPatterns.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingSubscriptionPatterns.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Bookmarking.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>BookmarkingResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Web.Community.Bookmarking.Resources</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Bookmarking\Resources\BookmarkingResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.resx">
+      <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BookmarkingUCResource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CustomToolNamespace>ASC.Web.UserControls.Bookmarking.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForumPatternResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.Community.Forum.Core.Module</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Forum\Core\Module\ForumPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Modules\Forum\Core\Module\Patterns.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Patterns.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Forum.Module</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ForumResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.Community.Forum.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Forum\Resources\ForumResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForumUCResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.UserControls.Forum.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Forum\UserControls\Resources\ForumUCResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\News\Resources\NewsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewsResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.Community.News.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\News\Resources\NewsResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Modules\News\Resources\NewsPatternsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewsPatternsResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.Community.News.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>NewsPatternResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.Community.News.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\News\Resources\NewsPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiUCResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.UserControls.Wiki.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Wiki\Resources\WikiUCResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.UserControls.Wiki.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Wiki\Resources\WikiResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternsResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WikiPatternsResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.UserControls.Wiki.Patterns</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WikiPatternResource.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ASC.Web.Community.Wiki.Code.Patterns</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Modules\Wiki\Code\Patterns\WikiPatternResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\CommunityResource.az-Latn-AZ.resx" Condition="$(Cultures.Contains('az-Latn-AZ'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.bg.resx" Condition="$(Cultures.Contains('bg'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.cs.resx" Condition="$(Cultures.Contains('cs'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.de.resx" Condition="$(Cultures.Contains('de'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.el.resx" Condition="$(Cultures.Contains('el'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.es.resx" Condition="$(Cultures.Contains('es'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.fi.resx" Condition="$(Cultures.Contains('fi'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.fr.resx" Condition="$(Cultures.Contains('fr'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.it.resx" Condition="$(Cultures.Contains('it'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.ja.resx" Condition="$(Cultures.Contains('ja'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.ko.resx" Condition="$(Cultures.Contains('ko'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.lv.resx" Condition="$(Cultures.Contains('lv'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.nl.resx" Condition="$(Cultures.Contains('nl'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.pl.resx" Condition="$(Cultures.Contains('pl'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.pt-BR.resx" Condition="$(Cultures.Contains('pt-BR'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.pt.resx" Condition="$(Cultures.Contains('pt'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\CommunityResource.resx">
       <SubType>Designer</SubType>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CommunityResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.ru.resx" Condition="$(Cultures.Contains('ru'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.sk.resx" Condition="$(Cultures.Contains('sk'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.sl.resx" Condition="$(Cultures.Contains('sl'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.tr.resx" Condition="$(Cultures.Contains('tr'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.uk.resx" Condition="$(Cultures.Contains('uk'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.vi.resx" Condition="$(Cultures.Contains('vi'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.zh-CN.resx" Condition="$(Cultures.Contains('zh-CN'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Resources\CommunityResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Resources\CommunityResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.be.resx" Condition="$(Cultures.Contains('be'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.ca.resx" Condition="$(Cultures.Contains('ca'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.hy.resx" Condition="$(Cultures.Contains('hy'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.nb-NO.resx" Condition="$(Cultures.Contains('nb-NO'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.sr-Latn-CS.resx" Condition="$(Cultures.Contains('sr-Latn-CS'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.th.resx" Condition="$(Cultures.Contains('th'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommunityResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>CommunityResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Resources\BookmarkingBusinessResources.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BookmarkingBusinessResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.ka.resx" Condition="$(Cultures.Contains('ka'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\UserControls\Resources\BookmarkingUCResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BookmarkingUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.lt.resx" Condition="$(Cultures.Contains('lt'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Resources\BookmarkingResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BookmarkingResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Bookmarking\Core\Patterns\BookmarkingPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BookmarkingPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Core\Module\ForumPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>ForumPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\UserControls\Resources\ForumUCResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>ForumUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Forum\Resources\ForumResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>ForumResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>NewsPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.et.resx" Condition="$(Cultures.Contains('et'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.he.resx" Condition="$(Cultures.Contains('he'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\News\Resources\NewsResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>NewsResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiUCResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>WikiUCResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Code\Patterns\WikiPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>WikiPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.ar-AE.resx" Condition="$(Cultures.Contains('ar-AE'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.fa.resx" Condition="$(Cultures.Contains('fa'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.ro.resx" Condition="$(Cultures.Contains('ro'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.sw.resx" Condition="$(Cultures.Contains('sw'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Wiki\Resources\WikiResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>WikiResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.be.resx" Condition="$(Cultures.Contains('be'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdayPatternResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BirthdayPatternResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.be.resx" Condition="$(Cultures.Contains('be'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.da.resx" Condition="$(Cultures.Contains('da'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.hi.resx" Condition="$(Cultures.Contains('hi'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.hu.resx" Condition="$(Cultures.Contains('hu'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.id.resx" Condition="$(Cultures.Contains('id'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.kk.resx" Condition="$(Cultures.Contains('kk'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.sv.resx" Condition="$(Cultures.Contains('sv'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modules\Birthdays\Resources\BirthdaysResource.zh-TW.resx" Condition="$(Cultures.Contains('zh-TW'))">
+      <DependentUpon>BirthdaysResource.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -971,8 +2537,12 @@
     <Content Include="App_Themes\default\images\product_disabled_logo.png" />
     <Content Include="App_Themes\default\images\product_logo.png" />
     <Content Include="App_Themes\default\images\product_logolarge.png" />
-    <Content Include="Controls\ButtonSidePanel.ascx" />
-    <Content Include="Controls\NavigationSidePanel.ascx" />
+    <Content Include="Controls\ButtonSidePanel.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Controls\NavigationSidePanel.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Default.aspx" />
     <Content Include="Help.aspx" />
     <Content Include="js\common.js" />
@@ -981,10 +2551,14 @@
     <Content Include="Modules\Birthdays\App_Themes\default\birthdays.css" />
     <Content Include="Modules\Birthdays\App_Themes\default\images\birthday.png" />
     <Content Include="Modules\Birthdays\App_Themes\default\images\white_cross.png" />
-    <Content Include="Modules\Birthdays\Default.aspx" />
+    <Content Include="Modules\Birthdays\Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Birthdays\js\birthdays.js" />
     <Content Include="Modules\Birthdays\Resources\patterns.xml" />
-    <Content Include="Modules\Blogs\AddBlog.aspx" />
+    <Content Include="Modules\Blogs\AddBlog.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Blogs\App_Themes\default\blogstyle.css" />
     <Content Include="Modules\Blogs\App_Themes\default\images\BlogIconWG.png" />
     <Content Include="Modules\Blogs\App_Themes\default\images\blogs.png" />
@@ -993,11 +2567,17 @@
     <Content Include="Modules\Blogs\App_Themes\default\images\comboarrow_bottom.png" />
     <Content Include="Modules\Blogs\App_Themes\default\images\tags.png" />
     <Content Include="Modules\Blogs\Core\Service\blog_patterns.xml" />
-    <Content Include="Modules\Blogs\Default.aspx" />
-    <Content Include="Modules\Blogs\EditBlog.aspx" />
+    <Content Include="Modules\Blogs\Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Blogs\EditBlog.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Blogs\js\blogs.js" />
     <Content Include="Modules\Blogs\ViewBlog.aspx" />
-    <Content Include="Modules\Blogs\Views\ViewBlogView.ascx" />
+    <Content Include="Modules\Blogs\Views\ViewBlogView.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Bookmarking\App_Data\IECapt.exe" />
     <Content Include="Modules\Bookmarking\App_Themes\default\css\bookmarkingstyle.css" />
     <Content Include="Modules\Bookmarking\App_Themes\default\css\imagescss\16_edit.png" />
@@ -1034,23 +2614,39 @@
     <Content Include="Modules\Bookmarking\App_Themes\default\images\tags.png" />
     <Content Include="Modules\Bookmarking\BookmarkInfo.aspx" />
     <Content Include="Modules\Bookmarking\Core\Patterns\bookmarking_patterns.xml" />
-    <Content Include="Modules\Bookmarking\CreateBookmark.aspx" />
+    <Content Include="Modules\Bookmarking\CreateBookmark.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Bookmarking\Data\Images\tag_16.gif" />
     <Content Include="Modules\Bookmarking\Default.aspx" />
     <Content Include="Modules\Bookmarking\FavouriteBookmarks.aspx" />
     <Content Include="Modules\Bookmarking\js\bookmarking.js" />
     <Content Include="Modules\Bookmarking\UserBookmarks.aspx" />
     <Content Include="Modules\Bookmarking\UserControls\BookmarkAddedByUserContorl.ascx" />
-    <Content Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkHeaderPageControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Bookmarking\UserControls\BookmarkInfoUserControl.ascx" />
-    <Content Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx" />
-    <Content Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx" />
-    <Content Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkingRemoverFromFavouritePopup.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkingUserControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkRaitingUserControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Bookmarking\UserControls\CommentsUserControl.ascx" />
     <Content Include="Modules\Bookmarking\UserControls\Common\ActionButton\js\actionbutton.js" />
-    <Content Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx" />
-    <Content Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx" />
-    <Content Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx" />
+    <Content Include="Modules\Bookmarking\UserControls\BookmarkingPagingUserControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Bookmarking\UserControls\CreateBookmarkUserControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Bookmarking\UserControls\SingleBookmarkUserControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Forum\App_Themes\default\images\attach.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\back-progress.png" />
     <Content Include="Modules\Forum\App_Themes\default\images\comboarrow_bottom.png" />
@@ -1086,21 +2682,33 @@
     <Content Include="Modules\Forum\App_Themes\default\images\upload.png" />
     <Content Include="Modules\Forum\App_Themes\default\style.css" />
     <Content Include="Modules\Forum\Core\Module\forum_patterns.xml" />
-    <Content Include="Modules\Forum\Default.aspx" />
+    <Content Include="Modules\Forum\Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Forum\EditTopic.aspx" />
     <Content Include="Modules\Forum\js\forum.js" />
     <Content Include="Modules\Forum\js\forummaker.js" />
     <Content Include="Modules\Forum\js\searchhelper.js" />
     <Content Include="Modules\Forum\ManagementCenter.aspx" />
-    <Content Include="Modules\Forum\NewForum.aspx" />
+    <Content Include="Modules\Forum\NewForum.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Forum\NewPost.aspx" />
     <Content Include="Modules\Forum\Posts.aspx" />
-    <Content Include="Modules\Forum\Search.aspx" />
+    <Content Include="Modules\Forum\Search.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Forum\Topics.aspx" />
     <Content Include="Modules\Forum\UserControls\PagingControl.ascx" />
-    <Content Include="Modules\Forum\UserControls\ForumEditor.ascx" />
-    <Content Include="Modules\Forum\UserControls\ForumMaker.ascx" />
-    <Content Include="Modules\Forum\UserControls\NewPostControl.ascx" />
+    <Content Include="Modules\Forum\UserControls\ForumEditor.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Forum\UserControls\ForumMaker.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Forum\UserControls\NewPostControl.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Forum\UserControls\PostControl.ascx" />
     <Content Include="Modules\Forum\UserControls\PostListControl.ascx" />
     <Content Include="Modules\Forum\UserControls\ThreadCategoryListControl.ascx" />
@@ -1121,10 +2729,16 @@
     <Content Include="Modules\News\App_Themes\default\images\newslogo.png" />
     <Content Include="Modules\News\App_Themes\default\newsstylesheet.css" />
     <Content Include="Modules\News\Controls\FeedItem.ascx" />
-    <Content Include="Modules\News\Controls\FeedView.ascx" />
-    <Content Include="Modules\News\Default.aspx" />
+    <Content Include="Modules\News\Controls\FeedView.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\News\Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\News\EditNews.aspx" />
-    <Content Include="Modules\News\EditPoll.aspx" />
+    <Content Include="Modules\News\EditPoll.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\News\js\news.js" />
     <Content Include="Modules\News\News.aspx" />
     <Content Include="Modules\News\Resources\news_patterns.xml" />
@@ -1176,15 +2790,25 @@
     <Content Include="Modules\Wiki\content\superscript.png" />
     <Content Include="Modules\Wiki\content\symbol.png" />
     <Content Include="Modules\Wiki\content\underlined.png" />
-    <Content Include="Modules\Wiki\Default.aspx" />
+    <Content Include="Modules\Wiki\Default.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Wiki\Diff.aspx" />
     <Content Include="Modules\Wiki\ListCategories.aspx" />
-    <Content Include="Modules\Wiki\ListFiles.aspx" />
+    <Content Include="Modules\Wiki\ListFiles.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Wiki\ListPages.aspx" />
-    <Content Include="Modules\Wiki\PageHistoryList.aspx" />
+    <Content Include="Modules\Wiki\PageHistoryList.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Wiki\scripts\editpage.js" />
-    <Content Include="Modules\Wiki\WikiUC\EditFile.ascx" />
-    <Content Include="Modules\Wiki\WikiUC\EditPage.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\EditFile.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Modules\Wiki\WikiUC\EditPage.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="Modules\Wiki\WikiUC\fckeditor\editor\css\fck_editorarea.css" />
@@ -1581,7 +3205,9 @@
     <Content Include="Modules\Wiki\WikiUC\fckeditor\fcktemplates.xml" />
     <Content Include="Modules\Wiki\WikiUC\ListFiles.ascx" />
     <Content Include="Modules\Wiki\WikiUC\ListPages.ascx" />
-    <Content Include="Modules\Wiki\WikiUC\MiniToolbar.ascx" />
+    <Content Include="Modules\Wiki\WikiUC\MiniToolbar.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Modules\Wiki\WikiUC\ViewFile.ascx" />
     <Content Include="Modules\Wiki\WikiUC\ViewPage.ascx" />
     <Content Include="Photos.aspx" />

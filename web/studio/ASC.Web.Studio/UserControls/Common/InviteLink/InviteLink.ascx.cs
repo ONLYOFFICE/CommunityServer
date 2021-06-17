@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,14 @@
 */
 
 
-using ASC.Web.Studio.Core.Users;
 using System;
+
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.PublicResources;
+using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Studio.Utility;
 
 
 namespace ASC.Web.Studio.UserControls.Common.InviteLink
@@ -24,6 +30,8 @@ namespace ASC.Web.Studio.UserControls.Common.InviteLink
     public partial class InviteLink : System.Web.UI.UserControl
     {
         protected string LinkText;
+        protected bool EnableAddUsers;
+        protected bool EnableAddVisitors;
 
         public static string Location
         {
@@ -32,7 +40,17 @@ namespace ASC.Web.Studio.UserControls.Common.InviteLink
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LinkText = CustomNamingPeople.Substitute<Resources.Resource>("InviteUsersToPortalLink").HtmlEncode();
+            LinkText = CustomNamingPeople.Substitute<Resource>("InviteUsersToPortalLink").HtmlEncode();
+            if (CoreContext.Configuration.Personal)
+            {
+                EnableAddUsers = true;
+                EnableAddVisitors = true;
+            }
+            else
+            {
+                EnableAddUsers = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
+                EnableAddVisitors = CoreContext.Configuration.Standalone || TenantStatisticsProvider.GetVisitorsCount() < TenantExtra.GetTenantQuota().ActiveUsers * Constants.CoefficientOfVisitors;
+            }
         }
     }
 }

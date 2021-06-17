@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Products/Community/Modules/Forum/Forum.Master" AutoEventWireup="true"
     EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Community.Forum.Default" Title="Untitled Page" %>
 
-<%@ Import Namespace="ASC.Web.Community.Forum.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Forum.Resources" %>
 
 <asp:Content ContentPlaceHolderID="ForumPageContent" runat="server">
     <asp:PlaceHolder ID="_headerHolder" runat="server">

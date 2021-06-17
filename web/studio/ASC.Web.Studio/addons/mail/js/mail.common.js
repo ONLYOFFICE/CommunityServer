@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@
     if (typeof LoadingBanner !== 'undefined') {
         LoadingBanner.displayMailLoading = function(msg) {
             if (!$('#firstLoader > .loader-page').length) {
-                LoadingBanner.strLoading = msg || ASC.Resources.Master.Resource.LoadingProcessing;
+                LoadingBanner.strLoading = msg || ASC.Resources.Master.ResourceJS.LoadingProcessing;
                 LoadingBanner.loaderCss = "mail-module";
                 LoadingBanner.displayLoading();
             }
@@ -212,11 +212,6 @@
         };
     })();
 
-    // google analytics track
-    window.ASC.Mail.ga_track = function(category, action, label) {
-        trackingGoogleAnalytics(category, action, label);
-    };
-
     // retrieves highlighted selected text
     window.ASC.Mail.getSelectionText = function() {
         var text = "";
@@ -228,33 +223,4 @@
         return text;
     };
 
-    $.fn.trackEvent = function(category, action, label) {
-        $(this).on("click", function() {
-            window.ASC.Mail.ga_track(category, action, label);
-        });
-    };
-
 })(jQuery);
-
-// Google Analytics const
-var ga_Categories = {
-    folder: "folder",
-    teamlabContacts: "teamlab_contacts",
-    crmContacts: "crm_contacts",
-    personalContacts: "personal_contacts",
-    accauntsSettings: "accaunts_settings",
-    tagsManagement: "tags_management",
-    createMail: "create_mail",
-    message: "message",
-    leftPanel: "left_panel"
-};
-
-var ga_Actions = {
-    filterClick: "filter_click",
-    createNew: "create_new",
-    update: "update",
-    next: "next",
-    actionClick: "action_click",
-    quickAction: "quick_action",
-    buttonClick: "button_click"
-};

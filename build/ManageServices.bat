@@ -24,7 +24,9 @@ if "%~1" == "--install-all" (
 	sc create OnlyofficeBackup%version%            start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Data.Backup.Service.BackupServiceLauncher, ASC.Data.Backup\" --log Backup"
 	sc create OnlyOfficeSocketIO%version%          start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Socket.IO.Svc.Launcher, ASC.Socket.IO.Svc\" --log SocketIO"
 	sc create OnlyOfficeTelegram%version%          start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.TelegramService.Launcher, ASC.TelegramService\" --log Telegram"
+	sc create OnlyofficeThumbnailBuilder%version%  start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Files.ThumbnailBuilder.Launcher, ASC.Files.ThumbnailBuilder\" --log ThumbnailBuilder"
 	sc create OnlyOfficeThumb%version%             start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.Thumbnails.Svc.Launcher,ASC.Thumbnails.Svc\" --log Thumb"	
+	sc create OnlyOfficeSsoAuth%version%           start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.SsoAuth.Svc.Launcher,ASC.SsoAuth.Svc\" --log SsoAuth"	
 	sc create OnlyOfficeUrlShortener%version%      start= delayed-auto binPath= "\"%basepath%\TeamLabSvc.exe\" --service \"ASC.UrlShortener.Svc.Launcher,ASC.UrlShortener.Svc\" --log UrlShortener"
 	sc create OnlyOfficeMailAggregator%version%    start= delayed-auto binPath= "\"%grandparent%\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe\""
 	sc create OnlyOfficeMailWatchdog%version%      start= delayed-auto binPath= "\"%grandparent%\MailWatchdog\ASC.Mail.Watchdog.Service.exe\""
@@ -40,7 +42,9 @@ if "%~1" == "--install-all" (
 	sc failure OnlyofficeBackup%version%             reset= 60  actions= restart/60000/restart/60000/restart/60000
 	sc failure OnlyOfficeSocketIO%version%           reset= 60  actions= restart/60000/restart/60000/restart/60000
 	sc failure OnlyOfficeTelegram%version%           reset= 60  actions= restart/60000/restart/60000/restart/60000
+	sc failure OnlyofficeThumbnailBuilder%version%   reset= 60  actions= restart/60000/restart/60000/restart/60000
 	sc failure OnlyOfficeThumb%version%              reset= 60  actions= restart/60000/restart/60000/restart/60000
+	sc failure OnlyOfficeSsoAuth%version%            reset= 60  actions= restart/60000/restart/60000/restart/60000
 	sc failure OnlyOfficeUrlShortener%version%       reset= 60  actions= restart/60000/restart/60000/restart/60000
 	sc failure OnlyOfficeMailAggregator%version%     reset= 60  actions= restart/60000/restart/60000/restart/60000
 	sc failure OnlyOfficeMailWatchdog%version%       reset= 60  actions= restart/60000/restart/60000/restart/60000
@@ -76,9 +80,13 @@ if "%~1" == "--uninstall-all" (
 	net stop  OnlyOfficeTelegram%version%
 	sc delete OnlyOfficeTelegram%version%	
 	net stop  OnlyOfficeThumb%version%
-	sc delete OnlyOfficeThumb%version%	
+	sc delete OnlyOfficeThumb%version%
+	net stop  OnlyOfficeSsoAuth%version%
+	sc delete OnlyOfficeSsoAuth%version%
 	net stop  OnlyOfficeUrlShortener%version%
 	sc delete OnlyOfficeUrlShortener%version%
+	net stop  OnlyofficeThumbnailBuilder%version%
+	sc delete OnlyofficeThumbnailBuilder%version%
 	net stop  OnlyOfficeMailAggregator%version%
 	sc delete OnlyOfficeMailAggregator%version%	
 	net stop  OnlyOfficeMailWatchdog%version%

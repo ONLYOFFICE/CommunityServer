@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,10 @@
 
 
 using System;
-using System.Reflection;
 
 namespace ASC.Forum
 {
-	public enum AttachmentContentType
+    public enum AttachmentContentType
     {
         Uknown = 0,
 
@@ -41,19 +40,19 @@ namespace ASC.Forum
         Others = 8
     }
 
-	public class Attachment
-    {       
-        public virtual int ID{get; set;}
+    public class Attachment
+    {
+        public virtual int ID { get; set; }
 
         public virtual DateTime CreateDate { get; set; }
-       
-        public virtual string Name{get; set;}  
-        
-        public virtual int Size{get; set;}
 
-        public virtual int DownloadCount{get; set;}
+        public virtual string Name { get; set; }
 
-        public virtual AttachmentContentType ContentType { get; set; }      
+        public virtual int Size { get; set; }
+
+        public virtual int DownloadCount { get; set; }
+
+        public virtual AttachmentContentType ContentType { get; set; }
 
         public virtual string MIMEContentType { get; set; }
 
@@ -65,7 +64,7 @@ namespace ASC.Forum
 
         public Attachment()
         {
-            this.ID= 0;            
+            this.ID = 0;
             this.Name = "";
             this.CreateDate = ASC.Core.Tenants.TenantUtil.DateTimeNow();
             this.Size = 0;

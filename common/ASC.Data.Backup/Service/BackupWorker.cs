@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading;
 
 using ASC.Common.Caching;
@@ -47,11 +48,7 @@ namespace ASC.Data.Backup.Service
 
         public static void Start(BackupConfigurationSection config)
         {
-            TempFolder = PathHelper.ToRootedPath(config.TempFolder);
-            if (!Directory.Exists(TempFolder))
-            {
-                Directory.CreateDirectory(TempFolder);
-            }
+            TempFolder = TempPath.GetTempPath();
 
             limit = config.Limit;
             upgradesPath = config.UpgradesPath;
@@ -237,6 +234,17 @@ namespace ASC.Data.Backup.Service
             return progress;
         }
 
+        private static string GetBackupHash(string path)
+        {
+            using (var sha256 = SHA256.Create())
+            using (var fileStream = File.OpenRead(path))
+            {
+                fileStream.Position = 0;
+                var hash = sha256.ComputeHash(fileStream);
+                return BitConverter.ToString(hash).Replace("-", string.Empty);
+            }
+        }
+
         private class BackupProgressItem : IProgressItem
         {
             private const string ArchiveFormat = "tar.gz";
@@ -285,7 +293,6 @@ namespace ASC.Data.Backup.Service
                     {
                         backupTask.IgnoreModule(ModuleName.Mail);
                     }
-                    backupTask.IgnoreTable("tenants_tariff");
                     backupTask.ProgressChanged += (sender, args) => Percentage = 0.9 * args.Progress;
                     backupTask.RunJob();
 
@@ -309,7 +316,8 @@ namespace ASC.Data.Backup.Service
                             StoragePath = storagePath,
                             CreatedOn = DateTime.UtcNow,
                             ExpiresOn = StorageType == BackupStorageType.DataStore ? DateTime.UtcNow.AddDays(1) : DateTime.MinValue,
-                            StorageParams = StorageParams
+                            StorageParams = StorageParams,
+                            Hash = GetBackupHash(tempFile)
                         });
 
                     Percentage = 100;
@@ -384,6 +392,17 @@ namespace ASC.Data.Backup.Service
                     var storage = BackupStorageFactory.GetBackupStorage(StorageType, TenantId, StorageParams);
                     storage.Download(StoragePath, tempFile);
 
+                    if (!CoreContext.Configuration.Standalone)
+                    {
+                        var backupHash = GetBackupHash(tempFile);
+                        var repo = BackupStorageFactory.GetBackupRepository();
+                        var record = repo.GetBackupRecord(backupHash, TenantId);
+                        if (record == null)
+                        {
+                            throw new Exception(BackupResource.BackupNotFound);
+                        }
+                    }
+
                     Percentage = 10;
 
                     tenant = CoreContext.TenantManager.GetTenant(TenantId);
@@ -395,7 +414,6 @@ namespace ASC.Data.Backup.Service
                     columnMapper.Commit();
 
                     var restoreTask = new RestorePortalTask(Log, TenantId, configPaths[currentRegion], tempFile, columnMapper, upgradesPath);
-                    restoreTask.IgnoreTable("tenants_tariff");
                     restoreTask.ProgressChanged += (sender, args) => Percentage = (10d + 0.65 * args.Progress);
                     restoreTask.RunJob();
 
@@ -403,9 +421,9 @@ namespace ASC.Data.Backup.Service
 
                     if (restoreTask.Dump)
                     {
+                        AscCache.OnClearCache();
                         if (Notify)
                         {
-                            AscCache.OnClearCache();
                             var tenants = CoreContext.TenantManager.GetTenants();
                             foreach (var t in tenants)
                             {
@@ -507,7 +525,7 @@ namespace ASC.Data.Backup.Service
                     transferProgressItem.RunJob();
 
                     Link = GetLink(alias, false);
-                    NotifyHelper.SendAboutTransferComplete(TenantId, TargetRegion, Link, !Notify);
+                    NotifyHelper.SendAboutTransferComplete(TenantId, TargetRegion, Link, !Notify, transferProgressItem.ToTenantId);
                 }
                 catch (Exception error)
                 {
@@ -529,7 +547,7 @@ namespace ASC.Data.Backup.Service
 
             private string GetLink(string alias, bool isErrorLink)
             {
-                return "http://" + alias + "." + ConfigurationProvider.Open(configPaths[isErrorLink ? currentRegion : TargetRegion]).AppSettings.Settings["core.base-domain"].Value;
+                return "https://" + alias + "." + ConfigurationProvider.Open(configPaths[isErrorLink ? currentRegion : TargetRegion]).AppSettings.Settings["core.base-domain"].Value;
             }
 
             public object Clone()

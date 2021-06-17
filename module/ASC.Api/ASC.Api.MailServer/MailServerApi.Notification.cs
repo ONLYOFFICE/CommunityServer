@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,12 @@
 */
 
 
+using System;
+
 using ASC.Api.Attributes;
 using ASC.Mail.Data.Contracts;
+
+using ASC.Web.Studio.PublicResources;
 
 // ReSharper disable InconsistentNaming
 
@@ -36,6 +40,7 @@ namespace ASC.Api.MailServer
         [Create(@"notification/address/add")]
         public ServerNotificationAddressData CreateNotificationAddress(string name, string password, int domain_id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var notifyAddress = MailEngineFactory.ServerEngine.CreateNotificationAddress(name, password, domain_id);
             return notifyAddress;
         }
@@ -48,6 +53,7 @@ namespace ASC.Api.MailServer
         [Delete(@"notification/address/remove")]
         public void RemoveNotificationAddress(string address)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             MailEngineFactory.ServerEngine.RemoveNotificationAddress(address);
         }
     }

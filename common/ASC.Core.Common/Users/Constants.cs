@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Configuration;
+
 using Action = ASC.Common.Security.Authorizing.Action;
 using AuthConst = ASC.Common.Security.Authorizing.Constants;
 
@@ -34,6 +35,26 @@ namespace ASC.Core.Users
                     count = 10000;
                 }
                 return count;
+            }
+        }
+
+        public static int CoefficientOfVisitors
+        {
+            get
+            {
+                if (CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId).Free)
+                {
+                    return 0;
+                }
+                else
+                {
+                    int count;
+                    if (!int.TryParse(ConfigurationManagerExtension.AppSettings["core.coefficient-of-visitors"], out count))
+                    {
+                        count = 2;
+                    }
+                    return count;
+                }
             }
         }
 
@@ -104,7 +125,7 @@ namespace ASC.Core.Users
             ID = new Guid("{74B9CBD1-2412-4e79-9F36-7163583E9D3A}"),
             Name = "Unknown"
         };
-                
+
         #endregion
 
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,12 @@
 
 using System;
 using System.Text;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.ElasticSearch;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.CRM.Core.Search
@@ -37,7 +39,7 @@ namespace ASC.Web.CRM.Core.Search
         public int Type { get; set; }
 
         [Column("data", 3)]
-        public string Data 
+        public string Data
         {
             get
             {
@@ -50,7 +52,7 @@ namespace ASC.Web.CRM.Core.Search
                         foreach (var o in obj.Values())
                         {
                             var val = o.ToString();
-                            if(!string.IsNullOrEmpty(val))
+                            if (!string.IsNullOrEmpty(val))
                             {
                                 result.AppendFormat("{0} ", val);
                             }
@@ -70,7 +72,7 @@ namespace ASC.Web.CRM.Core.Search
             set
             {
                 data = value;
-            } 
+            }
         }
 
         protected override string Table { get { return "crm_contact_info"; } }

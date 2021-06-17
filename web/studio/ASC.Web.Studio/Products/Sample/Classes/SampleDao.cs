@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -39,7 +40,7 @@ namespace ASC.Web.Sample.Classes
         public static void CheckTable()
         {
             if (_tableExist) return;
-            
+
             _tableExist = CheckTableExist();
 
             if (_tableExist) return;
@@ -80,17 +81,17 @@ namespace ASC.Web.Sample.Classes
         public static SampleClass Create(string value)
         {
             var result = new SampleClass
-                {
-                    Value = value
-                };
-            
+            {
+                Value = value
+            };
+
             using (var db = GetDb())
             {
                 var query = new SqlInsert(Table, true)
                     .InColumnValue("id", 0)
                     .InColumnValue("value", value)
                     .Identity(0, 0, true);
-                
+
                 result.Id = db.ExecuteScalar<int>(query);
             }
 
@@ -106,10 +107,10 @@ namespace ASC.Web.Sample.Classes
                     .Where(Exp.Eq("id", id));
 
                 var result = db.ExecuteList(query).ConvertAll(x => new SampleClass
-                    {
-                        Id = Convert.ToInt32(x[0]),
-                        Value = Convert.ToString(x[1])
-                    });
+                {
+                    Id = Convert.ToInt32(x[0]),
+                    Value = Convert.ToString(x[1])
+                });
 
                 return result.Count > 0 ? result[0] : null;
             }

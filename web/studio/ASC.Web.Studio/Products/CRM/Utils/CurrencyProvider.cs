@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 using ASC.Common.Logging;
@@ -176,10 +177,12 @@ namespace ASC.Web.CRM.Classes
 
         private static string GetExchangesTempPath()
         {
-            return Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
+            var assembly = Assembly.GetExecutingAssembly();
+            var companyAttribute = assembly?.GetCustomAttribute<AssemblyCompanyAttribute>();
+            return Path.Combine(TempPath.GetTempPath(), companyAttribute?.Company ?? string.Empty, "exchanges");
         }
 
-        private static Regex CurRateRegex = new Regex("<td id=\"(?<Currency>[a-zA-Z]{3})\">(?<Rate>[\\d\\.]+)</td>");
+        private static readonly Regex CurRateRegex = new Regex("<td id=\"(?<Currency>[a-zA-Z]{3})\">(?<Rate>[\\d\\.]+)</td>");
 
         private static Dictionary<String, Decimal> GetExchangeRates()
         {
@@ -323,7 +326,7 @@ namespace ASC.Web.CRM.Classes
                     Directory.CreateDirectory(dir);
                 }
 
-                var destinationURI = new Uri(String.Format("https://themoneyconverter.com/{0}/{0}.aspx", currency));
+                var destinationURI = new Uri(string.Format("https://themoneyconverter.com/{0}/{0}", currency));
 
                 var request = (HttpWebRequest)WebRequest.Create(destinationURI);
                 request.Method = "GET";
@@ -338,8 +341,9 @@ namespace ASC.Web.CRM.Classes
                     var data = responseStream.ReadToEnd();
 
                     File.WriteAllText(filepath, data);
-
                 }
+
+                System.Threading.Thread.Sleep(100); // limit 10 requests per second
             }
             catch (Exception error)
             {

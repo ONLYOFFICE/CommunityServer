@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ namespace ASC.ActiveDirectory.Base.Expressions
         /// <summary>Equal</summary>
         Equal = 0x000103,
         /// <summary>Not equal</summary>
-        NotEqual        = 0x010104,
+        NotEqual = 0x010104,
         /// <summary>Strong less</summary>
         Less = 0x000105,
         /// <summary>Less or equal</summary>

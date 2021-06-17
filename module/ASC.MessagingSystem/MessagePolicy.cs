@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ namespace ASC.MessagingSystem
     {
         private static readonly string[] secretIps =
             ConfigurationManagerExtension.AppSettings["messaging.secret-ips"] == null
-                ? new string[] {}
+                ? new string[] { }
                 : ConfigurationManagerExtension.AppSettings["messaging.secret-ips"]
-                      .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+                      .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
         public static bool Check(EventMessage message)
         {

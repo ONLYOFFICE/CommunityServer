@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 */
 
 
-using ASC.Data.Backup.Tasks.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,7 +23,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+
 using ASC.Common.Logging;
+using ASC.Data.Backup.Tasks.Data;
 
 namespace ASC.Data.Backup.Tasks.Modules
 {
@@ -248,7 +249,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 }
                 return true;
             }
-            if(table.Name == "files_folder" && (columnName == "create_by" || columnName == "modified_by"))
+            if (table.Name == "files_folder" && (columnName == "create_by" || columnName == "modified_by"))
             {
                 base.TryPrepareValue(connection, columnMapper, table, columnName, ref value);
                 return true;

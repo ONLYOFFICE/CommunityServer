@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using ASC.Files.Core;
+using ASC.Web.Files.Core.Compress;
 using ASC.Web.Files.Core.Entries;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Services.WCFService.FileOperations;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 
@@ -103,6 +106,8 @@ namespace ASC.Web.Files.Services.WCFService
 
         #region Favorites Manager
 
+        bool ToggleFileFavorite(String fileId, bool favorite);
+
         ItemList<FileEntry> AddToFavorites(ItemList<String> foldersId, ItemList<String> filesId);
 
         ItemList<FileEntry> DeleteFavorites(ItemList<String> foldersId, ItemList<String> filesId);
@@ -150,6 +155,8 @@ namespace ASC.Web.Files.Services.WCFService
         bool DisplayTemplates(bool value);
 
         bool ChangeDeleteConfrim(bool update);
+
+        ICompress ChangeDownloadTarGz(bool update);
 
         String GetHelpCenter();
 

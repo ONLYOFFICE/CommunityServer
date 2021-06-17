@@ -19,7 +19,7 @@ namespace ASC.Web.Talk.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class TalkOverviewResource {
@@ -160,38 +160,11 @@ namespace ASC.Web.Talk.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mail.ru Agent.
-        /// </summary>
-        public static string MailRuAgent {
-            get {
-                return ResourceManager.GetString("MailRuAgent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Messaging.
-        /// </summary>
-        public static string Messaging {
-            get {
-                return ResourceManager.GetString("Messaging", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to More information about notification is avaliable {0}.
         /// </summary>
         public static string MoreInformation {
             get {
                 return ResourceManager.GetString("MoreInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name:.
-        /// </summary>
-        public static string Name {
-            get {
-                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -246,24 +219,6 @@ namespace ASC.Web.Talk.Resources {
         public static string ProfilePage {
             get {
                 return ResourceManager.GetString("ProfilePage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recommended Clients.
-        /// </summary>
-        public static string Recommended {
-            get {
-                return ResourceManager.GetString("Recommended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Screenshots.
-        /// </summary>
-        public static string ScreenshotsSectionTitle {
-            get {
-                return ResourceManager.GetString("ScreenshotsSectionTitle", resourceCulture);
             }
         }
         
@@ -327,15 +282,6 @@ namespace ASC.Web.Talk.Resources {
         public static string VoicesOfEvents {
             get {
                 return ResourceManager.GetString("VoicesOfEvents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Status Changer.
-        /// </summary>
-        public static string YourStatusChanger {
-            get {
-                return ResourceManager.GetString("YourStatusChanger", resourceCulture);
             }
         }
     }

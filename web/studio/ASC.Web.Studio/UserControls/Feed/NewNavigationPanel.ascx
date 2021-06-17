@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewNavigationPanel.ascx.cs"
             Inherits="ASC.Web.Studio.UserControls.Feed.NewNavigationPanel" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Import Namespace="ASC.Data.Storage" %>
 
 <style type="text/css">

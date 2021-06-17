@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+
 using ASC.Common.Logging;
 using ASC.Core.Common.Contracts;
 using ASC.Data.Backup.Storage;
@@ -27,7 +28,7 @@ using ASC.Data.Backup.Utils;
 
 namespace ASC.Data.Backup.Service
 {
-    internal class BackupService : IBackupService
+    internal class BackupService : IBackupService, IHealthCheckService
     {
         private readonly ILog log = LogManager.GetLogger("ASC.Backup.Service");
 
@@ -93,13 +94,13 @@ namespace ASC.Data.Backup.Service
                 if (storage.IsExists(record.StoragePath))
                 {
                     backupHistory.Add(new BackupHistoryRecord
-                        {
-                            Id = record.Id,
-                            FileName = record.FileName,
-                            StorageType = record.StorageType,
-                            CreatedOn = record.CreatedOn,
-                            ExpiresOn = record.ExpiresOn
-                        });
+                    {
+                        Id = record.Id,
+                        FileName = record.FileName,
+                        StorageType = record.StorageType,
+                        CreatedOn = record.CreatedOn,
+                        ExpiresOn = record.ExpiresOn
+                    });
                 }
                 else
                 {
@@ -187,11 +188,11 @@ namespace ASC.Data.Backup.Service
                         var config = ConfigurationProvider.Open(PathHelper.ToRootedConfigPath(configElement.Path));
                         var baseDomain = config.AppSettings.Settings["core.base-domain"].Value;
                         return new TransferRegion
-                            {
-                                Name = configElement.Region,
-                                BaseDomain = baseDomain,
-                                IsCurrentRegion = configElement.Region.Equals(webConfigs.CurrentRegion, StringComparison.InvariantCultureIgnoreCase)
-                            };
+                        {
+                            Name = configElement.Region,
+                            BaseDomain = baseDomain,
+                            IsCurrentRegion = configElement.Region.Equals(webConfigs.CurrentRegion, StringComparison.InvariantCultureIgnoreCase)
+                        };
                     })
                 .ToList();
         }
@@ -200,14 +201,14 @@ namespace ASC.Data.Backup.Service
         {
             BackupStorageFactory.GetBackupRepository().SaveBackupSchedule(
                 new Schedule(request.TenantId)
-                    {
-                        Cron = request.Cron,
-                        BackupMail = request.BackupMail,
-                        NumberOfBackupsStored = request.NumberOfBackupsStored,
-                        StorageType = request.StorageType,
-                        StorageBasePath = request.StorageBasePath,
-                        StorageParams = request.StorageParams
-                    });
+                {
+                    Cron = request.Cron,
+                    BackupMail = request.BackupMail,
+                    NumberOfBackupsStored = request.NumberOfBackupsStored,
+                    StorageType = request.StorageType,
+                    StorageBasePath = request.StorageBasePath,
+                    StorageParams = request.StorageParams
+                });
         }
 
         public void DeleteSchedule(int tenantId)
@@ -220,16 +221,26 @@ namespace ASC.Data.Backup.Service
             var schedule = BackupStorageFactory.GetBackupRepository().GetBackupSchedule(tenantId);
             return schedule != null
                        ? new ScheduleResponse
-                           {
-                               StorageType = schedule.StorageType,
-                               StorageBasePath = schedule.StorageBasePath,
-                               BackupMail = schedule.BackupMail,
-                               NumberOfBackupsStored = schedule.NumberOfBackupsStored,
-                               Cron = schedule.Cron,
-                               LastBackupTime = schedule.LastBackupTime,
-                               StorageParams = schedule.StorageParams
-                           }
+                       {
+                           StorageType = schedule.StorageType,
+                           StorageBasePath = schedule.StorageBasePath,
+                           BackupMail = schedule.BackupMail,
+                           NumberOfBackupsStored = schedule.NumberOfBackupsStored,
+                           Cron = schedule.Cron,
+                           LastBackupTime = schedule.LastBackupTime,
+                           StorageParams = schedule.StorageParams
+                       }
                        : null;
         }
+
+        public HealthCheckResponse CheckHealth()
+        {
+            return HealthCheckResult.ToResponse(new HealthCheckResult
+            {
+                Message = "Service Backup is OK! Warning: Method is not implement. Always return the Healthy status",
+                Status = HealthStatus.Healthy
+            });
+        }
+
     }
 }

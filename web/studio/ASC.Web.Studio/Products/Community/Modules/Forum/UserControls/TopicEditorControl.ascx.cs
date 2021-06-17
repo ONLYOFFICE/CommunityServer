@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,20 +21,24 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using ASC.Web.Studio.UserControls.Common.PollForm;
+
 using AjaxPro;
+
 using ASC.ElasticSearch;
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Community.Search;
+using ASC.Web.Studio.UserControls.Common.PollForm;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.UserControls.Forum
 {
     public partial class TopicEditorControl : UserControl
-    {  
+    {
         public Topic EditableTopic { get; set; }
         public Guid SettingsID { get; set; }
         public int topicId { get; set; }
@@ -58,7 +62,7 @@ namespace ASC.Web.UserControls.Forum
             _forumManager = _settings.ForumManager;
 
             Utility.RegisterTypeForAjax(typeof(TagSuggest));
-            
+
             _subject = "";
 
             int idTopic = 0;
@@ -93,23 +97,23 @@ namespace ASC.Web.UserControls.Forum
 
             _subject = EditableTopic.Title;
 
-            _tagString = String.Join(",", EditableTopic.Tags.Select(x=>x.Name));
+            _tagString = String.Join(",", EditableTopic.Tags.Select(x => x.Name));
             _tagValues = JsonConvert.SerializeObject(EditableTopic.Tags.Select(x => new List<object> { x.Name, x.ID }));
 
             if (EditableTopic.Type == TopicType.Informational)
                 _pollMaster.Visible = false;
             else
             {
-                _pollMaster.QuestionFieldID = "forum_subject";                
+                _pollMaster.QuestionFieldID = "forum_subject";
                 if (IsPostBack == false)
                 {
-                    var question = ForumDataProvider.GetPollByID(TenantProvider.CurrentTenantID, EditableTopic.QuestionID);                        
+                    var question = ForumDataProvider.GetPollByID(TenantProvider.CurrentTenantID, EditableTopic.QuestionID);
                     _pollMaster.Singleton = (question.Type == QuestionType.OneAnswer);
                     _pollMaster.Name = question.Name;
                     _pollMaster.ID = question.ID.ToString();
 
                     foreach (var variant in question.AnswerVariants)
-                    {   
+                    {
                         _pollMaster.AnswerVariants.Add(new PollFormMaster.AnswerViarint()
                         {
                             ID = variant.ID.ToString(),
@@ -126,18 +130,18 @@ namespace ASC.Web.UserControls.Forum
                 if (EditableTopic.Type == TopicType.Informational)
                     _subject = Request["forum_subject"].Trim();
                 else
-                    _subject = (_pollMaster.Name??"").Trim();               
+                    _subject = (_pollMaster.Name ?? "").Trim();
 
                 if (String.IsNullOrEmpty(_subject))
                 {
                     _subject = "";
-                    _errorMessage = "<div class=\"errorBox\">" + Resources.ForumUCResource.ErrorSubjectEmpty + "</div>";
+                    _errorMessage = "<div class=\"errorBox\">" + ForumUCResource.ErrorSubjectEmpty + "</div>";
                     return;
                 }
 
                 if (EditableTopic.Type == TopicType.Poll && _pollMaster.AnswerVariants.Count < 2)
                 {
-                    _errorMessage = "<div class=\"errorBox\">" + Resources.ForumUCResource.ErrorPollVariantCount + "</div>";
+                    _errorMessage = "<div class=\"errorBox\">" + ForumUCResource.ErrorPollVariantCount + "</div>";
                     return;
                 }
 
@@ -156,7 +160,7 @@ namespace ASC.Web.UserControls.Forum
                     var removeTags = EditableTopic.Tags;
                     EditableTopic.Tags = CreateTags();
 
-                    removeTags.RemoveAll(t => EditableTopic.Tags.Find(nt => nt.ID == t.ID) != null);                    
+                    removeTags.RemoveAll(t => EditableTopic.Tags.Find(nt => nt.ID == t.ID) != null);
 
                     foreach (var tag in EditableTopic.Tags)
                     {
@@ -187,22 +191,22 @@ namespace ASC.Web.UserControls.Forum
                                 SortOrder = i - 1
                             });
                             i++;
-                        }                    
+                        }
 
-                        ForumDataProvider.UpdatePoll(TenantProvider.CurrentTenantID, EditableTopic.QuestionID, 
+                        ForumDataProvider.UpdatePoll(TenantProvider.CurrentTenantID, EditableTopic.QuestionID,
                             _pollMaster.Singleton ? QuestionType.OneAnswer : QuestionType.SeveralAnswer,
                             EditableTopic.Title, variants);
                     }
-                    
+
                     ForumDataProvider.UpdateTopic(TenantProvider.CurrentTenantID, EditableTopic.ID, EditableTopic.Title,
                                                     EditableTopic.Sticky, EditableTopic.Closed);
-                    FactoryIndexer<TopicWrapper>.UpdateAsync(EditableTopic); 
-                    _errorMessage = "<div class=\"okBox\">" + Resources.ForumUCResource.SuccessfullyEditTopicMessage + "</div>";
+                    FactoryIndexer<TopicWrapper>.UpdateAsync(EditableTopic);
+                    _errorMessage = "<div class=\"okBox\">" + ForumUCResource.SuccessfullyEditTopicMessage + "</div>";
                     Response.Redirect(_forumManager.PreviousPage.Url);
 
-                
+
                 }
-                catch(Exception ex)                
+                catch (Exception ex)
                 {
                     _errorMessage = "<div class=\"errorBox\">" + ex.Message.HtmlEncode() + "</div>";
                     return;
@@ -232,7 +236,7 @@ namespace ASC.Web.UserControls.Forum
                             Name = tagItem[0].ToString()
                         };
 
-                        if(searchTags.Find(t=> t.ID == tag.ID)==null)
+                        if (searchTags.Find(t => t.ID == tag.ID) == null)
                             searchTags.Add(tag);
                     }
                 }
@@ -268,15 +272,15 @@ namespace ASC.Web.UserControls.Forum
             var sb = new StringBuilder();
             sb.AppendLine("var ForumTagSearchHelper = new SearchHelper('forum_tags','forum_sh_item','forum_sh_itemselect','',\"ForumManager.SaveSearchTags(\'forum_search_tags\',ForumTagSearchHelper.SelectedItem.Value,ForumTagSearchHelper.SelectedItem.Help);\",\"TagSuggest\", \"GetSuggest\",\"'" + SettingsID + "',\",true,false);");
             Page.RegisterInlineScript(sb.ToString());
-            
+
             sb = new StringBuilder();
             sb.Append("<div class=\"headerPanel-splitter\">");
-            sb.Append("<div class=\"headerPanelSmall-splitter\"><b>" + Resources.ForumUCResource.Tags + ":</b></div>");
+            sb.Append("<div class=\"headerPanelSmall-splitter\"><b>" + ForumUCResource.Tags + ":</b></div>");
             sb.Append("<div>");
             sb.Append("<input autocomplete=\"off\" class=\"textEdit\" style=\"width:100%\" type=\"text\" value=\"" + HttpUtility.HtmlEncode(_tagString) + "\" maxlength=\"3000\" id=\"forum_tags\" name=\"forum_tags\"/>");
             sb.Append("<input type='hidden' value=\"" + HttpUtility.HtmlEncode(_tagValues) + "\" id='forum_search_tags' name='forum_search_tags'/>");
             sb.Append("</div>");
-            sb.Append("<div class=\"text-medium-describe\">" + Resources.ForumUCResource.HelpForTags + "</div>");
+            sb.Append("<div class=\"text-medium-describe\">" + ForumUCResource.HelpForTags + "</div>");
             sb.Append("</div>");
 
             return sb.ToString();

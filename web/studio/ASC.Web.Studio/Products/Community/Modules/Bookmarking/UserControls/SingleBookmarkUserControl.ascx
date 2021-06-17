@@ -1,7 +1,7 @@
 ﻿<%@ Assembly Name="ASC.Web.Community" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SingleBookmarkUserControl.ascx.cs"
 	Inherits="ASC.Web.UserControls.Bookmarking.SingleBookmarkUserControl" %>
-<%@ Import Namespace="ASC.Web.UserControls.Bookmarking.Resources" %>
+<%@ Import Namespace="ASC.Web.Community.Modules.Bookmarking.UserControls.Resources" %>
 
 <div class="clearFix <% if(!IsBookmarkInfoMode){ %> borderBase bookmarks-row <% } %>" id="<%=GetSingleBookmarkID() %>">
     <table class="tableBase" width="100%" cellpadding="10" cellspacing="0">

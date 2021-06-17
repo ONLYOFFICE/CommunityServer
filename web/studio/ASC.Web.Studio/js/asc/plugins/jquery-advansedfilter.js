@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2649,7 +2649,7 @@
         opts.colcount = opts.colcount > 4 ? 4 : opts.colcount;
 
         if (!opts.hintDefaultDisable && ASC.Resources.Master.FilterHelpCenterLink) {
-        opts.hint = opts.hasOwnProperty('hint') ? opts.hint : ASC.Resources.Master.Resource.AdvansedFilterInfoText.format(
+        opts.hint = opts.hasOwnProperty('hint') ? opts.hint : ASC.Resources.Master.ResourceJS.AdvansedFilterInfoText.format(
                                 '<b>',
                                 '</b>',
                                 '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',

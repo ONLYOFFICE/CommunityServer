@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.ComponentModel;
+
 using ASC.Web.CRM.Classes;
 
 namespace ASC.CRM.Core
@@ -23,7 +24,7 @@ namespace ASC.CRM.Core
     [TypeConverter(typeof(LocalizedEnumConverter))]
     public enum EntityType
     {
-        Any  = -1,
+        Any = -1,
         Contact = 0,
         Opportunity = 1,
         RelationshipEvent = 2,

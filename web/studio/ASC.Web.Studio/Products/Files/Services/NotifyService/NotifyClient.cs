@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
@@ -93,9 +94,15 @@ namespace ASC.Web.Files.Services.NotifyService
 
                 var url = fileEntry.FileEntryType == FileEntryType.File
                               ? FilesLinkUtility.GetFileWebPreviewUrl(fileEntry.Title, fileEntry.ID)
-                              : PathProvider.GetFolderUrl(((Folder)fileEntry));
+                              : PathProvider.GetFolderUrl((Folder)fileEntry);
 
                 var recipientsProvider = NotifySource.Instance.GetRecipientsProvider();
+
+                var action = fileEntry.FileEntryType == FileEntryType.File
+                            ? ((File)fileEntry).Encrypted
+                                ? NotifyConstants.Event_ShareEncryptedDocument
+                                : NotifyConstants.Event_ShareDocument
+                            : NotifyConstants.Event_ShareFolder;
 
                 foreach (var recipientPair in recipients)
                 {
@@ -108,14 +115,15 @@ namespace ASC.Web.Files.Services.NotifyService
                     var recipient = recipientsProvider.GetRecipient(u.ID.ToString());
 
                     Instance.SendNoticeAsync(
-                        fileEntry.FileEntryType == FileEntryType.File ? NotifyConstants.Event_ShareDocument : NotifyConstants.Event_ShareFolder,
+                        action,
                         fileEntry.UniqID,
                         recipient,
                         true,
                         new TagValue(NotifyConstants.Tag_DocumentTitle, fileEntry.Title),
                         new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(url)),
                         new TagValue(NotifyConstants.Tag_AccessRights, aceString),
-                        new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode())
+                        new TagValue(NotifyConstants.Tag_Message, message.HtmlEncode()),
+                        Studio.Core.Notify.TagValues.Image(0, "privacy.png")
                         );
                 }
             }

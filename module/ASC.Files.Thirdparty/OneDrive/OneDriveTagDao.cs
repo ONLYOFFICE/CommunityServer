@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
@@ -93,15 +94,15 @@ namespace ASC.Files.Thirdparty.OneDrive
                     sqlQuery.Where(Exp.Eq("ft.owner", subject));
 
                 var tags = db.ExecuteList(sqlQuery).ConvertAll(r => new Tag
-                    {
-                        TagName = Convert.ToString(r[0]),
-                        TagType = (TagType)r[1],
-                        Owner = new Guid(r[2].ToString()),
-                        EntryId = MappingID(r[3]),
-                        EntryType = (FileEntryType)r[4],
-                        Count = Convert.ToInt32(r[5]),
-                        Id = Convert.ToInt32(r[6])
-                    });
+                {
+                    TagName = Convert.ToString(r[0]),
+                    TagType = (TagType)r[1],
+                    Owner = new Guid(r[2].ToString()),
+                    EntryId = MappingID(r[3]),
+                    EntryType = (FileEntryType)r[4],
+                    Count = Convert.ToInt32(r[5]),
+                    Id = Convert.ToInt32(r[6])
+                });
 
                 if (deepSearch) return tags;
 

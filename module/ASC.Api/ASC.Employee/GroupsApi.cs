@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using ASC.Api.Attributes;
-using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
@@ -115,8 +115,8 @@ namespace ASC.Api.Employee
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditGroups, Core.Users.Constants.Action_AddRemoveUser);
 
-            var group = CoreContext.UserManager.SaveGroupInfo(new GroupInfo {Name = groupName});
-            
+            var group = CoreContext.UserManager.SaveGroupInfo(new GroupInfo { Name = groupName });
+
             TransferUserToDepartment(groupManager, @group, true);
             if (members != null)
             {
@@ -317,7 +317,7 @@ namespace ASC.Api.Employee
         private static void RemoveUserFromDepartment(Guid userId, GroupInfo @group)
         {
             if (!CoreContext.UserManager.UserExists(userId)) return;
-            
+
             var user = CoreContext.UserManager.GetUsers(userId);
             CoreContext.UserManager.RemoveUserFromGroup(user.ID, @group.ID);
             CoreContext.UserManager.SaveUserInfo(user);
@@ -326,7 +326,7 @@ namespace ASC.Api.Employee
         private static void TransferUserToDepartment(Guid userId, GroupInfo group, bool setAsManager)
         {
             if (!CoreContext.UserManager.UserExists(userId) && userId != Guid.Empty) return;
-            
+
             if (setAsManager)
             {
                 CoreContext.UserManager.SetDepartmentManager(@group.ID, userId);

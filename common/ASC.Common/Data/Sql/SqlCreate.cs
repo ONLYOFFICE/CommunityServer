@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,9 +52,9 @@ namespace ASC.Common.Data.Sql
         public class Table : SqlCreate
         {
             private bool ifNotExists;
-            private List<string> primaryKey = new List<string>();
-            private List<Column> columns = new List<Column>();
-            private List<Index> indexes = new List<Index>();
+            private readonly List<string> primaryKey = new List<string>();
+            private readonly List<Column> columns = new List<Column>();
+            private readonly List<Index> indexes = new List<Index>();
 
 
             public Table(string name)
@@ -169,9 +169,9 @@ namespace ASC.Common.Data.Sql
 
         public class Column : SqlCreate
         {
-            private DbType type;
-            private int size;
-            private int precision;
+            private readonly DbType type;
+            private readonly int size;
+            private readonly int precision;
             private bool notNull;
             private bool primaryKey;
             private bool autoinc;
@@ -237,7 +237,7 @@ namespace ASC.Common.Data.Sql
 
         public class Index : SqlCreate
         {
-            private string table;
+            private readonly string table;
             internal string[] columns;
             internal bool unique;
             private bool ifNotExists;

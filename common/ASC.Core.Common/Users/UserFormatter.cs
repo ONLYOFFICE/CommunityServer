@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,10 +47,9 @@ namespace ASC.Core.Users
             return string.Format(GetUserDisplayFormat(format), userInfo.FirstName, userInfo.LastName);
         }
 
-        public static string GetUserName(String firstName, String lastName)
+        public static string GetUserName(string firstName, string lastName)
         {
-
-            if (String.IsNullOrEmpty(firstName) || String.IsNullOrEmpty("lastName")) throw new ArgumentException();
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName)) throw new ArgumentException();
 
             return string.Format(GetUserDisplayFormat(DisplayUserNameFormat.Default), firstName, lastName);
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,12 @@
 */
 
 
-using ASC.FederatedLogin.Profile;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+
+using ASC.FederatedLogin.Profile;
 
 namespace ASC.FederatedLogin
 {
@@ -33,7 +34,7 @@ namespace ASC.FederatedLogin
             var databaseId = _baseDatabaseId;
 
             if (!String.IsNullOrEmpty(hostedRegion))
-                databaseId = String.Join(".", new[] {_baseDatabaseId, hostedRegion.Trim()});
+                databaseId = String.Join(".", new[] { _baseDatabaseId, hostedRegion.Trim() });
 
             if (!_accountLinkers.ContainsKey(databaseId))
                 throw new ArgumentException(String.Format("Region {0} is not defined", databaseId), "hostedRegion");

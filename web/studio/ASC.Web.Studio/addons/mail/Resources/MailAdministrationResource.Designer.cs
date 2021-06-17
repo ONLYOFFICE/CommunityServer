@@ -106,15 +106,6 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add user.
-        /// </summary>
-        public static string AddUserLabel {
-            get {
-                return ResourceManager.GetString("AddUserLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Aliases.
         /// </summary>
         public static string AliasesLabel {
@@ -313,7 +304,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In some cases DNS management service does not allow to use &apos;@&apos; as domain/subdomain name. Use your domain name with the &apos;.&apos; at the end, e.g.: &apos;%1.&apos;.
+        ///   Looks up a localized string similar to In some cases, the DNS management service does not allow using &apos;@&apos; as a domain/subdomain name. Use your domain name with the &apos;.&apos; at the end, e.g.: &apos;%1.&apos;.
         /// </summary>
         public static string DomainWizardDomainNameSymbolInfo {
             get {
@@ -403,7 +394,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Before you can start create your corporate email addresses, you need to add TXT record in the control panel of your own domain in order to prove your domain ownership..
+        ///   Looks up a localized string similar to Before you can start creating your corporate email addresses, you need to add a TXT record in the control panel of your own domain in order to prove your domain ownership..
         /// </summary>
         public static string DomainWizardProveDomainOwnershipInfo {
             get {
@@ -484,15 +475,6 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit mailbox aliases.
-        /// </summary>
-        public static string EditMailboxAliasesLabel {
-            get {
-                return ResourceManager.GetString("EditMailboxAliasesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edit mailbox.
         /// </summary>
         public static string EditMailboxLabel {
@@ -534,33 +516,6 @@ namespace ASC.Web.Mail.Resources {
         public static string MailboxAliasLabel {
             get {
                 return ResourceManager.GetString("MailboxAliasLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send connection settings to:.
-        /// </summary>
-        public static string MailboxSendSettingsLabel {
-            get {
-                return ResourceManager.GetString("MailboxSendSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this mailbox user profile address.
-        /// </summary>
-        public static string MailboxSendSettingsProfileMailboxLabel {
-            get {
-                return ResourceManager.GetString("MailboxSendSettingsProfileMailboxLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this mailbox address.
-        /// </summary>
-        public static string MailboxSendSettingsThisMailboxLabel {
-            get {
-                return ResourceManager.GetString("MailboxSendSettingsThisMailboxLabel", resourceCulture);
             }
         }
         
@@ -700,7 +655,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We have added your domain to the mail domain list, but you cannot use it right now to create your mail boxes. The reason might be that the necessary time has not passed yet. Please wait a little, some servers can take up to 24 hours to update DNS information..
+        ///   Looks up a localized string similar to We have added your domain to the mail domain list, but you cannot use it right now to create your mailboxes. The reason might be that the necessary time has not passed yet. Please wait for a little, some servers can take up to 24 hours to update DNS information..
         /// </summary>
         public static string VerifiedDomainAddedPopupBody {
             get {

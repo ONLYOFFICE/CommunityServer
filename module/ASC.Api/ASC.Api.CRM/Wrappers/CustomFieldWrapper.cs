@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Specific;
@@ -42,15 +43,15 @@ namespace ASC.Api.CRM.Wrappers
         public new static CustomFieldWrapper GetSample()
         {
             return new CustomFieldWrapper(0)
-                {
-                    Position = 10,
-                    EntityId = 14523423,
-                    FieldType = CustomFieldType.Date,
-                    FieldValue = ApiDateTime.GetSample().ToString(),
-                    Label = "Birthdate",
-                    Mask = "",
-                    RelativeItemsCount = 0
-                };
+            {
+                Position = 10,
+                EntityId = 14523423,
+                FieldType = CustomFieldType.Date,
+                FieldValue = ApiDateTime.GetSample().ToString(),
+                Label = "Birthdate",
+                Mask = "",
+                RelativeItemsCount = 0
+            };
         }
     }
 
@@ -96,14 +97,14 @@ namespace ASC.Api.CRM.Wrappers
         public static CustomFieldBaseWrapper GetSample()
         {
             return new CustomFieldBaseWrapper(0)
-                {
-                    Position = 10,
-                    EntityId = 14523423,
-                    FieldType = CustomFieldType.Date,
-                    FieldValue = ApiDateTime.GetSample().ToString(),
-                    Label = "Birthdate",
-                    Mask = ""
-                };
+            {
+                Position = 10,
+                EntityId = 14523423,
+                FieldType = CustomFieldType.Date,
+                FieldValue = ApiDateTime.GetSample().ToString(),
+                Label = "Birthdate",
+                Mask = ""
+            };
         }
     }
 }

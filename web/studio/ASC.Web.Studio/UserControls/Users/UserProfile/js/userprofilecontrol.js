@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,9 +62,6 @@ jq(function () {
     jq.switcherAction("#switcherContactsSocialButton", "#contactsSocialContainer");
     jq.switcherAction("#switcherSubscriptionButton", "#subscriptionContainer");
 
-    //track event
-
-    jq("#joinToAffilliate").trackEvent("affilliate-button", "affilliate-button-click", "");
 });
 
 function initActionMenu() {
@@ -191,9 +188,9 @@ function onChangeUserStatus(userID, status, isVisitor) {
 function onChangeTipsSubscription(obj) {
     Teamlab.updateTipsSubscription({
         success: function (params, data) {
-            var text = data ? ASC.Resources.Master.Resource.TipsAndTricksUnsubscribeBtn : ASC.Resources.Master.Resource.TipsAndTricksSubscribeBtn;
+            var text = data ? ASC.Resources.Master.ResourceJS.TipsAndTricksUnsubscribeBtn : ASC.Resources.Master.ResourceJS.TipsAndTricksSubscribeBtn;
             obj.attr("title", text).html(text);
-            toastr.success(ASC.Resources.Master.Resource.ChangesSuccessfullyAppliedMsg);
+            toastr.success(ASC.Resources.Master.ResourceJS.ChangesSuccessfullyAppliedMsg);
         },
         before: LoadingBanner.displayLoading,
         after: LoadingBanner.hideLoading,

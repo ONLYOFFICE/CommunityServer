@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
 */
 
 
-using ASC.FederatedLogin.Helpers;
-using ASC.FederatedLogin.LoginProviders;
-using ASC.FederatedLogin.Profile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +25,10 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.Services;
 using System.Web.SessionState;
+
+using ASC.FederatedLogin.Helpers;
+using ASC.FederatedLogin.LoginProviders;
+using ASC.FederatedLogin.Profile;
 
 namespace ASC.FederatedLogin
 {
@@ -58,8 +59,8 @@ namespace ASC.FederatedLogin
             }
             else
             {
-                _params = ((Dictionary<string, object>) new JavaScriptSerializer().DeserializeObject(
-                    Encoding.UTF8.GetString(HttpServerUtility.UrlTokenDecode(context.Request["p"])))).ToDictionary(x => x.Key, y => (string) y.Value);
+                _params = ((Dictionary<string, object>)new JavaScriptSerializer().DeserializeObject(
+                    Encoding.UTF8.GetString(HttpServerUtility.UrlTokenDecode(context.Request["p"])))).ToDictionary(x => x.Key, y => (string)y.Value);
             }
 
             if (!string.IsNullOrEmpty(Auth))
@@ -123,7 +124,7 @@ namespace ASC.FederatedLogin
             {
                 if (!string.IsNullOrEmpty(_params.Get("mode")))
                 {
-                    return (LoginMode) Enum.Parse(typeof (LoginMode), _params.Get("mode"), true);
+                    return (LoginMode)Enum.Parse(typeof(LoginMode), _params.Get("mode"), true);
                 }
                 return LoginMode.Popup;
             }

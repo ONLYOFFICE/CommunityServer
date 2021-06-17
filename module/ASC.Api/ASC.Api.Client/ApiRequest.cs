@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace ASC.Api.Client
     public class ApiRequest
     {
         public string Url { get; private set; }
-        
+
         public string AuthToken { get; private set; }
 
         public HttpMethod Method { get; set; }
@@ -43,7 +43,7 @@ namespace ASC.Api.Client
         public ApiRequest(string url)
             : this(url, null)
         {
-            
+
         }
 
         public ApiRequest(string url, string authToken)
@@ -102,7 +102,7 @@ namespace ASC.Api.Client
 
         public ApiRequest WithParameter(string name, object value)
         {
-            Parameters.Add(new RequestParameter {Name = name, Value = value});
+            Parameters.Add(new RequestParameter { Name = name, Value = value });
             return this;
         }
 
@@ -113,7 +113,7 @@ namespace ASC.Api.Client
 
         public ApiRequest WithFile(string name, string contentType, Stream data, bool closeStream = false)
         {
-            Files.Add(new RequestFile {Name = name, ContentType = contentType, Data = data, CloseStream = closeStream});
+            Files.Add(new RequestFile { Name = name, ContentType = contentType, Data = data, CloseStream = closeStream });
             return this;
         }
 

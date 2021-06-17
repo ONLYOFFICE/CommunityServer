@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -113,19 +114,19 @@ namespace ASC.Api.CRM.Wrappers
         public static OpportunityWrapper GetSample()
         {
             return new OpportunityWrapper(0)
-                {
-                    CreateBy = EmployeeWraper.GetSample(),
-                    Created = ApiDateTime.GetSample(),
-                    Responsible = EmployeeWraper.GetSample(),
-                    Title = "Hotel catalogue",
-                    Description = "",
-                    ExpectedCloseDate = ApiDateTime.GetSample(),
-                    Contact = ContactBaseWrapper.GetSample(),
-                    IsPrivate = false,
-                    SuccessProbability = 65,
-                    BidType = BidType.FixedBid,
-                    Stage = DealMilestoneBaseWrapper.GetSample()
-                };
+            {
+                CreateBy = EmployeeWraper.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                Responsible = EmployeeWraper.GetSample(),
+                Title = "Hotel catalogue",
+                Description = "",
+                ExpectedCloseDate = ApiDateTime.GetSample(),
+                Contact = ContactBaseWrapper.GetSample(),
+                IsPrivate = false,
+                SuccessProbability = 65,
+                BidType = BidType.FixedBid,
+                Stage = DealMilestoneBaseWrapper.GetSample()
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,10 @@
 #region Import
 
 using System;
-using System.Web;
 using System.Text;
+using System.Web;
+
 using ASC.CRM.Core;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
 
 #endregion
 
@@ -34,8 +33,8 @@ namespace ASC.Web.CRM.Controls.Settings
 
         public static string Location { get { return PathProvider.GetFileStaticRelativePath("Settings/ListItemView.ascx"); } }
 
-        public ListType CurrentTypeValue { get; set;}
-        
+        public ListType CurrentTypeValue { get; set; }
+
         public string AddButtonText { get; set; }
 
         public string AddPopupWindowText { get; set; }

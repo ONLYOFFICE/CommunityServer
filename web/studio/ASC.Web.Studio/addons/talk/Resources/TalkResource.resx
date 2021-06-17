@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BtnAccept" xml:space="preserve">
     <value>Accept</value>
@@ -138,11 +79,8 @@
   <data name="BtnDelete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="BtnDeleteSentFiles" xml:space="preserve">
-    <value>Delete Sent Files</value>
-  </data>
   <data name="BtnKick" xml:space="preserve">
-    <value>Remove</value>
+    <value>Delete</value>
   </data>
   <data name="BtnRemove" xml:space="preserve">
     <value>Remove</value>
@@ -184,16 +122,13 @@
     <value>All files</value>
   </data>
   <data name="DeleteSentFilesInfo" xml:space="preserve">
-    <value>The files you send via chat are stored in the &lt;b&gt;&lt;/b&gt; portal. You can delete these files to free up space. After the deletion, the files will no longer be accessible through the links in the history of all the participants in the conversation.</value>
+    <value>The files you sent via chat occupy &lt;b&gt;&lt;/b&gt; of the portal disk space. If you choose to delete these files, it will free up space, but the files will no longer be accessible through the links in the history for all the conversation participants. Select what to delete:</value>
   </data>
   <data name="DeleteSentFilesMonth" xml:space="preserve">
     <value>Files sent more than a month ago</value>
   </data>
   <data name="DeleteSentFilesYear" xml:space="preserve">
     <value>Files sent more than a year ago</value>
-  </data>
-  <data name="FileSizePostfix" xml:space="preserve">
-    <value>bytes,KB,MB,GB</value>
   </data>
   <data name="FullDateFormat" xml:space="preserve">
     <value>%H:%M:%S %d %b %y</value>
@@ -234,15 +169,6 @@
   <data name="HintNoFlashPlayer" xml:space="preserve">
     <value>Adobe Flash Player is not installed</value>
   </data>
-  <data name="HintNotifications" xml:space="preserve">
-    <value>Turn browser notifications on/off</value>
-  </data>
-  <data name="HintOfflineContacts" xml:space="preserve">
-    <value>Show/Hide offline contacts</value>
-  </data>
-  <data name="HintPossibleClientConflict" xml:space="preserve">
-    <value>Possible conflict</value>
-  </data>
   <data name="HintSearch" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -261,38 +187,17 @@
   <data name="HintSendInvite" xml:space="preserve">
     <value>Drag a contact here to add a recipient.</value>
   </data>
-  <data name="HintSendMessage" xml:space="preserve">
-    <value>Send message</value>
-  </data>
   <data name="HintShowLeftTab" xml:space="preserve">
     <value>Show tab on the left</value>
   </data>
   <data name="HintShowRightTab" xml:space="preserve">
     <value>Show tab on the right</value>
   </data>
-  <data name="HintSounds" xml:space="preserve">
-    <value>Enable/Disable sounds</value>
-  </data>
   <data name="HintUnreadMessages" xml:space="preserve">
     <value>read</value>
   </data>
-  <data name="HintUpdateHrefText" xml:space="preserve">
-    <value>you may download it here</value>
-  </data>
-  <data name="HistoryFilterAll" xml:space="preserve">
-    <value>all</value>
-  </data>
-  <data name="HistoryFilterLastDay" xml:space="preserve">
-    <value>last day</value>
-  </data>
-  <data name="HistoryFilterLastMonth" xml:space="preserve">
-    <value>last month</value>
-  </data>
-  <data name="HistoryFilterLastWeek" xml:space="preserve">
-    <value>last week</value>
-  </data>
   <data name="IndexTitle" xml:space="preserve">
-    <value>Search in messages content</value>
+    <value>Search in chat messages content</value>
   </data>
   <data name="LabelConferenceSplash" xml:space="preserve">
     <value>Drag a contact here to add a recipient</value>
@@ -324,9 +229,6 @@
   <data name="LabelSend" xml:space="preserve">
     <value>Send</value>
   </data>
-  <data name="LabelStatus" xml:space="preserve">
-    <value>Status</value>
-  </data>
   <data name="LabelTemporaryRoom" xml:space="preserve">
     <value>Temporary room (will be deleted when all users leave it)</value>
   </data>
@@ -342,17 +244,11 @@
   <data name="ProductName" xml:space="preserve">
     <value>Talk</value>
   </data>
-  <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
-  </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Find Contact</value>
   </data>
   <data name="SearchOnHistory" xml:space="preserve">
-    <value>Search on history messages</value>
-  </data>
-  <data name="SelectUserBookmarkTitle" xml:space="preserve">
-    <value>Mass Message</value>
+    <value>Search in message history</value>
   </data>
   <data name="SendFileMessage" xml:space="preserve">
     <value>File: {0}Size: {1}</value>
@@ -391,7 +287,7 @@
     <value>Create chat room</value>
   </data>
   <data name="TitleKickOccupantDialog" xml:space="preserve">
-    <value>Remove user from chat</value>
+    <value>Delete user from chat</value>
   </data>
   <data name="TitleRecvInvite" xml:space="preserve">
     <value>Invite to chat</value>
@@ -401,9 +297,6 @@
   </data>
   <data name="TotalUsers" xml:space="preserve">
     <value>Total</value>
-  </data>
-  <data name="UpdateFlashPlayerUrl" xml:space="preserve">
-    <value>http://get.adobe.com/flashplayer/</value>
   </data>
   <data name="ValidSymbols" xml:space="preserve">
     <value>letters, numbers, and periods (.)</value>

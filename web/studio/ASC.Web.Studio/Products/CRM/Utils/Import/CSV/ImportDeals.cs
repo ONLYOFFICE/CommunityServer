@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,16 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
+
 using ASC.Core.Users;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Studio.Core.Users;
-using LumenWorks.Framework.IO.Csv;
-using Newtonsoft.Json.Linq;
-using ASC.Common.Threading.Progress;
+using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
+using ASC.Web.CRM.Resources;
+
+using LumenWorks.Framework.IO.Csv;
+
+using Newtonsoft.Json.Linq;
 
 #endregion
 
@@ -103,7 +104,7 @@ namespace ASC.Web.CRM.Classes
 
                     var bidValueStr = GetPropertyValue("bid_amount");
 
-                    if (Decimal.TryParse(bidValueStr, out  bidValue))
+                    if (Decimal.TryParse(bidValueStr, NumberStyles.Number, CultureInfo.InvariantCulture, out bidValue))
                         obj.BidValue = bidValue;
                     else
                         obj.BidValue = 0;
@@ -261,7 +262,7 @@ namespace ASC.Web.CRM.Classes
                         throw new OperationCanceledException();
                     }
 
-                    ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+                    ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());
 
 
 
@@ -283,8 +284,8 @@ namespace ASC.Web.CRM.Classes
                     throw new OperationCanceledException();
                 }
 
-                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
-                
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());
+
                 var newDealIDs = dealDao.SaveDealList(findedDeals);
                 findedDeals.ForEach(d => d.ID = newDealIDs[d.ID]);
 
@@ -297,7 +298,7 @@ namespace ASC.Web.CRM.Classes
                     throw new OperationCanceledException();
                 }
 
-                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());
 
                 findedCustomField.ForEach(item => item.EntityID = newDealIDs[item.EntityID]);
 
@@ -312,7 +313,7 @@ namespace ASC.Web.CRM.Classes
                     throw new OperationCanceledException();
                 }
 
-                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());
 
                 foreach (var findedDealMemberKey in findedDealMembers.Keys)
                 {
@@ -328,7 +329,7 @@ namespace ASC.Web.CRM.Classes
                     throw new OperationCanceledException();
                 }
 
-                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());
 
                 foreach (var findedTagKey in findedTags.Keys)
                 {
@@ -347,8 +348,8 @@ namespace ASC.Web.CRM.Classes
                     throw new OperationCanceledException();
                 }
 
-                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
-                
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());
+
             }
 
             Complete();

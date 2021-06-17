@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
+
 using ASC.FederatedLogin.Profile;
+
 using Twitterizer;
 
 namespace ASC.FederatedLogin.LoginProviders
@@ -59,9 +61,9 @@ namespace ASC.FederatedLogin.LoginProviders
             if (string.IsNullOrEmpty(context.Request["oauth_token"]))
             {
                 var callbackAddress = new UriBuilder(RedirectUri)
-                    {
-                        Query = "state=" + HttpUtility.UrlEncode(context.Request.GetUrlRewriter().AbsoluteUri)
-                    };
+                {
+                    Query = "state=" + HttpUtility.UrlEncode(context.Request.GetUrlRewriter().AbsoluteUri)
+                };
 
                 var reqToken = OAuthUtility.GetRequestToken(TwitterKey, TwitterSecret, callbackAddress.ToString());
                 var url = OAuthUtility.BuildAuthorizationUri(reqToken.Token).ToString();
@@ -75,12 +77,12 @@ namespace ASC.FederatedLogin.LoginProviders
             var tokens = OAuthUtility.GetAccessToken(TwitterKey, TwitterSecret, requestToken, pin);
 
             var accesstoken = new OAuthTokens
-                {
-                    AccessToken = tokens.Token,
-                    AccessTokenSecret = tokens.TokenSecret,
-                    ConsumerKey = TwitterKey,
-                    ConsumerSecret = TwitterSecret
-                };
+            {
+                AccessToken = tokens.Token,
+                AccessTokenSecret = tokens.TokenSecret,
+                ConsumerKey = TwitterKey,
+                ConsumerSecret = TwitterSecret
+            };
 
             var account = TwitterAccount.VerifyCredentials(accesstoken).ResponseObject;
             return ProfileFromTwitter(account);
@@ -101,15 +103,15 @@ namespace ASC.FederatedLogin.LoginProviders
             return twitterUser == null
                        ? null
                        : new LoginProfile
-                           {
-                               Name = twitterUser.Name,
-                               DisplayName = twitterUser.ScreenName,
-                               Avatar = twitterUser.ProfileImageSecureLocation,
-                               TimeZone = twitterUser.TimeZone,
-                               Locale = twitterUser.Language,
-                               Id = twitterUser.Id.ToString(CultureInfo.InvariantCulture),
-                               Provider = ProviderConstants.Twitter
-                           };
+                       {
+                           Name = twitterUser.Name,
+                           DisplayName = twitterUser.ScreenName,
+                           Avatar = twitterUser.ProfileImageSecureLocation,
+                           TimeZone = twitterUser.TimeZone,
+                           Locale = twitterUser.Language,
+                           Id = twitterUser.Id.ToString(CultureInfo.InvariantCulture),
+                           Provider = ProviderConstants.Twitter
+                       };
         }
     }
 }

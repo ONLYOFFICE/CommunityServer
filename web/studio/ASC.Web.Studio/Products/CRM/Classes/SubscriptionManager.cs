@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Web;
+
 using ASC.Core;
-using ASC.Core.Users;
-using ASC.Data.Storage;
 using ASC.Notify.Model;
+using ASC.Web.Core.Subscriptions;
 using ASC.Web.CRM.Resources;
 using ASC.Web.CRM.Services.NotifyService;
-using ASC.Web.Core.Subscriptions;
-using ASC.Web.Core.Utility.Skins;
 
 #endregion
 
@@ -44,9 +41,9 @@ namespace ASC.Web.CRM
         private readonly Guid _exportCompleted = new Guid("{88D3DC5E-3E46-46a1-9FEF-6B8FFF020BA4}");
         private readonly Guid _importCompleted = new Guid("{6A717AAD-16AE-4713-A782-B887766BEB9F}");
         private readonly Guid _createNewContact = new Guid("{ADAC1E70-4163-41c1-8968-67A44E4D24E7}");
-  
+
         public List<SubscriptionObject> GetSubscriptionObjects(Guid subItem)
-        { 
+        {
             return new List<SubscriptionObject>();
         }
 
@@ -125,7 +122,7 @@ namespace ASC.Web.CRM
 
         public List<SubscriptionGroup> GetSubscriptionGroups()
         {
-            return  new List<SubscriptionGroup>();
+            return new List<SubscriptionGroup>();
         }
     }
 

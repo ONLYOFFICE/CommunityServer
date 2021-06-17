@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
@@ -87,7 +88,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                         Exp.EqColumns("ft.id", "ftl.tag_id"))
                     .Where(Exp.Eq("ft.tenant_id", TenantID) &
                            Exp.Eq("ftl.tenant_id", TenantID) &
-                           Exp.Eq("ft.flag", (int) TagType.New) &
+                           Exp.Eq("ft.flag", (int)TagType.New) &
                            Exp.In("ftl.entry_id", entryIDs));
 
                 if (subject != Guid.Empty)
@@ -96,17 +97,17 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 var tags = db.ExecuteList(sqlQuery).ConvertAll(r => new Tag
                 {
                     TagName = Convert.ToString(r[0]),
-                    TagType = (TagType) r[1],
+                    TagType = (TagType)r[1],
                     Owner = new Guid(r[2].ToString()),
                     EntryId = MappingID(r[3]),
-                    EntryType = (FileEntryType) r[4],
+                    EntryType = (FileEntryType)r[4],
                     Count = Convert.ToInt32(r[5]),
                     Id = Convert.ToInt32(r[6])
                 });
 
                 if (deepSearch) return tags;
 
-                var folderFileIds = new[] {fakeFolderId}
+                var folderFileIds = new[] { fakeFolderId }
                     .Concat(GetFolderSubfolders(folderId).Select(x => MakeId(x)))
                     .Concat(GetFolderFiles(folderId).Select(x => MakeId(x)));
 

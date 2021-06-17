@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics;
+
 using ASC.Core.ChunkedUploader;
 
 namespace ASC.Files.Core
@@ -31,6 +32,10 @@ namespace ASC.Files.Core
 
         public bool Encrypted { get; set; }
 
+        //hack for Backup bug 48873
+        [NonSerialized]
+        public bool CheckQuota = true;
+
         public ChunkedUploadSession(File file, long bytesTotal) : base(bytesTotal)
         {
             File = file;
@@ -38,8 +43,8 @@ namespace ASC.Files.Core
 
         public override object Clone()
         {
-            var clone = (ChunkedUploadSession) MemberwiseClone();
-            clone.File = (File) File.Clone();
+            var clone = (ChunkedUploadSession)MemberwiseClone();
+            clone.File = (File)File.Clone();
             return clone;
         }
     }

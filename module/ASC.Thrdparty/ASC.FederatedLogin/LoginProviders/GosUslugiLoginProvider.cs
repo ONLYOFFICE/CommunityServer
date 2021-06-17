@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,12 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
+
 using JWT;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
@@ -197,15 +200,15 @@ namespace ASC.FederatedLogin.LoginProviders
             {
                 throw new Exception("userinfo is incorrect");
             }
-            
-            var profile = new LoginProfile
-                {
-                    Id = oid,
-                    FirstName = userInfo.Value<string>("firstName"),
-                    LastName = userInfo.Value<string>("lastName"),
 
-                    Provider = ProviderConstants.GosUslugi,
-                };
+            var profile = new LoginProfile
+            {
+                Id = oid,
+                FirstName = userInfo.Value<string>("firstName"),
+                LastName = userInfo.Value<string>("lastName"),
+
+                Provider = ProviderConstants.GosUslugi,
+            };
 
             var userContactsString = RequestHelper.PerformRequest(GosUslugiProfileUrl + oid + "/ctts", "application/x-www-form-urlencoded", headers: new Dictionary<string, string> { { "Authorization", "Bearer " + accessToken } });
             var userContacts = JObject.Parse(userContactsString);

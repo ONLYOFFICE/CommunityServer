@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
-using ASC.Api.CRM.Wrappers;
 using ASC.Api.Collections;
+using ASC.Api.CRM.Wrappers;
 using ASC.Api.Exceptions;
+using ASC.Core;
+using ASC.Core.Users;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.Core;
-using ASC.MessagingSystem;
-using EnumExtension = ASC.Web.CRM.Classes.EnumExtension;
-using ASC.Core.Users;
 using ASC.ElasticSearch;
+using ASC.MessagingSystem;
+
+using EnumExtension = ASC.Web.CRM.Classes.EnumExtension;
 
 namespace ASC.Api.CRM
 {
@@ -122,12 +124,12 @@ namespace ASC.Api.CRM
             var casesID = DaoFactory.CasesDao.CreateCases(title);
 
             var cases = new Cases
-                {
-                    ID = casesID,
-                    Title = title,
-                    CreateBy = SecurityContext.CurrentAccount.ID,
-                    CreateOn = DateTime.UtcNow
-                };
+            {
+                ID = casesID,
+                Title = title,
+                CreateBy = SecurityContext.CurrentAccount.ID,
+                CreateOn = DateTime.UtcNow
+            };
             FactoryIndexer<Web.CRM.Core.Search.CasesWrapper>.IndexAsync(cases);
             SetAccessToCases(cases, isPrivate, accessList, isNotify, false);
 
@@ -678,7 +680,7 @@ namespace ASC.Api.CRM
             var casesIDs = items.Select(item => item.ID).ToArray();
 
             var customFields = DaoFactory.CustomFieldDao
-                                         .GetEnityFields(EntityType.Case, casesIDs)
+                                         .GetEntityFields(EntityType.Case, casesIDs)
                                          .GroupBy(item => item.EntityID)
                                          .ToDictionary(item => item.Key, item => item.Select(ToCustomFieldBaseWrapper));
 
@@ -697,14 +699,14 @@ namespace ASC.Api.CRM
             foreach (var cases in items)
             {
                 var casesWrapper = new CasesWrapper(cases)
-                    {
-                        CustomFields = customFields.ContainsKey(cases.ID)
+                {
+                    CustomFields = customFields.ContainsKey(cases.ID)
                                            ? customFields[cases.ID]
                                            : new List<CustomFieldBaseWrapper>(),
-                        Members = casesMembers.ContainsKey(cases.ID)
+                    Members = casesMembers.ContainsKey(cases.ID)
                                       ? casesMembers[cases.ID].Where(contacts.ContainsKey).Select(item => contacts[item])
                                       : new List<ContactBaseWrapper>()
-                    };
+                };
 
                 result.Add(casesWrapper);
             }
@@ -715,14 +717,14 @@ namespace ASC.Api.CRM
         private CasesWrapper ToCasesWrapper(Cases cases)
         {
             var casesWrapper = new CasesWrapper(cases)
-                {
-                    CustomFields = DaoFactory
+            {
+                CustomFields = DaoFactory
                         .CustomFieldDao
-                        .GetEnityFields(EntityType.Case, cases.ID, false)
+                        .GetEntityFields(EntityType.Case, cases.ID, false)
                         .ConvertAll(item => new CustomFieldBaseWrapper(item))
                         .ToSmartList(),
-                    Members = new List<ContactBaseWrapper>()
-                };
+                Members = new List<ContactBaseWrapper>()
+            };
 
             var memberIDs = DaoFactory.CasesDao.GetMembers(cases.ID);
             var membersList = DaoFactory.ContactDao.GetContacts(memberIDs);

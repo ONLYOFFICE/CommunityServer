@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,14 @@
 */
 
 
-using ASC.Api.Utils;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Api.Utils;
+
+using Newtonsoft.Json.Serialization;
 
 namespace ASC.Api.Impl.Serializers
 {
@@ -63,7 +65,7 @@ namespace ASC.Api.Impl.Serializers
             public FieldsResolverKey(Type contractType, IEnumerable<string> fields)
             {
                 _contractType = contractType;
-                _fields = string.Join(",",fields.Select(x=>x.Trim().ToLowerInvariant()).OrderBy(x=>x).ToArray());
+                _fields = string.Join(",", fields.Select(x => x.Trim().ToLowerInvariant()).OrderBy(x => x).ToArray());
             }
 
             public override bool Equals(object obj)
@@ -80,7 +82,7 @@ namespace ASC.Api.Impl.Serializers
             {
                 unchecked
                 {
-                    return ((_contractType != null ? _contractType.GetHashCode() : 0)*397) ^ (_fields != null ? _fields.GetHashCode() : 0);
+                    return ((_contractType != null ? _contractType.GetHashCode() : 0) * 397) ^ (_fields != null ? _fields.GetHashCode() : 0);
                 }
             }
 
@@ -95,7 +97,7 @@ namespace ASC.Api.Impl.Serializers
             }
         }
 
-        private static readonly IDictionary<FieldsResolverKey, JsonContract> FieldsContractCache = new ConcurrentDictionary<FieldsResolverKey, JsonContract>(); 
+        private static readonly IDictionary<FieldsResolverKey, JsonContract> FieldsContractCache = new ConcurrentDictionary<FieldsResolverKey, JsonContract>();
 
         public override JsonContract ResolveContract(Type type)
         {
@@ -103,12 +105,12 @@ namespace ASC.Api.Impl.Serializers
             {
                 var key = new FieldsResolverKey(type, _filterToFields);
                 JsonContract contract;
-                if (!FieldsContractCache.TryGetValue(key,out contract))
+                if (!FieldsContractCache.TryGetValue(key, out contract))
                 {
                     //Do a new resolve
                     contract = CreateContract(type);
                     //Cache it
-                    FieldsContractCache[key]=contract;
+                    FieldsContractCache[key] = contract;
                 }
                 return contract;
             }

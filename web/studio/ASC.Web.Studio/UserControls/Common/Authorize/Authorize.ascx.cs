@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Security;
 using System.Security.Authentication;
 using System.Web;
 using System.Web.UI;
+
 using ASC.ActiveDirectory;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.ComplexOperations;
@@ -39,10 +40,12 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
 using ASC.Web.Studio.Masters;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json.Linq;
-using Resources;
+
 using SecurityContext = ASC.Core.SecurityContext;
 using SsoSettingsV2 = ASC.Web.Studio.UserControls.Management.SingleSignOnSettings.SsoSettingsV2;
 
@@ -63,9 +66,8 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 try
                 {
-                    if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                        (CoreContext.Configuration.Standalone &&
-                         !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+                    if ((!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) && !CoreContext.Configuration.Standalone) ||
+                            !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
                     {
                         return false;
                     }
@@ -98,9 +100,8 @@ namespace ASC.Web.Studio.UserControls.Common
             {
                 try
                 {
-                    if (!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) ||
-                        !CoreContext.Configuration.Standalone ||
-                        !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
+                    if ((!SetupInfo.IsVisibleSettings(ManagementType.SingleSignOnSettings.ToString()) && !CoreContext.Configuration.Standalone) ||
+                            !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Sso)
                     {
                         return false;
                     }
@@ -486,25 +487,31 @@ namespace ASC.Web.Studio.UserControls.Common
 
         private UserInfo GetUser(out AuthMethod method)
         {
-            if (EnableLdap)
+            if (LoginWithThirdParty.TryGetUserByHash(HashId, out var userId))
+            {
+                if (!(CoreContext.Configuration.Standalone ||
+                 CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Oauth))
+                {
+                    throw new Exception("ErrorNotAllowedOption");
+                }
+                method = AuthMethod.ThirdParty;
+                return CoreContext.UserManager.GetUsers(userId);
+            }
+
+            if (EnableLdap && !string.IsNullOrEmpty(Request["ldapPassword"]))
             {
                 var localization = new LdapLocalization(Resource.ResourceManager);
                 var ldapUserManager = new LdapUserManager(localization);
 
                 UserInfo userInfo;
                 //todo: think about password
-                if (ldapUserManager.TryGetAndSyncLdapUserInfo(Login, PasswordHash, out userInfo))
+                if (!ldapUserManager.TryGetAndSyncLdapUserInfo(Login, PasswordHash, out userInfo))
                 {
-                    method = AuthMethod.Ldap;
-                    return userInfo;
+                    userInfo = Constants.LostUser;
                 }
-            }
 
-            Guid userId;
-            if (LoginWithThirdParty.TryGetUserByHash(HashId, out userId))
-            {
-                method = AuthMethod.ThirdParty;
-                return CoreContext.UserManager.GetUsers(userId);
+                method = AuthMethod.Ldap;
+                return userInfo;
             }
 
             method = AuthMethod.Login;

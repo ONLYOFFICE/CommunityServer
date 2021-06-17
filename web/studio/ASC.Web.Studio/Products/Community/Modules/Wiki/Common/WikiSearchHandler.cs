@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Common.Utils;
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
@@ -27,7 +29,6 @@ using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Handlers;
-using ASC.Web.UserControls.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.UC;
 
 namespace ASC.Web.Community.Wiki.Common
@@ -48,14 +49,14 @@ namespace ASC.Web.Community.Wiki.Common
                 }
 
                 list.Add(new SearchResultItem
-                    {
-                        Name = pageName,
-                        Description = HtmlUtil.GetText(
+                {
+                    Name = pageName,
+                    Description = HtmlUtil.GetText(
                             EditPage.ConvertWikiToHtml(page.PageName, page.Body, defPageHref,
                                                        WikiSection.Section.ImageHangler.UrlFormat, TenantProvider.CurrentTenantID), 120),
-                        URL = ActionHelper.GetViewPagePath(defPageHref, page.PageName),
-                        Date = page.Date
-                    });
+                    URL = ActionHelper.GetViewPagePath(defPageHref, page.PageName),
+                    Date = page.Date
+                });
             }
             return list.ToArray();
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,10 +39,10 @@ namespace ASC.Web.Core.Helpers
     public class ResourceEnumConverter : System.ComponentModel.EnumConverter
     {
         private class LookupTable : Dictionary<string, object> { }
-        private Dictionary<CultureInfo, LookupTable> _lookupTables = new Dictionary<CultureInfo, LookupTable>();
-        private System.Resources.ResourceManager _resourceManager;
-        private bool _isFlagEnum = false;
-        private Array _flagValues;
+        private readonly Dictionary<CultureInfo, LookupTable> _lookupTables = new Dictionary<CultureInfo, LookupTable>();
+        private readonly System.Resources.ResourceManager _resourceManager;
+        private readonly bool _isFlagEnum = false;
+        private readonly Array _flagValues;
 
         /// <summary>
         /// Get the lookup table for the given culture (creating if necessary)
@@ -213,7 +213,7 @@ namespace ASC.Web.Core.Helpers
             if (value is string)
             {
                 object result = (_isFlagEnum) ?
-                    GetFlagValue(culture, (string)value): GetValue(culture, (string)value);
+                    GetFlagValue(culture, (string)value) : GetValue(culture, (string)value);
                 if (result == null)
                 {
                     result = base.ConvertFrom(context, culture, value);
@@ -238,7 +238,7 @@ namespace ASC.Web.Core.Helpers
         {
             if (value != null && destinationType == typeof(string))
             {
-                object result = (_isFlagEnum) ? 
+                object result = (_isFlagEnum) ?
                     GetFlagValueText(culture, value) : GetValueText(culture, value);
                 return result;
             }
@@ -280,7 +280,7 @@ namespace ASC.Web.Core.Helpers
             foreach (Enum value in Enum.GetValues(enumType))
             {
                 KeyValuePair<Enum, string> pair = new KeyValuePair<Enum, string>(value, converter.ConvertToString(null, culture, value));
-                result.Add(pair); 
+                result.Add(pair);
             }
             return result;
         }

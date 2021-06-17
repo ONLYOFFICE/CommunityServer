@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Net.Security;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
+
 using ASC.Common.Logging;
 
 namespace ASC.ActiveDirectory.Base.Data
@@ -32,7 +33,7 @@ namespace ASC.ActiveDirectory.Base.Data
         private volatile bool _requested;
         private volatile string _serialNumber;
         private volatile string _issuerName;
-        private volatile string  _subjectName;
+        private volatile string _subjectName;
         private volatile string _hash;
         private volatile int[] _certificateErrors;
 
@@ -107,7 +108,7 @@ namespace ASC.ActiveDirectory.Base.Data
                             Enum.GetName(typeof(SslPolicyErrors), LdapCertificateProblem.CertCnNoMatch));
                     }
 
-                    certificateErrors.Add((int) LdapCertificateProblem.CertCnNoMatch);
+                    certificateErrors.Add((int)LdapCertificateProblem.CertCnNoMatch);
                 }
 
                 if (sslPolicyErrors.HasFlag(SslPolicyErrors.RemoteCertificateNotAvailable))
@@ -118,14 +119,14 @@ namespace ASC.ActiveDirectory.Base.Data
                             Enum.GetName(typeof(SslPolicyErrors), LdapCertificateProblem.CertCnNoMatch));
                     }
 
-                    certificateErrors.Add((int) LdapCertificateProblem.CertUntrustedCa);
+                    certificateErrors.Add((int)LdapCertificateProblem.CertUntrustedCa);
                 }
             }
             catch (Exception ex)
             {
-                if (log != null) 
+                if (log != null)
                     log.ErrorFormat("GetLdapCertProblems() failed. Error: {0}", ex);
-                certificateErrors.Add((int) LdapCertificateProblem.CertUnrecognizedError);
+                certificateErrors.Add((int)LdapCertificateProblem.CertUnrecognizedError);
             }
 
             return certificateErrors.ToArray();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Web;
+
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
@@ -131,14 +133,14 @@ namespace ASC.FederatedLogin.LoginProviders
             if (mailRuProfiles.Count == 0) throw new Exception("Failed to correctly process the response");
 
             var profile = new LoginProfile
-                {
-                    EMail = mailRuProfiles[0].email,
-                    Id = mailRuProfiles[0].uid,
-                    FirstName = mailRuProfiles[0].first_name,
-                    LastName = mailRuProfiles[0].last_name,
+            {
+                EMail = mailRuProfiles[0].email,
+                Id = mailRuProfiles[0].uid,
+                FirstName = mailRuProfiles[0].first_name,
+                LastName = mailRuProfiles[0].last_name,
 
-                    Provider = ProviderConstants.MailRu,
-                };
+                Provider = ProviderConstants.MailRu,
+            };
 
             return profile;
         }

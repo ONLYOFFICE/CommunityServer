@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,12 @@ using System;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+
 using AjaxPro;
+
 using ASC.Core.Users;
-using ASC.ElasticSearch;
 using ASC.Forum;
-using ASC.Web.Community.Search;
+using ASC.Web.Community.Modules.Forum.UserControls.Resources;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
 
@@ -71,7 +72,7 @@ namespace ASC.Web.UserControls.Forum
                 return "";
 
             var sb = new StringBuilder();
-            sb.Append("<div class='text-medium-describe' style='padding:2px 5px;'>" + Resources.ForumUCResource.Edited + "&nbsp;&nbsp;");
+            sb.Append("<div class='text-medium-describe' style='padding:2px 5px;'>" + ForumUCResource.Edited + "&nbsp;&nbsp;");
             sb.Append(Post.EditDate.ToShortDateString() + " " + Post.EditDate.ToShortTimeString());
             sb.Append("<span style='margin-left:5px;'>" + Post.Editor.RenderCustomProfileLink("describe-text", "link gray") + "</span>");
             sb.Append("</div>");
@@ -97,18 +98,18 @@ namespace ASC.Web.UserControls.Forum
 
             var sb = new StringBuilder();
 
-            if (_forumManager.ValidateAccessSecurityAction(ForumAction.PostCreate, new Topic {ID = Post.TopicID}))
+            if (_forumManager.ValidateAccessSecurityAction(ForumAction.PostCreate, new Topic { ID = Post.TopicID }))
             {
-                sb.Append("<a class=\"link gray\" style=\"float:left;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID, PostAction.Quote, Post.ID) + "\">" + Resources.ForumUCResource.Quote + "</a>");
-                sb.Append("<a class=\"link gray\" style=\"float:left;  margin-left:8px;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID, PostAction.Reply, Post.ID) + "\">" + Resources.ForumUCResource.Reply + "</a>");
-                sb.Append("<a class=\"link gray\" style=\"float:left; margin-left:8px;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID) + "\">" + Resources.ForumUCResource.NewPostButton + "</a>");
+                sb.Append("<a class=\"link gray\" style=\"float:left;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID, PostAction.Quote, Post.ID) + "\">" + ForumUCResource.Quote + "</a>");
+                sb.Append("<a class=\"link gray\" style=\"float:left;  margin-left:8px;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID, PostAction.Reply, Post.ID) + "\">" + ForumUCResource.Reply + "</a>");
+                sb.Append("<a class=\"link gray\" style=\"float:left; margin-left:8px;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID) + "\">" + ForumUCResource.NewPostButton + "</a>");
             }
 
             var isFirst = true;
 
             if (_forumManager.ValidateAccessSecurityAction(ForumAction.PostDelete, Post) && ShowDeletePostLink())
             {
-                sb.AppendFormat("<a class=\"link\" style=\"float:right;\" id='PostDeleteLink{0}' href=\"javascript:ForumManager.DeletePost('" + Post.ID + "')\">" + Resources.ForumUCResource.DeleteButton + "</a>", Post.ID);
+                sb.AppendFormat("<a class=\"link\" style=\"float:right;\" id='PostDeleteLink{0}' href=\"javascript:ForumManager.DeletePost('" + Post.ID + "')\">" + ForumUCResource.DeleteButton + "</a>", Post.ID);
                 isFirst = false;
             }
 
@@ -117,7 +118,7 @@ namespace ASC.Web.UserControls.Forum
                 if (!isFirst && ShowDeletePostLink())
                     sb.AppendFormat("<span class='splitter' id='PostDeleteSplitter{0}' style='float:right;'>|</span>", Post.ID);
 
-                sb.Append("<a class=\"link\" style=\"float:right;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID, PostAction.Edit, Post.ID) + "\">" + Resources.ForumUCResource.EditButton + "</a>");
+                sb.Append("<a class=\"link\" style=\"float:right;\" href=\"" + _settings.LinkProvider.NewPost(Post.TopicID, PostAction.Edit, Post.ID) + "\">" + ForumUCResource.EditButton + "</a>");
                 isFirst = false;
             }
 
@@ -126,7 +127,7 @@ namespace ASC.Web.UserControls.Forum
                 if (!isFirst)
                     sb.Append("<span class='splitter' style='float:right;'>|</span>");
 
-                sb.Append("<a id=\"forum_btap_" + Post.ID + "\" class=\"link\" style=\"margin-left:5px; float:right;\" href=\"javascript:ForumManager.ApprovePost('" + Post.ID + "')\">" + Resources.ForumUCResource.ApproveButton + "</a>");
+                sb.Append("<a id=\"forum_btap_" + Post.ID + "\" class=\"link\" style=\"margin-left:5px; float:right;\" href=\"javascript:ForumManager.ApprovePost('" + Post.ID + "')\">" + ForumUCResource.ApproveButton + "</a>");
             }
 
             return sb.ToString();
@@ -147,7 +148,7 @@ namespace ASC.Web.UserControls.Forum
             var closedTopic = ForumDataProvider.GetTopicByID(TenantProvider.CurrentTenantID, post.TopicID).Closed;
 
             sb.Append("<div class=\"cornerAll borderBase forum_attachmentsBox\">");
-            sb.Append("<div class='headerPanel'>" + Resources.ForumUCResource.AttachFiles + "</div>");
+            sb.Append("<div class='headerPanel'>" + ForumUCResource.AttachFiles + "</div>");
             foreach (var attachment in post.Attachments)
             {
                 sb.Append("<div id=\"forum_attach_" + attachment.ID + "\" class=\"borderBase  forum_attachItem clearFix\">");
@@ -156,12 +157,12 @@ namespace ASC.Web.UserControls.Forum
                 sb.Append("<a class = 'link' target=\"_blank\" href=\"" + forumManager.GetAttachmentWebPath(attachment) + "\">" + HttpUtility.HtmlEncode(attachment.Name) + "</a>");
                 sb.Append("</td>");
 
-                sb.Append("<td style=\"text-align:right;width:100px;\"><span class=\"text-medium-describe\">" + ((float) attachment.Size/1024f).ToString("####0.##") + " KB</span></td>");
+                sb.Append("<td style=\"text-align:right;width:100px;\"><span class=\"text-medium-describe\">" + (attachment.Size / 1024f).ToString("####0.##") + " KB</span></td>");
 
                 if (forumManager.ValidateAccessSecurityAction(ForumAction.AttachmentDelete, post) && !closedTopic)
                 {
                     sb.Append("<td style=\"text-align:right;width:100px;\">");
-                    sb.Append("<a class=\"link\" href=\"javascript:ForumManager.DeleteAttachment('" + attachment.ID + "','" + post.ID + "');\">" + Resources.ForumUCResource.DeleteButton + "</a>");
+                    sb.Append("<a class=\"link\" href=\"javascript:ForumManager.DeleteAttachment('" + attachment.ID + "','" + post.ID + "');\">" + ForumUCResource.DeleteButton + "</a>");
                     sb.Append("</td>");
                 }
 
@@ -176,20 +177,20 @@ namespace ASC.Web.UserControls.Forum
         public AjaxResponse DoDeletePost(int idPost, Guid settingsID)
         {
             _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
-            var resp = new AjaxResponse {rs2 = idPost.ToString()};
+            var resp = new AjaxResponse { rs2 = idPost.ToString() };
 
             var post = ForumDataProvider.GetPostByID(TenantProvider.CurrentTenantID, idPost);
             if (post == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.PostDelete, post))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -199,17 +200,17 @@ namespace ASC.Web.UserControls.Forum
                 if (result == DeletePostResult.Successfully)
                 {
                     resp.rs1 = "1";
-                    resp.rs3 = Resources.ForumUCResource.SuccessfullyDeletePostMessage;
+                    resp.rs3 = ForumUCResource.SuccessfullyDeletePostMessage;
                 }
                 else if (result == DeletePostResult.ReferencesBlock)
                 {
                     resp.rs1 = "0";
-                    resp.rs3 = Resources.ForumUCResource.ExistsReferencesChildPosts;
+                    resp.rs3 = ForumUCResource.ExistsReferencesChildPosts;
                 }
                 else
                 {
                     resp.rs1 = "0";
-                    resp.rs3 = Resources.ForumUCResource.ErrorDeletePost;
+                    resp.rs3 = ForumUCResource.ErrorDeletePost;
                 }
             }
             catch (Exception e)
@@ -225,20 +226,20 @@ namespace ASC.Web.UserControls.Forum
         public AjaxResponse DoApprovedPost(int idPost, Guid settingsID)
         {
             _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
-            var resp = new AjaxResponse {rs2 = idPost.ToString()};
+            var resp = new AjaxResponse { rs2 = idPost.ToString() };
 
             var post = ForumDataProvider.GetPostByID(TenantProvider.CurrentTenantID, idPost);
             if (post == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.ApprovePost, post))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -259,20 +260,20 @@ namespace ASC.Web.UserControls.Forum
         public AjaxResponse DoDeleteAttachment(int idAttachment, int idPost, Guid settingsID)
         {
             _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
-            var resp = new AjaxResponse {rs2 = idAttachment.ToString()};
+            var resp = new AjaxResponse { rs2 = idAttachment.ToString() };
 
             var post = ForumDataProvider.GetPostByID(TenantProvider.CurrentTenantID, idPost);
             if (post == null)
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
             if (!_forumManager.ValidateAccessSecurityAction(ForumAction.AttachmentDelete, post))
             {
                 resp.rs1 = "0";
-                resp.rs3 = Resources.ForumUCResource.ErrorAccessDenied;
+                resp.rs3 = ForumUCResource.ErrorAccessDenied;
                 return resp;
             }
 
@@ -286,7 +287,7 @@ namespace ASC.Web.UserControls.Forum
                 }
 
                 resp.rs1 = "1";
-                resp.rs3 = Resources.ForumUCResource.SuccessfullyDeleteAttachmentMessage;
+                resp.rs3 = ForumUCResource.SuccessfullyDeleteAttachmentMessage;
             }
             catch (Exception e)
             {

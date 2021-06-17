@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -147,7 +147,7 @@ namespace ASC.Projects.Engine
                 var folderId = FileEngine.GetRoot(projectID);
                 project.DocumentsCount = folderDao.GetItemsCount(folderId);
             }
-            
+
             project.TimeTrackingTotal = TimeTrackingEngine.GetTotalByProject(projectID);
             project.ParticipantCount = GetTeam(projectID).Count();
 
@@ -209,7 +209,7 @@ namespace ASC.Projects.Engine
 
             if (status.HasValue)
             {
-                filter.ProjectStatuses = new List<ProjectStatus> {status.Value};
+                filter.ProjectStatuses = new List<ProjectStatus> { status.Value };
             }
 
             return GetByFilterCount(filter);
@@ -315,8 +315,8 @@ namespace ASC.Projects.Engine
 
             NotifyClient.Instance.SendAboutProjectDeleting(new HashSet<Guid> { project.Responsible }, project);
 
-            MessageEngine.UnSubscribeAll(messages.Select(r => new Message {Project = project, ID = r}).ToList());
-            TaskEngine.UnSubscribeAll(tasks.Select(r => new Task {Project = project, ID = r}).ToList());
+            MessageEngine.UnSubscribeAll(messages.Select(r => new Message { Project = project, ID = r }).ToList());
+            TaskEngine.UnSubscribeAll(tasks.Select(r => new Task { Project = project, ID = r }).ToList());
 
             FactoryIndexer<ProjectsWrapper>.DeleteAsync(project);
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2186,7 +2186,7 @@ function Calendar(element, options, eventSources) {
 	function showEventPageEditor() {
 		initEventPage();
 		if (jq("#asc_event .event-editor .editor").is(":visible")) {
-			if(confirm(ASC.Resources.Master.Resource.WarningMessageBeforeUnload))
+			if(confirm(ASC.Resources.Master.ResourceJS.WarningMessageBeforeUnload))
 				eventPage.addEvent();
 		} else {
 			eventPage.addEvent();
@@ -3621,6 +3621,12 @@ function CategoryDialog(calendar) {
 
 
 	this.edit = function(elem, anchor) {
+		configuration.isExportFile = 0;
+		configuration.isExportLink = 0;
+		configuration.isNewCalendar = 0;
+		configuration.isSyncWithCalendar = 0;
+		_updateConfiguration();
+
 		if (elem != _elem) {
 			_close.call(_this, false);
 			_elem = elem;
@@ -4913,7 +4919,7 @@ function CategoriesList(calendar) {
 			    var showDay = false;
 
 			    if (jq("#asc_event .event-editor .editor").is(":visible")) {
-			        if (confirm(ASC.Resources.Master.Resource.WarningMessageBeforeUnload)) {
+			        if (confirm(ASC.Resources.Master.ResourceJS.WarningMessageBeforeUnload)) {
 			            window.toastr.remove();
 			            jq("#asc_event").hide();
 			            jq("#asc_calendar").show();
@@ -5788,7 +5794,7 @@ function TodoList(calendar) {
 		var sortTodos = todos.sort(function (a, b) {
 		    return a.start - b.start;
 		});
-		var minDate = new Date(1, 0, 1, 23, 59, 59);
+		var minDate = new Date(1, 0, 2, 23, 59, 59);
 
 	    var now = new Date();
 	    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59).valueOf();
@@ -5850,7 +5856,7 @@ function TodoList(calendar) {
 	        if (lastTodoDate == todoDate) {
 	            li.appendTo(container);
 	        } else {
-	            if (todoDate == minDate.valueOf()) {
+	            if (todoDate <= minDate.valueOf()) {
 	                containerClass = "no_due_date";
 	                containerTitle = htmlEscape(calendar.options.todoList.noDueDate);
 	            } else if ((todoDate < today - 86400000) || (todoDate < today)) {
@@ -6765,18 +6771,22 @@ function EventEditor(calendar, uiBlocker) {
 				if (s[i].isTodo == 1) { continue; }
 				_dialog.find(".editor .calendar .bullet").css("background", s[i].backgroundColor);
 
-			    if (_anchor.length) {
-			        _anchor
-			            .css("border-color", s[i].backgroundColor)
-			            .css("background-color", s[i].backgroundColor)
-						.css("color", s[i].textColor);
-			        _anchor.find(".fc-event-skin, .fc-event-skin-day")
-			            .css("border-color", s[i].backgroundColor)
-			            .css("background-color", s[i].backgroundColor)
-			            .css("color", s[i].textColor);
-			    }
+				if (!_anchor.length) return;
 
-			    return;
+				if (_anchor.is(".fc-event-skin-day")) {
+					_anchor
+						.css("border-color", s[i].backgroundColor)
+						.css("background-color", s[i].backgroundColor)
+						.css("color", s[i].textColor);
+					_anchor.find(".fc-event-skin, .fc-event-skin-day")
+						.css("border-color", s[i].backgroundColor)
+						.css("background-color", s[i].backgroundColor)
+						.css("color", s[i].textColor);
+				} else {
+					_anchor.find(".bullet").css("color", s[i].backgroundColor);
+				}
+
+				return;
 			}
 		});
 		//
@@ -6791,13 +6801,17 @@ function EventEditor(calendar, uiBlocker) {
 	}());
 
 	function updateEditorView(isTodo) {
+		var frDate = {}, fr = _parseDateTime(_dialog.find(".editor .from-date"), _dialog.find(".editor .from-time"), frDate);
+		var toDate = {}, to = _parseDateTime(_dialog.find(".editor .to-date"), _dialog.find(".editor .to-time"), toDate);
+		var start = fr == 1 ? parseDate(frDate.date.value + "T" + frDate.time.value) : null;
+		var end = to == 1 ? parseDate(toDate.date.value + "T" + toDate.time.value) : null;
+
+		if (!start || !end) {
+			return;
+		}
+
 		_close.call(_this, false);
 
-		var startStr = _dialog.find(".editor .from-date").val() + (_dialog.find(".editor .from-time").val() ? "T" + _dialog.find(".editor .from-time").val() : "T00:00:00");
-		var endStr = _dialog.find(".editor .to-date").val() + (_dialog.find(".editor .to-time").val() ? "T" + _dialog.find(".editor .to-time").val() : "T00:00:00");
-
-		var start = new Date(startStr);
-		var end = new Date(endStr);
 		var allDay = _dialog.find(".editor .all-day input").is(":checked");
 
 		_eventObj.title = _dialog.find('.title input').val();
@@ -6834,7 +6848,14 @@ function EventEditor(calendar, uiBlocker) {
 		
 
 		calendar.renderEvent(_eventObj);
-		_open.call(_this, "addPopup", calendar.getView().getEventElement(_eventObj), _eventObj);
+
+		var eventElement = calendar.getView().getEventElement(_eventObj);
+
+		if (!eventElement) {
+			return;
+		}
+
+		_open.call(_this, "addPopup", eventElement, _eventObj);
 	}
 
 	function _showDaySections(){
@@ -8243,7 +8264,7 @@ function EventEditor(calendar, uiBlocker) {
 							toDate.date.value = newDate;
 							dlg.to[0].value = newDate;
 						}
-						_validateDateFields.call(_this);
+						r = _validateDateFields.call(_this);
 					}
 				}
             }
@@ -8315,6 +8336,7 @@ function EventEditor(calendar, uiBlocker) {
 	}
 
 	function _handleAllDayClick() {
+		changeTimeFrom = null;
 		var allday = _dialog.find(".editor .all-day input").is(":checked");
 		var dlg = {
 				from:  _dialog.find(".editor .from-date"),
@@ -9309,8 +9331,10 @@ function EventPage(calendar) {
             
             if (sentInvitations) {
                 if (oldEventObj.sourceId != undefined) { //it's not new event
-                    
-                    _doDDX.call(_this, true);
+
+                    var validData = _doDDX.call(_this, true);
+                    if (!validData) return;
+
                     var newEventObj = Object.assign({}, _eventObj);
                     _eventObj = Object.assign({}, oldEventObj);
 
@@ -9620,7 +9644,7 @@ function EventPage(calendar) {
         if (window.onbeforeunload == null) {
                 window.onbeforeunload = function () {
                     if(jq("#asc_event .event-editor .editor").is(":visible")) {
-                        return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
+                        return ASC.Resources.Master.ResourceJS.WarningMessageBeforeUnload;
                     }
                 };
             }
@@ -10219,8 +10243,9 @@ function EventPage(calendar) {
 
         _eventObj = eventObj;
         _eventObj.sourceId = _eventObj.sourceId || (_eventObj.source ? _eventObj.source.objectId : undefined);
-		
+
         repeatRule = _eventObj.repeatRule;
+        alertType = _eventObj.alert.type;
 
         _canChangeSource = _eventObj.source == undefined ||
 				_eventObj.source && !_eventObj.source.isSubscription;
@@ -11145,17 +11170,16 @@ function EventPage(calendar) {
         if (!_canEdit) {return false;}
 
         if (false == fcUtil.validateInput(dlg.editor.title, fcUtil.validateNonemptyString)) {return false;}
-            
+
+        var dates = {};
+
+        if (!_validateDateFields(dates)) {return false;}
+
         _eventObj.title = $.trim(dlg.editor.title.val());
         _eventObj.title = _eventObj.title.substr(0, Math.min(calendar.options.eventMaxTitleLength, _eventObj.title.length));
         _eventObj.location = $.trim(dlg.editor.location.val());
         _eventObj.description = $.trim(dlg.editor.description.val());
         _eventObj.allDay = dlg.editor.allday.is(":checked");
-
-        var dates = {};
-            
-        if (!_validateDateFields(dates)) {return false;}
-            
         _eventObj.start = dates.fromDate.dateTime;
         _eventObj.end   = dates.toDate.dateTime;
 
@@ -11547,8 +11571,6 @@ function EventPage(calendar) {
         var calColor;
         if (_canChangeSource) {
             for (var i = 0; i < sources.length; ++i) {
-                if(!isNewEvent && sources[i].isSubscription)
-                    continue;
                 if (sources[i].isTodo == 1) continue;
 
                 if ((sources[i].objectId != undefined) && (sources[i].isEditable || !sources[i].isSubscription)) {
@@ -15768,7 +15790,7 @@ function AgendaEventRenderer() {
 			if (event.end) {
 				newEnd = addMinutes(cloneDate(event.end), minuteDelta);
 			}
-			timeElement.text(formatDates(newStart, newEnd, opt('timeFormat')));
+			timeElement.text(formatDates(newStart, newEnd, opt('timeFormat')) + (eventElement.height() < 28 ? " " + event.title : ""));
 		}
 		function resetElement() {
 			// convert back to original slot-event
@@ -16506,7 +16528,7 @@ function View(element, calendar, viewName) {
 
 
 	function getEventElement(event) {
-		if (event._id != undefined) {
+		if (event._id != undefined && eventElementsByID[event._id]) {
 			return eventElementsByID[event._id][0];
 		}
 		return null;
@@ -16885,7 +16907,7 @@ function DayEventRenderer() {
 					"</span>";
 
 				html += "<span class='bullet' style='color:" + htmlEscape(event.source ?
-						event.source.backgroundColor : t.calendar.options.eventBackgroundColor) +
+						event.source.backgroundColor : (event.backgroundColor || t.calendar.options.eventBackgroundColor)) +
 						";'>" + htmlEscape(t.calendar.options.categories.itemBullet) + "&nbsp;</span>";
 			} else {
 				html += '<span>&nbsp;</span>';      // to prevent collapsing
@@ -17146,9 +17168,10 @@ function DayEventRenderer() {
 				if (dayDelta) {
 					eventResize(this, event, dayDelta, 0, ev);
 					// event redraw will clear helpers
+				} else {
+					t.calendar.rerenderEvents();
+					// otherwise, the drag handler already restored the old events
 				}
-				// otherwise, the drag handler already restored the old events
-
 				setTimeout(function() { // make this happen after the element's click event
 					isResizing = false;
 				},0);

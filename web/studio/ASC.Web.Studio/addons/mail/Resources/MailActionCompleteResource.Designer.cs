@@ -61,24 +61,6 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Address &quot;{0}&quot; was added successfully..
-        /// </summary>
-        public static string AddAddressSuccess {
-            get {
-                return ResourceManager.GetString("AddAddressSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alias &quot;{0}&quot; was added successfully..
-        /// </summary>
-        public static string AddAliasSuccess {
-            get {
-                return ResourceManager.GetString("AddAliasSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to New contact was added successfully..
         /// </summary>
         public static string AddContactSuccess {
@@ -250,25 +232,7 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Address &quot;{0}&quot; was removed successfully..
-        /// </summary>
-        public static string RemoveAddressSuccess {
-            get {
-                return ResourceManager.GetString("RemoveAddressSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alias &quot;{0}&quot; was removed successfully..
-        /// </summary>
-        public static string RemoveAliasSuccess {
-            get {
-                return ResourceManager.GetString("RemoveAliasSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Domain &quot;{0}&quot; was removed successfully..
+        ///   Looks up a localized string similar to The domain &quot;{0}&quot; was removed successfully..
         /// </summary>
         public static string RemoveDomainSuccess {
             get {

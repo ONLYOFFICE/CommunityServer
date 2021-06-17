@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web;
+
 using ASC.Core;
 using ASC.Data.Storage;
-using ASC.ElasticSearch;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
@@ -72,14 +72,14 @@ namespace ASC.Web.Talk.ClientScript
                         fileTransportType = config.FileTransportType ?? string.Empty,
                         maxUploadSize = SetupInfo.MaxImageUploadSize,
                         sounds =  WebPath.GetPath("/addons/talk/swf/sounds.swf"),
-                        soundsHtml = new List<string>() { 
+                        soundsHtml = new List<string>() {
                             WebPath.GetPath("/addons/talk/swf/startupsound.mp3"),
                             WebPath.GetPath("/addons/talk/swf/incmsgsound.mp3"),
-                            WebPath.GetPath("/addons/talk/swf/letupsound.mp3"), 
+                            WebPath.GetPath("/addons/talk/swf/letupsound.mp3"),
                             WebPath.GetPath("/addons/talk/swf/sndmsgsound.mp3"),
                             WebPath.GetPath("/addons/talk/swf/statussound.mp3")
                         },
-                        fullText = FactoryIndexer<JabberWrapper>.CanSearchByContent()
+                        fullText = false
                     }
                 })
             };
@@ -87,7 +87,7 @@ namespace ASC.Web.Talk.ClientScript
 
         protected override string GetCacheHash()
         {
-            return ClientSettings.ResetCacheKey + SecurityContext.CurrentAccount.ID + FactoryIndexer<JabberWrapper>.CanSearchByContent() +
+            return ClientSettings.ResetCacheKey + SecurityContext.CurrentAccount.ID +
                    (SecurityContext.IsAuthenticated && !CoreContext.Configuration.Personal
                         ? (CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
                            CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture))
@@ -136,7 +136,7 @@ namespace ASC.Web.Talk.ClientScript
         {
             return new List<KeyValuePair<string, object>>(2)
             {
-                RegisterResourceSet("Resources", TalkResource.ResourceManager),
+                RegisterResourceSet("TalkResource", TalkResource.ResourceManager),
                 RegisterObject(new
                 {
                     statusTitles = new

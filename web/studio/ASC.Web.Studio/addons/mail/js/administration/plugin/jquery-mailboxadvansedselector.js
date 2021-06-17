@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 
 (function ($) {
-    var resources = ASC.Mail.Resources.MailResource;
+    var MailResource = ASC.Mail.Resources.MailResource;
     var mailboxadvancedSelector = function(element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.mailboxadvancedSelector.defaults, options);
@@ -56,6 +56,7 @@
         rewriteObjectItem: function(data) {
             var that = this;
             that.items = data;
+            that.itemsSelectedIds = {};
             that.showItemsListAdvSelector.call(that);
         }
     });
@@ -81,9 +82,9 @@
 
     $.fn.mailboxadvancedSelector.defaults = $.extend({}, $.fn.advancedSelector.defaults, {
         showme: true,
-        noresults: resources.MailBoxSelectorNoResult,
-        noitems: resources.MailBoxSelectorNoItems,
-        emptylist: resources.MailBoxSelectorEmptyList
+        noresults: MailResource.MailBoxSelectorNoResult,
+        noitems: MailResource.MailBoxSelectorNoItems,
+        emptylist: MailResource.MailBoxSelectorEmptyList
     });
 
 })(jQuery, window, document, document.body);

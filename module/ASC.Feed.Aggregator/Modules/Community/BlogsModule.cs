@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Blogs.Core.Domain;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -142,16 +143,16 @@ namespace ASC.Feed.Aggregator.Modules.Community
         private static Comment ToComment(object[] r)
         {
             var comment = new Comment
+            {
+                Post = new Post
                 {
-                    Post = new Post
-                        {
-                            ID = new Guid(Convert.ToString(r[0])),
-                            Title = Convert.ToString(r[1]),
-                            Content = Convert.ToString(r[2]),
-                            UserID = new Guid(Convert.ToString(r[3])),
-                            Datetime = Convert.ToDateTime(r[4])
-                        }
-                };
+                    ID = new Guid(Convert.ToString(r[0])),
+                    Title = Convert.ToString(r[1]),
+                    Content = Convert.ToString(r[2]),
+                    UserID = new Guid(Convert.ToString(r[3])),
+                    Datetime = Convert.ToDateTime(r[4])
+                }
+            };
 
             if (r[5] != null)
             {
@@ -175,23 +176,23 @@ namespace ASC.Feed.Aggregator.Modules.Community
             var feedAuthor = comments.Any() ? comments.Last().UserID : post.UserID;
 
             var feed = new Feed(post.UserID, post.Datetime)
-                {
-                    Item = item,
-                    ItemId = post.ID.ToString(),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
-                    ModifiedBy = feedAuthor,
-                    ModifiedDate = feedDate,
-                    Product = Product,
-                    Module = Name,
-                    Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
-                    Title = post.Title,
-                    Description = HtmlUtility.GetFull(post.Content),
-                    HasPreview = post.Content.Contains("class=\"asccut\""),
-                    CanComment = true,
-                    CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
-                    Comments = comments.Select(ToFeedComment),
-                    GroupId = string.Format("{0}_{1}", item, post.ID)
-                };
+            {
+                Item = item,
+                ItemId = post.ID.ToString(),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemUrl),
+                ModifiedBy = feedAuthor,
+                ModifiedDate = feedDate,
+                Product = Product,
+                Module = Name,
+                Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
+                Title = post.Title,
+                Description = HtmlUtility.GetFull(post.Content),
+                HasPreview = post.Content.Contains("class=\"asccut\""),
+                CanComment = true,
+                CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
+                Comments = comments.Select(ToFeedComment),
+                GroupId = string.Format("{0}_{1}", item, post.ID)
+            };
             feed.Keywords = string.Format("{0} {1} {2}",
                                           post.Title,
                                           Helper.GetText(post.Content),
@@ -203,11 +204,11 @@ namespace ASC.Feed.Aggregator.Modules.Community
         private static FeedComment ToFeedComment(Comment comment)
         {
             return new FeedComment(comment.UserID)
-                {
-                    Id = comment.ID.ToString(),
-                    Description = HtmlUtility.GetFull(comment.Content),
-                    Date = comment.Datetime
-                };
+            {
+                Id = comment.ID.ToString(),
+                Description = HtmlUtility.GetFull(comment.Content),
+                Date = comment.Datetime
+            };
         }
     }
 }

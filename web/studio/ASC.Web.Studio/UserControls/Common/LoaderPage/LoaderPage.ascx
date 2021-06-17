@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LoaderPage.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.LoaderPage.LoaderPage" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="loader-page <%= Static ? "static" : String.Empty  %>">
     <% if (DefaultSettings) { %>

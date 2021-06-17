@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,16 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Web;
+
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -27,16 +37,9 @@ using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
+
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Web;
+
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.HttpHandlers
@@ -82,10 +85,10 @@ namespace ASC.Web.Files.HttpHandlers
 
                     case ChunkedRequestType.Upload:
                         var resumedSession = FileUploader.UploadChunk(request.UploadId, request.ChunkStream, request.ChunkSize);
-                        
+
                         if (resumedSession.BytesUploaded == resumedSession.BytesTotal)
                         {
-                            WriteSuccess(context, ToResponseObject(resumedSession.File), (int) HttpStatusCode.Created);
+                            WriteSuccess(context, ToResponseObject(resumedSession.File), (int)HttpStatusCode.Created);
                             FilesMessageService.Send(resumedSession.File, context.Request, MessageAction.FileUploaded, resumedSession.File.Title);
                         }
                         else
@@ -129,7 +132,7 @@ namespace ASC.Web.Files.HttpHandlers
                 {
                     CoreContext.TenantManager.SetCurrentTenant(uploadSession.TenantId);
                     SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(uploadSession.UserId));
-                    var culture = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, uploadSession.CultureName, StringComparison.InvariantCultureIgnoreCase));
+                    var culture = SetupInfo.GetPersonalCulture(uploadSession.CultureName).Value;
                     if (culture != null)
                         Thread.CurrentThread.CurrentUICulture = culture;
                     return true;
@@ -141,10 +144,10 @@ namespace ASC.Web.Files.HttpHandlers
 
         private static void WriteError(HttpContext context, string message)
         {
-            WriteResponse(context, false, null, message, (int) HttpStatusCode.OK);
+            WriteResponse(context, false, null, message, (int)HttpStatusCode.OK);
         }
 
-        private static void WriteSuccess(HttpContext context, object data, int statusCode = (int) HttpStatusCode.OK)
+        private static void WriteSuccess(HttpContext context, object data, int statusCode = (int)HttpStatusCode.OK)
         {
             WriteResponse(context, true, data, string.Empty, statusCode);
         }
@@ -152,7 +155,7 @@ namespace ASC.Web.Files.HttpHandlers
         private static void WriteResponse(HttpContext context, bool success, object data, string message, int statusCode)
         {
             context.Response.StatusCode = statusCode;
-            context.Response.Write(JsonConvert.SerializeObject(new {success, data, message}));
+            context.Response.Write(JsonConvert.SerializeObject(new { success, data, message }));
             context.Response.ContentType = "application/json";
         }
 
@@ -169,31 +172,31 @@ namespace ASC.Web.Files.HttpHandlers
                                          }
                                          return f.ID;
                                      })
-                                 : new List<object> {session.FolderId};
+                                 : new List<object> { session.FolderId };
 
             return new
-                {
-                    id = session.Id,
-                    path = pathFolder,
-                    created = session.Created,
-                    expired = session.Expired,
-                    location = session.Location,
-                    bytes_uploaded = session.BytesUploaded,
-                    bytes_total = session.BytesTotal
-                };
+            {
+                id = session.Id,
+                path = pathFolder,
+                created = session.Created,
+                expired = session.Expired,
+                location = session.Location,
+                bytes_uploaded = session.BytesUploaded,
+                bytes_total = session.BytesTotal
+            };
         }
 
         private static object ToResponseObject(File file)
         {
             return new
-                {
-                    id = file.ID,
-                    folderId = file.FolderID,
-                    version = file.Version,
-                    title = file.Title,
-                    provider_key = file.ProviderKey,
-                    uploaded = true
-                };
+            {
+                id = file.ID,
+                folderId = file.FolderID,
+                version = file.Version,
+                title = file.Title,
+                provider_key = file.ProviderKey,
+                uploaded = true
+            };
         }
 
         private enum ChunkedRequestType
@@ -314,7 +317,7 @@ namespace ASC.Web.Files.HttpHandlers
                     var culture = _request["culture"];
                     if (string.IsNullOrEmpty(culture)) culture = "en-US";
 
-                    return _cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, culture, StringComparison.InvariantCultureIgnoreCase));
+                    return _cultureInfo = SetupInfo.GetPersonalCulture(culture).Value;
                 }
             }
 

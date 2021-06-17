@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,16 @@ using System;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio.UserControls.Management

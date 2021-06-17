@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Web.Projects;
+using ASC.Web.Projects.Core.Engine;
 using ASC.Web.Projects.Core.Search;
 
 namespace ASC.Projects.Engine
@@ -100,8 +101,8 @@ namespace ASC.Projects.Engine
                 {
                     filter.TaskStatuses.Clear();
                     filter.TaskStatuses.Add(TaskStatus.Closed);
-                    filter.SortBy = "status_changed";
-                    filter.SortOrder = false;
+                    //filter.SortBy = "status_changed";
+                    //filter.SortOrder = false;
                     filter.Offset = 0;
                     filter.Max = filterLimit - taskList.Count;
                     taskList.AddRange(DaoFactory.TaskDao.GetByFilter(filter, isAdmin, anyOne));

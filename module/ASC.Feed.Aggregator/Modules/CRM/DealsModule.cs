@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
 using ASC.Web.Studio.Utility;
-using System.Linq;
 
 namespace ASC.Feed.Aggregator.Modules.CRM
 {
@@ -132,16 +133,16 @@ namespace ASC.Feed.Aggregator.Modules.CRM
         private static Deal ToDeal(object[] r)
         {
             var deal = new Deal
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    Title = Convert.ToString(r[1]),
-                    Description = Convert.ToString(r[2]),
-                    ResponsibleID = new Guid(Convert.ToString(r[3])),
-                    CreateBy = new Guid(Convert.ToString(r[4])),
-                    CreateOn = Convert.ToDateTime(r[5]),
-                    LastModifedBy = new Guid(Convert.ToString(r[6])),
-                    LastModifedOn = Convert.ToDateTime(r[7])
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = Convert.ToString(r[1]),
+                Description = Convert.ToString(r[2]),
+                ResponsibleID = new Guid(Convert.ToString(r[3])),
+                CreateBy = new Guid(Convert.ToString(r[4])),
+                CreateOn = Convert.ToDateTime(r[5]),
+                LastModifedBy = new Guid(Convert.ToString(r[6])),
+                LastModifedOn = Convert.ToDateTime(r[7])
+            };
 
             var contactId = Convert.ToInt32(r[8]);
             if (!string.IsNullOrEmpty(Convert.ToString(r[9])))
@@ -150,31 +151,31 @@ namespace ASC.Feed.Aggregator.Modules.CRM
                 if (contactId > 0 && isCompany)
                 {
                     deal.Contact = new Company
-                        {
-                            ID = Convert.ToInt32(r[10]),
-                            About = Convert.ToString(r[11]),
-                            CompanyName = Convert.ToString(r[14]),
-                            CreateBy = new Guid(Convert.ToString(r[17])),
-                            CreateOn = Convert.ToDateTime(r[18]),
-                            LastModifedBy = new Guid(Convert.ToString(r[19])),
-                            LastModifedOn = Convert.ToDateTime(r[20])
-                        };
+                    {
+                        ID = Convert.ToInt32(r[10]),
+                        About = Convert.ToString(r[11]),
+                        CompanyName = Convert.ToString(r[14]),
+                        CreateBy = new Guid(Convert.ToString(r[17])),
+                        CreateOn = Convert.ToDateTime(r[18]),
+                        LastModifedBy = new Guid(Convert.ToString(r[19])),
+                        LastModifedOn = Convert.ToDateTime(r[20])
+                    };
                 }
                 else
                 {
                     deal.Contact = new Person
-                        {
-                            ID = Convert.ToInt32(r[10]),
-                            About = Convert.ToString(r[11]),
-                            FirstName = Convert.ToString(r[12]),
-                            LastName = Convert.ToString(r[13]),
-                            CompanyID = Convert.ToInt32(r[15]),
-                            JobTitle = Convert.ToString(r[16]),
-                            CreateBy = new Guid(Convert.ToString(r[17])),
-                            CreateOn = Convert.ToDateTime(r[18]),
-                            LastModifedBy = new Guid(Convert.ToString(r[19])),
-                            LastModifedOn = Convert.ToDateTime(r[20])
-                        };
+                    {
+                        ID = Convert.ToInt32(r[10]),
+                        About = Convert.ToString(r[11]),
+                        FirstName = Convert.ToString(r[12]),
+                        LastName = Convert.ToString(r[13]),
+                        CompanyID = Convert.ToInt32(r[15]),
+                        JobTitle = Convert.ToString(r[16]),
+                        CreateBy = new Guid(Convert.ToString(r[17])),
+                        CreateOn = Convert.ToDateTime(r[18]),
+                        LastModifedBy = new Guid(Convert.ToString(r[19])),
+                        LastModifedOn = Convert.ToDateTime(r[20])
+                    };
                 }
             }
 
@@ -185,20 +186,20 @@ namespace ASC.Feed.Aggregator.Modules.CRM
         {
             var itemId = "/Products/CRM/Deals.aspx?id=" + deal.ID + "#profile";
             return new Feed(deal.CreateBy, deal.CreateOn)
-                {
-                    Item = item,
-                    ItemId = deal.ID.ToString(CultureInfo.InvariantCulture),
-                    ItemUrl = CommonLinkUtility.ToAbsolute(itemId),
-                    Product = Product,
-                    Module = Name,
-                    Title = deal.Title,
-                    Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(deal.Description)),
-                    AdditionalInfo = deal.Contact.GetTitle(),
-                    Keywords = string.Format("{0} {1}", deal.Title, deal.Description),
-                    HasPreview = false,
-                    CanComment = false,
-                    GroupId = GetGroupId(item, deal.CreateBy)
-                };
+            {
+                Item = item,
+                ItemId = deal.ID.ToString(CultureInfo.InvariantCulture),
+                ItemUrl = CommonLinkUtility.ToAbsolute(itemId),
+                Product = Product,
+                Module = Name,
+                Title = deal.Title,
+                Description = Helper.GetHtmlDescription(HttpUtility.HtmlEncode(deal.Description)),
+                AdditionalInfo = deal.Contact.GetTitle(),
+                Keywords = string.Format("{0} {1}", deal.Title, deal.Description),
+                HasPreview = false,
+                CanComment = false,
+                GroupId = GetGroupId(item, deal.CreateBy)
+            };
         }
     }
 }

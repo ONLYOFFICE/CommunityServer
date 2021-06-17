@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,10 @@
 
 
 using System;
-using System.Web.UI;
 using System.ComponentModel;
+using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using ASC.Web.Studio.Core;
 
 namespace ASC.Web.Studio.Controls.Common
@@ -53,16 +54,16 @@ namespace ASC.Web.Studio.Controls.Common
 
         public Container()
         {
-			Header = new PlaceHolder ();
-			Body = new PlaceHolder ();
+            Header = new PlaceHolder();
+            Body = new PlaceHolder();
             Options = new StyleOptions
-                {
-                    HeadCssClass = "containerHeaderBlock",
-                    BodyCssClass = "containerBodyBlock",
-                    ContainerCssClass = "mainContainerClass",
-                    PopupContainerCssClass = "popupContainerClass",
-                    OnCancelButtonClick = "PopupKeyUpActionProvider.CloseDialog();"
-                };
+            {
+                HeadCssClass = "containerHeaderBlock",
+                BodyCssClass = "containerBodyBlock",
+                ContainerCssClass = "mainContainerClass",
+                PopupContainerCssClass = "popupContainerClass",
+                OnCancelButtonClick = "PopupKeyUpActionProvider.CloseDialog();"
+            };
         }
 
         protected override void OnInit(EventArgs e)

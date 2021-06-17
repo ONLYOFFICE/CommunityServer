@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System.Linq;
+
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Core.DbSchema.Tables;
 using ASC.Mail.Data.Contracts;
@@ -35,7 +36,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Mailbox
         {
             TasksConfig = tasksConfig;
 
-            Limit = tasksLimit > 0 ? tasksLimit : (int?) null;
+            Limit = tasksLimit > 0 ? tasksLimit : (int?)null;
 
             OnlyActive = active;
 

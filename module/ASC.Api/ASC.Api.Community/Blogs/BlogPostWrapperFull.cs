@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Blogs.Core.Domain;
 using ASC.Specific;
@@ -26,21 +27,21 @@ using ASC.Specific;
 namespace ASC.Api.Blogs
 {
     [DataContract(Name = "post", Namespace = "")]
-    public class BlogPostWrapperFull:IApiSortableDate
+    public class BlogPostWrapperFull : IApiSortableDate
     {
         public BlogPostWrapperFull(Post post)
         {
             CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(post.UserID));
-            Updated = Created = (ApiDateTime) post.Datetime;
+            Updated = Created = (ApiDateTime)post.Datetime;
             Id = post.ID;
-            Tags = post.TagList.Select(x=>x.Content).ToList();
+            Tags = post.TagList.Select(x => x.Content).ToList();
             Title = post.Title;
             Text = post.Content;
         }
 
         private BlogPostWrapperFull()
         {
-            
+
         }
 
         [DataMember(Order = 100)]

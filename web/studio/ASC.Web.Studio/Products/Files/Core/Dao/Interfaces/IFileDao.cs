@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ASC.Files.Core
 {
@@ -120,6 +121,8 @@ namespace ASC.Files.Core
         /// <param name="file"></param>
         /// <returns>Stream</returns>
         Stream GetFileStream(File file);
+
+        Task<Stream> GetFileStreamAsync(File file);
 
         /// <summary>
         /// Get stream of file
@@ -236,7 +239,7 @@ namespace ASC.Files.Core
 
         ChunkedUploadSession CreateUploadSession(File file, long contentLength);
 
-        void UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength);
+        File UploadChunk(ChunkedUploadSession uploadSession, Stream chunkStream, long chunkLength);
 
         void AbortUploadSession(ChunkedUploadSession uploadSession);
 
@@ -279,6 +282,8 @@ namespace ASC.Files.Core
         /// <returns></returns>
         bool IsExistOnStorage(File file);
 
+        Task<bool> IsExistOnStorageAsync(File file);
+
         void SaveEditHistory(File file, string changes, Stream differenceStream);
 
         List<EditHistory> GetEditHistory(object fileId, int fileVersion = 0);
@@ -286,6 +291,10 @@ namespace ASC.Files.Core
         Stream GetDifferenceStream(File file);
 
         bool ContainChanges(object fileId, int fileVersion);
+
+        void SaveThumbnail(File file, Stream thumbnail);
+
+        Stream GetThumbnail(File file);
 
         #endregion
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ var TariffStandalone = new function () {
         var licenseKey = jq("#licenseKeyText").text();
 
         if (jq("#licenseKeyText").length && !licenseKey.length) {
-            var res = { Status: 0, Message: ASC.Resources.Master.Resource.LicenseKeyError };
+            var res = { Status: 0, Message: ASC.Resources.Master.ResourceJS.LicenseKeyError };
 
             onActivate(res);
             return;
@@ -94,7 +94,7 @@ var TariffStandalone = new function () {
 
     var onActivate = function (res) {
         if (res.Status) {
-            toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+            toastr.success(ASC.Resources.Master.ResourceJS.OperationSuccededMsg);
             setTimeout(function () {
                 location.reload(true);
             }, 500);

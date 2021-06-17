@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,9 @@ using System.Web;
 using System.Web.UI;
 
 using AjaxPro;
+
 using Amazon.SecurityToken.Model;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -32,10 +34,10 @@ using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Security;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
 
 using Newtonsoft.Json;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -174,13 +176,13 @@ namespace ASC.Web.Studio.UserControls.Management
                     #endregion
 
 
-                    CoreContext.TenantManager.SaveTenant(curTenant);   
+                    CoreContext.TenantManager.SaveTenant(curTenant);
                     if (messageAction != MessageAction.None)
                     {
                         MessageService.Send(HttpContext.Current.Request, messageAction);
                     }
                 }
-                catch(Exception err)
+                catch (Exception err)
                 {
                     _successMessage = err.Message;
                     LogManager.GetLogger("ASC.Web.Confirm").Error(err);
@@ -239,11 +241,13 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             var owner = CoreContext.UserManager.GetUsers(tenant.OwnerId);
-            var redirectLink = SetupInfo.TeamlabSiteRedirect + "/remove-portal-feedback-form.aspx#" +
-                        Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + owner.FirstName +
+            var redirectLink = SetupInfo.TeamlabSiteRedirect + "/remove-portal-feedback-form.aspx#";
+            var parameters = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("{\"firstname\":\"" + owner.FirstName +
                                                                                     "\",\"lastname\":\"" + owner.LastName +
                                                                                     "\",\"alias\":\"" + tenant.TenantAlias +
                                                                                     "\",\"email\":\"" + owner.Email + "\"}"));
+
+            redirectLink += HttpUtility.UrlEncode(parameters);
 
             var authed = false;
             try
@@ -268,10 +272,10 @@ namespace ASC.Web.Studio.UserControls.Management
             StudioNotifyService.Instance.SendMsgPortalDeletionSuccess(owner, redirectLink);
 
             return JsonConvert.SerializeObject(new
-                {
-                    successMessage = _successMessage,
-                    redirectLink
-                });
+            {
+                successMessage = _successMessage,
+                redirectLink
+            });
         }
 
 

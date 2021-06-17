@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,17 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Web.Community.Wiki.Common;
-using ASC.Web.UserControls.Wiki.Data;
-using ASC.Web.UserControls.Wiki.Resources;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.UserControls.Wiki;
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.Community.Product;
+using ASC.Web.Community.Wiki.Common;
+using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Controls.Common;
+using ASC.Web.UserControls.Wiki;
+using ASC.Web.UserControls.Wiki.Data;
+
 using Newtonsoft.Json;
 
 namespace ASC.Web.Community.Wiki
@@ -123,7 +125,8 @@ namespace ASC.Web.Community.Wiki
 
                 Page.RegisterInlineScript(String.Format(" wikiPages = {0}; ASC.Community.Wiki.InitListPages();",
                                                JsonConvert.SerializeObject(dataSource.ConvertAll(p =>
-                                                   new {
+                                                   new
+                                                   {
                                                        PageName = GetPageName(p),
                                                        ID = p.ID,
                                                        PageLink = GetPageViewLink(p),
@@ -134,13 +137,13 @@ namespace ASC.Web.Community.Wiki
 
 
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ID = "wikiListPagesEmpty",
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
-                        Header = emptyScreenCaption,
-                        Describe = emptyScreenText,
-                        CssClass = "display-none"
-                    };
+                {
+                    ID = "wikiListPagesEmpty",
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
+                    Header = emptyScreenCaption,
+                    Describe = emptyScreenText,
+                    CssClass = "display-none"
+                };
 
                 if (CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_AddPage))
                 {
@@ -165,13 +168,13 @@ namespace ASC.Web.Community.Wiki
 
 
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ID = "wikiListPagesByLetterEmpty",
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
-                        Header = WikiResource.EmptyScreenWikiIndexCaption,
-                        Describe = WikiResource.EmptyScreenWikiIndexText,
-                        CssClass = "display-none"
-                    };
+                {
+                    ID = "wikiListPagesByLetterEmpty",
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("wikilogo150.png", WikiManager.ModuleId),
+                    Header = WikiResource.EmptyScreenWikiIndexCaption,
+                    Describe = WikiResource.EmptyScreenWikiIndexText,
+                    CssClass = "display-none"
+                };
 
                 if (CommunitySecurity.CheckPermissions(Community.Wiki.Common.Constants.Action_AddPage))
                 {

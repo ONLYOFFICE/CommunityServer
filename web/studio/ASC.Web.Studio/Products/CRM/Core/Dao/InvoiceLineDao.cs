@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
+using System.Text.RegularExpressions;
+
 using ASC.Collections;
-using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.CRM.Core.Entities;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -69,7 +68,7 @@ namespace ASC.CRM.Core.Dao
             _invoiceLineCache.Reset(invoiceLineID.ToString(CultureInfo.InvariantCulture));
         }
     }
-    
+
     public class InvoiceLineDao : AbstractDao
     {
         public InvoiceLineDao(int tenantID)
@@ -78,7 +77,8 @@ namespace ASC.CRM.Core.Dao
         }
 
 
-        public static string GetJson(InvoiceItem invoiceItem) {
+        public static string GetJson(InvoiceItem invoiceItem)
+        {
             return invoiceItem == null ?
                     string.Empty :
                     JsonConvert.SerializeObject(new
@@ -88,7 +88,8 @@ namespace ASC.CRM.Core.Dao
                         description = invoiceItem.Description
                     });
         }
-        public static string GetJson(InvoiceTax invoiceTax) {
+        public static string GetJson(InvoiceTax invoiceTax)
+        {
             return invoiceTax == null ?
                     string.Empty :
                     JsonConvert.SerializeObject(new
@@ -118,7 +119,7 @@ namespace ASC.CRM.Core.Dao
 
             return invoiceLines.Count > 0 ? invoiceLines[0] : null;
         }
-        
+
         public List<InvoiceLine> GetInvoiceLines(int invoiceID)
         {
             return Db.ExecuteList(GetInvoiceLineSqlQuery(Exp.Eq("invoice_id", invoiceID)).OrderBy("sort_order", true)).ConvertAll(ToInvoiceLine);
@@ -219,15 +220,15 @@ namespace ASC.CRM.Core.Dao
         public Boolean CanDeleteInDb(int invoiceLineID)
         {
 
-                var invoiceID = Db.ExecuteScalar<int>(Query("crm_invoice_line").Select("invoice_id")
-                                     .Where(Exp.Eq("id", invoiceLineID)));
+            var invoiceID = Db.ExecuteScalar<int>(Query("crm_invoice_line").Select("invoice_id")
+                                 .Where(Exp.Eq("id", invoiceLineID)));
 
-                if (invoiceID == 0) return false;
+            if (invoiceID == 0) return false;
 
-                var count = Db.ExecuteScalar<int>(Query("crm_invoice_line").SelectCount()
-                                        .Where(Exp.Eq("invoice_id", invoiceID)));
+            var count = Db.ExecuteScalar<int>(Query("crm_invoice_line").SelectCount()
+                                    .Where(Exp.Eq("invoice_id", invoiceID)));
 
-                return count > 1;
+            return count > 1;
         }
 
         #endregion
@@ -238,18 +239,18 @@ namespace ASC.CRM.Core.Dao
         private static InvoiceLine ToInvoiceLine(object[] row)
         {
             return new InvoiceLine
-                {
-                    ID = Convert.ToInt32(row[0]),
-                    InvoiceID = Convert.ToInt32(row[1]),
-                    InvoiceItemID = Convert.ToInt32(row[2]),
-                    InvoiceTax1ID = Convert.ToInt32(row[3]),
-                    InvoiceTax2ID = Convert.ToInt32(row[4]),
-                    SortOrder = Convert.ToInt32(row[5]),
-                    Description = Convert.ToString(row[6]),
-                    Quantity = Convert.ToDecimal(row[7]),
-                    Price = Convert.ToDecimal(row[8]),
-                    Discount = Convert.ToDecimal(row[9])
-                };
+            {
+                ID = Convert.ToInt32(row[0]),
+                InvoiceID = Convert.ToInt32(row[1]),
+                InvoiceItemID = Convert.ToInt32(row[2]),
+                InvoiceTax1ID = Convert.ToInt32(row[3]),
+                InvoiceTax2ID = Convert.ToInt32(row[4]),
+                SortOrder = Convert.ToInt32(row[5]),
+                Description = Convert.ToString(row[6]),
+                Quantity = Convert.ToDecimal(row[7]),
+                Price = Convert.ToDecimal(row[8]),
+                Discount = Convert.ToDecimal(row[9])
+            };
         }
 
         private SqlQuery GetInvoiceLineSqlQuery(Exp where)

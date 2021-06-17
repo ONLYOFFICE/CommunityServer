@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -37,7 +38,7 @@ namespace ASC.Mail.Core.Dao
 
         protected string CurrentUserId { get; private set; }
 
-        public TagDao(IDbManager dbManager, int tenant, string user) 
+        public TagDao(IDbManager dbManager, int tenant, string user)
             : base(table, dbManager, tenant)
         {
             CurrentUserId = user;
@@ -117,7 +118,7 @@ namespace ASC.Mail.Core.Dao
                 .Distinct()
                 .Select(CrmTagTable.Columns.Id.Prefix(ct), CrmTagTable.Columns.Title.Prefix(ct))
                 .Where(CrmTagTable.Columns.Tenant.Prefix(ct), Tenant)
-                .Where(CrmEntityTagTable.Columns.EntityType.Prefix(cet), (int) EntityType.Contact)
+                .Where(CrmEntityTagTable.Columns.EntityType.Prefix(cet), (int)EntityType.Contact)
                 .Where(Exp.In(CrmEntityTagTable.Columns.EntityId.Prefix(cet), contactIds));
 
             return Db.ExecuteList(query)

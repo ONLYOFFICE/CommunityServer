@@ -2,7 +2,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ConfirmConvert.ascx.cs" Inherits="ASC.Web.Files.Controls.ConfirmConvert" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div id="confirmConvert" class="popup-modal"

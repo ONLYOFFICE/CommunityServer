@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ ASC.Projects.TaskDescriptionPage = (function() {
     var baseObject = ASC.Projects,
         resources = baseObject.Resources,
         projectsJsResource = resources.ProjectsJSResource,
-        tasksResource = resources.TasksResource,
+        TaskResource = resources.TaskResource,
         common = baseObject.Common,
         master = baseObject.Master,
         teamlab,
@@ -396,16 +396,16 @@ ASC.Projects.TaskDescriptionPage = (function() {
         descriptionTab.init()
             .push(resources.ProjectResource.Project, formatDescription(task.projectOwner.title), "Tasks.aspx?prjID=" + task.projectOwner.id)
             .push(resources.MilestoneResource.Milestone, task.milestone ? jq.format('[{0}] {1}', task.milestone.displayDateDeadline, task.milestone.title) : '')
-            .push(tasksResource.TaskStartDate, task.displayDateStart)
-            .push(tasksResource.EndDate, task.displayDateDeadline, undefined, ASC.Projects.TasksManager.compareDates(task.deadline) ? "<span class='deadlineLate'>{0}</span>" : undefined)
-            .push(tasksResource.Priority, task.priority === 1 ? tasksResource.HighPriority : undefined, undefined, '<span class="colorPriority high"><span>{0}</span></span>')
-            .push(tasksResource.AssignedTo, task.responsibles.length === 0 ? tasksResource.WithoutResponsible : task.responsibles.map(function (item) { return item.displayName }).join(', '))
-            .push(resources.CommonResource.SpentTotally, task.canCreateTimeSpend && task.timeSpend ? jq.format("{0} {1}", timeSpend.hours + resources.TimeTrackingResource.ShortHours, timeSpend.minutes + resources.TimeTrackingResource.ShortMinutes) : '', "TimeTracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id)
-            .push(tasksResource.CreatingDate, task.displayDateCrtdate)
-            .push(tasksResource.TaskProducer, task.createdBy.displayName)
-            .push(tasksResource.ClosingDate, task.status === 2 ? task.displayDateUptdate : '')
-            .push(tasksResource.ClosedBy, closedBy)
-            .push(resources.CommonResource.Description, jq.linksParser(formatDescription(task.description)))
+            .push(TaskResource.TaskStartDate, task.displayDateStart)
+            .push(TaskResource.EndDate, task.displayDateDeadline, undefined, ASC.Projects.TasksManager.compareDates(task.deadline) ? "<span class='deadlineLate'>{0}</span>" : undefined)
+            .push(TaskResource.Priority, task.priority === 1 ? TaskResource.HighPriority : undefined, undefined, '<span class="colorPriority high"><span>{0}</span></span>')
+            .push(TaskResource.AssignedTo, task.responsibles.length === 0 ? TaskResource.WithoutResponsible : task.responsibles.map(function (item) { return item.displayName }).join(', '))
+            .push(resources.ProjectsCommonResource.SpentTotally, task.canCreateTimeSpend && task.timeSpend ? jq.format("{0} {1}", timeSpend.hours + resources.TimeTrackingResource.ShortHours, timeSpend.minutes + resources.TimeTrackingResource.ShortMinutes) : '', "TimeTracking.aspx?prjID=" + task.projectOwner.id + "&id=" + task.id)
+            .push(TaskResource.CreatingDate, task.displayDateCrtdate)
+            .push(TaskResource.TaskProducer, task.createdBy.displayName)
+            .push(TaskResource.ClosingDate, task.status === 2 ? task.displayDateUptdate : '')
+            .push(TaskResource.ClosedBy, closedBy)
+            .push(resources.ProjectsCommonResource.Description, jq.linksParser(formatDescription(task.description)))
             .setStatuses(statuses)
             .setCurrentStatus(currentStatus)
             .setStatusRight(currentTask.canEdit)
@@ -751,28 +751,38 @@ ASC.Projects.TaskDescriptionPage = (function() {
         teamlab.removePrjTaskLink({ taskId: taskId, removeElemFlag: removeElemFlag }, link.dependenceTaskId, { dependenceTaskId: link.dependenceTaskId, parentTaskId: link.parentTaskId }, { success: onRemoveTaskLink, error: function (params, error) { } });
     };
 
+    function notifyTaskResponsible() {
+        teamlab.notifyPrjTaskResponsible({}, taskId, { success: function () {
+            common.displayInfoPanel(TaskResource.MessageSend);
+        }});
+    };
+
     function showEntityMenu() {
         var menuItems = [],
             ActionMenuItem = ASC.Projects.ActionMenuItem;
 
         if (currentTask.status !== 2 && currentTask.canEdit) {
             if (currentTask.responsibles.length === 0) {
-                menuItems.push(new ActionMenuItem("ta_accept", tasksResource.Accept, taAcceptHandler));
+                menuItems.push(new ActionMenuItem("ta_accept", TaskResource.Accept, taAcceptHandler));
             }
 
-            menuItems.push(new ActionMenuItem("ta_edit", tasksResource.EditTask, taEditHandler));
-        }
+            menuItems.push(new ActionMenuItem("ta_edit", TaskResource.EditTask, taEditHandler));
 
-        if (currentTask.canDelete) {
-            menuItems.push(new ActionMenuItem("ta_remove", tasksResource.RemoveTask, taRemoveHandler));
+            if (currentTask.responsibles.length && currentTask.responsibles.some(function (item) { return item.id != currentUserId; })) {
+                menuItems.push(new ActionMenuItem("ta_mesres", TaskResource.MessageResponsible, notifyTaskResponsible));
+            }
         }
 
         if (currentTask.canCreateTimeSpend) {
-            menuItems.push(new ActionMenuItem("ta_startTimer", resources.CommonResource.AutoTimer, taStartTimerHandler));
+            menuItems.push(new ActionMenuItem("ta_startTimer", resources.ProjectsCommonResource.AutoTimer, taStartTimerHandler));
         }
 
         if (typeof (currentTask.isSubscribed) !== "undefined") {
-            menuItems.push(new ActionMenuItem("ta_follow", currentTask.isSubscribed ? tasksResource.UnfollowTask : tasksResource.FollowTask, subscribeTask));
+            menuItems.push(new ActionMenuItem("ta_follow", currentTask.isSubscribed ? TaskResource.UnfollowTask : TaskResource.FollowTask, subscribeTask));
+        }
+
+        if (currentTask.canDelete) {
+            menuItems.push(new ActionMenuItem("ta_remove", TaskResource.RemoveTask, taRemoveHandler));
         }
 
         return { menuItems: menuItems };
@@ -782,8 +792,8 @@ ASC.Projects.TaskDescriptionPage = (function() {
         var taskid = selectedActionCombobox.data("taskid");
 
         var menuItems = [
-            new ASC.Projects.ActionMenuItem("lta_edit", tasksResource.Edit, ltaEditHandler.bind(null, taskid), "edit"),
-            new ASC.Projects.ActionMenuItem("lta_remove", resources.CommonResource.Delete, ltaRemoveHandler.bind(null, taskid), "delete")
+            new ASC.Projects.ActionMenuItem("lta_edit", TaskResource.Edit, ltaEditHandler.bind(null, taskid), "edit"),
+            new ASC.Projects.ActionMenuItem("lta_remove", resources.ProjectsCommonResource.Delete, ltaRemoveHandler.bind(null, taskid), "delete")
         ];
 
         return { menuItems: menuItems };
@@ -851,10 +861,10 @@ ASC.Projects.TaskDescriptionPage = (function() {
         var subtasksEmpty = 
         {
             img: "subtasks",
-            header: tasksResource.SubtasksEmptyScreen_Header,
-            description: tasksResource.SubtasksEmptyScreen_Describe,
+            header: TaskResource.SubtasksEmptyScreen_Header,
+            description: TaskResource.SubtasksEmptyScreen_Describe,
             button: {
-                title: tasksResource.AddNewSubtask,
+                title: TaskResource.AddNewSubtask,
                 onclick: function () {
                     $subtaskContainer.find(".quickAddSubTaskLink .link").click();
                 },
@@ -867,10 +877,10 @@ ASC.Projects.TaskDescriptionPage = (function() {
         var linksEmpty = 
         {
             img: "relatedtasks",
-            header: tasksResource.RelatedTasksEmptyScreen_Header,
-            description: tasksResource.RelatedTasksEmptyScreen_Describe,
+            header: TaskResource.RelatedTasksEmptyScreen_Header,
+            description: TaskResource.RelatedTasksEmptyScreen_Describe,
             button: {
-                title: tasksResource.CreateNewLink,
+                title: TaskResource.CreateNewLink,
                 onclick: function () {
                     if (!$editLinkBox.is(":visible")) {
                         $createAddTaskLinkButton.click();
@@ -885,8 +895,8 @@ ASC.Projects.TaskDescriptionPage = (function() {
         var commentsEmpty = 
         {
             img: "comments",
-            header: tasksResource.CommentsEmptyScreen_Header,
-            description: tasksResource.CommentsEmptyScreen_Describe,
+            header: TaskResource.CommentsEmptyScreen_Header,
+            description: TaskResource.CommentsEmptyScreen_Describe,
             button: {
                 title: ASC.Resources.Master.TemplateResource.AddNewCommentButton,
                 onclick: function () {
@@ -904,20 +914,20 @@ ASC.Projects.TaskDescriptionPage = (function() {
             "overViewModule",
             jq(".tab"),
             '#');
-        subtaskTab = new Tab(tasksResource.Subtasks,
+        subtaskTab = new Tab(TaskResource.Subtasks,
             function() { return currentTask.subtasks.length; },
             "subtasksModule",
             $subtaskContainer,
             '#subtasks',
             function() { return currentTask.canEdit || currentTask.subtasks.length },
             subtasksEmpty);
-        documentsTab = new Tab(ASC.Projects.Resources.CommonResource.DocsModuleTitle,
+        documentsTab = new Tab(ASC.Projects.Resources.ProjectsCommonResource.DocsModuleTitle,
             function() { return currentTask.files.length; },
             "documentsModule",
             $filesContainer,
             '#documents',
             function() { return currentTask.canReadFiles && (currentTask.canEditFiles || currentTask.files.length) });
-        linksTab = new Tab(tasksResource.RelatedTask,
+        linksTab = new Tab(TaskResource.RelatedTask,
             function() { return currentTask.links.length; },
             "linksModule",
             $linkedTasksContainer,

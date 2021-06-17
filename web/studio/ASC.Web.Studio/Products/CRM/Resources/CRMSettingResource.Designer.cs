@@ -106,15 +106,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add new tag.
-        /// </summary>
-        public static string AddNewTag {
-            get {
-                return ResourceManager.GetString("AddNewTag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add new task template.
         /// </summary>
         public static string AddNewTaskTemplate {
@@ -151,15 +142,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add tag.
-        /// </summary>
-        public static string AddTag {
-            get {
-                return ResourceManager.GetString("AddTag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Adding tag.
         /// </summary>
         public static string AddTagInProgressing {
@@ -174,15 +156,6 @@ namespace ASC.Web.CRM.Resources {
         public static string AddTagWithoutAskingSettingsLabel {
             get {
                 return ResourceManager.GetString("AddTagWithoutAskingSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add task template.
-        /// </summary>
-        public static string AddTaskTemplate {
-            get {
-                return ResourceManager.GetString("AddTaskTemplate", resourceCulture);
             }
         }
         
@@ -286,6 +259,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authentication.
+        /// </summary>
+        public static string Authentication {
+            get {
+                return ResourceManager.GetString("Authentication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basic Information.
         /// </summary>
         public static string BasicInformation {
@@ -318,15 +300,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ChangeContactStatusWithoutAskingSettingsLabel {
             get {
                 return ResourceManager.GetString("ChangeContactStatusWithoutAskingSettingsLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to change the default currency?.
-        /// </summary>
-        public static string ChangeDefaultCurrencyConfText {
-            get {
-                return ResourceManager.GetString("ChangeDefaultCurrencyConfText", resourceCulture);
             }
         }
         
@@ -372,24 +345,6 @@ namespace ASC.Web.CRM.Resources {
         public static string CommonSettings {
             get {
                 return ResourceManager.GetString("CommonSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configure the SMTP.
-        /// </summary>
-        public static string ConfigureTheSMTP {
-            get {
-                return ResourceManager.GetString("ConfigureTheSMTP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SMTP server is not configured. Fill in the fields and click Save. You can set up the necessary parameters in the &apos;Settings&apos; section..
-        /// </summary>
-        public static string ConfigureTheSMTPInfo {
-            get {
-                return ResourceManager.GetString("ConfigureTheSMTPInfo", resourceCulture);
             }
         }
         
@@ -444,15 +399,6 @@ namespace ASC.Web.CRM.Resources {
         public static string CreateDealMilestoneInProgressing {
             get {
                 return ResourceManager.GetString("CreateDealMilestoneInProgressing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create field.
-        /// </summary>
-        public static string CreateField {
-            get {
-                return ResourceManager.GetString("CreateField", resourceCulture);
             }
         }
         
@@ -592,7 +538,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set up the default currency which will be used to calculate the &apos;Sum total&apos; for all the opportunities present in the CRM module of your portal. The conversion rates are available for currencies from the list only and are taken from the &apos;The Money Converter.com&apos; web site.{0}This currency will be the currency for your Products &amp; Services catalog which is used to invoice..
+        ///   Looks up a localized string similar to Set up the default currency which will be used to calculate the &apos;Sum total&apos; for all the opportunities present in the CRM module of your portal. The conversion rates are available for the currencies from the list only and are calculated using the &apos;The Money Converter.com&apos; website.{0}This currency will be set as the default one for your Products &amp; Services catalog and used for the invoices..
         /// </summary>
         public static string CurrencySettingsHelp {
             get {
@@ -754,7 +700,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact temperature levels let you characterize your potential buyers in a certain way. For instance, the temperature levels can be &quot;Cold&quot;, &quot;Hot&quot;, &quot;Warm&quot;, which will mean the contact&apos;s willingness to buy your product..
+        ///   Looks up a localized string similar to Set temperatures of your contacts to characterize the willingness of the potential buyers to buy your product or service. For instance, the temperature levels can be &quot;Cold&quot;, &quot;Hot&quot;, and &quot;Warm&quot;..
         /// </summary>
         public static string DescriptionTextContactStage {
             get {
@@ -772,7 +718,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact types let you characterize your contacts in a certain way. The default contact types are &quot;Client&quot;, &quot;Competitor&quot;, &quot;Partner&quot;, &quot;Supplier&quot; which classify the contacts based on their role in relation to the organization..
+        ///   Looks up a localized string similar to Contact types let you characterize your contacts based on their role in relation to the organization. The default contact types are &quot;Client&quot;, &quot;Competitor&quot;, &quot;Partner&quot;,  and &quot;Supplier&quot;..
         /// </summary>
         public static string DescriptionTextContactType {
             get {
@@ -1082,6 +1028,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable SSL.
+        /// </summary>
+        public static string EnableSSL {
+            get {
+                return ResourceManager.GetString("EnableSSL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Export {
@@ -1208,6 +1163,15 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get default settings.
+        /// </summary>
+        public static string GetDefaultSettings {
+            get {
+                return ResourceManager.GetString("GetDefaultSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Heading {
@@ -1222,6 +1186,33 @@ namespace ASC.Web.CRM.Resources {
         public static string HistoryCategories {
             get {
                 return ResourceManager.GetString("HistoryCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string Host {
+            get {
+                return ResourceManager.GetString("Host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Login.
+        /// </summary>
+        public static string HostLogin {
+            get {
+                return ResourceManager.GetString("HostLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Password.
+        /// </summary>
+        public static string HostPassword {
+            get {
+                return ResourceManager.GetString("HostPassword", resourceCulture);
             }
         }
         
@@ -1258,15 +1249,6 @@ namespace ASC.Web.CRM.Resources {
         public static string Label {
             get {
                 return ResourceManager.GetString("Label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Learn more....
-        /// </summary>
-        public static string LearnMore {
-            get {
-                return ResourceManager.GetString("LearnMore", resourceCulture);
             }
         }
         
@@ -1334,11 +1316,11 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is a test mail message created by the ONLYOFFICE™ portal automatically to check the mass mailing feature.\nPlease do not reply to this message.\n\nWe are sorry for any inconveniences caused.\nBest regards,\nPortal {0} administration.
+        ///   Looks up a localized string similar to Port.
         /// </summary>
-        public static string pattern_TestMailSMTPMainBody {
+        public static string Port {
             get {
-                return ResourceManager.GetString("pattern_TestMailSMTPMainBody", resourceCulture);
+                return ResourceManager.GetString("Port", resourceCulture);
             }
         }
         
@@ -1424,6 +1406,24 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sender Display Name.
+        /// </summary>
+        public static string SenderDisplayName {
+            get {
+                return ResourceManager.GetString("SenderDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sender Email Address.
+        /// </summary>
+        public static string SenderEmailAddress {
+            get {
+                return ResourceManager.GetString("SenderEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customize user fields.
         /// </summary>
         public static string SettingCustomFields {
@@ -1433,16 +1433,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string Settings {
-            get {
-                return ResourceManager.GetString("Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set your organization billing address which will be placed to all your invoices. Fill the fields with the {0}Address{1}, {0}City{1}, {0}State{1}, {0}Country{1} and {0}Zip Code{1}..
+        ///   Looks up a localized string similar to Set your organization billing address which will be placed to all your invoices. Select the {0}Country{1} from the list and fill in the fields with the {0}Address{1}, {0}City{1}, {0}State{1} and {0}Zip Code{1}..
         /// </summary>
         public static string SettingsCompanyAddressHelp {
             get {
@@ -1452,7 +1443,7 @@ namespace ASC.Web.CRM.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to The default {0}logo{1} of your organization will be displayed on your {0}Invoices{1}.{3}
-        ///To replace the logo click the &apos;Change Logo&apos; link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image file in PNG or JPG format not larger than {0}{4}x{5} pixels{1}, otherwise resizing will take place. The maximum image size cannot exceed  {0}{2}{1}..
+        ///To replace the logo click the &apos;Change Logo&apos; link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image no larger than {0}{4}x{5} pixels{1}, otherwise, it will be automatically resized. The maximum image size cannot exceed {0}{2}{1}..
         /// </summary>
         public static string SettingsCompanyLogoHelp {
             get {
@@ -1542,7 +1533,7 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A unique web form key which serves for the authentication of the form used to send the data and necessary for the form correct work. This is done for the security reasons to prevent spam, fraud and protect your web form from unauthorized use. When you generate a new key the existing forms with the old key will stop working..
+        ///   Looks up a localized string similar to A unique web form key which serves for the authentication of the form used to send the data and necessary for the correct work of the form. This is done for security reasons to prevent spam, fraud, and protect your web form from unauthorized use. When you generate a new key the existing forms with the old key will stop working..
         /// </summary>
         public static string WebFormKeyDescription {
             get {

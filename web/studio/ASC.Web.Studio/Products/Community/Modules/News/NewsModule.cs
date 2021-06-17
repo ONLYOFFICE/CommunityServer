@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,10 @@
 
 
 using System;
-using System.Collections.Generic;
-using ASC.Web.Community.News;
+
+using ASC.Web.Community.Modules.News.Resources;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.Module;
-using ASC.Web.Community.News.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
 using ASC.Web.Core.ModuleManagement;
@@ -57,13 +56,13 @@ namespace ASC.Web.Community.News
         public NewsModule()
         {
             Context = new ModuleContext
-                          {
-                              SmallIconFileName = "newslogo.png",
-                              IconFileName = "32x_news.png",
-                              SubscriptionManager = new SubscriptionManager(),
-                              GetCreateContentPageAbsoluteUrl = () => CommunitySecurity.CheckPermissions(NewsConst.Action_Add) ? FeedUrls.EditNewsUrl : null,
-                              SearchHandler = new SearchHandler(),
-                          };
+            {
+                SmallIconFileName = "newslogo.png",
+                IconFileName = "32x_news.png",
+                SubscriptionManager = new SubscriptionManager(),
+                GetCreateContentPageAbsoluteUrl = () => CommunitySecurity.CheckPermissions(NewsConst.Action_Add) ? FeedUrls.EditNewsUrl : null,
+                SearchHandler = new SearchHandler(),
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,7 +103,7 @@ window.TMTalk = (function ($) {
       try {window.name = ASC.Controls.JabberClient.winName} catch (err) {}
     }
 
-    postfixTitle = ASC.TMTalk.Resources.LabelNewMessage || '';
+    postfixTitle = ASC.TMTalk.TalkResource.LabelNewMessage || '';
 
     if (window.moment) {
         window.moment.locale(ASC.Resources.Master.TwoLetterISOLanguageName);
@@ -295,7 +295,7 @@ window.TMTalk = (function ($) {
   };
 
   var onCreateConference = function (roomjid, room) {
-    ASC.TMTalk.mucManager.setSubject(roomjid, ASC.TMTalk.stringFormat(ASC.TMTalk.Resources.DefaultConferenceSubjectTemplate, room.name));
+    ASC.TMTalk.mucManager.setSubject(roomjid, ASC.TMTalk.stringFormat(ASC.TMTalk.TalkResource.DefaultConferenceSubjectTemplate, room.name));
   };
 
   var onOpenRoom = function (roomId, data, inBackground) {
@@ -320,8 +320,8 @@ window.TMTalk = (function ($) {
     if (TMTalk.properties.focused === false) {
       ASC.TMTalk.notifications.show(
         roomjid,
-        ASC.TMTalk.Resources.TitleRecvInvite + ' ' + ASC.TMTalk.mucManager.getConferenceName(roomjid),
-        ASC.TMTalk.mucManager.getContactName(inviterjid) + ' ' + ASC.TMTalk.Resources.LabelRecvInvite
+        ASC.TMTalk.TalkResource.TitleRecvInvite + ' ' + ASC.TMTalk.mucManager.getConferenceName(roomjid),
+        ASC.TMTalk.mucManager.getContactName(inviterjid) + ' ' + ASC.TMTalk.TalkResource.LabelRecvInvite
       );
     }
   };
@@ -890,7 +890,7 @@ window.TMTalk = (function ($) {
     if (ASC.TMTalk.properties.item('hidscd') !== '1') {
       try {
         google.gears.factory.create('beta.desktop').createShortcut(
-          ASC.TMTalk.Resources.ProductName,
+          ASC.TMTalk.TalkResource.ProductName,
           location.href,
             {
                 '16x16': ASC.TMTalk.Icons.addonIcon16,
@@ -898,7 +898,7 @@ window.TMTalk = (function ($) {
                 '48x48': ASC.TMTalk.Icons.addonIcon48,
                 '128x128': ASC.TMTalk.Icons.addonIcon128
             },
-          ASC.TMTalk.Resources.HintCreateShortcutDialog
+          ASC.TMTalk.TalkResource.HintCreateShortcutDialog
         );
       } catch (err) {}
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ window.ASC.Files.Anchor = (function () {
     };
 
     var onError = function (errorString) {
-        ASC.Files.UI.displayInfoPanel(decodeURIComponent(errorString || ASC.Files.FilesJSResources.UnknownErrorText).replace(/\+/g, " "), true);
+        ASC.Files.UI.displayInfoPanel(decodeURIComponent(errorString || ASC.Files.FilesJSResource.UnknownErrorText).replace(/\+/g, " "), true);
         if (jq.browser.msie) {
             setTimeout(ASC.Files.Anchor.defaultFolderSet, 3000);
         } else {

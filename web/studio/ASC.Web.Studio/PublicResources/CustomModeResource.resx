@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AllRightsReservedCustomMode" xml:space="preserve">
     <value>&amp;copy; Ascensio System SIA {0}. All rights reserved.</value>
@@ -131,6 +72,10 @@
   </data>
   <data name="BrowserAndDesktopTextCustomMode" xml:space="preserve">
     <value>Work in the browser or through the ONLYOFFICE desktop application</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>Start typing email address or contact name from your personal, CRM contacts or
+portal users or use any other email to invite people to your event.</value>
   </data>
   <data name="CheckEmailCustomMode" xml:space="preserve">
     <value>Check your email for account confirmation.</value>
@@ -182,7 +127,7 @@
 {1}Please note{2}: your old portal address will become available to new ONLYOFFICE users once you click the {1}Save{2} button.</value>
   </data>
   <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
-    <value>To activate ONLYOFFICE Enterprise Edition you need to buy a license key.</value>
+    <value>To activate ONLYOFFICE Enterprise Edition, you need to buy a license key.</value>
   </data>
   <data name="LicenseModulesListCustomMode" xml:space="preserve">
     <value>{0}Online Documents Editors{1}{0}Document Management{1}{0}Mail{1}{0}Projects{1}{0}CRM{1}{0}Calendar{1}{0}Community{1}</value>
@@ -235,9 +180,9 @@ h3.Start working with Documents:
 h3.Try additional ${LetterLogoText} tools:
 
 # Add your email account to "${LetterLogoText} Mail":"${__VirtualRootPath}/addons/mail/".
-# Create "Projects":"${__VirtualRootPath}/Products/Projects/" and manage your workflow by adding milestones and tasks.
-# Manage your customer relations using "CRM":"${__VirtualRootPath}/Products/CRM/".
-# Use "Community":"${__VirtualRootPath}/Products/Community/" to start your blogs, forums, add events, share bookmarks.
+# Create "Projects":"${__VirtualRootPath}/products/projects/" and manage your workflow by adding milestones and tasks.
+# Manage your customer relations using "CRM":"${__VirtualRootPath}/products/crm/".
+# Use "Community":"${__VirtualRootPath}/products/community/" to start your blogs, forums, add events, share bookmarks.
 # Organize your work schedule with the built-in "Calendar":"${__VirtualRootPath}/addons/calendar/".
 # Start "Talk":"${__VirtualRootPath}/addons/talk/" to chat with your teammates online.
 
@@ -245,6 +190,20 @@ $GreenButton
 
 Truly yours,
 ${LetterLogoText} Team</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Data export successfully completed
+
+Please, follow this link to download the archive: "${EntityTitle}":"${EntityRelativeURL}"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Data import successfully completed
+
+Go to the "${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
     <value>h1.Welcome to ONLYOFFICE Personal
@@ -298,19 +257,18 @@ Interested? Learn more about "ONLYOFFICE for business":"http://www.onlyoffice.co
 Sincerely,
 ONLYOFFICE team</value>
   </data>
-  <data name="pattern_personal_custom_mode_change_email" xml:space="preserve">
-    <value>You have requested to change your email address used to enter the ${LetterLogoText} portal.
+  <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
+    <value>Want to change the email on your cloud office account?
 
-Please follow the link below to change your email address:
+Click the button below and log in* to your cloud.
 
 $GreenButton
 
-*Note*: this link is valid for 7 days only. Please complete your email change process within that period.
+The link is valid for 7 days.
 
-If you do not want to change your email or received this email by mistake, please ignore it.
+*If you are not signed in to your cloud office in this browser, you’ll need to use your old email for confirmation.
 
-Sincerely,
-ONLYOFFICE team</value>
+Don’t want to change your email? Just ignore this message.</value>
   </data>
   <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
     <value>There has been a request to change your password used to enter the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
@@ -350,11 +308,40 @@ If you have any questions, please contact us at "support@onlyoffice.com":"mailto
 Sincerely,
 ONLYOFFICE team</value>
   </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Dear $UserName,
+
+The process of removing data from user "$FromUserName":"$FromUserLink" has been successfully completed.
+
+The deletion of personal data allowed to free:
+
+# Documents - $DocsSpace
+# Mail - $MailSpace
+# Talk - $TalkSpace
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>h3.New portal has been registered
+
+# Portal url: "${__VirtualRootPath}":"${__VirtualRootPath}"
+# First name: $UserName
+# Last name: $UserLastName
+# Email: $UserEmail
+# Phone: $Phone
+# Creation date: $Date</value>
+  </data>
   <data name="PresentationEditorCustomMode" xml:space="preserve">
     <value>ONLYOFFICE presentation editor</value>
   </data>
   <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
     <value>It will provide you with all the tools to create impressive presentations and present any idea to the audience.</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>Do the same as a user|Link Dropbox, Box and other accounts in the 'Common' section|Set up access rights to the documents and folders in the 'Common' section</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Create and edit own documents as well as the shared documents with the proper access rights|Give reading/editing access to other users to the documents and folders|Link Dropbox, Box and other accounts in the 'My documents' section</value>
   </data>
   <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
     <value>Create now</value>
@@ -383,6 +370,9 @@ ONLYOFFICE team</value>
   <data name="SignUpDesktopCustomMode" xml:space="preserve">
     <value>Sign Up to the cloud</value>
   </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from connected authenticator application.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2}</value>
+  </data>
   <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
     <value>ONLYOFFICE spreadsheet editor</value>
   </data>
@@ -395,9 +385,6 @@ ONLYOFFICE team</value>
   <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
     <value>Connect your favorite cloud storage to ONLYOFFICE</value>
   </data>
-  <data name="subject_personal_custom_mode_change_email" xml:space="preserve">
-    <value>ONLYOFFICE Personal. Email change request</value>
-  </data>
   <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
     <value>ONLYOFFICE Personal password assistance</value>
   </data>
@@ -407,14 +394,20 @@ ONLYOFFICE team</value>
   <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
     <value>ONLYOFFICE Personal account termination</value>
   </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}. Remove user data is completed</value>
+  </data>
+  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>New portal has been registered</value>
+  </data>
   <data name="TariffNotPaidStandaloneCustomMode" xml:space="preserve">
-    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license{1}.</value>
+    <value>You are using ONLYOFFICE Enterprise Edition. {0}Support and updates are no longer available for your license{1}.</value>
   </data>
   <data name="TariffOverdueStandaloneCustomMode" xml:space="preserve">
-    <value>You are using ONLYOFFICE™ Enterprise Edition. {0}Support and updates are no longer available for your license since {2}{1}.</value>
+    <value>You are using ONLYOFFICE Enterprise Edition. {0}Support and updates are no longer available for your license since {2}{1}.</value>
   </data>
   <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
-    <value>You are using ONLYOFFICE™ Enterprise Edition.</value>
+    <value>You are using ONLYOFFICE Enterprise Edition.</value>
   </data>
   <data name="TermsServiceCustomMode" xml:space="preserve">
     <value>Terms of Use</value>
@@ -439,61 +432,5 @@ ONLYOFFICE team</value>
   </data>
   <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
     <value>In Quick mode, you see what your collaborator is typing, and he sees what you are typing. In Strict you edit parts of the document privately, and the changes are shown after saving.</value>
-  </data>
-  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
-    <value>Start typing email address or contact name from your personal, CRM contacts or
-portal users or use any other email to invite people to your event.</value>
-  </data>
-  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
-    <value>Do the same as a user|Link Dropbox, Box and other accounts in the 'Common Documents' section|Set up access rights to the documents and folders in the 'Common Documents' section</value>
-  </data>
-  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
-    <value>Create and edit own documents as well as the shared documents with the proper access rights|Give reading/editing access to other users to the documents and folders|Link Dropbox, Box and other accounts in the 'My documents' section</value>
-  </data>
-  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
-    <value>Dear $UserName,
-
-The process of removing data from user "$FromUserName":"$FromUserLink" has been successfully completed.
-
-The deletion of personal data allowed to free:
-
-# Documents - $DocsSpace
-# Mail - $MailSpace
-# Talk - $TalkSpace
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
-  </data>
-  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
-    <value>${LetterLogoText}. Remove user data is completed</value>
-  </data>
-  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
-    <value>{0}Two-factor authentication{1} is a more secure way for the users to enter the portal. After the credentials are entered, the user will have to enter the code from connected authenticator application.{2}Enable this option for a more secure portal access by all the portal users. {2}To apply the changes you made click the {0}Save{1} button below this section.{2}</value>
-  </data>
-  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
-    <value>h3.New portal has been registered
-
-# Portal url: "${__VirtualRootPath}":"${__VirtualRootPath}"
-# First name: $UserName
-# Last name: $UserLastName
-# Email: $UserEmail
-# Phone: $Phone
-# Creation date: $Date</value>
-  </data>
-  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
-    <value>New portal has been registered</value>
-  </data>
-  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
-    <value>h1. CRM. Data export successfully completed
-
-Please, follow this link to download the archive: "${EntityTitle}":"${EntityRelativeURL}"
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
-  </data>
-  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
-    <value>h1. CRM. Data import successfully completed
-
-Go to the "${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}" list.
-
-^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
 </root>

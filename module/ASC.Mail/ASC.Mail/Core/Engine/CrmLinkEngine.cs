@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+
 using ASC.Common.Logging;
 using ASC.CRM.Core;
 using ASC.Mail.Core.Dao.Expressions.Message;
@@ -28,6 +29,7 @@ using ASC.Mail.Data.Storage;
 using ASC.Mail.Exceptions;
 using ASC.Mail.Utils;
 using ASC.Web.CRM.Core;
+
 using Autofac;
 
 namespace ASC.Mail.Core.Engine
@@ -102,8 +104,8 @@ namespace ASC.Mail.Core.Engine
                         .SetChainId(mail.ChainId)
                         .Build());
 
-                    if (!chainedMessages.Any())
-                        return;
+                if (!chainedMessages.Any())
+                    return;
 
                 var linkingMessages = new List<MailMessageData>();
 
@@ -280,7 +282,7 @@ namespace ASC.Mail.Core.Engine
                             {
                                 var uploadedFileId = apiHelper.UploadToCrm(file.FileStream, file.FileName,
                                     attachment.contentType, contactEntity);
-                                
+
                                 if (uploadedFileId != null)
                                 {
                                     fileIds.Add(uploadedFileId);

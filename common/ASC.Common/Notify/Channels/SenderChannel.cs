@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Notify.Messages;
 using ASC.Notify.Sinks;
 
@@ -23,9 +24,9 @@ namespace ASC.Notify.Channels
 {
     public class SenderChannel : ISenderChannel
     {
-        private ISink firstSink;
-        private ISink senderSink;
-        private Context context;
+        private readonly ISink firstSink;
+        private readonly ISink senderSink;
+        private readonly Context context;
 
 
         public string SenderName
@@ -45,7 +46,7 @@ namespace ASC.Notify.Channels
             this.SenderName = senderName;
             this.firstSink = decorateSink;
             this.senderSink = senderSink;
-            
+
             var dispatcherSink = new DispatchSink(SenderName, this.context.DispatchEngine);
             this.firstSink = AddSink(firstSink, dispatcherSink);
         }
@@ -62,7 +63,7 @@ namespace ASC.Notify.Channels
             return senderSink.ProcessMessage(message);
         }
 
-        
+
         private ISink AddSink(ISink firstSink, ISink addedSink)
         {
             if (firstSink == null) return addedSink;

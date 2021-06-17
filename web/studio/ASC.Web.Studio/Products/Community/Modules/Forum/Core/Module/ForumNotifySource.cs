@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using ASC.Core.Notify;
 using ASC.Notify;
 using ASC.Notify.Model;
 using ASC.Notify.Patterns;
+using ASC.Web.Community.Modules.Forum.Core.Module;
 
 namespace ASC.Forum.Module
 {
@@ -66,7 +67,7 @@ namespace ASC.Forum.Module
 
         protected override IPatternProvider CreatePatternsProvider()
         {
-            return new XmlPatternProvider2(ASC.Forum.Module.Patterns.forum_patterns);
+            return new XmlPatternProvider2(Patterns.forum_patterns);
         }
     }
 }

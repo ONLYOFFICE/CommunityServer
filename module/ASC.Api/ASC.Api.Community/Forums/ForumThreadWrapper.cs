@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 */
 
 
-using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Forum;
 using ASC.Specific;
@@ -68,16 +68,16 @@ namespace ASC.Api.Forums
         public static ForumThreadWrapper GetSample()
         {
             return new ForumThreadWrapper()
-                       {
-                           Created = ApiDateTime.GetSample(),
-                           Updated = ApiDateTime.GetSample(),
-                           Description = "Sample thread",
-                           Id = 10,
-                           UpdatedBy = EmployeeWraper.GetSample(),
-                           RecentTopicId = 1234,
-                           RecentTopicTitle = "Sample topic",
-                           Title = "The Thread"
-                       };
+            {
+                Created = ApiDateTime.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                Description = "Sample thread",
+                Id = 10,
+                UpdatedBy = EmployeeWraper.GetSample(),
+                RecentTopicId = 1234,
+                RecentTopicTitle = "Sample topic",
+                Title = "The Thread"
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 
 using System;
 using System.Web.UI;
+
+using ASC.Web.Community.Modules.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.Data;
 using ASC.Web.UserControls.Wiki.Handlers;
 
@@ -27,8 +29,10 @@ namespace ASC.Web.UserControls.Wiki.UC
         private string _fileName = string.Empty;
         public string FileName
         {
-            get {
-                return /*PageNameUtil.Encode*/(_fileName); }
+            get
+            {
+                return /*PageNameUtil.Encode*/(_fileName);
+            }
             set { _fileName = /*PageNameUtil.Decode*/(value); }
         }
 
@@ -54,7 +58,7 @@ namespace ASC.Web.UserControls.Wiki.UC
         {
             if (!Page.IsPostBack)
             {
-                if(CurrentFile != null && !string.IsNullOrEmpty(CurrentFile.FileName))
+                if (CurrentFile != null && !string.IsNullOrEmpty(CurrentFile.FileName))
                 {
                     RiseWikiPageLoaded(CurrentFile);
                     RisePublishVersionInfo(CurrentFile);
@@ -66,8 +70,8 @@ namespace ASC.Web.UserControls.Wiki.UC
         protected string GetFileRender()
         {
             var file = Wiki.GetFile(_fileName);
-            if(file == null)
-            {               
+            if (file == null)
+            {
                 RisePageEmptyEvent();
                 return string.Empty;// "nonefile.png";
             }
@@ -78,11 +82,11 @@ namespace ASC.Web.UserControls.Wiki.UC
                 return string.Format(@"<a class=""linkHeaderMedium"" href=""{0}"" title=""{1}"">{2}</a>",
                     ResolveUrl(string.Format(ImageHandlerUrlFormat, FileName)),
                     file.FileName,
-                    Resources.WikiUCResource.wikiFileDownloadCaption);
+                    WikiUCResource.wikiFileDownloadCaption);
             }
 
             return string.Format(@"<img src=""{0}"" style=""max-width:300px; max-height:200px"" />",
-                ResolveUrl(string.Format(ImageHandlerUrlFormat, FileName)));                      
+                ResolveUrl(string.Format(ImageHandlerUrlFormat, FileName)));
         }
     }
 }

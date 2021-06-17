@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -34,7 +35,7 @@ namespace ASC.Mail.Core.Dao
     {
         protected static ITable table = new MailTableFactory().Create<ServerAddressTable>();
 
-        public ServerAddressDao(IDbManager dbManager, int tenant) 
+        public ServerAddressDao(IDbManager dbManager, int tenant)
             : base(table, dbManager, tenant)
         {
         }
@@ -209,7 +210,7 @@ namespace ASC.Mail.Core.Dao
                 .Select(ServerAddressTable.Columns.Id.Prefix(ADDRESS_ALIAS))
                 .Where(ServerAddressTable.Columns.AddressName.Prefix(ADDRESS_ALIAS), addressName)
                 .Where(Exp.In(ServerAddressTable.Columns.Tenant.Prefix(ADDRESS_ALIAS),
-                    new List<int> {Tenant, Defines.SHARED_TENANT_ID}))
+                    new List<int> { Tenant, Defines.SHARED_TENANT_ID }))
                 .Where(ServerDomainTable.Columns.DomainName.Prefix(DOMAIN_ALIAS), domainName);
 
             return Db.ExecuteList(addressQuery).Any();

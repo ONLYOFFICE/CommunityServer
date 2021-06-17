@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ namespace ASC.MessagingSystem
         public string IP { get; set; }
 
         public string Initiator { get; set; }
-        
+
         public string Browser { get; set; }
 
         public string Platform { get; set; }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 */
 
 
-using System;
 using System.Runtime.Serialization;
+
 using ASC.Forum;
 using ASC.Specific;
 
@@ -60,14 +60,14 @@ namespace ASC.Api.Forums
         public static ForumTopicPostAttachmentWrapper GetSample()
         {
             return new ForumTopicPostAttachmentWrapper()
-                       {
-                           ContentType = "image/jpeg",
-                           Created = ApiDateTime.GetSample(),
-                           Updated = ApiDateTime.GetSample(),
-                           Name = "picture.jpg",
-                           Path = "url to file",
-                           Size = 122345
-                       };
+            {
+                ContentType = "image/jpeg",
+                Created = ApiDateTime.GetSample(),
+                Updated = ApiDateTime.GetSample(),
+                Name = "picture.jpg",
+                Path = "url to file",
+                Size = 122345
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
@@ -42,6 +43,12 @@ namespace ASC.Web.Studio.Core
         }
 
         public static string StatisticTrackURL
+        {
+            get;
+            private set;
+        }
+
+        public static bool EnableAppServer
         {
             get;
             private set;
@@ -71,7 +78,13 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static List<CultureInfo> EnabledCulturesPersonal
+        private static List<CultureInfo> EnabledCulturesPersonal
+        {
+            get;
+            set;
+        }
+
+        public static List<KeyValuePair<string, CultureInfo>> PersonalCultures
         {
             get;
             private set;
@@ -146,12 +159,6 @@ namespace ASC.Web.Studio.Core
         }
 
         public static string NoTenantRedirectURL
-        {
-            get;
-            private set;
-        }
-
-        public static string[] CustomScripts
         {
             get;
             private set;
@@ -321,12 +328,6 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static string NotifyAnalyticsUrl
-        {
-            get;
-            private set;
-        }
-
         public static string RecaptchaPublicKey
         {
             get;
@@ -350,7 +351,7 @@ namespace ASC.Web.Studio.Core
             get;
             private set;
         }
-        
+
         public static string AmiMetaUrl
         {
             get;
@@ -363,7 +364,8 @@ namespace ASC.Web.Studio.Core
         }
 
         public static void Refresh()
-        {
+        { 
+            EnableAppServer = GetAppSettings("appserver.enable", "false") == "true";
             MetaImageURL = GetAppSettings("web.meta-image-url", "https://download.onlyoffice.com/assets/fb/fb_icon_325x325.jpg");
             StatisticTrackURL = GetAppSettings("web.track-url", string.Empty);
             UserVoiceURL = GetAppSettings("web.uservoice", string.Empty);
@@ -376,14 +378,18 @@ namespace ASC.Web.Studio.Core
 
             EnabledCultures = GetAppSettings("web.cultures", "en-US")
                 .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
                 .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
                 .OrderBy(l => l.DisplayName)
                 .ToList();
+
             EnabledCulturesPersonal = GetAppSettings("web.cultures.personal", GetAppSettings("web.cultures", "en-US"))
                 .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
                 .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
-                .OrderBy(l => l.DisplayName)
                 .ToList();
+
+            PersonalCultures = GetPersonalCultures();
 
             ExchangeRateRuble = GetAppSettings("exchange-rate.ruble", 65);
             MaxImageUploadSize = GetAppSettings<long>("web.max-upload-size", 1024 * 1024);
@@ -394,7 +400,6 @@ namespace ASC.Web.Studio.Core
             ThirdPartyAuthEnabled = string.Equals(GetAppSettings("web.thirdparty-auth", "true"), "true");
             ThirdPartyBannerEnabled = string.Equals(GetAppSettings("web.thirdparty-banner", "false"), "true");
             NoTenantRedirectURL = GetAppSettings("web.notenant-url", "");
-            CustomScripts = GetAppSettings("web.custom-scripts", string.Empty).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             NotifyAddress = GetAppSettings("web.promo-url", string.Empty);
             TipsAddress = GetAppSettings("web.promo-tips-url", string.Empty);
@@ -409,7 +414,7 @@ namespace ASC.Web.Studio.Core
 
             RecaptchaPublicKey = GetAppSettings("web.recaptcha.public-key", "");
             RecaptchaPrivateKey = GetAppSettings("web.recaptcha.private-key", "");
-            RecaptchaVerifyUrl = GetAppSettings("web.recaptcha.verify-url", "https://www.google.com/recaptcha/api/siteverify");
+            RecaptchaVerifyUrl = GetAppSettings("web.recaptcha.verify-url", "https://www.recaptcha.net/recaptcha/api/siteverify");
             LoginThreshold = Convert.ToInt32(GetAppSettings("web.login.threshold", "0"));
             if (LoginThreshold < 1) LoginThreshold = 5;
 
@@ -423,7 +428,7 @@ namespace ASC.Web.Studio.Core
             SsoSamlLoginUrl = GetAppSettings("web.sso.saml.login.url", "");
             SsoSamlLogoutUrl = GetAppSettings("web.sso.saml.logout.url", "");
 
-            hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries);
+            hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             SmsTrial = GetAppSettings("core.sms.trial", false);
 
@@ -432,8 +437,6 @@ namespace ASC.Web.Studio.Core
             TfaAppBackupCodeLength = GetAppSettings("web.tfaapp.backup.length", 6);
             TfaAppBackupCodeCount = GetAppSettings("web.tfaapp.backup.count", 5);
             TfaAppSender = GetAppSettings("web.tfaapp.backup.title", "ONLYOFFICE");
-
-            NotifyAnalyticsUrl = GetAppSettings("core.notify.analytics.url", "");
 
             AmiMetaUrl = GetAppSettings("web.ami.meta", "");
         }
@@ -474,6 +477,56 @@ namespace ASC.Web.Studio.Core
                 }
             }
             return defaultValue;
+        }
+
+        private static List<KeyValuePair<string, CultureInfo>> GetPersonalCultures()
+        {
+            var result = new Dictionary<string, CultureInfo>();
+
+            foreach (var culture in EnabledCulturesPersonal)
+            {
+                if (result.ContainsKey(culture.TwoLetterISOLanguageName))
+                {
+                    result.Add(culture.Name, culture);
+                }
+                else
+                {
+                    result.Add(culture.TwoLetterISOLanguageName, culture);
+                }
+            }
+
+            return result.OrderBy(item => item.Value.DisplayName).ToList();
+        }
+
+        public static KeyValuePair<string, CultureInfo> GetPersonalCulture(string lang)
+        {
+            foreach (var item in PersonalCultures)
+            {
+                if (string.Equals(item.Key, lang, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return item;
+                }
+            }
+
+            var cultureInfo = EnabledCulturesPersonal.Find(c => string.Equals(c.Name, lang, StringComparison.InvariantCultureIgnoreCase));
+
+            if (cultureInfo == null)
+            {
+                cultureInfo = EnabledCulturesPersonal.Find(c => string.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (cultureInfo != null)
+            {
+                foreach (var item in PersonalCultures)
+                {
+                    if (item.Value == cultureInfo)
+                    {
+                        return item;
+                    }
+                }
+            }
+
+            return new KeyValuePair<string, CultureInfo>(lang, cultureInfo);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Common.Caching;
 using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.CRM.Core;
 using ASC.Web.Files.Api;
+
 using Autofac;
 
 namespace ASC.CRM.Core
 {
     public class FileSecurity : IFileSecurity
     {
+        protected readonly ICache cache = AscCache.Default;
+
         public bool CanCreate(FileEntry entry, Guid userId)
         {
             return true;
@@ -67,6 +72,29 @@ namespace ASC.CRM.Core
         }
 
         public bool CanRead(FileEntry entry, Guid userId)
+        {
+            var cacheKey = GetCacheKey(entry, userId);
+
+            var fromCache = cache.Get<string>(cacheKey);
+
+            if (fromCache != null)
+            {
+                return Convert.ToBoolean(fromCache);
+            }
+
+            var result = CanReadFile(entry, userId);
+
+            cache.Insert(cacheKey, Convert.ToString(result), DateTime.UtcNow.AddMinutes(1));
+
+            return result;
+        }
+
+        private string GetCacheKey(FileEntry entry, Guid userId)
+        {
+            return string.Format("crmfilesecurity{0}{1}{2}", userId, (int)entry.FileEntryType, entry.ID);
+        }
+
+        private bool CanReadFile(FileEntry entry, Guid userId)
         {
             if (entry.FileEntryType == FileEntryType.Folder) return false;
 

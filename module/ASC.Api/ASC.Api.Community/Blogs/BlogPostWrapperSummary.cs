@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Blogs.Core.Domain;
 using ASC.Specific;
@@ -36,7 +37,7 @@ namespace ASC.Api.Blogs
         {
             CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(post.UserID));
             Created = (ApiDateTime)post.Datetime;
-            Updated = (ApiDateTime) post.Updated;
+            Updated = (ApiDateTime)post.Updated;
 
             Id = post.ID;
             Tags = post.TagList.Select(x => x.Content).ToList();
@@ -79,15 +80,15 @@ namespace ASC.Api.Blogs
         public static BlogPostWrapperSummary GetSample()
         {
             return new BlogPostWrapperSummary
-                       {
-                           CreatedBy = EmployeeWraper.GetSample(),
-                           Created = ApiDateTime.GetSample(),
-                           Id = Guid.Empty,
-                           Preview = "Preview post",
-                           Tags = new List<string> {"Tag1", "Tag2"},
-                           Title = "Example post",
-                           Updated = ApiDateTime.GetSample()
-                       };
+            {
+                CreatedBy = EmployeeWraper.GetSample(),
+                Created = ApiDateTime.GetSample(),
+                Id = Guid.Empty,
+                Preview = "Preview post",
+                Tags = new List<string> { "Tag1", "Tag2" },
+                Title = "Example post",
+                Updated = ApiDateTime.GetSample()
+            };
         }
     }
 }

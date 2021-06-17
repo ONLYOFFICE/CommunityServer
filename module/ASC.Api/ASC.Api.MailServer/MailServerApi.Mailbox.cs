@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Core;
@@ -27,6 +28,8 @@ using ASC.Mail.Core.Engine.Operations.Base;
 using ASC.Mail.Data.Contracts;
 using ASC.Mail.Enums;
 using ASC.Web.Studio.Core.Notify;
+
+using ASC.Web.Studio.PublicResources;
 
 // ReSharper disable InconsistentNaming
 
@@ -50,6 +53,8 @@ namespace ASC.Api.MailServer
         public ServerMailboxData CreateMailbox(string name, string local_part, int domain_id, string user_id,
             bool notifyCurrent = false, bool notifyProfile = false)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
+
             var serverMailbox = MailEngineFactory.ServerMailboxEngine.CreateMailbox(name, local_part, domain_id, user_id);
 
             SendMailboxCreated(serverMailbox, notifyCurrent, notifyProfile);
@@ -67,6 +72,7 @@ namespace ASC.Api.MailServer
         [Create(@"mailboxes/addmy")]
         public ServerMailboxData CreateMyMailbox(string name)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var serverMailbox = MailEngineFactory.ServerMailboxEngine.CreateMyCommonDomainMailbox(name);
             return serverMailbox;
         }
@@ -80,6 +86,7 @@ namespace ASC.Api.MailServer
         [Read(@"mailboxes/get")]
         public List<ServerMailboxData> GetMailboxes()
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var mailboxes = MailEngineFactory.ServerMailboxEngine.GetMailboxes();
             return mailboxes;
         }
@@ -96,6 +103,7 @@ namespace ASC.Api.MailServer
         [Delete(@"mailboxes/remove/{id}")]
         public MailOperationStatus RemoveMailbox(int id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var status = MailEngineFactory.ServerMailboxEngine.RemoveMailbox(id);
             return status;
         }
@@ -111,6 +119,7 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/update")]
         public ServerMailboxData UpdateMailbox(int mailbox_id, string name)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var mailbox = MailEngineFactory.ServerMailboxEngine.UpdateMailboxDisplayName(mailbox_id, name);
             return mailbox;
         }
@@ -126,6 +135,7 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/alias/add")]
         public ServerDomainAddressData AddMailboxAlias(int mailbox_id, string alias_name)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             var serverAlias = MailEngineFactory.ServerMailboxEngine.AddAlias(mailbox_id, alias_name);
             return serverAlias;
         }
@@ -141,6 +151,7 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/alias/remove")]
         public int RemoveMailboxAlias(int mailbox_id, int address_id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             MailEngineFactory.ServerMailboxEngine.RemoveAlias(mailbox_id, address_id);
             return mailbox_id;
         }
@@ -155,6 +166,7 @@ namespace ASC.Api.MailServer
         [Update(@"mailboxes/changepwd")]
         public void ChangeMailboxPassword(int mailbox_id, string password)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             MailEngineFactory.ServerMailboxEngine.ChangePassword(mailbox_id, password);
 
             SendMailboxPasswordChanged(mailbox_id);
@@ -171,6 +183,7 @@ namespace ASC.Api.MailServer
         [Read(@"mailboxes/alias/exists")]
         public bool IsAddressAlreadyRegistered(string local_part, int domain_id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             return MailEngineFactory.ServerMailboxEngine.IsAddressAlreadyRegistered(local_part, domain_id);
         }
 
@@ -185,6 +198,7 @@ namespace ASC.Api.MailServer
         [Read(@"mailboxes/alias/valid")]
         public bool IsAddressValid(string local_part, int domain_id)
         {
+            if (!IsEnableMailServer) throw new Exception(Resource.ErrorNotAllowedOption);
             return MailEngineFactory.ServerMailboxEngine.IsAddressValid(local_part, domain_id);
         }
 
@@ -195,7 +209,7 @@ namespace ASC.Api.MailServer
                 if (serverMailbox == null)
                     throw new ArgumentNullException("serverMailbox");
 
-                if((!toMailboxUser && !toUserProfile))
+                if ((!toMailboxUser && !toUserProfile))
                     return;
 
                 var emails = new List<string>();
@@ -231,32 +245,36 @@ namespace ASC.Api.MailServer
                     throw new Exception(string.Format("SendMailboxCreated(mailboxId={0}): mailbox not found",
                         serverMailbox.Id));
 
-                if (CoreContext.Configuration.Standalone)
+                var encType = Enum.GetName(typeof(EncryptionType), mailbox.Encryption) ?? Defines.START_TLS;
+
+                string mxHost = null;
+
+                try
                 {
-                    var encType = Enum.GetName(typeof(EncryptionType), mailbox.Encryption) ?? Defines.START_TLS;
-
-                    string mxHost = null;
-
-                    try
-                    {
-                        mxHost = MailEngineFactory.ServerEngine.GetMailServerMxDomain();
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.ErrorFormat("GetMailServerMxDomain() failed. Exception: {0}", ex.ToString());
-                    }
-
-                    StudioNotifyService.Instance.SendMailboxCreated(emails, userInfo.DisplayUserName(),
-                        mailbox.EMail.Address,
-                        string.IsNullOrEmpty(mxHost) ? mailbox.Server : mxHost, encType.ToUpper(), mailbox.Port,
-                        mailbox.SmtpPort, mailbox.Account);
+                    mxHost = MailEngineFactory.ServerEngine.GetMailServerMxDomain();
                 }
-                else
+                catch (Exception ex)
                 {
-                    StudioNotifyService.Instance.SendMailboxCreated(emails, userInfo.DisplayUserName(),
-                        mailbox.EMail.Address);
+                    Logger.ErrorFormat("GetMailServerMxDomain() failed. Exception: {0}", ex.ToString());
                 }
 
+                var skipSettings = string.IsNullOrEmpty(mxHost);
+
+                try
+                {
+                    var domain = MailEngineFactory.ServerDomainEngine.GetCommonDomain();
+
+                    skipSettings = domain.Id == serverMailbox.Address.DomainId;
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorFormat("GetCommonDomain() failed. Exception: {0}", ex.ToString());
+                }
+
+                StudioNotifyService.Instance.SendMailboxCreated(emails, userInfo.DisplayUserName(),
+                    mailbox.EMail.Address,
+                    string.IsNullOrEmpty(mxHost) ? mailbox.Server : mxHost, encType.ToUpper(), mailbox.Port,
+                    mailbox.SmtpPort, mailbox.Account, skipSettings);
             }
             catch (Exception ex)
             {
@@ -268,9 +286,6 @@ namespace ASC.Api.MailServer
         {
             try
             {
-                if (!CoreContext.Configuration.Standalone)
-                    return;
-
                 if (mailboxId < 0)
                     throw new ArgumentNullException("mailboxId");
 

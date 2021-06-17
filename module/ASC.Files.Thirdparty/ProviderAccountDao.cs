@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Files.Core.Data;
-using ASC.Web.Files.Helpers;
+
 using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -30,6 +30,7 @@ using ASC.Core.Tenants;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
+using ASC.Files.Core.Data;
 using ASC.Files.Thirdparty.Box;
 using ASC.Files.Thirdparty.Dropbox;
 using ASC.Files.Thirdparty.GoogleDrive;
@@ -38,6 +39,7 @@ using ASC.Files.Thirdparty.SharePoint;
 using ASC.Files.Thirdparty.Sharpbox;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 
 namespace ASC.Files.Thirdparty
@@ -330,13 +332,13 @@ namespace ASC.Files.Thirdparty
         private static IProviderInfo ToProviderInfo(object[] input)
         {
             ProviderTypes key;
-            if (!Enum.TryParse((string) input[1], true, out key)) return null;
+            if (!Enum.TryParse((string)input[1], true, out key)) return null;
 
             var id = Convert.ToInt32(input[0]);
-            var providerTitle = (string) input[2] ?? string.Empty;
+            var providerTitle = (string)input[2] ?? string.Empty;
             var token = DecryptToken(input[5] as string);
             var owner = input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? "");
-            var folderType = (FolderType) Convert.ToInt32(input[7]);
+            var folderType = (FolderType)Convert.ToInt32(input[7]);
             var createOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8]));
 
             if (key == ProviderTypes.Box)

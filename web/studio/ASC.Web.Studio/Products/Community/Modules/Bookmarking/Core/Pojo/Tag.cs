@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,45 +17,45 @@
 
 namespace ASC.Bookmarking.Pojo
 {
-	public class Tag
-	{
-		public virtual long TagID { get; set; }
+    public class Tag
+    {
+        public virtual long TagID { get; set; }
 
-		public virtual string Name { get; set; }
+        public virtual string Name { get; set; }
 
-		public virtual long Populatiry { get; set; }
+        public virtual long Populatiry { get; set; }
 
-		public long BookmarkID { get; set; }
+        public long BookmarkID { get; set; }
 
-		// override object.Equals
-		public override bool Equals(object obj)
-		{
-			//       
-			// See the full list of guidelines at
-			//   http://go.microsoft.com/fwlink/?LinkID=85237  
-			// and also the guidance for operator== at
-			//   http://go.microsoft.com/fwlink/?LinkId=85238
-			//
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            //       
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
 
-			if (obj == null || GetType() != obj.GetType())
-			{
-				return false;
-			}
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
 
-			var t = obj as Tag;
+            var t = obj as Tag;
 
-			if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(t.Name) && Name.Equals(t.Name))
-			{
-				return true;
-			}
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(t.Name) && Name.Equals(t.Name))
+            {
+                return true;
+            }
 
-			return false;
-		}
+            return false;
+        }
 
-		// override object.GetHashCode
-		public override int GetHashCode()
-		{
-			return (GetType().FullName + "|" + TagID.ToString()).GetHashCode();
-		}
-	}
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return (GetType().FullName + "|" + TagID.ToString()).GetHashCode();
+        }
+    }
 }

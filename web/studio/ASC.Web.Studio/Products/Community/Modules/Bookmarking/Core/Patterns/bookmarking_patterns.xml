@@ -3,12 +3,12 @@
 
   <!--New bookmark comment-->
   <pattern id="new bookmark comment created" sender="email.sender">
-    <subject resource="|subject_BookmarkCommentCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BookmarkCommentCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <subject resource="|subject_BookmarkCommentCreatedID|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BookmarkCommentCreatedID|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
   </pattern>
   <!--New bookmark comment-->
   <pattern id="new bookmark comment created" sender="messanger.sender">
-    <subject resource="|subject_BookmarkCommentCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <subject resource="|subject_BookmarkCommentCreatedID|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
 
 $CommentBody
@@ -18,7 +18,7 @@ $BookmarkUrl
   </pattern>
   <!--New bookmark comment-->
   <pattern id="new bookmark comment created" sender="telegram.sender">
-    <subject resource="|subject_BookmarkCommentCreatedID_tg|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <subject resource="|subject_BookmarkCommentCreatedID_tg|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
 
 $CommentBody
@@ -27,12 +27,12 @@ $CommentBody
 
   <!--New bookmark-->
   <pattern id="new bookmark created" sender="email.sender">
-    <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
-    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_BookmarkCreatedID|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
   </pattern>
   <!--New bookmark-->
   <pattern id="new bookmark created" sender="messanger.sender">
-    <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <subject resource="|subject_BookmarkCreatedID|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
 
 $BookmarkDescription
@@ -42,7 +42,7 @@ $BookmarkUrl
   </pattern>
   <!--New bookmark-->
   <pattern id="new bookmark created" sender="telegram.sender">
-    <subject resource="|subject_BookmarkCreatedID_tg|ASC.Web.Community.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
+    <subject resource="|subject_BookmarkCreatedID_tg|ASC.Web.Community.Modules.Bookmarking.Core.Patterns.BookmarkingPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">$__AuthorName
 
 $BookmarkDescription

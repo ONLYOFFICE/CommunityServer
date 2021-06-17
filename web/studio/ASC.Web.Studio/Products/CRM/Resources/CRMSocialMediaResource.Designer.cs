@@ -61,15 +61,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Return.
-        /// </summary>
-        public static string Back {
-            get {
-                return ResourceManager.GetString("Back", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Be aware of what your clients think about your produce and brand in the social network. Simply link the twitter account with the contact and follow the tweet news feed right on your portal..
         /// </summary>
         public static string EmptyContentTwitterAccountsDescribe {
@@ -115,15 +106,6 @@ namespace ASC.Web.CRM.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Twitter is overloaded.
-        /// </summary>
-        public static string ErrorTwitterIsDown {
-            get {
-                return ResourceManager.GetString("ErrorTwitterIsDown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Maximal allowed number of requests to Twitter is exceeded. Try again later..
         /// </summary>
         public static string ErrorTwitterRateLimit {
@@ -147,15 +129,6 @@ namespace ASC.Web.CRM.Resources {
         public static string ErrorUnknownTwitterAccount {
             get {
                 return ResourceManager.GetString("ErrorUnknownTwitterAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The information is taken from the following source.
-        /// </summary>
-        public static string InformationProvidedBy {
-            get {
-                return ResourceManager.GetString("InformationProvidedBy", resourceCulture);
             }
         }
         
@@ -192,15 +165,6 @@ namespace ASC.Web.CRM.Resources {
         public static string PleaseWait {
             get {
                 return ResourceManager.GetString("PleaseWait", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter a text to search.
-        /// </summary>
-        public static string SearchText {
-            get {
-                return ResourceManager.GetString("SearchText", resourceCulture);
             }
         }
         

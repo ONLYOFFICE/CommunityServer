@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -522,7 +522,7 @@ ASC.CRM.InvoiceItemsView = (function () {
         ASC.CRM.InvoiceItemsView.advansedFilter = jq("#invoiceItemsAdvansedFilter")
             .advansedFilter({
                 anykey: false,
-                hintDefaultDisable: true,
+                hintDefaultDisable: false,
                 maxfilters: -1,
                 colcount: 1,
                 maxlength: "100",
@@ -676,13 +676,6 @@ ASC.CRM.InvoiceItemsView = (function () {
 
             _initFilter();
 
-            /*tracking events*/
-            ASC.CRM.InvoiceItemsView.advansedFilter.one("adv-ready", function () {
-                var crmAdvansedFilterContainer = jq("#invoiceItemsAdvansedFilter .advansed-filter-list");
-                jq("#invoiceItemsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.invoice_item, ga_Actions.filterClick, "sort");
-                jq("#invoiceItemsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.invoice_item, ga_Actions.filterClick, "search_text", "enter");
-            });
-            
             ASC.CRM.PartialExport.init(ASC.CRM.InvoiceItemsView.advansedFilter, "invoiceitem");
         },
 

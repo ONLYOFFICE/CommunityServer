@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Notify;
@@ -36,7 +37,9 @@ using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
+using ASC.Web.Projects.Core.Model.Services.NotifyService;
 using ASC.Web.Projects.Resources;
+
 using Autofac;
 
 namespace ASC.Projects.Core.Services.NotifyService
@@ -181,7 +184,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 client.SendNoticeToAsync(
                     NotifyConstants.Event_InviteToProject,
                     project.UniqID,
-                    new[] {recipient},
+                    new[] { recipient },
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, project.Title),
@@ -238,7 +241,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 client.SendNoticeToAsync(
                     NotifyConstants.Event_ResponsibleForProject,
                     project.UniqID,
-                    new[] {recipient},
+                    new[] { recipient },
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, project.Title),
@@ -260,7 +263,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 client.SendNoticeToAsync(
                     NotifyConstants.Event_ResponsibleForMilestone,
                     milestone.NotifyId,
-                    new[] {recipient},
+                    new[] { recipient },
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, milestone.Project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, milestone.Project.Title),
@@ -421,13 +424,14 @@ namespace ASC.Projects.Core.Services.NotifyService
                 client.SendNoticeToAsync(
                     action,
                     entity.NotifyId,
-                    recipients.ToArray(), 
+                    recipients.ToArray(),
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, entity.Project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, entity.Project.Title),
                     new TagValue(NotifyConstants.Tag_EntityTitle, entity.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, entity.ID),
                     new TagValue(NotifyConstants.Tag_AdditionalData, comment.Content),
+                    new TagValue(NotifyConstants.Tag_CommentID, comment.OldGuidId),
                     GetReplyToEntityTag(entity, comment));
             }
             finally
@@ -450,7 +454,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                 client.SendNoticeToAsync(
                     action,
                     entity.NotifyId,
-                    recipients.ToArray(), 
+                    recipients.ToArray(),
                     true,
                     new TagValue(NotifyConstants.Tag_ProjectID, entity.Project.ID),
                     new TagValue(NotifyConstants.Tag_ProjectTitle, entity.Project.Title),
@@ -908,7 +912,7 @@ namespace ASC.Projects.Core.Services.NotifyService
 
         public void SendAboutTaskResumed(List<IRecipient> recipients, Task task)
         {
-            var description = !string.IsNullOrEmpty(task.Description) ? HttpUtility.HtmlEncode(task.Description) : "";     
+            var description = !string.IsNullOrEmpty(task.Description) ? HttpUtility.HtmlEncode(task.Description) : "";
             var interceptor = new InitiatorInterceptor(new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), ""));
             try
             {
@@ -1059,7 +1063,7 @@ namespace ASC.Projects.Core.Services.NotifyService
             if (recipient != null)
             {
                 client.SendNoticeToAsync(
-                    NotifyConstants.Event_ImportData, 
+                    NotifyConstants.Event_ImportData,
                     null,
                     new[] { recipient },
                     true);

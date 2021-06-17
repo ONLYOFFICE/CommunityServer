@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,10 @@
 
 using System.Collections.Generic;
 using System.Web;
+
 using ASC.Web.Core.Client.HttpHandlers;
-using Resources;
+
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.Core
 {
@@ -26,7 +28,7 @@ namespace ASC.Web.Studio.Core
     {
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterResourceSet("Countries", StudioCountriesResource.ResourceManager);
+            yield return RegisterResourceSet("StudioCountriesResource", StudioCountriesResource.ResourceManager);
         }
     }
 }

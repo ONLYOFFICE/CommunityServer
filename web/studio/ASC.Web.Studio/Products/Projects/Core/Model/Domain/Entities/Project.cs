@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Diagnostics;
+
 using ASC.Web.Projects.Classes;
 
 #endregion
@@ -61,7 +62,7 @@ namespace ASC.Projects.Core.Domain
         public Guid LastModifiedBy { get; set; }
 
         public DateTime LastModifiedOn { get; set; }
-        
+
         /// <summary>
         /// Opened
         /// </summary>

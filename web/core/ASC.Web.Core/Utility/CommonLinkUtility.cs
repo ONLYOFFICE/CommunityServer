@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Common;
 using ASC.Core.Users;
@@ -90,9 +91,9 @@ namespace ASC.Web.Studio.Utility
         public const string ParamName_UserUserName = "user";
         public const string ParamName_UserUserID = "uid";
 
-        public static void Initialize(string serverUri)
+        public static void Initialize(string serverUri, bool localhost = true)
         {
-            BaseCommonLinkUtility.Initialize(serverUri);
+            BaseCommonLinkUtility.Initialize(serverUri, localhost);
         }
 
         public static string VirtualRoot
@@ -206,12 +207,13 @@ namespace ASC.Web.Studio.Utility
                 IModule module;
                 GetLocationByRequest(out product, out module);
                 if (product != null) productID = product.ID;
-                }
+            }
 
             return productID;
         }
 
-        public static Guid GetAddonID() {
+        public static Guid GetAddonID()
+        {
             var addonID = Guid.Empty;
 
             if (HttpContext.Current != null)

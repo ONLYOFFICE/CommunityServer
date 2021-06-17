@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Specific;
 using ASC.Web.Community.News.Code;
@@ -47,10 +48,10 @@ namespace ASC.Api.Events
 
         public EventWrapper(ASC.Web.Community.News.Code.Feed feed)
         {
-            Id=feed.Id;
-            Title=feed.Caption;
-            Updated = Created=(ApiDateTime) feed.Date;
-            Type =feed.FeedType;
+            Id = feed.Id;
+            Title = feed.Caption;
+            Updated = Created = (ApiDateTime)feed.Date;
+            Type = feed.FeedType;
             CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(new Guid(feed.Creator)));
         }
 
@@ -71,6 +72,6 @@ namespace ASC.Api.Events
                 Updated = ApiDateTime.GetSample()
             };
         }
-        
+
     }
 }

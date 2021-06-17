@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ namespace ASC.Api.Utils
     {
         public static T IfNotEquals<T>(T current, T @new)
         {
-            if (!Equals(current,@new))
+            if (!Equals(current, @new))
             {
                 current = @new;
                 return @new;
@@ -31,7 +31,7 @@ namespace ASC.Api.Utils
 
         public static T IfNotEmptyAndNotEquals<T>(T current, T @new)
         {
-            if (Equals(@new,default(T))) return current;
+            if (Equals(@new, default(T))) return current;
 
             if (!Equals(current, @new))
             {

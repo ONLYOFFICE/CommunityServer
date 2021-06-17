@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.News.Resources {
+namespace ASC.Web.Community.Modules.News.Resources {
     using System;
     
     
@@ -241,7 +241,7 @@ namespace ASC.Web.Community.News.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create your own events, post important announcements, share the latest news and add polls to collect your colleagues&apos; opinions directly on your portal..
+        ///   Looks up a localized string similar to View events, important announcements, the latest news and polls and learn your colleagues&apos; opinions directly on your portal..
         /// </summary>
         public static string EmptyScreenTextVisitor {
             get {
@@ -318,42 +318,6 @@ namespace ASC.Web.Community.News.Resources {
         public static string HideButton {
             get {
                 return ResourceManager.GetString("HideButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to in.
-        /// </summary>
-        public static string In {
-            get {
-                return ResourceManager.GetString("In", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Corporate feeds.
-        /// </summary>
-        public static string ModuleDescription {
-            get {
-                return ResourceManager.GetString("ModuleDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Feeds.
-        /// </summary>
-        public static string ModuleName {
-            get {
-                return ResourceManager.GetString("ModuleName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New Event.
-        /// </summary>
-        public static string NewsAdd {
-            get {
-                return ResourceManager.GetString("NewsAdd", resourceCulture);
             }
         }
         
@@ -466,29 +430,11 @@ namespace ASC.Web.Community.News.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string PleaseWaitMessage {
-            get {
-                return ResourceManager.GetString("PleaseWaitMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Publish.
         /// </summary>
         public static string PostButton {
             get {
                 return ResourceManager.GetString("PostButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total events.
-        /// </summary>
-        public static string PostCount {
-            get {
-                return ResourceManager.GetString("PostCount", resourceCulture);
             }
         }
         

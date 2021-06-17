@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,18 @@ using System;
 using System.Configuration;
 using System.Web;
 using System.Web.UI;
+
+using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Billing;
-using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -51,9 +52,9 @@ namespace ASC.Web.Studio.UserControls.Management
                 Notify = GetPersonalTariffNotify();
                 return;
             }
-            
+
             if (SecurityContext.IsAuthenticated
-                && TenantExtra.EnableTarrifSettings
+                && TenantExtra.EnableTariffSettings
                 && !TariffSettings.HideNotify
                 && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
@@ -75,9 +76,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var webItem = WebItemManager.Instance[WebItemManager.DocumentsProductID];
             var spaceUsageManager = webItem.Context.SpaceUsageStatManager as IUserSpaceUsage;
-            
+
             if (spaceUsageManager == null) return null;
-            
+
             var usedSize = spaceUsageManager.GetUserSpaceUsage(SecurityContext.CurrentAccount.ID);
 
             long notifySize;
@@ -176,13 +177,13 @@ namespace ASC.Web.Studio.UserControls.Management
 
         public static string GetNumeralResourceByCount(int count, string resource, string resourceOne, string resourceTwo)
         {
-            var num = count%100;
+            var num = count % 100;
             if (num >= 11 && num <= 19)
             {
                 return resourceTwo;
             }
 
-            var i = count%10;
+            var i = count % 10;
             switch (i)
             {
                 case (1):

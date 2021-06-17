@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,16 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Controls.Common;
+
 using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Forum;
+using ASC.Web.Community.Modules.Forum.Resources;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio;
+using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum;
 using ASC.Web.UserControls.Forum.Common;
@@ -78,7 +81,7 @@ namespace ASC.Web.Community.Forum
                     topicControl.SettingsID = ForumManager.Settings.ID;
                     topicControl.Topic = topic;
                     topicControl.IsShowThreadName = true;
-                    topicControl.IsEven = (i%2 == 0);
+                    topicControl.IsEven = (i % 2 == 0);
                     topicListHolder.Controls.Add(topicControl);
                     i++;
                 }
@@ -86,13 +89,13 @@ namespace ASC.Web.Community.Forum
                 #region navigators
 
                 var pageNavigator = new PageNavigator
-                    {
-                        CurrentPageNumber = currentPageNumber,
-                        EntryCountOnPage = ForumManager.Settings.TopicCountOnPage,
-                        VisiblePageCount = 5,
-                        EntryCount = topicCount,
-                        PageUrl = "usertopics.aspx?uid=" + _userID.ToString()
-                    };
+                {
+                    CurrentPageNumber = currentPageNumber,
+                    EntryCountOnPage = ForumManager.Settings.TopicCountOnPage,
+                    VisiblePageCount = 5,
+                    EntryCount = topicCount,
+                    PageUrl = "usertopics.aspx?uid=" + _userID.ToString()
+                };
 
                 bottomPageNavigatorHolder.Controls.Add(pageNavigator);
 
@@ -101,11 +104,11 @@ namespace ASC.Web.Community.Forum
             else
             {
                 var emptyScreenControl = new EmptyScreenControl
-                    {
-                        ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
-                        Header = Resources.ForumResource.EmptyScreenSearchCaption,
-                        Describe = Resources.ForumResource.EmptyScreenSearchText,
-                    };
+                {
+                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("forums_icon.png", ForumManager.Settings.ModuleID),
+                    Header = ForumResource.EmptyScreenSearchCaption,
+                    Describe = ForumResource.EmptyScreenSearchText,
+                };
 
                 topicListHolder.Controls.Add(emptyScreenControl);
             }

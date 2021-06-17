@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+
 using ASC.Collections;
-using ASC.Web.CRM.Classes;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.CRM.Core.Entities;
+using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Resources;
 
 #endregion
@@ -172,25 +173,25 @@ namespace ASC.CRM.Core.Dao
             {
                 case (int)HistoryCategorySystem.TaskClosed:
                     return new ListItem
-                               {
-                                   ID = -1,
-                                   Title = HistoryCategorySystem.TaskClosed.ToLocalizedString(),
-                                   AdditionalParams = "event_category_close.png"
-                               };
+                    {
+                        ID = -1,
+                        Title = HistoryCategorySystem.TaskClosed.ToLocalizedString(),
+                        AdditionalParams = "event_category_close.png"
+                    };
                 case (int)HistoryCategorySystem.FilesUpload:
                     return new ListItem
-                               {
-                                   ID = -2,
-                                   Title = HistoryCategorySystem.FilesUpload.ToLocalizedString(),
-                                   AdditionalParams = "event_category_attach_file.png"
-                               };
+                    {
+                        ID = -2,
+                        Title = HistoryCategorySystem.FilesUpload.ToLocalizedString(),
+                        AdditionalParams = "event_category_attach_file.png"
+                    };
                 case (int)HistoryCategorySystem.MailMessage:
-                    return  new ListItem
-                        {
-                            ID = -3,
-                            Title = HistoryCategorySystem.MailMessage.ToLocalizedString(),
-                            AdditionalParams = "event_category_email.png"
-                        };
+                    return new ListItem
+                    {
+                        ID = -3,
+                        Title = HistoryCategorySystem.MailMessage.ToLocalizedString(),
+                        AdditionalParams = "event_category_email.png"
+                    };
                 default:
                     return null;
             }
@@ -304,7 +305,7 @@ namespace ASC.CRM.Core.Dao
                     break;
                 default:
                     throw new ArgumentException();
-                  
+
             }
 
             return Db.ExecuteScalar<int>(sqlQuery);
@@ -367,8 +368,8 @@ namespace ASC.CRM.Core.Dao
                 if (string.IsNullOrEmpty(enumItem.AdditionalParams))
                     throw new ArgumentException();
                 else
-                   enumItem.AdditionalParams = System.IO.Path.GetFileName(enumItem.AdditionalParams);
-                
+                    enumItem.AdditionalParams = System.IO.Path.GetFileName(enumItem.AdditionalParams);
+
             if (listType == ListType.ContactStatus)
                 if (string.IsNullOrEmpty(enumItem.Color))
                     throw new ArgumentException();
@@ -396,18 +397,18 @@ namespace ASC.CRM.Core.Dao
         {
 
             if (HaveRelativeItemsLink(listType, enumItem.ID))
-            switch (listType)
-            {
-                case ListType.ContactStatus:
-                case ListType.ContactType:
-                    throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HasRelatedContacts));
-                case ListType.TaskCategory:
-                    throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.TaskCategoryHasRelatedTasks));
-                case ListType.HistoryCategory:
-                    throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
-                default:
-                    throw new ArgumentException(string.Format("{0}.", CRMErrorsResource.BasicCannotBeEdited));
-            }
+                switch (listType)
+                {
+                    case ListType.ContactStatus:
+                    case ListType.ContactType:
+                        throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HasRelatedContacts));
+                    case ListType.TaskCategory:
+                        throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.TaskCategoryHasRelatedTasks));
+                    case ListType.HistoryCategory:
+                        throw new ArgumentException(string.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeEdited, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
+                    default:
+                        throw new ArgumentException(string.Format("{0}.", CRMErrorsResource.BasicCannotBeEdited));
+                }
 
             Db.ExecuteNonQuery(Update("crm_list_item")
                                         .Set("description", enumItem.Description)
@@ -459,14 +460,14 @@ namespace ASC.CRM.Core.Dao
         {
             if (!IsExist(fromItemID))
                 throw new ArgumentException("", "toItemID");
-           
+
             if (!HaveRelativeItemsLink(listType, fromItemID)) return;
 
             if (!IsExist(toItemID))
                 throw new ArgumentException("", "toItemID");
-           
+
             SqlUpdate sqlUpdate;
-            
+
             switch (listType)
             {
                 case ListType.ContactStatus:
@@ -486,7 +487,7 @@ namespace ASC.CRM.Core.Dao
                     break;
                 case ListType.HistoryCategory:
                     sqlUpdate = Update("crm_relationship_event")
-                               .Set("category_id", toItemID)  
+                               .Set("category_id", toItemID)
                                .Where(Exp.Eq("category_id", fromItemID));
                     break;
                 default:
@@ -556,14 +557,14 @@ namespace ASC.CRM.Core.Dao
         public static ListItem ToListItem(object[] row)
         {
             var result = new ListItem
-                       {
-                           ID = Convert.ToInt32(row[0]),
-                           Title = Convert.ToString(row[1]),
-                           Description = Convert.ToString(row[2]),
-                           Color = Convert.ToString(row[3]),
-                           SortOrder = Convert.ToInt32(row[4]),
-                           AdditionalParams = Convert.ToString(row[5])
-                       };
+            {
+                ID = Convert.ToInt32(row[0]),
+                Title = Convert.ToString(row[1]),
+                Description = Convert.ToString(row[2]),
+                Color = Convert.ToString(row[3]),
+                SortOrder = Convert.ToInt32(row[4]),
+                AdditionalParams = Convert.ToString(row[5])
+            };
 
             ListType listType;
             if (Enum.TryParse(Convert.ToString(row[6]), out listType))

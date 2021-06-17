@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
+
 using ASC.Api.Attributes;
 using ASC.Api.Documents;
 using ASC.Api.Exceptions;
@@ -124,10 +125,10 @@ namespace ASC.Api.CRM
                 throw CRMSecurity.CreateSecurityException();
 
             return new
-                {
-                    hasData = ReportHelper.CheckReportData(type, timePeriod, managers),
-                    missingRates = ReportHelper.GetMissingRates(type)
-                };
+            {
+                hasData = ReportHelper.CheckReportData(type, timePeriod, managers),
+                missingRates = ReportHelper.GetMissingRates(type)
+            };
         }
 
         /// <summary>Run the report generation task</summary>

@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output method="xml" encoding="utf-8" standalone="yes" indent="yes" omit-xml-declaration="yes" media-type="text/xhtml" />
 
-  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
+  <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="FilesCommonResource" />
 
   <xsl:template match="entryData">
 
@@ -48,7 +48,7 @@
               </div>
               <xsl:if test="count(blockFormats / format) > 0">
                 <div class="cnvrt-tooltip-content">
-                  <resource name="fres.ConvertTo"/>
+                  <resource name="FilesCommonResource.ConvertTo"/>
                 </div>
               </xsl:if>
             </div>
@@ -107,7 +107,7 @@
                 </div>
                 <xsl:if test="count(fileConvertFormats / format) > 1">
                   <div class="cnvrt-tooltip-content">
-                    <resource name="fres.ConvertTo"/>
+                    <resource name="FilesCommonResource.ConvertTo"/>
                   </div>
                 </xsl:if>
               </div>

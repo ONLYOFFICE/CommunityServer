@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Diagnostics;
 #endif
 using System.Linq;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Mail;
 using ASC.Mail.Data.Contracts;
@@ -79,7 +80,7 @@ namespace ASC.Api.Mail
         {
             var primaryFolder = user_folder_id.HasValue
                 ? FolderType.UserFolder
-                : folder.HasValue ? (FolderType) folder.Value : FolderType.Inbox;
+                : folder.HasValue ? (FolderType)folder.Value : FolderType.Inbox;
 
             var filter = new MailSearchFilterData
             {
@@ -249,14 +250,14 @@ namespace ASC.Api.Mail
             if (!ids.Any())
                 throw new ArgumentException(@"Empty ids collection", "ids");
 
-            var toFolder = (FolderType) folder;
+            var toFolder = (FolderType)folder;
 
             if (!MailFolder.IsIdOk(toFolder))
                 throw new ArgumentException(@"Invalid folder id", "folder");
 
             MailEngineFactory.ChainEngine.SetConversationsFolder(ids, toFolder, userFolderId);
 
-            if (toFolder != FolderType.Spam) 
+            if (toFolder != FolderType.Spam)
                 return ids;
 
             //TODO: Try to move message (IMAP only) to spam folder on original server (need new separated operation)
@@ -322,7 +323,7 @@ namespace ASC.Api.Mail
         {
             if (!ids.Any())
                 throw new ArgumentException(@"Empty ids collection", "ids");
-            
+
             switch (status)
             {
                 case "read":
@@ -445,7 +446,7 @@ namespace ASC.Api.Mail
         {
             if (id_message < 0)
                 throw new ArgumentException(@"Invalid message id", "id_message");
-            if(crm_contact_ids == null)
+            if (crm_contact_ids == null)
                 throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
             MailEngineFactory.CrmLinkEngine.UnmarkChainAsCrmLinked(id_message, crm_contact_ids);
@@ -461,7 +462,7 @@ namespace ASC.Api.Mail
         [Read(@"conversations/link/crm/status")]
         public MailCrmStatus IsConversationLinkedWithCrm(int message_id)
         {
-            if(message_id < 0)
+            if (message_id < 0)
                 throw new ArgumentException(@"Invalid message id", "message_id");
 
             var entities = GetLinkedCrmEntitiesInfo(message_id);

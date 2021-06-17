@@ -1,64 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -112,10 +53,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
     <value>Account connection error.</value>
@@ -129,11 +70,11 @@
   <data name="AccountEdit" xml:space="preserve">
     <value>Account settings</value>
   </data>
-  <data name="AccountNotificationText" xml:space="preserve">
-    <value>The account is connected using OAuth, editing is limited.</value>
-  </data>
   <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
     <value>Google account was reconnected successfully</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>The account is connected using OAuth, editing is limited.</value>
   </data>
   <data name="AccountsLabel" xml:space="preserve">
     <value>Accounts</value>
@@ -143,9 +84,6 @@
   </data>
   <data name="ActivateAccountShure" xml:space="preserve">
     <value>Do you want to activate %1?</value>
-  </data>
-  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
-    <value>Add condition</value>
   </data>
   <data name="AddAccountBtnLabel" xml:space="preserve">
     <value>Add Account</value>
@@ -159,8 +97,8 @@
   <data name="AddAccountInfoTitle" xml:space="preserve">
     <value>Add a new account to start using ONLYOFFICE™ Mail.</value>
   </data>
-  <data name="CommonSettingsLabel" xml:space="preserve">
-    <value>Common Settings</value>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>Add condition</value>
   </data>
   <data name="AdministrationLabel" xml:space="preserve">
     <value>Mail Server</value>
@@ -174,8 +112,20 @@
   <data name="AllLabel" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="AttachemntsUnauthorizedError" xml:space="preserve">
-    <value>You are not authorized. Please authorize before you can proceed.</value>
+  <data name="AndLabel" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="ApplyMultiConditionsAllLabel" xml:space="preserve">
+    <value>matches all of the conditions</value>
+  </data>
+  <data name="ApplyMultiConditionsAtLeastOneLabel" xml:space="preserve">
+    <value>matches at least one of the conditions</value>
+  </data>
+  <data name="ApplyToLabel" xml:space="preserve">
+    <value>Apply to</value>
+  </data>
+  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
+    <value>Apply to messages from</value>
   </data>
   <data name="AttachmentsBadInputParamsError" xml:space="preserve">
     <value>Some input parameters are invalid.</value>
@@ -216,9 +166,6 @@
   <data name="AuthErrorPopupBody" xml:space="preserve">
     <value>There are problems with send and receive operations for the {0} mail account.{1} The reason might be that you changed your account password. Please, check all the account settings you entered or sign in to the mail service you use and check the security settings.</value>
   </data>
-  <data name="AuthErrorPopupBodyFooter" xml:space="preserve">
-    <value>In case the error persists, please read the {2}FAQ section{3} to learn more about the problem or contact your portal administrator.</value>
-  </data>
   <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
     <value>An error occurred while connecting to the account.</value>
   </data>
@@ -248,9 +195,6 @@
   </data>
   <data name="CalendarMapLabel" xml:space="preserve">
     <value>map</value>
-  </data>
-  <data name="CalendarMoreDetailsLabel" xml:space="preserve">
-    <value>more details</value>
   </data>
   <data name="CalendarNoLocationLabel" xml:space="preserve">
     <value>No location</value>
@@ -288,6 +232,9 @@
   <data name="CancelBtnLabel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>Cc</value>
+  </data>
   <data name="ChangeAccountSettingsBtn" xml:space="preserve">
     <value>Change account settings</value>
   </data>
@@ -300,6 +247,12 @@
   <data name="CollapseAllLabel" xml:space="preserve">
     <value>Collapse all</value>
   </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Common Settings</value>
+  </data>
+  <data name="ContainsLabel" xml:space="preserve">
+    <value>contains</value>
+  </data>
   <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
     <value>This conversation contains collapsed messages which may include hidden images. Do you want to print it?</value>
   </data>
@@ -310,10 +263,7 @@
     <value>Error occured while copying file</value>
   </data>
   <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
-    <value>Copying to "My Documents" folder</value>
-  </data>
-  <data name="CorrectAccountRecommendation" xml:space="preserve">
-    <value>Please, check all the account settings you entered. If you are sure your settings are correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After that try again.</value>
+    <value>Copying to "My documents" folder</value>
   </data>
   <data name="CreateContactButton" xml:space="preserve">
     <value>Create contact</value>
@@ -328,7 +278,7 @@
     <value>This domain is common for all portals, so it is recommended that your corporate domain is used for corporate email correspondence.</value>
   </data>
   <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
-    <value>Create Mailbox</value>
+    <value>Create mailbox</value>
   </data>
   <data name="CreateNewContactLabel" xml:space="preserve">
     <value>Create new contact</value>
@@ -363,11 +313,20 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteAccountOptionHead" xml:space="preserve">
+    <value>You can reassign templates and drafts to another account.</value>
+  </data>
+  <data name="DeleteAccountOptionText" xml:space="preserve">
+    <value>reassign to account</value>
+  </data>
   <data name="DeleteAccountShure" xml:space="preserve">
     <value>Do you want to delete %1?</value>
   </data>
   <data name="DeleteTagShure" xml:space="preserve">
     <value>Are you sure you want to delete the %1 tag?</value>
+  </data>
+  <data name="DeleteUserFolderShure" xml:space="preserve">
+    <value>Do you want to delete the "{0}" folder?</value>
   </data>
   <data name="DeletionMessage" xml:space="preserve">
     <value>Deleting messages</value>
@@ -395,6 +354,9 @@
   </data>
   <data name="DoneLabel" xml:space="preserve">
     <value>Done</value>
+  </data>
+  <data name="DoNotSave" xml:space="preserve">
+    <value>Do not save</value>
   </data>
   <data name="EditContactcLabel" xml:space="preserve">
     <value>Edit contact</value>
@@ -427,13 +389,13 @@
     <value>The Inbox section allows you to manage the messages you receive. Here you can see the correspondence history, tick the most important messages, group emails by categories using tags or delete the unnecessary ones.</value>
   </data>
   <data name="EmptyInboxHeader" xml:space="preserve">
-    <value>No messages recieved</value>
+    <value>No messages received</value>
   </data>
   <data name="EmptyScrAccountsButton" xml:space="preserve">
     <value>Set up the first account</value>
   </data>
   <data name="EmptyScrAccountsDescription" xml:space="preserve">
-    <value>Set up an account to send, receive and keep your messages in order right on the portal. Get access to message history, contacts and files through any browser anytime, anywhere. Sort messages using your own tags. Create mailbox for the ready-made free default domain.</value>
+    <value>Set up an account to send, receive, and keep your messages in order right on the portal. Get access to message history, contacts, and files through any browser anytime, anywhere. Sort messages using your own tags. Create a mailbox with the ready-made free default domain.</value>
   </data>
   <data name="EmptyScrAccountsHeader" xml:space="preserve">
     <value>No account is set up yet</value>
@@ -447,6 +409,15 @@
   <data name="EmptyScrCrmHeader" xml:space="preserve">
     <value>The contact list is empty</value>
   </data>
+  <data name="EmptyScrFiltersButton" xml:space="preserve">
+    <value>Create filter</value>
+  </data>
+  <data name="EmptyScrFiltersDescription" xml:space="preserve">
+    <value>Create filters to sort and manage all your mail</value>
+  </data>
+  <data name="EmptyScrFiltersHeader" xml:space="preserve">
+    <value>No filters created</value>
+  </data>
   <data name="EmptyScrMailContactsDescription" xml:space="preserve">
     <value>This contact list will show all your personal contacts from the address book. You have not entered any contacts there yet.</value>
   </data>
@@ -454,10 +425,19 @@
     <value>Create New Mail Tag</value>
   </data>
   <data name="EmptyScrTagsDescription" xml:space="preserve">
-    <value>You need first to create a tag and use it after that only</value>
+    <value>Create tags to classify mail messages</value>
   </data>
   <data name="EmptyScrTagsHeader" xml:space="preserve">
     <value>No tags created</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>Create folder</value>
+  </data>
+  <data name="EmptyScrUserFoldersDescription" xml:space="preserve">
+    <value>Add folders to keep your emails organized</value>
+  </data>
+  <data name="EmptyScrUserFoldersHeader" xml:space="preserve">
+    <value>No folders created</value>
   </data>
   <data name="EmptySentButton" xml:space="preserve">
     <value>Compose new message</value>
@@ -469,15 +449,31 @@
     <value>No messages have been sent yet</value>
   </data>
   <data name="EmptySpamDescription" xml:space="preserve">
-    <value>The Spam section contains messages you identified as junk mail. Here you can delete emails, classify them as 'non-spam' or clear the whole section.</value>
+    <value>The Spam folder contains messages that have been marked as spam either by you or by the system. Here you can mark a message as not spam, delete it permanently or empty the folder.</value>
   </data>
   <data name="EmptySpamHeader" xml:space="preserve">
     <value>No messages to be displayed in this folder</value>
+  </data>
+  <data name="EmptyTemplatesButton" xml:space="preserve">
+    <value>Compose the first template</value>
+  </data>
+  <data name="EmptyTemplatesDescription" xml:space="preserve">
+    <value>You can compose a message and save it as a template, then reuse it anytime you want it, adding new information if needed. Tick the most important messages or delete unnecessary ones.
+</value>
+  </data>
+  <data name="EmptyTemplatesHeader" xml:space="preserve">
+    <value>No templates to be displayed in this folder</value>
   </data>
   <data name="EmptyTrashDescription" xml:space="preserve">
     <value>The Trash section contains messages which were deleted. Here you can recover some emails or delete them permanently.</value>
   </data>
   <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>No messages to be displayed in this folder</value>
+  </data>
+  <data name="EmptyUserFolderDescription" xml:space="preserve">
+    <value>This section allows you to manage the messages you move. Here you can see the correspondence history, tick the most important messages, group emails by categories using tags or delete the unnecessary ones.</value>
+  </data>
+  <data name="EmptyUserFolderHeader" xml:space="preserve">
     <value>No messages to be displayed in this folder</value>
   </data>
   <data name="EnabledAutoreplyNotification" xml:space="preserve">
@@ -501,14 +497,20 @@
   <data name="ErrorIncorrectEmail" xml:space="preserve">
     <value>Incorrect address </value>
   </data>
+  <data name="ErrorLostInternetConnection" xml:space="preserve">
+    <value>Lost internet connection</value>
+  </data>
+  <data name="ErrorMailMessageSizeBody" xml:space="preserve">
+    <value>Reduce size of body of letter to continue</value>
+  </data>
+  <data name="ErrorMailMessageSizeHead" xml:space="preserve">
+    <value>Message body exceeded limit ({0} KB)</value>
+  </data>
   <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
     <value>no mailbox selected</value>
   </data>
   <data name="ErrorNotification" xml:space="preserve">
     <value>Unknown error has occurred</value>
-  </data>
-  <data name="ErrorNotificationEx" xml:space="preserve">
-    <value>An error has occurred during account creation. Please, check your network connection or ask your network or portal administrator for help.</value>
   </data>
   <data name="ErrorNoUserSelectedField" xml:space="preserve">
     <value>no user selected</value>
@@ -524,9 +526,6 @@
   </data>
   <data name="ErrorPhoneExist" xml:space="preserve">
     <value>This phone number already exists</value>
-  </data>
-  <data name="ErrorSendMessage" xml:space="preserve">
-    <value>A problem has occurred while trying to send this message.</value>
   </data>
   <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
     <value>The %1 tag already exists</value>
@@ -558,8 +557,44 @@
   <data name="ExportMessageText" xml:space="preserve">
     <value>Export message to CRM contact history complete successfully</value>
   </data>
+  <data name="FilterActionDeleteLabel" xml:space="preserve">
+    <value>Delete forever</value>
+  </data>
+  <data name="FilterActionInfo" xml:space="preserve">
+    <value>Take the following action</value>
+  </data>
+  <data name="FilterActionMarkAsImportantLabel" xml:space="preserve">
+    <value>Mark as important</value>
+  </data>
+  <data name="FilterActionMarkAsReadLabel" xml:space="preserve">
+    <value>Mark as read</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>Add tag</value>
+  </data>
+  <data name="FilterActionMoveToLabel" xml:space="preserve">
+    <value>Move to folder</value>
+  </data>
+  <data name="FilterActionMoveToTarshLabel" xml:space="preserve">
+    <value>Move to trash</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>Advanced options</value>
+  </data>
   <data name="FilterAnotherGroup" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
+    <value>Apply to all mailboxes</value>
+  </data>
+  <data name="FilterApplyToAttachemnts" xml:space="preserve">
+    <value>Apply if attachments are</value>
+  </data>
+  <data name="FilterApplyToAttachemntsNotPresent" xml:space="preserve">
+    <value>not present in the letter</value>
+  </data>
+  <data name="FilterApplyToAttachemntsPresent" xml:space="preserve">
+    <value>present in the letter</value>
   </data>
   <data name="FilterByContactStage" xml:space="preserve">
     <value>Temperature level</value>
@@ -585,14 +620,47 @@
   <data name="FilterContactStageNotSpecified" xml:space="preserve">
     <value>Not specified</value>
   </data>
-  <data name="FilterFrequentlyContacted" xml:space="preserve">
-    <value>Frequently contacted</value>
+  <data name="FilterEnterNameDescription" xml:space="preserve">
+    <value>You can also {0}enter a name{1} that will be displayed in the list of filters.</value>
+  </data>
+  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
+    <value>All the selected accounts have been deleted</value>
+  </data>
+  <data name="FilterErrorEmptyCondition" xml:space="preserve">
+    <value>Empty value of condition</value>
+  </data>
+  <data name="FilterErrorEmptyMoveToFolderValue" xml:space="preserve">
+    <value>No folder selected</value>
+  </data>
+  <data name="FilterErrorEmptyTagValue" xml:space="preserve">
+    <value>No tag selected</value>
+  </data>
+  <data name="FilterErrorFolderRemoved" xml:space="preserve">
+    <value>The selected folder has been deleted</value>
+  </data>
+  <data name="FilterErrorNoActionSelected" xml:space="preserve">
+    <value>No action selected</value>
+  </data>
+  <data name="FilterErrorNoApplyToFolderSelected" xml:space="preserve">
+    <value>No folder selected to apply filter</value>
+  </data>
+  <data name="FilterErrorNoApplyToMailboxSelected" xml:space="preserve">
+    <value>No mailbox selected to apply filter</value>
+  </data>
+  <data name="FilterErrorTagRemoved" xml:space="preserve">
+    <value>The selected tag has been deleted</value>
   </data>
   <data name="FilterFromSender" xml:space="preserve">
     <value>From sender</value>
   </data>
+  <data name="FilterIgnoreOther" xml:space="preserve">
+    <value>Ignore other filters</value>
+  </data>
   <data name="FilterImportant" xml:space="preserve">
     <value>Important</value>
+  </data>
+  <data name="FilterName" xml:space="preserve">
+    <value>Filter name</value>
   </data>
   <data name="FilterPeriodCustom" xml:space="preserve">
     <value>Custom period</value>
@@ -612,11 +680,14 @@
   <data name="FilterPerson" xml:space="preserve">
     <value>Persons</value>
   </data>
-  <data name="FilterPersonalContacts" xml:space="preserve">
-    <value>Personal contacts</value>
-  </data>
   <data name="FilterRead" xml:space="preserve">
     <value>Read</value>
+  </data>
+  <data name="FilterSelectFolderLabel" xml:space="preserve">
+    <value>select folder</value>
+  </data>
+  <data name="FilterSelectTagLabel" xml:space="preserve">
+    <value>select tag</value>
   </data>
   <data name="FilterShowGroup" xml:space="preserve">
     <value>Show</value>
@@ -651,15 +722,6 @@
   <data name="FromLabel" xml:space="preserve">
     <value>From</value>
   </data>
-  <data name="CcLabel" xml:space="preserve">
-    <value>Cc</value>
-  </data>
-  <data name="ToOrCcLabel" xml:space="preserve">
-    <value>To or Cc</value>
-  </data>
-  <data name="GoForDetailsText" xml:space="preserve">
-    <value>Go to {0} to enable them.</value>
-  </data>
   <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
     <value>You can {0} or change it in {1}</value>
   </data>
@@ -675,9 +737,6 @@
   <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
     <value>Group cannot be set as default mailbox</value>
   </data>
-  <data name="GroupLabel" xml:space="preserve">
-    <value>(Group)</value>
-  </data>
   <data name="HelpCenterLabel" xml:space="preserve">
     <value>Help</value>
   </data>
@@ -686,6 +745,9 @@
   </data>
   <data name="HidePasswordLinkLabel" xml:space="preserve">
     <value>Hide</value>
+  </data>
+  <data name="IfLabel" xml:space="preserve">
+    <value>If</value>
   </data>
   <data name="ImportAccountHeader" xml:space="preserve">
     <value>The account is successfully connected.</value>
@@ -704,6 +766,36 @@
   </data>
   <data name="ImportProblemText" xml:space="preserve">
     <value>If an error occurs while importing the mail, please read the {0}FAQ section{1} for more details.</value>
+  </data>
+  <data name="InfoCreateFolder" xml:space="preserve">
+    <value>New folder '{0}' is created</value>
+  </data>
+  <data name="InfoMoveFolder" xml:space="preserve">
+    <value>The folder '{0}' is moved into '{1}'</value>
+  </data>
+  <data name="InfoMoveFolderToRoot" xml:space="preserve">
+    <value>The folder '{0}' is moved into the root folder</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>The folder '{0}' is deleted</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>The folder '{0}' is renamed to '{1}'</value>
+  </data>
+  <data name="InfoSelectConversation" xml:space="preserve">
+    <value>conversation</value>
+  </data>
+  <data name="InfoSelectConversations" xml:space="preserve">
+    <value>conversations: {0}</value>
+  </data>
+  <data name="InfoSelectMessage" xml:space="preserve">
+    <value>message</value>
+  </data>
+  <data name="InfoSelectMessages" xml:space="preserve">
+    <value>messages: {0}</value>
+  </data>
+  <data name="InfoSelectMove" xml:space="preserve">
+    <value>Move {0}</value>
   </data>
   <data name="InsertedViaLink" xml:space="preserve">
     <value>Inserted via link</value>
@@ -744,6 +836,15 @@
   <data name="MailBoxUpdate" xml:space="preserve">
     <value>Mailbox update...</value>
   </data>
+  <data name="MailDraftsReassigned" xml:space="preserve">
+    <value>Drafts reassigned</value>
+  </data>
+  <data name="MailFilters" xml:space="preserve">
+    <value>Message filtering</value>
+  </data>
+  <data name="MailTemplatesReassigned" xml:space="preserve">
+    <value>Templates reassigned</value>
+  </data>
   <data name="ManageAccountsLabel" xml:space="preserve">
     <value>Manage accounts</value>
   </data>
@@ -755,6 +856,15 @@
   </data>
   <data name="MarkAllSendersLabel" xml:space="preserve">
     <value>Mark all sender(s) mail</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>Mark as important</value>
+  </data>
+  <data name="MarkNotImportantLabel" xml:space="preserve">
+    <value>Mark as not important</value>
+  </data>
+  <data name="MatchesLabel" xml:space="preserve">
+    <value>matches</value>
   </data>
   <data name="Megabytes" xml:space="preserve">
     <value>MB</value>
@@ -804,8 +914,14 @@
   <data name="NoSubject" xml:space="preserve">
     <value>no subject</value>
   </data>
+  <data name="NotContainsLabel" xml:space="preserve">
+    <value>doesn't contains</value>
+  </data>
   <data name="NotImportantLabel" xml:space="preserve">
-    <value>Not important</value>
+    <value>Mark as important</value>
+  </data>
+  <data name="NotMatchesLabel" xml:space="preserve">
+    <value>doesn't match</value>
   </data>
   <data name="NotSpamLabel" xml:space="preserve">
     <value>Not Spam</value>
@@ -816,6 +932,9 @@
   <data name="OkBtnLabel" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OrLabel" xml:space="preserve">
+    <value>or</value>
+  </data>
   <data name="PageHeaderDraft" xml:space="preserve">
     <value>Draft</value>
   </data>
@@ -824,6 +943,9 @@
   </data>
   <data name="PageHeaderReply" xml:space="preserve">
     <value>Reply</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>Template</value>
   </data>
   <data name="PersonalContactsLabel" xml:space="preserve">
     <value>Personal Contacts</value>
@@ -889,7 +1011,7 @@
     <value>Restoring messages</value>
   </data>
   <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
-    <value>It was successfully saved %real_count% from %count% in My Documents.</value>
+    <value>It was successfully saved %real_count% from %count% in My documents.</value>
   </data>
   <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
     <value>Saving was unsuccessful.</value>
@@ -900,8 +1022,17 @@
   <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
     <value>'%file_name%' is successfully saved in '%folder_name%'.</value>
   </data>
-  <data name="SaveAttachmentToMyDocsSuccess" xml:space="preserve">
-    <value>'%file_name%' is successfully saved in My Documents.</value>
+  <data name="SaveDraft" xml:space="preserve">
+    <value>Save draft</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Save template</value>
+  </data>
+  <data name="SaveTemplateChanges" xml:space="preserve">
+    <value>Save template changes?</value>
+  </data>
+  <data name="SaveTemplateText" xml:space="preserve">
+    <value>You have changed template but did not save it. If you close the page, all changes will be lost. Save changes?</value>
   </data>
   <data name="SavingMessage" xml:space="preserve">
     <value>Saving message</value>
@@ -914,9 +1045,6 @@
   </data>
   <data name="SendingMessage" xml:space="preserve">
     <value>Sending message</value>
-  </data>
-  <data name="SentMessageText" xml:space="preserve">
-    <value>Message has been sent!</value>
   </data>
   <data name="ServerLabel" xml:space="preserve">
     <value>Server</value>
@@ -940,7 +1068,8 @@
     <value>Show</value>
   </data>
   <data name="SignatureInformationText" xml:space="preserve">
-    <value>This signature will be added at the end of all letters from this account. You can write there your name, contacts or slogan.</value>
+    <value>This signature will be appended at the end of all outgoing messages. You can add your contact information or a favorite quote.
+</value>
   </data>
   <data name="SpamLabel" xml:space="preserve">
     <value>Spam</value>
@@ -963,6 +1092,9 @@
   <data name="ToLabel" xml:space="preserve">
     <value>To</value>
   </data>
+  <data name="ToOrCcLabel" xml:space="preserve">
+    <value>To or Cc</value>
+  </data>
   <data name="TotalContacts" xml:space="preserve">
     <value>Total contacts:</value>
   </data>
@@ -974,6 +1106,24 @@
   </data>
   <data name="UnreadLabel" xml:space="preserve">
     <value>Mark as unread</value>
+  </data>
+  <data name="UserFilterNotFound" xml:space="preserve">
+    <value>The filter was not found</value>
+  </data>
+  <data name="UserFolderNoSelected" xml:space="preserve">
+    <value>not selected</value>
+  </data>
+  <data name="UserFolderNotFoundError" xml:space="preserve">
+    <value>The required folder was not found</value>
+  </data>
+  <data name="UserFolders" xml:space="preserve">
+    <value>Folders</value>
+  </data>
+  <data name="UserFolderSelectorLabel" xml:space="preserve">
+    <value>Parent folder:</value>
+  </data>
+  <data name="UserFolderSelectorLink" xml:space="preserve">
+    <value>Select the parent folder</value>
   </data>
   <data name="UseSingatureLabel" xml:space="preserve">
     <value>Use signature</value>
@@ -989,284 +1139,5 @@
   </data>
   <data name="WithTags" xml:space="preserve">
     <value>With tags</value>
-  </data>
-  <data name="UserFolders" xml:space="preserve">
-    <value>Folders</value>
-  </data>
-  <data name="MailFilters" xml:space="preserve">
-    <value>Message filtering</value>
-  </data>
-  <data name="EmptyUserFolderDescription" xml:space="preserve">
-    <value>This section allows you to manage the messages you move. Here you can see the correspondence history, tick the most important messages, group emails by categories using tags or delete the unnecessary ones.</value>
-  </data>
-  <data name="EmptyUserFolderHeader" xml:space="preserve">
-    <value>No messages to be displayed in this folder</value>
-  </data>
-  <data name="DeleteUserFolderShure" xml:space="preserve">
-    <value>Do you want to delete the folder "{0}"?</value>
-  </data>
-  <data name="UserFolderSelectorLink" xml:space="preserve">
-    <value>Select the parent folder</value>
-  </data>
-  <data name="UserFolderSelectorLabel" xml:space="preserve">
-    <value>Parent folder:</value>
-  </data>
-  <data name="UserFolderNoSelected" xml:space="preserve">
-    <value>not selected</value>
-  </data>
-  <data name="UserFolderSelected" xml:space="preserve">
-    <value>Selected "{0}"</value>
-  </data>
-  <data name="UserFolderNotSelected" xml:space="preserve">
-    <value>Leave on the first level</value>
-  </data>
-  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
-    <value>Create folder</value>
-  </data>
-  <data name="EmptyScrUserFoldersHeader" xml:space="preserve">
-    <value>No folders created</value>
-  </data>
-  <data name="EmptyScrUserFoldersDescription" xml:space="preserve">
-    <value>You need first to create a folder and use it after that only</value>
-  </data>
-  <data name="InfoSelectCount" xml:space="preserve">
-    <value>Elements: {0}</value>
-  </data>
-  <data name="InfoSelectingDescribe" xml:space="preserve">
-    <value>{0}Drag the element(s) with the mouse to add to the folder</value>
-  </data>
-  <data name="EmptyScrFiltersButton" xml:space="preserve">
-    <value>Create filter</value>
-  </data>
-  <data name="EmptyScrFiltersHeader" xml:space="preserve">
-    <value>No filters created</value>
-  </data>
-  <data name="EmptyScrFiltersDescription" xml:space="preserve">
-    <value>You need first to create a filter and use it after that only</value>
-  </data>
-  <data name="MatchesLabel" xml:space="preserve">
-    <value>matches</value>
-  </data>
-  <data name="NotMatchesLabel" xml:space="preserve">
-    <value>doesn't match</value>
-  </data>
-  <data name="ContainsLabel" xml:space="preserve">
-    <value>contains</value>
-  </data>
-  <data name="NotContainsLabel" xml:space="preserve">
-    <value>doesn't contains</value>
-  </data>
-  <data name="IfLabel" xml:space="preserve">
-    <value>If</value>
-  </data>
-  <data name="AndLabel" xml:space="preserve">
-    <value>and</value>
-  </data>
-  <data name="OrLabel" xml:space="preserve">
-    <value>or</value>
-  </data>
-  <data name="ApplyToLabel" xml:space="preserve">
-    <value>Apply to</value>
-  </data>
-  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
-    <value>Apply to messages from</value>
-  </data>
-  <data name="ApplyToAllExcludingSpamLabel" xml:space="preserve">
-    <value>all messages excluding spam</value>
-  </data>
-  <data name="ApplyToAllLabel" xml:space="preserve">
-    <value>all messages including spam</value>
-  </data>
-  <data name="ApplyToSpamOnlyLabel" xml:space="preserve">
-    <value>spam only messages</value>
-  </data>
-  <data name="ApplyToWithAndWithoutAttachments" xml:space="preserve">
-    <value>with and without attachments</value>
-  </data>
-  <data name="ApplyToWithAttachments" xml:space="preserve">
-    <value>with attachments</value>
-  </data>
-  <data name="ApplyToWithoutAttachments" xml:space="preserve">
-    <value>without attachments</value>
-  </data>
-  <data name="FilterActionInfo" xml:space="preserve">
-    <value>Take the following action</value>
-  </data>
-  <data name="FilterAdvancedInfo" xml:space="preserve">
-    <value>Advanced options</value>
-  </data>
-  <data name="FilterActionDeleteLabel" xml:space="preserve">
-    <value>Delete forever</value>
-  </data>
-  <data name="FilterActionMoveToTarshLabel" xml:space="preserve">
-    <value>Move to trash</value>
-  </data>
-  <data name="FilterActionMarkAsReadLabel" xml:space="preserve">
-    <value>Mark as read</value>
-  </data>
-  <data name="FilterActionMarkAsImportantLabel" xml:space="preserve">
-    <value>Mark important</value>
-  </data>
-  <data name="FilterActionMoveToLabel" xml:space="preserve">
-    <value>Move to folder</value>
-  </data>
-  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
-    <value>Add tag</value>
-  </data>
-  <data name="ApplyMultiConditionsAllLabel" xml:space="preserve">
-    <value>matches all of the conditions</value>
-  </data>
-  <data name="ApplyMultiConditionsAtLeastOneLabel" xml:space="preserve">
-    <value>matches at least one of the conditions</value>
-  </data>
-  <data name="FilterSelectFolderLabel" xml:space="preserve">
-    <value>select folder</value>
-  </data>
-  <data name="FilterSelectTagLabel" xml:space="preserve">
-    <value>select tag</value>
-  </data>
-  <data name="FilterApplyToAttachemnts" xml:space="preserve">
-    <value>Apply if attachments are</value>
-  </data>
-  <data name="FilterApplyToAttachemntsPresent" xml:space="preserve">
-    <value>present in the letter</value>
-  </data>
-  <data name="FilterApplyToAttachemntsNotPresent" xml:space="preserve">
-    <value>not present in the letter</value>
-  </data>
-  <data name="FilterEnterNameDescription" xml:space="preserve">
-    <value>You can also {0}enter a name{1} that will be displayed in the list of filters.</value>
-  </data>
-  <data name="FilterErrorEmptyCondition" xml:space="preserve">
-    <value>Empty value of condition</value>
-  </data>
-  <data name="FilterErrorEmptyMoveToFolderValue" xml:space="preserve">
-    <value>No folder selected</value>
-  </data>
-  <data name="FilterErrorEmptyTagValue" xml:space="preserve">
-    <value>No tag selected</value>
-  </data>
-  <data name="FilterErrorNoActionSelected" xml:space="preserve">
-    <value>No action selected</value>
-  </data>
-  <data name="FilterErrorNoApplyToFolderSelected" xml:space="preserve">
-    <value>No folder selected to apply filter</value>
-  </data>
-  <data name="FilterErrorNoApplyToMailboxSelected" xml:space="preserve">
-    <value>No mailbox selected to apply filter</value>
-  </data>
-  <data name="FilterName" xml:space="preserve">
-    <value>Filter name</value>
-  </data>
-  <data name="FilterIgnoreOther" xml:space="preserve">
-    <value>Ignore other filters</value>
-  </data>
-  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
-    <value>Apply to all mailboxes</value>
-  </data>
-  <data name="FilterErrorFolderRemoved" xml:space="preserve">
-    <value>The selected folder has been deleted</value>
-  </data>
-  <data name="FilterErrorTagRemoved" xml:space="preserve">
-    <value>The selected tag has been deleted</value>
-  </data>
-  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
-    <value>All the selected accounts have been deleted</value>
-  </data>
-  <data name="SaveDraft" xml:space="preserve">
-    <value>Save draft</value>
-  </data>
-  <data name="SaveTemplate" xml:space="preserve">
-    <value>Save template</value>
-  </data>
-  <data name="DoNotSave" xml:space="preserve">
-    <value>Do not save</value>
-  </data>
-  <data name="SaveTemplateChanges" xml:space="preserve">
-    <value>Save template changes?</value>
-  </data>
-  <data name="SaveTemplateText" xml:space="preserve">
-    <value>You have changed template but did not save it. If you close the page, all changes will be lost. Save changes?</value>
-  </data>
-  <data name="PageHeaderTemplate" xml:space="preserve">
-    <value>Template</value>
-  </data>
-  <data name="InfoCreateFolder" xml:space="preserve">
-    <value>New folder '{0}' is created</value>
-  </data>
-  <data name="InfoMoveFolder" xml:space="preserve">
-    <value>The folder '{0}' is moved into '{1}'</value>
-  </data>
-  <data name="InfoMoveFolderToRoot" xml:space="preserve">
-    <value>The folder '{0}' is moved into the root folder</value>
-  </data>
-  <data name="InfoRemoveFolder" xml:space="preserve">
-    <value>The folder '{0}' is deleted</value>
-  </data>
-  <data name="InfoRenameFolder" xml:space="preserve">
-    <value>The folder '{0}' is renamed to '{1}'</value>
-  </data>
-  <data name="ErrorLostInternetConnection" xml:space="preserve">
-    <value>Lost internet connection</value>
-  </data>
-  <data name="MarkImportantLabel" xml:space="preserve">
-    <value>Mark as important</value>
-  </data>
-  <data name="MarkNotImportantLabel" xml:space="preserve">
-    <value>Mark as not important</value>
-  </data>
-  <data name="InfoSelectConversation" xml:space="preserve">
-    <value>conversation</value>
-  </data>
-  <data name="InfoSelectConversations" xml:space="preserve">
-    <value>conversations: {0}</value>
-  </data>
-  <data name="InfoSelectMessage" xml:space="preserve">
-    <value>message</value>
-  </data>
-  <data name="InfoSelectMessages" xml:space="preserve">
-    <value>messages: {0}</value>
-  </data>
-  <data name="InfoSelectMove" xml:space="preserve">
-    <value>Move {0}</value>
-  </data>
-  <data name="UserFolderNotFoundError" xml:space="preserve">
-    <value>The required folder was not found</value>
-  </data>
-  <data name="ErrorMailMessageSizeBody" xml:space="preserve">
-    <value>Reduce size of body of letter to continue</value>
-  </data>
-  <data name="ErrorMailMessageSizeHead" xml:space="preserve">
-    <value>Message body exceeded limit ({0} KB)</value>
-  </data>
-  <data name="EmptyTemplatesButton" xml:space="preserve">
-    <value>Compose the first template</value>
-  </data>
-  <data name="EmptyTemplatesDescription" xml:space="preserve">
-    <value>The Template section allows you to create and sort messages which you can send to different people later. Here you can tick the most important messages or delete the unnecessary ones.</value>
-  </data>
-  <data name="EmptyTemplatesHeader" xml:space="preserve">
-    <value>No templates to be displayed in this folder</value>
-  </data>
-  <data name="DeleteAccountOptionHead" xml:space="preserve">
-    <value>Templates and drafts you can reassign to another account.</value>
-  </data>
-  <data name="DeleteAccountOptionText" xml:space="preserve">
-    <value>reassign to account</value>
-  </data>
-  <data name="MailDraftsReassigned" xml:space="preserve">
-    <value>Drafts reassigned</value>
-  </data>
-  <data name="MailTemplatesReassigned" xml:space="preserve">
-    <value>Templates reassigned</value>
-  </data>
-  <data name="UserFilterNotFound" xml:space="preserve">
-    <value>The filter was not found</value>
-  </data>
-  <data name="NeedSaveMessageText" xml:space="preserve">
-    <value>For this operation, you must save message. Save current changes as?</value>
-  </data>
-  <data name="ZippingAttachmentsHeader" xml:space="preserve">
-    <value>Zipping attachments</value>
   </data>
 </root>

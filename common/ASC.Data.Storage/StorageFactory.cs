@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 
 using ASC.Common.Caching;
-using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Common.Configuration;
 using ASC.Data.Storage.Configuration;
@@ -73,14 +72,7 @@ namespace ASC.Data.Storage
             var store = DataStoreCache.Get(tenant, module);
             if (store == null)
             {
-                var sectionKey = "StorageConfigurationSection" + (configpath ?? "").Replace("\\", "").Replace("/", "");
-                var section = AscCache.Memory.Get<StorageConfigurationSection>(sectionKey);
-
-                if (section == null)
-                {
-                    section = GetSection(configpath);
-                    AscCache.Memory.Insert(sectionKey, section, DateTime.MaxValue);
-                }
+                var section = GetSection(configpath);
 
                 if (section == null)
                 {
@@ -254,7 +246,14 @@ namespace ASC.Data.Storage
 
         private static StorageConfigurationSection GetSection(string configpath)
         {
-            StorageConfigurationSection section;
+            var sectionKey = "StorageConfigurationSection" + (configpath ?? "").Replace("\\", "").Replace("/", "");
+            var section = AscCache.Memory.Get<StorageConfigurationSection>(sectionKey);
+
+            if (section != null)
+            {
+                return section;
+            }
+
             if (!string.IsNullOrEmpty(configpath))
             {
                 if (configpath.Contains(Path.DirectorySeparatorChar) && (!Uri.IsWellFormedUriString(configpath, UriKind.Relative) || WorkContext.IsMono))
@@ -276,10 +275,11 @@ namespace ASC.Data.Storage
             }
             else
             {
-                var a = ConfigurationManagerExtension.GetSection(Schema.SECTION_NAME);
-                LogManager.GetLogger("ASC").Debug("a != null " + (a != null));
-                section = (StorageConfigurationSection)a;
+                section = (StorageConfigurationSection)ConfigurationManagerExtension.GetSection(Schema.SECTION_NAME);
             }
+
+            AscCache.Memory.Insert(sectionKey, section, DateTime.MaxValue);
+
             return section;
         }
     }

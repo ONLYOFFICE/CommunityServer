@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.VoipService.Dao;
@@ -118,7 +119,7 @@ namespace ASC.Web.Studio.Masters.MasterResources
             {
                 if (i + 1 < userInfo.Contacts.Count)
                 {
-                    contacts.Add(new {type = userInfo.Contacts[i], value = userInfo.Contacts[i + 1]});
+                    contacts.Add(new { type = userInfo.Contacts[i], value = userInfo.Contacts[i + 1] });
                 }
             }
 

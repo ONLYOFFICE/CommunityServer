@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ namespace ASC.Web.Studio.Controls.Common
         {
             var html = new StringBuilder();
 
-            html.AppendFormat("<div id='{0}' class='noContentBlock emptyScrCtrl {1}' >", ID, !String.IsNullOrEmpty(CssClass)? CssClass : String.Empty);
+            html.AppendFormat("<div id='{0}' class='noContentBlock emptyScrCtrl {1}' >", ID, !String.IsNullOrEmpty(CssClass) ? CssClass : String.Empty);
             if (!String.IsNullOrEmpty(ImgSrc))
             {
                 html.AppendFormat("<table><tr><td><div style=\"background-image: url('{0}');\" class=\"emptyScrImage\" ></div></td>", ImgSrc)

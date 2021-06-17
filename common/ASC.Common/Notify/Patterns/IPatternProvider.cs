@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 
 using System;
+
 using ASC.Notify.Engine;
 using ASC.Notify.Model;
 
@@ -26,7 +27,7 @@ namespace ASC.Notify.Patterns
         Func<INotifyAction, string, NotifyRequest, IPattern> GetPatternMethod { get; set; }
 
         IPattern GetPattern(INotifyAction action, string senderName);
-        
+
         IPatternFormatter GetFormatter(IPattern pattern);
     }
 }

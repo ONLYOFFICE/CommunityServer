@@ -92,10 +92,18 @@
                     <div class="toast-message">${MailApiErrorsResource.ErrorUnpaidAccessDenied}</div>
                 </div>
             </div>
+            {{else}}
+            {{if !ASC.Mail.Constants.ENABLE_MAIL_SERVER}}
+            <div class="toast-popup-container">
+                <div class="toast toast-error">
+                    <div class="toast-message">${ASC.Mail.Resources.MailResource.ErrorNotAllowedOption}</div>
+                </div>
+            </div>
+            {{/if}}
             {{/if}}
         </div>
         <div class="buttons" style="margin-top: 0;">
-            <button class="button middle blue save {{if ASC.Resources.Master.TenantIsPremium == "No" }}disable{{/if}}" type="button">${ASC.Mail.Resources.MailScriptResource.CreateMailboxBtn}</button>
+            <button class="button middle blue save {{if ASC.Resources.Master.TenantIsPremium == "No" || !ASC.Mail.Constants.ENABLE_MAIL_SERVER}}disable{{/if}}" type="button">${ASC.Mail.Resources.MailScriptResource.CreateMailboxBtn}</button>
             <button class="button middle gray cancel" type="button">${ASC.Mail.Resources.MailScriptResource.CancelBtnLabel}</button>
         </div>
     </div>

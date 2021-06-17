@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 */
 
 
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+
+using Newtonsoft.Json;
 
 namespace ASC.Common.Threading
 {
@@ -40,7 +41,7 @@ namespace ASC.Common.Threading
         public DistributedTaskStatus Status { get; internal set; }
 
         [JsonProperty]
-        public AggregateException Exception { get; internal set; }
+        public string Exception { get; internal set; }
 
 
 
@@ -54,7 +55,8 @@ namespace ASC.Common.Threading
             InstanseId = info.GetValue("InstanseId", typeof(object)).ToString();
             Id = info.GetValue("Id", typeof(object)).ToString();
             Status = (DistributedTaskStatus)info.GetValue("Status", typeof(DistributedTaskStatus));
-            Exception = (AggregateException)info.GetValue("Exception", typeof(AggregateException));
+            Exception = info.GetValue("Exception", typeof(object)).ToString();
+
             foreach (var p in info)
             {
                 if (p.Name.StartsWith("_"))

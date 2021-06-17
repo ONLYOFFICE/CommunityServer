@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 using System;
 using System.Globalization;
 using System.Net.Mime;
+
 using ASC.Api.Impl.Routing;
 
 #endregion
@@ -70,7 +71,7 @@ namespace ASC.Api.Utils
         public static string FirstPart(this string value, char separator)
         {
             int index;
-            if (!string.IsNullOrEmpty(value) && (index=value.IndexOf(separator))!=-1)
+            if (!string.IsNullOrEmpty(value) && (index = value.IndexOf(separator)) != -1)
             {
                 return value.Substring(0, index);
             }

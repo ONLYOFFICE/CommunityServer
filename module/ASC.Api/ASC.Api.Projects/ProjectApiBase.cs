@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,24 @@
 
 
 using System;
+
 using ASC.Api.Documents;
 using ASC.Api.Employee;
 using ASC.Api.Impl;
 using ASC.Api.Projects.Wrappers;
 using ASC.Collections;
-using ASC.CRM.Core.Dao;
 using ASC.Core;
+using ASC.CRM.Core.Dao;
 using ASC.Files.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Core;
+
 using Autofac;
 
 namespace ASC.Api.Projects
 {
-    public class ProjectApiBase: IDisposable
+    public class ProjectApiBase : IDisposable
     {
         protected internal ApiContext Context;
         private readonly ILifetimeScope scope;
@@ -47,7 +49,7 @@ namespace ASC.Api.Projects
         protected Func<Message, MessageWrapper> MessageWrapperSelector;
         protected Func<Milestone, MilestoneWrapper> MilestoneWrapperSelector;
         protected internal Func<Project, ProjectWrapper> ProjectWrapperSelector;
-        protected internal Func<Project,object, ProjectWrapperFull> ProjectWrapperFullSelector;
+        protected internal Func<Project, object, ProjectWrapperFull> ProjectWrapperFullSelector;
         protected internal Func<File, FileWrapper> FileWrapperSelector;
         protected internal Func<TimeSpend, TimeWrapper> TimeWrapperSelector;
 
@@ -64,7 +66,7 @@ namespace ASC.Api.Projects
             MessageWrapperSelector = r => new MessageWrapper(this, r);
             MilestoneWrapperSelector = r => new MilestoneWrapper(this, r);
             ProjectWrapperSelector = r => new ProjectWrapper(this, r);
-            ProjectWrapperFullSelector = (p,f) => new ProjectWrapperFull(this, p, f);
+            ProjectWrapperFullSelector = (p, f) => new ProjectWrapperFull(this, p, f);
             FileWrapperSelector = x => new FileWrapper(x);
             TimeWrapperSelector = x => new TimeWrapper(this, x);
         }

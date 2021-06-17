@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
 */
 
 
+using System;
 using System.Text.RegularExpressions;
+using System.Web;
+
 using ASC.Common.Web;
 using ASC.Data.Storage;
 using ASC.Web.Core.Files;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using System;
-using System.Web;
-using Resources;
 
 namespace ASC.Web.Studio.HttpHandlers
 {

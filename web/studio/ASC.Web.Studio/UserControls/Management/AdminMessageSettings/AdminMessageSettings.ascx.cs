@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,17 @@
 
 
 using System;
+using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.Core.Common.Settings;
-using ASC.MessagingSystem;
+
 using AjaxPro;
+
+using ASC.Core;
+using ASC.MessagingSystem;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using System.Web;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -60,19 +62,19 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-                new StudioAdminMessageSettings {Enable = turnOn}.Save();
+                new StudioAdminMessageSettings { Enable = turnOn }.Save();
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.AdministratorMessageSettingsUpdated);
 
                 return new
-                    {
-                        Status = 1,
-                        Message = Resources.Resource.SuccessfullySaveSettingsMessage
-                    };
+                {
+                    Status = 1,
+                    Message = Resource.SuccessfullySaveSettingsMessage
+                };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
+                return new { Status = 0, Message = e.Message.HtmlEncode() };
             }
         }
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,27 +25,27 @@ using ASC.Web.Studio.Utility;
 namespace ASC.Web.Community.News.Code.DAO
 {
     public static class FeedStorageFactory
-	{
+    {
         public static string Id = "community";
 
         private const string Key = "FeedStorageKey";
 
         public static IFeedStorage Create()
-		{
-			var ctx = DisposableHttpContext.Current;
-			
-			var storage = ctx[Key] as IFeedStorage;
-			if (storage == null)
-			{
-				storage = new DbFeedStorage(TenantProvider.CurrentTenantID);
-				ctx[Key] = storage;
-			}
-			return storage;
-		}
+        {
+            var ctx = DisposableHttpContext.Current;
+
+            var storage = ctx[Key] as IFeedStorage;
+            if (storage == null)
+            {
+                storage = new DbFeedStorage(TenantProvider.CurrentTenantID);
+                ctx[Key] = storage;
+            }
+            return storage;
+        }
 
         public static IFeedStorage Create(bool useCache)
         {
             return !useCache ? new DbFeedStorage(TenantProvider.CurrentTenantID) : Create();
         }
-	}
+    }
 }

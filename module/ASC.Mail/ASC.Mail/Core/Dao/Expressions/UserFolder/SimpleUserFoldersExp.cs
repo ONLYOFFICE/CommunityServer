@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Core.DbSchema.Tables;
 
@@ -78,7 +79,7 @@ namespace ASC.Mail.Core.Dao.Expressions.UserFolder
 
             if (HasFolders.HasValue)
             {
-                exp &= HasFolders.Value 
+                exp &= HasFolders.Value
                     ? Exp.Gt(UserFolderTable.Columns.FolderCount, 0)
                     : Exp.Eq(UserFolderTable.Columns.FolderCount, 0);
             }

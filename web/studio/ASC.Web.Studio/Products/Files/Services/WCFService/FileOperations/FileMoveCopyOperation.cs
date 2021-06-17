@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
@@ -140,7 +141,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 }
                             }
 
-                            if (FolderDao.UseRecursiveOperation(folder.ID, toFolderId))
+                            if (toFolder.ProviderId == folder.ProviderId // crossDao operation is always recursive
+                                && FolderDao.UseRecursiveOperation(folder.ID, toFolderId))
                             {
                                 MoveOrCopyFiles(FileDao.GetFiles(folder.ID), newFolder, copy);
                                 MoveOrCopyFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList(), newFolder, copy);
@@ -329,6 +331,13 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     newFile = FileDao.GetFile(newFileId);
                                     FilesMessageService.Send(file.RootFolderType != FolderType.USER ? file : newFile, toFolder, _headers, MessageAction.FileMoved, file.Title, parentFolder.Title, toFolder.Title);
 
+                                    if (file.RootFolderType == FolderType.TRASH
+                                        && newFile.ThumbnailStatus == Thumbnail.NotRequired)
+                                    {
+                                        newFile.ThumbnailStatus = Thumbnail.Waiting;
+                                        FileDao.SaveThumbnail(newFile, null);
+                                    }
+
                                     if (Equals(toFolderId.ToString(), _toFolderId))
                                     {
                                         _needToMark.Add(newFile);
@@ -366,12 +375,22 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     newFile.ConvertedType = file.ConvertedType;
                                     newFile.Comment = FilesCommonResource.CommentOverwrite;
                                     newFile.Encrypted = file.Encrypted;
+                                    newFile.ThumbnailStatus = Thumbnail.Waiting;
 
                                     using (var stream = FileDao.GetFileStream(file))
                                     {
                                         newFile.ContentLength = stream.CanSeek ? stream.Length : file.ContentLength;
 
                                         newFile = FileDao.SaveFile(newFile, stream);
+                                    }
+
+                                    if (file.ThumbnailStatus == Thumbnail.Created)
+                                    {
+                                        using (var thumbnail = FileDao.GetThumbnail(file))
+                                        {
+                                            FileDao.SaveThumbnail(newFile, thumbnail);
+                                        }
+                                        newFile.ThumbnailStatus = Thumbnail.Created;
                                     }
 
                                     _needToMark.Add(newFile);

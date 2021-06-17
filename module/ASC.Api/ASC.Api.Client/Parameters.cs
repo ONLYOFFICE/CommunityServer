@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,12 +61,12 @@ namespace ASC.Api.Client
             {
                 var enumerable1 = item.Value as IEnumerable;
                 if (enumerable1 == null || (enumerable1 is string))
-                    enumerable1 = new List<object> {item.Value};
+                    enumerable1 = new List<object> { item.Value };
 
                 var item2 = _parameters[item.Name];
                 var enumerable2 = item2.Value as IEnumerable;
                 if (enumerable2 == null || (item2.Value is string))
-                    enumerable2 = new List<object> {item2.Value};
+                    enumerable2 = new List<object> { item2.Value };
 
                 item.Value = enumerable1.Cast<object>().Concat(enumerable2.Cast<object>()).ToList();
             }
@@ -117,7 +117,7 @@ namespace ASC.Api.Client
 
     public class RequestFileCollection : ICollection<RequestFile>
     {
-        private readonly List<RequestFile> _files = new List<RequestFile>(); 
+        private readonly List<RequestFile> _files = new List<RequestFile>();
 
         public void Add(RequestFile item)
         {

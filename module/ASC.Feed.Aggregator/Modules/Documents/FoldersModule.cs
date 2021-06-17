@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -187,30 +188,30 @@ namespace ASC.Feed.Aggregator.Modules.Documents
         private static Tuple<Folder, SmallShareRecord> ToFolder(object[] r)
         {
             var folder = new Folder
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    ParentFolderID = Convert.ToInt32(r[1]),
-                    Title = Convert.ToString(r[2]),
-                    CreateBy = new Guid(Convert.ToString(r[3])),
-                    CreateOn = Convert.ToDateTime(r[4]),
-                    ModifiedBy = new Guid(Convert.ToString(r[5])),
-                    ModifiedOn = Convert.ToDateTime(r[6]),
-                    TotalSubFolders = Convert.ToInt32(r[7]),
-                    TotalFiles = Convert.ToInt32(r[8]),
-                    RootFolderType = DocumentsDbHelper.ParseRootFolderType(r[9]),
-                    RootFolderCreator = DocumentsDbHelper.ParseRootFolderCreator(r[9]),
-                    RootFolderId = DocumentsDbHelper.ParseRootFolderId(r[9])
-                };
+            {
+                ID = Convert.ToInt32(r[0]),
+                ParentFolderID = Convert.ToInt32(r[1]),
+                Title = Convert.ToString(r[2]),
+                CreateBy = new Guid(Convert.ToString(r[3])),
+                CreateOn = Convert.ToDateTime(r[4]),
+                ModifiedBy = new Guid(Convert.ToString(r[5])),
+                ModifiedOn = Convert.ToDateTime(r[6]),
+                TotalSubFolders = Convert.ToInt32(r[7]),
+                TotalFiles = Convert.ToInt32(r[8]),
+                RootFolderType = DocumentsDbHelper.ParseRootFolderType(r[9]),
+                RootFolderCreator = DocumentsDbHelper.ParseRootFolderCreator(r[9]),
+                RootFolderId = DocumentsDbHelper.ParseRootFolderId(r[9])
+            };
 
             SmallShareRecord shareRecord = null;
             if (r[10] != null)
             {
                 shareRecord = new SmallShareRecord
-                    {
-                        ShareOn = Convert.ToDateTime(r[10]),
-                        ShareBy = new Guid(Convert.ToString(r[11])),
-                        ShareTo = new Guid(Convert.ToString(r[12]))
-                    };
+                {
+                    ShareOn = Convert.ToDateTime(r[10]),
+                    ShareBy = new Guid(Convert.ToString(r[11])),
+                    ShareTo = new Guid(Convert.ToString(r[12]))
+                };
             }
 
             return new Tuple<Folder, SmallShareRecord>(folder, shareRecord);
@@ -224,29 +225,9 @@ namespace ASC.Feed.Aggregator.Modules.Documents
             if (shareRecord != null)
             {
                 var feed = new Feed(shareRecord.ShareBy, shareRecord.ShareOn, true)
-                    {
-                        Item = sharedFolderItem,
-                        ItemId = string.Format("{0}_{1}", folder.ID, shareRecord.ShareTo),
-                        ItemUrl = FilesLinkUtility.GetFileRedirectPreviewUrl(folder.ID, false),
-                        Product = Product,
-                        Module = Name,
-                        Title = folder.Title,
-                        ExtraLocation = rootFolder.FolderType == FolderType.DEFAULT ? rootFolder.Title : string.Empty,
-                        ExtraLocationUrl = rootFolder.FolderType == FolderType.DEFAULT ? FilesLinkUtility.GetFileRedirectPreviewUrl(folder.ParentFolderID, false) : string.Empty,
-                        Keywords = string.Format("{0}", folder.Title),
-                        HasPreview = false,
-                        CanComment = false,
-                        Target = shareRecord.ShareTo,
-                        GroupId = GetGroupId(sharedFolderItem, shareRecord.ShareBy, folder.ParentFolderID.ToString())
-                    };
-
-                return feed;
-            }
-
-            return new Feed(folder.CreateBy, folder.CreateOn)
                 {
-                    Item = folderItem,
-                    ItemId = folder.ID.ToString(),
+                    Item = sharedFolderItem,
+                    ItemId = string.Format("{0}_{1}", folder.ID, shareRecord.ShareTo),
                     ItemUrl = FilesLinkUtility.GetFileRedirectPreviewUrl(folder.ID, false),
                     Product = Product,
                     Module = Name,
@@ -256,9 +237,29 @@ namespace ASC.Feed.Aggregator.Modules.Documents
                     Keywords = string.Format("{0}", folder.Title),
                     HasPreview = false,
                     CanComment = false,
-                    Target = null,
-                    GroupId = GetGroupId(folderItem, folder.CreateBy, folder.ParentFolderID.ToString())
+                    Target = shareRecord.ShareTo,
+                    GroupId = GetGroupId(sharedFolderItem, shareRecord.ShareBy, folder.ParentFolderID.ToString())
                 };
+
+                return feed;
+            }
+
+            return new Feed(folder.CreateBy, folder.CreateOn)
+            {
+                Item = folderItem,
+                ItemId = folder.ID.ToString(),
+                ItemUrl = FilesLinkUtility.GetFileRedirectPreviewUrl(folder.ID, false),
+                Product = Product,
+                Module = Name,
+                Title = folder.Title,
+                ExtraLocation = rootFolder.FolderType == FolderType.DEFAULT ? rootFolder.Title : string.Empty,
+                ExtraLocationUrl = rootFolder.FolderType == FolderType.DEFAULT ? FilesLinkUtility.GetFileRedirectPreviewUrl(folder.ParentFolderID, false) : string.Empty,
+                Keywords = string.Format("{0}", folder.Title),
+                HasPreview = false,
+                CanComment = false,
+                Target = null,
+                GroupId = GetGroupId(folderItem, folder.CreateBy, folder.ParentFolderID.ToString())
+            };
         }
     }
 }

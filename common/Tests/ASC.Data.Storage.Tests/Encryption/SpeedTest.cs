@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using ASC.Data.Storage.Encryption;
+using ASC.Core.Encryption;
+using ASC.Data.Encryption;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,7 +32,7 @@ namespace ASC.Data.Storage.Tests.Encryption
     {
         private readonly CommonMethods CommonMethods;
         private readonly EncryptionSettings Settings;
-        private readonly Crypt Crypt;
+        private readonly ICrypt Crypt;
 
 
         public SpeedTest()

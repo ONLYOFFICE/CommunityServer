@@ -3,7 +3,7 @@
 <%@ Import Namespace="ASC.Web.Core.Utility" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <asp:PlaceHolder runat="server" ID="_confirmHolder">
     <div class="confirmBlock <%= isPersonal ? "confirm-personal" : "" %>">

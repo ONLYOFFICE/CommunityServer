@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Bookmarking.Pojo;
 using ASC.Core.Users;
 using ASC.Notify.Model;
@@ -27,106 +28,106 @@ using ASC.Notify.Model;
 
 namespace ASC.Bookmarking.Business
 {
-	public interface IBookmarkingService
-	{
-		IList<Bookmark> GetAllBookmarks(int firstResult, int maxResults);
-		IList<Bookmark> GetAllBookmarks();
+    public interface IBookmarkingService
+    {
+        IList<Bookmark> GetAllBookmarks(int firstResult, int maxResults);
+        IList<Bookmark> GetAllBookmarks();
 
-		Bookmark AddBookmark(Bookmark b, IList<Tag> tags);
+        Bookmark AddBookmark(Bookmark b, IList<Tag> tags);
 
-		Bookmark UpdateBookmark(UserBookmark userBookmark, IList<Tag> tags);
-		Bookmark UpdateBookmark(Bookmark bookmark, IList<Tag> tags);
-		
-		UserInfo GetCurrentUser();		
-		
-		IList<Tag> GetAllTags(string startSymbols, int limit);
+        Bookmark UpdateBookmark(UserBookmark userBookmark, IList<Tag> tags);
+        Bookmark UpdateBookmark(Bookmark bookmark, IList<Tag> tags);
 
-		IList<Tag> GetAllTags();
+        UserInfo GetCurrentUser();
 
-		Bookmark GetBookmarkByUrl(string url);
+        IList<Tag> GetAllTags(string startSymbols, int limit);
 
-		Bookmark GetBookmarkByID(long id);
+        IList<Tag> GetAllTags();
 
+        Bookmark GetBookmarkByUrl(string url);
 
-		IList<UserBookmark> GetUserBookmarks(Bookmark b);
-
-		UserBookmark GetCurrentUserBookmark(Bookmark b);
-
-		Bookmark GetBookmarkWithUserBookmarks(string url);
+        Bookmark GetBookmarkByID(long id);
 
 
+        IList<UserBookmark> GetUserBookmarks(Bookmark b);
 
-		Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null);
+        UserBookmark GetCurrentUserBookmark(Bookmark b);
 
-		IList<Bookmark> GetFavouriteBookmarksSortedByRaiting(int firstResult, int maxResults);
-		IList<Bookmark> GetFavouriteBookmarksSortedByDate(int firstResult, int maxResults);
+        Bookmark GetBookmarkWithUserBookmarks(string url);
 
 
-		IList<Bookmark> GetMostRecentBookmarks(int firstResult, int maxResults);
-		IList<Bookmark> GetMostRecentBookmarksWithRaiting(int firstResult, int maxResults);
-		IList<Bookmark> GetTopOfTheDay(int firstResult, int maxResults);
-		IList<Bookmark> GetTopOfTheWeek(int firstResult, int maxResults);
-		IList<Bookmark> GetTopOfTheMonth(int firstResult, int maxResults);
-		IList<Bookmark> GetTopOfTheYear(int firstResult, int maxResults);
 
-		#region Tags		
+        Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null);
 
-		IList<Bookmark> GetMostPopularBookmarksByTag(Tag t);
-		IList<Bookmark> GetMostPopularBookmarksByTag(IList<Tag> tags);
-		IList<Tag> GetBookmarkTags(Bookmark b);
-		IList<Tag> GetUserBookmarkTags(UserBookmark b);
-		
+        IList<Bookmark> GetFavouriteBookmarksSortedByRaiting(int firstResult, int maxResults);
+        IList<Bookmark> GetFavouriteBookmarksSortedByDate(int firstResult, int maxResults);
+
+
+        IList<Bookmark> GetMostRecentBookmarks(int firstResult, int maxResults);
+        IList<Bookmark> GetMostRecentBookmarksWithRaiting(int firstResult, int maxResults);
+        IList<Bookmark> GetTopOfTheDay(int firstResult, int maxResults);
+        IList<Bookmark> GetTopOfTheWeek(int firstResult, int maxResults);
+        IList<Bookmark> GetTopOfTheMonth(int firstResult, int maxResults);
+        IList<Bookmark> GetTopOfTheYear(int firstResult, int maxResults);
+
+        #region Tags		
+
+        IList<Bookmark> GetMostPopularBookmarksByTag(Tag t);
+        IList<Bookmark> GetMostPopularBookmarksByTag(IList<Tag> tags);
+        IList<Tag> GetBookmarkTags(Bookmark b);
+        IList<Tag> GetUserBookmarkTags(UserBookmark b);
+
         #endregion
 
-		#region Comments
-		
+        #region Comments
+
         Comment GetCommentById(Guid commentID);
 
-		void AddComment(Comment comment);
+        void AddComment(Comment comment);
 
-		void UpdateComment(Guid commentID, string text);
+        void UpdateComment(Guid commentID, string text);
 
-		void RemoveComment(Guid commentID);
+        void RemoveComment(Guid commentID);
 
-		long GetCommentsCount(long bookmarkID);
+        long GetCommentsCount(long bookmarkID);
 
-		IList<Comment> GetBookmarkComments(Bookmark b);
+        IList<Comment> GetBookmarkComments(Bookmark b);
 
-		IList<Comment> GetChildComments(Comment c);
-		
+        IList<Comment> GetChildComments(Comment c);
+
         #endregion
 
-		void Subscribe(string objectID, INotifyAction notifyAction);
+        void Subscribe(string objectID, INotifyAction notifyAction);
 
-		bool IsSubscribed(string objectID, INotifyAction notifyAction);
+        bool IsSubscribed(string objectID, INotifyAction notifyAction);
 
-		void UnSubscribe(string objectID, INotifyAction notifyAction, Guid? userID = null);
+        void UnSubscribe(string objectID, INotifyAction notifyAction, Guid? userID = null);
 
-		#region Search
-		
+        #region Search
+
         IList<Bookmark> SearchBookmarks(IList<string> searchStringList, int firstResult, int maxResults);
 
-		IList<Bookmark> SearchAllBookmarks(IList<string> searchStringList);
+        IList<Bookmark> SearchAllBookmarks(IList<string> searchStringList);
 
-		IList<Bookmark> SearchBookmarksSortedByRaiting(IList<string> searchStringList, int firstResult, int maxResults);
+        IList<Bookmark> SearchBookmarksSortedByRaiting(IList<string> searchStringList, int firstResult, int maxResults);
 
-		IList<Bookmark> SearchBookmarksByTag(string searchString, int firstResult, int maxResults);
+        IList<Bookmark> SearchBookmarksByTag(string searchString, int firstResult, int maxResults);
 
-		IList<Bookmark> SearchMostPopularBookmarksByTag(string tagName, int firstResult, int maxResults);
-		
+        IList<Bookmark> SearchMostPopularBookmarksByTag(string tagName, int firstResult, int maxResults);
+
         #endregion
 
-		IList<Bookmark> GetBookmarksCreatedByUser(Guid userID, int firstResult, int maxResults);
+        IList<Bookmark> GetBookmarksCreatedByUser(Guid userID, int firstResult, int maxResults);
 
-		IList<Bookmark> GetMostPopularBookmarksCreatedByUser(Guid userID, int firstResult, int maxResults);
+        IList<Bookmark> GetMostPopularBookmarksCreatedByUser(Guid userID, int firstResult, int maxResults);
 
-		long GetBookmarksCountCreatedByUser(Guid userID);
+        long GetBookmarksCountCreatedByUser(Guid userID);
 
 
-		IList<Bookmark> GetFullBookmarksInfo(IList<long> bookmarkIds);
+        IList<Bookmark> GetFullBookmarksInfo(IList<long> bookmarkIds);
 
-		IList<Bookmark> GetFullBookmarksInfo(IList<Bookmark> bookmarks);
+        IList<Bookmark> GetFullBookmarksInfo(IList<Bookmark> bookmarks);
 
-		void SetBookmarkTags(Bookmark b);
-	}
+        void SetBookmarkTags(Bookmark b);
+    }
 }

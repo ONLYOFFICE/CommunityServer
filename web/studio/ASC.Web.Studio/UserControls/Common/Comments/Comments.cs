@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Linq;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.Utility;
-using Resources;
+
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.Studio.UserControls.Common.Comments
 {
@@ -89,7 +86,7 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
             get { return _items; }
             set { _items = value; }
         }
-        
+
         public string ModuleName { get; set; }
 
         public string JavaScriptCallBackAddComment { get; set; }

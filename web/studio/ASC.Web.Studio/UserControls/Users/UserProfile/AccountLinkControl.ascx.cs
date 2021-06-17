@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+
 using ASC.Core;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.FederatedLogin.Profile;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Studio.Utility;
+
 using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
@@ -54,14 +57,17 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             {
                 return AuthProviders
                     .Select(ProviderManager.GetLoginProvider)
-                    .Any(loginProvider => loginProvider!= null && loginProvider.IsEnabled);
+                    .Any(loginProvider => loginProvider != null && loginProvider.IsEnabled);
             }
         }
 
         public bool SettingsView { get; set; }
+        public bool RenderDisabled { get; set; }
         public bool InviteView { get; set; }
 
         protected ICollection<AccountInfo> Infos = new List<AccountInfo>();
+        protected bool EnableOauth = CoreContext.Configuration.Standalone ||
+                 CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Oauth;
 
         public AccountLinkControl()
         {
@@ -73,13 +79,16 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             Page.RegisterStyle("~/UserControls/Users/UserProfile/css/accountlink_style.less")
                 .RegisterBodyScripts("~/UserControls/Users/UserProfile/js/accountlinker.js");
             InitProviders();
-
             Page.RegisterInlineScript(String.Format(@" AccountLinkControl_Providers = {0};
                                                        AccountLinkControl_SettingsView = {1};
-                                                       AccountLinkControl_InviteView = {2};",
+                                                       AccountLinkControl_InviteView = {2};
+                                                       AccountLinkControl_Disable = {3};
+                                                       AccountLinkControl_AddHandler = {4};",
                                     JsonConvert.SerializeObject(Infos),
                                     SettingsView.ToString().ToLower(),
-                                    InviteView.ToString().ToLower()), onReady: false);
+                                    InviteView.ToString().ToLower(),
+                                    (!EnableOauth).ToString().ToLower(),
+                                    RenderDisabled.ToString().ToLower()), onReady: false);
         }
 
         public string ClientCallback { get; set; }
@@ -108,20 +117,20 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         private void AddProvider(string provider, IEnumerable<LoginProfile> linkedAccounts)
         {
             Infos.Add(new AccountInfo
-                {
-                    Linked = linkedAccounts.Any(x => x.Provider == provider),
-                    Provider = provider,
-                    Url = VirtualPathUtility.ToAbsolute("~/login.ashx")
+            {
+                Linked = linkedAccounts.Any(x => x.Provider == provider),
+                Provider = provider,
+                Url = VirtualPathUtility.ToAbsolute("~/login.ashx")
                           + "?auth=" + provider
                           + (SettingsView || InviteView || (!MobileDetector.IsMobile && !Request.DesktopApp())
                                  ? ("&mode=popup&callback=" + ClientCallback)
-                                 : ("&mode=Redirect&returnurl=" 
+                                 : ("&mode=Redirect&returnurl="
                                     + HttpUtility.UrlEncode(new Uri(Request.GetUrlRewriter(),
                                         "Auth.aspx"
                                         + (Request.DesktopApp() ? "?desktop=true" : "")
                                         ).ToString())
                                  ))
-                });
+            });
         }
 
         private static AccountLinker GetLinker()

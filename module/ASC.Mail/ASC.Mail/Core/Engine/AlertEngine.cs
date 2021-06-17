@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+
 using ASC.Common.Logging;
 using ASC.Mail.Core.Entities;
 using ASC.Mail.Data.Contracts;
@@ -76,7 +77,7 @@ namespace ASC.Mail.Core.Engine
 
                 var quotaAlerts = dao.GetAlerts(-1, type);
 
-                if (!quotaAlerts.Any()) 
+                if (!quotaAlerts.Any())
                     return true;
 
                 var result = dao.DeleteAlerts(quotaAlerts.Select(a => a.Id).ToList());

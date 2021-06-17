@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Runtime.Serialization;
+
 using ASC.Api.Employee;
 using ASC.Bookmarking.Pojo;
 using ASC.Specific;
@@ -29,7 +30,7 @@ namespace ASC.Api.Bookmarks
         public BookmarkCommentWrapper(Comment comment)
         {
             CreatedBy = EmployeeWraper.Get(Core.CoreContext.UserManager.GetUsers(comment.UserID));
-            Updated=Created = (ApiDateTime) comment.Datetime;
+            Updated = Created = (ApiDateTime)comment.Datetime;
             Id = comment.ID;
             Text = comment.Content;
             if (!string.IsNullOrEmpty(comment.Parent))
@@ -52,7 +53,7 @@ namespace ASC.Api.Bookmarks
         [DataMember(Order = 1)]
         public Guid Id { get; set; }
 
-        [DataMember(Order = 2,EmitDefaultValue = false)]
+        [DataMember(Order = 2, EmitDefaultValue = false)]
         public Guid ParentId { get; set; }
 
         [DataMember(Order = 9)]

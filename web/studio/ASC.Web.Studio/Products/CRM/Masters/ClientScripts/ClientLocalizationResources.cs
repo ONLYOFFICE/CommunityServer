@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,12 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
-using ASC.Web.CRM.Resources;
+
 using ASC.Web.Core.Client.HttpHandlers;
 using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core.Users;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Web.CRM.Masters.ClientScripts
 {

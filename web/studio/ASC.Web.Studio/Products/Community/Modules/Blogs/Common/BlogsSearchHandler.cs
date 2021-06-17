@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using ASC.Blogs.Core;
-using ASC.Blogs.Core.Resources;
 using ASC.Core;
+using ASC.Web.Community.Modules.Blogs.Core.Resources;
 using ASC.Web.Community.Product;
 using ASC.Web.Core.ModuleManagement.Common;
+using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Core.Users;
 using ASC.Web.Studio.Controls.Common;
 
 namespace ASC.Web.Community.Blogs
@@ -38,19 +39,19 @@ namespace ASC.Web.Community.Blogs
             var posts = BasePage.GetEngine().SearchPosts(text, new PagingQuery());
             var result = new List<SearchResultItem>(posts.Count);
             result.AddRange(posts.Select(post => new SearchResultItem
-                {
-                    Description = BlogsResource.Blogs + ", " + DisplayUserSettings.GetFullUserName(CoreContext.UserManager.GetUsers(post.UserID), false) + ", " + post.Datetime.ToLongDateString(),
-                    Name = post.Title,
-                    URL = VirtualPathUtility.ToAbsolute(Constants.BaseVirtualPath) + "ViewBlog.aspx?blogid=" + post.ID.ToString(),
-                    Date = post.Datetime
-                }));
+            {
+                Description = BlogsResource.Blogs + ", " + DisplayUserSettings.GetFullUserName(CoreContext.UserManager.GetUsers(post.UserID), false) + ", " + post.Datetime.ToLongDateString(),
+                Name = post.Title,
+                URL = VirtualPathUtility.ToAbsolute(Constants.BaseVirtualPath) + "ViewBlog.aspx?blogid=" + post.ID.ToString(),
+                Date = post.Datetime
+            }));
 
             return result.ToArray();
         }
 
         public override ImageOptions Logo
         {
-            get { return new ImageOptions {ImageFileName = "blog_add.png", PartID = Constants.ModuleID}; }
+            get { return new ImageOptions { ImageFileName = "blog_add.png", PartID = Constants.ModuleID }; }
         }
 
         public override string SearchName

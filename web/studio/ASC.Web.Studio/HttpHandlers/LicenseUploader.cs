@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,14 @@
 using System;
 using System.Security;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core.Billing;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.Utility;
-using Resources;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Studio.HttpHandlers

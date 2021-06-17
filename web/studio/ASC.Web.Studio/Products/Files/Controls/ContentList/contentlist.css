@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -94,7 +94,7 @@
     padding: 6px 0 5px;
     z-index: 98;
 }
-.file-row:first-child {
+.file-row:first-of-type {
     border-top: 1px solid #d1d1d1;
 }
 .file-row div {
@@ -110,7 +110,7 @@
 .row-selected {
     background-color: #f2f2f2;
 }
-.row-hover:hover {
+.row-hover:not(.row-rename):hover {
     background-color: #e5e5e5;
 }
 .file-row .thumb-file,
@@ -118,6 +118,9 @@
     cursor: pointer;
     margin: 2px 16px 0 0;
     position: relative;
+}
+.file-row .thumb-img {
+    display: none;
 }
 .thumb-encrypted {
     background: url("images/encrypted.png") no-repeat 0 0 / 16px 16px transparent;
@@ -156,6 +159,8 @@
 .file-row.checkloading .menu-small,
 .file-row.checkloading .btn-row,
 .file-row.checkloading .template-action,
+.file-row.checkloading .file-lock,
+.file-row.checkloading .favorite,
 .file-row.checkloading .pencil {
     visibility: hidden;
 }
@@ -191,6 +196,7 @@
 .file-row.row-rename .entry-descr {
     width: 290px;
 }
+
 .file-row .entry-title .name {
     margin-top: -2px;
     max-width: 206px;
@@ -508,6 +514,318 @@ ul.without-share .btn-row {
     visibility: hidden;
 }
 /*******************************************************************************
+   thumbnails view
+*******************************************************************************/
+#filesMainContent.thumbnails {
+    margin-top: 14px;
+}
+
+#filesMainContent .folders-separator,
+#filesMainContent .files-separator {
+    display: none;
+}
+
+#filesMainContent.thumbnails .folders-separator,
+#filesMainContent.thumbnails .files-separator {
+    display: block;
+}
+
+#filesMainContent.thumbnails .row-selected .checkbox,
+#filesMainContent.thumbnails .file-row.checkloading .checkbox,
+#filesMainContent.thumbnails .file-row:hover .checkbox {
+    display: block;
+}
+
+#filesMainContent.thumbnails .row-selected .thumb-file,
+#filesMainContent.thumbnails .row-selected .thumb-folder,
+#filesMainContent.thumbnails .file-row.checkloading .thumb-file,
+#filesMainContent.thumbnails .file-row.checkloading .thumb-folder,
+#filesMainContent.thumbnails .file-row:hover .thumb-file,
+#filesMainContent.thumbnails .file-row:hover .thumb-folder {
+    display: none;
+}
+
+#filesMainContent.thumbnails .thumb-encrypted {
+    display: none;
+}
+
+#filesMainContent.thumbnails .file-row {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #d1d1d1;
+    display: inline-block;
+    padding: 0;
+    height: 204px;
+    width: 204px;
+    margin: 0 20px 20px 0;
+}
+
+#filesMainContent.thumbnails .file-row.min {
+    height: 48px;
+}
+
+#filesMainContent.thumbnails .file-row.row-hover:not(.row-rename):hover {
+    background: linear-gradient(to bottom, #e5e5e5 156px, #f2f2f2 48px) !important;
+}
+
+#filesMainContent.thumbnails .file-row.min.row-hover:not(.row-rename):hover {
+    background:  #f2f2f2 !important;
+}
+
+#filesMainContent.thumbnails .file-row.row-selected {
+    border-color: #0075ff;
+    background: linear-gradient(to bottom, #e5e5e5 156px, #ffffff 48px);
+}
+
+#filesMainContent.thumbnails .file-row.min.row-selected {
+    background:  #ffffff;
+}
+
+#filesMainContent.thumbnails .file-row.display-versions {
+    border-color: #0075ff;
+}
+
+#filesMainContent.thumbnails .file-row.row-selected .version {
+    background-color: #d9d9d9;
+}
+
+#filesMainContent.thumbnails .checkbox {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 17px 11px 17px 15px;
+    margin: 0;
+    height: 14px;
+    width: 14px;
+}
+
+#filesMainContent.thumbnails .checkbox:hover {
+    background-color: transparent;
+}
+
+#filesMainContent.thumbnails .checkbox input {
+    margin: 1px 1px 0 0;
+    padding: 0;
+}
+
+#filesMainContent.thumbnails .entry-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 204px;
+}
+
+#filesMainContent.thumbnails .file-row .entry-title {
+    margin: 0px;
+    width: 204px;
+    height: 28px;
+    padding: 4px 8px 0 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+}
+
+#filesMainContent.thumbnails .file-row.min .entry-title {
+    height: 0;
+    padding: 0;
+}
+
+#filesMainContent.thumbnails .entry-info .name {
+    height: 36px;
+    width: 128px;
+    max-width: 128px;
+    position: absolute;
+    top: 162px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+}
+
+#filesMainContent.thumbnails .file-row.min .entry-info .name {
+    top: 6px;
+    cursor: pointer;
+}
+
+#filesMainContent.thumbnails .file-row .entry-descr-compact {
+    display: none;
+}
+
+#filesMainContent.thumbnails .file-row .entry-descr {
+    display: none;
+}
+
+#filesMainContent.thumbnails .file-row .entry-title .name a {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 36px;
+}
+
+#filesMainContent.thumbnails .file-row .entry-title .name a .file-extension {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+#filesMainContent.thumbnails .thumb-file,
+#filesMainContent.thumbnails .thumb-folder {
+    height: 24px;
+    margin: 12px 6px 12px 10px;
+    width: 24px;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    position: absolute;
+}
+
+#filesMainContent.thumbnails .thumb-file {
+    background-position: 0px -38px;
+}
+
+#filesMainContent.thumbnails .thumb-folder {
+    background-size: 24px;
+}
+
+#filesMainContent.thumbnails .thumb-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 28px 5px 46px;
+    padding: 0;
+    width: 192px;
+    height: 128px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#filesMainContent.thumbnails .thumb-img img {
+    max-width: 192px;
+    max-height: 128px;
+    border-radius: 2px;
+    user-select: none;
+    pointer-events: none;
+}
+
+#filesMainContent.thumbnails .file-row.min .thumb-img,
+#filesMainContent.thumbnails .file-row.min .version,
+#filesMainContent.thumbnails .file-row.min .pencil,
+#filesMainContent.thumbnails .file-row.min .file-lock,
+#filesMainContent.thumbnails .file-row.min .template-action,
+#filesMainContent.thumbnails .file-row.min .favorite {
+    display: none !important;
+}
+
+#filesMainContent.thumbnails .file-row.min .new-label-menu {
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    border-radius: 8px;
+    padding: 2px 2px;
+    width: 2px;
+    height: 2px;
+    font-size: 0;
+}
+
+#filesMainContent.thumbnails .file-row.min.row-hover .new-label-menu,
+#filesMainContent.thumbnails .file-row.min.row-selected .new-label-menu {
+    position: absolute;
+    right: -6px;
+    top: -8px;
+    border-radius: 8px;
+    padding: 1px 5px;
+    width: auto;
+    height: auto;
+    font-size: 10px;
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#filesMainContent.thumbnails .file-row.row-rename .thumb-file,
+#filesMainContent.thumbnails .file-row.row-rename .thumb-folder {
+    display: none;
+}
+
+#filesMainContent.thumbnails .file-row.row-rename .entry-info .name {
+    left: 10px;
+    top: 166px;
+    width: 120px;
+    height: 28px;
+}
+
+#filesMainContent.thumbnails .file-row.min.row-rename .entry-info .name {
+    top: 10px;
+}
+
+#filesMainContent.thumbnails .input-rename {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    height: 18px;
+    width: 94px;
+    margin: 0;
+}
+
+#filesMainContent.thumbnails .rename-action {
+    position: absolute;
+    bottom: 12px;
+    right: 10px;
+    margin: 0;
+}
+
+#filesMainContent.thumbnails .rename-action > div:first-child {
+    margin-right: 4px;
+}
+
+#filesMainContent.thumbnails .file-row .btn-row {
+    display: none
+}
+
+#filesMainContent.thumbnails .menu-small {
+    bottom: 14px;
+    right: 10px;
+    position: absolute;
+    margin: 0;
+}
+
+#filesMainContent.thumbnails .file-row .version,
+#filesMainContent.thumbnails .folder-row .new-label-menu {
+    margin-left: auto;
+}
+
+#filesMainContent.thumbnails .row-selected .checkbox {
+    display: block;
+}
+
+#filesMainContent.thumbnails #contentVersions {
+    border: 1px solid #d1d1d1;
+    width: auto;
+    margin: 0 20px 20px 0;
+    padding: 10px 20px 10px 30px;
+    border-radius: 3px;
+}
+
+#filesMainContent.thumbnails #contentVersions table {
+    padding: 0;
+}
+
+#filesMainContent.thumbnails #contentVersions table thead tr.versions-title th {
+    padding-top: 0;
+}
+
+#filesMainContent.thumbnails #contentVersions .rename-action {
+    position: static;
+}
+
+/*******************************************************************************
     Error in content
 *******************************************************************************/
 .file-row.error-entry {
@@ -733,7 +1051,7 @@ ul.without-share .btn-row {
 *******************************************************************************/
 #entryTooltip {
     line-height: 20px;
-    margin: 6px 0 0 -13px;
+    margin: 4px 0 0 -20px;
     z-index: 254;
 }
 #entryTooltip table {
@@ -746,7 +1064,16 @@ ul.without-share .btn-row {
     color: #9CA0A4;
     padding-right: 24px;
 }
+#entryTooltip img {
+    margin-left: -5px;
+    margin-right: -14px;
+    max-width: 130px;
+    max-height: 100px;
 
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
 /*******************************************************************************
     Mobile
 *******************************************************************************/

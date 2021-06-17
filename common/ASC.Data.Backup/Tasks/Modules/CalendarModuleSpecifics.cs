@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Data.Backup.Tasks.Data;
 
 namespace ASC.Data.Backup.Tasks.Modules
@@ -53,13 +54,13 @@ namespace ASC.Data.Backup.Tasks.Modules
                 new RelationInfo("calendar_events", "id", "calendar_event_item", "event_id"),
                 new RelationInfo("calendar_events", "id", "calendar_event_user", "event_id"),
                 new RelationInfo("calendar_events", "id", "calendar_notifications", "event_id"),
-                new RelationInfo("core_user", "id", "calendar_calendar_item", "item_id", typeof(TenantsModuleSpecifics), 
+                new RelationInfo("core_user", "id", "calendar_calendar_item", "item_id", typeof(TenantsModuleSpecifics),
                     x => Convert.ToInt32(x["is_group"]) == 0),
-                new RelationInfo("core_group", "id", "calendar_calendar_item", "item_id", typeof(TenantsModuleSpecifics), 
+                new RelationInfo("core_group", "id", "calendar_calendar_item", "item_id", typeof(TenantsModuleSpecifics),
                     x => Convert.ToInt32(x["is_group"]) == 1 && !Helpers.IsEmptyOrSystemGroup(Convert.ToString(x["item_id"]))),
-                new RelationInfo("core_user", "id", "calendar_event_item", "item_id", typeof(TenantsModuleSpecifics), 
+                new RelationInfo("core_user", "id", "calendar_event_item", "item_id", typeof(TenantsModuleSpecifics),
                     x => Convert.ToInt32(x["is_group"]) == 0),
-                new RelationInfo("core_group", "id", "calendar_event_item", "item_id", typeof(TenantsModuleSpecifics), 
+                new RelationInfo("core_group", "id", "calendar_event_item", "item_id", typeof(TenantsModuleSpecifics),
                     x => Convert.ToInt32(x["is_group"]) == 1 && !Helpers.IsEmptyOrSystemGroup(Convert.ToString(x["item_id"])))
             };
 
@@ -88,7 +89,7 @@ namespace ASC.Data.Backup.Tasks.Modules
 
             if (table.Name == "calendar_event_history")
                 return string.Format(
-                    "inner join calendar_calendars as t1 on t1.id = t.calendar_id inner join calendar_events as t2 on t2.id = t.event_id where t1.tenant = {0} and t2.tenant = {0}",
+                    "inner join calendar_calendars as t1 on t1.id = t.calendar_id and t1.tenant = t.tenant inner join calendar_events as t2 on t2.id = t.event_id and t2.tenant = t.tenant  where t1.tenant = {0} and t2.tenant = {0}",
                     tenantId);
 
             return base.GetSelectCommandConditionText(tenantId, table);

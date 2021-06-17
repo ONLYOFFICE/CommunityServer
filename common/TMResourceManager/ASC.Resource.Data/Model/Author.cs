@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ namespace TMResourceData.Model
         public List<ResProject> Projects { get; set; }
 
         public Author()
-        {}
+        { }
 
         public Author(string login)
         {

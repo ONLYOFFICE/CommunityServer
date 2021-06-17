@@ -55,6 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HealthCheckService.cs" />
     <Compile Include="Program.Options.cs" />
     <Compile Include="WatchdogService.cs">
       <SubType>Component</SubType>
@@ -116,6 +117,10 @@
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.Mail\ASC.Mail.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
       <Name>ASC.Mail</Name>
@@ -129,13 +134,14 @@
       <Version>2.0.8</Version>
     </PackageReference>
     <PackageReference Include="MySql.Data">
-      <Version>8.0.19</Version>
+      <Version>8.0.23</Version>
     </PackageReference>
     <PackageReference Include="Ubiety.Dns.Core">
       <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

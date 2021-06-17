@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,51 +29,70 @@ if (typeof ASC.Files.Utility === 'undefined') {
 
 ASC.Files.Utility.FileExtensionLibrary = {
     ArchiveExts: [".zip", ".rar", ".ace", ".arc", ".arj", ".bh", ".cab", ".enc", ".gz", ".ha", ".jar", ".lha", ".lzh", ".pak", ".pk3", ".tar", ".tgz", ".uu", ".uue", ".xxe", ".z", ".zoo"],
-    CalendarExts: [".ics", ".ical", ".ifb", ".icalendar"],
+    AviExts: [".avi"],
+    CalendarExts: [".ical", ".ifb", ".icalendar"],
     CsvExts: [".csv"],
     DjvuExts: [".djvu"],
     DocExts: [".doc"],
-    DocxExts: [".docx"],
     DocmExts: [".docm"],
     DoctExts: [".doct"],
+    DocxExts: [".docx"],
     DotExts: [".dot"],
     DotmExts: [".dotm"],
     DotxExts: [".dotx"],
-    EbookExts: [".epub", ".fb2"],
+    DvdExts: [".dvd"],
+    //EbookExts: [".epub", ".fb2"],
+    EpubExts: [".epub"],
+    Fb2Exts: [".fb2"],
+    FlvExts: [".flv"],
+    FodpExts: [".fodp"],
+    FodsExts: [".fods"],
+    FodtExts: [".fodt"],
+    GdocExts: [".gdoc"],
     GsheetExts: [".gsheet"],
     GslidesExts: [".gslides"],
-    GdocExts: [".gdoc"],
-    HtmlExts: [".html", ".htm", ".mht"],
+    HtmExts: [".htm"],
+    HtmlExts: [".html"],
     IafExts: [".iaf"],
+    IcsExts: [".ics"],
     ImgExts: [".bmp", ".cod", ".gif", ".ief", ".jpe", ".jpeg", ".jpg", ".jfif", ".tiff", ".tif", ".cmx", ".ico", ".png", ".pnm", ".pbm", ".ppm", ".rgb", ".xbm", ".xpm", ".xwd", ".webp"],
-    OdpExts: [".odp", ".fodp", ".otp"],
-    OdsExts: [".ods", ".fods", ".ots"],
-    OdtExts: [".odt", ".fodt", ".ott"],
+    M2tsExts: [".m2ts"],
+    MhtExts: [".mht"],
+    MkvExts: [".mkv"],
+    MovExts: [".mov"],
+    Mp4Exts: [".mp4"],
+    MpgExts: [".mpg"],
+    OdpExts: [".odp"],
+    OdsExts: [".ods"],
+    OdtExts: [".odt"],
+    OtpExts: [".otp"],
+    OtsExts: [".ots"],
+    OttExts: [".ott"],
     PdfExts: [".pdf"],
+    PotExts: [".pot"],
+    PotmExts: [".potm"],
+    PotxExts: [".potx"],
     PpsExts: [".pps"],
-    PpsxExts: [".ppsx"],
     PpsmExts: [".ppsm"],
+    PpsxExts: [".ppsx"],
     PptExts: [".ppt"],
-    PptxExts: [".pptx"],
     PptmExts: [".pptm"],
     PpttExts: [".pptt"],
-    PotExts: [".pot"],
-    PotxExts: [".potx"],
-    PotmExts: [".potm"],
+    PptxExts: [".pptx"],
     RtfExts: [".rtf"],
     SoundExts: [".aac", ".flac", ".m4a", ".mp3", ".oga", ".ogg", ".wav"],
     SoundUnkExts: [".ac3", ".aiff", ".amr", ".ape", ".cda", ".mid", ".mka", ".mpc", ".pcm", ".ra", ".raw", ".wma"],
     SvgExts: [".svg"],
     TxtExts: [".txt"],
-    VideoExts: [".avi", ".f4v", ".m4v", ".mov", ".mpeg", ".mpg", ".mp4", ".ogv", ".webm", ".wmv" ],
-    VideoUnkExts: [".3gp", ".asf", ".fla", ".flv", ".m2ts", ".mkv", ".mts", ".svi", ".vob" ],
+    VideoExts: [".f4v", ".m4v", ".mpeg", ".ogv", ".webm", ".wmv" ],
+    VideoUnkExts: [".3gp", ".asf", ".fla", ".mts", ".svi", ".vob" ],
     XlsExts: [".xls", ".xlsb"],
-    XlsxExts: [".xlsx"],
     XlsmExts: [".xlsm"],
     XlstExts: [".xlst"],
+    XlsxExts: [".xlsx"],
     XltExts: [".xlt"],
-    XltxExts: [".xltx"],
     XltmExts: [".xltm"],
+    XltxExts: [".xltx"],
     XmlExts: [".xml"],
     XpsExts: [".xps"]
 };
@@ -90,6 +109,8 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
 
     if (checkInArray(fileExtensionLibrary.ArchiveExts))
         ext = "Archive";
+    else if (checkInArray(fileExtensionLibrary.AviExts))
+        ext = "Avi";
     else if (checkInArray(fileExtensionLibrary.CalendarExts))
         ext = "Cal";
     else if (checkInArray(fileExtensionLibrary.CsvExts))
@@ -98,62 +119,96 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Djvu";
     else if (checkInArray(fileExtensionLibrary.DocExts))
         ext = "Doc";
-    else if (checkInArray(fileExtensionLibrary.DocxExts))
-        ext = "Docx";
     else if (checkInArray(fileExtensionLibrary.DocmExts))
         ext = "Docm";
     else if (checkInArray(fileExtensionLibrary.DoctExts))
         ext = "Doct";
+    else if (checkInArray(fileExtensionLibrary.DocxExts))
+        ext = "Docx";
     else if (checkInArray(fileExtensionLibrary.DotExts))
         ext = "Dot";
-    else if (checkInArray(fileExtensionLibrary.DotxExts))
-        ext = "Dotx";
     else if (checkInArray(fileExtensionLibrary.DotmExts))
         ext = "Dotm";
-    else if (checkInArray(fileExtensionLibrary.EbookExts))
-        ext = "Ebook";
+    else if (checkInArray(fileExtensionLibrary.DotxExts))
+        ext = "Dotx";
+    else if (checkInArray(fileExtensionLibrary.DvdExts))
+        ext = "Dvd";
+    //else if (checkInArray(fileExtensionLibrary.EbookExts))
+    //    ext = "Ebook";
+    else if (checkInArray(fileExtensionLibrary.EpubExts))
+        ext = "Epub";
+    else if (checkInArray(fileExtensionLibrary.Fb2Exts))
+        ext = "Fb2";
+    else if (checkInArray(fileExtensionLibrary.FlvExts))
+        ext = "Flv";
+    else if (checkInArray(fileExtensionLibrary.FodpExts))
+        ext = "Fodp";
+    else if (checkInArray(fileExtensionLibrary.FodsExts))
+        ext = "Fods";
+    else if (checkInArray(fileExtensionLibrary.FodtExts))
+        ext = "Fodt";
+    else if (checkInArray(fileExtensionLibrary.GdocExts))
+        ext = "Gdoc";
     else if (checkInArray(fileExtensionLibrary.GsheetExts))
         ext = "Gsheet";
     else if (checkInArray(fileExtensionLibrary.GslidesExts))
         ext = "Gslides";
-    else if (checkInArray(fileExtensionLibrary.GdocExts))
-        ext = "Gdoc";
+    else if (checkInArray(fileExtensionLibrary.HtmExts))
+        ext = "Htm";
     else if (checkInArray(fileExtensionLibrary.HtmlExts))
         ext = "Html";
     else if (checkInArray(fileExtensionLibrary.IafExts))
         ext = "Iaf";
+    else if (checkInArray(fileExtensionLibrary.IcsExts))
+        ext = "Ics";
     else if (checkInArray(fileExtensionLibrary.ImgExts))
         ext = "Image";
     else if (checkInArray(fileExtensionLibrary.M2tsExts))
         ext = "M2ts";
+    else if (checkInArray(fileExtensionLibrary.MhtExts))
+        ext = "Mht";
+    else if (checkInArray(fileExtensionLibrary.MkvExts))
+        ext = "Mkv";
+    else if (checkInArray(fileExtensionLibrary.MovExts))
+        ext = "Mov";
+    else if (checkInArray(fileExtensionLibrary.Mp4Exts))
+        ext = "Mp4";
+    else if (checkInArray(fileExtensionLibrary.MpgExts))
+        ext = "Mpg";
     else if (checkInArray(fileExtensionLibrary.OdpExts))
         ext = "Odp";
-    else if (checkInArray(fileExtensionLibrary.OdtExts))
-        ext = "Odt";
     else if (checkInArray(fileExtensionLibrary.OdsExts))
         ext = "Ods";
+    else if (checkInArray(fileExtensionLibrary.OdtExts))
+        ext = "Odt";
+    else if (checkInArray(fileExtensionLibrary.OtpExts))
+        ext = "Otp";
+    else if (checkInArray(fileExtensionLibrary.OtsExts))
+        ext = "Ots";
+    else if (checkInArray(fileExtensionLibrary.OttExts))
+        ext = "Ott";
     else if (checkInArray(fileExtensionLibrary.PdfExts))
         ext = "Pdf";
+    else if (checkInArray(fileExtensionLibrary.PotExts))
+        ext = "Pot";
+    else if (checkInArray(fileExtensionLibrary.PotmExts))
+        ext = "Potm";
+    else if (checkInArray(fileExtensionLibrary.PotxExts))
+        ext = "Potx";
     else if (checkInArray(fileExtensionLibrary.PpsExts))
         ext = "Pps";
-    else if (checkInArray(fileExtensionLibrary.PpsxExts))
-        ext = "Ppsx";
     else if (checkInArray(fileExtensionLibrary.PpsmExts))
         ext = "Ppsm";
+    else if (checkInArray(fileExtensionLibrary.PpsxExts))
+        ext = "Ppsx";
     else if (checkInArray(fileExtensionLibrary.PptExts))
         ext = "Ppt";
-    else if (checkInArray(fileExtensionLibrary.PptxExts))
-        ext = "Pptx";
     else if (checkInArray(fileExtensionLibrary.PptmExts))
         ext = "Pptm";
     else if (checkInArray(fileExtensionLibrary.PpttExts))
         ext = "Pptt";
-    else if (checkInArray(fileExtensionLibrary.PotExts))
-        ext = "Pot";
-    else if (checkInArray(fileExtensionLibrary.PotxExts))
-        ext = "Potx";
-    else if (checkInArray(fileExtensionLibrary.PotmExts))
-        ext = "Potm";
+    else if (checkInArray(fileExtensionLibrary.PptxExts))
+        ext = "Pptx";
     else if (checkInArray(fileExtensionLibrary.RtfExts))
         ext = "Rtf";
     else if (checkInArray(fileExtensionLibrary.SoundExts))
@@ -170,18 +225,18 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "VideoUnk";
     else if (checkInArray(fileExtensionLibrary.XlsExts))
         ext = "Xls";
-    else if (checkInArray(fileExtensionLibrary.XlsxExts))
-        ext = "Xlsx";
     else if (checkInArray(fileExtensionLibrary.XlsmExts))
         ext = "Xlsm";
     else if (checkInArray(fileExtensionLibrary.XlstExts))
         ext = "Xlst";
+    else if (checkInArray(fileExtensionLibrary.XlsxExts))
+        ext = "Xlsx";
     else if (checkInArray(fileExtensionLibrary.XltExts))
         ext = "Xlt";
-    else if (checkInArray(fileExtensionLibrary.XltxExts))
-        ext = "Xltx";
     else if (checkInArray(fileExtensionLibrary.XltmExts))
         ext = "Xltm";
+    else if (checkInArray(fileExtensionLibrary.XltxExts))
+        ext = "Xltx";
     else if (checkInArray(fileExtensionLibrary.XmlExts))
         ext = "Xml";
     else if (checkInArray(fileExtensionLibrary.XpsExts))
@@ -332,4 +387,12 @@ ASC.Files.Utility.GetFileWebEditorUrl = function (fileId) {
 ASC.Files.Utility.GetFileWebEditorExternalUrl = function (fileUri, fileTitle, folderId) {
     return ASC.Files.Utility.Resource.FileWebEditorExternalUrlString.format(encodeURIComponent(fileUri), encodeURIComponent(fileTitle || "")) +
         (folderId ? ("&folderid=" + folderId) : "");
+};
+
+ASC.Files.Utility.GetFileThumbnailUrl = function (fileId, fileVersion) {
+    var url = ASC.Files.Utility.Resource.FileThumbnailUrlString.format(encodeURIComponent(fileId));
+    if (fileVersion) {
+        return url + "&" + ASC.Files.Utility.Resource.ParamVersion + "=" + fileVersion;
+    }
+    return url;
 };

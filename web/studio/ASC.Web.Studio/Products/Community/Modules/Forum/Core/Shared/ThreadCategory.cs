@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core.Users;
@@ -24,13 +25,13 @@ using ASC.Web.Community.Product;
 
 namespace ASC.Forum
 {
-	public class ThreadCategory : ISecurityObject
+    public class ThreadCategory : ISecurityObject
     {
         public virtual int ID { get; set; }
 
-        public virtual string Title { get; set;}
+        public virtual string Title { get; set; }
 
-        public virtual string Description { get; set;}
+        public virtual string Description { get; set; }
 
         public virtual int SortOrder { get; set; }
 
@@ -38,7 +39,7 @@ namespace ASC.Forum
 
         public virtual Guid PosterID { get; set; }
 
-     
+
 
         public virtual int TenantID { get; set; }
 
@@ -51,7 +52,7 @@ namespace ASC.Forum
         }
 
         public ThreadCategory()
-        {   
+        {
         }
 
         public virtual bool Visible
@@ -66,13 +67,13 @@ namespace ASC.Forum
 
         #region ISecurityObjectId Members
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public object SecurityId
         {
             get { return this.ID; }
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public Type ObjectType
         {
             get { return this.GetType(); }
@@ -82,25 +83,25 @@ namespace ASC.Forum
 
         #region ISecurityObjectProvider Members
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public IEnumerable<IRole> GetObjectRoles(ISubject account, ISecurityObjectId objectId, SecurityCallContext callContext)
         {
             return new IRole[0];
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public ISecurityObjectId InheritFrom(ISecurityObjectId objectId)
         {
             throw new NotImplementedException();
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public bool InheritSupported
         {
             get { return false; }
         }
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public bool ObjectRolesSupported
         {
             get { return true; }

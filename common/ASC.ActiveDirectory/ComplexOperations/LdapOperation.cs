@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ using System.Linq;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ASC.ActiveDirectory.Base;
 using ASC.ActiveDirectory.Base.Settings;
 using ASC.ActiveDirectory.Novell;
@@ -29,11 +30,12 @@ using ASC.Common.Security.Authorizing;
 using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Tenants;
+
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.ActiveDirectory.ComplexOperations
 {
-    public abstract class LdapOperation: IDisposable
+    public abstract class LdapOperation : IDisposable
     {
         public const string OWNER = "LDAPOwner";
         public const string OPERATION_TYPE = "LDAPOperationType";

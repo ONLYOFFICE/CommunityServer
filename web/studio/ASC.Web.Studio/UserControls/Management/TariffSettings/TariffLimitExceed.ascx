@@ -2,11 +2,11 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<% if (TenantExtra.EnableTarrifSettings)
+<% if (TenantExtra.EnableTariffSettings)
    { %>
 
 <div id="tariffLimitExceedUsersPanel" style="display: none">
@@ -72,7 +72,7 @@
         <Header><%= UserControlsCommonResource.TariffFileSizeLimitTitle %></Header>
         <Body>
             <div class="tariff-limitexceed-storage">
-                <span class="header-base-medium"><%= FileSizeComment.FileSizeExceptionString %></span>
+                <span class="header-base-medium"><%= FileSizeComment.GetFileSizeExceptionString(SetupInfo.MaxChunkedUploadSize) %></span>
                 <br />
                 <br />
                 <%= UserControlsCommonResource.TariffFileSizeLimitReason %>

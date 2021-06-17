@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
 using System.Runtime.Serialization;
+
 using ASC.Common.Logging;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
@@ -28,6 +29,7 @@ using ASC.Mail.Authorization;
 using ASC.Mail.Data.Imap;
 using ASC.Mail.Enums;
 using ASC.Mail.Utils;
+
 using Newtonsoft.Json;
 
 namespace ASC.Mail.Data.Contracts
@@ -110,7 +112,8 @@ namespace ASC.Mail.Data.Contracts
         public string SmtpPassword { get; set; }
 
         [DataMember(Name = "smtp_auth")]
-        public bool SmtpAuth {
+        public bool SmtpAuth
+        {
             get { return SmtpAuthentication != SaslMechanism.None; }
         }
 
@@ -132,7 +135,7 @@ namespace ASC.Mail.Data.Contracts
         public string PortStr { get; set; }
 
         [DataMember(Name = "incoming_encryption_type")]
-        public EncryptionType Encryption { get; set;}
+        public EncryptionType Encryption { get; set; }
 
         [DataMember(Name = "outcoming_encryption_type")]
         public EncryptionType SmtpEncryption { get; set; }
@@ -178,21 +181,21 @@ namespace ASC.Mail.Data.Contracts
         /// </summary>
 // ReSharper disable InconsistentNaming
         public const int DefaultServerLoginDelay = 30;
-// ReSharper restore InconsistentNaming
+        // ReSharper restore InconsistentNaming
 
         /// <summary>
         /// Limiting the period of time when limiting download emails
         /// </summary>
-// ReSharper disable InconsistentNaming
+        // ReSharper disable InconsistentNaming
         public const Int64 DefaultMailLimitedTimeDelta = 25920000000000; // 30 days;
-// ReSharper restore InconsistentNaming
+                                                                         // ReSharper restore InconsistentNaming
 
         /// <summary>
         /// Default begin timestamp loading emails
         /// </summary>
-// ReSharper disable InconsistentNaming
+        // ReSharper disable InconsistentNaming
         public const Int64 DefaultMailBeginTimestamp = 622933632000000000; // 01/01/1975 00:00:00
-// ReSharper restore InconsistentNaming
+                                                                           // ReSharper restore InconsistentNaming
 
         public int AuthorizeTimeoutInMilliseconds
         {
@@ -210,7 +213,8 @@ namespace ASC.Mail.Data.Contracts
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name = "is_oauth")]
-        public bool IsOAuth {
+        public bool IsOAuth
+        {
             get { return !string.IsNullOrEmpty(_oAuthToken); }
         }
 
@@ -218,7 +222,8 @@ namespace ASC.Mail.Data.Contracts
         public byte OAuthType { get; set; }
 
         [IgnoreDataMember]
-        public string OAuthToken {
+        public string OAuthToken
+        {
             get { return _oAuthToken; }
             set
             {
@@ -232,7 +237,7 @@ namespace ASC.Mail.Data.Contracts
                 {
                     try
                     {
-                        if((AuthorizationServiceType)OAuthType != AuthorizationServiceType.Google)
+                        if ((AuthorizationServiceType)OAuthType != AuthorizationServiceType.Google)
                             return;
 
                         // If it is old refresh token then change to oAuthToken
@@ -285,7 +290,8 @@ namespace ASC.Mail.Data.Contracts
         public bool AccessTokenRefreshed { get; set; }
 
         [DataMember(Name = "restrict")]
-        public bool Restrict {
+        public bool Restrict
+        {
             get { return !(BeginDate.Equals(MailBeginTimestamp)); }
         }
 
@@ -318,7 +324,7 @@ namespace ASC.Mail.Data.Contracts
                 catch (Exception)
                 {
                     // skip
-                }                
+                }
             }
         }
 
@@ -360,7 +366,7 @@ namespace ASC.Mail.Data.Contracts
         public MailBoxData(int tenant, string user, int mailboxId, string name,
             MailAddress email, string account, string password, string server,
             EncryptionType encryption, SaslMechanism authentication, bool imap,
-            string smtpAccount, string smtpPassword, string smtpServer, 
+            string smtpAccount, string smtpPassword, string smtpServer,
             EncryptionType smtpEncryption, SaslMechanism smtpAuthentication,
             byte oAuthType, string oAuthToken)
         {
@@ -401,7 +407,7 @@ namespace ASC.Mail.Data.Contracts
 
             ServerLoginDelay = DefaultServerLoginDelay;
             BeginDate = MailBeginTimestamp;
-           
+
             ImapIntervals = new Dictionary<string, ImapFolderUids>();
         }
 

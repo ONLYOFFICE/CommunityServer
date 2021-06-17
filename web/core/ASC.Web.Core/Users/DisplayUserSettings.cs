@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@ namespace ASC.Web.Core.Users
             {
                 try
                 {
-                    var resourceType = Type.GetType("Resources.Resource, ASC.Web.Studio");
+                    var resourceType = Type.GetType("ASC.Web.Studio.PublicResources.Resource, ASC.Web.Studio");
                     var resourceProperty = resourceType.GetProperty("ProfileRemoved", BindingFlags.Static | BindingFlags.Public);
                     var resourceValue = (string)resourceProperty.GetValue(null);
 

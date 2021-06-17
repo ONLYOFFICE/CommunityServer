@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Wiki.Code.Patterns {
+namespace ASC.Web.Community.Modules.Wiki.Code.Patterns {
     using System;
     
     
@@ -67,7 +67,9 @@ namespace ASC.Web.Community.Wiki.Code.Patterns {
         ///
         ///$PagePreview
         ///
-        ///&quot;Read More&quot;:&quot;$URL&quot;.
+        ///&quot;Read More&quot;:&quot;$URL&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new Wiki pages created, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
         /// </summary>
         public static string pattern_1 {
             get {
@@ -82,7 +84,9 @@ namespace ASC.Web.Community.Wiki.Code.Patterns {
         ///
         ///$PagePreview
         ///
-        ///&quot;Read More&quot;:&quot;$URL&quot;.
+        ///&quot;Read More&quot;:&quot;$URL&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about the changes of this Wiki page, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^.
         /// </summary>
         public static string pattern_2 {
             get {
@@ -97,7 +101,9 @@ namespace ASC.Web.Community.Wiki.Code.Patterns {
         ///
         ///$CommentBody
         ///
-        ///&quot;Read More&quot;:&quot;$URL&quot;.
+        ///&quot;Read More&quot;:&quot;$URL&quot;
+        ///
+        ///^You receive this email because you are a registered user of the &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; portal. If you do not want to receive the notifications about new comments added to this Wiki page, please manage your &quot;subscription settings&quot;:&quot;$RecipientSubscriptionConfigURL&quot;.^ .
         /// </summary>
         public static string pattern_3 {
             get {

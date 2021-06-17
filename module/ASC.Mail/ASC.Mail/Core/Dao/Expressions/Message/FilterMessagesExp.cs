@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data.Sql.Expressions;
 using ASC.ElasticSearch;
 using ASC.Mail.Core.DbSchema.Tables;
@@ -63,14 +64,14 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             User = user;
             Ids = ids;
 
-            StartIndex = filter.Page.HasValue ? 0 : (int?) null;
+            StartIndex = filter.Page.HasValue ? 0 : (int?)null;
 
             if (filter.Page.HasValue
                 && filter.Page.Value > 0
                 && filter.PageSize.HasValue
                 && filter.PageSize.Value > 0)
             {
-                StartIndex = filter.Page.Value*filter.PageSize;
+                StartIndex = filter.Page.Value * filter.PageSize;
             }
 
             Limit = Filter.PageSize;
@@ -78,7 +79,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             OrderAsc = string.IsNullOrEmpty(Filter.SortOrder)
                     ? (bool?)null
                     : Filter.SortOrder == Defines.ASCENDING;
-            
+
         }
 
         private const string MM_ALIAS = "mm";
@@ -187,7 +188,8 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
                 return false;
             }
 
-            if (filter.Page.HasValue && filter.Page.Value < 0) {
+            if (filter.Page.HasValue && filter.Page.Value < 0)
+            {
                 total = 0;
                 return true;
             }
@@ -242,7 +244,7 @@ namespace ASC.Mail.Core.Dao.Expressions.Message
             if (selector == null)
                 selector = new Selector<MailWrapper>();
 
-            selector.Where(r => r.Folder, (int) filter.PrimaryFolder);
+            selector.Where(r => r.Folder, (int)filter.PrimaryFolder);
 
             if (filter.MailboxId.HasValue)
             {

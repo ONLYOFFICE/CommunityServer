@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -338,8 +339,8 @@ namespace ASC.Mail.Core.Dao
                 IsAnswered = Convert.ToBoolean(r[11]),
                 IsForwarded = Convert.ToBoolean(r[12]),
                 LabelsString = Convert.ToString(r[13]),
-                FolderRestore = (FolderType) Convert.ToInt32(r[14]),
-                Folder = (FolderType) Convert.ToInt32(r[15]),
+                FolderRestore = (FolderType)Convert.ToInt32(r[14]),
+                Folder = (FolderType)Convert.ToInt32(r[15]),
                 ChainId = Convert.ToString(r[16]),
                 ChainDate = Convert.ToDateTime(r[17]),
                 MailboxId = Convert.ToInt32(r[18]),

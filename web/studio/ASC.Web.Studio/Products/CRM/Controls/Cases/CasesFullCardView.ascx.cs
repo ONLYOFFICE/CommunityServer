@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,11 @@
 #region Import
 
 using System;
+using System.Web;
+
 using ASC.CRM.Core;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Common;
-using System.Web;
 
 #endregion
 
@@ -56,7 +57,7 @@ namespace ASC.Web.CRM.Controls.Cases
 
         public void ExecHistoryView()
         {
-            var historyViewControl = (HistoryView) LoadControl(HistoryView.Location);
+            var historyViewControl = (HistoryView)LoadControl(HistoryView.Location);
 
             historyViewControl.TargetEntityType = EntityType.Case;
             historyViewControl.TargetEntityID = TargetCase.ID;

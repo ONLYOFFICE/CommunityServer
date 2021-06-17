@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,23 @@
 
 
 using System;
-using System.Web;
-using System.Text;
-using System.Linq;
-using System.IO;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+
 using ASC.Common.Notify.Patterns;
 using ASC.Core;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
+using ASC.Notify.Textile.Resources;
 using ASC.Web.Core.WhiteLabel;
+
 using Textile;
 using Textile.Blocks;
-using ASC.Notify.Textile.Resources;
 
 namespace ASC.Notify.Textile
 {
@@ -63,7 +65,6 @@ namespace ASC.Notify.Textile
             formatter.Format(message.Body);
 
             var template = GetTemplate(message);
-            var analytics = GetAnalytics(message);
             var imagePath = GetImagePath(message);
             var logoImg = GetLogoImg(message, imagePath);
             var logoText = GetLogoText(message);
@@ -75,8 +76,7 @@ namespace ASC.Notify.Textile
 
             InitFooter(message, mailSettings, out footerContent, out footerSocialContent);
 
-            message.Body = template.Replace("%ANALYTICS%", analytics)
-                                   .Replace("%CONTENT%", output.GetFormattedText())
+            message.Body = template.Replace("%CONTENT%", output.GetFormattedText())
                                    .Replace("%LOGO%", logoImg)
                                    .Replace("%LOGOTEXT%", logoText)
                                    .Replace("%SITEURL%", mailSettings == null ? MailWhiteLabelSettings.DefaultMailSiteUrl : mailSettings.SiteUrl)
@@ -105,12 +105,6 @@ namespace ASC.Notify.Textile
             return template;
         }
 
-        private static string GetAnalytics(NoticeMessage message)
-        {
-            var analyticsTag = message.GetArgument("Analytics");
-            return analyticsTag == null ? string.Empty : (string)analyticsTag.Value;
-        }
-
         private static string GetImagePath(NoticeMessage message)
         {
             var imagePathTag = message.GetArgument("ImagePath");
@@ -123,7 +117,7 @@ namespace ASC.Notify.Textile
 
             if (CoreContext.Configuration.Personal && !CoreContext.Configuration.CustomMode)
             {
-                logoImg = imagePath + "/mail_logo.png";
+                logoImg = imagePath + "/mail_logo.svg";
             }
             else
             {
@@ -137,7 +131,7 @@ namespace ASC.Notify.Textile
                     }
                     else
                     {
-                        logoImg = imagePath + "/mail_logo.png";
+                        logoImg = imagePath + "/mail_logo.svg";
                     }
                 }
             }
@@ -180,7 +174,7 @@ namespace ASC.Notify.Textile
 
             if (footer == null) return;
 
-            var footerValue = (string) footer.Value;
+            var footerValue = (string)footer.Value;
 
             if (string.IsNullOrEmpty(footerValue)) return;
 
@@ -242,11 +236,11 @@ namespace ASC.Notify.Textile
         {
             var withoutUnsubscribe = message.GetArgument("WithoutUnsubscribe");
 
-            if (withoutUnsubscribe != null && (bool) withoutUnsubscribe.Value)
+            if (withoutUnsubscribe != null && (bool)withoutUnsubscribe.Value)
                 return string.Empty;
 
             var rootPathArgument = message.GetArgument("__VirtualRootPath");
-            var rootPath = rootPathArgument == null ? string.Empty : (string) rootPathArgument.Value;
+            var rootPath = rootPathArgument == null ? string.Empty : (string)rootPathArgument.Value;
 
             if (string.IsNullOrEmpty(rootPath))
                 return string.Empty;
@@ -267,7 +261,7 @@ namespace ASC.Notify.Textile
 
             if (unsubscribeLinkArgument != null)
             {
-                var unsubscribeLink = (string) unsubscribeLinkArgument.Value;
+                var unsubscribeLink = (string)unsubscribeLinkArgument.Value;
 
                 if (!string.IsNullOrEmpty(unsubscribeLink))
                     return unsubscribeLink;

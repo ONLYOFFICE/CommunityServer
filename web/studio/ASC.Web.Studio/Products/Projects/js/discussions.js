@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ ASC.Projects.Discussions = (function($) {
     var baseObject = ASC.Projects,
         resources = baseObject.Resources,
         messageResource = resources.MessageResource,
-        projectsJsResource = resources.ProjectsJSResource,
+        ProjectsJSResource = resources.ProjectsJSResource,
         filter = baseObject.ProjectsAdvansedFilter,
         currentProject,
         handler;
@@ -72,8 +72,8 @@ ASC.Projects.Discussions = (function($) {
         }
 
         self.baseInit({
-            elementNotFoundError: projectsJsResource.DiscussionNotFound,
-            moduleTitle: projectsJsResource.DiscussionsModule
+            elementNotFoundError: ProjectsJSResource.DiscussionNotFound,
+            moduleTitle: ProjectsJSResource.DiscussionsModule
         },
         {
             pagination: "discussionsKeyForPagination",
@@ -282,7 +282,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
             "subscribeModule",
             $discussionParticipantsContainer,
             '#subscribers');
-        documentsTab = new Tab(resources.CommonResource.DocsModuleTitle,
+        documentsTab = new Tab(resources.ProjectsCommonResource.DocsModuleTitle,
             function() { return discussion.files.length; },
             "documentsModule",
             $fileContainer,
@@ -524,7 +524,7 @@ ASC.Projects.DiscussionDetails = (function ($) {
         }
 
         var isSubscribed = subscribers.some(function (item) { return item.id === teamlab.profile.id; });
-        menuItems.push(new ActionMenuItem("da_follow", isSubscribed ? resources.CommonResource.UnSubscribeOnNewComment : resources.CommonResource.SubscribeOnNewComment, daSubscribeHandler));
+        menuItems.push(new ActionMenuItem("da_follow", isSubscribed ? resources.ProjectsCommonResource.UnSubscribeOnNewComment : resources.ProjectsCommonResource.SubscribeOnNewComment, daSubscribeHandler));
 
         return { menuItems: menuItems };
     }
@@ -823,7 +823,7 @@ ASC.Projects.DiscussionAction = (function ($) {
 
     function initButtons() {
         var data = {
-            action: discussion ? resources.CommonResource.SaveChanges : resources.MessageResource.AddDiscussion,
+            action: discussion ? resources.ProjectsCommonResource.SaveChanges : resources.MessageResource.AddDiscussion,
             disable: discussion ? "" : "disable"
         };
 
@@ -1057,7 +1057,7 @@ ASC.Projects.DiscussionAction = (function ($) {
 
         var fileContainerTitle = {
             id: switcherId,
-            title: resources.CommonResource.DocsModuleTitle,
+            title: resources.ProjectsCommonResource.DocsModuleTitle,
             state: 0
         };
 

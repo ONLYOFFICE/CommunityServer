@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -33,9 +33,12 @@ using ASC.Mail.Exceptions;
 using ASC.Mail.Extensions;
 using ASC.Specific;
 using ASC.Web.Core;
+
 using DotNetOpenAuth.Messaging;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using RestSharp;
 
 namespace ASC.Mail.Utils
@@ -116,8 +119,8 @@ namespace ASC.Mail.Utils
         {
             Setup();
 
-            _log.DebugFormat("Execute request url: baseUrl='{0}' resourceUrl='{1}' token='{2}'", 
-                BaseUrl.Uri.ToString(), 
+            _log.DebugFormat("Execute request url: baseUrl='{0}' resourceUrl='{1}' token='{2}'",
+                BaseUrl.Uri.ToString(),
                 request.Resource,
                 Token);
 
@@ -426,7 +429,7 @@ namespace ASC.Mail.Utils
         public object UploadToCrm(Stream fileStream, string filename, string contentType,
                                       CrmContactData entity)
         {
-            if(entity == null)
+            if (entity == null)
                 throw new ArgumentNullException("entity");
 
             var request = new RestRequest("crm/{entityType}/{entityId}/files/upload.json", Method.POST);

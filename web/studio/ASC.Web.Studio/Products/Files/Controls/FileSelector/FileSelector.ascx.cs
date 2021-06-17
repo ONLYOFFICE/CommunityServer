@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,12 @@
 */
 
 
+using System;
 using System.Web;
+using System.Web.UI;
+
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
-using System;
-using System.Web.UI;
 
 namespace ASC.Web.Files.Controls
 {
@@ -46,7 +47,7 @@ namespace ASC.Web.Files.Controls
             FileSelectorTemp.Options.IsPopup = !IsFlat;
             FileSelectorTemp.Options.OnCancelButtonClick = "ASC.Files.FileSelector.onCancel();";
 
-            var tree = (Tree) LoadControl(Tree.Location);
+            var tree = (Tree)LoadControl(Tree.Location);
             tree.ID = "fileSelectorTree";
             tree.WithoutTrash = true;
             tree.WithoutAdditionalFolder = OnlyFolder;
@@ -54,7 +55,7 @@ namespace ASC.Web.Files.Controls
 
             if (!OnlyFolder)
             {
-                var contentList = (ContentList) LoadControl(ContentList.Location);
+                var contentList = (ContentList)LoadControl(ContentList.Location);
                 contentList.HideAddActions = true;
                 ContentHolder.Controls.Add(contentList);
             }

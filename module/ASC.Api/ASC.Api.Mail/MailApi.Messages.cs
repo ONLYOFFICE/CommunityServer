@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ using System.Diagnostics;
 #endif
 using System.Linq;
 using System.Threading;
+
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Mail;
@@ -31,6 +32,7 @@ using ASC.Mail.Enums;
 using ASC.Mail.Exceptions;
 using ASC.Mail.Utils;
 using ASC.Web.Mail.Resources;
+
 using FileShare = ASC.Files.Core.Security.FileShare;
 using MailMessage = ASC.Mail.Data.Contracts.MailMessageData;
 // ReSharper disable InconsistentNaming
@@ -157,7 +159,7 @@ namespace ASC.Api.Mail
 
             if (item.WasNew && markRead.HasValue && markRead.Value)
             {
-                MailEngineFactory.MessageEngine.SetUnread(new List<int> {item.Id}, false);
+                MailEngineFactory.MessageEngine.SetUnread(new List<int> { item.Id }, false);
                 item.IsNew = false;
             }
 
@@ -170,10 +172,10 @@ namespace ASC.Api.Mail
             Logger.DebugFormat("Mail->GetMessage(id={0})->Elapsed {1}ms (NeedProxyHttp={2}, NeedSanitizer={3})", id,
                 watch.Elapsed.TotalMilliseconds, Defines.NeedProxyHttp, needSanitizeHtml);
 #endif
-            if (item.Folder != FolderType.UserFolder) 
+            if (item.Folder != FolderType.UserFolder)
                 return item;
 
-            var userFoler = GetUserFolderByMailId((uint) item.Id);
+            var userFoler = GetUserFolderByMailId((uint)item.Id);
 
             if (userFoler != null)
             {
@@ -330,7 +332,7 @@ namespace ASC.Api.Mail
                 throw new ArgumentException(@"Invalid attachment id. Attachment id must be positive integer", "attachmentid");
 
             MailEngineFactory.AttachmentEngine
-                .DeleteMessageAttachments(TenantId, Username, messageid, new List<int> {attachmentid});
+                .DeleteMessageAttachments(TenantId, Username, messageid, new List<int> { attachmentid });
 
             return messageid;
         }

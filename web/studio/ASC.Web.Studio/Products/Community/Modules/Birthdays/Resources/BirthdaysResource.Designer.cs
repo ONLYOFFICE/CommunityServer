@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ASC.Web.Community.Birthdays.Resources {
+namespace ASC.Web.Community.Modules.Birthdays.Resources {
     using System;
     
     
@@ -102,15 +102,6 @@ namespace ASC.Web.Community.Birthdays.Resources {
         public static string BirthdaysEmptyModuleDescription {
             get {
                 return ResourceManager.GetString("BirthdaysEmptyModuleDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No birthdays for the nearest dates.
-        /// </summary>
-        public static string BirthdaysEmptyUpcomingTitle {
-            get {
-                return ResourceManager.GetString("BirthdaysEmptyUpcomingTitle", resourceCulture);
             }
         }
         

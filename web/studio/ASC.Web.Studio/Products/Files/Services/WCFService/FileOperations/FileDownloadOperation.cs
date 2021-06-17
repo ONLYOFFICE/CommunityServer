@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
+using ASC.Common;
 using ASC.Common.Security.Authentication;
-using ASC.Data.Storage;
+using ASC.Common.Web;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Core.Compress;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
-using ASC.Web.Studio.Core;
 
 using File = ASC.Files.Core.File;
 
@@ -68,20 +68,27 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
             ReplaceLongPath(entriesPathId);
 
-            using (var stream = CompressToZip(entriesPathId))
+            using (var stream = CompressTo(entriesPathId))
             {
                 if (stream != null)
                 {
                     stream.Position = 0;
-                    const string fileName = FileConstant.DownloadTitle + ".zip";
+                    string fileName = FileConstant.DownloadTitle + CompressToArchive.Instance.ArchiveExtension;
                     var store = Global.GetStore();
+                    var path = string.Format(@"{0}\{1}", ((IAccount)Thread.CurrentPrincipal.Identity).ID, fileName);
+
+                    if (store.IsFile(FileConstant.StorageDomainTmp, path))
+                    {
+                        store.Delete(FileConstant.StorageDomainTmp, path);
+                    }
+
                     store.Save(
                         FileConstant.StorageDomainTmp,
-                        string.Format(@"{0}\{1}", ((IAccount)Thread.CurrentPrincipal.Identity).ID, fileName),
+                        path,
                         stream,
-                        "application/zip",
+                        MimeMapping.GetMimeMapping(path),
                         "attachment; filename=\"" + fileName + "\"");
-                    Status = string.Format("{0}?{1}=bulk", FilesLinkUtility.FileHandlerPath, FilesLinkUtility.Action);
+                    Status = string.Format("{0}?{1}=bulk&ext={2}", FilesLinkUtility.FileHandlerPath, FilesLinkUtility.Action, CompressToArchive.Instance.ArchiveExtension);
                 }
             }
         }
@@ -160,15 +167,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             return entriesPathId;
         }
 
-        private Stream CompressToZip(ItemNameValueCollection entriesPathId)
+        private Stream CompressTo(ItemNameValueCollection entriesPathId)
         {
             var stream = TempStream.Create();
-            using (var zip = new Ionic.Zip.ZipOutputStream(stream, true))
-            {
-                zip.CompressionLevel = Ionic.Zlib.CompressionLevel.Level3;
-                zip.AlternateEncodingUsage = Ionic.Zip.ZipOption.AsNecessary;
-                zip.AlternateEncoding = Encoding.UTF8;
 
+            using (ICompress compressTo = new CompressToArchive(stream))
+            {
                 foreach (var path in entriesPathId.AllKeys)
                 {
                     var counter = 0;
@@ -176,7 +180,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     {
                         if (CancellationToken.IsCancellationRequested)
                         {
-                            zip.Dispose();
+                            compressTo.Dispose();
                             stream.Dispose();
                             CancellationToken.ThrowIfCancellationRequested();
                         }
@@ -194,12 +198,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             if (file == null)
                             {
                                 Error = FilesCommonResource.ErrorMassage_FileNotFound;
-                                continue;
-                            }
-
-                            if (file.ContentLength > SetupInfo.AvailableFileSize)
-                            {
-                                Error = string.Format(FilesCommonResource.ErrorMassage_FileSizeZip, FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize));
                                 continue;
                             }
 
@@ -227,7 +225,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             }
                         }
 
-                        zip.PutNextEntry(newtitle);
+                        compressTo.CreateEntry(newtitle);
 
                         if (!string.IsNullOrEmpty(entryId) && file != null)
                         {
@@ -238,7 +236,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     //Take from converter
                                     using (var readStream = FileConverter.Exec(file, convertToExt))
                                     {
-                                        readStream.StreamCopyTo(zip);
+                                        compressTo.PutStream(readStream);
+
                                         if (!string.IsNullOrEmpty(convertToExt))
                                         {
                                             FilesMessageService.Send(file, headers, MessageAction.FileDownloadedAs, file.Title, convertToExt);
@@ -253,7 +252,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 {
                                     using (var readStream = FileDao.GetFileStream(file))
                                     {
-                                        readStream.StreamCopyTo(zip);
+                                        compressTo.PutStream(readStream);
+
                                         FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
                                     }
                                 }
@@ -264,9 +264,13 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 Logger.Error(Error, ex);
                             }
                         }
+                        else
+                        {
+                            compressTo.PutNextEntry();
+                        }
+                        compressTo.CloseEntry();
                         counter++;
                     }
-
                     ProgressStep();
                 }
             }

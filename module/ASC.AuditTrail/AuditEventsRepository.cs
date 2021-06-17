@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using ASC.AuditTrail.Mappers;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
-using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
+
 using Newtonsoft.Json;
 
 namespace ASC.AuditTrail
@@ -109,18 +111,18 @@ namespace ASC.AuditTrail
             try
             {
                 var evt = new AuditEvent
-                    {
-                        Id = Convert.ToInt32(row[0]),
-                        IP = Convert.ToString(row[1]),
-                        Initiator = Convert.ToString(row[2]),
-                        Browser = Convert.ToString(row[3]),
-                        Platform = Convert.ToString(row[4]),
-                        Date = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
-                        TenantId = Convert.ToInt32(row[6]),
-                        UserId = Guid.Parse(Convert.ToString(row[7])),
-                        Page = Convert.ToString(row[8]),
-                        Action = Convert.ToInt32(row[9])
-                    };
+                {
+                    Id = Convert.ToInt32(row[0]),
+                    IP = Convert.ToString(row[1]),
+                    Initiator = Convert.ToString(row[2]),
+                    Browser = Convert.ToString(row[3]),
+                    Platform = Convert.ToString(row[4]),
+                    Date = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(row[5])),
+                    TenantId = Convert.ToInt32(row[6]),
+                    UserId = Guid.Parse(Convert.ToString(row[7])),
+                    Page = Convert.ToString(row[8]),
+                    Action = Convert.ToInt32(row[9])
+                };
 
                 if (row[10] != null)
                 {
@@ -133,7 +135,7 @@ namespace ASC.AuditTrail
 
                 evt.UserName = (row[12] != null && row[13] != null) ? UserFormatter.GetUserName(Convert.ToString(row[12]), Convert.ToString(row[13])) :
                     evt.UserId == Core.Configuration.Constants.CoreSystem.ID ? AuditReportResource.SystemAccount :
-                        evt.UserId == Core.Configuration.Constants.Guest.ID ? AuditReportResource.GuestAccount : 
+                        evt.UserId == Core.Configuration.Constants.Guest.ID ? AuditReportResource.GuestAccount :
                             evt.Initiator ?? AuditReportResource.UnknownAccount;
 
                 evt.ActionText = AuditActionMapper.GetActionText(evt);

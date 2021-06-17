@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,12 @@ using System;
 using System.Linq;
 using System.Net.Sockets;
 using System.Web;
+
 using ASC.Api.Attributes;
 using ASC.Common.Utils;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Mail;
-using Resources;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Api.Mail
 {

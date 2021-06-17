@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortalEncryption.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.PortalEncryption.PortalEncryption" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div id="wrapper">
     <div id="container">

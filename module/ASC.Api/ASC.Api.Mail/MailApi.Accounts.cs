@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading;
+
 using ASC.Api.Attributes;
-using ASC.Core;
 using ASC.Mail;
 using ASC.Mail.Authorization;
 using ASC.Mail.Clients;
@@ -32,6 +32,7 @@ using ASC.Mail.Enums;
 using ASC.Mail.Exceptions;
 using ASC.Mail.Extensions;
 using ASC.Web.Mail.Resources;
+
 using EncryptionType = ASC.Mail.Enums.EncryptionType;
 using SaslMechanism = ASC.Mail.Enums.SaslMechanism;
 // ReSharper disable InconsistentNaming
@@ -78,9 +79,6 @@ namespace ASC.Api.Mail
 
             if (mailbox.IsTeamlab)
             {
-                if(!CoreContext.Configuration.Standalone)
-                    throw new ArgumentException("Access to this account restricted");
-
                 string mxHost = null;
 
                 try
@@ -487,7 +485,7 @@ namespace ASC.Api.Mail
                 if (!loginResult.IngoingSuccess)
                 {
                     errorText = GetFormattedTextError(loginResult.IngoingException,
-                        loginResult.Imap ? ServerType.Imap : ServerType.Pop3, false); 
+                        loginResult.Imap ? ServerType.Imap : ServerType.Pop3, false);
                     // exImap is ImapConnectionTimeoutException
                 }
 
@@ -551,7 +549,7 @@ namespace ASC.Api.Mail
                     throw new ArgumentException("Account not found");
             }
 
-            new MailBoxAccountSettings {DefaultEmail = isDefault ? email : string.Empty}.SaveForCurrentUser();
+            new MailBoxAccountSettings { DefaultEmail = isDefault ? email : string.Empty }.SaveForCurrentUser();
 
             return email;
         }

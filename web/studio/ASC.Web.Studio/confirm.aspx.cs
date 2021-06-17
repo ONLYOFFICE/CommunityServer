@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 using System;
 using System.Web;
+
 using ASC.Common.Logging;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -29,10 +30,10 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.TFA;
+using ASC.Web.Studio.PublicResources;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
 
-using Resources;
 using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio
@@ -134,79 +135,79 @@ namespace ASC.Web.Studio
                     break;
 
                 case ConfirmType.Auth:
+                {
+                    var first = Request["first"] ?? "";
+                    var module = Request["module"] ?? "";
+                    var smsConfirm = Request["sms"] ?? "";
+
+                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first + module + smsConfirm, key, authInterval);
+
+                    if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Ok)
                     {
-                        var first = Request["first"] ?? "";
-                        var module = Request["module"] ?? "";
-                        var smsConfirm = Request["sms"] ?? "";
+                        var user = _email.Contains("@")
+                                       ? CoreContext.UserManager.GetUserByEmail(_email)
+                                       : CoreContext.UserManager.GetUsers(new Guid(_email));
 
-                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first + module + smsConfirm, key, authInterval);
-
-                        if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Ok)
+                        if (SecurityContext.IsAuthenticated && SecurityContext.CurrentAccount.ID != user.ID)
                         {
-                            var user = _email.Contains("@")
-                                           ? CoreContext.UserManager.GetUserByEmail(_email)
-                                           : CoreContext.UserManager.GetUsers(new Guid(_email));
-
-                            if (SecurityContext.IsAuthenticated && SecurityContext.CurrentAccount.ID != user.ID)
-                            {
-                                Auth.ProcessLogout();
-                            }
-
-                            if (!SecurityContext.IsAuthenticated)
-                            {
-                                if (!CoreContext.UserManager.UserExists(user.ID) || user.Status != EmployeeStatus.Active)
-                                {
-                                    ShowError(Auth.MessageKey.ErrorUserNotFound);
-                                    return false;
-                                }
-
-                                if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable && smsConfirm.ToLower() != "true")
-                                {
-                                    //todo: think about 'first' & 'module'
-                                    Response.Redirect(SmsConfirmUrl(user), true);
-                                }
-
-                                if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
-                                {
-                                    //todo: think about 'first' & 'module'
-                                    Response.Redirect(TfaConfirmUrl(user), true);
-                                }
-
-                                var authCookie = SecurityContext.AuthenticateMe(user.ID);
-                                CookiesManager.SetCookies(CookiesType.AuthKey, authCookie);
-
-                                var messageAction = social == "true" ? MessageAction.LoginSuccessViaSocialAccount : MessageAction.LoginSuccess;
-                                MessageService.Send(HttpContext.Current.Request, messageAction);
-                            }
-
-                            SetDefaultModule(module);
-
-                            AuthRedirect(first.ToLower() == "true");
+                            Auth.ProcessLogout();
                         }
+
+                        if (!SecurityContext.IsAuthenticated)
+                        {
+                            if (!CoreContext.UserManager.UserExists(user.ID) || user.Status != EmployeeStatus.Active)
+                            {
+                                ShowError(Auth.MessageKey.ErrorUserNotFound);
+                                return false;
+                            }
+
+                            if (StudioSmsNotificationSettings.IsVisibleSettings && StudioSmsNotificationSettings.Enable && smsConfirm.ToLower() != "true")
+                            {
+                                //todo: think about 'first' & 'module'
+                                Response.Redirect(SmsConfirmUrl(user), true);
+                            }
+
+                            if (TfaAppAuthSettings.IsVisibleSettings && TfaAppAuthSettings.Enable)
+                            {
+                                //todo: think about 'first' & 'module'
+                                Response.Redirect(TfaConfirmUrl(user), true);
+                            }
+
+                            var authCookie = SecurityContext.AuthenticateMe(user.ID);
+                            CookiesManager.SetCookies(CookiesType.AuthKey, authCookie);
+
+                            var messageAction = social == "true" ? MessageAction.LoginSuccessViaSocialAccount : MessageAction.LoginSuccess;
+                            MessageService.Send(HttpContext.Current.Request, messageAction);
+                        }
+
+                        SetDefaultModule(module);
+
+                        AuthRedirect(first.ToLower() == "true");
                     }
-                    break;
+                }
+                break;
 
                 case ConfirmType.DnsChange:
-                    {
-                        var dnsChangeKey = string.Join(string.Empty, new[] { _email, _type.ToString(), Request["dns"], Request["alias"] });
-                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(dnsChangeKey, key, validInterval);
-                    }
-                    break;
+                {
+                    var dnsChangeKey = string.Join(string.Empty, new[] { _email, _type.ToString(), Request["dns"], Request["alias"] });
+                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(dnsChangeKey, key, validInterval);
+                }
+                break;
 
                 case ConfirmType.PortalOwnerChange:
+                {
+                    Guid uid;
+                    try
                     {
-                        Guid uid;
-                        try
-                        {
-                            uid = new Guid(Request["uid"]);
-                        }
-                        catch
-                        {
-                            uid = Guid.Empty;
-                        }
-                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + uid, key, validInterval);
+                        uid = new Guid(Request["uid"]);
                     }
-                    break;
+                    catch
+                    {
+                        uid = Guid.Empty;
+                    }
+                    checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + uid, key, validInterval);
+                }
+                break;
 
                 case ConfirmType.EmpInvite:
                     checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + emplType, key, validInterval);
@@ -345,7 +346,8 @@ namespace ASC.Web.Studio
                     user = CoreContext.UserManager.SaveUserInfo(user);
 
                     var first = Request["first"] ?? "";
-                    if (first.ToLower() == "true" && !CoreContext.Configuration.Personal && user.IsAdmin()) {
+                    if (first.ToLower() == "true" && !CoreContext.Configuration.Personal && user.IsAdmin())
+                    {
                         StudioNotifyService.Instance.SendAdminWelcome(user);
                     }
 
@@ -364,7 +366,7 @@ namespace ASC.Web.Studio
                 }
                 else
                 {
-                    redirectUrl= String.Format("~/Auth.aspx?confirmed-email={0}", email);
+                    redirectUrl = String.Format("~/Auth.aspx?confirmed-email={0}", email);
                 }
 
                 Response.Redirect(redirectUrl, true);

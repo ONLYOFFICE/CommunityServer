@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1075,7 +1075,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       conferencenode = null,
       contactlistnode = null;
 
-    groupname = ASC.TMTalk.Resources.ConferenceGroupName;
+    groupname = ASC.TMTalk.TalkResource.ConferenceGroupName;
 
     nodes = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group rooms', 'li');
     groupnode = nodes.length > 0 ? nodes[0] : null;
@@ -1519,7 +1519,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
           }
 
           if (data.minimized === false) {
-            ASC.TMTalk.tabsContainer.setStatus('hint', {hint : ASC.TMTalk.Resources.HintSendInvite}, 2);
+            ASC.TMTalk.tabsContainer.setStatus('hint', {hint : ASC.TMTalk.TalkResource.HintSendInvite}, 2);
           } else {
             ASC.TMTalk.tabsContainer.resetStatus('conference', {confsubject : ASC.TMTalk.mucManager.getConferenceSubject(jid)}, 1);
           }
@@ -1530,7 +1530,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         break;
       case 'mailing' :
         if (inBackground !== true) {
-          ASC.TMTalk.tabsContainer.setStatus('hint', {hint : ASC.TMTalk.Resources.HintSendInvite}, 2);
+          ASC.TMTalk.tabsContainer.setStatus('hint', {hint : ASC.TMTalk.TalkResource.HintSendInvite}, 2);
 
           ASC.TMTalk.dom.removeClass(contactlistContainer, 'conference');
           ASC.TMTalk.dom.addClass(contactlistContainer, 'mailing');
@@ -1579,7 +1579,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
           $('#talkStartSplash').hide();
       }
     
-  //  ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientConnecting});
+  //  ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.TalkResource.HintClientConnecting});
   };
 
   var onClientConnected = function () {
@@ -1596,7 +1596,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       $('#talkContactsContainer').addClass('processing');
     }*/
 
-   // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintSelectContact});
+   // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.TalkResource.HintSelectContact});
     ASC.TMTalk.sounds.play('startup');
   };
 
@@ -1615,7 +1615,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     $('#talkRoomsContainer').removeClass('searchmessage');
     //$('#talkStatusMenu').removeClass('processing');
     //$('#talkContactsContainer').removeClass('processing');
-   // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientDisconnected});
+   // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.TalkResource.HintClientDisconnected});
     
     if (ASC.TMTalk.connectionManager.conflict == false) {
         ASC.TMTalk.connectionManager.status(1);
@@ -1632,7 +1632,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     $('#talkRoomsContainer').removeClass('searchmessage');
     //$('#talkStatusMenu').removeClass('processing');
     //$('#talkContactsContainer').removeClass('processing');
-    //ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientDisconnected});
+    //ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.TalkResource.HintClientDisconnected});
 
     setTimeout(function () { ASC.TMTalk.connectionManager.status(Strophe.Status.CONNECTING); }, timeout * 1000);
     /*ASC.TMTalk.connectionManager.bind(ASC.TMTalk.connectionManager.events.disconnected, (function (status, timeout) {
@@ -1816,7 +1816,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
 
     if (ASC.TMTalk.properties.item('enabledMassend') === 'true' && ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group mailings', 'li').length === 0) {
       tempgroups.push({
-        name      : ASC.TMTalk.Resources.MailingsGroupName,
+        name      : ASC.TMTalk.TalkResource.MailingsGroupName,
         type      : 'mailings',
         isEmpty   : true,
         isFixed   : true,
@@ -1826,7 +1826,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
 
     if (ASC.TMTalk.properties.item('enabledConferences') === 'true' && ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group rooms', 'li').length === 0) {
       tempgroups.push({
-        name: ASC.TMTalk.Resources.ConferenceGroupName,
+        name: ASC.TMTalk.TalkResource.ConferenceGroupName,
         type      : 'rooms',
         isEmpty   : true,
         isFixed   : true,
@@ -1991,7 +1991,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       contactlistnode = null,
       contactlistfragment = document.createDocumentFragment();
 
-    groupname = ASC.TMTalk.Resources.ConferenceGroupName;
+    groupname = ASC.TMTalk.TalkResource.ConferenceGroupName;
 
     nodes = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group mailings', 'li');
     var groupnode = nodes.length > 0 ? nodes[0] : null;
@@ -2071,7 +2071,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       contactlistnode = null,
       contactlistfragment = document.createDocumentFragment();
 
-    groupname = ASC.TMTalk.Resources.ConferenceGroupName;
+    groupname = ASC.TMTalk.TalkResource.ConferenceGroupName;
 
     nodes = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group rooms', 'li');
     var groupnode = nodes.length > 0 ? nodes[0] : null;
@@ -2392,7 +2392,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       mailingnode = null,
       contactlistnode = null;
 
-    groupname = ASC.TMTalk.Resources.MailingsGroupName;
+    groupname = ASC.TMTalk.TalkResource.MailingsGroupName;
 
     nodes = ASC.TMTalk.dom.getElementsByClassName(contactlistContainer, 'group mailings', 'li');
     groupnode = nodes.length > 0 ? nodes[0] : null;
@@ -2801,9 +2801,9 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     }
 
     if (ASC.TMTalk.properties.item('requestTransportType') === 'flash' && ASC.TMTalk.flashPlayer.isCorrect === false) {
-      ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.flashPlayer.isInstalled ? ASC.TMTalk.Resources.HintFlastPlayerIncorrect : ASC.TMTalk.Resources.HintNoFlashPlayer});
+      ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.flashPlayer.isInstalled ? ASC.TMTalk.TalkResource.HintFlastPlayerIncorrect : ASC.TMTalk.TalkResource.HintNoFlashPlayer});
     } else {
-     // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.Resources.HintClientDisconnected});
+     // ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.TalkResource.HintClientDisconnected});
 
       var lastStatusId = ASC.TMTalk.properties.item(ASC.TMTalk.contactsContainer.constants.propertyStatusId);
       lastStatusId = isFinite(+lastStatusId) ? +lastStatusId : ASC.TMTalk.connectionManager.onlineStatusId;
@@ -3274,7 +3274,7 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
       }
 
       if (ASC.TMTalk.properties.item('requestTransportType') === 'flash' && ASC.TMTalk.flashPlayer.isCorrect === false) {
-        ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.flashPlayer.isInstalled ? ASC.TMTalk.Resources.HintFlastPlayerIncorrect : ASC.TMTalk.Resources.HintNoFlashPlayer});
+        ASC.TMTalk.tabsContainer.setStatus('information', {title : ASC.TMTalk.flashPlayer.isInstalled ? ASC.TMTalk.TalkResource.HintFlastPlayerIncorrect : ASC.TMTalk.TalkResource.HintNoFlashPlayer});
         return undefined;
       }
 

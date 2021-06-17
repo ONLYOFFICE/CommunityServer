@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,19 +15,20 @@
 */
 
 
-using ASC.CRM.Core;
-using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Resources;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Web;
+
+using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Core;
+using ASC.Web.CRM.Resources;
+
 using Autofac;
+
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -87,7 +88,7 @@ namespace ASC.Web.CRM.Classes
 
                 #region TemplateType
 
-                data.TemplateType = (int) invoice.TemplateType;
+                data.TemplateType = (int)invoice.TemplateType;
 
                 #endregion
 
@@ -189,7 +190,7 @@ namespace ASC.Web.CRM.Classes
                         ? daoFactory.ContactInfoDao.GetByID(billingAddressID)
                         : null;
                     if (billingAddress != null && billingAddress.InfoType == ContactInfoType.Address &&
-                        billingAddress.Category == (int) AddressCategory.Billing)
+                        billingAddress.Category == (int)AddressCategory.Billing)
                     {
                         list = new List<string>();
 
@@ -262,8 +263,8 @@ namespace ASC.Web.CRM.Classes
                         ? daoFactory.InvoiceTaxDao.GetByID(line.InvoiceTax2ID)
                         : null;
 
-                    var subtotalValue = Math.Round(line.Quantity*line.Price, 2);
-                    var discountValue = Math.Round(subtotalValue*line.Discount/100, 2);
+                    var subtotalValue = Math.Round(line.Quantity * line.Price, 2);
+                    var discountValue = Math.Round(subtotalValue * line.Discount / 100, 2);
 
                     decimal rate = 0;
                     if (tax1 != null)
@@ -272,11 +273,11 @@ namespace ASC.Web.CRM.Classes
                         if (invoiceTaxes.ContainsKey(tax1.ID))
                         {
                             invoiceTaxes[tax1.ID] = invoiceTaxes[tax1.ID] +
-                                                    Math.Round((subtotalValue - discountValue)*tax1.Rate/100, 2);
+                                                    Math.Round((subtotalValue - discountValue) * tax1.Rate / 100, 2);
                         }
                         else
                         {
-                            invoiceTaxes.Add(tax1.ID, Math.Round((subtotalValue - discountValue)*tax1.Rate/100, 2));
+                            invoiceTaxes.Add(tax1.ID, Math.Round((subtotalValue - discountValue) * tax1.Rate / 100, 2));
                         }
                     }
                     if (tax2 != null)
@@ -285,15 +286,15 @@ namespace ASC.Web.CRM.Classes
                         if (invoiceTaxes.ContainsKey(tax2.ID))
                         {
                             invoiceTaxes[tax2.ID] = invoiceTaxes[tax2.ID] +
-                                                    Math.Round((subtotalValue - discountValue)*tax2.Rate/100, 2);
+                                                    Math.Round((subtotalValue - discountValue) * tax2.Rate / 100, 2);
                         }
                         else
                         {
-                            invoiceTaxes.Add(tax2.ID, Math.Round((subtotalValue - discountValue)*tax2.Rate/100, 2));
+                            invoiceTaxes.Add(tax2.ID, Math.Round((subtotalValue - discountValue) * tax2.Rate / 100, 2));
                         }
                     }
 
-                    decimal taxValue = Math.Round((subtotalValue - discountValue)*rate/100, 2);
+                    decimal taxValue = Math.Round((subtotalValue - discountValue) * rate / 100, 2);
                     decimal amountValue = Math.Round(subtotalValue - discountValue + taxValue, 2);
 
                     subtotal += subtotalValue;
@@ -372,7 +373,7 @@ namespace ASC.Web.CRM.Classes
                         ? daoFactory.ContactInfoDao.GetByID(deliveryAddressID)
                         : null;
                     if (deliveryAddress != null && deliveryAddress.InfoType == ContactInfoType.Address &&
-                        deliveryAddress.Category == (int) AddressCategory.Postal)
+                        deliveryAddress.Category == (int)AddressCategory.Postal)
                     {
                         list = new List<string>();
 
@@ -449,7 +450,7 @@ namespace ASC.Web.CRM.Classes
 
             if (string.IsNullOrEmpty(data.LogoBase64) && data.LogoBase64Id != 0)
             {
-                 data.LogoBase64 = OrganisationLogoManager.GetOrganisationLogoBase64(data.LogoBase64Id);
+                data.LogoBase64 = OrganisationLogoManager.GetOrganisationLogoBase64(data.LogoBase64Id);
             }
 
 
@@ -597,8 +598,8 @@ namespace ASC.Web.CRM.Classes
                         ? daoFactory.InvoiceTaxDao.GetByID(line.InvoiceTax2ID)
                         : null;
 
-                    var subtotalValue = Math.Round(line.Quantity*line.Price, 2);
-                    var discountValue = Math.Round(subtotalValue*line.Discount/100, 2);
+                    var subtotalValue = Math.Round(line.Quantity * line.Price, 2);
+                    var discountValue = Math.Round(subtotalValue * line.Discount / 100, 2);
 
                     decimal rate = 0;
                     if (tax1 != null)
@@ -607,11 +608,11 @@ namespace ASC.Web.CRM.Classes
                         if (invoiceTaxes.ContainsKey(tax1.ID))
                         {
                             invoiceTaxes[tax1.ID] = invoiceTaxes[tax1.ID] +
-                                                    Math.Round((subtotalValue - discountValue)*tax1.Rate/100, 2);
+                                                    Math.Round((subtotalValue - discountValue) * tax1.Rate / 100, 2);
                         }
                         else
                         {
-                            invoiceTaxes.Add(tax1.ID, Math.Round((subtotalValue - discountValue)*tax1.Rate/100, 2));
+                            invoiceTaxes.Add(tax1.ID, Math.Round((subtotalValue - discountValue) * tax1.Rate / 100, 2));
                         }
                     }
                     if (tax2 != null)
@@ -620,15 +621,15 @@ namespace ASC.Web.CRM.Classes
                         if (invoiceTaxes.ContainsKey(tax2.ID))
                         {
                             invoiceTaxes[tax2.ID] = invoiceTaxes[tax2.ID] +
-                                                    Math.Round((subtotalValue - discountValue)*tax2.Rate/100, 2);
+                                                    Math.Round((subtotalValue - discountValue) * tax2.Rate / 100, 2);
                         }
                         else
                         {
-                            invoiceTaxes.Add(tax2.ID, Math.Round((subtotalValue - discountValue)*tax2.Rate/100, 2));
+                            invoiceTaxes.Add(tax2.ID, Math.Round((subtotalValue - discountValue) * tax2.Rate / 100, 2));
                         }
                     }
 
-                    decimal taxValue = Math.Round((subtotalValue - discountValue)*rate/100, 2);
+                    decimal taxValue = Math.Round((subtotalValue - discountValue) * rate / 100, 2);
                     decimal amountValue = Math.Round(subtotalValue - discountValue + taxValue, 2);
 
                     subtotal += subtotalValue;

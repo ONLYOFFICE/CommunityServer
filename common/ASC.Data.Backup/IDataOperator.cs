@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,13 @@ namespace ASC.Data.Backup
 {
     public interface IDataWriteOperator : IDisposable
     {
-        void WriteEntry(string key, string source);
+        void WriteEntry(string key, Stream stream);
     }
 
-	public interface IDataReadOperator : IDisposable
+    public interface IDataReadOperator : IDisposable
     {
         Stream GetEntry(string key);
-        List<string> Entries { get; }
+        IEnumerable<string> GetEntries(string key);
+
     }
 }

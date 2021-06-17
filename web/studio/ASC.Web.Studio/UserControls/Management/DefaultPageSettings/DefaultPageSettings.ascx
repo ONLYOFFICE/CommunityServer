@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DefaultPageSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.DefaultPageSettings" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix">
   <div id="studio_defaultPageSettings" class="settings-block">

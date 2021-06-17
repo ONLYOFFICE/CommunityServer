@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DnsSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.DnsSettings.DnsSettings" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
 
 <div class="clearFix <%= EnableDomain ? "" : "disable" %>">
     <div id="studio_enterDns" class="settings-block">
@@ -26,19 +26,19 @@
                 </div>
             </div>
             <div class="middle-button-container">
-                <a id="studio_dnsNameBtn" class="button blue" onclick="<%= EnableDomain ? "DnsSettings.SaveDnsSettings(this);" : "" %>">
+                <a id="studio_dnsNameBtn" class="button blue <%= EnableDomain ? "" : "disable" %>" onclick="<%=EnableDomain ? "DnsSettings.SaveDnsSettings(this);" : "" %>">
                     <%= Resource.SaveButton %></a>
             </div>
 
         </asp:PlaceHolder>
     </div>
     <div class="settings-help-block">
-        <% if (!EnableDomain)
+        <% if (!(EnableDomain))
            { %>
         <p>
             <%= Resource.ErrorNotAllowedOption %>
         </p>
-        <% if (TenantExtra.EnableTarrifSettings)
+        <% if (TenantExtra.EnableTariffSettings)
            { %>
         <a href="<%= TenantExtra.GetTariffPageLink() %>" target="_blank">
             <%= Resource.ViewTariffPlans %></a>

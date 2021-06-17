@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Notify.Jabber;
 using System;
 using System.ServiceModel;
+
+using ASC.Core;
+using ASC.Core.Notify.Jabber;
 
 namespace ASC.Web.Core.Jabber
 {
@@ -31,7 +32,7 @@ namespace ASC.Web.Core.Jabber
         {
             return lastErrorTime + Timeout < DateTime.Now;
         }
-        
+
         public int GetNewMessagesCount(int tenantId, string userName)
         {
             var result = 0;
@@ -118,12 +119,12 @@ namespace ASC.Web.Core.Jabber
 
         private JabberServiceClientWcf GetService()
         {
-            var service =  new JabberServiceClientWcf();
+            var service = new JabberServiceClientWcf();
             try
             {
                 service.Open();
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 ProcessError(error);
             }

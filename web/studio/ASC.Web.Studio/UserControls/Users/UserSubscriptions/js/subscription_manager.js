@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,7 +130,7 @@ var CommonSubscriptionManager = new function() {
     };
 
     this.UnsubscribeProduct = function (productID, productName) {
-        var mes = (ASC.Resources.Master.Resource.UnsubscribeProductMessage).format(productName);
+        var mes = (ASC.Resources.Master.ResourceJS.UnsubscribeProductMessage).format(productName);
         if (!confirm(mes))
             return;
 
@@ -140,7 +140,7 @@ var CommonSubscriptionManager = new function() {
     this.SubscribeType = function (productID, moduleID, subscribeType) {
         var subscribe = jq('#studio_subscribeType_' + productID + '_' + moduleID + '_' + subscribeType).find("a.on_off_button").hasClass("on");
         
-        if (subscribe && !confirm(ASC.Resources.Master.Resource.ConfirmMessage))
+        if (subscribe && !confirm(ASC.Resources.Master.ResourceJS.ConfirmMessage))
             return;
 
         CommonSubscriptionManager.RememberCurrentModuleSubtab(productID);
@@ -263,7 +263,7 @@ var CommonSubscriptionManager = new function() {
     this.InitListTabsComboboxes = function() {
         jq('select[id^="ListTabsCombobox_"]').each(
             function() {
-                jq(this).tlcombobox();
+                jq(this).tlcombobox({ align: "left" });
             }
 		);
     };
@@ -340,7 +340,7 @@ var CommonSubscriptionManager = new function() {
 
                 clipboard = ASC.Clipboard.create(response, "tgCopy", {
                     onComplete: function () {
-                        toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+                        toastr.success(ASC.Resources.Master.ResourceJS.LinkCopySuccess);
                     }
                 });
             }

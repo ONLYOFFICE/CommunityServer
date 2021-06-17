@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Core;
 using ASC.Notify.Model;
 using ASC.Projects.Core.Services.NotifyService;
@@ -26,6 +27,7 @@ using ASC.Web.Core.Subscriptions;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Core;
 using ASC.Web.Projects.Resources;
+
 using Autofac;
 
 namespace ASC.Web.Projects.Configuration
@@ -70,8 +72,8 @@ namespace ASC.Web.Projects.Configuration
                     {
                         if (item == null) continue;
 
-                        var messageID = int.Parse(item.Split(new[] {'_'})[1]);
-                        var projectID = int.Parse(item.Split(new[] {'_'})[2]);
+                        var messageID = int.Parse(item.Split(new[] { '_' })[1]);
+                        var projectID = int.Parse(item.Split(new[] { '_' })[2]);
                         if (filterProjectID > 0 && projectID != filterProjectID) continue;
 
                         if (getEntity)
@@ -131,8 +133,8 @@ namespace ASC.Web.Projects.Configuration
                     {
                         if (item == null) continue;
 
-                        var taskID = int.Parse(item.Split(new[] {'_'})[1]);
-                        var projectID = int.Parse(item.Split(new[] {'_'})[2]);
+                        var taskID = int.Parse(item.Split(new[] { '_' })[1]);
+                        var projectID = int.Parse(item.Split(new[] { '_' })[2]);
                         if (filterProjectID > 0 && projectID != filterProjectID) continue;
 
                         if (getEntity)
@@ -196,15 +198,15 @@ namespace ASC.Web.Projects.Configuration
                 {
                     if (item == null) continue;
 
-                    var messageID = int.Parse(item.Split(new[] {'_'})[1]);
-                    var projectID = int.Parse(item.Split(new[] {'_'})[2]);
+                    var messageID = int.Parse(item.Split(new[] { '_' })[1]);
+                    var projectID = int.Parse(item.Split(new[] { '_' })[2]);
 
                     if (!_bindingProjectID.ContainsKey(projectID)) continue;
 
                     var localGroupID = _bindingProjectID[projectID];
                     if (localGroupID != moduleOrGroupID) continue;
 
-                    if(!_bindingMessageID[projectID].Contains(messageID)) continue;
+                    if (!_bindingMessageID[projectID].Contains(messageID)) continue;
 
                     return false;
                 }
@@ -231,8 +233,8 @@ namespace ASC.Web.Projects.Configuration
                 {
                     if (item == null) continue;
 
-                    var taskID = int.Parse(item.Split(new[] {'_'})[1]);
-                    var projectID = int.Parse(item.Split(new[] {'_'})[2]);
+                    var taskID = int.Parse(item.Split(new[] { '_' })[1]);
+                    var projectID = int.Parse(item.Split(new[] { '_' })[2]);
 
                     if (!_bindingProjectID.ContainsKey(projectID)) continue;
 
@@ -309,7 +311,7 @@ namespace ASC.Web.Projects.Configuration
                     {
                         if (item == null) continue;
 
-                        var subItems = item.Split(new[] {'_'});
+                        var subItems = item.Split(new[] { '_' });
                         var entityType = subItems[0];
                         var entityID = int.Parse(subItems[1]);
                         var projectID = int.Parse(subItems[2]);
@@ -322,7 +324,7 @@ namespace ASC.Web.Projects.Configuration
                             var generatedProjectID = Guid.NewGuid();
                             _bindingProjectID.Add(projectID, generatedProjectID);
                             _bindingProjectToGroup.Add(projectID,
-                                new SubscriptionGroup {ID = generatedProjectID, Name = project.HtmlTitle});
+                                new SubscriptionGroup { ID = generatedProjectID, Name = project.HtmlTitle });
                         }
 
                         if (entityType == "Message")
@@ -332,7 +334,7 @@ namespace ASC.Web.Projects.Configuration
 
                             if (!_bindingMessageID.ContainsKey(projectID))
                             {
-                                _bindingMessageID.Add(projectID, new List<int> {entityID});
+                                _bindingMessageID.Add(projectID, new List<int> { entityID });
                             }
                             else
                             {
@@ -347,7 +349,7 @@ namespace ASC.Web.Projects.Configuration
 
                             if (!_bindingTaskID.ContainsKey(projectID))
                             {
-                                _bindingTaskID.Add(projectID, new List<int> {entityID});
+                                _bindingTaskID.Add(projectID, new List<int> { entityID });
                             }
                             else
                             {
@@ -368,7 +370,7 @@ namespace ASC.Web.Projects.Configuration
 
         private IEnumerable<string> GetSubscriptions(INotifyAction action)
         {
-            return SubscriptionProvider.GetSubscriptions(action, 
+            return SubscriptionProvider.GetSubscriptions(action,
                 NotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString()), false);
         }
     }

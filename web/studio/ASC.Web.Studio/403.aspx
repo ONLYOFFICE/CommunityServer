@@ -1073,7 +1073,7 @@
 
     <body>
         <div id="logo-container">
-            <img id="logo" src="/TenantLogo.ashx?logotype=2&general=false" alt="" />
+            <img id="logo" src="/TenantLogo.ashx?logotype=2&general=false" alt="" onerror="document.getElementById('logo').remove()"/>
         </div>
         <div id="container">
             <svg id="background" width="753" height="361" viewBox="0 0 753 361" fill="none" xmlns="http://www.w3.org/2000/svg">

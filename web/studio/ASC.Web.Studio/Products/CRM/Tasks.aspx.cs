@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@
 
 
 using System;
+
 using ASC.CRM.Core;
-using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Controls.Tasks;
 using ASC.Web.CRM.Resources;
-using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.CRM
 {

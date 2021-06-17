@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,11 @@
 */
 
 
-using ASC.Common.Caching;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using ASC.Common.Caching;
 
 namespace ASC.Core.Caching
 {
@@ -96,6 +97,16 @@ namespace ASC.Core.Caching
             }
         }
 
+        public string[] GetRecipients(int tenant, string sourceID, string actionID, string objectID)
+        {
+            return service.GetRecipients(tenant, sourceID, actionID, objectID);
+        }
+
+        public string[] GetSubscriptions(int tenant, string sourceId, string actionId, string recipientId, bool checkSubscribe)
+        {
+            return service.GetSubscriptions(tenant, sourceId, actionId, recipientId, checkSubscribe);
+        }
+
         public SubscriptionRecord GetSubscription(int tenant, string sourceId, string actionId, string recipientId, string objectId)
         {
             var store = GetSubsciptionsStore(tenant, sourceId, actionId);
@@ -152,6 +163,10 @@ namespace ASC.Core.Caching
             return store;
         }
 
+        public bool IsUnsubscribe(int tenant, string sourceId, string actionId, string recipientId, string objectId)
+        {
+            return service.IsUnsubscribe(tenant, sourceId, actionId, recipientId, objectId);
+        }
 
         private class SubsciptionsStore
         {

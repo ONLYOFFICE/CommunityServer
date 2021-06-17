@@ -1,5 +1,5 @@
 ﻿<script id="emptyScrTmpl" type="text/x-jquery-tmpl">
-    <div id="${ID}" class="noContentBlock emptyScrCtrl" >
+    <div id="${ID}" class="noContentBlock emptyScrCtrl">
         {{if typeof(ImgCss)!="undefined" && ImgCss != null && ImgCss != ""}}
         <table>
             <tr>
@@ -8,20 +8,20 @@
                 </td>
                 <td>
                     <div class="emptyScrTd">
-        {{/if}}
-                    {{if typeof(Header)!="undefined" && Header != null && Header != ""}}
-                        <div class="header-base-big">${Header}</div>
-                    {{/if}}
-                    {{if typeof(HeaderDescribe)!="undefined" && HeaderDescribe != null && HeaderDescribe != ""}}
-                        <div class="emptyScrHeadDscr">${HeaderDescribe}</div>
-                    {{/if}}
-                    {{if typeof(Describe)!="undefined" && Describe != null && Describe != ""}}
-                        <div class="emptyScrDscr">{{html Describe}}</div>
-                    {{/if}}
-                    {{if typeof(ButtonHTML)!="undefined" && ButtonHTML != null && ButtonHTML != ""}}
-                        <div class="emptyScrBttnPnl">{{html ButtonHTML}}</div>
-                    {{/if}}
-        {{if typeof(ImgCss)!="undefined" && ImgCss != null && ImgCss != ""}}
+                        {{/if}}
+                        {{if typeof(Header)!="undefined" && Header != null && Header != ""}}
+                            <div class="header-base-big">${Header}</div>
+                        {{/if}}
+                        {{if typeof(HeaderDescribe)!="undefined" && HeaderDescribe != null && HeaderDescribe != ""}}
+                            <div class="emptyScrHeadDscr">${HeaderDescribe}</div>
+                        {{/if}}
+                        {{if typeof(Describe)!="undefined" && Describe != null && Describe != ""}}
+                            <div class="emptyScrDscr">{{html Describe}}</div>
+                        {{/if}}
+                        {{if typeof(ButtonHTML)!="undefined" && ButtonHTML != null && ButtonHTML != ""}}
+                            <div class="emptyScrBttnPnl">{{html ButtonHTML}}</div>
+                        {{/if}}
+                        {{if typeof(ImgCss)!="undefined" && ImgCss != null && ImgCss != ""}}
                     </div>
                 </td>
             </tr>
@@ -32,14 +32,14 @@
 
 <script id="emptyScrButtonTmpl" type="text/x-jquery-tmpl">
     {{each(index, button) buttons}}
-        {{if index > 0 && !button.skipNewLine}}
-        <div style="height:8px;"></div>
-        {{/if}}
+    {{if index > 0 && !button.skipNewLine}}
+    <div style="height:8px;"></div>
+    {{/if}}
 
-        {{if button.href != null}}
-        <a href="${button.href}" class="${button.cssClass} link {{if button.openNewTab }}underline{{else}}dotline{{/if}}" {{if button.openNewTab }}target="_blank"{{/if}}>${button.text}</a>
-        {{else}}
-        <a class="${button.cssClass} link dotline no-select">${button.text}</a>
-        {{/if}}
+    {{if button.href != null}}
+    <a href="${button.href}" class="${button.cssClass} link {{if button.openNewTab }}underline{{else}}dotline{{/if}}" {{if button.openNewTab }} target="_blank" {{/if}}>${button.text}</a>
+    {{else}}
+    <a class="${button.cssClass} link dotline no-select">${button.text}</a>
+    {{/if}}
     {{/each}}
 </script>

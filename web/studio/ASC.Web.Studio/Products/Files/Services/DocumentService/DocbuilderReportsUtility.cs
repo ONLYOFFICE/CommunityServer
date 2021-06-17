@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+
 using ASC.Common.Logging;
+using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Studio.Utility;
-using ASC.Common.Threading;
 
 namespace ASC.Web.Files.Services.DocumentService
 {
@@ -46,8 +47,8 @@ namespace ASC.Web.Files.Services.DocumentService
 
     public class ReportState
     {
-        public string Id { get; set; } 
-        public string FileName { get; set; } 
+        public string Id { get; set; }
+        public string FileName { get; set; }
         public int FileId { get; set; }
         public int ReportType { get; set; }
 
@@ -95,7 +96,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 null,
                 null)
             {
-                Id =  task.GetProperty<string>("id"),
+                Id = task.GetProperty<string>("id"),
                 FileId = task.GetProperty<int>("fileId"),
                 Status = task.GetProperty<ReportStatus>("status"),
                 Exception = task.GetProperty<string>("exception")
@@ -168,7 +169,7 @@ namespace ASC.Web.Files.Services.DocumentService
         protected void PublishTaskInfo()
         {
             var tries = 3;
-            while (tries -- > 0)
+            while (tries-- > 0)
             {
                 try
                 {
@@ -243,9 +244,9 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 var task = tasks.GetTasks().LastOrDefault(Predicate(origin));
                 if (task == null) return null;
-                
+
                 var result = ReportState.FromTask(task);
-                if ((int) result.Status > 1)
+                if ((int)result.Status > 1)
                 {
                     tasks.RemoveTask(task.Id);
                 }

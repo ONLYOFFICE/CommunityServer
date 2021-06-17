@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+
 using ASC.Core;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
@@ -103,7 +104,7 @@ namespace ASC.Files.Thirdparty.SharePoint
                 }
                 catch (InvalidOperationException)
                 {
-                    throw new ArgumentException("Provider id not found or you have no access");
+                    throw new ProviderInfoArgumentException("Provider id not found or you have no access");
                 }
             }
             return info;

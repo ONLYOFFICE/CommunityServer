@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2020
+ * (c) Copyright Ascensio System Limited 2010-2021
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1370,7 +1370,7 @@ window.ASC.TMTalk.notifications  = (function () {
                   body: content,
                   tag: marker,
                   timeout: 10000,
-                  //iconUrl: window.ASC.TMTalk.Resources.iconTeamlabOffice32
+                  //iconUrl: window.ASC.TMTalk.TalkResource.iconTeamlabOffice32
                   iconUrl: location.origin + data.avatar
               }).then(function (notification) {
                   if (notification !== null) {
@@ -1430,15 +1430,25 @@ window.ASC.TMTalk.notifications  = (function () {
                       console.log("Permission error:", err);
                   });
           } catch(exp) {
-              Notification.requestPermission()
-                 .then(function () {
-                     if (Notification.permission === 'denied') {
-                         return;
-                     }
-                     isDisabled = false;
-                     ASC.TMTalk.properties.item(propertyName, "1", true);
-                     jq('#button-browser-notification').addClass('on').removeClass('off');
-                 });
+
+              var callback = function () {
+                  if (Notification.permission === 'denied') {
+                      return;
+                  }
+                  isDisabled = false;
+                  ASC.TMTalk.properties.item(propertyName, "1", true);
+                  jq('#button-browser-notification').addClass('on').removeClass('off');
+              };
+
+              try {
+                  Notification.requestPermission().then(callback);
+              } catch (error) {
+                  if (error instanceof TypeError) {
+                      Notification.requestPermission(callback);
+                  } else {
+                      throw error;
+                  }
+              }
           }
         }
     };
