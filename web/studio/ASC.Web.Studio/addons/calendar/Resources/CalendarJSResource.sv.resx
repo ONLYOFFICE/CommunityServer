@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Godkänt:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Ansluta mejlkonton</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>skicka inbjudningar</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Evenemang</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Skapa ny händelse</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>Heldag</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>Lista</value>
+  </data>
+  <data name="calendarButtonNewText_todo" xml:space="preserve">
+    <value>Att-göra</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Månad</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Vecka</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Skapa ny kalender</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Färg:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Redigera kalender</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Importera händelse</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Textfärgen:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Tidzon:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Mina Kalendrar</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Andra Kalendrar</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Hantera</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Skapa ny händelse</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minuter</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 timmar</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>en halvtimme</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minuter</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>en dag</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>standard</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>en timme</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Varning:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Detta är en heldagsevenemang.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Heldags aktivitet</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Gäster:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Börja skriva in en mejladress eller kontaktnamn från din personal, dina CRM kontakter eller portalanvändare eller använd vilken mejladress som helst för att bjuda in personer till din evenemang.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalender:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Beskrivning:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Detaljer</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Händelse</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Från:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Skapa ny händelse</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Redigera händelse</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Se evenemang</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Ställe:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Fler detaljer</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Detta är inte en heldagsevenemang.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Valfritt</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organisatör:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Ägare:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>skräddarsydd</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>varje dag</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Upprepa:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>varje månad</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>varje vecka</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>varje år</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Obligatoriskt</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="calendarEventEditor_sentInvitationsLabel" xml:space="preserve">
+    <value>Skicka inbjudningar</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Användarna för delning</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Lägg till användare</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Denna evenemang är inte delad.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>Avbruten</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>Bekräftad</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>FÖRSÖK</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Evenemangsnamn:</value>
+  </data>
+  <data name="calendarEventEditor_timeLabel" xml:space="preserve">
+    <value>Tid:</value>
+  </data>
+  <data name="calendarEventEditor_todoButton" xml:space="preserve">
+    <value>Att-göra</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Till:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Säga upp prenumerationen</value>
+  </data>
+  <data name="calendarExportEvents_byLink" xml:space="preserve">
+    <value>Via länk</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>Från fil</value>
+  </data>
+  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
+    <value>Synkronisera med kalender genom följande länk</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>Importera till</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Det finns inga evenemang att visa.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Gömma mini-kalendrar</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Visa mini-kalendrar</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d evenemang</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>Ny kalender</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Lägg till användare för att dela</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Visa %d mer användare</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Delat med:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Redigera kalender</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Ägare:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Gömma i listan</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Snabbsökning</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Hantera andra kalendrar</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Tillämpa</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogHeader" xml:space="preserve">
+    <value>Radera att-göra</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogSingleBody" xml:space="preserve">
+    <value>Den raderade Att-göra kan inte återställas. Är du säker att du vill fortsätta?</value>
+  </data>
+  <data name="calendarTodoEditor_descriptionLabel" xml:space="preserve">
+    <value>Beskrivning:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Datum:</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_add" xml:space="preserve">
+    <value>Skapa att-göra</value>
+  </data>
+  <data name="calendarTodoEditor_dialogHeader_edit" xml:space="preserve">
+    <value>Ändra att-göra</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Titel:</value>
+  </data>
+  <data name="calendarTodoList_addTodoLabel" xml:space="preserve">
+    <value>Ny att-göra</value>
+  </data>
+  <data name="calendarTodoList_newTodoTitle" xml:space="preserve">
+    <value>ny att-göra</value>
+  </data>
+  <data name="calendarTodoList_noDueDate" xml:space="preserve">
+    <value>Inget överskridet datum</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>Försenad</value>
+  </data>
+  <data name="calendarTodoList_title" xml:space="preserve">
+    <value>Att-göra</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Kalendervy</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Listvy</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Evenemang inställd</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Skulle du vilja skicka inbjudningar till gäster?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Inbjudningar skickas</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Skicka ej</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Nya &amp; Raderade Gäster</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Skulle du vilja skicka annulleringar till befintliga gäster?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Avbrytningar skickas</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Ett fel inträffade vid sändning av aviseringar</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Aviseringar skickats</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Skulle du vilja skicka uppgraderingar till befintliga gäster?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Uppgraderingar skickas</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Vänligen välj vem du skulle vilja avisera om uppgraderingar: endast nya och borttagna gäster eller alla. Om du väljer 'Skicka ej'-optionen, ingen avisering kommer skickas.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Avböjd:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>All händelser i serien</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Tillämpa</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Denna och alla följande evenemang</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Ta bort återkommande händelse</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Den raderade evenemangen kan ej restaureras. Är du säker på att du vill fortsätta?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Ta bort händelse</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Endast denna evenemang</value>
+  </data>
+  <data name="dialogCopyMessage" xml:space="preserve">
+    <value>Länken har kopierats till klippbordet.</value>
+  </data>
+  <data name="dialogErrorMassageSpecCharacter" xml:space="preserve">
+    <value>Titeln kan inte innehålla någon av följande tecken: {0}</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Alla efterföljande förändringar kommer endast tillämpas på din kalender.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Evenemang gäster kommer aviseras. Använd dina egna kalendrar för att skicka aviseringar.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Gäster:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Välj fil</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="icalStream_export_description" xml:space="preserve">
+    <value>För att konfigurera export av händelser från denna kalender till en annan kalender, kopiera motsvarande länk och lägg till den i den kalender som önskas.</value>
+  </data>
+  <data name="icalStream_export_header" xml:space="preserve">
+    <value>Exportera och synkronisera</value>
+  </data>
+  <data name="icalStream_export_help" xml:space="preserve">
+    <value>Anslutningsinstruktioner i</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Hjälpcenter</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_export_todo_description" xml:space="preserve">
+    <value>För att konfigurera export av Att-göra till en annan kalender, kopiera motsvarande länk och lägg till den i kalendern.</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Exportera evenemang från ONLYOFFICE™ kalender</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>ingen fil vald</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>filen är utvald</value>
+  </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Importera händelse</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Importera/Exportera</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>Välj iCal-fil</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Importera evenemang i ONLYOFFICE™ kalender</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Felaktigt format av iCal filen</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Ange länken till iCal-flödet</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalender från iCal-flöd</value>
+  </data>
+  <data name="icalStream_preparing_error_message" xml:space="preserve">
+    <value>Länkpreparation misslyckades</value>
+  </data>
+  <data name="icalStream_preparing_message" xml:space="preserve">
+    <value>Förbereder länk för export</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal-flödlänk:</value>
+  </data>
+  <data name="menuDeleteMarkedTodo" xml:space="preserve">
+    <value>Dölj Att-göra som markerats klar vid sidladdning</value>
+  </data>
+  <data name="menuSyncLinks" xml:space="preserve">
+    <value>Exportera och synkronisera</value>
+  </data>
+  <data name="menuTodoInCalendar" xml:space="preserve">
+    <value>Visa Att-göra i kalendern</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>som börjar med</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>Efter</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>varje</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>varje</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>först</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Repetitionsinställning</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>månad</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>vecka</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>sist</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>dagar</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>Av</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>månader</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>veckor</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>antal gånger</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>datum</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>sist men inte minst</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>andra</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>tredje</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>gånger</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>slut</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Kanske</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Närvarande</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="todoViewer_dialogButton_edit" xml:space="preserve">
+    <value>Ändra</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_off" xml:space="preserve">
+    <value>Markera som oklar</value>
+  </data>
+  <data name="todoViewer_dialogButton_mark_on" xml:space="preserve">
+    <value>Markera som klar</value>
+  </data>
+</root>

@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Eveniment</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Crează un nou eveniment</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Crează</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>toată ziua</value>
+  </data>
+  <data name="calendarButtonNewText_list" xml:space="preserve">
+    <value>Listă</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Zi</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Lună</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Săptămână</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Crează un nou calendar</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Culoare:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Editează calendarul</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Culoarea textului:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Crează un nou eveniment</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minute</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 ore</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minute</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>o zi</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>o oră</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Alertă:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>niciodată</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Detalii</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="calendarEventEditor_eventButton" xml:space="preserve">
+    <value>Eveniment</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>De la:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Crează un nou eveniment</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Editează evenimentul</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Mai multe detalii</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Opțional</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>Zilnic</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Repetă:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>Lunar</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>niciodată</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>Săptămânal</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>Anual</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Necesar</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>ANULAT</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Stare:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>TENTATIVĂ</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Către:</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>Calendar nou</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Editează calendarul</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Data:</value>
+  </data>
+  <data name="calendarTodoEditor_titleLabel" xml:space="preserve">
+    <value>Titlu:</value>
+  </data>
+  <data name="calendarTodoList_Overdue" xml:space="preserve">
+    <value>Depășit</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Vizualizare calendar</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Eveniment anulat</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>De acord</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Trimite</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_export_try_again_button" xml:space="preserve">
+    <value>Încearcă din nou</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>după</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>fiecare</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>fiecare</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>zi</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>săptămână</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>an</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>zile</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>luni</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>săptămâni</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>ani</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>data</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>niciodată</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>Al doilea</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>al treilea</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>sfârșit</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="todoViewer_dialogButton_edit" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+</root>

@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>계정 접속 오류.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>오류가 계속 경우, 문제에 대한 자세한 내용은 {0} FAQ 섹션을 {1}을 (를) 참조하십시오.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>계정 연결 오류</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>계정 설정</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>계정</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>수행</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>당신은 % 1을 활성화 하시겠습니까?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>계정 추가</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>새로운 계정을 추가하고 ONLYOFFICE™ 메일을 시작하세요</value>
+  </data>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>조건 추가</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(알리아스)</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>그리고</value>
+  </data>
+  <data name="ApplyToLabel" xml:space="preserve">
+    <value>적용함</value>
+  </data>
+  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
+    <value>의 메시지에 적용</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>일부 입력 매개 변수가 잘못되었습니다.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>문서에 대한 액세스가 거부되었습니다.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>문서를 찾을 수 없습니다 또는 선택한 저장소에 존재하지 않습니다.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>빈 파일은 지원되지 않습니다.</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>참고 : 파일 크기가 % 1 MB를 초과 할 수 없습니다. 모든 파일의 총 크기는 % 2 MB보다 더 이상 할 수 없습니다.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>메시지를 찾을 수 없습니다.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>모든 첨부 파일의 총 크기는 제한을 초과합니다.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>일부 예기치 않은 오류가 발생했습니다. 나중에 다시 시도하십시오.</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>{0} 메일 계정에 연결하는 동안 오류가 발생했습니다. 모든 계정 설정을 확인하십시오. 당신은 모든 설정이 올바른지 확신하면, 그 표준 웹 인터페이스를 통해 사용하는 메일 서비스에 로그인하고 확인 질문을 확인, 경우에 몇 가지가 있습니다. 오류가 {1} {2} 문제 해결 섹션의 도움말 센터를 참조하시기 바랍니다.</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>아젠다</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>전체 일자</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>캘린더</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>참조</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>계정설정 변경</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>태그 선택</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>모두 접기</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>일반설정</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>새로운 CRM 회사를 만들기</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>새로운 CRM 사람을 만듭니다</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM 연락처</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>당신은 % 1을 (를) 비활성화 하시겠습니까?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>당신은 % 1을 (를) 삭제 하시겠습니까?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>당신은 %1 태그를 삭제할건가요?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>메시지를 삭제하기</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>배달 다음과 같은 메시지가 "{제목} '에 실패했습니다. {구분}가주세요 메시지의받는 사람 주소와 메시지 형식을 확인합니다. 귀하의 메시지가 정확하지 않은 경우, 모든 {ACCOUNT_NAME} 계정 설정을 확인하고, 모든이 맞다면, 당신이 사용하는 메일 서비스에 로그인하고 확인 질문을 확인, 경우에 몇 가지가 있습니다. 오류가 계속 경우에는 그 후 다시 시도해보십시오. {구분}, 문제에 대한 자세한 내용을 보려면 {faq_link_open_tag} FAQ 섹션을 {faq_link_close_tag}을 (를) 참조하십시오.</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>메시지를 배달하지 못했습니다</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>첫 번째 초안을 작성</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>임시 섹션 나중에 다른 사람에게 보낼 수있는 메시지를 생성하고 정렬 할 수 있습니다. 여기에서 가장 중요한 메시지를 체크하거나 불필요한 것들을 삭제할 수 있습니다.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>이 폴더에 표시 할 메시지가 없습니다</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>새 메시지를 작성</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>받은 편지함 섹션은 귀하가받을 메시지를 관리 할 수​​ 있습니다. 자, 통신 내역을 볼 태그를 사용하여 카테고리별로 가장 중요한 메시지, 그룹 이메일을 체크하거나 불필요한 것들을 삭제할 수 있습니다.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>어떤 메시지가 수신되는 없습니다</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>첫 번째 계정을 설정</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>바로 포털에서 순서대로 메시지를 보내고받을 수 유지하기 위해 계정을 설정합니다. 언제 어디서나 브라우저를 통해 메시지 기록, 주소록 및 파일에 대한 액세스 권한을 가지세요. 자신의 태그를 사용하여 정렬 메시지.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>계정이 아직 설정되지 않습니다</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>CRM으로 이동</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>이 연락처 목록은 CRM에서 모든 클라이언트를 포함합니다</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>연락처 목록이 비어 있습니다</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>새 메일 태그를 만듭니다</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>당신은 태그를 생성하고 그 후에 그것을 사용하려면 먼저 필요</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>생성되지 태그 없음</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>새 메일함</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>새 메시지를 작성</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>보낸 섹션 보내는 메시지를 관리 할 수​​ 있습니다. 여기 태그를 사용하여 카테고리별로 가장 중요한 메시지, 그룹 이메일을 체크하거나 불필요한 것들을 삭제할 수 있습니다.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>어떤 메시지가 아직 전송되지 않았습니다</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>스팸 섹션은 정크 메일로 식별 메시지가 들어 있습니다. 여기, 이메일을 삭제 '비 스팸'로 분류하거나 전체 섹션을 삭제할 수 있습니다.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>이 폴더에 표시 할 메시지가 없습니다</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>휴지통 섹션은 삭제 된 메시지가 들어 있습니다. 여기 몇 가지 이메일을 복구 할 수 또는 영구적으로 삭제합니다.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>이 폴더에 표시 할 메시지가 없습니다</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>이 계정은 이미 존재합니다</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>이 필드는 비워 둘 수 없습니다</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>'받는 사람' 필드가 비어있습니다</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>잘못된 주소</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>잘못된 주소</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>알 수없는 오류가 발생했습니다</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>이 메시지를 여는 동안 문제가 발생함.</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>모두 확장</value>
+  </data>
+  <data name="FilterActionMarkAsImportantLabel" xml:space="preserve">
+    <value>중요 표시</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>태그 추가</value>
+  </data>
+  <data name="FilterActionMoveToLabel" xml:space="preserve">
+    <value>메일함 이동</value>
+  </data>
+  <data name="FilterActionMoveToTarshLabel" xml:space="preserve">
+    <value>휴지통 이동</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>상세 옵션</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
+    <value>모든 메일사서함에 적용함</value>
+  </data>
+  <data name="FilterApplyToAttachemnts" xml:space="preserve">
+    <value>첨부파일이 있으면 적용</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>사용자 정의 기간</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>회사</value>
+  </data>
+  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
+    <value>선택한 모든 계정들이 삭제됨.</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>보낸 사람에서</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>중대한</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>구성원</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>읽음</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>보기</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>메일주소로</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>읽지 않은</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>첨부 파일이있는</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>기회</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>꼬리표있는</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>전달</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>전달 된 메시지</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>보낸이</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>이미지를 숨김</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>계정이 성공적으로 연결되었습니다</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>지난 30 일에 대한 모든 메일을 가져올 수 있습니다.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>가져 오기 메시지가 진행 중입니다. 그것은 시간이 좀 걸릴 수 있습니다. 이 창을 닫고 메일을 계속 사용하거나 브라우저를 닫을 수 있습니다.가져 오기는 백그라운드에서 계속됩니다.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>중대한</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>다른 서비스를 사용하여 수신 된 메시지의 일부는 이전 가져올 수 없습니다 될 수 있습니다. 자세한 내용은 {0} FAQ 섹션을 {1}에게 읽어 보시기 바랍니다.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>메일을 가져 오는 동안 오류가 발생하면, 자세한 내용은 {0} FAQ 섹션을 {1}에게 읽어 보시기 바랍니다.</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>첨부 파일을로드 ...</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>사서함을 만드는 중 ...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>사서함 업데이트 ...</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>서명 관리</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>중요 표시</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>메시지가 전송되지 않았습니다. \ r \ n 그래도 당신이 그것을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 더 있습니다</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>메시지 이동</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>새 계정 만들기</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>새 메시지</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>필터와 일치하는 메시지가이 폴더에 표시 할 수 없습니다. 이 폴더에있는 모든 메시지를 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>여기에서이 필터에 표시 할 메시지가 없습니다</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>중요 표시</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>스팸이 않입니다</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>기본 도메인 설정을 가져 오는 중 ...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>임시보관함</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>전달</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>답변</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>사용 가능한 디스크 저장 공간은 포털에서 초과되어 있습니다. 모든 메시지를로드 할 수 있으며, 새로운 메시지가 전송되지 수있는 것은 아닙니다. 받은 편지함에서 일부 메일을 삭제하거나 문서 모듈에서 일부 파일을 삭제하시기 바랍니다. 당신은 또한 더 많은 사용 가능한 디스크 공간이 할 수있는 가격 계획을 변경할 수 있습니다.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>사용 가능한 디스크 저장 용량이 초과</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>읽음</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>당신은 스팸에서 모든 메시지를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>당신은 휴지통에서 모든 메시지를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>에 관한</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>필터와 일치하는 CRM 연락처이 페이지에 표시 할 수 없습니다. 모든 CRM 연락처를 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>어떤 CRM 연락처는 여기에서이 필터 표시되지 할</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>필터 다시 설정</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>필터와 일치하는 ONLYOFFICE™ 연락처이 페이지에 표시 할 수 없습니다. 모든 ONLYOFFICE™ 연락처를 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>ONLYOFFICE™ 연락처는 여기에서이 필터 표시되지 않음</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>복원</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>복원 메시지</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>저장 메시지</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>이 계정이 비활성화되었습니다. 이 계정을 활성화하거나 다른 하나를 선택하십시오.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>메시지를 보내기</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>서버</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>스팸</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>CRM에서 수입. 이 태그를 편집하거나 삭제할 수 없습니다.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>태그</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>ONLYOFFICE™ 연락처</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>받는이</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>총 연락처 :</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>다시 시도</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>읽지 않은</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>서명 사용</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>첨부 파일이있는</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>태그없이</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>태그</value>
+  </data>
+</root>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>受信トレイでアカウントを確認してください。</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>メールアドレスを入力してください</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>またはソーシャル・ネットワークを介してポータルに入れます。</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>パスワードをお忘れですか？</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>個人的なONLYOFFICEは私的なクラウド・ストレージで文書、スプレッドシートとプレゼンテーションの無料なオンライン編集スイートです。</value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>Wordをオンラインで編集する、オンラインWord編集者、無料なWordオンライン、Wordオフィスオンライン</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>またはサインインする</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>｛email address｝に登録メールは送信されました</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>個人的なONLYOFFICEをご登録いただきありがとうございます。</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>個人的なオンラインオフィス</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>分かりました</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>ウェブサイトがクッキーを利用しています。引き続き当サイトをお使い続けることをもって、弊社の｛0｝プライバシー・ポリシー｛1｝に同意いただいたものと致します。</value>
+  </data>
+  <data name="CreatePersonalButton" xml:space="preserve">
+    <value>ONLYOFFICEアカウントを作成する</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>アカウントログイン</value>
+  </data>
+  <data name="RegistryButtonCreateNow" xml:space="preserve">
+    <value>今すぐ作成する</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>ONLYOFFICEニュースレターの申し込みます</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>ONLYOFFICE {0}諸条件{1}と{2}プライバシーポリシー{3}に同意します。</value>
+  </data>
+</root>

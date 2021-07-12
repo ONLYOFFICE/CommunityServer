@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_1" xml:space="preserve">
+    <value>h1。添加了新的Wiki頁面：“ $ PageName”：“ $ URL”
+
+$ Date“ $ UserName”：“ $ UserURL”創建了一個新的Wiki頁面：“ $ PageName”：“ $ URL”
+
+$ PagePreview
+
+“閱讀更多”：“ $ URL”
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想接收有關創建的新Wiki頁面的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_2" xml:space="preserve">
+    <value>
+h1.Wiki頁面已編輯：“ $ PageName”：“ $ URL”
+
+$ Date“ $ UserName”：“ $ UserURL”已編輯Wiki頁面：“ $ PageName”：“ $ URL”
+
+$ PagePreview
+
+“閱讀更多”：“ $ URL”
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想接收有關此Wiki頁面更改的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_3" xml:space="preserve">
+    <value>
+h1.Wiki頁面“ $ PageName”的新評論：“ $ URL”
+
+$ Date“ $ UserName”：“ $ UserURL”已在“ $ PageName”：“ $ URL” Wiki頁面上添加了新註釋：
+
+$ CommentBody
+
+“閱讀更多”：“ $ URL”
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。如果您不想收到有關添加到此Wiki頁面的新評論的通知，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="subject_1" xml:space="preserve">
+    <value>社區。添加了新的Wiki頁面：$ PageName</value>
+  </data>
+  <data name="subject_1_tg" xml:space="preserve">
+    <value>社區。添加了新的Wiki頁面：[$ PageName]（$ URL）</value>
+  </data>
+  <data name="subject_2" xml:space="preserve">
+    <value>社區。 Wiki頁面已編輯：$ PageName</value>
+  </data>
+  <data name="subject_2_tg" xml:space="preserve">
+    <value>社區。 Wiki頁面已編輯：[$ PageName]（$ URL）</value>
+  </data>
+  <data name="subject_3" xml:space="preserve">
+    <value>社區。 Wiki頁面的新評論：$ PageName</value>
+  </data>
+  <data name="subject_3_tg" xml:space="preserve">
+    <value>社區。 Wiki頁面的新評論：[$ PageName]（$ URL）</value>
+  </data>
+</root>

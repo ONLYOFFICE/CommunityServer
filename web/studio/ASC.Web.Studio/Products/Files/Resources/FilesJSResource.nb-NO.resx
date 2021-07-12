@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Eier</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Skrivebeskyttet</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Full tilgang</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Nekt tilgang</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Produktomtale</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Varierer</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arkiver</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mapper</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Bilder</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Presentasjoner</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Regneark</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Vis mer {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Laster opp...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Vis mer {0} av {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Forfatter</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Tittel</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Er du sikker på du vil fjerne {0} fra 'Dokument' modulen? Dette vil ikke påvirke {1} din konto på noen måte.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Er du sikker på du vil tømme papirkurven?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Er du sikker på du vil forlate denne siden? Nedlasting av filer vil avbrytes.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Er du sikker på du vil slette dokumentet?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Er du sikker på du vil slette mappen?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Er du sikker på du vil slette elementene?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Felles dokumenter</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Spesial-format</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Grupper</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Arkiverer data</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Endre data</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Fullfører versjon</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopier</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Opprettelse</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Laster inn versjoner...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Markerer som lest</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Flytt</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Sletter...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Omdøp</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Oppdaterer versjon</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Velg minst enn mappe/dokument å laste ned</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Legg inn en kommentar</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Du kan ikke laste opp en tom fil eller mappe</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Konverteringsfeil</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Alle felter må fylles ut</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Maksimal filstørrelse er overskredet</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Du må logge inn for å kunne tilføye</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Beklager, dette filformatet støttes ikke</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Vennligst vent på at den tidligere nedlastingen fullføres eller avbryt den.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å utføre handlingen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Du kan ikke utføre denne handlingen i denne mappen</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Tittelen kan ikke inneholde følgende tegn: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Portalens lagringsplass er brukt opp. Du kan ikke laste opp filer større enn {0}.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Filen med navnet {0} eksisterer allerede i mappen {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Konvertert</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Konverterer</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} dokumenter med det samme navn finnes allerede i mappen '{1}'. Overskrive disse filene?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Lastet opp</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Laster opp</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box mappe</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox mappe</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google mappe</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint mappe</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive mappe</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Mappe</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Mappe</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' endret</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} kopierte elementer</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' kopiert</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Ny fil '{0}' er opprettet</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Den nye '{0}' filen er opprettet i '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Ny mappe '{0}' er opprettet</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Du kan ikke kopiere mappen til dens egen undermappe</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Du kan ikke flytte mappen til dens egen undermappe</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Du har ikke tilgang til å flytte enkelte filer</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} flyttede elementer</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' flyttet</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Dokumentet '{0}' er slettet</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Mappen '{0}' er slettet</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Den ble slettet {0} fra {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Tredje part '{0}' er slettet</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Dokumentet '{0}' er omdøpt til '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Mappen '{0}' er omdøpt til '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' tilføyd '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} dokumenter ble lastet opp</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mine dokumenter</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Original-format</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andre</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Presentasjoner</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Kunne ikke laste opp filen {0} for visning</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Prosjekt-dokumenter</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>revisjoner: {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Regneark</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Arkiverer data</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopierer</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Sletter</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Markerer som lest</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} handlinger</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Flytt</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Endre {0} innstillinger for tilkobling</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Blir for øyeblikket redigert</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Den blir for øyeblikket redigert av: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Låst</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Låst av: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Flere funksjoner</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Ny presentasjon</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Nytt regneark</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Nytt dokument</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Ny mappe</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Felles innstillinger</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Hjelp</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Tilkoble konti</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Ukjent feil...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Opplasting fullført</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Laster opp ...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Laster opp {0} file(r). {1}% fullført.</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} av {1} brukt</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Brukere</value>
+  </data>
+</root>

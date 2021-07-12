@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>新しい機会を追加する</value>
+  </data>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>新規商談を保存して作成</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>すべての機会</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>ステーク</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>修正する</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>1日当たり</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>1時間当たり</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>1カ月当たり</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>1年当たり</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>支払再発</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>ステージ</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>段タイプ</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>機会コンタクト</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>最初の機会を追加</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>新しい機会を作成します。</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>段階における機会</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>他のユーザー</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>権限は、作成者である機会に設定されます</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>機会ステージ</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>営業担当者は見込み客の要件を識別するために、質問と答え、一連のセッションを取る</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>評価が必要</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>潜在的な買い手との接触は、将来の売上が見込みを理解するのに必要です</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>初期接触</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>障害が発生しました。機会が原因で視点の欠如に閉じている</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>不運に閉店</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>潜在的な買い手は、営業担当者の商品やサービスに関心を表明している</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>資格の見通し</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>営業担当者は顧客が彼/彼女の潜在的な買い手にできるかどうかを識別しようとし</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>初期フィット基準の適用</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>潜在的な買い手は、営業担当者からの書面による提供を受けている</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>提案</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>潜在的な買い手は、製品またはサービスを購入するために、金利および権限を有する個人または団体として識別され</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>疑う</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>潜在的な買い手はすでに詳細にあなたの提供を説明してきました</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>交渉</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>取引。機会が正常に閉じられている</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>閉鎖/トランザクション</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>段タイプ</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>商談参加者</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>商談参加者</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>機会タグ</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>機会のタグ一覧</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>機会タグ</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>機会を削除</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>削除機会</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>[編集]«{0}»機会</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>機会を編集</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>チャンスは、あなたのクライアントへの潜在的な販売を追跡できます。ビジネスプロセスに従って{0}機会ステージ{1}を決定し、すべてのクライアントに利益を計算し、ドキュメントをアップロード、タスクを割り当て、履歴を保持します。</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>あなたのフィルタに一致する機会は、このセクションに表示することはできません。このセクションのすべての商談を表示するために他のフィルタオプションまたは[Clear Filter]を選択してください。それはリストから不在である場合、またはあなたが機会を作成することができます。</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>ここで、このフィルター用に表示される機会がありません</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>商談リストは空です</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>機会のタイトルを入力してください</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>あらゆる機会、責任あるものを持っている必要があります</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>参加者リストは空です</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>企業や人物のリストから自分の機会に参加者を追加します。これが完了したら、連絡先をこの機会あなたが対処できる人に関連付けられているか知っている。</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>実績/見込期日</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>予算</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>連絡</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>参加者</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>ステージ/ステージタイプ</value>
+  </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>タイトルで機会を見つける</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>インポートの機会</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>適切に形成されたCSVファイルは、お使いのコンピュータのHDDに選択されるべきである。それは機会をインポートするために使用され、選択した区切り文字で区切られたフィールドまたは列を含める必要があります。 {0}行以上を含むファイルは、適切なインポートするための小さな部分に分割する必要があります。あなたは、インポートする情報へのアクセスを付与する必要がポータル·ユーザーを選択したことを確認し、CSVファイルからそうでなければ、データはすべてのポータル·ユーザーに利用できるようになります。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSVファイルを選択して、あなたはチャンスをインポートする前に、アクセス権を設定</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>対応ONLYOFFICE™ CRMのフィールドを使用してファイルの列と一致します。 "オポチュニティータイトル'、'責任機会を'：正確にあなたが少なくともあなたのファイルから次の列がONLYOFFICE™ CRMのフィールドと一致している必要があります機会をインポートするという事実にご注意くださいますようお願い申し上げます。日付を含むフィールドは、次の形式でなければなりません：{0}。通貨フィールドは、国際的な3文字のコード（例えばUSD、JPY、AUD）に応じて設定する必要があります。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>、フィールドを確認してください</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>機会リストに移動</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>機会のインポートでは、データの量に応じて数分かかることがあります。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>始めのインポート</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>既存の機会から選択するか、新しい機会を追加する</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>機会をリンクするか、作成する</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>私の機会</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>機会のタイトル</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>予算が設定されていません</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>他の機会の参加</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>参加者</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>機会へのアクセスを制限</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>成功確率</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>機会の責任</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>プロフィールに行く</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>新しいタブで開く</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>合計金額を表示</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>インポートを開始</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>商談の段階では取引を完了するために必要な手順を決定させる。デフォルトの機会ステージはアプローチ、ディスカッション、評価、交渉、約束、成功、ゼロ点です。それらを編集できるようにするには、ポータルの管理者権限が必要です。</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>総額</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>すべての機会</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>合計ページ数</value>
+  </data>
+</root>

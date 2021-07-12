@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Blog corporativo</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>O campo de post não pode estar vazio</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Comentários</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Tem certeza de que deseja eliminar a mensagem?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Editar post</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Não existem blogs criados</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Criar o primeiro blog</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Crie a sua própria página para partilhar informações de interesse, pensamentos e experiências com outros, emita as suas opiniões, obtenha feedback a partir dos comentários dos utilizadores.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Insira as tags necessárias, separando-as com vírgulas</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Adicionar nova mensagem</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Ler mais</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Pesquisar em blogs</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Subscrever para todos os posts dos utilizadores</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>A subscrição permite-lhe seguir novos posts dos utilizadores em blogs</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Novos posts do utilizador</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Subscrever para adicionar comentários</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>A subscrição permite-lhe acompanhar os novos comentários ao post</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Postar comentários</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Subscrever todos os posts</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>A subscrição permite-lhe seguir novos posts em blogs</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Novos posts do blog</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Cancelar a subscrição de posts do utilizador</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Cancelar a subscrição de comentários de posts</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Cancelar a subscrição em todos os posts</value>
+  </data>
+</root>

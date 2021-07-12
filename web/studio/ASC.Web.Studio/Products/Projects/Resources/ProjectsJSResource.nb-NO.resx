@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Legg til milepæl</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Bruk</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Velg ansvarlig</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakter</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Legg til ny oppgave</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Organisasjonsnavn</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>Søk etter en bedrift eller en person ved navn...</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Fornavn</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Etternavn</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>dager</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Diskusjonen ble ikke funnet</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskusjoner</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Endre milepæl</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Endre oppgave</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Hver beskjed må ha en</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Hvert prosjekt må ha en</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Hvert prosjekt må ha en tittel</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>Åpne oppgaver</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>Minimer oppgavelisen under milepælene</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>Utvid oppgavelisten under milepælene</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>Legg til</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Startdato</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>stengt</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>Sluttdato</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>høy</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>åpne</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Ansvarlig</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>milepæl</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Ny milepæl</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Ny oppgave</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>De siste endringene dine vil kanskje ikke bli lagret hvis du forlater siden nå.</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} ansvarlige brukere</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>Deloppgaver</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>Deloppgave</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Detaljer</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>oppgaver</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>Oppgaver uten milepæl</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>uke</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>valgte</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Datoformatet er ikke korrekt</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Ugyldig tidsformat</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Lagt til milepæl</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Milepælen er slettet</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Milepæler</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Milepælen er endret</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>Det er ingen aktive deltagere</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Ingen milepæl</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Prosjekter</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Prosjekter</value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>slutt-dato</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>slutt-start</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>start-stopp</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>start-start</value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>Fant ikke malen</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Lukket</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Lukket</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Midlertidig stanset</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Lagt til</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>Oppgaven er lagt til</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>Kan ikke finne oppgaven</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Oppgaver</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Prosjektgruppe</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Malen er lagret</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Ingen data</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Tidssporing</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>Til oppgavelisten</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>Vis alle åpne oppgaver</value>
+  </data>
+</root>

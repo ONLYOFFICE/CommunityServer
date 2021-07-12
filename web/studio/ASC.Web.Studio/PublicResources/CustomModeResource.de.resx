@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Alle Rechte vorbehalten.</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Personal ist ein kostenloses Online-Office für Bearbeitung der Textdokumente, Kalkulationstabellen und Präsentationen mit einem individuellen Cloud-Speicher.</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>word online bearbeiten, word editor online, word online kostenlos, word office online</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>Anmelden mit</value>
+  </data>
+  <data name="BrowserAndDesktopTextCustomMode" xml:space="preserve">
+    <value>Arbeit im Browser oder über die Desktop-Anwendung von ONLYOFFICE</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>Beginnen Sie, eine E-Mail-Adresse oder einen Kontaktnamen aus Ihren persönlichen Kontakten, CRM-Kontakten oder Portalbenutzern einzugeben, oder verwenden Sie eine andere E-Mail, um Personen zu Ihrer Veranstaltung einzuladen.</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>Überprüfen Sie Ihre E-Mail auf Kontobestätigung.</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>Gleichzeitiges Bearbeiten und einfaches Überprüfen</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>Zusammenarbeit an Dokumenten</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>100% Kompatibilität mit MS Office-Formaten</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>Verbindungsanweisungen</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>Konto erstellen</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>Cloud erstellen</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>Dokumentdiskussion</value>
+  </data>
+  <data name="DiscussionDocumentDescriptionCustomMode" xml:space="preserve">
+    <value>Verwenden Sie Kommentare und Chat, um die Arbeit an einem Dokument zu besprechen, ohne Online-Editoren zu verlassen.</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Dokument-Editor</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Dies hilft Ihnen, Textdokumente mit der Formatierung von beliebiger Komplexität einfach zu erstellen und zu bearbeiten.</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>Geben Sie Ihre E-Mail-Adresse ein</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>Anmelden mit</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>Kennwort vergessen?</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>Hier können Sie Ihre Portaladresse ändern. Geben Sie den Teil der Adresse ein, der neben der Portaladresse onlyoffice.com/onlyoffice.eu angezeigt wird.{0}{1}Bitte beachten Sie{2}: Ihre bisherige Portaladresse wird neuen ONLYOFFICE-Benutzern zur Verfügung stehen, sobald Sie auf die Schaltfläche {1}Speichern{2} klicken.</value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>Um ONLYOFFICE Enterprise Edition zu aktivieren, müssen Sie einen Lizenzschlüssel erwerben.</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}Online-Dokumenten-Editoren{1}{0}Dokumentenverwaltung{1}{0}E-Mail{1}{0}Projekte{1}{0}CRM{1}{0}Kalender{1}{0}Community{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>Kontoanmeldung</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>Mit der Cloud verbinden</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE ist immer zur Hand</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>Noch nicht registriert?</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Desktop</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>Verbinden Sie ONLYOFFICE mit der Cloud, um gemeinsam Dokumente zu bearbeiten, ohne die App zu verlassen.</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Online</value>
+  </data>
+  <data name="OfficeOnlineDescriptionCustomMode" xml:space="preserve">
+    <value>Sie benötigen nur einen Browser, um von überall aus arbeiten zu können. Zuverlässiges Hosting gewährleistet die Sicherheit Ihrer Daten.</value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>Online-Version von ONLYOFFICE</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>Kennwort</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>Hallo $UserName,
+
+Ihr Benutzerprofil wurde dem Portal unter "${__VirtualRootPath}":"${__VirtualRootPath}" erfolgreich hinzugefügt. Jetzt können Sie sich an die Arbeit begeben! 
+
+h3.Arbeiten Sie mit Dokumenten:
+
+# Erstellen und bearbeiten Sie Textdokumente, Tabellenkalkulationen und Präsentationen.
+# Verbinden Sie Cloud-Speicher, um einen einzigen Arbeitsbereich für alle Dokumente zu erstellen.
+# Teilen Sie Dokumente mit Ihren Teammitgliedern.
+# Entdecken Sie verschiedene Möglichkeiten für gleichzeitiges Bearbeiten von Dokumenten: zwei Modi, Review, Kommentare, Chat.
+
+h3.Verwenden Sie weitere ${LetterLogoText} Tools:
+
+# Fügen Sie Ihr E-Mail-Konto zu "${LetterLogoText} E-Mail":"${__VirtualRootPath}/addons/mail/" hinzu.
+# Erstellen Sie "Projekte":"${__VirtualRootPath}/products/projects/" und verwalten Sie Ihren Workflow mit Meilensteinen und Aufgaben.
+# Verwalten Sie Ihre Kunden in "CRM":"${__VirtualRootPath}/products/crm/".
+# Verwenden Sie "Community":"${__VirtualRootPath}/products/community/", um Blogs und Foren zu erstellen, Ereignisse hinzuzufügen und Lesezeichen zu teilen.
+# Organisieren Sie Ihren Arbeitsplan mit dem integrierten "Kalender":"${__VirtualRootPath}/addons/calendar/".
+# Öffnen Sie "Chat":"${__VirtualRootPath}/addons/talk/", um online mit Ihren Teamkollegen zu chatten.
+
+$GreenButton
+
+Mit freundlichen Grüßen,
+${LetterLogoText} Team</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Datei-Export erfolgreich abgeschlossen
+
+Nutzen Sie folgenden Link, um das Archiv herunterzuladen: "${EntityTitle}":"${EntityRelativeURL}"
+
+^Sie erhalten diese E-Mail, weil Sie ein registrierter Benutzer des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Ändern Sie die Art der Benachrichtigungen in den "Einstellungen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. Daten-Import erfolgreich abgeschlossen
+
+Zur "${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}" Liste.
+
+^Sie erhalten diese E-Mail, weil Sie ein registrierter Benutzer des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Ändern Sie die Art der Benachrichtigungen in den "Einstellungen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1.Willkommen bei ONLYOFFICE Personal
+
+Sie haben gerade Ihr Cloud-Office für persönliche Verwendung erstellt.
+
+h3.Das ist ein virtueller Arbeitsbereich, in dem Sie Dokumente bearbeiten und speichern und sie mit Ihren Freunden oder Kollegen teilen. Also können Sie mit Dateien von überall aus arbeiten.
+
+ONLYOFFICE ist mit Microsoft Office™-Formaten kompatibel und garantiert keinen Verlust an Formatierung oder Qualität der erstellten Objekte. Sie müssen sich keine Sorgen um Formatierung machen und zur Hand haben Sie umfassende professionelle Bearbeitungstools.
+
+h3.Hier ist eine schnelle Übersicht, was Sie in ONLYOFFICE machen können:
+
+- Dateien von Ihrem Computer hochladen und neue Dokumente erstellen;
+
+- Mit allen gängigen Dateiformaten arbeiten;
+
+- Formen, Diagramme, Tabellen, Gleichungen und andere Objekte bearbeiten;
+
+- Verschiedene Plugins für erweiterte Bearbeitungsfunktionen verwenden;
+
+- Über die "Chrome-Erweiterung":"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=de" auf Ihre ONLYOFFICE Personal-Cloud zugreifen.
+
+Sie können Dokumente auch offline mit unseren kostenlosen "Desktop Editoren":"https://www.onlyoffice.com/de/download-desktop.aspx" bearbeiten oder eine "mobile App":"https://www.onlyoffice.com/de/mobile.aspx" für Ihr iOS- oder Android-Gerät herunterladen.
+
+Mit freundlichen Grüßen,
+ONLYOFFICE Team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
+    <value>$PersonalHeaderStart Verbinden Sie Ihren bevorzugten Cloud-Speicher mit ONLYOFFICE $PersonalHeaderEnd
+
+Es ist nun schon eine Woche her, dass Sie Ihr Cloud-Büro eingerichtet haben, daher glauben wir, dass es an der Zeit ist, einige nützliche Funktionen zu aufzuzeigen, die Sie vielleicht noch nicht kennen.
+
+Verbinden Sie *Dropbox*, *Google Drive*, *Box*, *OneDrive*, *Nextcloud*, *ownCloud*, *kDrive* oder *Yandex.Disk* mit ONLYOFFICE und erstellen Sie einen einzigen Bereich zur Dokumentenverwaltung für all Ihre Dokumente. Damit können Sie externe Dateien in ONLYOFFICE bearbeiten und sie auf dem Speicherplatz speichern, auf dem Sie Ihre Dokumente aufbewahren. Lesen Sie "hier":"${__HelpLink}/tipstricks/add-resource.aspx" Einzelheiten über das Verbinden von Dateispeichern mit ONLYOFFICE.
+
+Sie können die ONLYOFFICE-Editoren auch über unsere "Connector-App" in Google Drive integrieren: "https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn".
+
+Wollen Sie tiefer in die Dokumentenverwaltung einsteigen?
+
+h3. Testen Sie ONLYOFFICE for business "in der Cloud":"https://www.onlyoffice.com/cloud-office.aspx" oder "auf Ihrem eigenen Server":"https://www.onlyoffice.com/server-solutions.aspx" 30 Tage lang kostenlos und testen Sie erweiterte Möglichkeiten der Dokumentenverwaltung zusammen mit einem Business-Toolset:
+
+- Verwalten Sie Dokumente eines Teams in Projekten;
+
+- Integrieren Sie Dokumente in CRM und E-Mail;
+
+- Dateien für Benutzergruppen freigeben;
+
+- Optimieren Sie Ihren Workflow mit Team-Kommunikationstools.
+
+Interessiert? Erfahren Sie mehr über "ONLYOFFICE for business":"http://www.onlyoffice.com/document-management.aspx".
+
+Mit freundlichen Grüßen,
+ONLYOFFICE-Team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_email_v115" xml:space="preserve">
+    <value>Möchten Sie Ihre E-Mail im Cloud-Konto ändern?
+
+Klicken Sie auf die unten stehende Schaltfläche und melden Sie sich* bei Ihrer Cloud an.
+
+$GreenButton
+
+Der Link ist 7 Tage gültig.
+
+*Wenn Sie in diesem Browser bei ONLYOFFICE nicht angemeldet sind, müssen Sie Ihre alte E-Mail-Adresse zur Bestätigung verwenden.
+
+Möchten Sie Ihre E-Mail-Adresse nicht ändern? Ignorieren Sie einfach diese Nachricht.</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
+    <value>Sie haben Änderung Ihres Kennworts angefordert, das zum Einloggen auf das Portal "${__VirtualRootPath}":"${__VirtualRootPath}" verwendet wird.
+
+Bitte folgen Sie dem Link unten, um Ihr Kennwort zu ändern:
+
+$GreenButton
+
+*Bitte beachten*: Dieser Link ist nur 7 Tage gültig. Bitte schließen Sie den Prozess der Passwortänderung innerhalb dieses Zeitraums ab.
+
+Ignorieren Sie diese Nachricht, falls Sie Ihr Kennwort nicht ändern möchten oder diese E-Mail versehentlich erhalten haben.
+
+Mit freundlichen Grüßen,
+ONLYOFFICE Team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Hallo,
+
+Sie haben gerade ein ONLYOFFICE-Konto für persönliche Verwendung registriert. Bitte folgen Sie "diesem Link":"$InviteLink", um die Registrierung zu bestätigen und ein Kennwort zu erstellen.
+
+Wenn Sie den Link nicht anklicken können, kopieren Sie ihn "$InviteLink":"$InviteLink" einfach in die Adressleiste Ihres Browsers.
+
+Mit freundlichen Grüßen,
+ONLYOFFICE Team</value>
+  </data>
+  <data name="pattern_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>Sie haben Löschen Ihres Kontos bei personal.onlyoffice.com beantragt. Folgen Sie dem Link, um das Löschen des Kontos abzuschließen (der Link ist 7 Tage lang gültig):
+
+$GreenButton
+
+*Bitte beachten*: Nach dem Löschen werden Ihr Konto und alle damit verbundenen Daten gemäß unserer "Datenschutzerklärung":"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0" dauerhaft gelöscht.
+
+Ignorieren Sie diese E-Mail, wenn Sie nicht fortfahren möchten.
+
+Bei Fragen wenden Sie sich bitte an "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Mit freundlichen Grüßen,
+ONLYOFFICE Team</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Hallo $UserName,
+
+Das Entfernen von Benutzerdaten "$FromUserName":"$FromUserLink" wurde erfolgreich abgeschlossen.
+
+Beim Entfernen persönlicher Daten es wurde freigegeben:
+
+# Dokumente - $DocsSpace
+# E-Mail - $MailSpace
+# Chat - $TalkSpace
+
+^Sie erhalten diese E-Mail, weil Sie ein registrierter Benutzer bzw. eine registrierte Benutzerin von "${__VirtualRootPath}":"${__VirtualRootPath}" sind.^</value>
+  </data>
+  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>h3.Neues Portal wurde registriert
+
+# Portal URL: "${__VirtualRootPath}":"${__VirtualRootPath}"
+# Vorname: $UserName
+# Nachname: $UserLastName
+# E-Mail: $UserEmail
+# Telefon: $Phone
+# Datum der Erstellung: $Date</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Präsentationseditor</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Sie erhalten alle Tools, um beeindruckende Präsentationen zu erstellen und dem Publikum jede Idee zu präsentieren.</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>Dieselben Operationen wie ein Benutzer durchführen|Dropbox-, Box- und sonstige Konten in der Sektion 'Gemeinsame Dokumente' verknüpfen|Zugriffsrechte für Dokumente und Ordner in der Sektion 'Gemeinsame Dokumente' gewähren</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Eigene Dateien sowie mit den entsprechenden Zugriffsrechten freigegebene Dokumente erstellen und bearbeiten|Anderen Benutzern Zugriff zum Lesen und Bearbeiten auf die Dokumente und Ordner gewähren|Dropbox, Box und andere Konten im Abschnitt "Meine Dokumente" verknüpfen</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>Jetzt erstellen</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>Ich möchte den ONLYOFFICE-Newsletter abonnieren</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>Ich stimme den ONLYOFFICE {0}Nutzungsbedingungen{1} zu</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>Aktivieren Sie die Review-Funktion, um Änderungen am Dokument vorzuschlagen, ohne es zu ändern.</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>Eine Aktivierungs-E-Mail gesendet an</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>Registrieren</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>Für die Cloud registrieren</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}Zwei-Faktor-Authentifizierung{1} ist eine Möglichkeit für Benutzer, das Portal sicher zu betreten. Nachdem die Anmeldeinformationen eingegeben wurden, muss Benutzer/in den Code aus der verbundenen Authentifizierungsanwendung eingeben.{2}Aktivieren Sie diese Option für sichereren Portalzugriff für alle Benutzer. {2}Um die vorgenommenen Änderungen zu übernehmen, klicken Sie auf die Schaltfläche {0}Speichern{1} unten.{2}</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Spreadsheet Editor</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Bietet professionelle Bearbeitung von Tabellenkalkulationen, hilft bei der Durchführung komplexer Berechnungen und der Organisation Ihrer Daten.</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>Willkommen bei ONLYOFFICE Personal</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>Verbinden Sie Ihren bevorzugten Cloud-Speicher mit ONLYOFFICE</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>ONLYOFFICE Personal-Passworthilfe</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Bitte aktivieren Sie Ihre E-Mail-Adresse</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>Löschung des ONLYOFFICE Personal-Kontos</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}. Entfernen von Benutzerdaten ist abgeschlossen.</value>
+  </data>
+  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>Neues Portal wurde registriert</value>
+  </data>
+  <data name="TariffNotPaidStandaloneCustomMode" xml:space="preserve">
+    <value>Sie benutzen ONLYOFFICE Enterprise Edition. {0}Support und Updates sind für Ihre Lizenz nicht mehr verfügbar{1}.</value>
+  </data>
+  <data name="TariffOverdueStandaloneCustomMode" xml:space="preserve">
+    <value>Sie verwenden ONLYOFFICE™ Enterprise Edition. {0}Support und Updates sind für Ihre Lizenz seit {2}{1} nicht mehr verfügbar.</value>
+  </data>
+  <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
+    <value>Sie verwenden ONLYOFFICE™ Enterprise Edition.</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>Nutzungsbedingungen</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>Vielen Dank für die Registrierung</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>Cloud für Zusammenarbeit</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>Persönliches Online-Office</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>Nachverfolgen von Änderungen</value>
+  </data>
+  <data name="TrackingChangesDescriptionCustomMode" xml:space="preserve">
+    <value>Wählen Sie einen der drei Anzeigemodi für die vorgenommenen Änderungen aus. Mithilfe verschiedener Anzeigemodi können Sie überprüfen, wie das Dokument aussehen wird, wenn Sie diese Änderungen akzeptieren oder ablehnen.</value>
+  </data>
+  <data name="TwoEditingModesCustomMode" xml:space="preserve">
+    <value>Zwei Modi für gemeinsame Bearbeitung</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>Im Schnellen Modus können Sie sehen, was Ihre Mitautoren tippen, weil sie sehen, was Sie tippen. Im Formalen Modus bearbeiten Sie Teile des Dokuments privat, und die Änderungen werden nach dem Speichern angezeigt.</value>
+  </data>
+</root>

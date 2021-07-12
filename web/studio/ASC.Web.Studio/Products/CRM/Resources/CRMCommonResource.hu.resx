@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Műveletek</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hozzáadás</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>{!group} hozzáadása</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Plusz információk</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Emailfiók hozzáadása</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Címke hozzáadása</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Résztvevő hozzáadása</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Esemény hozzáadása</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>A megjegyzés hozzáadása...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>{!user} hozzáadása</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Figyelmeztetés</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Megfelelő</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Mellékletek</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Szerző</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Vissza:</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Tudj meg többet...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategória</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Ügyek</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategória</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Változás</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Válaszd</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Bezárás</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Ablak bezárása</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Ablak bezárása</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Vessző</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Biztosan törli ezeket az elemeket?</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Kapcsolat beállítása</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Tartalom</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Pénznem átváltó</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Létrehozás dátuma</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Létrehozása</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Új kapcsolat létrehozása</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Projekt létrehozása</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Új címke hozzáadása</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Létrehozás dátuma</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Pénznem</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Alap árfolyamok</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Aktuális {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Egyéni időtartam</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>{0} napon belül</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} nappal túllépte a határidőt</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Esemény törlése</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Résztvevő törlése</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Címke törlése</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Felhasználó törlése</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Leírás</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Összes jelölés törlése</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Record duplikálás</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Üres fájlt</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Mennyiség bevitele</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>A fájl mérete meghaladja a {1}{0}{2}-t </value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Jelenlegi lista exportálása CSV-fájlba</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Létrehozás dátuma</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>határidő</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Felelős</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Tól</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Előzmény</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Találkozó</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Importáláskor az első sort törölje</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Kettőzés</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV-fájl beállításai</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Számlák</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Számla beállítások</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Legutolsó hónap</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Tudj meg többet...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Levél törzse</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Email szövegtörzs</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Másol</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Tól</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Email tárgy</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Számológép</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>A következő felhasználók számára elérhető: {!users}</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Hozzáférési jogok</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Exportálás befejezve</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Importálás teljesült</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Hozzáférés biztosítva</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Cég/személy</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Fájl csatolása</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Hívások</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Közös</value>
+  </data>
+</root>

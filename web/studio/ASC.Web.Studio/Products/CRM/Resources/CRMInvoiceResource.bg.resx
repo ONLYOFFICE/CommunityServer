@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Добавете и създайте нова фактура</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Добавете адрес за фактуриране</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Добавете адрес за доставка</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Добавяне на ред</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Адресът бе актуализиран успешно</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Създайте нов данък</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Създаване на данък</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Запазване и създаване на нов елемент</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Добавете тази фактура</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Всички фактури</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Прикачете документ</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>автоматично генерирани</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Бил До</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Валута</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Крайна дата</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Промяна на формата</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Всички бъдещи фактури ще имат формат за префикс/номер, като използвате полетата по-долу. Поставете отметка в съответното поле, за да генерирате автоматично номера.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Промяна на състоянието</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Клиентски бележки</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Ще бъдат показани във фактурата и в тялото на писмото, ако изпратите фактурата по пощата на ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>съвпада с клиента</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Създайте първа фактура</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Създаване на първия елемент</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Създайте първи данък</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Създаване на елемент</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Създаване на елемент от фактурата</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Създайте данък</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Създайте нова фактура</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Създайте нов елемент</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Създайте нов данък</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Валута</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да има валута</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} дни</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Тези условия по подразбиране ще се използват при бъдещи фактури.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете фактурата '{0}'?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Изтриването на фактурата ...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Елементът се изтрива ...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете елемента «{0}»?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете данъка «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Данните се изтриват ...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Изтрийте тази фактура</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Изтриване на фактури</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Отстъпка</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Изтегли</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Крайна дата</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Моля, задайте персонализирана дата или изберете една от предварителните настройки отдясно, за да свържете тази дата с датата на издаване.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Дата на издаване повече от датата на падежа</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Задължение при получаване</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да има дата на падеж</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Дублирайте и създайте нова фактура</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Дублирана фактура</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Дублирана фактура</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Дублирана фактура «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Редактирайте адрес за фактуриране</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Редактиране на адреса за доставка</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Редактиране на фактурата</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Редактиране на фактура «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Редактиране на данъка</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Този раздел ви позволява да зададете списък с елементи, които могат да бъдат включени във фактурите. След създаването на списъка можете да изберете необходимия елемент от него, който да добавите към платежния документ. Можете също така да добавяте нови елементи, когато е необходимо.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>В този раздел не могат да се показват елементи на фактури, съответстващи на филтъра ви. Моля, изберете други опции за филтриране или изчистете филтъра, за да видите всички елементи на фактурата в този раздел. Или можете да създадете елемента на фактурата, ако той липсва от списъка.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Тук няма да се показват елементи на фактури за този филтър</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Списъкът с продукти и услуги е празен</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Разделът 'Фактури' ви позволява да създавате платежни документи, с които можете да предоставите на клиентите си. След добавяне на фактурите тук ще се покаже списъкът на наличните.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>В този раздел не могат да се показват фактури, съответстващи на филтъра ви. Моля, изберете други опции за филтриране или изчистете филтъра, за да видите всички фактури в този раздел. Или можете да създадете фактурата, ако тя липсва от списъка.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Тук няма да се показват фактури за този филтър</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Списъкът с фактури е празен</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Данъците върху фактурите ви позволяват да създавате допълнителни данъци, специфични за страните или областите, в които живеете или в които живеете. Можете да добавите име на данъка, лихвен процент и описание. Можете също да добавяте нови данъци, когато е необходимо.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Списъкът с данъци върху фактурите е празен</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Няма намерени възможности</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Избери предмет</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Полето за данък не може да бъде празно</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Полето за тарифата не може да бъде празно</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Нито един</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Цената е празна</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Цената е непокрита</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Количеството е неправилно</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>стойността на ставката е неактуална</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Валутен курс</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Трябва да попълните това поле</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Данъчното име вече съществува</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Материални запаси</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Име на предмета</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Количество на запаса</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Данъци</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Намерете по заглавие, SKU или описание</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Фактура</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да има клиент</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Получател</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Вашата CRM валута по подразбиране се използва за задаване на цени в каталога за продукти и услуги. &lt;br/&gt; За да го промените, моля, отидете в &lt;a href="settings.aspx?type=currency" target="_blank"&gt; Валутни настройки &lt;/ a &gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Архив</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Една или повече артикули с фактури имат отрицателни количества</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>С инвентар</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Без запаси</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Език на фактурата</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Всяка фактура трябва да има език</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Номер на фактура</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Номерът на фактурата вече е зает</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Фактура</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Данъчно 1 име</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Тарифа за данък 1</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Данъчно 2 име</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Тарифа за данък 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Данъкът с такова име вече е регистриран</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Категориите данъци ви позволяват да създавате допълнителни данъци, специфични за страните или областите, в които живеете или в които живеете. Можете да добавите име на данъка, лихвен процент и описание.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Можете да изтриете данъчната категория само в случай, че не се използва в раздела Продукти и услуги.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Данъчно име</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Скорост</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Датата на фактурата</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да има дата</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Вещ</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Вашата CRM валута по подразбиране. &lt;br/&gt; За да я промените, моля, отидете в &lt;a href="?type=currency" target="_blank"&gt; Валутни настройки &lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Добавете количеството артикули, които имате в момента. Този номер ще намалява всеки път, когато елементът се добавя към фактурата. Когато получите повече рекламни места, просто го добавете към текущия си инвентар тук.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Връзка с възможност</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Направете фактура</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Маркирайте като чернова</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Маркирайте като платен</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Маркиране като отхвърлено</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Маркирайте като фактурирани</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Форматът е неправилен или фактурата със същия номер вече съществува</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Началният номер е празен</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да има номер</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Просрочен</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Номер на пощенска кутия</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Префикс</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Печат</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Продукти и услуги</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Изберете продукт или услуга от списъка или добавете нов</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да съдържа елементи</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Настройките на номера се запазват ...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Настройките за запазване се запазват ...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>При запазването на фактурата възникна грешка '{0}'. Моля, опитайте отново по-късно.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Продавач</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Изпратен по имейл</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Задаване по подразбиране</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Задаване на стандартни условия</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Задайте празно</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Кораб</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Показване на профила на фактурата</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Отваряне в нов раздел</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Начален номер</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Единица за съхранение на запаси (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Междинна сума</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Данък</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Условия</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Всяка фактура трябва да има условия</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Общо за фактурата</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Общо фактури</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Проследяване на рекламните места</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Актуализиране на елемент «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Актуализирайте данъка «{0}»</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Промените се запазват ...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+</root>

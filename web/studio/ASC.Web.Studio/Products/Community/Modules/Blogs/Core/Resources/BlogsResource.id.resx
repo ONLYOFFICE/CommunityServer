@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Blog perusahaan</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Semua posting penulis</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Kolom topik posting tidak boleh kosong</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Tambahkan komentar</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Anda yakin ingin menghapus posting ini?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Teks</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Edit Posting</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Blog belum dibuat</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Buat blog pertama</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Buat halaman Anda sendiri untuk berbagi informasi, gagasan dan pengalaman menarik dengan pembaca, mengekspresikan pendapat Anda, dan mendapatkan masukan dari komentar pengguna lain.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Masukkan tag dan pisahkan dengan tanda koma</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Buat posting baru</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Terbitkan</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Penulis</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Baca selengkapnya</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Cari di dalam blog</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tampilkan pada halaman</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Berlangganan semua posting pengguna</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Dengan berlangganan, Anda dapat memantau posting baru oleh pengguna di dalam blog</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Posting baru oleh pengguna</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Berlangganan komentar posting</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Dengan berlangganan, Anda dapat memantau komentar posting yang baru</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Posting komentar</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Berlangganan semua posting</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Dengan berlangganan, Anda dapat memantau posting baru di dalam blog</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Posting blog baru</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Pilih teks yang ingin disembunyikan dari halaman umpan dan halaman daftar blog, kemudian klik tombol  "Text Cut"</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut </value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Berhenti berlangganan posting oleh pengguna</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Berhenti berlangganan komentar posting</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Berhenti berlangganan semua posting</value>
+  </data>
+</root>

@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsAlready" xml:space="preserve">
+    <value>Already have account?</value>
+  </data>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>Check your email inbox to confirm the account.</value>
+  </data>
+  <data name="AuthDocsConnect" xml:space="preserve">
+    <value>Connect any cloud</value>
+  </data>
+  <data name="AuthDocsDisclaimer" xml:space="preserve">
+    <value>The user reviews are taken from {0}Capterra.com{1}. Capterra reviews constitute the subjective opinions of individual end users based on their own experiences and do not represent the views of Capterra or its affiliates.</value>
+  </data>
+  <data name="AuthDocsDontHave" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="AuthDocsDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>Enter your email address</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>Or enter via your social networks</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="AuthDocsHearTheWeb" xml:space="preserve">
+    <value>Hear the web</value>
+  </data>
+  <data name="AuthDocsLogIn" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE Personal is a free online editing suite for text documents, spreadsheets and presentations with an individual cloud storage.</value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>edit word online, word editor online, word online free, word office online</value>
+  </data>
+  <data name="AuthDocsOnlineDesktopMobile" xml:space="preserve">
+    <value>Online, Desktop &amp; Mobile</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>or sign in</value>
+  </data>
+  <data name="AuthDocsPowerfulTexts" xml:space="preserve">
+    <value>Work with text documents</value>
+  </data>
+  <data name="AuthDocsPowerfulCollaboration" xml:space="preserve">
+    <value>Collaborate online</value>
+  </data>
+  <data name="AuthDocsPowerfulCollaborationSub" xml:space="preserve">
+    <value>Invite anyone via links to edit documents together or get reviews on your work. Choose between multiple access rights, comment, track changes, chat, and browse version history.</value>
+  </data>
+  <data name="AuthDocsPowerfulSheets" xml:space="preserve">
+    <value>Organize data in spreadsheets</value>
+  </data>
+  <data name="AuthDocsPowerfulSheetsSub" xml:space="preserve">
+    <value>Organize, examine, and calculate any complex data. Apply over 430 formulas. Create and edit pivot tables.  Add table style templates, change sheet views, adjust layouts and prepare tables for printing.</value>
+  </data>
+  <data name="AuthDocsPowerfulSlides" xml:space="preserve">
+    <value>Create presentations</value>
+  </data>
+  <data name="AuthDocsPowerfulSlidesSub" xml:space="preserve">
+    <value>Choose from multiple layouts and style options, create schemes and infographics for any purpose, present comfortably with Presenter View.</value>
+  </data>
+  <data name="AuthDocsPowerfulTextSub" xml:space="preserve">
+    <value>Write and edit professionally with all formatting features you’ll ever need. Add shapes, charts, tables and other objects. Apply layout elements, add endnotes and footnotes, cross-references, page numbers and more. Review and compare texts.</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>Your activation email has been sent to </value>
+  </data>
+  <data name="AuthDocsSignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="AuthDocsSoftpedia" xml:space="preserve">
+    <value>Softpedia</value>
+  </data>
+  <data name="AuthDocsSoftpediaQuote" xml:space="preserve">
+    <value>OnlyOffice Personal is an online editor that packs the necessary tools to create Microsoft compatible documents, spreadsheets, and presentations, and collaboratively work with team members.</value>
+  </data>
+  <data name="AuthDocsSubtitle" xml:space="preserve">
+    <value>Highly compatible with MS Office formats</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>Thank you for registering your Personal ONLYOFFICE™.</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>Your personal online office</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>Personal online office</value>
+  </data>
+  <data name="AuthDocsToLogin" xml:space="preserve">
+    <value>Go back to Login</value>
+  </data>
+  <data name="AuthDocsToMainPage" xml:space="preserve">
+    <value>Go to main page</value>
+  </data>
+  <data name="AuthDocsUsingChrome" xml:space="preserve">
+    <value>Using Google Chrome? Add our friendly Chrome extension.</value>
+  </data>
+  <data name="AuthDocsYourEmail" xml:space="preserve">
+    <value>Your e-mail*</value>
+  </data>
+  <data name="AuthDocsAccessYourDocs" xml:space="preserve">
+    <value>Access your documents from anywhere.</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>Got it!</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>This website uses cookies. By continuing to browse the website you agree to our {0}privacy policy{1}</value>
+  </data>
+  <data name="CreatePersonalButton" xml:space="preserve">
+    <value>Create ONLYOFFICE account</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>Account Login</value>
+  </data>
+  <data name="RegistryButtonCreateNow" xml:space="preserve">
+    <value>Create now</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>I want to subscribe to the ONLYOFFICE newsletter</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>I agree to ONLYOFFICE {0}Terms and conditions{1} and {2}Privacy statement{3}</value>
+  </data>
+  <data name="AuthDocsAccessQuickly" xml:space="preserve">
+    <value>Access ONLYOFFICE personal quickly.</value>
+  </data>
+  <data name="AuthDocsFreeDesktopApp" xml:space="preserve">
+    <value>Download {0}free desktop app{1} to edit files offline or connect to your cloud.</value>
+  </data>
+  <data name="AuthDocsWorkWithDocs" xml:space="preserve">
+    <value>Work with documents {0}on-the-go{1} with {2}ONLYOFFICE mobile applications{3}.</value>
+  </data>
+  <data name="AuthFooterBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+</root>

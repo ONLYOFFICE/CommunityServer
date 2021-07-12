@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>Reklam har tillagts</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Författare</value>
+  </data>
+  <data name="BlogsModule" xml:space="preserve">
+    <value>Bloggar</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>Bokmärket har tillagts</value>
+  </data>
+  <data name="BookmarksModule" xml:space="preserve">
+    <value>Bokmärken</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>Användare</value>
+  </data>
+  <data name="CancelCommentBtn" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="CommentErrorMsg" xml:space="preserve">
+    <value>Tillgångsfel under kommentarinlaggning</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakter</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Innevarande månad</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Innevarande vecka</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskussioner</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Filer</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Mappar</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>Omröstning har lagts till</value>
+  </data>
+  <data name="ForumsModule" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Medlemmar</value>
+  </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>Ny</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>Nyhet, har lagts till</value>
+  </data>
+  <data name="OtherFeedsCountMsg" xml:space="preserve">
+    <value>+{0} mer</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Andra användare</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>Person har lagts till</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>Omröstning har lagts till</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="PublishCommentBtn" xml:space="preserve">
+    <value>Publicera</value>
+  </data>
+  <data name="ReplyCommentBtn" xml:space="preserve">
+    <value>Svara</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Ansvariga användare</value>
+  </data>
+  <data name="SharedFileCreatedInFolderText" xml:space="preserve">
+    <value>Du har beviljats tillgång till en dokument i mappen</value>
+  </data>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>Du har beviljats tillgång till dokument</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>Du har beviljats tillgång till mappen</value>
+  </data>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Lägg till Kommentar</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>Igår vid</value>
+  </data>
+</root>

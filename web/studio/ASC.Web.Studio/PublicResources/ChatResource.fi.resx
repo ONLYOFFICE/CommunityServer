@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChatRoomInvite" xml:space="preserve">
+    <value>Kutsu pikaviesti huoneeseen</value>
+  </data>
+  <data name="ClearText" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
+  <data name="CloseAllWindows" xml:space="preserve">
+    <value>Sulje kaikki chat-ikkunat</value>
+  </data>
+  <data name="CloseItem" xml:space="preserve">
+    <value>Sulje nimike</value>
+  </data>
+  <data name="CloseMessageWindowAltTitle" xml:space="preserve">
+    <value>Sulje ikkuna</value>
+  </data>
+  <data name="ExtendChatAltTitle" xml:space="preserve">
+    <value>Laajenna: mini-pikaviesti</value>
+  </data>
+  <data name="GoTalk" xml:space="preserve">
+    <value>Ole hyvä ja vaihda Talk toimintoon.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Käytä Ctrl+Enter toimintoa viestin lähetykseen</value>
+  </data>
+  <data name="HintSounds" xml:space="preserve">
+    <value>Ota äänet käyttöön</value>
+  </data>
+  <data name="InputNotificationMessage" xml:space="preserve">
+    <value>Kirjoita viestisi...</value>
+  </data>
+  <data name="MinimizeAllWindows" xml:space="preserve">
+    <value>Pienennä kaikki mini-chat ikkunat</value>
+  </data>
+  <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
+    <value>Pienennä kaikki ikkunat kun eivät ole kohteena</value>
+  </data>
+  <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
+    <value>Pienennä ikkuna</value>
+  </data>
+  <data name="NewMessageLabel" xml:space="preserve">
+    <value>Uusi viesti</value>
+  </data>
+  <data name="RestoreAllWindows" xml:space="preserve">
+    <value>Laajenna kaikki mini-chat ikkunat</value>
+  </data>
+  <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
+    <value>Laajenna ikkunaa</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Palvelimen virhe.</value>
+  </data>
+  <data name="ShowHideChatAltTitle" xml:space="preserve">
+    <value>Näytä/piilota mini-pikaviesti</value>
+  </data>
+  <data name="ShowInvisibleWindows" xml:space="preserve">
+    <value>Näytä näkymättömät ikkunat (dialogit)</value>
+  </data>
+  <data name="SmallChatOptionsAltTitle" xml:space="preserve">
+    <value>Vaihtoehdot</value>
+  </data>
+  <data name="SmileysAltTitle" xml:space="preserve">
+    <value>Hymiöt</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Poissa</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Ei ole saatavilla</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Uloskirjautunut</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Sisäänkirjautuneena</value>
+  </data>
+  <data name="TypingMessage" xml:space="preserve">
+    <value>kirjoitetaan viestiä...</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Ei hakuehtojasi vastaavia yhtyeystietoja</value>
+  </data>
+</root>

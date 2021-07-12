@@ -1,0 +1,3059 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>Tel.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>O programe</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Verzia</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Prístupové práva</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Prístup do modulu {0} je udelený </value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Pridať skupinu</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Pridať používateľa</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Všetci {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Zmeniť vlastníka portálu</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Zmeny sa vykonajú po potvrdení e-mailu.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Ak chcete zmeniť vlastníka portálu, nižšie vyberte meno nového vlastníka portálu.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>Modul {0} je zakázaný a na portáli sa nezobrazuje. Ak ho chcete povoliť, prejdite do sekcie Moduly &amp; Nástroje v nastaveniach portálu</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>{!user} zoznam je prázdny</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Úplný prístup</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Mať rovnaké prístupové práva ako vlastník portálu okrem práv|Zmeniť vlastníka portálu|Deaktivovať alebo vymazať portál</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Vlastník portálu môže</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Urobiť to isté čo správcovia modulov|Priradiť správcov modulu|Nastaviť prístupové práva k modulom|Spravovať konfiguráciu portálu|Spravovať používateľské účty|Zmeniť vlastníka portálu|Zálohovať dáta portálu|Deaktivovať alebo vymazať portál</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} správcovia môžu</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>Používatelia modulu {0} môžu</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>Používatelia modulu {0} môžu mať rôzne prístupové práva</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Používateľom zo zoznamu</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Váš účet je takmer aktívny</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Potvrdenie</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Deaktivácia portálu</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Pred odstránením portálu sa uistite, že je automatická fakturácia vypnutá. Môžete skontrolovať stav automatickej fakturácie v {0}Avangate účte{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Odkaz na potvrdenie operácie bol odoslaný na: email (e-mailová adresa majiteľa portálu).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Zmazanie portálu</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Odkaz na potvrdenie operácie bol odoslaný na: email (e-mailová adresa majiteľa portálu).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Odošlite kód znova</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Zadajte kód</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Aktivujte e-mail ešte raz</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Pole validačného kódu nemôže byť prázdne</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Zadajte číslo mobilného telefónu</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Vytvoriť skupinu</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Pridať skupiny</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Pridať povolené IP adresy</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Pridať komentár</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Pridať dôveryhodnú doménu</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Pridať používateľov</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Pridať používateľov</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Správca</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Upozornenia správcu</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Poslať správu</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Nemáte prístup k portálu?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>E-mailová adresa, ktorá môže byť použitá na Vaše kontaktovanie</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Kontaktujte administrátora portálu</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Vaša správa bola úspešne odoslaná. Správca portálu vás bude kontaktovať.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Nastavenia správ správcovi</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Prosím, opíšte Váš problém</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Ak ste existujúci {!user} a máte problémy s prístupom na tento portál alebo sa chcete zaregistrovať ako nový {!user} portálu, kontaktujte správcu portálu pomocou nižšie uvedeného formulára.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Správcovia</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Affiliate Status</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Všetky domény</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Všetky práva vyhradené</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>© Ascensio System SIA {0}.Všetky práva vyhradené.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Odpoveď</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Odpoveď</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Aplikácie</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Rozšírte funkčnosť online kancelárie pomocou integrácie so službami tretích strán. Obráťte sa na svojho administrátora portálu, aby ste povolili služby, ktoré potrebujete.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>Získajte viac informácií v našom {0}Centre pomoci{1}
+
+</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Pripojiť</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Pripojený</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Odpojiť</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Nepripojený</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentifikácia</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Autorizácia</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Integrácia služieb tretích strán</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Autorizačné kľúče sú možnosťou, ktorá Vám umožňuje pripojiť Váš portál ONLYOFFICE ™ k službám tretích strán, ako je Twitter, Facebook, DropBox atď. Prepojte svoj portál s Facebookom, Twitterom alebo Linkedom, ak nechcete, aby ste svoje portálové poverenia zadávali zakaždým keď do neho vstúpite. Prepojte ho s takými službami, ako je DropBox, OneDrive atď., pre presun dokumentov zo všetkých týchto úložisk do ONLYOFFICE™  modulu Dokumenty.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Podmienky používania</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Zakázať</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Túto možnosť použite na automatické zálohovanie údajov portálu.</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Automatická záloha</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>Možnosť {0}Automatické zálohovanie{1} sa používa na automatizáciu procesu zálohovania dát v portáli, aby bolo možné ho neskôr obnoviť na lokálnom serveri. Vyberte si miesto uloženia dát, časový interval zálohovania a maximálny počet uložených kópií.{2}{0}Upozornenie:{1} skôr ako môžete uložiť zálohované údaje na účet tretích strán (DropBox, Box.com, OneDrive alebo Google Drive), budete musieť tento účet pripojiť k priečinku ONLYOFFICE Všeobecné dokumenty.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Prejdite na titulnú stránku</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Záloha</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Maximálny počet záložných kópií, ktoré sa majú uložiť</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE dokumenty</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>DropBox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Stiahnuť zálohu</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Vytvoriť kópiu</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Zahrnúť Mail do zálohy</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Nie sú pripojené žiadne služby tretích strán.{0}Pre pripojenie prejdite do modulu "Dokumenty".</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Zálohu môžete prevziať na vašu lokálnu jednotku pomocou nižšie uvedeného odkazu. Odkaz bude
+                                         aktívny 24 hodín od vyžiadania.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Úložisko</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Dočasný</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Túto možnosť použite, ak chcete získať všetky údaje obsiahnuté na portáli ako súbor.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Skôr ako budete môcť uložiť Vaše zálohy do priečinka Všeobecné dokumenty v ONLYOFFICE, musíte pripojiť účet tretej strany (DropBox, Box.com, OneDrive alebo Google Drive).</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Pridať skupinu</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Dátum narodenia</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Prehliadač</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Pridať nový kontakt</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>Zakázať</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Hovor</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Hovor je skončený</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Pripájanie</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Hovor prebieha</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Prichádzajúci</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Všetky údaje ktoré ste zadali sa stratia. Naozaj chcete pokračovať?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Pošta bola úspešne zmenená</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Zmeniť logo</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Odkaz na potvrdenie operácie bol odoslaný na: email (e-mailová adresa majiteľa portálu).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Feb, Mar, Apr, Máj, Jún, Júl, Aug, Sep, Okt, Nov, Dec</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Vybrať</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Vyberte vlastníka</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Vyberte používateľa</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Vyčistiť filter</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Zatvoriť</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Jasne modrá</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Tmavozelená</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Tmavo modrá</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Jemná zelená</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Čisto oranžová</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Farebné témy</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Divoká ružová</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentáre</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>komentár bol zmazaný</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Odpojiť</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potvrdenie</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Potvrdenie</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Prosím potvrďte, že chcete deaktivovať Váš portál </value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Prosím potvrďte, že chcete odstrániť svoj portál </value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Naozaj chcete zmeniť adresu portálu na {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Vlastník portálu sa úspešne zmenil. {0}Za 10 sekúnd budete presmerovaní {1}tu{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Prosím potvrďte, že chcete zmeniť vlastníka portálu na {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Pripojiť</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Úspešne ste potvrdili svoju registráciu. Vytvorte heslo a začnite pracovať!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Prosím potvrďte, že chcete svoj portál opätovne aktivovať</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Naozaj chcete odstrániť svoj komentár?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Odstrániť komentár</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Gratulovať</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Pripojiť</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>prihlásenie</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Pripojte službu Bitly, aby ste skrátili odkazy na pozvánky na portál a zdieľané odkazy v module Dokumenty.</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Ak pridáte službu Bitly, získate skrátené odkazy na pozvanie nových používateľov na portál ONLYOFFICE™ a tiež skrátené odkazy na dokumenty v module Dokumenty, ktoré boli zdieľané s externými používateľmi.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>prihlásenie</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Box Kľúč</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu a spravujte súbory a priečinky.</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu služby Box, budete môcť pripojiť svoj účet Box do modulu Dokumenty. To umožní nahrávať a vytvárať nové súbory v Box-e, upravovať existujúce, kopírovať a mazať, zdieľať súbory a priečinky s užívateľmi portálu ONLYOFFICE ™.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Box Kľúč</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Povoliť aplikáciu pre dvojfaktorovú autentifikáciu cez Clickatell.
+
+</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>Pridaním aplikácie služby Clickatell budete môcť povoliť dvojfaktorové overovanie a dostať SMS s kódom, ktorý umožní užívateľovi vstúpiť do portálu ONLYOFFICE.
+
+</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSign Kľúč</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>Tajný kľúč DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu pre pridanie elektronického podpisu DocuSign do dokumentov.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>Koncový bod autentifikácie DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu služby DocuSign, budete môcť podpísať súbory z modulu Dokumenty. Umožní to poslať súbor elektronického podpisu zamestnancom portálu ONLYOFFICE™ cez službu DocuSign. Podpísaný súbor sa uloží do modulu Dokumenty v ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSign Kľúč</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>Koncový bod autentifikácie DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>Tajný kľúč DocuSign</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>DropBox Kľúč</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu na správu Dropbox súborov a priečinkov.</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu služby Dropbox, budete môcť prepojiť svoj účet Dropbox do modulu Dokumenty. To umožní nahrávať a vytvárať nové súbory v Dropbox-e, upravovať existujúce, kopírovať a mazať, zdieľať súbory a priečinky s používateľmi portálu ONLYOFFICE ™.</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>DropBox Kľúč</value>
+  </data>
+  <data name="ConsumerseasyBibappkey" xml:space="preserve">
+    <value>App key</value>
+  </data>
+  <data name="ConsumersEasyBibKey" xml:space="preserve">
+    <value>App key</value>
+  </data>
+  <data name="ConsumersEasyBibSecret" xml:space="preserve">
+    <value>App key</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookAccessToken_Default" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook kľúč</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook kľúč v CRM</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu a prihláste sa na portál pomocou účtu Facebook a vyhľadajte kontakty.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu Facebook, budete môcť Váš Facebook-ový účet prepojiť s Vaším profilom a prihlasovať sa s ním do ONLYOFFICE™. Taktiež budete môcť vyhľadať svoj kontakt z Facebook-u v module CRM a pripojiť ho na stránke 'Upraviť osobu / spoločnosť'.</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook kľúč</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>App Token</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>Api kľúč</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>Serverový kľúč</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>ID odosielateľa</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>ID projektu</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Pripojte službu Firebase Cloud Messaging ak chcete dostávať notifikácie o správach, ktoré Vám boli zaslané.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Ak sa pripojíte na Firebase Cloud Messaging, budete môcť dostávať notifikácie o správach, ktoré Vám budú zaslané, aj keď budete offline.</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>Api kľúč</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>ID odosielateľa</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>ID projektu</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Serverový kľúč</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google Kľúč</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Pripojte projekt a prihláste sa na portál pomocou účtu Google a spravujte súbory a priečinky Google Drive.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Ak pridáte projekt služby Google, budete môcť prepojiť svoj účet Google na svojej stránke profilu, čo Vám umožní prihlásiť sa ním na portál ONLYOFFICE™ a zároveň pripojiť Váš účet Google Drive do modulu Dokumenty. To umožní nahrávať a vytvárať nové súbory v Google Drive, upravovať existujúce, kopírovať, mazať a zdieľať súbory a priečinky s používateľmi portálu ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google Kľúč</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu a prihláste sa na portál pomocou účtu LinkedIn.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu LinkedIn, budete môcť Váš LinkedIn účet prepojiť s Vaším profilom a prihlasovať sa s ním do ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin Kľúč</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive
+</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive Kľúč</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu na správu súborov a priečinkov OneDrive.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu služby OneDrive, budete môcť pripojiť svoj účet OneDrive do modulu Dokumenty. To umožní nahrávať a vytvárať nové súbory v aplikácii OneDrive, upravovať existujúce, kopírovať a mazať, zdieľať súbory a priečinky s používateľmi portálu ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive Kľúč</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMS centrum</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>Povoliť aplikáciu na dvojfaktorové overenie prostredníctvom centra SMS.
+
+</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>Po pridaní aplikácie služby SMS Center budete môcť povoliť dvojfaktorové overovanie a prijať SMS s kódom, ktorý umožní užívateľovi vstúpiť do portálu ONLYOFFICE. Aplikácia SMS Center je užitočná ako poskytovateľ služieb pre krajiny CIS.
+</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Prihlásenie</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>Prihlásenie</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>Heslo alebo heslo MD5 hash malými písmenami
+
+</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Heslo alebo heslo MD5 hash malými písmenami
+
+</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Účet Sid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Auth Token</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Pridajte službu Twilio, aby ste mohli volať CRM kontakty priamo z prehliadača.</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Po pridaní služby Twilio budete môcť volať ľubovoľným CRM kontaktom priamo z prehliadača.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Účet Sid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Telefónne číslo od spoločnosti Twilio (vyžadované pre autorizáciu prostredníctvom SMS)
+
+</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Auth Token</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Telefónne číslo od spoločnosti Twilio (vyžadované pre autorizáciu prostredníctvom SMS)
+
+</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Prístupový token</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Tajný prístupový token</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter v CRM Kľúči</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter kľúč</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Pripojte aplikáciu a prihláste sa na portál pomocou účtu Twitter a vyhľadajte kontakty.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Ak pridáte aplikáciu Twitter, budete môcť Váš Twitter účet prepojiť s Vaším profilom a prihlasovať sa s ním do ONLYOFFICE™. Taktiež budete môcť vyhľadať svoj kontakt z Twitter-u v module CRM, pripojiť ho na stránke 'Upraviť osobu / spoločnosť' a sledovať Twitter novinky.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Prístupový token</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter kľúč</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Tajný prístupový token</value>
+  </data>
+  <data name="ConsumersWordpress" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>ID klienta</value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>Klientské tajomnstvo</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Povoliť aplikáciu pre import kontaktov Yahoo.
+
+</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Po pridaní aplikácie služby Yahoo budete môcť zo zoznamu kontaktov pridať nových používateľov portálu ONLYOFFICE.
+
+</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>ID klienta</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Klientské tajomnstvo</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktné informácie</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Pokračovať</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Ovládací panel</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Ovládací panel</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Nastavenia súborov cookie{1} umožňujú nastaviť dobu trvania súboru cookie v minútach. {2} Po uložení budú všetci používatelia portálu odhlásení.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Životnosť</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Nastavenia dočasných súborov</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopírovať odkaz</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Firemné použitie</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Obnova hesla pre používateľa LDAP je zakázaná</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Obnova hesla je zakázaná pre SSO používateľa </value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Vytvoriť nový profil</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>Vytváranie záloh</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Vlastné meno domény</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Prispôsobenie</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Vlastný</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Pridať položku</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Pridať položku</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Zálohovanie dát</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>Možnosť {0}Zálohovanie dát{1} sa používa na zálohovanie údajov portálu, aby ho bolo možné neskôr obnoviť na lokálny server. Vyberte miesto ukladania údajov (nezabudnite zadať podrobnosti služby Amazon, aby ste k ním mali prístup).{2}
+Ak sa rozhodnete zahrnúť poštu, zálohujú sa iba správy za posledných 30 dní. {2}
+{0}Poznámka:{1} skôr ako budete môcť ukladať svoje zálohy, potrebujete prepojiť účet tretej strany (DropBox, Box.com, OneDrive alebo Google Drive) do priečinka ONLYOFFICE Všeobecné Dokumenty.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Správa dat</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>deň</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>dní</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>dní</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Deaktivovať</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Deaktivovať</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Váš účet bol úspešne deaktivovaný. {0} Za 10 sekúnd budete presmerovaní {1} tu {2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Deaktivácia/Odstránenie portálu</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Túto možnosť použite na dočasnú deaktiváciu portálu.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Výber Modulu</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Predvolená úvodná stránka</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Predvolené nastavenia</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Táto akcia sa nedá vrátiť späť.
+Chcete naozaj odstrániť {0} {!group}?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Váš portál bol úspešne vymazaný. {0} Za 10 sekúnd budete presmerovaní {1}tu{2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Vymazať môj profil</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Odoslať pokyny k zmazaniu profilu na e-mailovú adresu</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Odstrániť dialóg profilu</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Vymazať profil</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} bude odstránený.</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>Osobné dokumenty používateľa, ktoré sú k dispozícii ostatným, budú odstránené. Aby ste tomu zabránili, musíte pred odstránením spustiť proces preradenia údajov.</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Túto možnosť použite na trvalé odstránenie portálu.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Upraviť skupinu</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Zakázaný</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Zakázať</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!user} sa nezobrazí v zozname aktívnych {!users}</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Odkaz na potvrdenie operácie bol odoslaný na {0} (e-mailová adresa majiteľa portálu).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>Nastavenia DNS</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Dokumentová služba</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Umiestnenie Dokumentovej služby určuje adresu servera s nainštalovanou dokumentovou službou. Prosím v riadkoch nižšie zmeňte reťazec '&amp;lt;editors-dns-name&amp;gt;' pre adresu servera, zvyšok riadku nechajte presne tak, ako je.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Umiestnenie Dokumentovej služby</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Adresa editovacej služby Dokumentu</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Príklad: {0}</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Stiahnuť</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>Pred {0}</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} deň</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} dní</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} dní</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>presne</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} hodina</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} hodín
+</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} hodín
+</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minúta</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minút</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minút</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} mesiac</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} mesiacov</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} mesiacov</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} rok</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} rokov</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} rokov</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Predvčerom</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Zajtra</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Upraviť profil</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Pokyny na aktiváciu budú odoslané na zadaný e-mail</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Použite odkaz uvedený v aktivačnom e-maile. Nedostali ste e-mail s odkazom na aktiváciu?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Aktivujte svoj e-mail, aby ste získali prístup ku všetkým funkciám portálu.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Opätovne požiadajte o aktiváciu</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Na vašu e-mailovú adresu bol odoslaný aktivačný e-mail. Ak chcete svoj účet aktivovať, postupujte podľa odkazu v správe.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Aktivačný e-mail</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Potvrď heslo</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Váš portál je zaregistrovaný v nasledujúcej doméne:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Nesprávne heslo</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Nesprávna e-mailová adresa</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Nesprávny promo kód</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Máte promo kód? Zadajte ho sem</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Váš portál je zaregistrovaný z nasledujúceho e-mailu:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Tieto nastavenia boli úspešne uložené</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Zmeň to</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Zadajte heslo</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Heslo a jeho potvrdenie sa nezhodujú</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Zmeniť email</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Pokyny na aktiváciu budú odoslané na zadaný e-mail</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Zmena e-mailu</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Email nie je aktivovaný</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Všetky {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Vyhľadávanie zamestnancov</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Neexistujú žiadne dáta, ktoré by zaberali miesto v úložnom priestore</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Povoliť LDAP overovanie</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Povoliť SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user} sa opäť zobrazí ako aktívny</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Zadajte novú e-mailovú adresu</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Na zobrazenie tejto stránky nemáte povolenie</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Chyba 403 - Prístup odmietnutý</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Nemáte povolenie na vykonanie tejto akcie</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Prístup do portálu je obmedzený.</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Zlé kľúče</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Zlá požiadavka</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Neplatný e-mail alebo uplynula platnosť odkazu</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Váš profil je pozastavený</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} s týmto e-mailom je už zaregistrovaný</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>E-maily z tejto domény nie sú povolené na registráciu</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Pole e-mail je prázdne</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Aktuálny e-mail a nový e-mail sú rovnaké</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Vyplňte prosím všetky polia</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Nahraný súbor sa nenašiel</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Zadajte svoju e-mailovú adresu</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Zadajte svoje krstné meno</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Zadajte svoje priezvisko</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Platnosť odkazu vypršala</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Veľkosť obrázku je príliš veľká</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Veľkosť súboru obrázka je príliš veľká</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Neplatný odkaz na aktiváciu</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Prístup do portálu je obmedzený</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Dátum registrácie musí byť neskorší ako dátum narodenia</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Do tohto poľa môžete zadať až 255 znakov.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Do tohto poľa môžete zadať až 64 znakov.</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Váš prehliadač nepodporuje JavaScript!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Váš cenový plán túto možnosť nepodporuje</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Neplatný formát dátumu</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Nesprávny e-mail</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Neplatný názov domény</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Heslo je prázdne.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>od {0} do {1} znakov</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Heslo musí obsahovať</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Musí obsahovať</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>číslice</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>špeciálne znaky</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>veľké písmená</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Neznámy typ súboru obrázka</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Používateľa sa nepodarilo nájsť</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Používateľ s e-mailom "{0}" nebol nájdený</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>EÚ Región (Írsko)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Každý deň</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Každý mesiac</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Každý týždeň</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Spätná väzba &amp; Podpora</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Žena</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Maximálna veľkosť súboru je prekročená</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Poznámka: Veľkosť súboru nesmie presiahnuť {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB,TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>za obdobie</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>posledné 3 mesiace</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>minulý mesiac</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>minulý týždeň</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Odkaz na potvrdenie Vášho účtu bol odoslaný na zadaný e-mail</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Krstné meno</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Zabudli ste heslo?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Ak sa chcete prihlásiť, postupujte podľa tohto {0}odkazu{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Služba vyhľadávania v celom texte nie je spustená</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Služba vyhľadávania v celom texte je spustená</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Nastavenia Sphinx</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>Ak chcete použiť plno-textové vyhľadávanie, musíte na svojom serveri nainštalovať Sphinx.2.2.10.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Nastavenia pre prácu so sphinx-om, indexer-om a spustením vyhľadávacieho agenta. Musíte zadať hostiteľa a číslo portu, kde bude vyhľadávací agent počúvať. Tieto nastavenia sa musia zhodovať s konfiguráciou sphinx v sekcii vyhľadávania v súbore sphinx.conf.in.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Získajte skrátený odkaz</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Nastavenia úvodnej stránky</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Vedúci skupiny</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Skupiny</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Návštevník</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Návštevníci</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Ak si želáte {1}deaktivovať{2} portál, Váš portál a všetky súvisiace informácie budú zablokované, aby k nim nikto nemal prístup  na určité obdobie. Ak to chcete urobiť, kliknite na tlačidlo {1}Deaktivovať{2}. Odkaz na potvrdenie operácie bude odoslaný na e-mailovú adresu majiteľa portálu.{0}V prípade, že sa chcete vrátiť späť na portál ONLYOFFICE™ a pokračovať v jeho používaní, budete musieť použiť druhý odkaz uvedený v potvrdzovacom e-maile. Prosím, ponechajte tento e-mail na bezpečnom mieste. {0} Ak si myslíte, že nebudete používať portál ONLYOFFICE ™ a chceli by ste Váš portál {1}odstrániť{2} natrvalo, kliknite na tlačidlo {1}Vymazať{2}. Nezabudnite, že nebudete môcť Váš portál opätovne aktivovať alebo obnoviť žiadne súvisiace informácie.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Nastavenia správ správcovi{2} je spôsob, ako kontaktovať správcu portálu.{0}Zapnite túto možnosť, ak chcete zobraziť kontaktný formulár na {1}Prihlasovacej{2} stránke, aby ľudia mohli poslať správu správcovi v prípade, že majú problémy s prístupom na portál.{0}Ak chcete uložiť parametre, ktoré ste nastavili, kliknite na tlačidlo {1}Uložiť{2} v dolnej časti sekcie.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Farebné motívy{2} Vám umožnia prispôsobiť portálové rozhranie podľa značky Vašej spoločnosti. {0}Vyberte jeden z farebných motívov zo zoznamu na ľavej strane.{0}Ak chcete použiť zvolený farebný motív, kliknite na tlačidlo {1}Uložiť{2} v spodnej časti tejto sekcie.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Predvolená úvodná stránka{1} je možnosť vybrať modul, na ktorý prejdete priamo po prihlásení na portál, alebo po kliknutí na logo ONLYOFFICE™, ak ste už prihlásený. Kliknutím na tlačidlo {0}Uložiť{1} v dolnej časti sekcie Vašu voľbu uložíte.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}Nastavenie služby DNS{2} je spôsob, ako nastaviť alternatívnu webovú adresu pre Váš portál ONLYOFFICE ™.{0}Zaškrtnite políčko {1}Vlastné meno domény{2} a nižšie zadajte vlastný názov domény pre portál ONLYOFFICE™ . {0}Ak chcete nastavené parametre potvrdiť, kliknite na tlačidlo {1}Uložiť{2} v dolnej časti sekcie.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Nastavenie uvítacej stránky{2} je spôsob, ako zmeniť predvolený názov portálu, ktorý sa má zobraziť na {1}úvodnej stránke{2} Vášho portálu. Rovnaký názov sa používa aj v poli {1}Od{2} v e-mailových oznámeniach portálu. {0} Do poľa {1}Názov{2} zadajte požadovaný názov.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Zdieľajte odkaz a pozvite svojich kolegov na Váš portál.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Nastavenia jazyka a časového pásma{2} je spôsob, ako zmeniť jazyk celého portálu pre všetkých používateľov portálu a nakonfigurovať časové pásmo tak, aby sa všetky udalosti portálu ONLYOFFICE ™ zobrazili so správnym dátumom a časom.{0}Aby sa nastavili parametre, ktoré ste nastavili, kliknite na tlačidlo {1}Uložiť{2} v dolnej časti sekcie.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Nastavenie loga{2} je spôsob, ako zmeniť predvolené logo, ktoré sa má zobraziť na {1}úvodnej stránke{2} vášho portálu. {0} Ak chcete nahradiť logo portálu, kliknite na {1}Zmeniť logo{2} vpravo a vyberte obrázok uložený v počítači a nahrajte ho na váš portál.{0}Prosím, majte na pamäti, že nemôžete nahrať obrázok väčší ako {1}250x100 pixelov{2}, inak sa zmení jeho rozmer. Maximálna veľkosť obrázka nesmie presiahnuť {1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Nastavenie domény dôveryhodnej pošty{2} je spôsob, ako určiť poštové servery používané na registráciu používateľov. {0}Môžete skontrolovať možnosť {1}Vlastné domény{2} a zadať server dôveryhodnej pošty v nižšie uvedenom poli, takže osoba, ktorá má účet na ňom, sa bude môcť zaregistrovať po kliknutí na odkaz Pripojiť na {1}Prihlasovacej{2} stránke alebo zakázať túto voľbu.{0} Ak chcete nastavené parametre uložiť kliknite na tlačidlo {1}Uložiť{2} v dolnej časti.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Nastavenie sily hesla{2} je spôsob, ako zistiť odolnosť hesla proti využitiu útokov hádania a hrubej sily. {0}Pomocou lišty {1}Minimálna dĺžka hesla{2} určte, aké dlhé by malo byť heslo. Začiarknutím príslušných políčok nižšie určite súbor znakov, ktorý sa má použiť v hesle.{0}Ak chcete uložiť parametre, ktoré ste nastavili, kliknite na tlačidlo {1}Uložiť{2} v dolnej časti sekcie.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Verejný portál{2} je bezplatná možnosť, ktorá umožňuje komukoľvek zobraziť váš verejný obsah bez registrácie. Žiadne súkromné projekty nie sú k dispozícii a modul CRM je pre takéto portály zakázaný.{0}Registrácia na verejných portáloch nie je obmedzená počtom používateľov, na žiadosť správcu portálu sa pridávajú noví používatelia. Pomocou možnosti {1}Registrovať nových používateľov ihneď{2} odstránite nutnosť potvrdenia registrácie.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Tu môžete zmeniť adresu portálu. Zadajte časť, ktorá sa zobrazí vedľa adresy portálu onlyoffice.com/onlyoffice.eu. {0}
+{1}Upozornenie{2}: Po kliknutí na tlačidlo {1}Uložiť{2} bude Vaša stará adresa portálu dostupná novým používateľom ONLYOFFICE.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Verzia portálu{2} je spôsob, ako prepínať medzi dostupnými verziami portálu ONLYOFFICE™.{0} Môžete buď použiť novú verziu alebo prepnúť späť na predchádzajúcu verziu portálu. Ak chcete uložiť parametre, ktoré ste nastavili, kliknite na tlačidlo {1}Uložiť{2} v dolnej časti sekcie.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Šablóna tímu{2} je možnosť, ako pomenovať organizáciu (alebo skupinu), jej členov a ich aktivity.{0}Rozbaľte zoznam {1}Šablóna{2} ak chcete vybrať jednu z dostupných možností alebo zadajte vlastné názvy, vybraním možnosti {1}Vlastné{2} zo zoznamu.{0}Ak chcete použiť vybranú šablónu, použite tlačidlo {1}Uložiť{2} v dolnej časti sekcie.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Migrácia portálu na servery v regióne, ktorý je najbližšie k vašej geografickej polohe, urýchli reakciu portálu. Čím bližšie budú Vaši používatelia a klienti k oblasti servera, tým rýchlejšia bude odozva portálu{0}Ak chcete spustiť proces migrácie, kliknite na tlačidlo {1}Zmeniť región servera{2} v spodnej časti sekcie. {0}{1} Poznámka: {2} Po spustení procesu, už migráciu nemôžete zrušiť. Upozorňujeme tiež, že z dôvodu technických obmedzení bude prenesená iba pošta za posledných 30 dní.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Centrum pomoci</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Účelom programu je legálne inzerovať ONLYOFFICE™ na získanie provízie za predplatné zakúpené jednotlivcami.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skryť</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Zadajte svoj AIM účet </value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Zadajte svoj profil služby Blogger</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Zadajte svoj e-mail</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Zadajte svoj Facebook profil </value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Zadajte svoje prihlasovacie meno alebo ID</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Vložte svoj účet GoogleTalk</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Zadajte svoj GoogleBuzz profil </value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Zadajte svoj Google účet </value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Zadajte svoj ICQ účet</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Zadajte svoj Jabber účet </value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Zadajte svoj LiveJournal profil </value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Zadajte svoje číslo mobilného telefónu</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Zadajte svoj MSN účet </value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Zadajte svoj profil MySpace</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Zadajte svoje telefónne číslo</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Zadajte svoj Skype účet</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Zadajte svoj Twitter profil</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Zadajte svoj Yahoo účet</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Prihlasovacie meno</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Prihlasovacie heslo</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} už existuje</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Neboli prijaté žiadne kontakty. {0} Môžete tiež importovať kontakty z iných profilov.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Zadajte krstné meno používateľa</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Zadajte priezvisko používateľa</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Zadajte svoj e-mail</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Zadajte svoje krstné meno</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Chyba pri importovaní</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Zadajte svoje priezvisko</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Do vyššie uvedených polí prosím zadajte krstné meno, priezvisko a e-mail používateľa {!user}, ktorý bude pridaný do portálu. Kliknutím na tlačidlo "Pridať" pridajte {!user} do zoznamu.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Krstné meno</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Zo súboru</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Zvolený súbor na import má nesprávny formát. {0} Vyberte iný súbor a znova zopakujte import.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Pridať používateľov do portálu</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Uistite sa, že všetky používateľské polia vrátane krstného mena, priezviska a e-mailovej adresy sú vyplnené správne</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Priezvisko</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Importovať z Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Importovať z Yahoo</value>
+  </data>
+  <data name="ImportTextDelimiter" xml:space="preserve">
+    <value>Oddeľovač textu</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Aktuálny cenový plán Vám umožňuje pridať {0} používateľov.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Upravte svoj cenový plán alebo pridajte ďalších používateľov ako hostí s povoleniami iba na zobrazenie. Ich rolu budete môcť neskôr zmeniť v module Ľudia.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Pridávanie používateľov</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Upravte svoj cenový plán alebo pridajte ďalších používateľov ako hostí s povoleniami iba na zobrazenie. Ich rolu budete môcť neskôr zmeniť v module "Ľudia" alebo si {0} Prečítajte o neziskovom použití {1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Váš cenový plán Vám nedovoľuje pridať ďalších používateľov</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>v</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Nesprávne používateľské meno alebo heslo.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Predtým ako začnete na portáli pracovať, mali by ste skontrolovať či je Vaše {0}krstné meno{1} a {0}priezvisko{1} v pravej časti správne a nastaviť si {0}osobné heslo{1}, aby ste sa mohli prihlásiť.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Pozývací odkaz</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Dostali ste odkaz na tento portál od svojho kamaráta, známeho alebo kolegu</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Boli ste na tento portál pridaní Vašim kamarátom, známym alebo kolegom</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Ste pozvaný, aby ste sa pripojili k tomuto portálu!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Pridať používateľov ako návštevníkov</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Pozvať používateľov na portál</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Zakázať</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Zapnúť</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}Zabezpečenie IP{1} sa používa na obmedzenie prihlasovania na portál zo všetkých IP adries okrem určitých adries. Môžete nastaviť povolené IP adresy buď pomocou presných IP adries vo formáte IPv4 (#.#.#.# kde # je číselná hodnota od 0 do 255) alebo rozsah IP (vo formáte #.#.#.# - #.#.#.#). Zabezpečenie IP nefunguje pre majiteľov portálov, tí môžu pristupovať k portálu z ľubovoľnej IP adresy.</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>Zabezpečenie IP protokolu</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Najprv musíte zadať svoju aktuálnu IP alebo rozsah IP do ktorého patrí vaša aktuálna IP adresa, inak bude váš prístup do portálu zablokovaný ihneď po uložení nastavenia. Vlastník portálu bude mať prístup na portál z ľubovoľnej IP adresy.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Migrovať aj ONLYOFFICE™ Mail (neodporúča sa)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Staňte sa našim Affiliate</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Môžete pridávať používateľov ako hostí alebo zmeniť cenový plán pre používateľov s väčším počtom používateľov.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Jazyk</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Priezvisko</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP nastavenia</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Overenie používateľa</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Povoliť túto možnosť, ak aktuálny používateľ systému Windows nemá práva na čítanie zo servera LDAP / Active Directory a zadajte údaje iného používateľa s právami na čítanie.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Chyba pripojenia</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Prázdne pole</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Povoľte túto možnosť ak chcete pridať používateľov zo servera LDAP / Active Directory do zariadenia ONLYOFFICE™ automaticky. Pridaný používatelia sa môžu autorizovať pomocou poverenia ich servera LDAP / Active Directory. ONLYOFFICE™ neukladá používateľské heslá a používateľov ktorí posielajú svoje prihlasovacie údaje a heslo overí na serveri LDAP / Active Directory.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Používateľov sa nepodarilo vytvoriť, prijaté údaje sú nesprávne.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Server nemohol získať nastavenia.</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Server nemohol uložiť nastavenia.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Nesprávne prihlasovacie meno alebo heslo.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>Doména LDAP sa nenašla.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Neboli nájdené žiadne skupiny.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Neplatná hodnota používateľského filtra.</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Neznáma chyba.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Neboli nájdení žiadni používatelia.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Nepodarilo sa získať atribút skupiny pre jednu alebo viacero skupín.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Nesprávny filter skupiny.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Nepodarilo sa získať atribút názvu skupiny pre jednu alebo niekoľko skupín.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Nepodarilo sa získať atribút prihlasovania pre jedného alebo viacerých používateľov.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Nedá sa pripojiť k serveru LDAP. Skontrolujte, či je adresa servera a číslo portu správne.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Nepodarilo sa získať atribút používateľa pre jedného alebo viacerých používateľov.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Atribút Skupiny</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Zadajte vlastnosti objektu skupiny, ktorá špecifikuje, akých používateľov táto skupina obsahuje. </value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>DN Skupiny</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Zadajte rozlišujúci názov do adresára, ktorý obsahuje skupiny, ktoré chcete pridať.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Filter Skupiny</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>Pomocou vyhľadávacieho filtra LDAP vyberte skupiny, ktoré sa importujú. Upozorňujeme, že budú pridaní iba používatelia z týchto skupín.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Členstvo v skupine</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Povoľte túto možnosť, ak chcete pridať skupiny zo servera LDAP / Active Directory do ONLYOFFICE™. Upozorňujeme, že budú pridaní iba používatelia, ktorí patria do týchto skupín.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Atribút názvu skupiny</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Prosím zadajte atribút objektu, ktorý zodpovedá názvu skupiny.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Interná chyba servera.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Prihlásenie</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Atribút prihlásenia</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Zadajte vlastnosť objektu zodpovedajúci prihlasovaciemu menu používateľa.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>Upraviť používateľov LDAP na bežných používateľov portálu</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Login DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Zadajte heslo pre používateľa s prístupovými právami na čítanie údajov zo servera LDAP / Active Directory.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Číslo portu</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Zadajte číslo portu pre Váš server LDAP / Active Directory.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Predvolené nastavenia</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Obnoviť predvolené nastavenia</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Uložiť nastavenia</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Zadajte adresu URL servera LDAP bez čísla portu, napr. LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>pridanie používateľa
+
+</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Overenie certifikátu</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Kontrola nastavení podpory LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>Odpojenie LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>Načítanie zoznamu skupín zo servera LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>Načítanie zoznamu používateľov zo servera LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>Načítanie základných informácií LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>odstránenie používateľa
+
+</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Odstránenie zastaraných skupín, ktoré boli skôr nahraté pomocou LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Odstránenie zastaraných používateľských profilov, ktoré boli skôr nahrané pomocou LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Ukladanie skupín</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Ukladanie nastavení</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Ukladanie používateľov</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Synchronizácia používateľov</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Je požadovaný bezpečnejší typ autentifikácie. Použite šifrované pripojenie alebo povoľte na serveri jednoduché overovanie.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Uloženie bolo úspešne dokončené</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Synchronizovať používateľov</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Bol dosiahnutý používateľský limit aktuálneho cenového plánu</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>Služba StartTLS nie je podporovaná pre aktuálny server LDAP.</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Príliš veľa LDAP operácií.</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Vlastnosti používateľa</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Zadajte vlastnosť objektu používateľa, ktorý sa používa na určenie, či je tento používateľ členom skupiny.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>DN užívateľa</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Zadajte rozlišujúci názov do adresára obsahujúceho používateľov, ktorých chcete pridať.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Používateľský filter</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Pomocou vyhľadávacieho filtra LDAP vyberte používateľov, ktorí sa musia importovať.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Prosím upresnite ktorý používateľ {0}, má práva na prístup k čítaniu LDAP servera / Active Directory.</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>Nepodarilo sa získať jedinečné ID pre objekty používateľa/skupiny. Štandardne sa systém pokúsi o zhodu s jedným z nasledujúcich identifikátorov: entryUUID, nsuniqueid, GUID, objectSid. Ak žiadny z atribútov nezodpovedá Vášmu LDAP serveru, zadajte potrebný atribút v nastavení ldap.unique.id v súbore web.appsettings.config.</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Používateľ bol importovaný z LDAP.
+Kontaktujte správcu LDAP
+ak chcete zmeniť polia uzamknutého profilu.</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>Používateľ bol importovaný z LDAP</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Viac informácií...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Licencia nie je správna</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Platnosť licencie uplynula</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Počet portálov presahuje počet, ktorý dovoľuje licencia</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Počet používateľov presahuje počet, ktorý dovoľuje licencia</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Nahranie úspešné</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Načítava sa, prosím čakajte</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Nahrávam...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Umiestnenie</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Prihlásenie</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Prihlásiť sa</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Prístup k portálu je obmedzený. Kontaktujte správu portálu.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Pripojiť</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Prihlásenie cez sociálne siete</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>alebo sa prihláste pomocou:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Nepodarilo sa nájsť pridružený účet tretej strany. Musíte najskôr pripojiť svoj účet sociálnych sietí na stránke úpravy profilu.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Nastavenia loga</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Tento e-mail sa generuje automaticky a nemusíte odpovedať.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>mapa</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Žiadne umiestnenie</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizátor</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Opakovanie</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Kedy</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Kde</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Kto</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Nemáte neprečítanú poštu. Prejdite do pošty a prečítajte si všetky svoje správy.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Poštový Server</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Úspešné pripojenie</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Príklad: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Konfigurujte poštový server</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Táto voľba umožňuje pripojiť Váš portál k {0}Poštovému serveru{1} inštalovanému na vzdialenom počítači pomocou {2}Docker inštalácie{3}.{4}{0}Poznámka:{1} Skontrolujte, či sú na počítači, kde je nainštalovaný {0}Poštový server{1} otvorené porty {0}3306{1} a {0}8081{1}. Dôrazne odporúčame, aby ste zmenili svoje prístupové heslo k databáze {0}Poštového servera{1}.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Skryť Rozšírené nastavenia</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Heslo databázy poštového servera</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Služba bola úspešne pripojená</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>IP adresa Poštového Servera </value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Ukázať pokročilé nastavenia</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Po pripojení bude {0}poštový server{1}{2}dostupný{3} v module {0}Mail{1} a budete môcť vytvárať poštové schránky pre používateľov portálu s použitím vlastného názvu domény.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Nastavenia pripojenia poštového servera</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Používateľské meno databázy poštového servera </value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>Upozornenie: pre používateľov, ktorí sa nachádzajú vo Vašom module {0}Mail{1}, už máte nastavenia Poštovej domény a poštových schránok. Ak zmeníte nastavenia, uvedomte si, že tieto zmeny môžu mať vplyv na ich prácu a spôsobiť zlyhanie poštového servera. Ak ste úplne presunuli {0}poštový server{1} na iný počítač a/alebo zmenili poverenie prístupu k databáze, jednoducho tu aktualizujte {0}IP poštového servera {1} a/alebo poverenie.
+Ak ste vytvorili nový {0}poštový server{1} a chcete ho pripojiť, musíte najprv odstrániť staré údaje na stránke {2}poštového servera{3}.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Muž</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Všeobecné</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integrácia</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Zabezpečenie</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Štatistiky</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Vytvorte CRM databázu </value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Spravujte klientov, sledujte predaj a vytvárajte faktúry</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Práca s .docx, .xlsx a .pptx online</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Zobrazte a upravte dokumenty priamo na portáli</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Zobrazte členov Vášho tímu</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Zobrazte portál {!users}, pridajte ich alebo ich importujte</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Zúčastnite sa projektov</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Kontrolujte úlohy a sledujte výkonnosť pomocou Ganttovho grafu </value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Tu je niekoľko krokov, ako začať:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Vitajte v ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Označiť ako prečítané</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Prosím, autorizujte sa.</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Pokyny na aktiváciu e-mailu boli odoslané na emailovú adresu {0}.</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Pokyny na zmenu e-mailu boli úspešne odoslané</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Váš email bol úspešne aktivovaný.</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Odoslať pokyny k pozvánke na e-mailovú adresu {0}</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Odoslať pokyny k aktivácii e-mailu na e-mailovú adresu {0}</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Odoslať pokyny na zmenu e-mailu na e-mailovú adresu {0}</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Odoslať pokyny na zmenu hesla na e-mailovú adresu {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Prosím zadajte e-mail, ktorý ste použili pri registrácii do portálu. Pokyny k zmene hesla Vám budú odoslané na túto e-mailovú adresu.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE ™ je cloudová kancelária, ktorá Vám umožňuje spravovať dokumenty, projekty, tímové a zákaznícke vzťahy na jednom mieste.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>Online dokumentový editor, nástroj pre riadenie projektov, obchodné nástroje, CRM systém, Ganttov graf, online spolupráca, cloud office, on-line word, správa dokumentov, on-line tabuľky, on-line kancelária, spoločná úprava, on-line kancelárske aplikácie, on-line dokumenty</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Migrácia</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>Funkcia {0} Migrácia portálu do iného regiónu{1} je k dispozícii iba pre vlastníkov platených portálov.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>Funkcia {0} Migrácia portálu do iného regiónu{1} je k dispozícii iba pre vlastníkov portálov.</value>
+  </data>
+  <data name="MigrationPortalTitle" xml:space="preserve">
+    <value>Migrácia</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Nový mobilný telefón</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Primárny mobilný telefón</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Zmeniť telefónne číslo</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Prejdite na číslo strany a zmeňte telefónne číslo.</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Ak chcete zmeniť telefónne číslo, použite textovú správu s kódom, ktorý bol odoslaný na Váš nový telefón.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Odoslané</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Zmeniť telefónne číslo</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Pokyny na zmenu mobilného čísla používateľa sa odošlú na e-mailovú adresu používateľa</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Ak chcete zmeniť číslo, musíte odstrániť Vaše aktuálne telefónne číslo</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Monitorovanie</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Viac akcií</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Môj profil</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Šablóna</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Šablóna Tímu</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nikdy nezobrazovať</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Nový názov portálu</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>Ešte ste nepridali žiadne domény. Postupujte podľa {0}odkazu{1} a pridajte prvú doménu.</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Žiadne zmeškané hovory</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Nie sú k dispozícii žiadny ďalší operátori, prosím odpovedzte.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Úlohy pre používateľov pridaných ako {!guests} môžu byť neskôr zmenené v module {0}Ľudia{1}.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Nebudú zahrnutí do celkového počtu používateľov v cenách portálu.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Ak nemôžete nájsť svoj jazyk v zozname dostupných, neváhajte a napíšte nám na {0}documentation@onlyoffice.com{1}, môžete sa zúčastniť prekladu a získať 1 roka používania zadarmo.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Upozornenie podľa:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>E-Mail &amp; Rozhovor</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Rozhovor</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Informujte {!users} o migrácii portálu</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Zakázaný</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Alebo</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG Región</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Majiteľ</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Zmeniť heslo</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Zmena hesla</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Minimálna dĺžka hesla</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Obnova hesla</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>znakov</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Použiť číslice</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Použiť špeciálne znaky</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Použiť veľké písmená</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Teraz môžete vytvoriť nové heslo.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Požadovaná platba</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>História platieb</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Čaká sa</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Ľudia</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Čakajte prosím...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Verejný portál</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Súkromný portál</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Limit prekročený ({0} Mb miesta na disku)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Táto funkcia je povolená len na bezplatné tarify</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Nastavenia prístupu na portál</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Limit prekročený ({0} aktívnych používateľov)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Názov portálu</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Vlastník portálu</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Premenovanie portálu</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Prístup k portálu</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Náhľad</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Cenová stránka je k dispozícii iba pre správcov</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Nastavenia cenovej stránky{1} umožňujú administrátorovi portálu povoliť alebo zakázať viditeľnosť cenovej stránky pre všetkých používateľov, alebo iba pre správcov portálu.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Nastavenie cenovej stránky</value>
+  </data>
+  <data name="PrintButton" xml:space="preserve">
+    <value>Tlačiť</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Moduly &amp; Nástroje</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Vyberte si potrebné moduly a nástroje ONLYOFFICE. Zakázané moduly a nástroje budú skryté pre všetkých používateľov portálu. Majte na pamäti, že po opätovnom zapnutí modulov a nástrojov budú dostupné aj pre všetkých používateľov portálu. Ak chcete obmedziť prístup, pozrite si časť Prístupové práva v nastaveniach portálu.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Nástroje</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Moduly</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profil bol odstránený</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publikovať</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Znovu aktivovať</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Váš účet bol úspešne reaktivovaný. {0} Za 10 sekúnd budete presmerovaní {1} tu {2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Preradenie údajov</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Preradenie údajov pre {0} nie je dokončené.</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Presmerovanie</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Dátum registrácie</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Zaregistrujte nových používateľov {!Users} okamžite </value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Váš registračný e-mail</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Prihlásenie</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Odmietnuť</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Zapamätať</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Pozvánka bola odoslaná na zadaný e-mail</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Znovu odoslať</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Chcete poslať pozvánky ešte raz?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Opätovne odoslať pozvánku</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Obnoviť</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Zoznam záloh</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Ak odstránite niektoré položky zo zoznamu, odstránia sa aj ich príslušné súbory. Táto akcia sa nedá vrátiť späť. Ak chcete odstrániť všetky súbory, použite odkaz: {0}Vymazať zoznam {1}.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Obnoviť</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Počítačový súbor</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Obnoviť na predvolené</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Túto možnosť použite na obnovenie Vášho portálu z predtým uloženého záložného súboru.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Zatiaľ neboli vytvorené žiadne zálohy. Vytvorte jednu alebo viac záloh, aby sa v tomto zozname zobrazili.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>Možnosť {0}Obnovenie údajov{1} sa používa na obnovenie vašich predtým uložených údajov portálu (z lokálneho servera alebo portálu SaaS). Vyberte miesto, kde sú vaše údaje uložené, zadajte nevyhnutné podrobnosti a skontrolujte{0}Odošlite upozornenie používateľom portálu{1}, aby ste používateľov portálu upozornili na vykonanie zálohovania/obnovenia.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Po dokončení procesu obnovenia budete automaticky presmerovaný na Váš portál.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Prebieha obnova portálu.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Odošlite používateľom upozornenie o obnovení portálu </value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Zobraziť zoznam záloh</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Obnova dát</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Počas procesu obnovenia sa portál stane nedostupným. Po dokončení obnovenia sa všetky zmeny vykonané po dátume zvoleného bodu obnovenia stratia.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Hľadať</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Uistite sa, že sú všetky slová správne napísané. Skúste použiť iné kľúčové slová.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Nič sa nenašlo.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Výsledky vyhľadávania</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Zobraziť všetko</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Sledujte všetky videá</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Vybrať</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Poslať</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>E-mailová adresa odosielateľa</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Zobraziť Meno odosielateľa</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Odošlite pozvanie ešte raz</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Odošlite pozvánku</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Kliknite sem a pripojte sa</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Chcete sa stať používateľom portálu?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Prosím zadajte e-mailovú adresu, na ktorú bude zaslaná pozvánka:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Odoslať testovací e-mail</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Serverový softvér zaznamenal chybu pri spracovaní vašej žiadosti. Počkajte prosím nejaký čas a skúste to znova. Ak chyba pretrváva, pravdepodobne budete musieť kontaktovať správcu.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Chyba servera</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Región servera</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Táto verzia je aktuálna</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Neplatná verzia portálu</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Pohlavie</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Ázia Pacifik (Singapur)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Zobraziť</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Zobraziť všetko</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Zobraziť všetky výsledky</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Povoliť/Zakázať tipy</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Zobraziť nasledujúce</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Registrácia je dostupná pre používateľov s e-mailovým účtom v ktorejkoľvek doméne.
+Ak sa chcete zaregistrovať, zadajte svoj e-mail a kliknite na Poslať pozvánku. E-mailová správa s odkazom na aktiváciu Vášho účtu ONLYOFFICE™ sa odošle na zadaný e-mail.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Jednoduché prihlásenie</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Prekvapenie</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Bláznivý</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Plakať</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Tanec</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Piť</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Nahnevaný</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Žmurknutie</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Zelený</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywoodsky úsmev</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Smutný</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Hudba</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Úsmev</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Úsmev</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Prepáč</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Jazyk</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hurá</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Dvojfaktorové overenie{1} je bezpečnejšou cestou pre vstup používateľov do portálu. Po zadaní prihlasovacích údajov bude používateľ musieť zadať kód z SMS, ktorá príde na číslo telefónu ktoré zadal pri prvom prihlásení pomocou dvojfaktorového overenia.{2}Aktivujte túto možnosť pre bezpečnejší prístup do portálu pre všetkých používateľov.{2}Ak chcete použiť zmeny, ktoré ste vykonali, kliknite na tlačidlo {0}Uložiť{1} v tejto časti. {2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Nesprávny kód</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Kód: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Čas použitia kódu uplynul. Požiadajte o novú textovú správu.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Poznámka{1}: SMS správy môžete posielať len ak máte kladné saldo. Vždy môžete skontrolovať aktuálny zostatok v účte poskytovateľa SMS služby. Nezabudnite si včas zakúpiť dodatočný SMS balík.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Poznámka{1}: pred tým, ako použite dvojfaktorové overenie, musíte vybrať aspoň jedného poskytovateľa SMS a nakonfigurovať ho na stránke {3}{0}autorizácie tretej strany{1}{4}.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Poznámka{1}: dvojfaktorové overenie je k dispozícii iba pre platené portály.
+
+</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Dvojfaktorová overenie</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} zostatok/bilancia
+</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>Viď na svojom {0} účte 
+
+</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>Nastavenie SMS nie je dostupné</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Poslali ste príliš veľa textových správ. Skúste neskôr prosím.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Vlastné nastavenia</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Nastavenie Poštového Servera</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP Nastavenie</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Ak používate účet služby Gmail pre server SMTP, nebudete môcť posielať poštu, kým neurobíte nasledujúce kroky: prostredníctvom štandardného webového rozhrania sa prihláste do účtu Gmail ktorý používate a potvrďte prípadné akékoľvek overovacie otázky týkajúce sa pokusu o prístup do ONLYOFFICE™. {0} Odporúčame používať porty 587 alebo 25 na odosielanie e-mailových správ, pretože iné hodnoty môžu zabrániť správnej funkčnosti SMTP.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>Nastavenia SMTP sú potrebné na nastavenie e-mailového účtu, ktorý sa použije na odosielanie upozornení z portálu pomocou vlastného SMTP servera namiesto toho, ktorý používa ONLYOFFICE™. Vyplňte všetky polia a kliknite na tlačidlo "Uložiť". Môžete použiť tlačidlo "Odoslať testovací e-mail", aby ste skontrolovali, či sú všetky zadané nastavenia správne a či fungujú podľa predpokladov.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Profily Sociálnych sietí</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Zdroj</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Nepodarilo sa vytvoriť používateľa s týmto autentizačným tokenom</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Nastavenia sa nepodarilo uložiť</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Nastavenia nemôžu byť nulové.</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Jednoduché prihlásenie je zakázané</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Autentifikačný token nebol nájdený</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Neplatná väzba: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Neplatné ID entity</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Mapovanie neplatných polí</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Neplatný token autentifikácie</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Tento používateľ je zakázaný</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Používateľ bol importovaný z SSO. Ak chcete zmeniť pole uzamknutého profilu, kontaktujte svojho SSO administrátora/správcu. </value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>Používateľ bol importovaný z SSO.</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Štatistiky</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Nastavenia domény dôveryhodnej pošty</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Nastavenia sily hesla</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Nastavenia jazyka a časového pásma</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Verzia portálu</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Odoberať</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Udalosti a upozornenia pre vlastníka alebo správcu portálu</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Denný súhrn portálových noviniek a udalostí</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Názov projektu</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>zo všetkých</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Upozornenie cez</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Odbery</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Portál bol úspešne premenovaný</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Nastavenie úvodnej stránky bolo úspešne uložené</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Nastavenia boli úspešne aktualizované</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Pokyny k zmazaniu Vášho profilu boli odoslané na e-mailovú adresu {0}.</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Pozvánky boli úspešne opäť odoslané</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Poslať e-mail</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Kontaktujte nás pre viac informácií o špeciálnych ponukách</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Znížte požadovaný parameter alebo zvoľte iný cenový plán.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Kúpiť teraz</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Predĺžiť</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Aktuálny plán môžete predĺžiť alebo ho zmeniť pomocou nižšie uvedenej tabuľky.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Vyberte si plán, ktorý najlepšie vyhovuje vašim potrebám. Odporúčaný plán je zvýraznený nižšie.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Tento plán nie je možné vybrať</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Povolená veľkosť úložného priestoru: {0}. Aktuálny úložný priestor: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Počet povolených používateľov portálu: {0}. Aktuálny počet používateľov: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Tento plán nemôžete vybrať, pretože úložný priestor alebo počet používateľov prekročil limit vybraného cenového plánu:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Opakované platby sú zapnuté</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Miesto na disku bude čoskoro prekročené: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Môžete odstrániť nepotrebné súbory alebo {0}kliknúť tu{1} a nájsť tak lepší cenový plán pre Váš portál.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Platnosť vyprší dňa {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Používate bezplatný plán.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0} Kliknite tu {1} na nahratie licenčného súboru pre Váš portál.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Platnosť vášho odberu vypršala.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>Váš portál ONLYOFFICE™ bude zablokovaný {2}. Prosím, {0}kliknite sem{1}, ak chcete predĺžiť existujúci plán alebo ho zmeniť na výhodnejší.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Počet portálov, ktoré ste vytvorili: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Cenový plán nie je k dispozícii až do konca zaplateného roka.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Cenový plán nie je k dispozícii až do konca trojročného cenového plánu.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Pre automatické predlžovanie sa uistite, že je vo Vašom účte Avangate zaškrtnuté políčko Opakovaná platba.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Ak chcete zrušiť pravidelné platby, prejdite prosím na Váš účet Avangate.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Iba do {0}.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Cenové plány</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Pre Vaše pohodlie sú platby v ruských rubľoch vypočítané pomocou fixného kurzu {0} Ruských rubľov za 1 dolár.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Platby</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Počet aktívnych používateľov, ktorých ste pridali: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Použitý úložný priestor: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Používate skúšobný bezplatný plán.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Ďakujeme vám, že ste sa zaregistrovali v službe ONLYOFFICE™!{2}{0}Platnosť skúšobnej doby uplynula.{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Vytvorené</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Použitý úložný priestor</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Celkový počet používateľov</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Povolenia Tretej strany</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Časová zóna</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Mobilný telefón</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefónne číslo</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Celkovo nájdené</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>do</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Zmeniť región servera</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0} Chystáte sa začať migráciu portálu do iného regiónu. Portál nebude počas procesu migrácie k dispozícii. Po ukončení bude na vašu e-mailovú adresu odoslané upozornenie.{1}{0}Poštové domény, poštové schránky (s výnimkou služieb tretích strán) a e-maily, ktoré sú v nich obsiahnuté, nebudú počas procesu migrácie prenesené.{1}{0}Naozaj chcete pokračovať?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Po skončení procesu migrácie budete automaticky presmerovaný na novú URL adresu Vášho portálu.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Prebieha migrácia portálu {0} do iného regiónu.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Región portálu</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Mení sa región serveru</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Portál nebude počas procesu migrácie dostupný. Po dokončení migrácie sa zmení adresa URL portálu a všetky odkazy na zdieľané dokumenty budú nedostupné.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Skúšobná doba: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Platnosť bezplatného skúšobného obdobia uplynula</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Kliknite tu{1} pre výber najvhodnejšieho cenového plánu pre Váš portál.</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>Používate skúšobnú verziu</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Vlastné domény</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Registrácia je dostupná pre používateľov s e-mailovým účtom na {0}.
+Ak sa chcete zaregistrovať, zadajte svoj e-mail a kliknite na Poslať pozvánku. E-mailová správa s odkazom na aktiváciu Vášho účtu ONLYOFFICE™ sa odošle na zadaný e-mail.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Vyskytla sa neznáma chyba</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Odhlásiť</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Aktualizovaný cenový plán</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Nahrať</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Používateľ</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Fórum používateľov</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Používatelia</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Pozícia/Titul</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>Región Západ USA (Oregon)</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Video návody</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Zobraziť nezobrazené video</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Pozrite si cenové plány</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>zobrazenia</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>Hosts</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Graf použitia</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Návštevy</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Spojenie je už vytvorené v inom okne</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Služba bohužiaľ momentálne nie je k dispozícii. Skúste neskôr prosím.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varovanie!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Ďakujeme, že ste si vybrali ONLYOFFICE™! Z bezpečnostných dôvodov sa musí nastaviť heslo.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Vitajte na portáli ONLYOFFICE ™</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Čo je nové</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Biely štítok</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Nastavenia jazyka a časového pásma</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Nastavenie portálu - Prejdite pomocou týchto jednoduchých krokov, aby ste mohli jednoducho spustiť Vašu webovú kanceláriu</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Nastavenie registrácie</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Rozhodli ste sa pripojiť k tomuto portálu.</value>
+  </data>
+</root>

@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Ενέργειες</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Όλα</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Όλα {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Όλα{!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Έναρξη/Διακοπή χρονοδιακόπτη</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Προσθήκη χρόνου</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Παύση</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Εκκίνηση</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Δοκιμή εφαρμογής κινητού</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Αλλαγή χρώματος</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Αλλαγή εικονιδίου</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Απόκρυψη</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Κοινές ρυθμίσεις</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Αντιγραφή</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Έναρξη νέου έργου</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Κατηγορία</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Νέα κατάσταση</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ημερομηνία</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Έγγραφα</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Απόκρυψη</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Μάθετε περισσότερα...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Ενεργό</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Οι συζητήσεις μου</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Τα έργα μου</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Επαφές</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Έργα</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Μετακίνηση εργασίας</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Νέα σχόλια στις συζητήσεις</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Νέα σχόλια σε εργασίες</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Δεν υπάρχουν δεδομένα</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Προσωπικές ρυθμίσεις</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Φτιάξτε ομάδες και αναθέστε εργασίες. Προγραμματήστε ορόσημα του έργου, παρακολουθείστε τη δραστηριότητα του έργου και τη δημιουργία αναφορών.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Έργα</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Τίτλος έργου</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Διαβάστε περισσότερα</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Αντικατάσταση</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Αναφορές</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Αποθήκευση &amp; δημιουργία νέας εργασίας</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Αποθήκευση αλλαγών</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Επιλογή</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Εμφάνιση</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Εμφάνιση στη σελίδα</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Χρόνο που αναλώθηκε</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Προσυπογράψτε στα σχόλια</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Η εργασία προστέθηκε</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Ώρα</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Παρακολούθηση χρόνου</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Διαγραφή από τα σχόλια</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Προσθήκη σχολίου</value>
+  </data>
+</root>

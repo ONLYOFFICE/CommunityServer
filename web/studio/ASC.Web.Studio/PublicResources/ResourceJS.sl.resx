@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Polje potrditvene kode ne more biti prazno</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Vnesi telefonsko številko</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Uporabi {0}?{1} in {0}*{1} simbole za opravljanje eno/več-znakovnega iskanja. Na primer, za iskanje vseh besed, ki se začnejo z {0}O{1}, uporabite {0}O*{1} poizvedbo.{2}Več...{3}</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>Varnostna kopija je bila uspešno ustvarjena.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Zaseden</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Uspešen nakup številke</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Spremembe uporabljene</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Spremembe so uspešno uporabljene.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Prišlo je do napake. Prosim kontaktirajte svojega administratorja.</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Želite nadaljevati?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Ustvari nov kontakt</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>Ni kontaktov na tem seznamu</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Vnesi naslov podjetja</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Ni kontaktov</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Ni takega kontakta</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Ni takega podjetja</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Napaka pri ustvarjanju poročila</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Komentar ne more biti prazen</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Vnesi e-naslov</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Vnesi naslov skupine</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Vnesi ime</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Vnesi priimek</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Ni take skupine</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Taka oseba ne obstaja</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>največ 64 znakov</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Datum registracije mora biti po rojstnem datumu</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Enakega računa ali kontakta ne morem dodati dvakrat.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>V to polje lahko vnesete le 64 znakov.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Nepravilen e-naslov</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Uporabniki so bili uspešno dodani.</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Skupina {0} ja bila uspešno ustvarjena.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Ustvari novo skupino</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>Ni skupin na tem seznamu</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Ni take skupine</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Povabi</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Prazno polje</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Nepravilna številka vrat</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Prosim počakajte...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Nalaganje, prosim počakajte.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Nalaganje...</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Jaz</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Ni mejnikov v tem projektu</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Ni takega mejnika</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nikoli ne prikaži</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Izključen</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Vpisan</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Ustvarite nov projekt</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>Ni projektov na tem seznamu</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Vsak projekt mora imeti vodjo</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>vsak projekt mora imeti naslov</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Ni projektov v tej skupini</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Ni takega projekta</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Ni take osebe</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Nastavitve so uspešno shranjene</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Izberi datoteko</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Izberi mapo</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Podjetje</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Ime podjetja</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Vrsta kontakta</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Glava</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Priimek</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Vodja</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Oseba</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>Izbrano</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Uporabnik</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Gost</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Pokaži naslednjega</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} uporabnik(i) so bili uspešno dodani na portal</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Nastavitve so bile uspešno posodobljene</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>Odjavili se boste iz vseh obvestil "{0}" modula. Ali ste prepričani, da želite nadaljevati?</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Napaka pri nalaganju datoteke</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>podpiran format datoteke: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Velikost datoteke ne sme preseči 5MB</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Profil za {0} je bil uspešno ustvarjen</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Ustvari nov profil</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>Ni uporabnikov na tem seznamu</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Presega število maksimalnih aktivnih uporabnikov</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Na portalu še ni bilo ustvarjenih skupin. Pojdite na modul ljudi za združevanje uporabnikov.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>Ni uporabnikov v tej skupini</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Ni takega uporabnika</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Če zapustite zdaj, bodo vsi vneseni ali neshranjeni podatki izgubljeni.</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Niste nastavili gesla. To boste lahko storili kasneje z uporabo povezave "Ste pozabili svoje geslo?" na vpisni strani portala. Ali ste prepričani, da želite nadaljevati?</value>
+  </data>
+</root>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Adicionar {!Users}</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Anexar ficheiros</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Anexar ficheiro de Documentos de Projeto</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Criar apresentação</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Criar folha de cálculo</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Criar documento</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Saiba Mais...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Eliminar ficheiro</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Criar {1} ficheiros no portal ou {2} carregá-los  {3} aqui para poder {4} abri-los {5} e {6} editá-los {7} usando o editor do portal ONLYOFFICE™, partilhá-los com amigos ou colegas, organizá-los em pastas.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>A lista de documentos está vazia</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Título não pode conter nenhum dos seguintes caracteres:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filtro:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>Digite sua consulta</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Selecionar</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Ordenar por</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Novo documento</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Novo ficheiro</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Nota: Esta ação não pode ser desfeita.</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Tem a certeza de que deseja eliminar este ficheiro?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Remover desta lista</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Pode criar documentos ({0}), planilhas ({1}), apresentações ({2}) e transferi-los para formatos mais populares.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Você pode editar os ficheiros seguintes: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Pode abrir os ficheiros com as seguintes extensões: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Pode carregar qualquer ficheiro para Documentos.</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Carregar ficheiro</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

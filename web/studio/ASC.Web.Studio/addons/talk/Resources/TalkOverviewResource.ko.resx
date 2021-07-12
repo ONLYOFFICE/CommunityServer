@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>연락처 목록은 사람들이 추가 / 직원의 목록에서 제거됩니다로서, 당신이 그것을 수동으로 체크 아웃 할 필요가 없습니다 자동으로 업데이트됩니다.</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>탭 채팅</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>토크를 실시간으로 직원들과 인스턴트 문자 메시지를 교환을위한 기업 IM 시스템입니다.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>상태 선택, 역사 보관, 파일 전송, 다중 사용자 채팅 지원 등 - 토크는 당신이 메신저에서 기대할 수있는 전통적인 기능을 제공합니다.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>개요 토론</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>노 전 설정으로 지금 토크를 사용하려면 Google 웹 클라이언트를 실행합니다.</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>웹 클라이언트를 실행</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>별도 설정! 웹 클라이언트를 실행하고 지금 얘기를 시작하려면 클릭</value>
+  </data>
+</root>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Zaprto</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>Izbriši porabo časa</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izbrisati ta porabljen čas?</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>Na tem oddelku ni mogoče prikazati števcev, ki se ujemajo z vašim filtrom.</value>
+  </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>Prekliči izbor</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>Na vrhu</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>Izberi vse</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ure</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>Na voljo še nimate nimate nobene naloge. Prosim, da najprej ustvarite nalogo, nato zaženite števec.</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minute</value>
+  </data>
+  <data name="NoTimersFilter" xml:space="preserve">
+    <value>Ni števcev</value>
+  </data>
+  <data name="NoTimersNote" xml:space="preserve">
+    <value>Zapišite si čas, ki ste ga porabili na nalogi v svojem projektu za še bolj učinkovito upravljanje časa. Časovnik pričnite na začetku naloge ter ga zaustavite, ko je naloga končana. Izračunan čas dodajte k izbrani nalogi.</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>Noben števec še ni bil začet</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Izdani</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Neizdani</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Ne Obračunljiv</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>Zaženi števec</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>Skupen čas porabljen na tej nalogi:</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>izdani:</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>pogosto:</value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>Skupen čas porabljen na dejavnostih, ki se ujemajo s tem filtrom:</value>
+  </data>
+</root>

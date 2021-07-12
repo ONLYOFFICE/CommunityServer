@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>केवल पढ़ने के लिए</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>पूर्ण पहुँच</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>पहुँच को अस्वीकार</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>खाता जोड़ें</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>बॉक्स खाता जोड़ें</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>ड्रॉपबॉक्स खाते जोड़ें</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>गूगल खाता जोड़ें</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDrive खाते जोड़ें</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>अन्य खाते</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>सब रद्द करो</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>तीसरे पक्ष की जानकारी बदलें</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>फ़िल्टर साफ़ करें</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>एक कॉपी बनाएं</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>प्रतिलिपि</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>बनाएँ</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>फ़ोल्डर</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>प्रदर्शन</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>स्प्रेडशीट</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>हटाना</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>तीसरे पक्ष को हटाएँ</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>डाउनलोड</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>खाली रीसायकल बिन</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>पुरालेख</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>फ़ोल्डर</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>छवियाँ</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>प्रस्तुतियाँ</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>स्प्रेडशीट्स</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>'{0}'करने के लिए जाओ </value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>मेरे दस्तावेज़ पर जाएं</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>और अधिक जानें...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>ब्लॉक</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>ले जाये </value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>ठीक</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>नाम बदलें</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>पुनर्स्थापित</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>सब</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>शेयरिंग सेटिंग्स</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value> संस्करण इतिहास दिखाएँ</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>छोड़ें</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>वापस मूल फ़ोल्डर</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>अनब्लॉक</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>शीर्ष पर</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>अपलोड</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>संस्करण को अंतिम रूप</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>फेसबुक</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>ट्विटर</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value> रद्द करो</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>कन्वर्ट और खुले दस्तावेज़</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>प्रत्येक फ़ाइल को डाउनलोड करने के लिए प्रारूप चुनें</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>सामान्य सेटिंग्स</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>अधिलेखित पुष्टिकरण</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>पुष्टीकरण</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>नोट: यह कार्रवाई पूर्ववत नहीं हो सकती।</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>नोट: आपके खाते से हटाने पूर्ववत नहीं किया जा सकता है।</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>नक़ल की हुई फाइल को ओरिजिनल के साथ भी सहेजे </value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>आप खुले दस्तावेज़ फ़ाइल तेजी से देखने और संपादन के लिए ऑफिस ओपन एक्सएमएल फॉर्मेट में परिवर्तित हो जाएगा।</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>फाइल कॉपी बनाया जाएगा {0} मेरा दस्तावेजों {1} फ़ोल्डर </value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>दस्तावेजोको मूल स्वरुप में भी अपलोड कीजिये </value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>आप सूची से इन तत्वों को दूर करना चाहते हैं तो आप यकीन कर रहे हैं?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>एक ही नाम के साथ मौजूदा फ़ाइल के लिए फ़ाइल संस्करण को अद्यतन करें। {0} अन्यथा, फ़ाइल की एक प्रतिलिपि बनाई जाएगी।{1}</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>बदलना</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>के रूप में डाउनलोड करें</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>रूपांतरण सफल रहा था।</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>फ़ाइल '{0}' फ़ोल्डर में बनाया गया है</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>रूपांतरण त्रुटि</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>परिवर्तित हो रहा  है ...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>आम दस्तावेज</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>दस्तावेज़</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>के रूप में डाउनलोड करें</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>डाउनलोड</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>डाउनलोड</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>ऑटो</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>ऊंचाई</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>चौड़ाई</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>'आम दस्तावेज' अनुभाग आम उपयोग के लिए पोर्टल व्यवस्थापक द्वारा साझा सभी दस्तावेजों से पता चलता है। केवल पोर्टल व्यवस्थापक इस भाग में फ़ोल्डर बनाते हैं, लेकिन उपयोग के साथ पोर्टल उपयोगकर्ताओं को भी यहां अपनी फाइल अपलोड कर सकते हैं प्रदान किया जा सकता है।</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>खींचें और ड्रॉप यहाँ अपने कंप्यूटर से फाइल भी अधिक आसानी से अपने पोर्टल के लिए उन्हें अपलोड करने के लिए </value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>'मेरे साथ शेयर  किए' अनुभाग अपने दोस्तों या सहयोगियों आप तक पहुँच दे दी जो फ़ाइलों को दिखाने के लिए इस्तेमाल किया जाता है। मामले में आप वे 'नए' चिह्नित कर रहे हैं दस्तावेजों में नवीनतम बदलाव नहीं देखा है। आप उचित बटन पर क्लिक सूची से फाइल निकाल सकते हैं।</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>आप दस्तावेजों और छवि फ़ाइलों {0} बनाने के {1} या {2}अपलोड करें {3} पोर्टल के लिए 'मेरे दस्तावेज़' खंड में यहां रखा जाता है  । आप {4} खुला {5} और {6} संपादित {7} के लिए उन्हें ONLYOFFICE ™ पोर्टल के संपादक का उपयोग, फोल्डर में संगठित करने, दोस्तों या सहयोगियों के साथ शेयर  कर सकते हैं।</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>आप दस्तावेजों और छवि फ़ाइलों को  {2} को अपलोड   {3}पोर्टल के लिए 'मेरे दस्तावेज़' खंड में यहां रखा जाता है। आप फ़ोल्डरों में व्यवस्थित, दोस्तों या सहयोगियों के साथ शेयर  कर सकते हैं।</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>आप बनाएँ या अपनी परियोजना के लिए अपलोड दस्तावेजों और छवि फ़ाइलों को इस खंड में रखा जाता है। आप फ़ोल्डर्स  का आयोजन, खुला और ONLYOFFICE ™ पोर्टल के संपादक का उपयोग करके उन्हें संपादित कर सकते हैं।</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>सभी नष्ट कर दिया फ़ाइलों के लिए ले जाया जाता है, जहां 'रीसायकल बिन' खंड है। आप पाएंगे कि वे गलती से नष्ट हो जाती हैं मामले में या तो उन्हें बहाल करने या उन्हें स्थायी रूप से नष्ट कर सकते हैं। आप 'रीसायकल बिन' से फाइलों को नष्ट जब वे अब किसी भी बहाल नहीं किया जा सकता है, कृपया ध्यान दें।</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>कोई फ़ाइल नहीं यहाँ इस फिल्टर के लिए प्रदर्शित किया जा सके</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>ऐसी कोई भी फाइल या फोल्डर जो फ़िल्टर के साथ मैच नहीं हो रही हे वो इस खंड में दिखाई जाएग़ी.इस खंड में सभी फाइलों को देखने के लिए अन्य फिल्टर विकल्प या स्पष्ट फिल्टर का चयन करें। आप यह भी अन्य वर्गों में की जरूरत फ़ाइल के लिए देख सकते हैं।</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>कोई फ़ाइल नहीं इस खंड में प्रदर्शित करने के लिए</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value> कोई भी खाता कनेक्टेड नहीं है </value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>त्रुटि</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>फ़िल्टर</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>फ़ोल्डर</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>शुरू करें</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>ईमेल के माध्यम से</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>सबका चयन करें</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>अधिकतम फ़ाइल आकार है {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>साथ सहयोग करने के लिए एक टीम {0} है? {0} {1} और जानें {2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>दस्तावेज़ प्रबंधन</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>सीआरएम और चालान</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>कार्य प्रबंधन और गैंट चार्ट</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>ईमेल एग्रीगेटर</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>साथ सहयोग करने के लिए एक परियोजना है और एक टीम है? {0} हम तुम्हारे लिए कुछ तैयार किया है।{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>अपने सहयोगियों या subcontractors को आमंत्रित करें और अतिरिक्त सुविधाओं से लाभ:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>टीमों के लिए ONLYOFFICE ™ आपका स्वागत है!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>मेरे दस्तावेज</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>पासवर्ड</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>परियोजना दस्तावेजों</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>मार्क पढ़ें के रूप में</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>सभी को पढ़ा हुआ मार्क करें</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>फ़ोल्डर चुनें</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>सामान्य सेटिंग्स</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>साझा करें</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>मेरे साथ शेयर किया</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>लिंक के लिए पहुँच अधिकार सेट अप करें</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>और दिखाओ</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>कम से कम किया इस विंडो को दिखाएँ</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>सेटिंग</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>कॉम्पैक्ट देखने के लिए स्विच</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>आम दृश्य पर स्विच करें</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>तीसरे पक्ष के खातों को</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>डिब्बा</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>खाता कनेक्ट</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>खातों से कनेक्ट</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>आप ONLYOFFICE ™ दस्तावेज़ के लिए निम्न खातों से कनेक्ट कर सकते हैं। वे 'मेरे दस्तावेज़' फ़ोल्डर में प्रदर्शित किया जाएगा और आप संपादित करें और सभी एक ही स्थान पर पोर्टल पर सही है उन्हें बचाने के लिए सक्षम हो जाएगा।</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>खाता कनेक्ट</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>तीसरे पक्ष को हटाएँ</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>ड्रॉपबॉक्स</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>उपयोगकर्ताओं के लिए तीसरे पक्ष सेटिंग्स सक्षम करें</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>फ़ोल्डर शीर्षक</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>गूगल ड्राइव</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>बनाओ और साझा आम दस्तावेज में डाला</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>शेयर केंद्र</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>व्यवसाय के लिए SharePoint / OneDrive</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>चुनना</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>आप ({0}), स्प्रेडशीट ({1}), प्रस्तुतियों ({2}) और सबसे लोकप्रिय प्रारूपों के लिए उन्हें डाउनलोड करके दस्तावेज़ बना सकते हैं।</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>आप निम्नलिखित फ़ाइलों को संपादित कर सकते हैं: {0}।</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>आप निम्नलिखित एक्सटेंशन के साथ फाइल खोल सकते हैं: {0}।</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>आप दस्तावेज़ों  करने के लिए चाहते हो किसी भी फाइल को अपलोड कर सकते हैं।</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>रीसायकल बिन</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>सूची से हटाएं</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>एक ही नाम के साथ मौजूदा फ़ाइल को अधिलेखित</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>अपनी योजना का उन्नयन</value>
+  </data>
+</root>

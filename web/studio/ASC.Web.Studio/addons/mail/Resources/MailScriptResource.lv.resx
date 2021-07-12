@@ -1,0 +1,889 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Konta savienojuma kļūda.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Gadījumā, ja kļūda atkārtojas, lūdzu, izlasiet {0}BUJ sadaļu{1}, lai uzzinātu vairāk par šo problēmu.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Konta savienojuma kļūda</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Konta iestatījumi</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Google konts veiksmīgi savienots</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Konts ir pieslēgts ar OAuth, rediģēšana ir ierobežota.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Konti</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Darbības</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Vēlaties aktivizēt %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Pievienot kontu</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Vai vēlaties tagad pievienot savu pirmo pasta kontu?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>Jums nav ar ONLYOFFICE Mail saistītu pasta kontu. Lūdzu, pievienojiet savu pasta kontu, lai uzsāktu saņemt un sūtīt e-pasta ziņas.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Pievienot jaunu kontu, lai sāktu izmantot ONLYOFFICE™ pastu.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Pasta serveris</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Pseidonīms)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>Pastkastes %mailbox_address% pseidonīmu var rediģēt vienīgi administrācijas panelī</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Viss</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Daži ievades parametri ir nederīgi.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Piekļuve dokumentam ir aizliegta</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Nevarēja atrast dokumentu vai tas nepastāv izvēlēta uzglabāšanas vietā.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Tukšie faili netiek atbalstīti.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>izmantojamos failus var neatļaut daži pakalpojumi (piemēram, Gmail)</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Piezīme: faila lielums nedrīkst pārsniegt %1 MB. Kopējais lielums visiem failiem jābūt ne vairāk nekā %2 MB.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Ziņa nevar tikt atrasta</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Kopējais izmērs visiem pielikumiem pārsniedz limitu.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Dažas neparedzētas kļūdas. Lūdzu, mēģiniet vēlreiz vēlāk.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0} pasta kontam ilgstoši nevarēja pieslēgties un tas tika atspējots.{1} Lūdzu, pārbaudiet visus konta uzstādījumus, kurus ievadījās vai ieejiet pasta servisā, kuru izmantojāt un pārbaudiet drošības uzstādījumus. Ja esat droši, ka ir atrisināti visi ar konta savienojumu saistītie jautājumi, jūs varat to vienmēr iespējot savā pieslēgto kontu sarakstā.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Pasta konts atspējots savienojuma kļūdas dēļ.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Pasta konts atspējots</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>Radās problēmas, nosūtot un saņemot {0} pasta konta{1} darbības. Tas varētu būt tāpēc, ka jūs esat mainījuši konta paroli. Lūdzu, pārbaudiet visus konta uzstādījumus, kurus ievadījāt, vai pierakstieties pasta servisam, kuru izmantojat, un pārbaudiet drošības uzstādījumus.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Konta pieslēgšanās laikā radās kļūda.</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>atspējot</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Dienas kārtība</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>Nav vēlāku notikumu</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>Nav agrāku notikumu</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Visu dienu</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Iepriekšējā diena</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Kalendārs</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>karte</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>Nav atrašanās vietas</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizators</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Dalībnieki</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Atkārtošanās</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Atbildēt</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Varbūt</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Nē</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Jā</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Kad</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Kur</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Kas</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Mainīt konta uzstādījumus</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Izvēlēties tagu</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Slēpt visas</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Kopējie iestatījumi</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>Šī sarakste satur saīsinātas ziņas, kurās var būt slēptie attēli. Vai vēlaties to izdrukāt?</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>Šī sarakste satur attēlus, kurus šobrīd nevar atainot. Vai vēlaties to drukāt?</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Kļūda faila kopēšanas laikā</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Kopēt mapē "Mani dokumenti"</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Sastādīt kontaktu</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Izveidot pastkasti</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>Mēs jums nodrošināsim gatavu bezmaksas noklusējuma domēnu, lai jūs nekavējoties varētu izveidot jaunu pastkasti.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>Šis domēns ir kopējs visiem portāliem, tāpēc korporatīvajai sarakstei ir ieteicams izmantot korporatīvo domēnu.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Izveidot pastkasti</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Izveidot jaunu kontaktu</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Izveidot jaunu CRM uzņēmumu</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Izveidot jaunu CRM personu</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Izveidot personīgo kontaktu</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Uzņēmums</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM kontakti</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Vēlaties deaktivizēt %1?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>Daži no jūsu kontiem nesaņem ziņas.</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>Šis konts tiek izmantots, lai pēc noklusējuma sūtītu ziņas</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Vai vēlaties dzēst %1?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst % 1 tagu?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Notiek ziņu dzēšana ...</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Lūdzu, pārbaudiet savas ziņas saņēmēju adreses un ziņojuma formātu. Ja esat droši, ka ziņa ir pareiza, pārbaudiet visus {account_name} konta uzstādījumus un, ja viss ir pareizi, pierakstieties pasta servisam, kuru izmantojat, un apstipriniet visus pārbaudes jautājumus, ja tādi ir. Tad mēģiniet vēlreiz. </value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>Ja kļūda atkārtojas, lūdzu, izlasiet {faq_link_open_tag}visbiežāk uzdoto jautājumu sadaļu{faq_link_close_tag}, lai uzzinātu vairāk par problēmu.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Neizdevās nosūtī ziņojumu "{subject}".</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Neizdevās nosūtīt ziņu</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Pasta konti ir atspējoti.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Pasta konti ir atspējoti</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Jūsu portāls nav izmantots ilgāku laiku, tāpēc jūsu pasta konti, kas ir piesaistīti ONLYOFFICE Mail, ir atspējoti. Ja vienalga vēlaties tos izmantot, dodieties uz konta lapu un tos atkal iespējojiet.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Gatavs</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Rediģēt kontaktu</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Neizdevās augšupielādēt pielikumu izvēlētajā mapē.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Pielikuma kļūda</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Izvēlētā Pielikumu mape nav pieejama un tika atvienota no jūsu pasta konta {account}. Lūdzu, pārbaudiet, vai jums pietiek piekļuves tiesību izvēlētajai mapei un atkal to pievienojiet.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Izvēlēto Pielikumu mapi neizdevās atrast, un tā tika atsaistīta no jūsu pasta konta {account}. Lūdzu, pārbaudiet, vai izvēlētā mape pastāv, un pievienojiet to no jauna.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Rakstīt pirmo melnrakstu</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Melnrakstu sadaļa ļauj jums izveidot un sakārtot ziņas, ko jūs varat sūtīt dažādiem cilvēkiem vēlāk. Šeit Jūs varat atzīmēt svarīgākas ziņas vai izdzēst nevajadzīgas.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Nav ziņojumus kas var parādīt mapē</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Rakstīt jaunu ziņu</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Iesūtne ļauj jums pārvaldīt ziņojumus kurus jūs saņemat. Šeit jūs varat redzēt korespondences vēsturi, atzīmēt svarīgākās ziņas, grupēt e-pastu kategorijās, izmantojot tagus vai izdzēst nevajadzīgas ziņas.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Nav saņēmto ziņojumu</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Konfigurējiet pirmo kontu</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Iestatiet kontu, lai nosūtītu, saņemtu un saglabātu savus ziņojumus tieši portālā. Iegūstiet piekļuvi ziņu vēsturei, kontaktiem un failiem, izmantojot jebkuru pārlūkprogrammu jebkurā laikā, jebkurā vietā. Sakārtojiet ziņojumus, izmantojot savus tagus. Izveidojiet pastkasti gatavajam bezmaksas noklusējuma domēnam.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Nav konfigurēto kontu</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Iet uz CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Šīs kontaktu saraksts iekļaus visus klientus no CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Kontaktu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>Šis kontaktu saraksts uzrādīs visus personīgos kontaktus no adrešu grāmatas. Jūs vēl tajā neesat ievadījis nevienu kontaktu.</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Izveidot jauno epasta tagu</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Vispirms nepieciešans izveidot tagu un tikai tad izmantot to</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Nav izveidotus tagus</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Rakstīt jaunu ziņu</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Nosūtīts sadaļa ļauj jums pārvaldīt nosūtītas ziņas. Šeit Jūs varat atzīmēt svarīgākās ziņas, grupēt e-pastus kategorijās, izmantojot tagus vai izdzēst nevajadzīgas ziņas.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Nav nosūtītu ziņojumu</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Spam sadaļā ir ziņas, kas identificētas kā junk pasts. Šeit Jūs varat dzēst e-pastus, klasificēt ziņas kā "nav spam" vai notīrīt visu sadaļu.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Nav ziņojumus kas var parādīt mapē</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Mistkaste sadaļā ir ziņas, kas ir izdzēsti. Šeit jūs varat atgūt dažus e-pastus vai izdzēst tos uz visiem laikiem.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Nav ziņojumus kas var parādīt mapē</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Pasta automātiskais atbildētājs ir iespējots</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Šāds konts jau pastāv</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Kalendārs nav pieejams</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>lauks nav aizpildīts</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Iztukšot 'Kam' lauku</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Nepareiza adrese</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Nepareiza adrese</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>nav izvēlēta pastkaste</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Notika nezināma kļūda!</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>nav izvēlēts lietotājs</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Šīs ziņas atvēršanas laikā radās kļūda.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Lūdzu, atjauniniet lapu un mēģiniet šo ziņu atvērt vēlreiz. Ja problēma atkārtojas, lūdzu, {0}sazinieties ar mūsu atbalsta personālu.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Atvainojamies par sagādātajām neērtībām, taču pasta ziņu neizdevās ielādēt ONLYOFFICE pastā. Izmantojiet oriģinālās ziņas kopiju, kas pievienota pielikumā, lai to atvērtu ar jebkuru pieejamo pasta klientu programmu vai {0}sazinieties ar mūsu atbalsta komandu.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>Šis tālruņa numurs jau pastāv</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>%1 tags jau eksistē</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Neatbalstīts faila formāts</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Ja vēlaties vēlreiz pieslēgt šo kontu, lūdzu, vispirms to noņemiet no pievienoto kontu saraksta lapā "Uzstādījumi&gt;Kontu pārvaldība".</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Esošs konts</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Parādīt visas</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Eksportēt ziņojumu uz CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Ziņas eksportēšanas kļūda</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Ziņas eksportēšanas laikā radās kļūda.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Ziņa, kuru cenšaties eksportēt, jau ir saistīta ar izvēlēto CRM elementu.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Ziņojumu eksportēšana uz CRM kontaktu vēsturi veiksmīgi pabeigta</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Citi</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>Temperatūras līmenis</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Personalizēts periods</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Izvēlēties</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Uzņēmumi</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>Temperatūras līmenis</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Nav norādīts</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>No sūtītāja</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Svarīgi</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Personalizēts periods</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Par periodu</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Pagājusī nedēļa</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Vakardien</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Personas</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Izlasīti</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Parādīt</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Uz pasta adresi</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Neizlasīts</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>Ar pielikumiem</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>Ar kalendāru</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Ar iespējām</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Ar tagu</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Pārsūtīts ziņojums</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>Jūs varat {0} vai mainīt to sadaļā {1}</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>Doties uz {0}, lai tos aktivizētu.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Doties uz Kalendāru</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Doties uz notikumu</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Grupu nevar uzstādīt kā noklusējuma pastkasti</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Palīdzība</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Vienmēr slēpt attēlus no</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Slēpt</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Šis konts ir veiksmīgi pieslēgts.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Viss pasts par pēdējo 30 dienu tiks importēts.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Konts ir veiksmīgi pievienots. Tagad notiek pasta importēšana un tas var aizņemt kādu laiku. Jūs varat aizvērt šo logu un turpināt lietot šo pastu, vai pat aizvērt pārlūkprogrammu. Pasta importēšanas process tikmēr turpināsies.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Svarīgi</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Daži no ziņojumiem, kas saņemti agrāk, izmantojot citus pakalpojumus varētu nebūt importēti. Lūdzu, izlasiet {0}FAQ{1}, lai iegūtu sīkāku informāciju.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Ja rodas kļūda, importējot pastu, izlasiet BUJ {0} sadaļu {1}, lai iegūt papildus informāciju.</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Ievietots ar saiti</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Saistīt saraksti ar CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Sarakste veiksmīgi sasaistīta ar CRM kontaktu vēsturi</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Sarunas sasaistes kļūda</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Radās kļūda, savienojot saraksti ar CRM.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Izvēlētais CRM elements vairs nav pieejams, vai arī ir zudis savienojums. Lūdzu, pārbaudiet izvēlētā CRM elementa atrašanās vietu un savu tīkla savienojumu. Ja kļūda atkārtojas, lūdzu, sazinieties ar savu portāla administratoru.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>ielādē pielikumus...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Pasta automātiskais atbildētājs</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>Uz</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Notiek pastkastes izveide...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Pastkastes atjaunināšana ...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Pārvaldīt kontus</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Pārvaldīt parakstu</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Atzīmēt visas adresāta vēstules</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Atzīmēt visus e-pasta sūtītājus</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>Šī ziņa satus attēlus, kurus šobrīd nevar atainot. Vai vēlaties turpināt?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Turpināt bez attēliem</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>Šī ziņa satur attēlus, kurus patlaban nevar atainot. Vai vēlaties to drukāt?</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Apstiprināt drukāšanu bez attēliem</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Ziņojums nav nosūtīts. Vai tiešām vēlaties to izdzēst?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 vairāk</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>Vairāk informācijas</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Ziņojumu pārvietošana ...</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Pievienot pasta kontu</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Jauns ziņojums</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Nav nepieciešamas nekādas papildu darbības.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>Nav ziņojumus kuri atbilst Jūsu filtram. Lūdzu, izvēlieties citas filtra opcijas vai attīriet filtru, lai apskatītu visas ziņas šajā mapē.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Nav ziņojumus kas atbilst šīm filtram</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>N/a</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>nav tēmas</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Nav svarīgi</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Nav Spam</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Ielādē noklusējuma domēna iestatījumus...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Melnraksts</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Pārsūtīt</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Atbildēt</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Personīgie kontakti</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Drukāt visu</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Drukāt</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Pieejama diska atmiņa tiek pārsniegta. Ne visi ziņojumi var būt ielādēti un nekādus jaunus ziņojumus var nosūtīt. Lūdzu izdzēsiet dažas ziņas no Iesūtnes vai izdzēsiet dažus failus no Dokumentu moduli. Jūs varat mainīt arī cenu plānu, lai būtu vairāk vietas diskā.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Pieejams diska atmiņas apjoms ir pārsniegts</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Citētais teksts slēpts]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Atzīmēt ka izlasīto</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Vēlaties izdzēst visas ziņas no Spam?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Vēlaties izdzēst visas ziņas no miskastes?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Ienākošo ziņu mapes uzstādīšana neizdevās.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Ienākošo ziņu mapes uzstādīšana veiksmīga</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Nav CRM kontaktus kuri atbilst Jūsu filtram. Lūdzu, izvēlieties citas filtra opcijas vai attīriet filtru, lai apskatītu visus CRM kontaktus.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Nav CRM kontaktus kuri atbilst šīm filtram</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Atjaunot filtru</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>Netika atrasti izvēlētajam filtram atbilstoši kontakti. Lūdzu, izvēlieties citu filtru vai attīriet šo, lai apskatītu visus kontaktus.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>Nav šim filtram atbilstošu kontaktu</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Nav ONLYOFFICE™ kontaktu kas atbilst Jūsu filtram, ko parādīt šajā lapā. Lūdzu, izvēlieties citas filtra opcijas vai attīriet filtru, lai apskatītu visus portāla kontaktus.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Nav ONLYOFFICE™ kontaktu kas atbilst Jūsu filtram un ko parādīt šeit. </value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Atjaunot</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Atjauno ziņojumus</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>Manos dokumentos veiksmīgi saglabāts %real_count% no %count%.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Saglabāšana izdevās</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>Fails '%file_name%' ir veiksmīgi noglabāts Kalendārā.</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>Fails '%file_name%' veiksmīgi noglabāts mapē '%folder_name%'.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Saglabā ziņu</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Izvēlēties</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Šis konts ir deaktivizēts. Lūdzu, aktivizēt šo kontu vai izvēlēties citu.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Īsziņas nosūtīšana ...</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Serveris</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Servera pastkaste, rediģējama vienīgi administrācijas panelī</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Neizdevās uzstādīt ienākošo ziņu mapi.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Izdevās uzstādīt ienākošo ziņu mapi.</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Uzstādīt pēc noklusējuma un izmantot pasta nosūtīšanai</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Failu kopīgošanas uzstādījumi</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Rādīt</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Šis paraksts tiks pievienots visu šī konta vēstuļu beigās. Jūs tajā varat ierakstīt savu vārdu, kontaktus vai moto.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Tēma</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Birkas saglabāšana...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Importēts no CRM. Jūs nevarat rediģēt vai dzēst šo tagu.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tagi</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Portāla kontakti</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Kam</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Kontaktu kopā:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Mēģināt vēlreiz</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Atvienot no CRM</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Atzīmēt kā nelasītu</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Izmantot parakstu</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Brīdinājums</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>Ar pielikumiem</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Bez tagiem</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Ar tagiem</value>
+  </data>
+</root>

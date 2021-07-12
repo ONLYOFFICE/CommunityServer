@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneTitle" xml:space="preserve">
+    <value>주요 시점 제목 추가</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>작업 추가</value>
+  </data>
+  <data name="AddTaskTitle" xml:space="preserve">
+    <value>작업 제목 추가</value>
+  </data>
+  <data name="AllProjectTmpl" xml:space="preserve">
+    <value>모든 프로젝트 템플릿</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>담당자 지정</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>프로젝트 만들기</value>
+  </data>
+  <data name="CreateProjTmpl" xml:space="preserve">
+    <value>프로젝트 템플릿 생성</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>서식 파일-{0} 만들기</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="EditProjStructure" xml:space="preserve">
+    <value>프로젝트 구조 편집</value>
+  </data>
+  <data name="EditProjTmpl" xml:space="preserve">
+    <value>프로젝트 서식 파일 편집</value>
+  </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>첫 번째 서식 파일 만들기</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>프로젝트 양식은 같은 데이터를 입력 할 때마다 시간을 절약 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>프로젝트 양식이 없습니다</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>각 주요 항목에는 제목이 있어야 합니다.</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>마일스톤</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>아무도 없음</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>이 템플릿을 삭제하시겠습니까?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>양식을 제거하기</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>저장후 양식에따라 프로젝트를 만들기</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>수정된 부분 저장</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>각 작업에는 제목이 있어야 합니다.</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>작업들</value>
+  </data>
+  <data name="TasksWithoutMilestone" xml:space="preserve">
+    <value>이정표없는 작업들</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="TitleErrorTemplate" xml:space="preserve">
+    <value>각 서식 파일에는 제목이 있어야 합니다.</value>
+  </data>
+</root>

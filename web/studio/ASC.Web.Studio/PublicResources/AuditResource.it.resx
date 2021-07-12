@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Azione</value>
+  </data>
+  <data name="AuditDownloadText" xml:space="preserve">
+    <value>È possibile scaricare il report per i dati disponibili durante il periodo di archiviazione selezionato per visualizzare le statistiche dettagliate. Si noti che la registrazione è attualmente abilitata per i moduli Documenti, Progetti, CRM e Contatti, nonché per le impostazioni del portale.</value>
+  </data>
+  <data name="AuditLatestText" xml:space="preserve">
+    <value>Solo l'ultima attività è mostrata in questa pagina. I dati stessi vengono memorizzati durante il periodo, che può essere inserito nel campo sottostante (misurato in giorni, massimo 180):</value>
+  </data>
+  <data name="AuditTrailEmptyScreenDscr" xml:space="preserve">
+    <value>Se il portale è utilizzato attivamente, tutta l'attività dell'utente verra visualizzata qui: la creazione e la modifica dei documenti, la partecipazione nei progetti, CRM e altri moduli, e varie altre informazioni.</value>
+  </data>
+  <data name="AuditTrailEmptyScreenHeader" xml:space="preserve">
+    <value>Nessun oggetto da visualizzare</value>
+  </data>
+  <data name="AuditTrailNav" xml:space="preserve">
+    <value>Registro di controllo</value>
+  </data>
+  <data name="AuditTrailOnlineUsers" xml:space="preserve">
+    <value>Utenti in linea</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DownloadReportBtn" xml:space="preserve">
+    <value>Scarica e apri rapporto</value>
+  </data>
+  <data name="EmailNotSpecified" xml:space="preserve">
+    <value>Email non è specificato
+</value>
+  </data>
+  <data name="GenerateText" xml:space="preserve">
+    <value>Attendi mentre il rapporto viene generato...</value>
+  </data>
+  <data name="LoginDownloadText" xml:space="preserve">
+    <value>È possibile scaricare il report per i dati disponibili durante il periodo di archiviazione selezionato per visualizzare le statistiche dettagliate.</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenDscr" xml:space="preserve">
+    <value>Se il portale è utilizzato attivamente, tutti i tentativi di accesso sia riusciti, sia falliti verranno visualizzati qui.</value>
+  </data>
+  <data name="LoginHistoryEmptyScreenHeader" xml:space="preserve">
+    <value>Nessun oggetto da visualizzare</value>
+  </data>
+  <data name="LoginHistoryNav" xml:space="preserve">
+    <value>Cronologia accessi</value>
+  </data>
+  <data name="LoginHistoryTitle" xml:space="preserve">
+    <value>Cronologia accessi</value>
+  </data>
+  <data name="LoginLatestText" xml:space="preserve">
+    <value>Solo l'ultima attività è mostrata in questa pagina. I dati stessi vengono memorizzati durante il periodo, che può essere inserito nel campo sottostante (misurato in giorni, massimo 180):</value>
+  </data>
+  <data name="StoragePeriod" xml:space="preserve">
+    <value>Periodo di conservazione</value>
+  </data>
+  <data name="TotalAuditItems" xml:space="preserve">
+    <value>Totale</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Utente</value>
+  </data>
+</root>

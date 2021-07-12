@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Προσθήκη επιλογής</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Διεύθυνση</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Πιστοποίηση</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Αλλαγή χρώματος</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Αλλαγή εικονιδίου</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Αλλαγή λογοτύπου</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Στήλες</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Κοινές ρυθμίσεις</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Δημιουργία πεδίου χρήστη</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Δημιουργία νέας κατηγορίας</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Δημιουργία νέου πεδίου</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Δημιουργία νέας ετικέτας</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Ρυθμίσεις νομίσματος</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ημερομηνία</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Προεπιλεγμένο νόμισμα</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Διαγραφή κατηγορίας</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Διαγραφή πεδίου</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Διαγραφή ετικέτας</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Αυτό το πεδίο πρέπει να συμπληρωθεί σωστά</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Εξαγωγή</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Διαγραφή επιλογής</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Γραμμές</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Αποθηκεύτηκε</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Μέγεθος</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Αποστολή δεδομένων</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Περιοχή κειμένου</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Κείμενο</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Τύπος</value>
+  </data>
+</root>

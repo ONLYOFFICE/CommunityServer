@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_new_text" xml:space="preserve">
+    <value>h1.#if($FEED_TYPE == "feed")Yeni Etkinlik: "$Caption":"$URL"
+
+$Date "$UserName":"$UserURL" 
+yeni bir etkinlik ekledi: 
+
+$Text
+
+"Devamını oku":"$URL" 
+#end#if($FEED_TYPE == "poll")New Poll: "$Caption":"$URL" 
+$Date "$UserName":"$UserURL"
+yeni bir anket ekledi:
+#foreach($Answer in $Answers)
+#each 
+* $Answer 
+#end
+"Oy Ver":"$URL"
+#end
+
+^Bu espostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Yeni eklenen etkinlikler hakkında bildirim almak istemiyorsanız, lütfen "abonelik ayarlarını" değiştirin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_new_text_comment" xml:space="preserve">
+    <value>h1.#if($FEED_TYPE == "poll")Ankete Yeni Yorum#end#if($FEED_TYPE == "feed")Etkinliğe Yeni Yorum#end: "$Caption":"$URL"
+
+"$UserName":"$UserURL" $Date
+
+$CommentBody
+
+"Devamını Oku":"$CommentURL"
+
+^Bu espostayı alıyorsunuz çünkü "${__VirtualRootPath}":"${__VirtualRootPath}" portalının kayıtlı üyesisiniz. Bu etkiliğe yapılan yeni yorumlar hakkında bildirim almak istemiyorsanız, lütfen "abonelik ayarlarını" değiştirin:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_new_text" xml:space="preserve">
+    <value>Topluluk. #if($FEED_TYPE == "poll")Yeni Anket Eklendi
+#end
+#if($FEED_TYPE == "feed")Yeni Etkinlik Eklendi#end: $Caption</value>
+  </data>
+  <data name="subject_new_text_comment" xml:space="preserve">
+    <value>Topluluk. #if($FEED_TYPE == "poll")Ankete Yeni Yorum
+#end
+#if($FEED_TYPE == "feed")Neuer Kommentar zum Ereignis#end: $Caption</value>
+  </data>
+</root>

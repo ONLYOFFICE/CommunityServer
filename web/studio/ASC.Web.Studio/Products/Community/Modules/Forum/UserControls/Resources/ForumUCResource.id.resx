@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Ijinkan</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>File Terlampir</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Hapus lampiran</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Anda yakin ingin melakukan tindakan ini?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Telah diedit</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Tidak diijinkan untuk melakukan tindakan ini</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>Error saat menghapus posting</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Berikan minimal dua pilihan poling</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Tuliskan nama topik</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Tuliskan pesan</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>Posting tidak dapat dihapus karena ada posting lain yang bertautan </value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Lampirkan file</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Masukkan tag dan pisahkan dengan tanda koma</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>Ukuran maksimal file yang dilampirkan tidak boleh melebihi {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Pesan</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Fungsi moderator</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Tuliskan nama</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Tambahkan posting baru</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Perkembangan keseluruhan</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Posting</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Terbitkan</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Tuliskan pertanyaan Anda</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Kutip</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>menulis</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Posting Terbaru pada Topik Ini</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Pembaruan Terkini</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Balas</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tampilkan pada halaman</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Tempelkan</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Tuliskan nama topik</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Berlangganan topik ini</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>Topik berhasil dilepas</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>Topik berhasil ditutup</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>File yang dilampirkan berhasil dihapus</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>Posting berhasil dihapus</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>Topik berhasil dihapus</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>Topik berhasil diedit</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>Topik berhasil dibuat</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>Topik berhasil ditempelkan</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Tuliskan pesan</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Topik</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Tampilan</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Kemarin</value>
+  </data>
+</root>

@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>新たなマイルストーンを作成する</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>適用する</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>責任ある選択</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>コンタクト</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>新しいタスクを作成する</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>会社名</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>会社や名前で人を見つける...</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>ファーストネーム</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>ディスカーションが見つかりませんでした</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>議論</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>ドキュメント</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>編集マイルストーン</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>タスクを編集する</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>各メッセージには、タイトルを持っている必要があります</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>各プロジェクトには、マネージャーを持っている必要があります</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>各プロジェクトには、タイトルを持っている必要があります</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>アクティブなタスク</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>マイルストーン以下のリストを縮小する</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>マイルストーン以下のリストを拡張する</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>加える</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>開始日</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>終了日</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>ハイ</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>優先順位</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>責任がある</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>マイルストーン</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>新たなマイルストーン</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>新規タスク</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>リンクを作成のために、利用可能なタスクはありません</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>このページから出ると、最近変更が保存されない可能性があるのを注意してください</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} 責任ユーザー</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>サブタスク</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>サブタスク</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>細部</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>タスクは {0} 日に遅れています</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>マイルストーンがないのタスク</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>選択</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>日付の形式が無効です</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>無効な時刻形式</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>マイルストーンを追加</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>マイルストーンは削除された</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>マイルストーン</value>
+  </data>
+  <data name="MilestonesRemoved" xml:space="preserve">
+    <value>マイルストーンは削除された</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>マイルストーンは編集された</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>移動する</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>次の</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>アクティブな参加者がいません</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>いいえ節目ません</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>概要</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>プロジェクトは見つかりませんでした</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectsRemoved" xml:space="preserve">
+    <value>プロジェクトは削除された</value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>終了ー終了</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>終了－開始</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>開始ー終了</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>開始ー開始</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>レポート作成</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>{0}文書/私の文書{1}　で作成されたレポートをいつでも見たり、ダウンロードしたり、編集したり、削除さたりすることが可能です</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>レポート作成 ({0}% 完了) </value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>テンプレートが見つりません</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>一時停止</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>正常に追加</value>
+  </data>
+  <data name="TagsSelectorAddText" xml:space="preserve">
+    <value>新しいタグを作成する</value>
+  </data>
+  <data name="TagsSelectorEmptyList" xml:space="preserve">
+    <value>このリストにタグがありません</value>
+  </data>
+  <data name="TagsSelectorEmptyTitleError" xml:space="preserve">
+    <value>各タグにはタイトルが必要です</value>
+  </data>
+  <data name="TagsSelectorNoItems" xml:space="preserve">
+    <value>このグループにタグがありません</value>
+  </data>
+  <data name="TagsSelectorNoResult" xml:space="preserve">
+    <value>タグは存在しません</value>
+  </data>
+  <data name="TagsSelectorTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>タスクが追加された</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>タスクが見つかりませんでした</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>タスクが削除された</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TasksRemoved" xml:space="preserve">
+    <value>タスクが削除された</value>
+  </data>
+  <data name="TasksUpdated" xml:space="preserve">
+    <value>タスクが更新された</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>タスクが更新された</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>チーム</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>テンプレートが保存された</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>タイムが削除された</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>データはありません</value>
+  </data>
+  <data name="TimesRemoved" xml:space="preserve">
+    <value>タイムが削除された</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>タイムトラッキング</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>タイムが更新された</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>タスクリストへ</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>すべての作動中タスクを表示する</value>
+  </data>
+</root>

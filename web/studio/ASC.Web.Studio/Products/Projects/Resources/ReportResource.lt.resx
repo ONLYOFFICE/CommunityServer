@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Aktyvios užduotys</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Generuoti tokią ataskaitą automatiškai</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Laiko periodas</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Sukūrimo data</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Laiko periodas</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Paspauskite rūšiavimui pagal šį stulpelį</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Sukurti šabloną</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Vartotojo vardas</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Galutinis terminas</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Šablonas privalo turėti pavadinimą</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Kiekvieną dieną</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Kiekvieną mėnesį</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>kiekvieną savaitę</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generuoti ataskaitą</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Nekorektiškas datų intervalas</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Ankstesnis mėnuo</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Ankstesnė savaitė</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Ankstesni metai</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Projektas neturi etapų ir užduočių</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Kitas</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Dalyviai</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Apmokėjimo būsenos</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Baigtų užduočių ataskaita</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Vartotojų be aktyvių užduočių ataskaita parodys vartotojų, neturinčių jokių aktyvių užduočių, sąrašą.{3}{2}Jei norite pamatyti visus vartotojus be aktyvių užduočių iš visų projektų, spauskite "Generuoti ataskaitą".{3}{2}Jei norite pamatyti duomenis apie konkretų vartotoją, jų grupę arba projektą, nurodykite tai ataskaitos nustatymuose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} neturi aktyvių užduočių</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}Užimtumo ataskaita rodys vartotojui priskirtų užduočių skaičių, priklausomai nuo jų būsenos.{3}{2}Norėdami peržiūrėti visų vartotojų duomenis, spauskite "Generuoti ataskaitą".{3}{2}Norėdami peržiūrėti konkretaus vartotojo ar vartotojų grupės duomenis, nurodykite tai ataskaitos nustatymuose ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Užimtumas</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}"Pradelstų etapų ataskaita" atvaizduos vėluojančius etapus.{3}{2}Rodydami peržiūrėti vėluojančius visų projektų etapus, spauskite ant "Generuoti ataskaitą".{3}{2}Norėdami matyti vėluojančius konkretaus projekto etapus, pasirinkite jį iš sąrašo, ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Pradelsti etapai</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}Pradelstų užduočių ataskaita rodys vėluojančias užduotis.{3}{2}Norėdami peržiūrėti visų projektų vėluojančias užduotis, spauskite "Generuoti ataskaitą".{3}{2}Norėdami peržiūrėti konkretaus projekto pradelstas užduotis, pasirinkite projektą iš sąrašo ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Pradelstos užduotys</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Aktyvių užduočių ataskaita</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Ataskaita "{0}"</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}Projektų sąrašo ataskaita parodys projektų sąrašą.{3}{2}Norėdami peržiūrėti visų projektų sąrašą su projektų vadovų, užduočių skaičiaus, etapų, veiksmų ir komandų narių informacija, spauskite "Generuoti ataskaitą".{3}{2}Jei norite pamatyti tam tikros vartotojų grupės projektus, tiek baigtus tiek atyvius projektus, nurodykite tai ataskaitos parametruose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Projektų sąrašas</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Ataskaita "Projektai be aktyvių etapų" parodys projektų, kurie neturi aktyvių etapų, sąrašą.{3}{2}Jei norite pamatyti visų projektų, neturinčių aktyvių etapų, sąrašą, spauskite "Generuoti ataskaitą".{3}{2}Jei norite pamatyti tokius projektus, priskirtus konkrečiam, vartotojui ar jų grupei, nurodykite tai ataskaitos nustatymuose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Projektai be aktyvių etapų</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Projektų be aktyvių užsuočių ataskaita parodys projektų, neturinčių nei vienos aktyvios užduoties, sąrašą.{3}{2}Jei norite pamatyti visus projektus, kurie neturi aktyvių užduočių, spauskite "Generuoti ataskaitą".{3}{2}Jeigu norite pamatyti tokius projektus, priskirtus konkrečiam vartotojui ar jų grupei, nurodykite tai ataskaitos parametruose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Projektai be aktyvių užduočių</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Ataskaitos</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}Projekto užduočių ataskaitoje pamatysite užduočių, sugrupuotų pagal projektus ir etapus, sąrašą.{3}{2}Jei norite pamatyti visas užduotis iš visų projektų, jų vadovus ir būsenas spauskite "Generuoti ataskaitą".{3}{2}Jei norite pamatyti konkretaus projekto, būsenos, senumo užduotis, nurodykite tai ataskaitos parametruose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Projektų užduotys</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}Laiko sąnaudų ataskaita - tai vartotojų sąrašas su nurodytu sugaištu darbo laiku.{3}{2}Ši ataskaita padeda sekti, kiek iš viso laiko vartotojas praleido atlikdamas savo užduotis.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Laiko sąnaudos</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Artimiausių etapų ataskaita parodys artėjančių etapų sąrašą.{3}{2}Jei norite pamatyti visus per savaitę artėjančius visų projektų etapus, spauskite "Generuoti ataskaitą".{3}{2}Jei norite pamatyti artėjančius konkretaus projekto, laiko etapus, nurodykite tai ataskaitos parametruose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Artimiausi etapai</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}Vartotojų aktyvumo ataskaita parodys visus konkretaus vartotojo veiksmus Projektuose nurodytam laiko periodui.{3}{2}Jei norite matyti savo aktyvumą per savaitę, spauskite "Generuoti ataskaitą".{3}{2}Jei norite nustatyti kitą ataskaitos laikotarpį, vartotoją, nurodykite tai ataskaitos parametruose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Vartotojo aktyvumas</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}Vartotojų užduočių ataskaita parodys užduočių, sugrupuotų pagal vartotojus, sąrašą.{3}{2}Jei norite pamatyti visas visų vartotojų užduotis su nurodyta jų būsena, spauskite "Generuoti ataskaitą".{3}{2}Jei norite pamatyti tik konkrečių vartotojų, jų grupių ar konkrečios būsenos, sukūrimo laikotarpio užduotis, nurodykite tai ataskaitos parametruose žemiau ir tik tada spauskite "Generuoti ataskaitą".{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Vartotojo užduotys</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Rodyti užduotis</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Šablonai</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Šablono pavadinimas</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Šis mėnuo</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Ši savaitė</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Šie metai</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šiandien</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Rodyti pagal vartotoją</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Rodyti pagal {!Groups}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Rpodyti pagal projektą</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Rodyti pagal vartotoją</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>ROdyti pagal vartotojų užduotis</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Rodyti baigtus projektus</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Savaitė</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Savaitės</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Savaitės</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Vakar</value>
+  </data>
+</root>

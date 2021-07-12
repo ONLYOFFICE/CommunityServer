@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Yrityksen blogi</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blogit</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Kaikki tämän käyttäjän tietueet</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogit</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Otsikko ei voi olla tyhjä</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Kommentoi</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Kommentit</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa kirjoituksen?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Teksti</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Muokkaa kirjoitusta</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Blogeja ei ole vielä luotu</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Luo ensimmäinen blogi</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Luo oma sivu jakaaksesi mielenkiintoista tietoa, ajatuksia ja kokemuksia, ilmaise mielipiteitä, saa palautetta käyttäjien kommenteista.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Lisää tunnisteet erottamalla ne pilkulla</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Uusi kirjoitus</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Julkaise</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Kirjoittaja</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Lue lisää...</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Etsi blogeista</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Näytä sivulla</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Tilaa kaikki käyttäjän kirjoitukset</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Tilauksen avulla voit seurata käyttäjän uusia kirjoituksia blogeissa</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Käyttäjän uudet kirjoitukset</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Tilaa uudet kommentit</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Tilauksen avulla voit seurata uusia kirjoitusten kommentteja</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Blogikirjoituksen kommentit</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Tilaa uudet kirjoitukset</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Tilauksen avulla voit seurata uusia kirjoituksia blogeissa</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Uudet blogikirjoitukset</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Tunnisteet</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Valitse teksti, jonka haluat piilottaa syötesivulta ja blogilistasta ja klikkaa "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Yhteensä</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Lopeta käyttäjän kirjoitusten tilaus</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Lopeta kommenttien tilaus</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Lopeta kaikkien kirjoitusten tilaus</value>
+  </data>
+</root>

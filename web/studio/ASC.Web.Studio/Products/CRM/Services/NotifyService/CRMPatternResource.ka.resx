@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. დამატებულია მოვლენა "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"            
+$__DateTime მომხმარებელი "$__AuthorName":"$__AuthorUrl" დაამატე მოვლენა "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".                                                                  
+          $AdditionalData.get_item("EventContent")
+
+          #foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+          #beforeall
+
+          ----------------------------------------
+
+          #each
+
+          "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+          #end
+
+          თქვენი პორტალის მისამართი: "$__VirtualRootPath":"$__VirtualRootPath"
+
+          "გამოწერის პარამეტრების შეცვლა":"$RecipientSubscriptionConfigURL"
+</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. მონაცემთა ექსპორტი წარმატებით დასრულდა
+
+გთხოვთ გადადით შემდეგ ბმულზე, არქივის ჩამოსატვირთად: "exportdata.zip":"${EntityRelativeURL}". 
+
+*მიაქციეთ ყურადღება*: ეს ბმული აქტიურია მხოლოდ 24 საათის განმავლობაში, გთხოვთ შეასრულოთ ოპერაცია ამ დროში.
+
+თქვენი პორტალის მისამართი: "$__VirtualRootPath":"$__VirtualRootPath"</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>CRM. კონტაქტების იმპორტი წარმატებით დასრულდა</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Task Assigned to You: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.თქვენ გადმოგეცათ წვდომა "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+
+$__DateTime მომხმარებელი "$__AuthorName":"$__AuthorUrl" გადმოგცათ წვდომა "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
+
+
+
+          თქვენი პორტალის მისამართი: "$__VirtualRootPath":"$__VirtualRootPath"
+
+          "გამოწერის პარამეტრების შეცვლა":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. დაემატა ახალი მოვლენა $EntityTitle -ში</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. მონაცემთა ექსპორტი წარმატებით დასრულდა</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. კონტაქტების იმპორტი წარმატებით დასრულდა</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. თქვენ დაგნიშნეს პასუხისმგებელ პირად დავალებაზე: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. თქვენ გადმოგეცათ წვდომა $EntityTitle -თან</value>
+  </data>
+</root>

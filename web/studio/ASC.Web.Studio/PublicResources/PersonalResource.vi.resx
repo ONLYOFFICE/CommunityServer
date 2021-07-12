@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>Kiểm tra hộp thư đến để xác nhận tài khoản.</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>Nhập địa chỉ email của bạn</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>Hoặc nhập thông qua mạng xã hội của bạn</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE Personal là một office online miễn phí hoàn toàn tương thích với các định dạng Microsoft(R). Nó thay thế cho MS Office và cho phép bạn chỉnh sửa tài liệu word, bảng tính và bản trình chiếu trực tuyến miễn phí.</value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>chỉnh sửa word trực tuyến, soạn thảo word trực tuyến, word trực tuyến miễn phí, word office trực tuyến</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>hoặc đăng nhập</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>Email kích hoạt của bạn đã được gửi tới</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>Cảm ơn bạn đã đăng ký ONLYOFFICE™ Personal.</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>Thay thế miễn phí cho Microsoft® Office</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>Nhận Ứng dụng Văn phòng Miễn phí trên Đám mây</value>
+  </data>
+</root>

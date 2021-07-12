@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Керування підписантами</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Всі {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Переміщення за допомогою пов'язаних завдань</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Всі {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Запустити/зупинити таймер</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Додати час</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Початок</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Проекти Теamlab </value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Спробуйте мобільний додаток</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Приховати</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Загальні налаштування</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Новий проект</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>Вкласти документи,</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Відредагувати</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Звязати або додати проект</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Оберіть існуючі контакти CRM зі списку для того, щоб звязати їх з проектом, менеджером якого Ви являєтеся.
+Редагуйте інформацію про контакти. Інтеграція з модулем CRM допоможе Вам ефективніше організувати роботу.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Список контактів пустий</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Немає проектів, що відповідають цьому фільтру</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Відслідковувати</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Встановіть цю галку, якщо Ви не являєтеся менеджером проекту, котрий створюєте, але хотіли б відслідковувати всі зміни в ньому. Інформацію про всі створені етапи, задачі і дискусії буде додано до щоденних повідомлень про новини порталу.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Приватний проект{2} - це спосіб обмежити доступ до проекту, щоб проект був доступний тільки членам команди. Збереження проекту в якості приватного також дозволяє Вам налаштувати права доступу для кожного з членів команди в рамках цього проекту.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Приватний проект{2} - це спосіб обмежити доступ до проекту, щоб проект був доступний тільки членам команди.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Ключовий етап використовується для створення етапу, котрий Ви вважаєте важливішим за інші.{0} Всі ключові етапи позначені червоним ключем поряд з назвою.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Ви маєте можливість обирати між трьома статусами проекту:{0}{1}Активний.{2} Всі створені проекти, над якими Ви зараз працюєте, зазначаються як активні, до часу поки Ви не вирішите призупинити або завершити їх.{0}{1}Призупинений.{2} Якщо Ви вирішите тимчасово відкласти роботу над проектом, змініть його статус на Призупинений. Щоб відновити проект, просто зробіть його активним, обравши відповідний статус.{0}{1}Закритий.{2} Коли роботи по проекту завершені, і всі завдання закриті, закінчіть проект, змінивши його статус на Закритий. Для подальшої роботи з ним, Вам буде потрібно його відновити.  </value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Щоб прямо зараз додати учасників до команди, натисніть посилання {1}Управління командою{2} і оберіть зі списку тих користувачів, яких Ви бажаєте додати.{0} Ви також можете додати/видалити членів команди пізніше, натиснувши посилання{1}Команда{2} на сторінці огляду проекту і натиснувши кнопку{1}Управління командою{2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>По замовчуванню кожен учасник команди проекту може переглядати всі матеріали всередині обраного проекту: етапи, завдання, документи і дискусії. Щоб обмежити доступ, оберіть члена команди, для якого бажаєте налаштувати права доступу і клацніть по одному із посилань що зправа. Таким же чином Ви можете налаштувати права доступу для кожного учасника команди проекту, якщо звичайно від не має привілегій адміністратора порталу. Адміністратор ONLYOFFICE™ має повний доступ до всіх матеріалів всіх проектів.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Що значить 'Відслідковувати цей проект' ?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Що таке приватний проект?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Що таке ключовий етап?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Які існують статуси проекту?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Як керувати командою?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Приховати</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Приховати об'єкти в призупинених проектах</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Цей користувач не отримує повідомлення по дискусіям, тому що цей приватний проект, а користувач не є членом команди проекту.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Подібні</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Активні</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Проекти що відслідковуються</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Останні</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Мої дискусії</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Мої проекти</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Проекти</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Перемістити завдання</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Нові коментарі в обговореннях</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Нові коментарі у завданнях</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Відсутні контакти, котрі можна повязати з проектом</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Немає даних</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Завдання пов'язано з іншими завданнями, якщо ви видалите його, всі посилання буде видалено.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Видалити посилання та перемістіти</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Персональні налаштування</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Увага: ця дія є безповоротньою</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Робити те ж саме що і менеджер проекту|Призначати менеджера проекту|Створювати і редагувати, видаляти будь який проект|Створювати/редагувати шаблони</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Формуйте команди і призначайте завдання. Плануйте етапи проектів, відслідковуйте активність в рамках проекту і генеруйте звіти.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Створюйте групи і призначайте завдання. Плануйте етапи проекту, відстежуйте діяльність в рамках проекту та генеруйте звіти.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Проекти</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Переглядати проекти і брати учать в дискусіях|Створювати і редагувати етапи, завдання, документи|Враховувати час виконання завдань, генерувати звіти|Формувати команду проекту і встановлювати права доступу</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Контакти які будуть повязані з проектом</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Назва проекту</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Видалити користувача з команди</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Замінити</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Звіти</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Зберегти і створити нове завдання</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Зберегти зміни</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Обрати</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Оберіть із існуючих контактів або додайте новий</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Будь-який користувач може створити проект</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Відобразити</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Відображати на сторінці</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Сплачено часу</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Витрачено часу</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Стартова сторінка</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Підписатися на коментарі</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Задачу додано</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Початкова дата повинна бути ранішою, ніж термін виконання</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Завдання, яке ви збираєтеся перемістити, пов'язане з іншими завданнями. {0} Будь ласка, виберіть одну з дій:</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Видалити посилання та оновити</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Виділіть текст, котрий необхідно приховати на сторінках стрічки новин і сторінки зі списком обговорень, та натисніть "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Облік часу</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Загалом</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Не відслідковувати</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Відвязати проект від контакту</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Відмовитися від коментарів</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Останній термін оновлення</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Завдання, яке ви збираєтеся оновити, пов'язано з іншими завданнями. {0} Будь ласка, виберіть одну з дій:
+</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>гг</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>мм</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Добавити коментар</value>
+  </data>
+</root>

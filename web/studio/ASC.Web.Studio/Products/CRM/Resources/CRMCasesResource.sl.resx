@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Shrani in ustvari nov primer</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Vsi primeri</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Primer</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Dovoljenja bodo nastavljena za primere, kjer ste vi avtor</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Udeleženec primera</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Udeleženci primera</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Oznaka primera</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Seznam oznak primera</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Naslov primera</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Zapri primer</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Ustvarjanje primera...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Ustvari prvi primer</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Ustvari nov primer</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Izbriši primer</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Brisanje primerov</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Uredi primer</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Uredi «{0}» primer</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Primeri dovoljujejo, da na enem mestu hranite vso korespondenčno zgodovino, dodelite naloge, naložite dokumentacijo za kontakte, ki bodo sodelovali v pogostem dogodku. Na primer lahko je ekipno treniranje ali organizirane razstave.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>V tem oddelku ni mogoče prikazati primerov, ki se ujemajo z vašim filtrom. Prosim izberite druge možnosti filtra, ali pa ga počistite za ogled vseh primerov v tem oddelku. Prav tako lahko ustvarite primer, če je odsoten s tega seznama.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Tukaj ni primerov za prikaz s tem filtrom</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Seznam primerov je prazen</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Seznam udeležencev je prazen</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Udeležence dodaj k svojem primeru s seznama podjetij ali oseb. Ko je to končano, boste vedeli, kdo sodeluje v prihajajočih dogodkih, ki so povezani s tem primerom.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Uvozi primere</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Pravilno oblikovana CSV datoteka mora biti izbrana na HDD vašega računalnika. Vsebovati more stolpce in polja ločena z ločilom, ki bo uporabljen za uvažanje primerov. Datoteke, ki vsebujejo več kot {0} vrstic morajo biti za pravilno uvažanje razdeljene v manjše dele. Prepričajte se, da ste izbrali uporabnike portala, ki jim želite dodeliti dostop do informacij za uvoz, drugače bodo podatki s CSV datoteke na voljo vsem uporabnikom portala.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Izberi CSV datoteko in nastavi pravice dostopa preden uvoziš primere</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Stolpce svojih datotek uskladi z ustreznimi ONLYOFFICE™ CRM polji. Prosim bodite pozorni na dejstvo, da  morate imeti za pravilno uvažanje kontaktov vsaj en stolpec s svoje datoteke, ki se ujema s poljem 'Naslov primera' ONLYOFFICE™ CRM. Polja, ki vsebujejo datume, morajo imeti sledeč format: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Prosim potrdite polja</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Pojdi na seznam primerov</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Uvoz primerov lahko traja nekaj minut odvisno od količine vaših podatkov.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Uvoz pričet</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Udeleženci primera</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Odprt primer</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Udeleženci</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Omeji dostop do tega primera</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Shrani Spremembe</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Pojdi na profil</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Začni uvoz</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Vsi primeri</value>
+  </data>
+</root>

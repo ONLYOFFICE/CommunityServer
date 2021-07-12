@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>ポータルのアクセス権</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>マイルストーンを追加する</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>プロジェクト管理者を追加する</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>タスクを追加する</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>プロジェクトマネージャは、缶</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>プロジェクトチームのユーザーを追加または削除する</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>プロジェクトのメンバーのためのアクセス権が与えられます（{0}プライベートプロジェクト{1}の場合のみ）に設定</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>（作成、編集、削除）マイルストーン、タスク、ディスカッション、ドキュメント、{2}{0}それらに{1}へのアクセスを制限し管理する</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>マイルストーン、タスク、ディスカッション及び書類を管理する（作成、編集、削除など）</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>チャットで連絡する</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>メールを送信</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>プロジェクトを完了する</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>最初のプロジェクトを作成する</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>プロジェクトを作成する</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>プロジェクトを削除する</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>プロジェクトの削除を確認してください</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>プロジェクトを削除する</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>プロジェクトの削除を確認してください</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>あなたのフィルタに一致する案件がこのセクションに表示することはできません</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>プロジェクトを編集する</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>プロジェクトを作成し、効率的に処理します</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>効率的な業務のために、プロジェクトを使用してください。</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>プロジェクトリストは空です</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>このプロジェクトをフォロー</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>マイルストーンにタスクを追加する</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>すべての責任者</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>責任者を割り当てる</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>フル・スクリーン・モード</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>左側パネルモード</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>完了する</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>リンクを作成する</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>リンクは作成されています</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>左側パネルのタイトルをダブルクリックしてください</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>左側パネルで責任者を右クリックします</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>タイトルを編集する</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>ガントチャートを表示するために、視覚化したいプロジェクトを少なくとも一つ選択することが必要です。</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>プロジェクトは選択されていません</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>ガントチャート</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>高優先</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>凡例</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>活動中</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>状況に応じて、チャートオブジェクトの外観が異なる場合があります：</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>期限を過ぎた</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>主要な操作が含まれているパネルを開くように、Ｈキーを押してください。</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>無効なリンク</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>マウスがチャートオブジェクトの上に移動されている場合に、以下のシンボルが現れるようになります。</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>チャートの凡例</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>タスクをリンクする</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>タスクの上にマウスを移動し、白いサークルをクリックし、マウスを別のタスクに移動すると、現れた白いサークルの上に解放してください。</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>リンクの種類</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>とのリリンク</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>タスクとマイルストーンのみを開く</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>印刷</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>やり直す</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>再開する</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>タスク（マイルストーン）を右クリックします。</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value> ドロップダウンメニューを開く</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>何でもない表示されない場所を右クリックしてください。</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>新しいタスクを作成する</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>何でもない表示されない場所を右クリックし、右に移動してください。</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>期限日があるタスクを作成する</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>詳細はこちら</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>スクリーンに合わせる</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>期限日のないタスク</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>タイムラインのスケール</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>タイムラインのスケールを変わるために、マウスのホイールを使用してください</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>どこからでも今日の活動に直ぐに戻ります。</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>アンドゥ</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>アンドゥリストも消去され、前の操作をアンドゥできないようになります。</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>左に移動</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>右に移動</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>民間事業</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>プライベートとしてこのプロジェクトを保存</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>チームを管理する</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>時間を手動で入力</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>あなたがアクティブなマイルストーンでプロジェクトを閉じることはできません。</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>開いているタスクとプロジェクトを閉じることができません。</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>電子メールでプロジェクトマネージャに通知</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>プロジェクトを削除する</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>プロジェクトマネージャ</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>プロジェクトの進捗状況</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>チーム</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>プロジェクトテンプレート</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>プロジェクトテンプレート</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>チャートをリフレッシュー</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>プロジェクトを保存</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>プロジェクトテンプレートを選択します</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>完了のタスク。進行中のマイルストーンリスト全体を表示するようにクリックしてください。</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>タスクを開きます。現在のマイルストーンのリスト全体をクリックして開きます。</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>マイルストーンを担当するユーザ。現在のユーザーが管理するすべてのマイルストーンを表示する場合にクリックします。</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>プロジェクトマネージャ。現在のユーザーが管理するすべてのプロジェクトを表示する場合にクリックします。</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>タスクを開きます。現在のプロジェクトの全体のリストをクリックして開きます。</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>チーム。すべてのプロジェクトチームメンバーのリストをクリックして開きます。</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>サブタスクを開きます。現在のタスクのリスト全体をクリックして開きます。</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>タスクを担当するユーザー。現在のユーザに割り当てられているすべてのタスクを表示する場合にクリックします。</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>タスクを担当するユーザー。タスクに責任を持つすべてのユーザーを表示する場合にクリックします。</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>アクティブなマイルストーンを見る</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>オープン·タスクを表示</value>
+  </data>
+</root>

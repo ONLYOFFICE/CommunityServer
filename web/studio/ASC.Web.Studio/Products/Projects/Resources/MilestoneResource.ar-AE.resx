@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>اختر المشروع</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>اختر المسؤول</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>مرحلة مغلقه</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>شهرين</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>اسبوع</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>مرحلة محذوفة</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>لا توجد مراحل تطابق عامل التصفيه لكي يتم عرضها في هذا القسم</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>لا توجد مراحل تطابق عامل التصفيه هذا</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>مرحلة</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>الموعد النهائي</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>لم يتم التخطيط لأي مرحلة بعد</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>مراحل</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>المراحل... هي عباره عن تسلسل مراحل المشروع. عندما يتم تحديد مرحله تستطيع تعبئتها بالمهام المطلوبه لإتمام تلك المرحلة. خطط للمرحلة وحدد الموعد النهائي لإتمام تلك المرحلة لكي تتأكد من ان جميع المهام تتم في الوقت المحدد لها.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>قريبا</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>لا تستطيع اغلاق مرحله وفيها مهام مفتوحه</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>إبلاغ</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>كل مرحله يجب ان تحتوي على عنوان</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>متأخر</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>خطط لأول مرحلة</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>نبهني بـ 48 ساعه قبل الموعد النهائي</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>مسؤول</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>مرحلة اساسية</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+</root>

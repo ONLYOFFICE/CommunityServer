@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Επιλογή έργου</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Επιλογή υπευθύνου</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Κλείσιμο ορόσημου</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>Μήνας</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Δυο μήνες</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Εβδομάδα</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Διαγραφή ορόσημου</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Είστε σίγουροι για την διαγραφή του ορόσημου;</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Διαγραφή οροσήμων</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Είστε σίγουροι για την διαγραφή οροσήμων;</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Στο τμήμα αυτό δεν εμφανίζονται ορόσημα που ταιριάζουν με το φίλτρο σας.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Δεν ταιριάζει κανένα ορόσημο με αυτό το φίλτρο</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Ορόσημο</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Ημερομηνία λήξης</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Κανένα ορόσημο δεν έχει σχεδιαστεί ακόμα</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Ορόσημα</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Τα ορόσημα σηματοδοτούν τα σημαντικότερα χρονικά σημεία στη διαδικασία σχεδιασμού έργων. Μόλις δημιουργηθεί ένα ορόσημο, μπορείτε να το συμπληρώσετε με εργασίες για όλους τους συμμετέχοντες στο έργο. Σχεδιάστε ένα ορόσημο και ορίστε μια ημερομηνία λήξης για να βεβαιωθείτε ότι οι εργασίες ολοκληρώθηκαν εγκαίρως.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>Τα ορόσημα σηματοδοτούν τα σημαντικότερα χρονικά σημεία στη διαδικασία σχεδιασμού έργων. Μόλις δημιουργηθεί ένα ορόσημο, μπορεί να καλυφθεί με καθήκοντα για όλους τους συμμετέχοντες στο έργο.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Επερχόμενο</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Δεν μπορείτε να κλείσετε ένα ορόσημο με ανοικτές εργασίες.</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Ειδοποίηση</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Κάθε ορόσημο πρέπει να έχει ένα τίτλο</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Εκπρόθεσμο</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Σχεδιασμός του πρώτου ορόσημου</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Υπενθύμιση σε 48 ώρες πριν από την ημερομηνία λήξης</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Υπεύθυνος</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Βασικό ορόσημο</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+</root>

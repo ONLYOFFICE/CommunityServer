@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Корпоративний блог</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Блоги</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Всі записи автора</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Блоги</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Тема запису не може бути порожньою</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Додати коментар</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Коментарі</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Ви дійсно хочете видалити запис?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Редагування запису</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Блогів поки що немає</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Створити перший блог</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Створіть свою сторінку для того, щоб ділитися цікавою інформацією, думками та досвідом з іншими, висловлювати ваші думки та отримувати відгуки від користувачів.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Введіть необхідні теги в поле через кому</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Створити новий запис</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Опублікувати</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Читати далі</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Пошук по блогах</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Відображати на сторінці</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Підписатися на всі записи автора</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Підписка дозволяє слідкувати за новими записами автора в блогах</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Нові записи користувача</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Підписатися на коментарі до запису</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Підписка дозволяє слідкувати за новими коментарями до запису</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Коментарі до запису</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Підписатися на всі записи</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Підписка дозволяє стежити за всіма новими записами у блогах</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Нові записи в блозі</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Виберіть текст, який ви хочете приховати, зі сторінки інформаційного каналу та сторінки блога та натисніть "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Всього</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Відписатися від записів автора</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Відписатися від коментарів до запису</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Відписатися від усіх записів</value>
+  </data>
+</root>

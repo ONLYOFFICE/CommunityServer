@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentár</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Majiteľ</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Len na čítanie</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Úplný prístup</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Prístup zamietnutý</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Prehľad</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Líši sa</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archívy</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Všetky súbory</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Priečinky</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Obrázky</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Médiá </value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Hľadať</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Prezentácie</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Tabuľky</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Zobraziť viac {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Nahrávanie...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Zobraziť viac {0} z {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Vytvorené</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Modifikované</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Veľkosť</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Kód bol skopírovaný do schránky</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Ste si istý, že chcete odobrať {0} z modulu 'Dokumenty'? Táto akcia neovplyvní vaše {1} konto v žiadnom smere.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Ste si istý, že chcete vyprázdniť kôš?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Naozaj chcete opustiť aktuálnu stránku? Sťahovanie súborov sa preruší.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Chystáte sa odstrániť tento súbor? Upozorňujeme, že ak ste ho zdieľali s niekým, stane sa nedostupným. Ste si istý, že chcete pokračovať?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Chystáte sa odstrániť tento priečinok? Upozorňujeme, že ak ste ho zdieľali s niekým, stane sa nedostupným. Ste si istý, že chcete pokračovať?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Chystáte sa tieto prvky odstrániť? Upozorňujeme, že ak ste tieto súbory alebo priečinky zdieľali s niekým, stanú sa nedostupnými. Ste si istý, že chcete pokračovať?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Chystáte sa presunúť prvky z adresára {1}. V takom prípade budú odstránené z Vášho účtu {1} v prípade, že boli tieto prvky predtým zdieľané, už nebudú prístupné ostatným používateľom . {0} Naozaj chcete prvky presunúť?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Bežné dokumenty</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Vlastný formát</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Skupiny</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Archivácia dát</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Zmeniť údaje</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Finalizácia verzie</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopírovať</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Tvorba</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Podpísať pomocou DocuSign</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Nahrávanie verzie...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Označiť ako prečítané</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Premiestniť</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Odstraňovanie...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Premenovať</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Aktualizácia verzie</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Podpísať dokument ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Vyberte aspoň jeden priečinok/dokument na stiahnutie</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Vložiť komentár</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Nemôžete nahrať prázdny súbor alebo priečinok</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Chyba konverzie</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Všetky polia musia byť vyplnené</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Maximálna veľkosť súboru je prekročená</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Ak chcete pridávať, mali by ste sa prihlásiť</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Ľutujeme, ale formát tohto súboru nie je podporovaný</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Prosím počkajte, kým sa dokončí predchádzajúce sťahovanie, alebo ho zrušte.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Nemáte dostatočné práva k prevedeniu operácie</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Takúto akciu nemôžete vykonať v tejto zložke</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Názov nemôže obsahovať nasledovné charaktery: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Voľné miesto na portáli ste vyčerpali. Nemôžete nahrať súbory väčšie ako {0}.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Súbor s názvom {0} už existuje v priečinku {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Konvertované</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Konverzia</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} dokumentov s rovnakým názvom už existuje v priečinku {1}. Prepísať tieto súbory?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Nahratý</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Nahrávanie</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box priečinok</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>Účet DocuSign</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox priečinok</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google priečinok</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>Adresár SharePoint</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>Adresár OneDrive</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>Adresár WebDAV</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Adresár Yandex</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Teraz je '{0}'vlastníkom'{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Teraz je '{0}' vlastníkom '{1}' položiek</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' zmenené</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} skopírovaných prvkov</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' skopírované</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Nový súbor '{0}' je vytvorený</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Nový '{0}' súbor je vytvorený v '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Nový priečinok '{0}' je vytvorený</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Nie je možné skopírovať priečinok do jeho vlastného priečinka</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Nemôžete presunúť priečinok do jeho podpriečinka</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Nemáte prístupové práva na presun niektorých súborov</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} presunutých prvkov</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' presunutý</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Dokument '{0}' je zmazaný</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Priečinok '{0}' sa maže</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Bolo úspešne odstránených {0} z {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Treťostranný '{0}' je odstránený</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Dokument '{0}' je premenovaný na '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Priečinok '{0}' je premenovaný na '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' pridané do '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} dokumentov bolo úspešne nahratých</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Moje dokumenty</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Originál formát</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Ostatné</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Prezentácie</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Nepodarilo sa nahrať súbor {0} na zobrazenie</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Dokumenty projektu</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>Revízie: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Bol Vám udelený prístup k dokumentu {0}. Kliknutím na odkaz nižšie ho môžete hneď otvoriť: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Bol Vám udelený prístup k dokumentu {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Pridajte používateľov alebo skupiny a udeľte im povolenia {0} na čítanie, prezeranie alebo úpravu dokumentov.</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Tabuľky</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Archivácia dát</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopírovanie</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Odstránenie</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Označiť ako prečítané</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} operácia/e/í</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Premiestniť</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Zmeniť {0} nastavenia pripojenia</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>To je v súčastnosti upravovaný</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>To je v súčastnosti opravovaný od: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Uzamknutý</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Uzamknuté: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Ďalšie funkcie</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Nová prezentácia</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Nová tabuľka</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Nový dokument</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Nový priečinok</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Všeobecné nastavenia</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Pomoc</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Pripojiť účty</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive
+</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Neznáma chyba...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Nahrávanie bolo dokončené</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Nahrávanie ...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Nahrávanie {0} súborov ({1}% hotovo)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>používa sa {0} z {1}</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Používatelia</value>
+  </data>
+</root>

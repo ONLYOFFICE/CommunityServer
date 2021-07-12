@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="All" xml:space="preserve">
+    <value>جميع</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>كل {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>كل {!users}</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>إضافة وقت</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>ايقاف</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>اعادة تعيين</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>ابداء</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>انشاء جديد</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>لا توجد مشاريع تطابق عامل التصفيه هذا</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>تابع</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>تعلم المزيد ...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>المشاريع | متابعة</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>الاحدث</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>مناقشاتي</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>مشاريعي</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>جهات الاتصال</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>المشاريع</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>تعليق جديد على المناقشه</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>تعليق جديد على المهام</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>لا توجد بيانات</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>قم بإنشاء فريق العمل وقم بتعيين المهام اليهم. حدد مراحل المشروع وتابع نشاط المشروع وانشئ تقاريرك الخاصة</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>قم بإنشاء فريق العمل وقم بتعيين المهام اليهم. حدد مراحل المشروع وتابع نشاط المشروع وانشئ تقاريرك الخاصة</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>المشاريع</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>جهات الإتصال التي سوف تربط مع المشروع</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>عنوان المشروع</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>اقرأ المزيد</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>احفظ ثم اضف مهمه جديده</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>حفظ التعديلات</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>عرض على الصفحة</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>الوقت المستغرق</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>الوقت</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>متابعه الوقت</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>الاجمالي</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>الغاء المتابعة</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>اضف تعليق</value>
+  </data>
+</root>

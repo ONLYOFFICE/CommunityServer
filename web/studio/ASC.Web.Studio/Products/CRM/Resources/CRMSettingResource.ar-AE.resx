@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>اوقف التصدير</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>الصلاحيات والعلامات</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>صلاحيات الدخول للبوابة</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>اضف قالب مهمه جديد</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>اضف مجموعة جديده لقالب المهمة</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>اضف خيار</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>اضافه علامة</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>اضف مجموعة لقالب مهمه</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>تتم اضافه مجموعة قالب مهمه</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>تتم اضافه قالب مهمه</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>اضف قالب المهمه هذا</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>اضف مجموعة قالب مهمه هذا</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>تحقق</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>للجميع الشركه والشخص</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>غير الألوان</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>غير الايقونات</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>مربع اختيار</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>اعمدة</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>اعدادات عامة</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>جاري اضافه فئه</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>جاري اضافه نوع</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>اضافه حقل مستخدم</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>تتم اضافه خطوه</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>جاري اضافه حقل</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>انشاء فئه جديدة</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>فئه جديده</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>اضافه خطوه جديده</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>خطوه جديده</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>اضافه حقل جديد</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>حقل جديد</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>اضافه نوع جديد</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>نوع جديد</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>اضافه علامة جديدة</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>علامة جديدة</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>اعدادات العملة</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>حقول المستخدم</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>لم يتم اكمال الفرصه بنجاح</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>اتم الفرص بنجاح</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>العملة الرئيسية</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>حذف فئه</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>حذف نوع</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>حذف حقل</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>حذف خطوه</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>حذف علامه</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>حذف قالب مهمه</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>حذف مجموعه قالب مهمه</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>احذف العلامات الغير مستخدمة</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>نوع جهه الاتصال توفر لك امكانيه تحديد نوع العميل بشكل عملي. على سبي المثال نوع جهه الاتصال بالإمكان ان يكون "محتمل" , "راغب" , " متحمس" ممايدل على رغبه العميل في شراء المنتج.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>تستطيع حذف نوع جهه الاتصال فقط اذا كانت لا توجد اي جهه اتصال في هذالنوع</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>تعويض في ايام</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>قم بتحميل كل البيانات في ملف مضغوط واحد</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>بدءا تأسيس الملف المضغوط</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>الرابط الخاص بتحميل الملف المضغوط</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>حرر الفئه</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>حرر النوع</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>حرر الحقل</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>حرر الخطوه</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>حرر «{0}» فئه المهمه</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>حرر «{0}» نوع جهه الاتصال</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>حرر «{0}» خطوات الفرص</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>حرر  «{0}» قالب المهمه هذا</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>حرر  «{0}» مجموعة قالب المهمه هذا</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>حرر قالب المهمه</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>حرر مجموعة قالب المهمه</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>قائمه حقل المستخدم فارغه</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>قائمه العلامات فارغة</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>قائمه قوالب المهمه فارغة</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>يجب تعبئه الحقل بالشكل الصحيح</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>كل حقل يجب ان يحتوي على عنوان</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>عنوان الحقل لا يمكن ان يكون فارغ</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>تفعيل الاتصال الامن SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>صدر كل المعلومات</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>قم بإنشاء قائمه لبرنامج خارجي</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>قائمه الحقل</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>الحقول المحددة</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>قم بإختيار الحقول التي سيتم عرضها على النموذج</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>السورس كود الخاص بالفورم</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>استخدم هذا النموذج في موقعك</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>هكذا سوف يظهر النموذج على موقعك</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>خيارات النموذج</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>اعدادات نموذج الاتصال بالموقع</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>انشأء النموذج</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>فئه احداث السجل التاريخي</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host Login</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Host Password</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Internal SMTP ({0} email recipients maximum)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>فقط للشركه</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>فقط للشخص</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>نسبة التقدم</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>تنبيه {!users}</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>ابداء العد من المهمه السابقه</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>ابداء العد من بدايه المجموعة</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>حقول اخرى</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>حذف خيار</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Redirection URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>رابط العنوان من موقعك بعدما يقوم العميل بتعبئه النموذج والذي سيتم تحويل العميل اليه</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>الاسطر</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>تم الحفظ!</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>صندوق تحديد</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>اختيارات</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>اسم المرسل</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>البريد الإلكتروني للمرسل</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>حقول خاصه بالمستخدم</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>حجم</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>ارسال بيانات</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>قوالب المهمه</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>مكان لكتابة النص</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>النص</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>نوع</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Web Form Key</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>مفتاح الويب الخاص بالنموذج والذي يستخدم للتأكد من صحه النموذج وايضا للربط بين النموذج وموقع التيم لاب ويستخدم هذا المفتاح لحمايتك من الاختراق وايضا لمنع رسائل البريد المزعج. عند اصدار مفتاح ويب جديد المفتاح القديم سوف يتوقف عن العمل تلقائيا.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>نموذج اتصال الموقع</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Invalid form key</value>
+  </data>
+</root>

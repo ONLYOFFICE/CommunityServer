@@ -1,0 +1,916 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Campo de código de validación no puede estar vacío</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Introduzca el número de teléfono móvil</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>Campo de código de validación no puede estar vacío</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>Añadir filtro</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Use símbolos {0}?{1} y {0}*{1} para realizar la búsqueda de un o múltiples caracteres. Por ejemplo, para encontrar las palabras que empiezan con {0}O{1}, use la consulta {0}O*{1}. Para encontrar una frase precisa use comillas.{2}Saber más...{3}</value>
+  </data>
+  <data name="AscOrDesc" xml:space="preserve">
+    <value>Ascendente/descendente</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>La copia de seguridad se ha creado con éxito.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Ocupado</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Compra exitosa del número</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Llamada entrante</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Llamada perdida</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="CannotGenerateCertificate" xml:space="preserve">
+    <value>No se puede generar el certificado</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Cambios se aplican</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Los cambios están aplicados con éxito.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Se ha producido un error. Por favor, póngase en contacto con su administrador.</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Completar</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>¿Desea continuar?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Crear un contacto nuevo</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>No hay contactos en esta lista </value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Introduzca el nombre de empresa</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>No hay contactos</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>No hay tal contacto</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>No hay tal empresa</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>CONTINUAR</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Error al generar un informe</value>
+  </data>
+  <data name="CronApril" xml:space="preserve">
+    <value>abril</value>
+  </data>
+  <data name="CronAugust" xml:space="preserve">
+    <value>agosto</value>
+  </data>
+  <data name="CronDecember" xml:space="preserve">
+    <value>diciembre</value>
+  </data>
+  <data name="CronEmpty" xml:space="preserve">
+    <value>cada</value>
+  </data>
+  <data name="CronEmptyDayOfMonth" xml:space="preserve">
+    <value>cada día del mes</value>
+  </data>
+  <data name="CronEmptyDayOfWeek" xml:space="preserve">
+    <value>cada día de la semana</value>
+  </data>
+  <data name="CronEmptyMinutes" xml:space="preserve">
+    <value>cada</value>
+  </data>
+  <data name="CronEmptyMonth" xml:space="preserve">
+    <value>cada mes</value>
+  </data>
+  <data name="CronEmptyTimeHours" xml:space="preserve">
+    <value>cada hora</value>
+  </data>
+  <data name="CronEmptyTimeMinutes" xml:space="preserve">
+    <value>cada minuto</value>
+  </data>
+  <data name="CronError1" xml:space="preserve">
+    <value>¡La etiqueta %s no está soportada!</value>
+  </data>
+  <data name="CronError2" xml:space="preserve">
+    <value>Mal número de elementos</value>
+  </data>
+  <data name="CronError3" xml:space="preserve">
+    <value>El jqueryelement debe colocarse en los ajustes jqCron</value>
+  </data>
+  <data name="CronError4" xml:space="preserve">
+    <value>Expresión no reconocida</value>
+  </data>
+  <data name="CronFebruary" xml:space="preserve">
+    <value>febrero</value>
+  </data>
+  <data name="CronFirst" xml:space="preserve">
+    <value>primero</value>
+  </data>
+  <data name="CronFriday" xml:space="preserve">
+    <value>viernes</value>
+  </data>
+  <data name="CronJanuary" xml:space="preserve">
+    <value>enero</value>
+  </data>
+  <data name="CronJuly" xml:space="preserve">
+    <value>julio</value>
+  </data>
+  <data name="CronJune" xml:space="preserve">
+    <value>junio</value>
+  </data>
+  <data name="CronLast" xml:space="preserve">
+    <value>último</value>
+  </data>
+  <data name="CronMarch" xml:space="preserve">
+    <value>marzo</value>
+  </data>
+  <data name="CronMay" xml:space="preserve">
+    <value>mayo</value>
+  </data>
+  <data name="CronMonday" xml:space="preserve">
+    <value>lunes</value>
+  </data>
+  <data name="CronNameDay" xml:space="preserve">
+    <value>día</value>
+  </data>
+  <data name="CronNameHour" xml:space="preserve">
+    <value>hora</value>
+  </data>
+  <data name="CronNameMinute" xml:space="preserve">
+    <value>minuto</value>
+  </data>
+  <data name="CronNameMonth" xml:space="preserve">
+    <value>mes</value>
+  </data>
+  <data name="CronNameWeek" xml:space="preserve">
+    <value>semana</value>
+  </data>
+  <data name="CronNameYear" xml:space="preserve">
+    <value>año</value>
+  </data>
+  <data name="CronNovember" xml:space="preserve">
+    <value>noviembre</value>
+  </data>
+  <data name="CronOctober" xml:space="preserve">
+    <value>octubre</value>
+  </data>
+  <data name="CronSaturday" xml:space="preserve">
+    <value>sábado</value>
+  </data>
+  <data name="CronSeptember" xml:space="preserve">
+    <value>septiembre</value>
+  </data>
+  <data name="CronSunday" xml:space="preserve">
+    <value>domingo</value>
+  </data>
+  <data name="CronTextDom" xml:space="preserve">
+    <value>en &lt;b /&gt;</value>
+  </data>
+  <data name="CronTextDow" xml:space="preserve">
+    <value>en &lt;b /&gt;</value>
+  </data>
+  <data name="CronTextMins" xml:space="preserve">
+    <value>&lt;b /&gt; minuto(s) pasada la hora UTC</value>
+  </data>
+  <data name="CronTextMonth" xml:space="preserve">
+    <value>de &lt;b /&gt;</value>
+  </data>
+  <data name="CronTextPeriod" xml:space="preserve">
+    <value>Cada &lt;b /&gt;</value>
+  </data>
+  <data name="CronTextTime" xml:space="preserve">
+    <value>a las &lt;b /&gt;:&lt;b /&gt; UTC</value>
+  </data>
+  <data name="CronThursday" xml:space="preserve">
+    <value>jueves</value>
+  </data>
+  <data name="CronTuesday" xml:space="preserve">
+    <value>martes</value>
+  </data>
+  <data name="CronWednesday" xml:space="preserve">
+    <value>miércoles</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>El campo Comentario no puede ser vacío</value>
+  </data>
+  <data name="EmptySelectedArea" xml:space="preserve">
+    <value>Seleccionar un área para avatar</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Introduzca su dirección e-mail</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Por favor, rellene este campo</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Introduzca el título de grupo</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Introduzca nombre</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Introduzca apellido</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>No hay tal grupo</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>No hay tal persona</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>Nombre inválido</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>Apellido inválido</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>65 símbolos máximo</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>La fecha de registro debe ser posterior a la fecha de nacimiento</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Es imposible añadir la misma cuenta y contacto dos veces.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Usted puede introducir hasta 64 caracteres en este campo.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>E-mail inválido</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Nombre de portal ya está en uso</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Símbolos prohibidos en el nombre de portal</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>nombre del portal es demasiado corto</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>El nombre del portal no se ha cambiado</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Se han añadido usuarios con éxito</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nombre </value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Grupo {0} se ha creado con éxito. </value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Crear un nuevo grupo</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>No hay grupos en esta lista</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>No hay tal grupo</value>
+  </data>
+  <data name="HideLink" xml:space="preserve">
+    <value>Ocultar</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Formato de dirección IP incorrecto</value>
+  </data>
+  <data name="IncorrectMetadataFileType" xml:space="preserve">
+    <value>Tipo de archivo de metadatos incorrecto. Se requiere un archivo .xml.</value>
+  </data>
+  <data name="InvalidCertificate" xml:space="preserve">
+    <value>Certificado inválido</value>
+  </data>
+  <data name="InvalidMetadataXmlFile" xml:space="preserve">
+    <value>Archivo XML de metadatos inválido </value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Invitar</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Ajustes se han actualizado con éxito</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="LdapAttributeOrigin" xml:space="preserve">
+    <value>Nombre de atributo LDAP</value>
+  </data>
+  <data name="LdapSecurityPlaceholder" xml:space="preserve">
+    <value>Atributo de nombre de grupo LDAP</value>
+  </data>
+  <data name="LdapSettingsCertCnNoMatch" xml:space="preserve">
+    <value>El nombre del certificado no coincide con el nombre de host</value>
+  </data>
+  <data name="LdapSettingsCertExpired" xml:space="preserve">
+    <value>Certificado expirado</value>
+  </data>
+  <data name="LdapSettingsCertIssuerChaining" xml:space="preserve">
+    <value>No se ha proporcionado la cadena del emisor del certificado</value>
+  </data>
+  <data name="LdapSettingsCertMalformed" xml:space="preserve">
+    <value>Certificado formado de forma incorrecta</value>
+  </data>
+  <data name="LdapSettingsCertUnrecognizedError" xml:space="preserve">
+    <value>Error no reconocido</value>
+  </data>
+  <data name="LdapSettingsCertUntrustedCa" xml:space="preserve">
+    <value>La entidad de certificación que emitió el certificado no es de confianza</value>
+  </data>
+  <data name="LdapSettingsCertUntrustedRoot" xml:space="preserve">
+    <value>La entidad de certificación raíz que emitió el certificado no es de confianza</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Campo vacío</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>El número de puerto incorrecto</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Se ha completado correctamente el guardado</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>Es necesario leer y estar de acuerdo con el Contrato de Licencia</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Licencia no correcta</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Enlace se ha copiado al portapapeles</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Por favor, espere...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Cargando, por favor espere. </value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Cargando...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>Todo el día</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Evento ha sido cancelado.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Cancelado: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Evento se ha acabado.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} ha aceptado tentativamente la invitación a</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} ha rechazado la invitación a</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Respuesta: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} ha aceptado la invitación a</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} invítale a</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Invitación: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>y</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>aproximadamente</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>día</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>días</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>cada</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>para</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>hora</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>horas</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>Último</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>mes</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>meses</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>Formato desconocido</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>ro</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value>el/la</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>vez</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>veces</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>hasta</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>día laboral</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>días laborales</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>semana</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>semanas</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>año</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>años</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Evento ha sido cambiado.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Actualización: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>Usted aceptó provisionalmente la invitación a</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>Usted ha rechazado la invitación a</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>Usted ha aceptado la invitación a</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>Usted ha enviado la invitación a</value>
+  </data>
+  <data name="MailNoSubject" xml:space="preserve">
+    <value>sin asunto</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Se ha producido un error al enviar este mensaje.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Notificación de cancelación de eventos ha sido enviada a los asistentes.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Su solicitud ha sido enviada a los asistentes.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Su respuesta ha sido enviada al organizador.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Mensaje ha sido enviado.</value>
+  </data>
+  <data name="MappingAdditionalMail" xml:space="preserve">
+    <value>Email Adicional</value>
+  </data>
+  <data name="MappingAdditionalMobilePhone" xml:space="preserve">
+    <value>Teléfono Móvil Adicional</value>
+  </data>
+  <data name="MappingAdditionalPhone" xml:space="preserve">
+    <value>Teléfono Adicional</value>
+  </data>
+  <data name="MappingAvatarAttribute" xml:space="preserve">
+    <value>Foto de perfil</value>
+  </data>
+  <data name="MappingBirthDayAttribute" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="MappingFirstNameAttribute" xml:space="preserve">
+    <value>Nombre </value>
+  </data>
+  <data name="MappingGenderAttribute" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="MappingLocationAttribute" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="MappingMailAttribute" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="MappingMobilePhoneAttribute" xml:space="preserve">
+    <value>Teléfono móvil principal</value>
+  </data>
+  <data name="MappingSecondNameAttribute" xml:space="preserve">
+    <value>Segundo Nombre</value>
+  </data>
+  <data name="MappingSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="MappingTitleAttribute" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Yo</value>
+  </data>
+  <data name="MetadataFileNotTransferred" xml:space="preserve">
+    <value>Archivo de metadatos no transferido</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>No hay hitos en este proyecto</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>No hay tal hito</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nunca mostrar</value>
+  </data>
+  <data name="NotAddedAnyTemplates" xml:space="preserve">
+    <value>Usted no ha añadido ninguna plantilla</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Desconectado</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>En línea</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Abierto</value>
+  </data>
+  <data name="OpenTalk" xml:space="preserve">
+    <value>Abrir Chat</value>
+  </data>
+  <data name="OperationFailedError" xml:space="preserve">
+    <value>Error al realizar la operación</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Error durante la ejecución de la operación.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>La operación ha sido ejecutada con éxito.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Usted está apunto de renombrar su portal.{1}{0}¿Está seguro que quiere continuar?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Cambio del nombre de portal</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Crear nuevo proyecto</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>No hay proyectos en esta lista</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Cada proyecto debe tener un gerente</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Cada proyecto debe tener un título</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>No hay proyectos en este proyecto</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>No hay tal proyecto</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>No hay tal persona</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="SaasTariffPaymentAccepted" xml:space="preserve">
+    <value>¡Se ha aceptado el pago! Su plan se actualizará en unos minutos</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Restricciones</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Los ajustes se han guardado con éxito</value>
+  </data>
+  <data name="SecurityMappingCommunity" xml:space="preserve">
+    <value>Comunidad</value>
+  </data>
+  <data name="SecurityMappingCrm" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="SecurityMappingDocuments" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="SecurityMappingFullAccess" xml:space="preserve">
+    <value>Acceso completo</value>
+  </data>
+  <data name="SecurityMappingMail" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="SecurityMappingPeople" xml:space="preserve">
+    <value>Personas</value>
+  </data>
+  <data name="SecurityMappingProjects" xml:space="preserve">
+    <value>Proyectos</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Seleccionar archivo</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Seleccionar carpeta</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Nombre de empresa</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Tipo de contacto</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Nombre </value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Jefe</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Gerente</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Persona</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>seleccionado</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Visitante</value>
+  </data>
+  <data name="SendTariffRequest1" xml:space="preserve">
+    <value>Su solicitud se ha enviado con éxito. Nuestro gerente se pondrá en contacto con usted en el momento más cercano.</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Acabo de crear mi oficina web. Únase aquí: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowLink" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Mostrar siguiente</value>
+  </data>
+  <data name="SsoCertificateActionTypeError" xml:space="preserve">
+    <value>Certificado con el mismo tipo de acción ya existe</value>
+  </data>
+  <data name="SsoCertificateMultipleVerificationError" xml:space="preserve">
+    <value>Varios certificados de verificación de Idp no son compatibles. Por favor, deje sólo el Certificado principal.</value>
+  </data>
+  <data name="SsoHideAdvancedSettings" xml:space="preserve">
+    <value>Ocultar los ajustes avanzados</value>
+  </data>
+  <data name="SsoMetadataFileTypeError" xml:space="preserve">
+    <value>Tipo de archivo de metadatos incorrecto. Se requiere un archivo .xml.</value>
+  </data>
+  <data name="SsoSettingsSuccess" xml:space="preserve">
+    <value>Se ha completado correctamente el guardado</value>
+  </data>
+  <data name="SsoShowAdvancedSettings" xml:space="preserve">
+    <value>Mostrar los ajustes avanzados</value>
+  </data>
+  <data name="StartFilter" xml:space="preserve">
+    <value>Iniciar filtro</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Conectar</value>
+  </data>
+  <data name="StorageButtonResetToDefault" xml:space="preserve">
+    <value>Restablecer ajustes predeterminados</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>Ajustes de CDN</value>
+  </data>
+  <data name="StorageStorageTitle" xml:space="preserve">
+    <value>Ajustes de almacenamiento</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} usuario(s) añadido(s) al portal con éxito</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Ajustes se han actualizado con éxito</value>
+  </data>
+  <data name="TemplateNotFound" xml:space="preserve">
+    <value>Plantilla no encontrada</value>
+  </data>
+  <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
+    <value>Suscribirse a Trucos&amp;Consejos</value>
+  </data>
+  <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
+    <value>Cancelar la suscripción a Trucos&amp;Consejos</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>Usted va a darse de baja de todas las notificaciones del módulo "{0}".¿Está seguro de que quiere continuar?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Archivo vacío </value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Error al cargar archivo</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Formato de archivo compatible: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>El tamaño de archivo no puede superar 5MB</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>pendiente</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>El perfil de {0} fue creado con éxito</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Crear nuevo perfil</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>No hay usuarios en esta lista</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>El numero máximo de usuarios activos excidido</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>No hay ningún grupo en el portal todavía. Vaya al módulo Personas para agrupar usuarios. </value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>No hay usuarios en este grupo</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>No hay tal usuario</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Si abandona la página ahora, se perderán todos los datos no guardados</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Esto significa que usted puede: {1}ver el contenido disponible para todos los usuarios de portal,{2}publicar comentarios,{3}adjuntar y descargar archivos.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>Si necesita algunos derechos adicionales, por favor póngase en contacto con el administrador de su portal.</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Bienvenido a ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>El administrador del portal le invite como un usuario visitante del portal</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Empezar el trabajo</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Bienvenido a ONLYOFFICE</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Usted no tiene la contraseña establecida. Usted podrá establecerla después usando el enlace '¿Se le olvidó la contraseña?' en la pagina de inicio del portal. ¿Esta seguro(a) de que quiere continuar?</value>
+  </data>
+</root>

@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Droits d'accès sur le portail</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Ajouter un jalon</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Ajouter un chef de projet</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Ajouter une tâche</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Un Chef de Projet peut</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>ajouter ou supprimer les utilisateurs de l'équipe de projet</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>distribuer les droits d'accès aux membres de projet (seulement pour un {0}projet privé{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>gérer (créer, modifier, supprimer) des jalons, des tâches, des discussions, des documents et {0}y limiter l'accès{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>gérer (créer, modifier, supprimer) jalons, tâches, discussions, documents</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Contacter par Chat</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Envoyer message</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Fermer le projet</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Créer le premier projet</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Créer un nouveau projet</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Supprimer le projet</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer ce projet ?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Supprimer les projets</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Etes-vous sûr de vouloir supprimer ces projets?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Aucun projet correspondant à votre filtre ne peut être affiché dans cette section.</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Modifier le projet</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Créez les projets et travaillez efficacement</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Profitez des projets pour travailler de manière efficace</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>La liste des projets est vide</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Suivre ce projet</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Ajouter une tâche au jalon</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Tous les responsables</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Nommer les responsables</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Mode plein écran</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Mode panneau gauche</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Créer un lien</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Création du lien en cours</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Double cliquez sur le titre sur le panneau de gauche</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Cliquez droit sur le nom du responsable sur le panneau de gauche</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Modifier le titre</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Pour afficher le diagramme de Gantt il est nécessaire de sélectionner au moins un projet dont le diagramme vous souhaitez visualiser.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Pas de projets sélectionnés</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Diagramme de Gantt</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Haute priorité</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Légende</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Actifs</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Fermés</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Les objets du diagramme peuvent être représentés différemment selon la situation:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>En retard</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Pour ouvrir le panneau avec la liste de toutes les opérations principales, utilisez la touche H.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Lien non valide</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Les symboles ci-dessous sont affichés si vous placez le pointeur de la souris sur un objet du diagramme.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Légende de graphique</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Lier des tâches</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Faites glisser le pointeur sur une tâche, cliquez sur le cercle blanc, déplacez le pointeur vers une autre tâche et déposez-le sur un cercle blanc qui apparaît</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Type de lien</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Lien avec</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Tâches et jalons ouverts</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Aujourd'hui</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Imprimer</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Rétablir</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Rouvrir</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Cliquez droit sur la tâche (jalon)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Ouvrir le menu déroulant</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Cliquez droit sur un vide</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Créer une nouvelle tâche</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Cliquez droit sur un vide et faites glisser à droite</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Créer une nouvelle tâche avec la date limite</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>En savoir plus</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Ajuster à l'écran</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Tâche sans date limite</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Jours</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Mois</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Échelle chronologique</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Semaine</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Utilisez la roulette de la souris pour changer échelle de la chronologie</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Retourner rapidement aux activités d'aujourd'hui de n'importe quel point du diagramme</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>La liste Annuler sera effacée et vous ne pourrez pas annuler toutes les actions précédentes.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>A gauche</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>A droite</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Projet privé</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Enregistrer ce projet en tant que privé</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Gérer l'équipe</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Entrer le temps manuellement</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Vous ne pouvez pas fermer le projet avec des jalons actifs.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Vous ne pouvez pas fermer le projet avec des tâches ouvertes.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Informer le chef de projet par email</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projet</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Supprimer projet</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Chef de projet</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projets</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Statut du projet</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Equipe</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Modèle de projet</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Modèles de projet</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Titre</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Actualiser le diagramme</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Enregistrer le projet</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Sélectionner modèle de projet</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Sélectionner</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Tâches fermées. Cliquez pour ouvrir la liste complète des tâches du jalon actuel.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Tâches ouvertes. Cliquez pour afficher la liste complète des tâches du jalon actuel.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Utilisateur responsable du jalon. Cliquez pour afficher tous les jalons gérés par l'utilisateur actuel.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Chef de projet. Cliquez pour afficher tous les projets gérés par l'utilisateur actuel.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Tâches ouvertes. Cliquez pour afficher la liste complète des tâches du projet actuel.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Équipe. Cliquez pour afficher la liste de tous les membres de l'équipe de projet.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Sous-tâches ouvertes. Cliquez pour afficher la liste complète des sous-tâches de la tâche actuelle.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Utilisateur responsable de la tâche. Cliquez pour afficher toutes les tâches assignées à l'utilisateur actuel.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Utilisateurs responsables de la tâche. Cliquez pour afficher tous les utilisateurs responsables de la la tâche.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Voir des jalons actifs</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Voir des tâches ouvertes</value>
+  </data>
+</root>

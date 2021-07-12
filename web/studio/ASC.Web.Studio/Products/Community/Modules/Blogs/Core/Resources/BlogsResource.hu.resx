@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blogok</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blogok</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Cím</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Hozzászólás hozzáadása</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Hozzászólások</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Szöveg</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Írd be a kulcsszavakat vesszővel elválasztva</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Lezár</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Szerző</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Bővebben</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Oldal mutatása</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Kulcsszavak</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Szöveg kivágása</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Összesen</value>
+  </data>
+</root>

@@ -1,0 +1,1141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Ошибка подключения учетной записи.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Если ошибка повторяется, прочитайте {0}раздел FAQ{1} для получения дополнительной информации об этой проблеме.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Ошибка подключения учетной записи</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Параметры учетной записи</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Учетная запись Google успешно подключена повторно</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Учетная запись подключена с помощью OAuth, редактирование ограничено.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Учетные записи</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Вы хотите активировать %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Вы хотите добавить первую учетную запись почты прямо сейчас?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>У вас нет учетных записей почты, подключенных к Почте ONLYOFFICE™. Пожалуйста, добавьте учетную запись почты, чтобы начать получение и отправку писем.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Добавьте новую учетную запись, чтобы начать работу с Почтой ONLYOFFICE™.</value>
+  </data>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>Добавить условие</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Почтовый сервер</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Псевдоним)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>Псевдоним почтового ящика %mailbox_address%, можно изменить только в панели администрирования</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="ApplyMultiConditionsAllLabel" xml:space="preserve">
+    <value>соответствует всем условиям</value>
+  </data>
+  <data name="ApplyMultiConditionsAtLeastOneLabel" xml:space="preserve">
+    <value>соответствует хотя бы одному условию</value>
+  </data>
+  <data name="ApplyToLabel" xml:space="preserve">
+    <value>Применить к</value>
+  </data>
+  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
+    <value>Применить к сообщениям из</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Некоторые из заданных параметров недопустимы.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Доступ к документу запрещен.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Документ не удалось найти, или он не существует в выбранной папке.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Пустые файлы не поддерживаются.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>исполняемые файлы могут быть запрещены некоторыми сервисами (например, Gmail).</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Примечание: Размер файла не должен превышать %1 Мб. Общий размер всех файлов должен быть не более %2 Мб.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Не удалось найти сообщение.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Общий размер всех вложений превышает разрешённый.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>С учетной записью {0} долгое время не удавалось установить соединение, и ее пришлось отключить.{1} Пожалуйста, проверьте все указанные параметры учетной записи или войдите в почтовый сервис, который Вы используете, и проверьте настройки безопасности. Когда Вы удостоверитесь, что все проблемы с подключением учетной записи решены, то в любое время можете активировать ее в списке подключенных учетных записей.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Учетная запись почты была отключена из-за ошибки соединения.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Учетная запись почты отключена</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>Возникают проблемы с операциями отправки и получения для учетной записи почты {0}.{1} Причина может заключаться в том, что Вы изменили пароль учетной записи. Проверьте все указанные параметры учетной записи или войдите в почтовый сервис, которым Вы пользуетесь, и проверьте настройки безопасности.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>При подключении к учетной записи произошла ошибка.</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>отключить</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Повестка дня</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>Нет более поздних событий</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>Нет более ранних событий</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Весь день</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Предыдущий день</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Календарь</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>карта</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>Место не указано</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Организатор</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Участники</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Повторение</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Возможно</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Когда</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Где</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Кто</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>Копия</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Изменить параметры учетной записи</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Выбрать тег</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Свернуть все</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Общие настройки</value>
+  </data>
+  <data name="ContainsLabel" xml:space="preserve">
+    <value>содержит</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>Эта цепочка писем содержит свернутые сообщения, которые могут включать скрытые изображения. Распечатать ее?</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>Эта цепочка писем содержит изображения, которые не удается отобразить в данный момент. Вы хотите ее распечатать?</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>При копировании файла произошла ошибка</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Копирование в папку "Мои документы"</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Создать контакт</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Создать почтовый ящик</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>Вам предоставляется готовый бесплатный домен по умолчанию, чтобы вы сразу же могли создать новый почтовый ящик.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>Этот домен общий для всех порталов, поэтому для корпоративной почты рекомендуется использовать ваш корпоративный домен.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Создать почтовый ящик</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Создать новый контакт</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Создать новую компанию CRM</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Создать новую персону CRM</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Создать личный контакт</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>Контакты CRM</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Вы хотите отключить %1?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>На некоторые из аккаунтов не приходит почта.</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>Этот аккаунт используется для отправки почты по умолчанию</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteAccountOptionHead" xml:space="preserve">
+    <value>Шаблоны и черновики можно перенести в другую учетную запись.</value>
+  </data>
+  <data name="DeleteAccountOptionText" xml:space="preserve">
+    <value>перенести в аккаунт</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Вы хотите удалить %1?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Вы действительно хотите удалить тег %1?</value>
+  </data>
+  <data name="DeleteUserFolderShure" xml:space="preserve">
+    <value>Вы хотите удалить папку "{0}"?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Удаление сообщений</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Проверьте адрес получателя и формат сообщения.  Если Вы уверены в правильности сообщения, проверьте все параметры учетной записи {account_name}, и, если все правильно, войдите в почтовый сервис, который Вы используете, и подтвердите запросы на проверку, если они есть. После этого повторите попытку.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>Если эта ошибка будет повторяться, прочитайте {faq_link_open_tag}раздел FAQ{faq_link_close_tag} для получения дополнительной информации об этой проблеме.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Не удалось доставить сообщение "{subject}".</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Не удалось доставить сообщение.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Учетные записи почты были отключены.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Учетные записи почты были отключены</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Ваш портал довольно долго не использовался, поэтому ваши учетные записи почты, подключенные к Почте ONLYOFFICE™, были отключены. Если Вы все еще хотите их использовать, перейдите на страницу своей учетной записи и подключите их заново.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="DoNotSave" xml:space="preserve">
+    <value>Не сохранять</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Редактировать контакт</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Не удалось загрузить вложение в выбранную папку.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Ошибка вложений</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>К выбранной папке для вложений не удавалось получить доступ, и она была отвязана от вашей учетной записи почты {account}. Пожалуйста, убедитесь, что у Вас достаточно прав для доступа к выбранной папке, и привяжите ее заново.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Выбранную папку для вложений не удалось найти, и она была отвязана от вашей учетной записи почты {account}. Пожалуйста, убедитесь, что выбранная папка существует, и привяжите ее заново.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Написать первый черновик</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Раздел черновиков позволяет вам создавать и сортировать сообщения, которые Вы планируете отправить разным людям позже. Вы можете отметить наиболее важные сообщения и удалить ненужные.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Нет писем для отображения в этой папке</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Написать новое письмо</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Папка входящих сообщений позволяет Вам управлять полученными письмами. Здесь Вы можете просматривать историю переписки, отмечать наиболее важные сообщения, группировать письма по категориям, используя теги, удалять ненужные письма.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Не получено писем</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Настроить первую учётную запись</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Настройте учётную запись, чтобы отправлять, получать и упорядочивать Вашу почту прямо на портале. Получайте доступ к истории переписки, контактам и файлам через любой браузер в любое время и в любом месте. Сортируйте почту, используя свои собственные теги. Создайте почтовый ящик для готового бесплатного домена по умолчанию.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Нет настроенных учётных записей</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Перейти в CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Этот список контактов будет содержать всех Ваших клиентов из CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Список контактов пуст</value>
+  </data>
+  <data name="EmptyScrFiltersButton" xml:space="preserve">
+    <value>Создать фильтр</value>
+  </data>
+  <data name="EmptyScrFiltersDescription" xml:space="preserve">
+    <value>Создайте фильтры для сортировки всех писем и управления ими</value>
+  </data>
+  <data name="EmptyScrFiltersHeader" xml:space="preserve">
+    <value>Фильтров не создано</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>В этом списке контактов будут показаны все ваши личные контакты из адресной книги. Вы еще не внесли сюда никаких контактов.</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Создать новый тег почты</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Создайте теги для классификации писем</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Не создано ни одного тега</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>Создать папку</value>
+  </data>
+  <data name="EmptyScrUserFoldersDescription" xml:space="preserve">
+    <value>Добавьте папки для систематизации писем</value>
+  </data>
+  <data name="EmptyScrUserFoldersHeader" xml:space="preserve">
+    <value>Не было создано ни одной папки</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Написать новое письмо</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Папка отправленных сообщений позволяет Вам управлять отправленными письмами. Здесь Вы можете просматривать историю переписки, отмечать наиболее важные сообщения, группировать письма по категориям, используя теги, удалять ненужные письма.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Нет отправленных писем</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Папка нежелательных сообщений содержит письма, которые Вы пометили как спам. Здесь Вы можете удалять письма, помечать их как 'не спам' или очистить всю папку целиком.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Нет писем для отображения в этой папке</value>
+  </data>
+  <data name="EmptyTemplatesButton" xml:space="preserve">
+    <value>Создать первый шаблон</value>
+  </data>
+  <data name="EmptyTemplatesDescription" xml:space="preserve">
+    <value>Раздел Шаблоны позволяет создавать и сортировать сообщения, которые вы можете отправлять разным людям позже. Здесь вы можете пометить самые важные сообщения или удалить ненужные.</value>
+  </data>
+  <data name="EmptyTemplatesHeader" xml:space="preserve">
+    <value>Нет шаблонов для отображения в этой папке</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Папка 'Корзина' содержит письма, которые были удалены. Здесь Вы можете восстановить некоторые письма или удалить их навсегда.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Нет писем для отображения в этой папке</value>
+  </data>
+  <data name="EmptyUserFolderDescription" xml:space="preserve">
+    <value>В этом разделе вы можете управлять теми сообщениями, которые сюда переместите. Здесь можно посмотреть историю переписки, пометить самые важные сообщения, сгруппировать письма по категориям с помощью тегов или удалить ненужные сообщения.</value>
+  </data>
+  <data name="EmptyUserFolderHeader" xml:space="preserve">
+    <value>Нет писем для отображения в этой папке</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Включен автоответчик</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Учетная запись уже существует</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Календарь недоступен</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>поле не заполнено</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Поле 'Кому' пустое</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Некорректный адрес</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Некорректный адрес</value>
+  </data>
+  <data name="ErrorLostInternetConnection" xml:space="preserve">
+    <value>Потеряно подключение к Интернету</value>
+  </data>
+  <data name="ErrorMailMessageSizeBody" xml:space="preserve">
+    <value>Уменьшите размер текста письма, чтобы продолжить</value>
+  </data>
+  <data name="ErrorMailMessageSizeHead" xml:space="preserve">
+    <value>Текст письма превысил ограничение ({0} Кб)</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>почтовые ящики не выбраны</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Произошла неизвестная ошибка</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>пользователи не выбраны</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>При попытке открыть это сообщение произошла ошибка.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Пожалуйста, обновите страницу и попытайтесь открыть это сообщение еще раз. Если проблема не исчезает, пожалуйста, {0}обратитесь в нашу службу поддержки.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Мы приносим свои извинения за доставленные неудобства, но данное письмо не удалось загрузить в Почту ONLYOFFICE™. Используйте копию исходного сообщения, добавленную в виде вложения, чтобы открыть его с помощью любой доступной почтовой программы, или {0}обратитесь в нашу службу поддержки.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>Такой номер телефона уже существует</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Тег %1 уже существует</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Неподдерживаемый формат файла</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Если Вы хотите заново подключить эту учетную запись, пожалуйста, сначала удалите ее из списка подключенных учетных записей на странице 'Настройки &gt; Управление учетными записями'.</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Существующая учетная запись</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Развернуть все</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Экспортировать сообщение в CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Ошибка экспорта сообщения</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>При экспорте сообщения произошла ошибка.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Сообщение, которое Вы пытаетесь экспортировать уже связано с выбранным элементом CRM.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Cообщение успешно экспортировано в историю контакта CRM</value>
+  </data>
+  <data name="FilterActionDeleteLabel" xml:space="preserve">
+    <value>Удалить навсегда</value>
+  </data>
+  <data name="FilterActionInfo" xml:space="preserve">
+    <value>Выполнить следующее действие</value>
+  </data>
+  <data name="FilterActionMarkAsImportantLabel" xml:space="preserve">
+    <value>Пометить как важное</value>
+  </data>
+  <data name="FilterActionMarkAsReadLabel" xml:space="preserve">
+    <value>Пометить как прочитанное</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>Добавить тег</value>
+  </data>
+  <data name="FilterActionMoveToLabel" xml:space="preserve">
+    <value>Переместить в папку</value>
+  </data>
+  <data name="FilterActionMoveToTarshLabel" xml:space="preserve">
+    <value>Переместить в Корзину</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>Дополнительные параметры</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
+    <value>Применить ко всем почтовым ящикам</value>
+  </data>
+  <data name="FilterApplyToAttachemnts" xml:space="preserve">
+    <value>Применить, если в письме</value>
+  </data>
+  <data name="FilterApplyToAttachemntsNotPresent" xml:space="preserve">
+    <value>нет вложений</value>
+  </data>
+  <data name="FilterApplyToAttachemntsPresent" xml:space="preserve">
+    <value>есть вложения</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>Уровень теплоты</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Дате</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Пользовательский период</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Имени</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Компании</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>Уровень теплоты</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="FilterEnterNameDescription" xml:space="preserve">
+    <value>Вы также можете {0}ввести название{1}, которое будет отображаться в списке фильтров.</value>
+  </data>
+  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
+    <value>Все выбранные аккаунты были удалены</value>
+  </data>
+  <data name="FilterErrorEmptyCondition" xml:space="preserve">
+    <value>Значение или условие не задано</value>
+  </data>
+  <data name="FilterErrorEmptyMoveToFolderValue" xml:space="preserve">
+    <value>Папка не выбрана</value>
+  </data>
+  <data name="FilterErrorEmptyTagValue" xml:space="preserve">
+    <value>Тег не выбран</value>
+  </data>
+  <data name="FilterErrorFolderRemoved" xml:space="preserve">
+    <value>Выбранная папка была удалена</value>
+  </data>
+  <data name="FilterErrorNoActionSelected" xml:space="preserve">
+    <value>Действие не выбрано</value>
+  </data>
+  <data name="FilterErrorNoApplyToFolderSelected" xml:space="preserve">
+    <value>Не выбрана папка, к которой надо применить фильтр</value>
+  </data>
+  <data name="FilterErrorNoApplyToMailboxSelected" xml:space="preserve">
+    <value>Не выбран почтовый ящик, к которому надо применить фильтр</value>
+  </data>
+  <data name="FilterErrorTagRemoved" xml:space="preserve">
+    <value>Выбранный тег был удален</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>От отправителя</value>
+  </data>
+  <data name="FilterIgnoreOther" xml:space="preserve">
+    <value>Игнорировать другие фильтры</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Важные</value>
+  </data>
+  <data name="FilterName" xml:space="preserve">
+    <value>Название фильтра</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Пользовательский период</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>За период</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Прошедшая неделя</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Персоны</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Прочитанные</value>
+  </data>
+  <data name="FilterSelectFolderLabel" xml:space="preserve">
+    <value>выбрать папку</value>
+  </data>
+  <data name="FilterSelectTagLabel" xml:space="preserve">
+    <value>выбрать тег</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>На адрес</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Непрочитанные</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>С вложениями</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>С календарем</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>С возможными сделками</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>С тегом</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Пересылаемое сообщение</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>От кого</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>Вы можете {0} или изменить его в разделе {1}</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>Перейдите в раздел {0}, чтобы активировать их.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Перейти в Календарь</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Перейти к событию</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Группу нельзя назначить почтовым ящиком по умолчанию</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Всегда скрывать картинки от</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="IfLabel" xml:space="preserve">
+    <value>Если</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Учетная запись успешно подключена.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Будут импортированы все сообщения за последние 30 дней.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Выполняется импорт сообщений. Это может занять некоторое время. Вы можете закрыть это окно и продолжить использование Почты или даже закрыть браузер. Импорт продолжится в фоновом режиме.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Важные</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Некоторые сообщения, полученные ранее с помощью других сервисов, могут быть не импортированы. Прочитайте раздел {0}FAQ{1}, чтобы получить дополнительную информацию.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Если при импорте почты возникает ошибка, прочитайте раздел {0}FAQ{1}, чтобы получить дополнительную информацию.</value>
+  </data>
+  <data name="InfoCreateFolder" xml:space="preserve">
+    <value>Создана новая папка '{0}'</value>
+  </data>
+  <data name="InfoMoveFolder" xml:space="preserve">
+    <value>Папка '{0}' перемещена в '{1}'</value>
+  </data>
+  <data name="InfoMoveFolderToRoot" xml:space="preserve">
+    <value>Папка '{0}' перемещена в корневую папку</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Папка '{0}' удалена</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Папка '{0}' переименована в '{1}'</value>
+  </data>
+  <data name="InfoSelectConversation" xml:space="preserve">
+    <value>цепочку писем</value>
+  </data>
+  <data name="InfoSelectConversations" xml:space="preserve">
+    <value>цепочки писем: {0}</value>
+  </data>
+  <data name="InfoSelectMessage" xml:space="preserve">
+    <value>сообщение</value>
+  </data>
+  <data name="InfoSelectMessages" xml:space="preserve">
+    <value>сообщения: {0}</value>
+  </data>
+  <data name="InfoSelectMove" xml:space="preserve">
+    <value>Переместить {0}</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Вставлено с помощью ссылки</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>Кб</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Связать цепочку писем с CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Цепочка писем успешно связана с историей контакта CRM</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Ошибка связывания цепочки писем</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>При связывании цепочки писем с CRM произошла ошибка.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Выбранный элемент CRM более не доступен, или прервано подключение. Пожалуйста, проверьте расположение выбранного элемента CRM и проверьте сетевое подключение. Если эта ошибка будет повторяться, обратитесь к администратору вашего портала.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>загрузка приложений...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>С</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Автоответчик</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>По</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Создание почтового ящика...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Обновление почтового ящика...</value>
+  </data>
+  <data name="MailDraftsReassigned" xml:space="preserve">
+    <value>Черновики перенесены</value>
+  </data>
+  <data name="MailFilters" xml:space="preserve">
+    <value>Фильтрация сообщений</value>
+  </data>
+  <data name="MailTemplatesReassigned" xml:space="preserve">
+    <value>Шаблоны перенесены</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Управление учетными записями</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Настройка подписи</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Помечать все письма получателей</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Помечать все письма отправителей</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>Пометить как важное</value>
+  </data>
+  <data name="MarkNotImportantLabel" xml:space="preserve">
+    <value>Пометить как неважное</value>
+  </data>
+  <data name="MatchesLabel" xml:space="preserve">
+    <value>соответствует</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>Мб</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>Это сообщение содержит изображения, которые не удается отобразить в данный момент. Вы хотите продолжить?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Продолжить без изображений</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>Это сообщение содержит изображения, которые не удается отобразить в данный момент. Вы хотите его распечатать?</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Подтвердить печать без изображений</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Письмо не было отправлено. Вы уверены, что хотите удалить его?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>ещё %1</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>Подробности</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Перемещение сообщений</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Добавление учетной записи почты</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Новое сообщение</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Никаких дополнительных действий не требуется.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>В этой папке нет писем, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть письма от всех контактов в этой папке.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Нет писем, соответствующих этому фильтру</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Никакие</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>без темы</value>
+  </data>
+  <data name="NotContainsLabel" xml:space="preserve">
+    <value>не содержит</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Сделать важным</value>
+  </data>
+  <data name="NotMatchesLabel" xml:space="preserve">
+    <value>не соответствует</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Не спам</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Получение стандартных настроек домена...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OrLabel" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Черновик</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Переслать</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Ответить</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>Шаблон</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Личные контакты</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Распечатать все</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Распечатать</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Превышено доступное дисковое пространство на портале. Нельзя загрузить все сообщения и отправлять новые письма. Удалите некоторые сообщения из папки Входящие или какие-то файлы из модуля Документы. Также можно изменить тарифный план, чтобы получить больше доступного дискового пространства. </value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Превышено доступное место на диске</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Цитируемый текст скрыт]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Пометить прочтённым</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Вы хотите удалить все сообщения из Спама?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Вы хотите удалить все сообщения из Корзины?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Не удалось сбросить папку для сохранения вложений.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Папка для сохранения вложений успешно сброшена.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>На этой странице нет контактов CRM, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все контакты CRM.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Нет контактов CRM, соответствующих данному фильтру</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Сбросить фильтр</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>Не найдено контактов, соответствующих данному фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все контакты.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>Нет контактов, соответствующих данному фильтру</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>На этой странице нет контактов портала, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все контакты портала.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Нет контактов портала, соответствующих данному фильтру</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Восстановление сообщений</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>В 'Мои документы' успешно сохранено %real_count% из %count%.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Сохранение не удалось.</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>Файл '%file_name%' успешно сохранен в Календарь.</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>Файл '%file_name%' успешно сохранен в папку '%folder_name%'.</value>
+  </data>
+  <data name="SaveDraft" xml:space="preserve">
+    <value>Сохранить черновик</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Сохранить шаблон</value>
+  </data>
+  <data name="SaveTemplateChanges" xml:space="preserve">
+    <value>Сохранить изменения шаблона?</value>
+  </data>
+  <data name="SaveTemplateText" xml:space="preserve">
+    <value>Вы изменили шаблон, но не сохранили его. Если вы закроете эту страницу, все изменения будут потеряны. Сохранить изменения?</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Сохранение сообщения</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Эта учётная запись была деактивирована. Пожалуйста, активируйте эту учётную запись или выберите другую.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Отправка сообщения</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Сервер</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Серверный почтовый ящик, можно изменить только в панели администрирования</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Не удалось задать папку для сохранения вложений.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Папка для сохранения вложений успешно задана.</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Использовать по умолчанию для отправки почты</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Настройки прав доступа к файлам</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Эта подпись будет добавляться в конце всех писем, отправляемых из этой учетной записи. Здесь можно указать ваше имя, контактные данные или слоган.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Спам</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Сохранение тега...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Импортирован из CRM. Этот тег нельзя редактировать или удалять здесь.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Контакты портала</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Кому</value>
+  </data>
+  <data name="ToOrCcLabel" xml:space="preserve">
+    <value>Кому или Копия</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Всего контактов:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Отвязать от CRM</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Пометить непрочтённым</value>
+  </data>
+  <data name="UserFilterNotFound" xml:space="preserve">
+    <value>Фильтр не найден</value>
+  </data>
+  <data name="UserFolderNoSelected" xml:space="preserve">
+    <value>не выбрана</value>
+  </data>
+  <data name="UserFolderNotFoundError" xml:space="preserve">
+    <value>Запрашиваемая папка не найдена</value>
+  </data>
+  <data name="UserFolders" xml:space="preserve">
+    <value>Папки</value>
+  </data>
+  <data name="UserFolderSelectorLabel" xml:space="preserve">
+    <value>Родительская папка:</value>
+  </data>
+  <data name="UserFolderSelectorLink" xml:space="preserve">
+    <value>Выбрать родительскую папку</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Использовать подпись</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>С вложениями</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Без тегов</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>С тегами</value>
+  </data>
+</root>

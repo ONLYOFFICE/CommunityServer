@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>صلاحيات الدخول للبوابة</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>اعلان</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>اعلانات</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>اعياد الميلاد</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>المدونات</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>رابط</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>روابط</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>الفئات</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>انشاء جديد</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>احداث</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>مفضلة</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>ملفات</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>المنتدى</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>محرر المنتدى</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>المنتديات</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>مساعدة</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>الفهرس</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>في</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>صفحات جديدة</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>أخبار</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>طلب</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>طلبات</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>صفحة</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>استبيان</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>استفتاءات</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>مشاركة</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>افعل الشيئ نفسه كمستخدم | حرر اي مشاركة في المدونات, الموسوعة, المنتديات, الرسائل, الخ</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>من خلال هذا القسم تستطيع ان تقوم بمتابعه الاحداث اليومية وكتابه الحوارات ونشر المواضيع في المدونة كما يمكنك المشاركه في الاستبيانات المقدمة وتستطيع ايضا اضافه روابط ذات اهميه ومشاركتها مع فريقك</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>من خلال هذا القسم تستطيع ان تقوم بمتابعه الاحداث اليومية وكتابه الحوارات ونشر المواضيع في المدونة كما يمكنك المشاركه في الاستبيانات المقدمة وتستطيع ايضا اضافه روابط ذات اهميه ومشاركتها مع فريقك</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>التواصل الإجتماعي</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>انشئ و حرر مشاركاتك الخاصة وشارك الاخبار. الخ</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>اضيفت مؤخرا</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>اشترك</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>الموسوعة</value>
+  </data>
+</root>

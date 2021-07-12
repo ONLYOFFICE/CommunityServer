@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_PostInTopicEmailPattern" xml:space="preserve">
+    <value>h1.Nouveau message dans le sujet du forum: "$TopicTitle":"$PostURL"
+
+$Date "$UserName":"$UserURL" a créé un nouveau message dans le sujet "$TopicTitle":"$PostURL":
+
+$PostText
+
+"Lire la suite":"$PostURL"
+
+^Vous recevez ce message parce que vous êtes un utilisateur enregistré du portail  "${__VirtualRootPath}":"${__VirtualRootPath}". Si vous ne voulez plus recevoir des notifications sur les nouveaux messages dans le sujet du forum, veuillez gérer vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TopicInForumEmailPattern" xml:space="preserve">
+    <value>h1.Nouveau sujet dans les forums: "$TopicTitle":"$TopicURL"
+
+$Date "$UserName":"$UserURL" a créé un nouveau sujet: "$TopicTitle":"$TopicURL"
+
+$PostText
+
+"Lire la suite":"$PostURL"
+
+^Vous recevez ce message parce que vous êtes un utilisateur enregistré du portail "${__VirtualRootPath}":"${__VirtualRootPath}". Si vous ne voulez plus recevoir des notifications sur les nouveaux sujets créés dans les forums, veuillez gérer vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
+    <value>Communauté. Nouveau message dans le sujet du forum: $TopicTitle</value>
+  </data>
+  <data name="subject_PostInTopicEmailPattern_tg" xml:space="preserve">
+    <value>Communauté. Nouveau post dans la discussion du forum : [$TopicTitle]($PostURL)</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern" xml:space="preserve">
+    <value>Communauté. Nouveau sujet dans les forums: $TopicTitle</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern_tg" xml:space="preserve">
+    <value>Communauté. Nouvelle discussion dans les forums : [$TopicTitle]($PostURL)</value>
+  </data>
+</root>

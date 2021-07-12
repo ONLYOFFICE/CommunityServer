@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Очистить кэш</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Все сценарии, необходимые для правильной работы портала, кэшируются для максимальной производительности ONLYOFFICE™. Иногда (как правило, после большого обновления или при некоторых сбоях в работе портала) требуется очистить кэш. Используйте кнопку &lt;b&gt;Очистить кэш&lt;/b&gt;, чтобы сбросить сценарии с сервера и перезагрузить их повторно. При выполнении этой операции никакой потери данных портала не происходит.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Используйте эту опцию, если вы заметили в работе портала какие-то отклонения</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Кэш</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Если у вас есть вопросы, обратитесь к {0}странице FAQ{1} или напишите нам по адресу {2}support.onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Если у Вас есть какие-то вопросы, напишите нам по адресу {0}support.onlyoffice.com{1}</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Свяжитесь с нами</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Период</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>Раздел &lt;b&gt;Логи&lt;/b&gt; позволяет скачать все логи портала за выбранный период времени в виде zip-архива. Выберите дату начала и окончания периода и нажмите кнопку &lt;b&gt;Скачать&lt;/b&gt;, чтобы получить логи.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Скачать все логи</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Логи</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>Раздел &lt;b&gt;Порты&lt;/b&gt; содержит список всех портов, которые необходимы для правильной работы портала ONLYOFFICE™, а также их статусы (открыт или закрыт). Чтобы ваша серверная версия ONLYOFFICE™ правильно работала, эти порты должны иметь статус &lt;b&gt;Открыт&lt;/b&gt;. Пожалуйста, обратите внимание, что для некоторых портов требуется разрешить только входящие или только исходящие подключения, в то время как для других - подключения обоих типов.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Все следующие порты должны быть открыты</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Порты</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>В разделе &lt;b&gt;Службы&lt;/b&gt; показан список всех доступных служб ONLYOFFICE™, а также их статус (работает или остановлена). Вы можете перезапустить работающую службу или запустить остановленную с помощью соответствующей управляющей кнопки справа от статуса службы.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>Службы ONLYOFFICE™ и их текущий статус</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Службы</value>
+  </data>
+</root>

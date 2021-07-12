@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Ainult lugemiseks</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Täielik juurdepääs</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Keela juurdepääs</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box konto</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropbox'i konto</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Google'i konto</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Muuda kolmanda isiku infot</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Tühjenda Filter</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopeeri</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Loo kaust</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Esitluse loomine</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Arvutustabeli loomine</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Loo dokument</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Kustutada kõrvaline isik</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Lae alla</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Redigeeri</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Tühjenda prügikast</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumendid</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Kaustad</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Pildid</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Esitlused</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Arvutustabelid</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Mine kausta Minu dokumendid</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lisateave...</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Liiguta</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Nimeta ümber</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Taasta</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Kõik</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Ühiskasutuse sätted</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Kuva versioonid</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Jäta vahele</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Üles</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Laadi üles</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Kirjuta üle kinnitus</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Kinnitus</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Olete kindel, et soovite need elemendid loendist eemaldada?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Ühis dokumendid</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumendid</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Lae dokument alla</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Lae kaust alla</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Ühis dokumentide osas näidatakse kõiki dokumente, mis on portaali administraatori poolt välja jaganud ühiseks kasutamiseks. Ainult portaali administraator saab luua kaustu käesolevas jaos ja portaali kasutajad, kellel on vastavad õigused saavad lisada faile antud kaustadesse.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Failide lihtsamaks üleslaadimiseks portaali, pukseeri failid oma arvutist siia.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Jagatud minuga osas näidatakse faile, millele sõbrad või kolleegid on andnud sulle juurdepääsu. Juhul kui sa ei ole näinud dokumentide viimaseid muudatusi, märgitakse nad kui "uued". Sa või eemaldada failid listist vajutades vastavat nuppu.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Prügikasti liigutatakse kõik kustutatud failid. Sa võid faile taastada prügikastist, kui kustutasid faili kogemata või kustutada need jäädavalt. Pea meeles, et kui sa kustutad failid prügikastist, siis taastada neid enam ei saa!</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Kaustad</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Vali kõik</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Minu dokumendid</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Eelvaade</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Ava kaust</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parool</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projekti dokumendid</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Märgi loetuks</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Valige kaust</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Mulle jagatud</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Anna juurdepääs kasutajale väljapool portaali</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Aktiveeri kompakt vaade</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Aktiveeri normaalvaade</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Kustutada kõrvaline isik</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Kausta nimi</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Tee ühiseks ja lisa ühis dokumentidesse</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Vali</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Saate luua dokumente ({0}), arvutustabeleid ({1}), esitlusi ({2}) formaadis ja laadida need alla kõige populaarsemates vormingutes.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Saate muuta järgmisi faile: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Saate avada faile järgnevate laienditega: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Sa võid dokumentide alla üles laadida kõike faile.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Prügikast</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Eemalda loendist</value>
+  </data>
+</root>

@@ -1,0 +1,889 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Hesap bağlantı hatası.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Hata devam ederse, problem hakkında daha fazla bilgi için {0}SSS bölümünü{1} okuyunuz.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Hesap bağlantı hatası</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Hesap ayarları</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Google hesabı başarıyla bağlandı</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Hesap OAuth kullanarak bağlandı,düzenleme sınırlı.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Hesaplar</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Hareketler</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>%1 etkinleştirmek istiyor musunuz?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Hesap Ekle</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>İlk posta hesabınızı şimdi eklemek istiyor musunuz?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>ONLYOFFICE™ Mail'a bağlı posta hesabınız yok. Eposta mesajı almaya ve göndermeye başlamak için lütfen posta hesabınızı ekleyin.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>ONLYOFFICE™ Mail'ı kullanmaya başlamak için yeni hesap ekleyin.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>E-posta Sunucusu</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Kısa Ad)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>%mailbox_address% posta kutusu kısa adları, yalnızca yönetici panelinden düzenlenebilir</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Hepsi</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Bazı giriş parametreleri geçersiz.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Dökümana erişim reddedildi.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Döküman bulunamadı yada seçilen depoda yok.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Boş dosyalar desteklenmiyor.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>çalıştırılabilir dosyalara bazı hizmetler tarafından izin verilmeyebilir(ör. Gmail)</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Not: dosya boyutu %1 MB'yi geçemez. Dosyaların toplam boyutu %2 MB'den fazla olamaz.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Mesaj bulunamadı.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Tüm eklerin toplam alanı sınırı aşıyor.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Beklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0} posta hesabı uzun süre bağlanamadı ve devre dışı bırakıldı. {1} Lütfen girdiğiniz tüm hesap ayarlarını kontrol edin yada kullandığınız posta servisine giriş yapın ve güvenlik ayarlarını kontrol edin. Hesap bağlantısıyla ilgili tüm sorunların çözüldüğünden emin olduğunuzda her zaman bağlı hesaplar listesinden tekrar etkinleştirebilirsiniz.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Bağlantı hatasından dolayı posta hesabı devre dışı bırakıldı.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Posta hesabı devre dışı bırakıldı</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>{0} Posta hesabında{1} gönderme ve alma operasyonlarında problem oluştu. {1}Sebebi hesap şifrenizi değiştirmenizden kaynaklanabilir. Lütfen girdiğiniz tüm hesap ayarlarını kontrol ediniz yada kullandığınız posta servisine giriş yapıp, güvenlik ayarlarını kontrol ediniz.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Hesaba bağlanırken hata oluştu.</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>devre dışı bırak</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Ajanda</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>Gelecekte etkinlik bulunamadı</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>Önceki etkinlik bulunamadı</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Tüm gün</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Önck gün</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Takvim</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>harita</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>Konum bulunamadı</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizatör</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Katılımcılar</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Tekrarlanma</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Yanıtla</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Belki</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Hayır</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Evet</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Ne zaman</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Nerede</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Kim</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Hesap ayarlarını değiştir</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Etiket seç</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Hepsini daralt</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Ortak Ayarlar</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>Bu diyalog gizli resimler içerebilen daraltılmış mesajları içerir. Yazdırmak ister misiniz?</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>Bu diyalog şu anda gösterilemeyen resimler içerir. Yazdırmak ister misiniz?</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Dosya kopyalanırken hata oluştu</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>"Belgelerim" klasörüne kopyalanıyor</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Kişi oluştur</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Posta Kutusu oluştur</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>Sizlere hazır ve ücretsiz varsayılan alan sunarak anında yeni e-posta kutuları oluşturmanızı sağlıyoruz.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>Bu alan tüm portallar için ortaktır, bu nedenle kurumsal alanınızın kurumsal e-posta adresleri ile kullanılması tavsiye edilir.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Posta Kutusu oluştur</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Yeni kişi oluştur</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Yeni CRM şirketi oluştur</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Yeni CRM kişisi oluştur</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Kişisel irtibat oluştur</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Şirket</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM Kişileri</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>%1 deaktive etmek istiyor musunuz?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>Bazı hesaplarınız e-posta alamaz.</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>E-posta göndermek için varsayılan olarak kullanılan hesap</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>%1 silmek istiyor musunuz?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>%1 etiketini silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Mesajlar siliniyor</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Lütfen, mesaj alıcı adreslerini ve mesaj formatını kontrol edin. Eğer mesajınızın doğru olduğundan eminseniz tüm {account_name}hesap ayarlarını kontrol edin, ve herşey doğruysa,posta servisinize giriş yapmayı deneyin, ve olması halinde doğrulama sorularını yanıtlayın.Bundan sonra tekrar deneyin.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>Hata devam ederse, problem hakkında daha fazla bilgi için {faq_link_open_tag}SSS bölümünü{faq_link_close_tag} okuyunuz.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>"{subject}" mesaj gönderimi başarısız.</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Mesaj gönderimi başarısız.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Posta hesapları devre dışı bırakıldı.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Posta hesapları devre dışı bırakıldı</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Portalınız uzun bir süredir kullanılmadı, bu yüzden ONLYOFFICE™ Mail'a bağlı posta hesaplarınız devre dışı bırakıldı. Hala bunları kullanmak istiyorsanız hesap sayfanıza gidin ve tekrar etkinleştirin.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Tamamlandı</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Kişi düzenle</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Seçilen klasöre ekin yüklenmesi başarısız.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Ek Hatası</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Seçili Ekler klasörüne erişilemedi ve {account}posta hesabınızla bağlantısı kaldırıldı. Lütfen seçili klasör için yeterli erişim haklarına sahip olup olmadığınızı kontrol ediniz ve tekrar bağlantılandırınız.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Seçili Ekler klasörüne erişilemedi ve {account}posta hesabınızla bağlantısı kaldırıldı. Lütfen seçili klasörün mevcut olup olmadığını kontrol ediniz ve tekrar bağlantılandırınız.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>İlk taslağı oluştur</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Taslak bölümü kişilere sonra yollayabileceğiniz mesajlar oluşturmanıza ve bunları sıralamanıza izin verir. Burada en önemli mesajları işaretleyebilir yada gereksiz olanları silebilirsiniz.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Bu klasörde gösterilecek mesaj yok</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Yeni mesaj oluştur</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Gelen kutusu bölümü aldığınız mesajları yönetmenize izin verir. Burada yazışma geçmişini görebilir,önemli mesajları işaretleyebilir, etiket kullanarak epostaları kategorize edebilir yada gereksiz olanları silebilirsiniz.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Mesaj alınmadı</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>İlk hesabı kur</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Mesajlarını portaldan göndermek, almak ve düzenli tutmak için hesap oluşturun. Mesaj geçmişine, kişilere ve dosyalara istediğiniz zaman istediğiniz yerden erişin. Mesajları kendi etiketlerinizi kullanarak sıralayın. Hazır ve ücretsiz varsayılan alan için posta kutuları oluşturun.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Henüz hesap kurulmadı</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>CRM'ye git</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Kişiler listesi CRM'den tüm müşterilerinizi içerecektir</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Kişi listesi boş</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>Kişi listesi adres defterinizdeki tüm kişileri gösterir. Henüz hiçbir kişi eklememişsiniz.</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Yeni Posta Etiketi Oluştur</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>İlk önce etiket oluşturmalı ve bundan sonra kullanmalısınız</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Etiket oluşturulmadı</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Yeni mesaj oluştur</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Gönderilenler bölümü gönderdiğiniz mesajları yönetmenize izin verir. Burada önemli mesajları işaretleyebilir, etiket kullanarak epostaları kategorilerine göre gruplayabilir yada gereksiz olanları silebilirsiniz.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Henüz mesaj gönderilmedi</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Spam bölümü istenmeyen posta olarak belirlediğiniz mesajları içerir. Burada epostaları silebilir, 'Spam Değil' olarak işaretleyebilir yada tüm bölümü temizleyebilirsiniz.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Bu klasörde gösterilecek mesaj yok</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Çöp bölümü silinen mesajları içerir. Burada bazı epostaları geri yükleyebilir yada kalıcı olarak silebilirsiniz.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Bu klasörde gösterilecek mesaj yok</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Otomatik e-posta yanıtı aktif</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Bu hesap zaten var</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Takvim'e erişilemiyor</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>boş alan</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Boş 'Şuna:' alanı</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Yanlış adres</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Yanlış adres</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>seçili posta kutusu yok</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Bilinmeyen hata oluştu</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>seçili kullanıcı yok</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Bu mesajı açmaya çalışırken bir problem oluştu.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Lütfen sayfayı yenileyin ve bu mesajı bir daha açmayı deneyin. Problem devam ederse {0}destek ekibimizle iletişime geçin.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Özür dileriz ama mesaj ONLYOFFICE™ Posta'da yüklenemedi. Herhangi bir posta istemci yazılımında açmak için ekte bulunan orjinal mesaj kopyasını kullanın yada {0}destek ekibimizle iletişime geçin.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>Bu telefon numarası zaten kullanılmaktadır</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>%1 Etiketi zaten var</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Desteklenmeyen dosya formatı</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Bu hesabı tekrar bağlamak istiyorsanız, ilk önce 'Ayarlar&gt;Hesap Yönetimi' sayfasından bağlantılı hesaplarınızdan kaldırın.</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Varolan hesap</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Hepsini genişlet</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>CRM'ye mesaj aktar</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Posta Aktarım Hatası</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Mesaj aktarılırken hata oluştu.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Aktarmaya çalıştığınız mesaj zaten seçili CRM ögesiyle bağlantılandırılmış.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>CRM kişisine mesaj aktar, geçmiş başarıyla tamamlandı</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Diğer</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>Sıcaklık derecesi</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Özel dönem</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Şirketler</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>Sıcaklık derecesi</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Belirtilmemiş</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Göndericiden</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Önemli</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Özel dönem</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Zaman aralığıyla</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Geçen hafta</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Dün</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Kişiler</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Okundu</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Göster</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Posta adresine</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Okunmamış</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>Eklerle</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>Takvimli</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Fırsatlarla</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Etiket ile</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Yönlendirilmiş</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Yönlendirilmiş mesaj</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Şundan:</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>{0} yapabilir veya {1} olarak değiştirebilirsiniz</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>{0} giderek etkinleştirin.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Takvim'e Git</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Etkinliğe Git</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Grup varsayılan posta kutusu olamaz</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Yardım</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Şuradan resimleri her zaman sakla:</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Gizle</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Hesap başarıyla bağlandı.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Son 30 gündeki tüm postalar aktarılacak.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Mesaj aktarımı yapılıyor. Biraz zaman alabilir. Bu pencereyi kapatabilir ve Postanızı kullanmaya devam edebilirsiniz yada tarayıcınızı tamamen kapatabilirsiniz. Aktarım arka planda devam edecektir.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Önemli</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Diğer servisleri kullanarak alınan mesajların bazıları aktarılmamış olabilir. Daha fazla bilgi için {0}SSS bölümünü{1} okuyunuz.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Posta aktarırken bir hata oluşursa daha detaylı bilgi için {0}SSS bölümünü{1} okuyunuz.</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Link ile ekli</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Sohbeti CRM'yle bağlantıla</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Sohbeti CRM kişisine bağlantıla, geçmiş başarıyla tamamlandı</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Sohbet Bağlama Hatası</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Sohbeti CRM bağlarken hata oluştu.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Seçilen CRM ögesi artık mevcut değil, yada bağlantı kesildi. Lütfen seçilen CRM ögesinin lokasyonunu doğrulayın ve ağ bağlantınızı kontrol edin. Problem devam ederse portal yöneticinizle iletişime geçin.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>ekler yükleniyor...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>Gönderen</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Otomatik E-posta Yanıtı</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>Alıcı</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Posta kutusu oluşturuluyor...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Posta kutusu güncellemesi...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Hesapları yönet</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>İmza yönet</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Tüm alıcıların postasını işaretle</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Tüm gönderenlerin postasını işaretle</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>Bu mesaj şu anda gösterilemeyen resimler içerir. Devam etmek ister misiniz?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Resimsiz devam et</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>Bu mesaj şu anda gösterilemeyen resimler içerir. Yazdırmak ister misiniz?</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Resimsiz yazdırmayı onayla</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Mesaj gönderilmedi. Silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 fazla</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>Daha fazla bilgi</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Mesajlar taşınıyor</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Posta adresi ekle</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Yeni mesaj</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Başka hareket gerekli değil</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>Bu klasörde filtrenizle eşleşen mesaj yok. Lütfen başka filtre seçenekleri seçin yada klasördeki tüm mesajları görmek için filtreyi temizleyiniz.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Bu filtre için gösterilecek mesaj yok</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>hiçbiri</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>konu yok</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Önemli değil</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Spam değil</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Varsayılan alan ayarları alınıyor...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>TAMAM</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Taslak</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Yönlendir</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Yanıtla</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Kişiler</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Tümünü yazdır</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Yazdır</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Portalınızdaki mevcut disk alanı aşıldı. Tüm mesajlar yüklenemez ve yeni mesaj yollanamaz. Lütfen gelen kutunuzdan bazı mesajları silin yada Dökümanlar modülünden bazı dosyaları silin. Ayrıca daha fazla disk alanına sahip olmak için fiyat planını değiştirebilirsiniz.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Mevcut disk alanı aşıldı</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Alıntı metini gizli]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Okundu olarak işaretle</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Spam'den tüm mesajları silmek istiyor musunuz?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Çöp'ten tüm mesajları silmek istiyor musunuz?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Yanıt</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Klasördeki Eposta sıfırlaması başarısız.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Klasördeki Eposta sıfırlaması başarılı.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Bu sayfada filtrenizle eşleşen CRM kişisi yok. Lütfen başka filtre seçenekleri seçin yada tüm CRM kişilerini görmek için filtreyi temizleyiniz.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Bu filtre için gösterilecek CRM kişisi yok</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Filtreyi Sıfırla</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>Seçili filtreyle eşleşen kişi bulunamadı. Lütfen başka bir filtre seçin veya tüm kişileri görüntülemek için mevcut olanı kaldırın.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>Bu filtreye uygun kişi bulunamadı</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Bu sayfada filtrenizle eşleşen portal kişisi yok. Lütfen başka filtre seçeneği seçin yada tüm porta kişilerini görmek için filtreyi temizleyiniz.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Bu filtre için gösterilecek portal kişisi yok</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Geri Yükle</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Mesajlar geri yükleniyor</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>%real_count%; Belgelerimde %count%'a başarıyla kaydedildi.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Kaydetme başarısız oldu.</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%' başarıyla Takvim'e kaydedildi.</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' başarıyla '%folder_name%' klasörüne kaydedildi.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Mesaj kaydediliyor</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Bu hesap deaktive edilmiş. Lütfen bu hesabı aktive edin yada başka bir tane seçin.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Mesaj gönderiliyor</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Sunucu</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Sunucu e-posta kutusu, yalnızca yönetici panelinden düzenlenebilir</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Klasörde eposta kurulumu başarısız</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Klasörde Eposta kurulumu başarılı</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Varsayılan olarak seç ve e-posta göndermek için kullan</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Belgeler için paylaşma ayarları</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Göster</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Bu imza bu hesaptan giden tüm mektupların sonuna eklenecek. Buraya isminizi, kişileri yada slogan yazabilirsiniz.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Konu</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Etiket kaydediliyor...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>CRM'den aktarıldı. Etiketi burada düzenlemez yada silemezsiniz.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketler</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Portal Kişileri</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Şuna:</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Toplam kişi:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Tekrar deneyin</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>CRM'den bağlantısını kaldır</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Okunmadı olarak işaretle</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>İmza kullan</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>Eklerle</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Etiketlersiz</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Etiketlerle</value>
+  </data>
+</root>

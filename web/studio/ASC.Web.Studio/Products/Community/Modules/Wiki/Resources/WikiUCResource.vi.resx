@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Chỉnh sửa mục: {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Tên file</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Trang tiêu đề</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Tải file lên</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>đã tải lên tên file</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Phóng to</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Tạo trang wiki rất đơn giản ngay cả khi bạn chưa bao giờ sử dụng ngôn ngữ markup. Tất cả những gì bạn cần biết là một vài quy tắc đơn giản được liệt kê dưới đây. Chúng tôi hy vọng bạn sẽ thấy chúng hữu ích. 
+
+@@TOC@@
+
+==Phần, Đoạn văn, Đầu mục, Dòng==
+
+Để bắt đầu một phần mới, sử dụng ký hiệu = ở đầu đoạn văn bản:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Phần=&lt;br&gt;
+==Phần==&lt;br&gt;
+===Phần tiểu mục===&lt;br&gt;
+
+&lt;p&gt;
+Chèn @@TOC@@ vào một trang sẽ thống nhất tất cả các phần của trang và các phần tiểu mục trong một bảng mục lục.
+&lt;/p&gt;
+
+Wiki markup bỏ qua ngắt dòng. Bạn có thể sử dụng chúng để tách các câu trong một đoạn. 
+
+&lt;p&gt;
+Sử dụng «br» tag để ngắt dòng mà không cần bắt đầu một đoạn mới.  
+&lt;/p&gt;
+
+Để bắt đầu một đoạn văn mới, nhấn Enter hai lần như bạn đã làm trong bất kỳ trình soạn thảo văn bản nào. 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Tạo danh sách dấu đầu dòng rất đơn giản:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* bắt đầu mỗi ý bằng một dấu hoa thị;&lt;br&gt;
+** càng có nhiều dấu hoa thị;&lt;br&gt;
+** thì cấp danh sách đầu mục càng sâu.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Đầu mục được đánh số cũng khá hay:&lt;br&gt;
+## trông chúng có vẻ được tổ chức tốt;&lt;br&gt;
+## và dễ đọc.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ NẾU có một dấu cách ở đầu dòng,
+ THÌ dòng này sẽ được định dạng y hệt như khi được nhập; 
+ cùng font chữ; không có ngắt dòng;[[no links]].
+
+Bạn có thể sử dụng một dấu cách ở đầu dòng nếu bạn cần: 
+
+*dán văn bản được định dạng từ trước;
+*hiển thị mã nguồn; 
+*Tạo/dán ascii nghệ thuật (tạo hình ảnh bằng cách sử dụng các ký tự văn bản).
+
+Một đường ngang được biểu thị bằng bốn dấu gạch ngang: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Chèn Liên kết==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Để chèn liên kết tới một trang wiki khác, đặt tiêu đề trang vào dấu ngoặc vuông kép: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+Trong trường hợp liên kết và tiêu đề bạn muốn hiển thị trên một trang là khác nhau, hãy nhập tiêu đề liên kết sau | biểu tượng |: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
+
+&lt;p&gt;
+Liên kết bên ngoài được chèn vào nội dung, như sau: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+Trong trường hợp bạn cần thay đổi tiêu đề liên kết ngoài, hãy đặt nó trong dấu ngoặc vuông và nhập tiêu đề của bạn sau dấu cách: &lt;br&gt; [http://example.com YourTitle]&lt;/p&gt; 
+
+&lt;p&gt;
+Để chèn một địa chỉ e-mail, sử dụng dấu ngoặc vuông đơn: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Để thêm trang vào đề mục, hãy thêm liên kết vào đề mục bạn muốn thêm [[Category: Desired category]] ở cuối trang.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Định dạng văn bản==
+
+Sử dụng các mẹo dưới đây để định dạng văn bản của bạn:
+
+''In nghiêng''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''nội dung cần in nghiêng của bạn ở đây''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''In đậm'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''nội dung cần in đậm của bạn ở đây'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''In nghiêng đậm'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''nội dung cần in nghiêng đậm của bạn ở đây'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Gạch chân__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__nội dung được gạch chân của bạn ở đây__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Gạch bỏ--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--nội dung bạn muốn gạch bỏ ở đây--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Chỉ số: &lt;sup&gt;chỉ số trên&lt;/sup&gt; và &lt;sub&gt;chỉ số dưới&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&amp;lt;sub&amp;gt;your subscript index&amp;lt;/sub&amp;gt&lt;br&gt;
+&amp;lt;sup&amp;gt;your superscript index&amp;lt;/sup&amp;gt
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Bạn cũng có thể sử dụng &amp;lt;small&amp;gt văn bản nhỏ &amp;lt;/small&amp;gt cho bình luận, tạo định dạng đặc biệt để hiển thị &amp;lt;code lang="language"&amp;gt;program code&amp;lt;/code&amp;gt; fragments and fixed pitch text for &amp;lt;tt&amp;gt;technical terms&amp;lt;/tt&amp;gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Chèn hình ảnh==
+
+Để có thể chèn hình ảnh vào một trang wiki bạn sẽ cần tải chúng lên wiki trước đó.
+
+Sử dụng các liên kết sau để chèn các loại hình ảnh khác nhau:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Hình ảnh = [[Image:Image Title]]&lt;/p&gt;
+&lt;p&gt;
+Hình ảnh có chiều rộng cố định = [[Image: Image Title | Width_px]]&lt;/p&gt;
+&lt;p&gt;
+Hình ảnh kèm mô tả = [[Image:Image Title  | Description]]&lt;/p&gt;
+&lt;p&gt;
+Hình Thumbnail =  [[Image:Image Title | thumb]] – hình ảnh sẽ được nén và canh lề phải.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==HTML to Wiki Transfer==
+
+Nếu bạn có một văn bản định dạng html và bạn muốn chuyển ở đây, bạn có thể thực hiện rất nhanh chóng và dễ dàng. Nhấp vào '''Tạo trang mới''' trên bảng '''Thao tác'''. Tiếp theo, dán văn bản của bạn vào cửa sổ soạn thảo và chuyển sang hiển thị wiki markup bằng cách nhấp vào biểu tượng Wiki trên bảng định dạng ở trên. Các thẻ html sẽ được chuyển sang wiki markup. Kiểm tra kết quả, sửa lỗi nhỏ nếu có và nhấp vào '''Xuất bản'''. Vậy là trang của bạn đã sẵn sàng.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Chào mừng bạn đến với Wiki!'''
+
+Ở đây bạn có thể tạo các trang, liên kết các trang này lại thành các đề mục thông qua trình duyệt web của bạn. Wiki là một công cụ thuận tiện để duy trì tài liệu liên quan đến dự án đặc trưng bởi các tính năng sau đây:
+
+* nhiều tác giả. Mỗi thành viên cổng thông tincó thể chỉnh sửa nội dung của trang bất kỳ.
+* chỉnh sửa nhanh chóng. Chọn vào liên kết'''Chỉnh sửa''' Sẵn có trên mỗi trang và bắt đầu chỉnh sửa ngay trong trình duyệt của bạn.
+* Dễ dàng chuyển từ HTML sang WIKI. Tìm hiểu [[Internal:Help#HTML to Wiki Transfer|how]] 
+* hỗ trợ phiên bản trang. Kiểm tra nội dung đã được chỉnh sửa bằng cách quay trở lại phiên bản trước của nó.
+
+@@TOC@@
+
+==Điều hướng Wiki và Cấu trúc==
+
+Bạn có thể điều hướng wiki thông qua '''Bảng điều hướng''' luôn luôn có sẵn trong khi bạn đang ở trong wiki.
+
+===Trang===
+
+Tất cả các trang wiki mà bạn tạo ra đều được sắp xếp theo thứ tự bảng chữ cái trên [[Internal:Index|Index]] page.&lt;br&gt;.
+Tất cả các trang mới được tạo sẽ được hiển thị theo thứ tự thời gian trên trang [[Internal:NewPages|New Pages]].&lt;br&gt;
+Một danh sách các trang được chỉnh sửa gần đây nhất nằm trên trang [[Internal:Recently|Recently Edited]].
+
+===Đề mục===
+
+Bạn có thể liên kết các trang liên quan vào một đề mục. Tất cả đề mục với các trang tương ứng được hiển thị trên trang [[Internal:Categories|Categories]]. Bạn có thể thêm một trang vào một đề mục sẵn có, hoặc tạo đề mục của riêng bạn. Nhấp vào [[Internal:Help|here]] để tìm hiểu thêm về cách chỉ định một trang vào một đề mục cụ thể.
+
+===File===
+
+Bạn có thể tải lên wiki các file với kích thước và định dạng bất kỳ, cũng như cung cấp liên kết đến hình ảnh được tải lên khi tạo các trang wiki. Tìm hiểu thêm về điều này [[Internal:Help#Inserting Images|here]].
+
+===Trợ giúp===
+
+Tạo các trang cho wiki của bạn thật dễ dàng. Tất cả những gì bạn cần biết là một vài quy tắc đơn giản. Ghé thăm [[Internal:Help|wiki markup tips]] để đọc thông qua các quy tắc markup wiki.
+
+==Tạo Wiki của bạn==
+
+Để tạo wiki của riêng bạn, hãy bắt đầu với việc tạo một trang mới bằng cách nhấp vào liên kết '''Tạo trang mới''' trên bảng '''Thao tác'''. Tiếp theo gõ nội dung của bạn trong vùng soạn thảo văn bản. Sử dụng [[Internal:Help|wiki markup tips]] để nội dung hiển thị chính xác trên một trang.
+
+Hãy nhớ rằng đây là không gian cá nhân của bạn, nơi bạn có thể tổ chức mọi thứ theo nhu cầu cụ thể của bạn. Ngay cả các nội dung của trang này cũng có thể được chỉnh sửa. Ví dụ, bạn có thể xóa những gì được viết ở đây và dán liên kết vào các dự án của bạn cho thuận tiện. &lt;br&gt;Chúc may mắn!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Trang không tồn tại.  Chọn {here} để tạo và chỉnh sửa nó.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Neo</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Đậm</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Chặn trước</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Để làm nổi bật code của bên thứ ba</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>Ví dụ mã HTML</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Liên kết ngoài</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Liên kết file cục bộ</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (sử dụng có điều tiết)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Đường ngang</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Hình ảnh</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Nghiêng</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Dòng mới</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>Tag không xuống dòng</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Không thể được diễn giải bằng ngôn ngữ Wiki</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Liên kết trang</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Tag đặc biệt</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Gạch ngang</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Chỉ số dưới</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Chỉ số trên</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Ký tự đặc biệt</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Gạch chân</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Chặn</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Kích thước tối đa của file được tải quá lớn</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Tải File</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Đề mục</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Kích thước tối đa của file được tải lên là {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Phần: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Trang đã được di chuyển= 
+Trang đổi tên thành [[{0}|{0}]]. 
+Bạn có thể tìm thấy phiên bản mới nhất [[{0}|ở đây]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Mục lục</value>
+  </data>
+</root>

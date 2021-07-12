@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Qeyd et və yeni saziş yarat</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Bütün sazişlər</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Yatırım</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fiksə et</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>günlük</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>saatlıq</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>aylıq</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>həftəlik</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>illik</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Önədiş periodikliyi</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Mərhələ</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Mərhələ növü</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Saziş kontaktı</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>İlk sazişi əlavə et</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Yeni saziş yarat</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Saziş mərhələdədir</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>İstifadəçi periodu</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Digər istifadəçilər</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Saziş</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Məbləğ</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Saziş mərhələləri</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Satıcı sual-cavab formasında söhbətlər edir ki, potensial sifarişçinin tələblərini təyin etsin</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Dəyərləndirmə gərəkdir</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Potensial alıcı ilə əlaqə gələcək satışların perspektivini anlamaq üçün lazımdır</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>İlkin kontakt</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Uğursuzluq. Mümkün sazişi perspektivin olmamasına görə qapatdılar</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Uğursuz şəkildə qapatıldı</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Potensial alıcı satıcının mallarına və ya xidmətlərinə tələbatın olmasını ifadə etdi</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Kvalifikasiya ehtimalı</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Satıcı müştərinin potensial alıcı olmasını müəyyən etməyə çalışır</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Ilkin uyğun meyarlar tətbiqi</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Potensial alıcıya satıcından yazılı təklif gəldi</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Təklif</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Potensial alıcı fiziki və ya hüquqi şəxs olaraq müəyyən edilib ki, malların və ya xidmətlərin alınmasına maraq göstərib və bunu etməyə səlahiyyəti var</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Potensial müştəri</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potensial alıcı artıq Sizin təklifinizi detallı şəkildə müzakirə etdi</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Danışıqlar</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Anlaşma alındı. Saziş uğurla qapatıldı</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Qapanış / Satış işləmləri</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Mərhələ növü</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Saziş iştirakçısı</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Saziş iştirakçıları</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Sazişlər</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Saziş etiketi</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Saziş etiketi siyahısı</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Saziş etiketləri</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Sazişi sil</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Sazişlərin silinməsi</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Açıqlama</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>«{0}» sazişini redaktə et</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Sazişi redaktə et</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Sazişlər Sizə müştərilərinizlə potensial satışları izləməyə imkan verir. {0}Saziş mərhələlərini{1} biznes mərkəzinizə uyğun şəkildə təyin edin, tarix yaradın, tapşırıqlar qoyun, sənədlər yükləyin, hər müştəridən gəlir hesablayın.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Bu bölmədə filtrə uyğun sazişlər yoxdur. Lütfən, digər parametrləri seçin və ya bu bölmədə bütün sazişlərə baxmaq üçün filtri təmizləyin. Yaxud da Siz siyahıda olmayan sazişi yarada bilərsiniz.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Bu filtrə uyğun saziş yoxdur</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Saziş siyahısı boşdur</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Saziş başlığını daxil edin</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Hər sazişin cavabdehi olmalıdır</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>İştirakçı siyahısı boşdur</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Şirkətlər və şəxslər siyahısından iştirakçılar siyahısına əlavə edin. Bundan sonra Siz hansı kontaktların sazişlə əlaqəli olmasını və Sizin kiminlə iş gördüyünüzü biləcəksiniz.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Təxmini/Gerçək qurtarma tarixi</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Büdcə</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>İştirakçı</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Mərhələ/Mərhələ növü</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Sazişlərin importu</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Kompüterinizin sərt diskində düzgün formalı CSV fayl seçmək lazımdır. Onun sazişlərin import edilməsi zamanı istifadə olunacaq və seçilmiş ayırıcı ilə ayrılmış sahələri və sütunları olmalıdır. {0}-dan çox sətri olan faylları kiçik hissələrə bölmək lazımdır ki, düzgün import etmək mümkün olsun. Əmin olun ki, yalnız import edilmiş verilənlərə girişi olmalı olan istifadəçiləri seçmisiniz, əks halda CSV fayldan olan verilənlər portalın bütün istifadəçilərinə açıq olacaqlar.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSV fayl seçin və mümkün sazişlərin importu üçün giriş haqlarını ayarlayın</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ CRM'də müvafiq sahələri olan faylınızdan sütunlatı üst-üstə qoyun. Lütfən, diqqət edin ki, sazişlərin düzgün importu üçün minimal olaraq faylınızın növbəti sütunlarının ONLYOFFICE™ CRM sahələrinə uyğunlaşmaları lazımdır: 'Saziş başlığı', 'Saziş cavabdehi'. Tarixi içərən sahələr bu formatda olmalıdırlar: {0}. Valyuta sahəsi beynəlxalq üç hərfli kod ilə uyğun şəkildə quraşdırılmalıdır (örnək olaraq, USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lütfən, sahələri yoxlayın</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Saziş siyahısına keç</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Sazişlərin importu verilənlərinizdən asılı olaraq bir neçə dəqiqə vaxt apara bilər.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>İmport başladı</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Mənim sazişlərim</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Saziş başlığı</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Büdcə təyin edilməyib</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Digər saziş iştirakçıları</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>İştirakçılar</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Sazişə girişi məhdudlaşdır</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Uğur ehtimalı</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Sazişə cavabdeh</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Profilə keç</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Ümumi məbləği göstər</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>İmporta başla</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Saziş mərhələləri sazişin yerinə yetirilməsi üçün Sizə lazım olan addımları atmağa imkan verir. Standart mərhələlər - başlanğıc, müzakirə, qiymətləndirmə, danışıqlar, şifahi razılıq, uğur, sıfır nöqtəsidir. Onları redaktə etmək üçün administrator haqlarının olması gərəkdir.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Ümumi məbləğ</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Bütün sazişlər</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Toplam səhifə</value>
+  </data>
+</root>

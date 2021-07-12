@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Hyväksy</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Lisää usealle lähetykseen</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Sulje historia</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Laskeva</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Poista postitus</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Poista jäsen</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Lähetä kutsu</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Juttele</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Pikaviesti huoneet</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Tervetuloa {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anonyymi</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Yhdistetään...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Muodosta yhteys</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Luo pikaviesti huone</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Lähetä usealle vastaanottajalle</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Luo pikakuvakkeita ja käynnistä Talk Pikaviesti web-sovelluksena.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Paina Ctrl+Enter lähettääksesi viestejä, Enter aloittaa uuden kappaleen</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Hymiöt</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Hae</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Adobe Flash Playerin versio ei ole oikea</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Näytä tai piilota ryhmät</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Viestihistoria</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player ei ole asennettu</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Valitse henkilö kontaktiluettelosta aloittaaksesi keskustelun</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Lähetä tiedosto</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Vedä hiirellä kontakti tähän lisätäksesi vastaanottajan.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Näytä välilehti vasemmalla</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Näytä välilehti oikealla</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>lue</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Vedä kontakti tähän lisätäksesi vastaanottajan</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Oma tila</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Älä kysy seuraavalla kerralla</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>Valitse ensin käyttäjä{0} luettelosta ja voit aloittaa pikaviestin </value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Haluatko todella poistaa tämän käyttäjän pikaviestistä?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Uusi viesti</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>on kutsunut sinut</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Haluatko todella poistaa tämän ryhmän?</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Väliaikainen huone (poistetaan, kun kaikki käyttäjät ovat poistuneet)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Aihe</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Kelpaavat merkit</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Postitukset</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Juttele</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Tiedosto: {0} Koko: {1}</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Poissa</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Ei käytettävissä</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Käytettävissä</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Pikaviestitä reaaliajassa työtovereille. Päivitä kontaktiluettelo automaattisesti. Vastaanota uutisia.</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Selaimen ilmoitukset</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Luo ryhmäpostia</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Luo pikaviesti huone</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Poista käyttäjä pikaviestistä</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Kutsu pikaviestiin</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Poista pikaviesti</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>kirjaimia, numeroita ja pisteitä (.)</value>
+  </data>
+</root>

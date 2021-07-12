@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Portala giriş hüququ</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Pillə əlavə et</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Tapşırıq əlavə et</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Layihə menecerinin bacardıqları</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>layihə komandasına istifadəçi əlavə etmək və ya silmək</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>layihənin üzvləri üçün giriş haqları ayarla (sadəcə şəxsi layihələr üçün)</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>Pillələri, tapşırıqları, müzakirələri, sənədləri idarə et (yarat, redaktə et, sil) və bunlara girişi məhdudlaşdırın</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Messencer ilə danış</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>E-poçt göndər</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Layihəni qapat</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>İlk layihəni yarat</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Yeni bir layihə yarat</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Layihəni sil</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Bu layihəni silmək istıdiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Bu bölmədə filtrə uyğun heç bir layihə yoxdur</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Layihəni redaktə et</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Layihələr yaradın effektiv işləyin</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Layihələr siyahısı boşdur</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Bu layihəni izlə</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Şəxsi layihə</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Layihəni şəxsi olaraq qeyd et</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Komandanı idarə et</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Vaxtı əl ilə daxil et</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Aktiv pillələri olan layihəni bağlamaq olmaz</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Aktiv tapşırıqları olan layihəni bağlamaq olmaz</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Layihə menecerinə e-poçt ilə bildiriş göndər</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Layihə</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Layihəni sil</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Açıqlama</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Layinə meneceri</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Layihələr</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Layihənin durumu</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Komanda</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Layihə şablonu</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Layihə şablonları</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Layihəni qeyd et</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Layihə şablonunu seç</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketlər</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Tspşırıqlar qapalıdırlar. Bu pillədən bütün tapşırıqların siyahısını açmaq üçün basın.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Açıq tapşırıqlar. Bu pillənin bütün tapşırıqlarının siyahısını açmaq üçün basın.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Pilləyə cavabdeh. Bu istifadəçinin cavabdeh olduğu bütün pillələri görmək üçün basın.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Layinənin meneceri. Bu istifadəçinin menecer olduğu bütün layihələrin siyahısını görmək üçün basın.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Açıq tapşırıqlar. Bu layihənin bütün tapşırıqlarının siyahısını açmaq üçün basın.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Komanda. Layihə komandasının bütün iştirakçılarının siyahısını görmək üçün basın.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Alt tapşırıqları açın. Bu tapşırıqların bütün alt tapşırıqlarının siyahısını açmaq üçün basın.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Tapşırığa cavabdeh. Bu iştirakçının cavabdeh olduğu bütün tapşırıqların siyahısını görmək üçün basın.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Tapşırığa cavabdeh olanlar. Bu tapşırığa cavabdeh olan bütün istifadəçilərin siyahısını görmək üçün basın.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Aktiv pillələrə bax</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Açıq tapşırıqlara bax</value>
+  </data>
+</root>

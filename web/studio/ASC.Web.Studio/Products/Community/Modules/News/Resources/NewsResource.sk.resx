@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>Pridať správu</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>Komentár správy</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>Upraviť správu</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Najnovšie firemné správy, oznámenia a ankety</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Udalosti</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>Naozaj chcete odstrániť túto udalosť?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>Vytvorte prvé oznámenie</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>Zatiaľ neboli pridané žiadne oznámenia</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>Vytvorte prvú udalosť</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>Zatiaľ neboli pridané žiadne udalosti</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>Zatiaľ neboli pridané žiadne správy</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>Vytvorte prvú správu</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>Vytvorte prvú objednávku</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>Zatiaľ neboli pridané žiadne objednávky</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>Vytvorte prvú anketu</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>Zatiaľ neboli pridané žiadne ankety</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Vytvorte si svoje vlastné udalosti, uverejňujte dôležité oznámenia, zdieľajte najnovšie správy a pridajte prieskumy na zhromažďovanie názorov Vašich kolegov priamo na Vašom portáli.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Prístup zamietnutý</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Zadajte otázku ankety</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Zadajte aspoň dve možnosti výberu</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>Udalosť bola odstránená</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>Náhľad</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>Správy</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>Ankety</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Zatvoriť</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Vytvoriť novú udalosť</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>Vytvoriť novú anketu</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>Oznámenia</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>Všetky udalosti</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>Upraviť udalosť</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>Upraviť anketu</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>Objednávky</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>Typ udalosti</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>Komentáre udalosti</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>Nové udalosti</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Publikovať</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Náhľad</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>Pole Názov je povinné</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Vyhľadávanie udalostí</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Zobraziť na stránke</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>Prihlásiť sa na odber komentárov</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Celkovo</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>Zrušiť odber z komentárov</value>
+  </data>
+</root>

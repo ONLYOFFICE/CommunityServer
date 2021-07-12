@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>새 북마크를 만듭니다</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>즐겨 찾기에 즐겨 찾기 추가</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>즐겨 찾기에 추가</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>북마크를 만드는 중 ...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>자세한 설명을 즐겨 찾기에 추가</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>로 즐겨 찾기</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>즐겨 찾기에서 검색</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>즐겨 찾기에 북마크를 추가 한 사용자의 수</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>즐겨 찾기</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>쉼표로 구분하여 필요한 태그를 입력하십시오</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>Url</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>URL을 확인</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>URL 확인 중 ...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>코멘트를 즐겨 찾기로 이동</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>코멘트</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>새 북마크를 만듭니다</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>세부</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>즐겨 찾기 편집</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>즐겨 찾기 편집</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>북마크 URL 필드는 비워 둘 수 없습니다</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>북마크은 아직 추가되지 않았습니다</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>첫 번째 북마크를 만듭니다</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>즐겨 찾기가 없습니다</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>직접 쉽게 즐겨 찾는 장소로 돌아갈 수 있도록 웹 리소스에 대한 포털 절약 링크에서 동료들과 북마크, 저장 및 공유 유용한 정보를 생성합니다.</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>즐겨찾기</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>대부분의 최근</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>가장 인기있는</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>즐겨 찾기에서 즐겨 찾기 삭제</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>당신이 즐겨 찾기에서 {0} 북마크를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>즐겨 찾기를 제거</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>북마크를 삭제하는 중 ...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>보기 :</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>페이지에 표시</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>댓글에 신청하기</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>꼬리표</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>태그</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>오늘의 인기</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>합계</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>탈퇴</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>년</value>
+  </data>
+</root>

@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Полето за валидиране не може да бъде празно</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Въведете номер на мобилен телефон</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Добави</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>Добавете филтър</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Използвайте символите {0}? {1} и {0} * {1}, за да извършите търсене с едно или няколко знака. Например, за да търсите всички думи, започващи с {0} O {1}, използвайте заявката {0} O * {1}. За да търсите точната фраза, използвайте кавичките. {2} Научете повече ... {3}</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>Резервното копие е създадено успешно.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Зает</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Успешно закупуване на номер</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Входящо повикване</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Пропуснато повикване</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Прилагат се промени</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Промените се прилагат успешно.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Възникна грешка. Моля, свържете се с администратора си.</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Пълен</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Искаш ли да продължиш?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Създайте нов контакт</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>Няма контакти в този списък</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Въведете заглавието на фирмата</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Няма контакти</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Няма такъв контакт</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Няма такова дружество</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Продължи</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Създавам</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Грешка при генериране на отчет</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Коментарът не може да бъде празен</value>
+  </data>
+  <data name="EmptySelectedArea" xml:space="preserve">
+    <value>Изберете област за аватар</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Въведете имейла</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Моля, попълнете това поле</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Въведете заглавието на групата</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Въведете първото име</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Въведете фамилното име</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Няма такава група</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Няма такъв човек</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>Невалидно първо име</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>Невалидно фамилно име</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>Максимум 64 символа</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Датата на регистрация трябва да бъде по-късна от датата на раждане</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Не можете да добавите същия профил и да се свържете два пъти.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Можете да въведете само до 64 знака за това поле.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Неправилен имейл</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Името на портала вече е заето</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Не са разрешени символи в името на портала</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Името на портала е твърде кратко</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Името на портала не е променено</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Потребителите бяха успешно добавени.</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Първо име</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Групата {0} бе създадена успешно.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Създайте нова група</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>Няма групи в този списък</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Няма такава група</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>на</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Неправилен формат на IP адрес</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Каня</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Настройките са актуализирани успешно</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Празно поле</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Неправилен номер на порта</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>Трябва да прочетете и да се съгласите с Лицензионното споразумение</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Лицензът не е правилен</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Връзката е копирана в клипборда</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Моля Изчакай...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Зареждане, моля изчакайте.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Зареждане...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>Цял ден</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Събитието е анулирано.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Отменен: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Събитието е завършено.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} предварително прие поканата</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} отхвърли поканата за</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Отговор: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} прие поканата</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} Ви кани да</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Покана: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>приблизителен</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>при</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>ден</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>дни</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>всеки</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>за</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>часа</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>в</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>последно</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>месец</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>месеци</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>ри</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>за</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>на</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>неизвестен формат</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>тата</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>во</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value>на</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>тата</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>Време</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>пъти</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>делничен</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>делници</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>Седмица</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>седмици</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>година</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>години</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Събитието е променено.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Актуализиране: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>Вие колебливо приехте поканата</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>Отклонихте поканата до</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>Вие приехте поканата</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>Изпратихте поканата</value>
+  </data>
+  <data name="MailNoSubject" xml:space="preserve">
+    <value>без тема</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>При опита за изпращане на това съобщение възникна проблем.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Уведомлението за анулиране на събитие е изпратено на присъстващите.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Заявката ви е изпратена на присъстващите.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Отговорът ви е изпратен на организатора.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Съобщението е изпратено.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Мой</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Няма крайъгълен камък в този проект</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Няма такъв крайъгълен камък</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Никога не показвай</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Извън линия</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Онлайн</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Отворено</value>
+  </data>
+  <data name="OpenTalk" xml:space="preserve">
+    <value>Отвори разговор</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Грешка при изпълнение на операцията.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Операцията е завършена успешно.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}На път сте да преименувате портала си.{1}{0}Наистина ли искате да продължите?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Потвърждение за преименуване на портала</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Създайте нов проект</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>Няма проекти в този списък</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Всеки проект трябва да има мениджър</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Всеки проект трябва да има заглавие</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Няма проекти в тази група</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Няма такъв проект</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Няма такъв човек</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>Път</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Същите ограничения</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Настройките са запазени успешно</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Избери файл</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Изберете папка</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Търговско дружество</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Име на фирмата</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Тип контакт</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>Електронна поща</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Първо име</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Група</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Глава</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Мениджър</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Човек</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>подбран</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Потребител</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Гост</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Създадох свой собствен уеб-офис. Присъединете се към мен: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Покажи следващото</value>
+  </data>
+  <data name="StartFilter" xml:space="preserve">
+    <value>Стартирайте филтъра</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Свържете</value>
+  </data>
+  <data name="StorageButtonResetToDefault" xml:space="preserve">
+    <value>Обновявам до първоначалното</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>Настройки на CDN</value>
+  </data>
+  <data name="StorageStorageTitle" xml:space="preserve">
+    <value>Настройки за съхранение</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} потребител (и) бяха успешно добавени към портала</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Настройките са актуализирани успешно</value>
+  </data>
+  <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
+    <value>Абонирайте се за съвети и трикове</value>
+  </data>
+  <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
+    <value>Отпишете се от съвети и трикове</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>На път сте да се отпишете от всички известия за модул "{0}". Сигурен ли си, че искаш да продължиш?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Празен файл</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Грешка при качване на файл</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Поддържан файлов формат: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Размерът на файла не може да надвишава 5 МБ</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>в очакване на</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Профилът за {0} бе създаден успешно</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Създайте нов профил</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>Няма потребители в този списък</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Превишава броя на максималните активни потребители</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Досега в портала не са създадени групи. Отидете в модула Хора, за да групирате потребителите.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>Няма потребители в тази група</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Няма такъв потребител</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Ако напуснете сега всички въведени или незапазени данни ще бъдат загубени.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Това означава, че можете: {1}да видите съдържанието на портала, отворено за всички потребители на портала,{2}да оставите коментари,{3}да прикачите и изтегляте файлове.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>Ако имате нужда от допълнителни права, моля, свържете се с администратора на портала.</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Добре дошли в ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>Администраторът на портала ви покани като гост потребител на портала.</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Започвам работа</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Добре дошли в ONLYOFFICE!</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Не сте задали никаква парола. Ще можете да го направите по-късно, като използвате 'Забравена парола?'. на страницата за вход в портала. Сигурен ли си, че искаш да продължиш?</value>
+  </data>
+</root>

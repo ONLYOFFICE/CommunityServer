@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>संग्रह</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>संग्रह</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>लेखक</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>टिप्पणियां</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>नई चर्चा बनाएं</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>चर्चा शुरू</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>चर्चा पर कार्य बनाएँ</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>आप इस चर्चा को हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>चर्चा मिटायें</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>अपने फिल्टर से मेल खाते कोई विचार विमर्श के लिए इस खंड में प्रदर्शित किया जा सकता है।</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>चर्चाएँ परियोजना चल रही है एक बार हो सकता है जो समस्याओं के किसी भी प्रकार के लिए अपनी परियोजना टीम के साथ सही समाधान खोजने के लिए इस्तेमाल कर रहे हैं। अपनी चर्चा में शामिल होने _ अन्य परियोजनाओं से उपयोगकर्ताओं को आमंत्रित करते हैं, अपने सहयोगियों के साथ सभी मुद्दों पर चर्चा करें।
+</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>कोई विचार विमर्श अभी तक शुरू कर दिया गया है</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>ग्राहकों</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>संपादित चर्चा</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>प्रत्येक संदेश कुछ पाठ शामिल होना चाहिए</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>इस फ़िल्टर को कोई चर्चा मैच नहीं कर रही हैं </value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>विचार-विमर्श</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>पाठ</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>विचार विमर्श</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>और पढ़ें</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>परियोजना का चयन करें</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>पहली चर्चा शुरू</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>आप चुनिंदा लोगों के संदेश और इसे करने के लिए टिप्पणी के बारे में सूचित किया जाएगा।</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>सूचित करना</value>
+  </data>
+</root>

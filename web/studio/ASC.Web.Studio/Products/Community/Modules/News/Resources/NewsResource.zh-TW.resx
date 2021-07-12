@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>增加新消息</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>新消息留言</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>編輯新消息</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>最新企業新消、公告及投票</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>您確定要刪除此事件嗎？</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>建立第一個公告</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>尚無公告被加入</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>建立第一個事件</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>尚無事件被加入</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>尚未增加新消息</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>建立第一則新消息</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>建立第一個規章</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>尚無規章被增加</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>建立第一個投票</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>尚無投票被加入</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>直接在您的頁面建立您自己的事件、發表重要公告、分享最新消息和增加投票來收集您同事的意見。</value>
+  </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>查看事件，重要公告，最新新聞和民意調查，並直接在門戶上了解同事的意見。</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>存取被拒</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>輸入您的投票問題</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>輸入至少兩個投票選項</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>事件已經被刪除</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>新消息</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>投票</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>建立新的事件</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>建立新投票</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>公告</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>全部事件</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>編輯事件</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>編輯投票</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>規章</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>事件類型</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>事件留言</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>新事件</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>發表</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>標題欄位是必須的</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>搜尋事件</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>在頁面顯示</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>訂閱留言</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>總計</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>取消訂閱留言
+</value>
+  </data>
+</root>

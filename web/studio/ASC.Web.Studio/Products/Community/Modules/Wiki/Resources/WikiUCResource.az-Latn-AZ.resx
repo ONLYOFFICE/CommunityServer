@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Bölməni redaktə et:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Fayl</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Fayl adı</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Mətn</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Səhifə başlığı</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Fayl yüklə</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Yüklənmiş fayl adı</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Yaxınlaşdır</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Wiki səhifə yaratmaq çox asandır, hətta siz əvvəllər heç vaxt mətn biçimləndirmə dilini istifadə etmiş olmasanız da, bunu etmək asandır. Sizə sadəcə olaraq bu səhifədə göstərilmiş bir neçə sadə qayda lazım olacaq. Ümid edirik ki, onlar Sizin işinizə yarayacaqlar.
+
+@@TOC@@
+
+==Bölmələr, abzaslar, siyahılar, sətirlər==
+
+Yeni bölməni təyin etmək üçün, = işarəsini bölmənin başlığında və sonunda istifadə edin:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Bölmə=&lt;br&gt;
+==Alt bölmə==&lt;br&gt;
+===Alt-bölmə===&lt;br&gt;
+
+&lt;p&gt;
+@TOC@ istifadə edin ki, bütün bölmələri və alt bölmələri birləşdirəsiniz səhifədə mündəricata birləşdirəsiniz. 
+&lt;/p&gt;
+
+Sətirdən keçirmə biçimləndirməyə təsir etmir. Siz onu absaz daxili cümlənin bölünməsi üçün istifadə edə bilərsiniz.   
+
+&lt;p&gt;
+«br» etiketini istifadə edin ki, abzasa başlamadan yeni sətrə başlayasınız.
+&lt;/p&gt;
+
+Yeni abzasa başlamaq üçün iki dəfə Enter basın (boş sətri saxlayın) - istənilən mətn redaktorunda olduğu kimi
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Siyahını bu cür hazırlayın: 
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* hər punktu ulduzdan başlayın;&lt;br&gt;
+** ulduzlar çoxaldıqca;&lt;br&gt;
+** siyahının səviyyəsi dərinləşir.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Nömrələnmiş siyahıları istifadə edə bilərsiniz:&lt;br&gt;
+## onlar yaxşı struktura malikdirlər;&lt;br&gt;
+## və rahat oxunurlar.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ Sətir məsafədən BAŞLAYIRSA,
+ O ZAMAN o yığıldığı şəkildə format olunacaq; 
+ eyni şrift ilə; sətirdən keçirmə olmadan;[[keçidsiz]].
+
+Əgər Sizə lazımdırsa, məsafəni sətrin əvvəlində istifadə edə bilərsiniz: 
+
+*öncədən format edilmiş mətn qoymaq;
+*çıxış kodunu təsvir etmək; 
+*yaratmaq/qoymaq simvol qrafikasını (mətn simvollarının köməyi ilə təsvirin yaradılması).
+
+Horizontal xətt dörd tirenin köməyi ilə bildirilir: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Keçidin əlavə olunması==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Başqa wiki səhifəyə keçidin əlavə olunması üçün onun adını ikiqat kvadrat mötərizəyə salın: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+Səhifənin və keçidin adları üst-üstə düşmürlərsə, işarədən sonra istədiyiniz adı yazın |: &lt;br&gt; [[Wiki Markup Help Page|Помощь]] &lt;/p&gt; 
+
+&lt;p&gt;
+Xarici keçidlər birbaşa mətnə qoyulur: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+Əgər Siz xarici keçidin adını dəyişdirmək istəyirsinizsə, onu kvadrat mötərizənin içinə qoyun və məsafədən sonra istədiyiniz adı yazın:  &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt;
+Elektron poçt ünvanı əlavə etmək üçün, kvadrat mötərizələrdən istifadə edin:  &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Səhifəyə kateqoriya lav etmək üçün, səhifənin altında istədiyiniz ketaqoriyaya keçid yaradın [[Category: Sitədiyiniz kateqoriya]] . 
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Mətnin format edilməsi==
+
+Mətnin format olunmasına dair aşağıdakı qaydalar var: 
+
+''Kursiv''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''Mətniniz kursivlə yazılanda''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Qalın'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''Mətniniz qalın yazılanda'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Qalın kursiv'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''Mətniniz qalın kursivlə yazılanda''''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Altdan xətt__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__Mətninizin altından xətt çəkiləndə__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Pozan xətt--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--Mətniniz pozan xəttlə yazılanda--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+İşarələr: &lt;sup&gt;надстрочные&lt;/sup&gt; и &lt;sub&gt;подстрочные&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;sətiralrı işarə&lt;/sub&gt;&lt;br&gt;
+&lt;sup&gt;sətirüstü işarə&lt;/sup&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Siz həmçinin &lt;small&gt; xırda şritf &lt;/small&gt; istifadə edə bilərsiniz şərhlər üçün, elementlərin çıxarılması üçün xüsusi formatlama &lt;code lang="language"&gt;proqram kodu&lt;/code&gt; monoenli mətn &lt;tt&gt;texniki terminlər&lt;/tt&gt; üçün.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Şəkillərin əlavə olunması==
+
+Səhifəyə şəkil qoymaq üçün, öncədən onu wiki’yə yükləyin, sonra da onun adına olan keçidi səhifənin şəkli görmək istədiyiniz yerində istifadə edin.
+
+Müxtəlif şəkillərin əlavə olunması üçün müxtəlif keçidlər istifadə edin: 
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Təsvir = [[Image:Şəklin adı]]&lt;/p&gt;
+&lt;p&gt;
+Fiksə edilmiş eni olan şəkil = [[Image: Şəklin adı | Ширина_px]]&lt;/p&gt;
+&lt;p&gt;
+Təsvirli şəkil = [[Image:Şəklin adı  | Описание]]&lt;/p&gt;
+&lt;p&gt;
+Miniatür = [[Image:Image Name | thumb]] – şəkil kiçildilərək sağ səddə görə hamarlanacaq.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+== HTML’dən Wiki’yə keçirmə ==
+
+Buraya keçirmək istədiyiniz, HTML’də formatlanmış mətniniz varsa, bunu tez və asan edə bilərsiniz. Fəaliyyətlər panelində “Yeni səhifə yaratmaq” basın. Sonra HTML səhifənin içəriyini pəncərənin redaktoruna qoyaraq, formatlama panelindəki '''Wiki''' düyməsini basaraq Wiki rejiminə keçin. HTML etiketlər Wiki biçiminə salınacaq. Mətnin quruluşunun və səhifədəki şəkillərin düzgünlüyünü yoxlayaraq, mövcud olan səhvləri düzəldib “Dərc et” düyməsinə baxın. Sizin səhifə hazırdır!</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Yardım</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>''' ONLYOFFICE™ Wiki’yə xoş gəldiniz!''' 
+
+Burada Siz öz aralarında keçidlərlə əlaqəli qeyri-məhdud sayda səhifə yarada bilərsiniz, və onları internet brauzerinizdən kateqoriyada birləşdirə bilərsiniz. Wiki – rahat alətdir ki, bunun vasitəsi ilə layihə sənədləşmələri aparmaq olur və Wiki bu xüsusiyyətlərə malikdir:
+*burada hər kəs müəllifdir. İstənilən '''ONLYOFFICE™''' istifadəçisi istənilən səhifəni redaktə edə bilər;
+*tez redaktə etmək. Səhifədəki '''Redaktə et''' keçidinə basın və dəyişikliklərinizi daxil edin;
+*HTML-dən Wiki-yə asan keçirmək. Ayrıntılı bilgi [[Internal:Help# HTML-dən Wiki-yə keçirmək|burada]] 
+*səhifələrin versiyalı olmasının dəstəklənməsi. Dəyişikliklərlə razı deyilsiniz mi? Səhifənin öncəki versiyasına qayıdın.
+
+@@TOC@@
+
+==Struktura və naviqasiya==
+
+'''ONLYOFFICE™''' Wiki’də olduğunuz müddətdə, Siz burada istənilən vaxt əlinizin altında olan naviqasiya panelinin köməyi ilə yerinizi dəyişə bilərsiniz. 
+
+===Səhifələr===
+
+Bütün az öncə yaradılmış səhifələrin əlifba sırası bu bölmədə yerləşir [[Internal:Index|İndeks]]&lt;br&gt;
+Bütün az öncə yaradılmış səhifələrin xronoloji ardıcıllıq sırası bu bölmədə yerləşir [[Internal:NewPages|Yeni səhifələr]]&lt;br&gt;
+Bütün az öncə redaktə edilmiş səhifələr bu bölmədə yerləşir [[Internal:Recently|Az öncə redaktə olunmuşlar]]
+
+===Kateqoriyalar===
+
+Siz bir neçə qohum səhifəni kateqoriyaya birləşdirə bilərsiniz. Bütün kateqoriyalar və onlara aid olan səhifələr bu bölümdə yerləşirlər [[Internal:Categories|Kateqoriyalar]]. Siz artıq mövcud olan kateqoriyaya səhifə əlavə edə bilərsiniz və ya yeni kateqoriya yarada bilərsiniz. Kateqoriyaya səhifə əlavə etmək üçün bunu oxuyun [[Internal:Help|burada]]
+
+===Fayllar===
+
+Siz wiki’yə istənilən formatda və ölçüdə fayl yükləyə bilərsiniz, həmçinin səhifələr yaradılarkən wiki’yə  yüklənən şəkillərə keçid verə bilərsiniz. Ayrıntılı məlumatı buradan oxuyun [[Internal:Help#Şəkillərin əlavə olunması|burada]].
+
+===Yardım===
+
+ONLYOFFICE™ wiki’də səhifənin yaradılması — asandır. Sizə bir neçə sadə qayda lazım olacaq, o qaydalarla bu səhifədə tanış ola bilərsiniz [[Internal:Help|Yardım]]. 
+
+
+==Öz wiki’ni necə yaratmaq olar==
+
+Wiki’nin yaradılmasını yeni səhifənin yaradılmasından başlayın — Fəaliyyət panelində “Yeni səhifə yarat” keçidini yaradın. Redaktorun açılmış pəncərəsində mətninizi yazın. Mətnin səhifədə düzgün əks olunması üçün bundan istifadə edin [[Internal:Help|qaydalar]] wiki biçimlər.
+
+Unutmayın, bura - Sizin şəxsi yerinizdir ki, buranı istədiyiniz kimi düzənləyə bilərsiniz. Hətta bu səhifə də redaktə oluna bilər. Məsələn, Siz içəriyi silərək, səhifəni öz layihələrinizin wiki səhifələrinə keçidlərlə doldular bilərsiniz. &lt;br&gt;Uğurlar!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Belə səhifə yoxdur. {Buraya} basın ki, o səhifəni yaradasınız və redaktə edəsiniz.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Lövbər</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Qalın</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Öncədən blok</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Üçüncü tərəf kodunu vizual vurğulamaq</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Şərh</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML kod nümunəsi</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Xarici keçid</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Yerli fayl keçidi</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (həddində istifadə edin)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Horizontal xətt</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Rəsm</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Kursiv</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Yeni sətir</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR etiketi</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Wiki dilinə tərcümə olunmur</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Səhifəyə keçid</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Xüsusi etiketlər</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Vur</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Sətiraltı</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Sətirüstü</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Xüsusi simvollar</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Altından xətt çəkilmiş</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Blok</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Yüklənən faylın ölçüsü maksimal ölçünü aşdı</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Faylı endir</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kateqoriyalar</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Yüklənən faylın maksimal ölçüsü {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Bölmə: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Səhifə daşınıb=
+Səhifənin adı buna dəyişdirilib [[{0}|{0}]].
+Son versiyanı tapa bilərsiniz [[{0}|burada]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Mündəricat</value>
+  </data>
+</root>

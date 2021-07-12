@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Acceso</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Fuera de portal</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Comentarios</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Filtro personalizado</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Relleno de formulario</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Sólo lectura</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Acceso completo</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Prohibir acceso</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Revisión</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Para trabajar con el archivo, Usted debe conceder acceso</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>CONTINUAR</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Al abrir este archivo en ONLYOFFICE™ se creará una copia nueva de este archivo en el formato Office Open XML en su Google Drive. De este modo el archivo original no se modificará. Para modificar el archivo en ONLYOFFICE™ Usted tendrá que abrir una copia nueva.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>No mostrar este mensaje de nuevo</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Escribir nombre de archivo</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Seleccione tipo de archivo</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Yo</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Convertir y Abir</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>Crear por plantilla</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Eliminar </value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>Eliminar de los favoritos</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comentario</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Autoguardado</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Propietario ha sido cambiado</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Convertido de {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Copiada</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Creada</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Creada con ayuda de DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Editado</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>Editado con encriptación</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Encriptado</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Guardado</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Sobrescrito</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Restaurado de revisión de {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Restaurada del cambio de documento de {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Subido</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>URL de conexión</value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>El documento se ha convertido a {0} para su edición</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Convertir a</value>
+  </data>
+  <data name="DashboardGoToMyDocuments" xml:space="preserve">
+    <value>Ir a Mis Documentos</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfy" xml:space="preserve">
+    <value>Haga que la co-edición sea cómoda</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyFirstLine" xml:space="preserve">
+    <value>Cambie entre dos modos de co-edición.</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfySecondLine" xml:space="preserve">
+    <value>Elija el modo Rápido para ver lo que otros están escribiendo en tiempo real.</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyThirdLine" xml:space="preserve">
+    <value>Habilite el modo Estricto para bloquear el párrafo y trabajar de forma más privada.</value>
+  </data>
+  <data name="DashboardShareFiles" xml:space="preserve">
+    <value>Comparta archivos</value>
+  </data>
+  <data name="DashboardShareFilesFirstLine" xml:space="preserve">
+    <value>Comparta archivos con su equipo o públicamente. Inserte documentos en los sitios web.</value>
+  </data>
+  <data name="DashboardShareFilesSecondLine" xml:space="preserve">
+    <value>Conceda acceso para ver, editar, revisar, comentar, rellenar formularios.</value>
+  </data>
+  <data name="DashboardShareFilesThirdLine" xml:space="preserve">
+    <value>Envíe documentos para la firma electrónica.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationTools" xml:space="preserve">
+    <value>Utilice más herramientas de colaboración</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsFirstLine" xml:space="preserve">
+    <value>Revise documentos y sugiera ediciones con Control de cambios.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsSecondLine" xml:space="preserve">
+    <value>Añada comentarios, diríjalos a una persona determinada.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsThirdLine" xml:space="preserve">
+    <value>Vea el historial de versiones y restaure las versiones anteriores.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocs" xml:space="preserve">
+    <value>Trabaje en documentos de oficina</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsFirstLine" xml:space="preserve">
+    <value>Almacene y edite documentos, hojas de cálculo y presentaciones.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsSecondLine" xml:space="preserve">
+    <value>Disfrute de la máxima compatibilidad con docx, xlsx y pptx.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsThirdLine" xml:space="preserve">
+    <value>Conecte los almacenamientos de terceros, por ejemplo, Google Drive, Dropbox, Box, OneDrive.</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>Servicio de Documentos no está disponible. Por favor, póngase en contacto con equipo de soporte.</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Nombre de documento</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Rechazado</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Durante el envío ocurrió un error</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Envío del documento con ayuda de DocuSign ha sido cancelado</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Documento fue enviado para firmar con ayuda de DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Anulado</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>Notificar cuando se menciona en documento</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Introducir un comentario</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Solicitud incorrecta.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>No se puede seleccionar este usuario</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Conversión toma demasiado tiempo.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Se ha producido un error en el servicio de documentos</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>El archivo es abierto para editar por usuario {0}. En este momento la edición colaborativa no es soportada para este formato. </value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0}abrió el archivo para la edición en la aplicación móvil </value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Archivo vacío </value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>El archivo solicitado no es encontrado</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Archivo más de {0} no será convertido</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Archivo más de {0} no será copiado</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Archivo más grande que {0} no será editado</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Archivo más de {0} no será movido</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>No se puede copiar la carpeta a su subcarpeta</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>La carpeta solicitada no es encontrada</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Título incorrecto</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>El archivo se está bloqueando por otro usuario</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>No hay cuentas disponibles para enviar el mensaje. Vaya al Correo y conecte un buzón.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Por lo menos {0} mensajes de correo no consiguió enviar. Por favor, visite el módulo "Correo" para enterarse de una razón de este fallo posible.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Demasiadas descargas</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Lo sentimos, pero el formato de archivo no se admite</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>La operación se canceló</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Autor de la versión guardada es desconocido</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>El archivo fue dañado cuando Usted trataba de guardarlo</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Imposible obtener el archivo para guardarlo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>No hay suficiente permiso para realizar operacion</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Es imposible conectarse a proveedor {0} con los datos de acceso proporcionados.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Usted no tiene permisos suficientes para crear</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>No es posible eliminar el archivo, porque está abierto para la edición</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>No es posible eliminar la carpeta, porque uno de los archivos está abierto para la edición</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>No hay permiso para eliminar el archivo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>No hay suficiente permiso para eliminar la carpeta</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Usted no tiene suficientes permisos para editar el archivo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Este documento se está editando por Usted en otra pestaña</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>No tiene permiso para mover el archivo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>No tiene permiso para mover la carpeta</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>No hay permiso suficiente para ver el archivo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>No hay suficiente permiso para ver la carpeta</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>No hay suficiente permiso para renombrar el archivo</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>No hay suficiente permiso para renombrar la carpeta</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>No es posible actualizar el archivo, porque está abierto para la edición</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>No hay suficiente permiso para ver la carpeta</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>El contenido de la carpeta de terceros no está disponible. Trate de volver a conectar la cuenta.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Error de comienzo de edición de archivo</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>No es posible actualizar el archivo, cual está abierto para la edición</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>No se pudo encontrar al usuario</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>No hay permiso para ver los elementos en la papelera de reciclaje</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Carpeta</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Nombre de carpeta</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anónimo</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Buscar por el contenido de documentos</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>nuevo</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Archivo creado en la carpeta "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Vista previa</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Haga lo mismo que un usuario|Enlace Dropbox, Box y otras cuentas en la sección 'Documentos comunes'|Configure derechos de acceso a los documentos y carpetas en la sección 'Documentos comunes'</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Cree, edite y comparta documentos de oficina. Colabore en ellos en tiempo real. Garantizado 100% de compatibilidad con docx, xlsx, pptx. </value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Edite, comparta y colabore en documentos de oficina en tiempo real. Cree y gestione documentos comunes para que todo el equipo tenga acceso a ellos. 
+100% de compatibilidad con docx, xlsx, pptx. </value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Vea y descargue los documentos compartidos. Suba archivos a las carpetas compartidas. 100% de compatibilidad con docx, xlsx, pptx garantizada.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Crear y editar sus propios documentos y documentos compartidos con los derechos de acceso propios|Dar derechos de acceso a otros usuarios para leer/editar los documentos y carpetas|Enlazar Dropbox, Box y otras cuentas en la sección de 'Mis documentos' </value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} eliminado</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Marcar como leído</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Búsqueda</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compartir</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Notificar al compartir una carpeta</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Mostrar versiones</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Tamaño</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Notificar cuando el documento es firmado con ayuda de DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Notificar sobre el cambio de estado de documento en DocuSign</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Notificar al compartir un documento</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Notificar cuando el correo masivo es terminado</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Rellene para cambiar</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Título de carpeta</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Reconectar</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Hacer compartidos y ponerlos en la carpeta "Documentos comunes"</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Creada</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Documentos de {!user}{0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Documentos </value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Actualizado</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Eliminado</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Seleccionar</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Ajustes de uso compartido</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Mostrar acciones con archivo</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Mostrar las acciones con la carpeta</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Subcarpetas</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Subido</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Marcar como versión</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Marcar como revisión</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versiones y revisiones</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Nombre </value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>El archivo es desbloqueado</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

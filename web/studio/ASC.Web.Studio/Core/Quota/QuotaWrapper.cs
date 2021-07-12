@@ -91,10 +91,10 @@ namespace ASC.Web.Studio.Core.Quota
             {
                 StorageSize = (ulong)Math.Max(0, quota.MaxTotalSize),
                 UsedSize = (ulong)Math.Max(0, quotaRows.Sum(r => r.Counter)),
-                MaxUsersCount = quota.ActiveUsers,
+                MaxUsersCount = TenantExtra.GetTenantQuota().ActiveUsers,
                 UsersCount = CoreContext.Configuration.Personal ? 1 : TenantStatisticsProvider.GetUsersCount(),
-                MaxVisitors = CoreContext.Configuration.Standalone ? -1 : Constants.CoefficientOfVisitors * quota.ActiveUsers,
-                VisitorsCount = CoreContext.Configuration.Personal ? 0 : TenantStatisticsProvider.GetVisitorsCount(),
+                MaxVisitors = CoreContext.Configuration.Standalone ? -1 : Constants.CoefficientOfVisitors * TenantExtra.GetTenantQuota().ActiveUsers,
+                VisitorsCount = TenantStatisticsProvider.GetVisitorsCount(),
 
 
                 StorageUsage = quotaRows

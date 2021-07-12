@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Aktivni zadaci</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Generiši takav izveštaj automatski</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Vremenski period</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Klikni za sortiranje po ovoj koloni</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Kreiraj šablon</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Ime člana</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Krajnji rok</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Morate dodeliti ime šablonu</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Svaki dan</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Svaki mesec</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Svaka nedelja</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generiši izveštaj</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Nepravilan raspon datuma</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Prethodni mesec</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Prethodna nedelja</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Prethodna godina</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Ovaj projekat ne sadrži ni prekretnice ni zadatke</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Ostali</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Članovi</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Zatvoren izveštaj zadataka</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} bez aktivnog zadatka</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Opterećenje</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Prekretnice koje kasne</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Kašnjnje zadataka</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Otvori izveštaj zadataka</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Izveštaj «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Lista projekata</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Projekat bez aktivnih prekretnica</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Projekat bez aktivnih zadataka</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Izveštaji</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Projektni zadaci</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Izveštaj praćenja vremena</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Dolazeće prekretnice</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Aktivnost člana</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Zadaci člana</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Prikaži zadatke</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Šabloni</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Naslov šablona</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Trenutni mesec</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Trenutna nedelja</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Trenutna godina</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danas</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Korisnik</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Pregled po {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Pregled po projektu</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Pregled po članu</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Pregled po zadacima člana</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Prikaži zatvorene projekte</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Nedelja</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Nedelja</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Juče</value>
+  </data>
+</root>

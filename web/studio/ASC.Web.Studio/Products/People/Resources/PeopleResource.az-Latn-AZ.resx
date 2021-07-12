@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portala giriş hüququ</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>əyləmlər</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Yasaqlandı</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Təmizlə</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Təsdiqlənmə</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Yasaqla</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>İzn ver</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>E-mail'i dəyiş</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Parolu dəyişdir</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Yaradın</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Profili sil</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Dəvətnamələri bir də göndərin</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Aktivləşdirmə kodunu yenidən göndər</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>E-poçt göndər</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Mesaj göndərin</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Abunəliklər</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Yasaqlandı</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Bu bölmədə sizin filtr ilə üst-üstə düşən heç bir adam tapılmadı. Lütfən, filtri təmizləmək və bu bölmədə bütün adamları görmək üçün digər filtr seçənəklərini seçin.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Sizin axtarışlarınızla üst-üstə düşən heç bir nəticə tapılmadı</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Yeni istifadəçilər əlavə et, onları dəvət və ya import et. İstifadəçiləri idarə et və onlar haqqında ayrıntılı bilgiyə bax.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Adamlar</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>İstifadəçi uğurla silindi</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Təsdiq üçün gözlənilir</value>
+  </data>
+</root>

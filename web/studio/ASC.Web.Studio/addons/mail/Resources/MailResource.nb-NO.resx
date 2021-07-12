@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Tilgangsrettigheter for portal</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Kontonavn</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Kontoadministrasjon</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Etter at du har aktivert kontoen vil du igjen motta e-post på den</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Aktiver konto</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Aktiver</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Legg til kopi</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Legg til e-postadresse</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>E-postadresse</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Kontakter</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Legg til stikkord</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Avansert</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Alltid vis bilder fra</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Slett alle</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Last ned alle</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Vedlegg noe med en lenke</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Legg ved en fil fra dokumenter</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Vedlegg</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Koble til CRM-kontakt</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Autoriseringstype</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Legg til ny konto</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Opprett e-postkonto</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Sett opp domene</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Hoveddel</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Tom katalog</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Ny</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Kopier til dokumenter</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopier</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Opprett og lenk</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Opprett e-postavsender</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Opprett e-postkonto</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Legg til ny konto</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Opprett et nytt stikkord</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Når kontoen er deaktivert, vil du ikke lengre motta epost på den.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Deaktiver</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Deaktiver</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Slett stikkord</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Vis bilder</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Last ned</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Åpne i dokumentbehandler</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Rediger kontakt</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Epost</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Kryptert passord</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Hoveddelen kan ikke være tom</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Eksporter</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Eksporter til</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Eksporter til CRM</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Noen filer kunne ikke bli lagt til som lenker.</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Kladd</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Innboks</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Sendte</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Søppelpost</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Papirkurv</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Videresend</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Full tilgang</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Full størrelse</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Få standardinnstillinger</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP-tjener</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>viktig</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Koble med CRM</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Velg fra:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Sak</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Salgsprospekt</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Lenk til:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Finn med navn</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Laster...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Logg inn</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Marker som viktig</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Marker som uviktig</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Marker som lest</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Marker som ulest</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>mer</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Mer</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Opprett et nytt stikkord</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>uten emne</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>eller med lenke:</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Til toppen</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Åpne i ny fane</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>eller</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>alle</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>viktig</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>viktig</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>lest</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>lest</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>med vedlegg</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>med vedlegg</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Avmerk alle</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>valgte</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP-tjener</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Skrivebeskyttet</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Motta epost</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Hent nye meldinger</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Svar alle</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Svar</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Lagre &amp; Send melding</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Lagre i kalender</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Lagre i dokumenter</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Lagre i mine dokumenter</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Lagre i prosjekter</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Lagret i</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Velg</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Velg alle</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Katalog for vedlegg</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Katalog for vedlegg</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Send e-post</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Tjener</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Innstillinger</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Vis flere kontoer</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Vis flere stikkord</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Vis på siden</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Enkelt passord</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Åpne i ny fane</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP-tjener</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Rediger stikkord</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Stikkordnavn</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>Du kan skru det av.</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Kryptering for IMAP-tjener</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Kryptering for POP-tjener</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Kryptering for SMTP-tjener</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Vis</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Vis kontaktprofil</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Ny e-posst</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Opprett ny e-post</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>I går</value>
+  </data>
+</root>

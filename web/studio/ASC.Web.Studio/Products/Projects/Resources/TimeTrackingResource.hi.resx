@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>तारीख</value>
+  </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>समय खर्च मिटायें</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>आप इस समय खर्च को हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>यहपे कोई भी टाइमर आपके फ़िल्टर को मैच नहीं कर रहा हे , इस खंड में उसे प्रदर्शित  नहीं कर सकते </value>
+  </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>सबको अचयनित करो</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>शीर्ष पर</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>सबका चयन करें</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>घंटे</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>आप के लिए उपलब्ध कोई कार्य कर रहे हैं। पहले एक काम के लिए बनाते हैं, तो एक टाइमर शुरू करें।</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>मिनटों</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>कोई भी टाइमर अभी तक शुरू नहीं कर दिया गया है</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>खुला</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>बिल भेजा</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>बिल नहीं</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>कोई शुल्क नहीं</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>प्रारंभ टाइमर</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>कार्य पर खर्च कुल समय का</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>बिल भेजा:</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>आम:</value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>फिल्टर मिलान गतिविधियों पर खर्च कुल समय:</value>
+  </data>
+</root>

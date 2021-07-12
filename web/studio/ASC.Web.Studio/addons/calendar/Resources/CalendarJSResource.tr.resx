@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Kabul edilen:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>E-posta hesaplarını bağlayın</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>davet göndermek için</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Takvim</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Etkinlik</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Yeni Etkinlik oluştur</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Oluştur</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>tüm-gün</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Gün</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Dönem</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Hafta</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Yeni takvim oluştur</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Renk:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Takvimi düzenle</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Metin rengi:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Zaman Dilimi:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Takvimlerim</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Diğer Takvimler</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Yönet</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Yeni Etkinlik oluştur</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 dakika</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 saat</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>yarım saat</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 dakika</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>bir gün</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>varsayılan</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>bir saat</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Uyarı:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>hiçbir zaman</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Bu bir tüm gün etkinliğidir.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Tüm gün olayı</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Ziyaretçiler:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Kişisel, CRM kişileri veya portal kullanıcılarından veya diğer e-postalardan
+e-posta adreslerini ve kişi adlarını yazarak etkinliğinize davetler gönderin.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Takvim:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Açıklama:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Ayrıntılar</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Şundan itibaren:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Yeni etkinlik oluştur</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Etkinliği düzenle</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Etkinliği görüntüle</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Konum:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Daha fazla bilgi</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Bu etkinlik tüm gün değil.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Opsiyonel</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organizatör:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Sahibi:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>Özel</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>her gün</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Tekrar:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>her ay</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>hiçbir zaman</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>her hafta</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>her yıl</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Gerekli</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Paylaşım için kullanıcılar</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Kullanıcı Ekle</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Bu etkinlik paylaşılmamış.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>İPTAL EDİLDİ</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>ONAYLANDI</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Durum:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>GEÇİCİ</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Etkinlik adı:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Bitiş:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Abonelikten Çık</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Gösterilecek etkinlik yok</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Mini takvimi gizle</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Mini takvimi göster</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d etkinlikler</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Paylaşım için kullanıcı ekle</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>%d kullanıcı daha göster</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Şunla paylaşıldı:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Takvimi düzenle</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Sahibi:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Listeden gizle</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Hızlı arama</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Diğer takvimleri yönet</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_apply" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
+  <data name="calendarTodoDeleteDialog_dialogButton_cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="calendarTodoEditor_dialogDateLabel" xml:space="preserve">
+    <value>Tarih:</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Takvim görünümü</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Liste görünümü</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Etkinlik iptal edildi</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Ziyaretçilere davet göndermek istiyor musunuz?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Davetler gönderiliyor</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Gönderme</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Yeni ve Kaldırılan Ziyaretçiler</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Herkes</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Mevcut ziyaretçilere iptal göndermek istiyor musunuz?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>İptaller gönderiliyor</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Bildirim gönderilirken bir hata oluştu</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Bildirimler başarılı</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Mevcut ziyaretçilere güncelleme göndermek istiyor musunuz?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Güncellemeler gönderiliyor</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Lütfen güncellemeleri kime bildirmek istediğinizi seçiniz: sadece yeni ve kaldırılmış ziyaretçiler veya herkes. 'Gönderme' seçeneğini seçerseniz, hiçbir bildirim gönderilmeyecektir.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Reddedildi:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Serilerdeki tüm etkinlikler</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Uygula</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Bu etkinlik ve takip eden etkinlikler</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Tekrar eden etkinliği sil</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Silinen etkinlik geri alınamaz. Devam etmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Etkinliği sil</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Sadece bu etkinlik</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Tüm değişiklikler yalnızca takvime eklenecektir.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Etkinlik ziyaretçilerine bildirim yapılmayacaktır. Bildirim göndermek için kendi takviminizi kullanın.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Ziyaretçiler:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Dosya seç</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Kopyala</value>
+  </data>
+  <data name="icalStream_export_help_center" xml:space="preserve">
+    <value>Yardım Merkezi</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>ONLYOFFICE™ takvimden etkinlik aktar</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>dosya seçilmedi</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>dosya seçildi</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Aktar/Yolla</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Etkinlikleri ONLYOFFICE™ takvime aktar</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>iCal dosyasında yanlış format</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>iCal yayın bağlantısını gir</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>iCal yayınından Takvim</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal yayın bağlantısı:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>başlayan</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>sonra</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>her</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>her</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>ilk</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Tekrar eden kurulum</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>ay</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>hafta</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>yıl</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>son</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>Tarafından</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>ay</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>hafta</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>yıl</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>kere</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>hiçbir zaman</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>son ama tek</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>ikinci</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>üçüncü</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>kere</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>bitiş</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Belki</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Hayır</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Evet</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Katılıyor</value>
+  </data>
+  <data name="todoViewer_dialogButton_delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+</root>

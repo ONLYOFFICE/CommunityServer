@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>포털 액세스 권한</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>수행</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>{!group} 추가</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>멤버 추가</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>현재상태 변경</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>사용자 상태 변경</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>사용자 상태 변경</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>사용자 분류 변경</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>'{!Guest}'유형의 사용자들은 '{!User}'유형으로 옮겨질 것입니다.</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>지우기</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>사용 안함</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>이름을 입력하세요</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>이미지 크기가 너무 큽니다</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>이미지 파일 크기가 너무 큽니다</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>열</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>큰따옴표</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>작은 따옴표</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>파일로부터</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>구글</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>야후</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>구성원 가져오기</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>쉼표</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>세미콜론</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>스페이스</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>탭</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>주소록 가져 오기</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>포탈에 추가</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>연락처 편집</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>초대 링크</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>성</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>활성</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>이메일 변경</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>비밀번호를 변경</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>만들기</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>프로필 삭제</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>데이터 재배정</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>다시 한번 초대장을 보내</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>다시 한번 활성화 링크를 보내</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>이메일 보내기</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>메시지 보내기</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>구독</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>멤버들</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>필터와 일치하는 사람들은이 섹션에 표시 할 수 없습니다. 이 섹션에있는 모든 사람들을 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>검색어와 일치하는 결과를 찾을 수 없습니다</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>상단</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>새로운 사용자를 추가 초대하거나 가져옵니다. 사용자를 관리하고 자세한 정보를 볼 수 있습니다.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>사람들</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>재배정</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>고객 관리</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>메일</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>프로젝트</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>중단, 일부 데이터가 옮겨질 수 있습니다.</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>서버 오류</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>이야기</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>삭제될 것입니다:</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>모든 개인 문서들</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>고객 관리 보고서 파일들;</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>모든 이메일과 첨부 파일들;</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>중단, 일부 데이터가 삭제될 수 있습니다.</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>모든 데이터 삭제됨</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>페이지에 표시</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>사용자가 삭제되었습니다</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>확인 대기 중</value>
+  </data>
+</root>

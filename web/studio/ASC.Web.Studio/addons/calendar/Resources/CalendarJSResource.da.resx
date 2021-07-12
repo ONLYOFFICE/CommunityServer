@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Ny kalender</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Ny begivenhed</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Tilføj begivenhed</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Tilføj</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>hele dagen</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Måned</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Uge</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Tilføj ny kalender</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Farve:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Slet</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Rediger kalender</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Tekstfarve:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Tidszone:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Tilføj</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Mine kalendere</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Andre kalendere</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Administrer</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Tilføj ny begivenhed</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minutter</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 timer</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>en halv time</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minutter</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>en dag</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>standard</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>en time</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Påmindelse:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Dette er en heldagsbegivenhed.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Heldagsbegivenhed</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalender:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Slet</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Beskrivelse:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Fra:</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Dette er ikke en heldagsbegivenhed</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Ejer:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>brugerdefinerede</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>hver dag</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Gentag:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>hver måned</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>hver uge</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>hvert år</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Denne begivenhed er ikke delt.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Til:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Afmeld</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Der er ingen arrangementer at vise</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Skjul mini kalender</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Vis mini kalender</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+ %d begivenheder</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Tilføj brugere til deling</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Vis %d flere brugere</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Delt med:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Rediger kalender</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Ejer:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Skjul fra listen</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Hurtig søgning</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Administrer andre kalendere</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Kalendervisning</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Listevisning</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Alle begivenheder i serien</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Anvend</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Denne og alle følgende begivenheder</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Slet tilbagevendende begivenhed</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Denne begivenhed kun</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Vælg fil</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Eksporter begivenhederne fra ONLYOFFICE™ kalender</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>ingen fil er markeret</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>fil er markeret</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Import/Eksport</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Importer begivenheder i ONLYOFFICE™ kalender</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Forkert format af iCal filen</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Indtast linket til iCal feed</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Ny iCal feed</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal feed link:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>starter</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>efter</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>hver</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>hver</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>første</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Gentagelse indstillinger</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>måned</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>uge</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>sidste</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>dage</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>per</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>måneder</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>uger</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>antal gange</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>dato</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>aldrig</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>næstsidste</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>anden</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>tredje</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>gange</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>slutning</value>
+  </data>
+</root>

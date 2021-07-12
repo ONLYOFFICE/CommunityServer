@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Lisää välitavoite</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Käytä</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Valitse vastuuhenkilö</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontaktit</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Lisää uusi tehtävä</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Yrityksen nimi</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>Etsi yrityksen tai henkilön nimellä...</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Etunimi</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Sukunimi</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>päivää</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Keskustelua ei löytynyt</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Keskustelut</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Muokkaa välitavoitetta</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Muokkaa tehtävää</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Jokaisella viestillä on oltava otsikko</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Jokaisella projektilla on oltava esimies</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Jokaisella projektilla on oltava nimi</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>aktiiviset tehtävät</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>Tiivistä välitavoitteiden alla oleva tehtäväluettelo</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>p</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>Näytä välitavoitteen tehtävälista</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>lisää</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Alkupäivä</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>suljettu</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>Loppupäivä</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>korkea</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>avoin</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Prioriteetti</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Vastuuhenkilö</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>välitavoitteet</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Uusi välitavoite</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Uusi tehtävä</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>Ei tehtäviä käytettävissä linkitykseen</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>Viimeisimmät muutoksesi eivät ehkä tallennu, jos jätät tämän sivun nyt.</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} vastuuhenkilöt</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>alitehtävät</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>alitehtävä</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Tiedot</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>Tehtävä on {0} päivää myöhässä</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>tehtävät</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>Tehtävät ilman välitavoitetta</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>viikko</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>vuosi</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>valitut</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Päivämäärän muoto ei kelpaa</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Virheellinen aika</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Välitavoite lisätty</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Välitavoite poistettu</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Välitavoitteet</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Välitavoite muokattu</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>Ei aktiivisia osallistujia</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Ei välitavoitetta</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>Yleisnäkymä</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projektit</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Projektia ei löytynyt</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projektit</value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>lopusta loppuun</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>lopusta alkuun</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>alusta loppuun</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>alusta alkuun</value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>Mallia ei löytynyt</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Keskeytetty</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Lisätty onnistuneesti</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>Tehtävä lisätty</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>Tehtävää ei löytynyt</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>Tehtävä poistettu</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Tehtävät</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Tehtävä päivitetty</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Projektiryhmä</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Malli tallennettu</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>Aika poistettu</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Ei tietoja</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Ajanseuranta</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>Aika päivitetty</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>Tehtävälistaan</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>Näytä kaikki avoimet tehtävät</value>
+  </data>
+</root>

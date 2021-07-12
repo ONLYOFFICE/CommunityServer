@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Tallenna ja luo uusi Mahdollisuus</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Kaikki mahdollisuudet</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Panos</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>korjaus</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>päivässä</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>tunnissa</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>kuukaudessa</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>viikossa</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>vuodessa</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Maksun toistuminen</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Vaihe</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Vaiheen tyyppi</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Mahdollisuuden kontakti</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Lisää ensimmäinen mahdollisuus</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Luo uusi mahdollisuus</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Mahdollisuus vaiheessa</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Mukautettu kausi</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Muut käyttäjät</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Mahdollisuus</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Käyttöoikeudet asetetaan mahdollisuuksille, joiden omistajana olet</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Mahdollisuuden vaiheet</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Myyjä keskustelee ostajan kanssa selvittääkseen ykeityiskohtaiset prospektin tarpeet ja vaatimukset</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Tarvitsee arviointia</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Kontakti mahdolliseen asiakkaaseen tarvitaan, jotta voidaan ymmärtää tuleva myyntimahdollisuus.</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Ensikontakti</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Epäonnistuminen. Mahdollisuus on suljettu huonojen onnistumisnäkymien vuoksi.</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Epäonnistuneesti suljettu</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Mahdollinen ostaja on ilmaissut kiinnostuksensa tuotteistasi tai palveluistasi.</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Pätevöitynyt prospekti</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Myyjä yrittää tunnistaa, voiko asiakas olla mahdollinen ostaja</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Alustavan soveltuvuuden kriteeri</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Potentiaalinen ostaja on vastaanottanut kirjallisen tarjouksen myyntimieheltä</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Ehdotus</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Ostaja on arvioitu olevan kiinnostuneen tuotteestasi tai palvelustasi ja hänellä on auktoriteettia ostaa tuote tai palvelu</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Kyseenalainen</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potentiaalinen ostaja on jo neuvotellut kanssasi tarjouksesi tiedoista.</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Neuvottelut</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Kauppa. Mahdollisuus on suljettu onnistuneesti.</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Päättäminen/Siirto</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Vaiheen tyyppi</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Mahdollisuuteen osallistuja</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Mahdollisuuteen osallistujat</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Mahdollisuudet</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Mahdollisuuden tunniste/tägi</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Mahdollisuuden tägiluettelo</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Mahdollisuuden tunnisteet/tägit</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Poista Mahdollisuus</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Poistetaan Mahdollisuuksia</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Muokkaa mahdollisuutta «{0}»</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Muokkaa mahdollisuutta</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Mahdollisuudet antavat sinulle työkalun seurata potentiaalisten kauppojen edistymistä. Määrittele {0}myyntivaiheet{1} liiketoimintamallisi mukaan. Pidä yllä historiatietoja, määrittele tehtäviä, lataa asiakirjoja ja laske tuottoja jokaisesta asiakkaasta.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Yhtään suodattimiasi vastaavaa mahdollisuutta ei löytynyt. Muokkaa suodattimia tai poista ne, jotta saat lisää hakutuloksia. Voit myös luoda uuden mahdollisuuden, jos se puuttuu luettelosta.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Ei löytynyt mahdollisuutta mikä vastaisi tätä suodatinta</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Mahdollisuuksien luettelo on tyhjä</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Kirjoita mahdollisuuden otsikko</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Jokaisella mahdollisuudella täytyy olla vastuuhenkilö</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Osallistujaluettelo on tyhjä</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Lisää kontakteista osallistujia mahdollisuuteesi. Näin sinulla on tiedot kontakteista, jotka liittyvät mahdollisuuteesi.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Arvioitu/todellinen määräpäivä</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Budjetti</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Osallistuja</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Vaihe/Vaiheen tyyppi</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Tuo mahdollisuuksia</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Valitse oikein muotoiltu CSV-tiedosto tietokoneeltasi. Sen on sisällettävä tietueet tai sarakkeet valitsemallasi erotinmerkillä eroteltuina. Tiedosto, jonka koko on suurempi kuin {0} riviä olisi hyvä jakaa pienempiin osiin tietojen tuonnin onnistumiseksi. Varmista, että olet valinnut ne käyttäjät, jotka saavat pääsyn tuotuihin tietoihin. Muussa tapauksessa kaikki sivuston käyttäjät saavat niihin pääsyoikeudet.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Valitse CSV-tiedosto ja määritä sille käyttöoikeudet ennen mahdollisuuksien tuontia</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Yhdistä tiedoston sarakkeet vastaaviin ONLYOFFICE™ Asiakkuudenhallinnan moduuliin. Jotta tuonti onnistuisi, vähintään seuraavat kentät täytyy yhdistää onnistuneesti: mahdollisuuden otsikko ja vastuuhenkilö. Päivämääräkenttien on oltava muodossa: {0}. Valuuttakoodi on oltava kansainvälisessä kolmikirjaimisessa muodossa (esim. USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Tarkista kentät</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Siirry Mahdollisuuksien luetteloon</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Tietojen tuonti voi kestää useita minuutteja, riipuen tietosi määrästä.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Tuonti aloitettu</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Linkitä tai luo mahdollisuus</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Omat mahdollisuuteni</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Mahdollisuuden otsikko</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budjettia ei ole määritetty</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Muut mahdollisuuteen osallistujat</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Osallistujat</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Rajoita mahdollisuuden käyttöoikeuksia</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Onnistumisen todennäköisyys</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Mahdollisuuden vastuuhenkilö</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Siirry profiiliin</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Avaa uudessa välilehdessä</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Näytä kokonaismäärä</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Aloita tuonti</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Mahdollisuuden vaiheet määrittelevät tarvittavat askeleet kauppojen aikaansaamiseksi. Oletusvaiheet ovat nollapiste, lähestyminen, keskustelu, arviointi, neuvottelu, sitoutuminen ja onnistuminen. Portaalin pääkäyttäjä voi muokata vaiheita ja niiden tietoja.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Kokonaismäärä</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Kaikki mahdollisuudet</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Sivulla yhteensä</value>
+  </data>
+</root>

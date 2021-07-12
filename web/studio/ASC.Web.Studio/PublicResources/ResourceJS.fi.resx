@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Vahvistuskoodi ei voi olla tyhjä</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Syötä matkapuhelimen numero</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Käytä {0}?{1} ja {0}*{1} merkkejä, jotta voit suorittaa yksittäisen/usean merkin haun. Esimerkiksi, jotta voit hakea kaikki sanat, jotka alkavat kirjaimella {0}O{1}, käytä  {0}O*{1} kyselyä. Jotta voit hakea täsmällistä lausetta, niin käytä lauseen ympärillä lainausmerkkejä.{2}Lisätietoa...{3}</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>Turvatallenteen kopio on luotu onnistuneesti.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Varattu</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Onnistunut numeron osto</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Muutoksia otetaan käyttöön</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Muutokset on otettu käyttöön</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>On tapahtunut jokin outo virhe. Tosi outo. Ota yhteys järjestelmänvalvojaan. </value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Haluatko jatkaa?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Luo uusi kontakti</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>Ei kontakteja tässä luettelossa</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Syötä yrityksen nimi</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Ei ole kontakteja</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Ei löydy tuollaista kontaktia</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Ei ole tuollaista yritystä</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Virhe raportin luomisessa</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Kommentti ei voi olla tyhjä. Ei vain voi.</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Anna sähköpostiosoite</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Ole hyvä ja täytä tämä kenttä</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Anna ryhmän nimi</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Anna etunimi</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Anna sukunimi</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Ei ole tuollaista ryhmää</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Ei ole tuollaista henkilöä</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>Enintään 64 merkkiä</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Rekisteröinnin pvm tulee olla myöhemmin kuin syntymäpvm</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Samaa tiliä ja kontaktia ei voida lisätä kahta kertaa. </value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Tähän kenttään voi kirjoittaa enintään 64 merkkiä.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Sähköpostiosoite ei kelpaa. Jokin siinä mättää.</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Portaalin nimi on jo varattu</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Portaalin nimessä on merkkejä, jotka eivät ole sallittu</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Portaalin nimi on liian lyhyt</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Portaalin nimeä ei ole muutettu</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Käyttäjät ovat onnistuneesti lisätty.</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Ryhmä {0} lisätty.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Luo uusi ryhmä</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>Tässä luettelossa ei ole ryhmiä</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Ei löydy tuollaista ryhmää</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Väärä IP-osoitteen muoto</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Kutsu</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Asetukset ovat onnistuneesti päivitetty</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Tyhjä kenttä</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Väärä portin numero</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>Sinun tulee lukea ja hyväksyä Lisenssin Sopimusehdot</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Lisenssi ei ole oikea</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Linkki on kopioitu </value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Ole hyvä ja odota...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Ladataan, odota.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Päivitetään...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>koko päivä</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Tapahtuma on peruutettu.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Peruutettu: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Tapahtuma on päättynyt.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} hyväksyi alustavasti kutsun</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} hylkäsi kutsun</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Vastaa: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} hyväksyi kutsun </value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} kutsuu sinut</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Kutsu: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>ja</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>likimääräinen</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>päivää</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>jokainen</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>kenelle:</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>tunti</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>tuntia</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>viimeinen</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>kuukausi</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>kuukautta</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>päällä</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>tai</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>tuntematon formaatti</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>aika</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>kertaa</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>kunnes</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>viikonpäivä</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>arkisin</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>viikko</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>viikkoa</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>vuosi</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>vuotta</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Tapahtumaa on muutettu.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Päivitys: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>Olet alustavasti hyväksynyt kutsun: </value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>Olet hylännyt kutsun: </value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>Olet hyväksynyt kutsun:</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>Lähetit kutsun:</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Tapahtui virhetilanne yritettäessä lähettää tätä viestiä.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Tapahtuman peruutuksen tiedonanto on lähetetty osallistujille.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Pyyntösi on lähetetty osallistujille.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Vastauksesi on lähetetty organisoijalle.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Viesti on lähetetty.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Minä</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Tällä projektilla ei ole välitavoitteita</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Ei löydy tuollaista välitavoitetta</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Älä näytä enää</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Uloskirjautunut</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Sisäänkirjautuneena</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Virhe suoritettaessa toimintoa.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Toiminto on valmis.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Olet nimeämässä uudelleen sivustoasi.{1}{0} Oletko varma?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Portaalin uudelleennimeämisen vahvistus</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Lisää uusi projekti</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>Tässä luettelossa ei ole projekteja</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Jokaisella projektilla tulee olla johtaja</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Jokaisella projektilla on oltava nimi.</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Tässä ryhmässä ei ole projekteja</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Ei löydy tuollaista projektia</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Ei löydy tuollaista henkilöä</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Samat rajoitukset</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Asetukset ovat onnistuneesti tallennettu</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Valitse tiedosto</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Valitse kansio</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Yritys</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Yrityksen nimi</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Kontaktin tyyppi</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Etunimi</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Ryhmä</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Päällikkö</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Sukunimi</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Hallinta</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Henkilö</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>valittu</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Käyttäjä</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Vierailija</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Loin oman nettitoimistoni. Liity mukaan täällä:  {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Näytä seuraava</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} käyttäjää lisättiin sivustolle</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Asetukset on päivitetty onnistuneesti</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>Olet poistamassa tilauksen kaikista tiedonannoista "{0}" moduulissa. Oletko varma, että haluat jatkaa?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Tyhjä tiedosto. Ihan tyhjä.</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Virhe tiedoston lisäämisessä</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Tuettu tiedostomuoto: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Tiedoston koko ei voi ylittää 5Mt</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Profiili: {0} luotiin onnistuneesti</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Luo uusi käyttäjä</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>Tässä luettelossa ei ole käyttäjiä</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Käyttäjien maksimimäärä ylittyy</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Portaaliin ei ole toistaiseksi luotu mitään ryhmiä. Siirry Käyttäjät moduuliin, jotta voit ryhmitellä käyttäjiä.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>Tässä ryhmässä ei ole käyttäjiä</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Ei löydy tuollaista käyttäjää</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Jos poistut nyt, niin kaikki syötetyt tai tallentamattomat tiedot menetetään.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Tämä tarkoittaa, että voit: {1}katsella sivuston kaikille avointa sisältöä,{2}kommentoida sitä,{3}lisätä ja ladata tiedostoja.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>Jos tarvitset lisäoikeuksia, niin ota yhteyttä portaalin pääkäyttäjään.</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Tervetuloa ONLYOFFICE palveluun</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>Portaalin pääkäyttäjä on kutsunut sinut vierailemaan portaaliin</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Aloita työskentely</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Tervetuloa ONLYOFFICE ohjelmiston käyttäjäksi!</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Et ole asettanut salasanaa. Voit asettaa salasanan myöhemmin klikkaamalla 'Oletko unohtanut salasanasi' linkkiä kirjautumissivulla. Oletko varma, että haluat jatkaa?</value>
+  </data>
+</root>

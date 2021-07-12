@@ -1,0 +1,679 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>za branje</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>za branje/pisanje</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Pravice dostopa bodo dodeljene le kontaktom, ki ste jih ustvarili vi.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Aktivnost</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Dodaj {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Dodatne informacije</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Dodaj mail račun</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Dodaj oznako</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Dodaj udeleženca</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Dodaj dogodek</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Dodaj zaznamek</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Dodaj uporabnika</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Uporabite {0}?{1} in {0}*{1} simbole za izvajanje enojnega/več-znakovnega iskanja. Na primer, za iskanje vseh besed, ki se začnejo z {0}O{1}, uporabite {0}O*{1} poizvedbo. Na začetku poizvedbe ni priporočeno uporabljati teh simbolov.{2}Več...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Opozorilo</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Ustrezno ONLYOFFICE™ CRM polje</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Priponke</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Poveži z kontaktom</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Avtor</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Nazaj</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Več o tem...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Primeri</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorija</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Spremeni</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Ponastavi filter</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Zapri to okno</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Zapri okno</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Dvopičje</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Stolpec datoteke</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Vejica</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Sestavite pismo, ki bo poslano vsem strankam izbranim na seznamu kontaktov. Število izbranih strank lahko preverite v polju 'k', vnesete skupno 'Temo' in uporabite 'osebne oznake' za vključitev potrebnih informacij v svoje pismo. To je beta različica za tiste, ki želijo preizkusiti nove funkcije ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izbrisati te elemente?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Če želite spremeniti seznam temperaturnih nivojev stikov, se nanašajte na CRM {0}Nastavitve{1} oddelek</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Nastavitve kontakta</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Vsebina</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Stopnja</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Pretvornik valut</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Datum nastanka</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Dodaj nov kontakt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Ustvari projekt</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Dodaj novo oznako</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>CRM modul ni omogočen</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Osnovne valute</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Druge valute</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Trenuten {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Po meri</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Čas po meri</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Drugi uporabniki</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Rok v {0} dan(eh)</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} dan(i) zapadlo</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Priložnosti</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Izbriši dogodek</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Izbriši sodelujočega</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Izbriši oznako</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Izbriši uporabnika</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Prekliči izbor</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Stori enako za vse prihodnje dogodke</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Dvojno citiranje</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Podvoji zapise</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Na tem oddelku ni mogoče prikazati nobenega zapisa, ki se ujema z vašim filtrom. Prosim izberite druge možnosti filtra ali počistite filter za ogled vseh zapisov v tem oddelku. Zapise, ki jih potrebujete, lahko prav tako poiščete v drugi zgodovini kontaktov.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Tukaj ni mogoče najti zapisov za ta filter</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Vnesi količino</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Napaka</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Velikost datoteke presega {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Trenuten seznam izvozi v CSV-datoteko</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Datum nastanka</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Odgovoren</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Z oznako</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Poiščite podjetje ali osebo z imenom...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skrij</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Skrij ploščo priponk</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Zgodovina</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Lahko spremenite seznam za kategorije zgodovinskih dogodkov {0}tu{1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Telefonski klic</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Sestanek</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Opomba</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>je bil prejet</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>je bil poslan</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignoriraj prvo vrstico pri uvozu</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Duplikat</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>To možnost uporabite za uvažanje kontaktov s podvajanjem sovpadajočih stikov. Npr. obstajata dva zapisa - 'A' in 'B' - v vašem ONLYOFFICE™ CRM. Želite uvoziti 'B' in 'C' zapise. V primeru, da izberete možnost 'podvoji' se bo med uvažanjem ustvaril kopiran zapis 'B'.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Preverjanje dvojnikov bo izvedeno na osnovi email področja.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Prepiši</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>To možnost uporabite za uvažanje kontaktov s prepisovanjem obstoječih kontaktov. Npr. obstajata dva zapisa - 'A' in 'B' - v vašem ONLYOFFICE™ CRM. Želite uvoziti 'B' in 'C' zapise. V primeru, da izberete možnost 'Prepiši', bo obstuječ 'B' med uvažanjem prepisan z uvoženim.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Preskoči</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>To možnost uporabite za uvažanje kontaktov z ohranjanjem obstoječih kontaktov. Npr. obstajata sva zapisa - 'A' in 'B' - v vašem ONLYOFFICE™ CRM. Želite uvoziti 'B' in 'C' zapise. V primeru, da izberete možnost 'Preskoči', bo obstuječ 'B' med uvažanjem ohranjen.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Ločilo</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Kodiranje</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV nastavitve datoteke</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Ločilo besedila</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Skeniranje datoteke...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Začni uvažati podatke</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informacija je predložena</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Računi</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Nastavitve računa</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Davki</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>prejšnji mesec</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Več o tem...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Telo pisma</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Poveži z</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Prosim počakajte...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Telo emaila</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™ Možnost množičnega pošiljanja: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Sporočilo k {0} ni bilo uspešno dostavljeno</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>nepravilen e-naslov: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Dostava ni bila uspešna - ponovno bom poskusil v {0} sekundah.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Tema e-sporočila</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>k</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Računalo</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Moj</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Moji dogodki</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Naslednji zapis</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Ni zapisov</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Na voljo ni noben mail račun</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Ni zadetkov</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Ne določeno</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Obvesti</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Ne določeno</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Na vrh</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Profil organizacije</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Drug</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Druge nastavitve</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Tukaj lahko vidite sporočilo, ki ga sestavljate. Uporabite gumb 'Nazaj' za izvajanje sprememb ali uporabite gumb 'Pošlji', če vam je rezultat všeč.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Prejšnji zapis</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Prejšnji korak</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>zaseben</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Na voljo {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Omejen dostop</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Dostop je dodeljen vsem porala {!users} privzeto. Za omejevanje tega dostopa obkljukajte spodnji kvadratek.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Uporabniške pravice</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Stori enako kot CRM uporabnik|Uvozi, izvozi podatke|Pošlji e-poštno CRM kontaktom|Uredi nastavitve|Upravljaj kateri koli kontakt, nalogo, primer, priložnost</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Upravljanje svojih odnosov s strankami, identificiranje prednostnih kontaktov, sledenje zgodovini komunikacije in prodajna uspešnost.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Upravljanje svojih odnosov s strankami, identificiranje prednostnih kontaktov, sledenje zgodovini komunikacije in prodajna uspešnost.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Izdelki &amp; Storitve</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Ustvari kontakt, nalogo, primer, priložnost z možnostjo za omejevanje dostopa do njih|Uredi kontakt, nalogo, primer, priložnost z nastavljenimi pravicami dostopa</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Povezano z</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Odgovoren</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Vrednost</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Shrani Spremembe</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Shranjevanje sprememb...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Izberi vse</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Obvesti uporabnike</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Podpičje</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Pošlji e-sporočilo</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Nastavi dovoljenja</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Nastavitve</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Pokaži</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Prikaži ploščo pripenjanja datotek</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Pokaži informacije</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaži na strani</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Samski citat</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Razmik</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Shrani to sporočilo v zgodovino</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Novi dogodki</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Novi kontakti</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Izvoz končan</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Uvoz končan</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Odgovoren za priložnost</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Naloge dodeljene vam</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Dostop dodeljen</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Zbirna razpredelnica</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Tabelarni prikaz</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Oznake</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Naloge</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Ta mesec</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>k</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Skupno</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Podjetje/Oseba</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Prekini povezavo kontakta</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Gor</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Pripni datoteko</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Pokaži datoteke</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Poglej zgodovino pošiljanja s tem udeležencem</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Klici</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Pogosto</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Števila</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP Nastavitve</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Včeraj</value>
+  </data>
+</root>

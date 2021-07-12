@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Juurdepääs</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Ainult lugemiseks</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Täielik juurdepääs</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor:</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Mulle</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Lae alla</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Redigeeri</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Dokumendi nimi:</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Tõrge:</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Sobimatu taotlus.</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Tühi fail</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Nõutud faili ei leitud</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Kausta ei saa kopeerida selle alamkausta</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Kataloogi ei leitud</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Liiga palju allalaaditavaid faile.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Kahjuks see failivorming pole toetatud</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Teil pole vajalikke õigusi selle toimingu sooritamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi loomiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Faili ei saa kustutada, kuna see on avatud redigeerimiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Kausta ei saa kustutada, sest üks selle failidest on avatud redigeerimiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi selle faili kustutamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi selle kausta kustutamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi selle faili redigeerimiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi selle faili vaatamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi kausta sisu vaatamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi selle faili ümbernimetamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi selle kausta ümbernimetamiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Faili ei saa värskendada, kuna see on avatud redigeerimiseks</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Teil pole piisavalt õigusi kausta sisu vaatamiseks</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Te ei saa värskendada faili, mis on avatud redigeerimiseks</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Teil pole õigust teostada prügikastis elementide eelvaadet</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Kõik</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Kausta nimi:</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Külaline</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>Uus</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Taasta</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Eelvaade</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumendid</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Märgi loetuks</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Kaustad</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Kuva versioonid</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Suurus</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Teavita, kui minuga jagatud</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Loodud</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumendid</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Uuendatud</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumendid</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Kustutatud</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Vali</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Ühiskasutuse sätted</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Näita faili toiminguid</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Kuva kausta toimingud</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Alamkaustad</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Üles laetud</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Ver.</value>
+  </data>
+</root>

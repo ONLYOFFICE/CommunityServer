@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Seznam kontaktů se automaticky aktualizuje, protože lidé jsou přidáváni/odebíráni ze seznamu zaměstnanců, takže ho nemusíte kontrolovat ručně</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Oznámení v prohlížeči</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Chatovací místnost
+</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Záložky chatu</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Seznam kontaktů s nastavením</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Ve výchozím nastavení budou všechna oznámení odeslána jak na vaši e-mailovou adresu, tak do Talk. Můžete je nakonfigurovat na</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Smazat odeslané soubory</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Seznam kontaktů zapojených ve skupině</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>Tady</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Skrýt offline kontakty</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Korespondence</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Další informace o oznámení jsou k dispozici</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Nastavení oznámení</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk je firemní IM systém pro výměnu okamžitých textových zpráv mezi zaměstnanci v reálném čase.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk nabízí všechny tradiční funkce, které očekáváte od messengeru - výběr stavu, archivace historie, přenos souborů, podpora pro skupinový chat uživatelů a další.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Talk přehled</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Spusťte našeho web klienta, abyste hned teď mohli začít používat službu Talk bez předchozích nastavení.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Stránka profilu</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Odeslat zprávy pomocí kláves Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Nastavení vstupního pole</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Spustit web klienta</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Žádné další nastavení! Kliknutím spustíte web klienta a hned teď začnete hovořit</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Sekce odběru {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Hlasy událostí</value>
+  </data>
+</root>

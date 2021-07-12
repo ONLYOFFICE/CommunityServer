@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Godta oppgave</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Aksepter</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Legg til</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Legg til den første oppgaven</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Legg til deloppgave</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Legg til ny oppgave</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Ny deloppgave</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Legg til ny oppgave</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Alle oppgaver</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Tilordnet</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>Den beste måten er å gå tilbake og lukke deloppgavene manuelt, og deretter prøv å lukke oppgaven på nytt</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Ansvarlig</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Endre status</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Velg lenke-type</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Velg prosjekt</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Velg oppgave</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Lukket</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Lukket av</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Lukket dato</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Lukke oppgaven</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Opprettet av</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Lag ny lenke</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Opprettet</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Forfallsdato</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Det er ingen aktiviteter som samsvarer med filteret.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Alle oppgaver må ha en tittel</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Rediger oppgave</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Lukk alle underoppgaver, og deretter lukk oppgave</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Forfallsdato</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Kunne ikke lage ny lenke</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Følg oppgaven</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Gå til oppgaven</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Høy</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Varsle ansvarlig</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Meldingen ble sendt</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milepæl</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Flytt oppgave til en annen milepæl</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Flytt til milepæl</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>ingen</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Det er ingen oppgaver som samsvarer med dette filteret</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Ingen oppgaver er opprettet ennå</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Åpen</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Prosjekt</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Ugyldig lenke. Pass på at startdato og fullføringsdato er riktige.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Beslektede oppgaver</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Intervall mellom startdato og sluttdato for to oppgaver</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Slette oppgave</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Er du sikker på at du vil slette denne oppgaven?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Ansvarlige brukere</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Vis oppgaver uten ansvarlig</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Deloppgave</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Deloppgaver</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Oppgave</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Opprettet av</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Tilordnet til</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Oppgaver</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Oppgaver hjelper prosjektlederen å deligere arbeidet jevnt blant prosjektmedlemmene, angi ansvarlige personer for ulike deler av prosjektet. Begynne å legge til oppgaver, få dem gjort, sett ansvarlig og administrer gruppearbeid.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Startdato</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Tittel</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Angi tidsbruk</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Du prøver å lukke en oppgave med åpne deloppgaver</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Ikke følg oppgaven</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Usortert oppgaver</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Vil bli flyttet til milepæl</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+</root>

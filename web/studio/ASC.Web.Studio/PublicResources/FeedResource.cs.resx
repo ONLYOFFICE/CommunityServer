@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvertCommentedText" xml:space="preserve">
+    <value>Komentáře byly přidány do oznámení</value>
+  </data>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>Reklama byla přidána</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="BlogCommentedText" xml:space="preserve">
+    <value>Byl přidán komentář k příspěvku</value>
+  </data>
+  <data name="BlogCreatedText" xml:space="preserve">
+    <value>Byl přidán příspěvek</value>
+  </data>
+  <data name="BlogsModule" xml:space="preserve">
+    <value>Blogs</value>
+  </data>
+  <data name="BookmarkCommentedText" xml:space="preserve">
+    <value>Byl přidán komentář k záložce</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>Záložka byla přidána</value>
+  </data>
+  <data name="BookmarksModule" xml:space="preserve">
+    <value>Záložky</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>Uživatel</value>
+  </data>
+  <data name="CancelCommentBtn" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>Případ byl přidán</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Případy</value>
+  </data>
+  <data name="CommentErrorMsg" xml:space="preserve">
+    <value>Chyba přístupu během přidávání komentáře</value>
+  </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>Komunita</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>Nová společnost byla přidána</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskCreatedText" xml:space="preserve">
+    <value>Byl přidán úkol</value>
+  </data>
+  <data name="CrmTaskModule" xml:space="preserve">
+    <value>Úkoly</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Tento měsíc</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Aktuální týden</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Vlastní období</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Deadline</value>
+  </data>
+  <data name="DealCreatedText" xml:space="preserve">
+    <value>Možnost byla přidána</value>
+  </data>
+  <data name="DiscussionCommentedText" xml:space="preserve">
+    <value>Komentář k diskuzi byl přidán</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>Diskuze byla přidána</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskuze </value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="EventsModule" xml:space="preserve">
+    <value>Události</value>
+  </data>
+  <data name="FeedsReadedMsg" xml:space="preserve">
+    <value>Dosud nejsou žádné novinky. Přejděte na Feed a zobrazte poslední historii novinek/zpráv.</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>Soubor byl přidán</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Soubory</value>
+  </data>
+  <data name="FileUpdatedText" xml:space="preserve">
+    <value>Soubor aktualizován</value>
+  </data>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>Složka byla přidána</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Složky</value>
+  </data>
+  <data name="ForumPollCreatedText" xml:space="preserve">
+    <value>Anketa byla přidána</value>
+  </data>
+  <data name="ForumPostCreatedText" xml:space="preserve">
+    <value>Přidán příspěvek</value>
+  </data>
+  <data name="ForumsModule" xml:space="preserve">
+    <value>Fóra</value>
+  </data>
+  <data name="ForumTopicCreatedText" xml:space="preserve">
+    <value>Téma bylo přidané</value>
+  </data>
+  <data name="HideAdditionalCommentsBtn" xml:space="preserve">
+    <value>Skrýt další komentáře</value>
+  </data>
+  <data name="HideGroupedFeedsBtn" xml:space="preserve">
+    <value>Skrýt další události</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Načítání, prosím počkejte</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Členové</value>
+  </data>
+  <data name="MilestoneCreatedText" xml:space="preserve">
+    <value>Milník byl přidán</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Milníky</value>
+  </data>
+  <data name="NewFeedIndicator" xml:space="preserve">
+    <value>nový</value>
+  </data>
+  <data name="NewsCommentedText" xml:space="preserve">
+    <value>Komentáře byly přidány k novinkám</value>
+  </data>
+  <data name="NewsCreatedText" xml:space="preserve">
+    <value>Byly přidány novinky</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Příležitosti</value>
+  </data>
+  <data name="OrderCommentedText" xml:space="preserve">
+    <value>Komentáře byly přidány k objednávce</value>
+  </data>
+  <data name="OrderCreatedText" xml:space="preserve">
+    <value>Nové pořadí bylo přidáno</value>
+  </data>
+  <data name="OtherFeedsCountMsg" xml:space="preserve">
+    <value>+{0}více</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Další uživatelé</value>
+  </data>
+  <data name="ParticipantCreatedText" xml:space="preserve">
+    <value>Účastník byl přidán</value>
+  </data>
+  <data name="PersonCreatedText" xml:space="preserve">
+    <value>Osoba byla přidána</value>
+  </data>
+  <data name="PollCommentedText" xml:space="preserve">
+    <value>Komentáře byly přidány k anketě</value>
+  </data>
+  <data name="PollCreatedText" xml:space="preserve">
+    <value>Anketa byla přidána</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ProjectCreatedText" xml:space="preserve">
+    <value>Byl přidán nový projekt</value>
+  </data>
+  <data name="ProjectManager" xml:space="preserve">
+    <value>Manažer</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="PublishCommentBtn" xml:space="preserve">
+    <value>Publikovat</value>
+  </data>
+  <data name="ReplyCommentBtn" xml:space="preserve">
+    <value>Odpovědět</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Odpovědný</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Odpovědní uživatelé</value>
+  </data>
+  <data name="SeeAllFeedsBtn" xml:space="preserve">
+    <value>Podívat se na všechno</value>
+  </data>
+  <data name="SharedFileCreatedInFolderText" xml:space="preserve">
+    <value>Dostali jste přístup k dokumentu ve složce</value>
+  </data>
+  <data name="SharedFileCreatedText" xml:space="preserve">
+    <value>Dostali jste přístup k dokumentu</value>
+  </data>
+  <data name="SharedFolderCreatedText" xml:space="preserve">
+    <value>Dostali jste přístup do složky</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>Zobrazit všechno</value>
+  </data>
+  <data name="ShowGroupedFeedsBtn" xml:space="preserve">
+    <value>Zobrazit další události</value>
+  </data>
+  <data name="ShowOthersCommentsBtn" xml:space="preserve">
+    <value>Zobrazit další komentáře</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Velikost</value>
+  </data>
+  <data name="TaskCommentedText" xml:space="preserve">
+    <value>Byl přidán komentář k úkolu</value>
+  </data>
+  <data name="TaskCreatedText" xml:space="preserve">
+    <value>Byl přidán úkol</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Úkoly</value>
+  </data>
+  <data name="TimeDistance" xml:space="preserve">
+    <value>Období</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="TodayAt" xml:space="preserve">
+    <value>Dneska v</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Přidat komentář</value>
+  </data>
+  <data name="YesterdayAt" xml:space="preserve">
+    <value>Včera na</value>
+  </data>
+</root>

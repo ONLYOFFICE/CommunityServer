@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>vain luku</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>lukua/kirjoitusta varten</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Pääsyoikeudet annetaan vain sinun luomillesi kontakteille.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Toimenpiteet</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Lisää {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Lisätietoja</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Lisää uusi tili</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Lisää tunniste</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Lisää osallistuja</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Lisää tämä muistiinpano</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Lisätään muistiinpanoa...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Lisää {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Käytä {0}?{1} ja {0}*{1} merkkejä hakuehdoissa. Esimerkiksi, jos haluat etsiä sanoja jotka alkavat kirjaimella {0}O{1}, käytä hakuehtoa {0}O*{1}. Tai jos haluatkin etsiä nelikirjaimisia sanoja jotka alkavat kirjaimella {0}O{1}, käytä hakuehtoa {0}O*{1}.{2}Lue lisää...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Muistutus</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Vastaava ONLYOFFICE™ Asiakkuudenhallinnan kenttä</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Liitteet</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Linkitä kontaktiin</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Kirjoittaja</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lue lisää...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Luokka</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Tapaukset</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Luokka</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Muuta</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Aseta uudelleen suodatin</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Sulje tämä ikkuna</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Sulje ikkuna</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Kaksoispiste</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Tiedoston sarake</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Pilkku</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Luo kirje, joka lähetetään kaikille valitsemillesi kontakteille. Voit tarkistaa valittujen kontaktien määrän "Kenelle" kentästä, antaa yhteisen otsikon kirjeellesi ja käyttää tunnisteita henkilökohtaisten tietojen lisäämiseksi. </value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Vahvistus</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa nämä?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Muuttaaksesi kontaktien lämpötilatasoja, siirry Asiakkuudenhallinnan {0}Asetukset{1} osioon</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Kontaktin Asetukset</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Sisältö</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Kurssi</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Valuuttalaskuri</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Luontipäivä</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Luo uusi kontakti</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Luo projekti</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Uusi tunniste</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>Asiakkuudenhallinnan moduuli ei ole käytössä</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuutta</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Yleiset valuutat</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Muut valuutat</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Nykyinen {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Mukautettu</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Mukautettu kausi</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Muut käyttäjät</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Erääntyy {0} päivän kuluttua</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} päivää myöhässä</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Mahdollisuudet</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Poista tapahtuma</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Poista jäsen</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Poista tunniste</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Poista käyttäjä</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Poista kaikki valinnat</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Tee samoin kaikissa tulevissa tapauksissa</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Lainausmerkki</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Päällekkaisiä tietueita</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Tyhjä tiedosto. </value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Ei näytettäviä tietueita asettamillasi suodattimilla. Muuta suodatusasetuksia tai poista kaikki suodattimet nähdäksesi kaikki tietueet. </value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Ei tietueita näillä suodatinasetuksilla</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Syötä määrä</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Tiedoston koko ylittää {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Vie nykyinen luettelo CSV-tiedostoon</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Tiedoston enimmäiskoko ylitetty</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Luontipäivä</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Määräpäivä</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Vastuuhenkilö</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Tunnisteella</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Etsi yrityksen tai henkilön nimellä...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Lähettäjä</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Piilota</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Piilota tiedoston lisääminen</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Voit muokata tapahtumahistorian luokkien luetteloa {0}täällä{1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Puhelu</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Tapaaminen</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Muistio</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>on vastaanotettu</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>on lähetetty</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Merkkien maksimimäärä ylitetty: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ohita ensimmäinen rivi tietojen tuonnissa</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Monista</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit tuoda kontakteja monistaen päällekkäiset kontaktit. Esimerkki: Sinulla on jo kaksi tietuetta A ja B Asiakkuudenhallinnassa. Haluat tuoda B ja C kontaktit. Jos valitset 'Monista' vaihtoehdon, niin tietue  'B' on 2 kertaa. </value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Duplikaattitarkistus tehdään sähköpostiosoitekentän perusteella.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Korvaa</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit tuoda kontakteja korvaten päällekkäiset kontaktit. Esimerkki: Sinulla on jo kaksi kontaktia A ja B. Haluat tuoda B ja C kontaktit. Jos valitset 'Korvaa' vaihtoehdon, olemassaoleva 'B' korvataan tuotavalla versiolla. </value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Ohita</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit tuoda kontakteja ylläpitäen olemassaolevat kontaktit. Esimerkki: Sinulla on jo kaksi kontaktia A ja B Asiakkuudenhallinnassa. Haluat tuoda B ja C kontaktit. Jos valitset 'Ohita' vaihtoehdon, olemassaoleva  'B' säilytetään tuonnin aikana. </value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Erotin</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Koodaus</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV-tiedostoasetukset</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Tekstierotin</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Tutkitaan tiedostoa...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Aloita tietojen tuominen</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Tiedot lähetetty</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Laskut</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Laskutusasetukset</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Verot</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Viime kuukausi</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Lue lisää...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Viesti</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Linkitä kohteeseen</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Odota...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Viesti</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopio</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Lähettäjä</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™ massapostitus: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Viestin {0} lähetys epäonnistui</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Virheellinen sähköpostiosoite: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Lähetys epäonnistui - yritetään uudelleen {0} sekunnin kuluttua.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Aihe</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Kenelle</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Laskin</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Minun</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Omat tapahtumat</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Seuraava tietue</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Ei tietueita</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Ei sähköpostitilejä.</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Ei vastaavuuksia</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Ei määritelty</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Ilmoita</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Ei määritelty</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Päällimmäisenä</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Organisaation profiili</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Muu</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Muut asetukset</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Täällä voit esikatsella kirjettäsi. Käytä 'Takaisin'-painiketta tehdäksesi muutoksia tai "Lähetä"-painiketta, jos olet tyytyväinen lopputulokseen.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Edellinen tietue</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Edellinen vaihe</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>yksityinen</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Saatavilla: {!users} </value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Rajoita pääsy</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Pääsy on sallittu oletusarvoisesti kaikille. Jos haluat rajoittaa oikeuksia, klikkaa allaolevaa valintaruutua.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Käyttöoikeudet</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Tee kaikkea Asiakkuudenhallinnan käyttäjänä|Tuo ja vie tietoa|Lähetä sähköposteja Asiakkuudenhallinnan kontakteille|Hallitse asetuksia|Hallitse mitä tahansa kontakteja, tehtäviä, tapahtumia ja mahdollisuuksia</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Hallitse asiakassuhteitasi, tunnista tärkeämmät kontaktit, seuraa kommunikoinnin historiaa ja myynnin tehokkuutta.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Hallitse asiakassuhteitasi, tunnista tärkeämmät kontaktit, seuraa kommunikoinnin historiaa ja myynnin tehokkuutta.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Asiakkuudenhallinta</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Tuotteet ja palvelut</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Luoda kontakteja, tehtäviä, tapahtumia tai mahdollisuuksia ja rajoita halutessasi niiden pääsyoikeuksia|Muokkaa kontaktia, tehtäviä, tapahtumia tai mahdollisuuksia ja aseta niiden pääsyoikeuksia</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profiili</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projektit</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Linkitetty kohteeseen</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Vastuuhenkilö</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Arvo</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Tallennetaan muutoksia...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Valitse kaikki</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Ilmoita käyttäjille</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Puolipiste</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Lähetä sähköposti</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Aseta käyttöoikeudet</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Näytä tiedoston liitteen paneeli</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Näytä tiedot</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Näytä sivulla</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Heittomerkki</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Väli</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Tallenna tämä sähköposti historiaan</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Aihe</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Uudet tapahtumat</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Uudet kontaktit</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Vienti valmis</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Tuonti valmis</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Mahdollisuuden vastuuhenkilö</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Sinulle osoitetut tehtävät</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Pääsy myönnetty</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Yhteenvedon taulukko</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Taulukointi</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tunnisteet</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Tehtävät</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tässä kuussa</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Yhteensä</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Yritys/Henkilö</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Poista linkitys kontaktiin</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Ylös</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Liitä tiedosto</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Näytä tiedostot</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Näytä tämän osallistujan sähköpostihistoria </value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Puhelut</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Yleiset</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Numerot</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP asetukset</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Eilen</value>
+  </data>
+</root>

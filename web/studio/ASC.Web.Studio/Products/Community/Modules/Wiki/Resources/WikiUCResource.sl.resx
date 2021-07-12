@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Uredi oddelek:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Datoteka</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Ime datoteke</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Naslov strani</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Naloži datoteko</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Ime naložene datoteke</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Približaj</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Ustvarjanje wiki strani je zelo enostavno, tudi, če označevalnega jezika prej še niste uporabljali. Vse, kar morate vedeti, je nekaj preprostih pravil navedenih spodaj. Upamo, da se vam zdijo uporabni.
+
+@@TOC@@
+
+==Oddelki, odstavki, seznami, vrste==
+
+Za začetek novega oddelka, uporabite = simbol na začetku odstavka:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Section=&lt;br&gt;
+==Subsection==&lt;br&gt;
+===Sub-subsection===&lt;br&gt;
+
+&lt;p&gt;
+Vstavljanje @@TOC@@ v stran bo združilo vse oddelke in pododdelke strani v kazalo
+&lt;/p&gt;
+
+Wiki označava ignorira vse presledke. Lahko jih uporabite za ločitev stavkov znotraj odstavka.
+
+&lt;p&gt;
+«br» oznako uporabite za presledek vrstic brez, da začenjate nov odstavek.
+&lt;/p&gt;
+
+Za začetek novega odstavka, dvakrat pritisnite enter, kot bi v katerem koli urejevalcu besedil.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Ustvarjanje označenega seznama je preprosto:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+*vsako točko seznama začni z asteriskom;&lt;br&gt;
+**več asteriskov kot je;&lt;br&gt;
+**globlja kot je stopnja seznama.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+#Oštevilčeni seznami prav tako niso slabi:&lt;br&gt;
+##Izgledajo dobro strukturirani;&lt;br&gt;
+##Preprosti so za branje.&lt;br&gt; 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Če je na začetku vrste prostor,
+NATO bo vrsta foRmaTTirana na enak način, kot je bILa napisana;
+v enaki pisavi; brez vrstičnih presledkov;[[no links]].
+
+Prostor lahko po potrebi uporabite na začetku vrste:
+
+*nalepite nekaj prej formatiranega besedila;
+*prikaži kodo vira;
+*ustvari/prilepi ascii umetnost (ustvarjanje slik z uporabo besedilnih simbolov).
+
+Horizontalna črta je označena s tremi črticami:
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Vstavljanje povezav==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Za vstavljanje povezav v drugo wiki stran, naslov strani dajte v svojne kvadratne oklepaje: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+V primeru, da sta povezava in naslov, ki želite, da je prikazan na strani različna, naslov povezave napišite po | simbolu: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
+
+&lt;p&gt;
+Zunanje povezave so vstavljene neposredno v besedili, kot tu: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+V primeru, da morate spremeniti naslov zunanje povezave, jo dajte v enojne kvadratne oklepaje in napišine svoj naslov po presledku: &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt;
+Za vstavljanje e-naslova uporabite enojne kvadratne oklepaje: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Za dodajanje strani v kategorijo, dodajte povezavo v željeno kategorijo [[Category: Desired category]] na dnu te strani.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Formatiranje besedila==
+
+Sledeče namige uporabite za formatiranje svojega besedila:
+
+''Poševno''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+"vaše poševno sporočilo gre sem"
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Odebeljeno'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''vaše odebeljeno besedilo gre sem'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Odebeljeno poševno'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''vaše odebeljeno in poševno besedilo gre sem'''''
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Podčrtaj__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__vaše podčrtano besedilo gre sem__
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Prečrtaj--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--besedilo, ki ga morate prečrtati, gre sem--
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Indeksi: &lt;sup&gt;superscript&lt;/sup&gt; in &lt;sub&gt;subscript&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;your subscript index&lt;/sub&gt;&lt;br&gt; 
+&lt;sup&gt;your superscript index&lt;/sup&gt; 
+&lt;/p&gt;
+
+&lt;p&gt;
+Prav tako lahko uporabite &amp;It;small&gt; majhno besedilo &lt;/small&gt; za komentiranje, posebno formiranje za prikazovanje &lt;code lang="language"&gt;programske kode&lt;/code&gt; ter delce iz fiksnega besedila za &lt;tt&gt;strokovne izraze&lt;/tt&gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Vstavljanje slik==
+
+Za možnost vstavljanja slik v wiki stran, jih boste mogli predčasno naložiti na wiki.
+
+Spodnje povezave uporabite za vstavljanje različnih vrst slik:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Slika = [[Image:Image Title]]&lt;/p&gt;
+&lt;p&gt;
+Slika z določeno širino = [[Image: Image Title | Width_px]]&lt;/p&gt;
+&lt;p&gt;
+Slika z opisom = [[Image:Image Title | Description]]&lt;/p&gt;
+&lt;p&gt;
+Ikonska sličica = [[Image:Image Title | thumb]] – the image will be compressed and aligned to the right.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==HTML za Wiki prenos==
+
+Če imate html-formatirano besedilo, ki ga želite prenesti tu, to lahko storite hitro in enostavno. Pritisnite na '''Ustvari novo stran''' na strani ''Dejanja'''. Nato svoje besedilo prilepite v okno urejevalnika in preklopite na wiki označevalni zaslon s pritiskom na Wiki ikono na formatirni plošči zgoraj. Html oznake bodo spremenjene v wiki oznako. Preverite rezultate, povežite manjše napake, če jih kaj je in pritisnite '''Objavi'''. Vaša stran je pripravljena.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Pomoč</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Dobrodošli na ONLYOFFICE™ Wiki!''' 
+
+Tu lahko ustvarjate strani in jih preko spletnega brskalnika povežete in združite v kategorije. Wiki je priročno orodje za hranjenje dokumentacije povezane s projektom, ki jo določajo naslednje lastnosti:
+
+*več avtorjev. Vsak '''ONLYOFFICE™''' član lahko vreja vsebino katere koli strani
+*hitro urejanje. Pritisnite povezavo '''uredi''', ki je na voljo na vsaki strani in začnite urejati neposredno v brskalniku
+*lahek prenos iz HTML do WIKI. Naučite se [Internal:Help#HTML prenos v Wiki|kako]] 
+*pomoč različice strani. Preverite, kaj je bilo urejeno, s povratkom strani v prejšnjo različico.
+
+@@TOC@@
+
+==Wiki Navigacija and Struktura==
+
+Po Wiki se lahko pomigate preko '''Navigacijske plošče''', ki je vedno na voljo, ko ste v '''ONLYOFFICE™''' wiki. 
+
+ ===Strani===
+
+Vse wiki strani, ki jih ustvarjate, so abecedno razporejene na [[Internal:Index|Indeks]] page.&lt;br&gt; 
+Vse novo ustvarjene strani so prikazane v kronološkem zaporedju na [[Internal:NewPages|Nove strani]] strani.&lt;br&gt;
+Seznam najnovejše ustvarjenih strani, leži na [[Internal:Recently|nedavno urejeno]] strani.
+
+===Kategorije===
+
+Nekaj povezanih strani lahko povežete v kategorijo. Vse kategorije z ustreznimi stranmi so prikazane na [[Internal:Categories|Kategorije]] strani. Stran lahko dodate v že obstuječo kategorijo, ali pa ustvarite svojo. Pritisnite [[Internal:Help|tu]] za več informacij o tem, kako stran določiti kategoriji.
+
+===Datoteke===
+
+Datoteke na Wiki lahko dodajate v kakršni koli velikosti ali formatu, ter naloženim slikam pri ustvarjanju wiki strani date povezave. O tem preberite več [[Internal:Help#vnašanje slik|tu]].
+
+===Pomoč===
+
+Ustvarjanje strani na '''ONLYOFFICE™''' wiki je preprosto. Upoštevati morate le nekaj preprostih pravil. Obiščite [[Internal:Help|namigi wiki oznake]], če želite prebrati pravila wiki oznak.
+
+==Ustvarjanje svoje wiki==
+
+Za ustvarjanje lastne wiki, začnite z ustvarjanjem nove strani s pritiskom na povezavo '''Ustvari novo stran''' na predelu '''dejanja'''. Nato v prostor za urejanje besedila napišite svoje besedilo. Uporabite [[Internal:Help|namigi wiki oznake]] za besedilo, da po pravilno prikazano na strani.
+
+Zapomnite si, da je to vaš oseben prostor, kjer lahko organizirate vse glede na svoje določene potrebe. Tudi vsebino na strani je možno urediti. Na primer, lahko izbrišete, kar je napisano tu, in povezave prilepite v svoj projekt za vaše udobje. &lt;br&gt;Vso srečo!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Stran ne obstaja. Pritisnite {tu} za njeno ustvaritev in urejanje.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Sidro</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Krepko</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Pre-blok</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Za vizualno označiti tujo kodo</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>primer HTML kode</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Zunanja povezava</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Lokalna povezava datoteke</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (uporabi zmerno)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Horizontalna črta</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Slika</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Poševno</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Nova vrsta</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR oznaka</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Ne more biti interpretirano z Wiki jezikom</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Povezava strani</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Posebne oznake</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Udari</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Pripis</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Nadpis</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Posebni simboli</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Podčrtaj</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Blokiraj</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Maksimalna velikost datoteke za nalaganje je presežena</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Prenesi datoteko</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kategorije</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Maksimalna velikost naložene datoteke je {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Sekcija: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Stran je bila premaknjena=
+Ime strani spremenjeno v [[{0}|{0}]].
+najnovejšo različico lahko najdete [[{0}|tu]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Vsebina</value>
+  </data>
+</root>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Blog doanh nghiệp</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Tất cả ghi chép của tác giả</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Trường chủ đề bài viết không được để trống</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Thêm bình luận</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa bài viết này?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Văn bản</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Chỉnh sửa bài viết</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Chưa có blog nào được tạo</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Tạo blog đầu tiên</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Tạo trang của riêng bạn để chia sẻ thông tin thú vị, suy nghĩ và kinh nghiệm với người khác, diễn đạt quan điểm của bạn, nhận phản hồi từ bình luận của người dùng.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Nhập các tag cần thiết và phân cách chúng bằng dấu phẩy</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Tạo bài mới</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Xuất bản</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Tác giả</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Xem trước</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Đọc thêm</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Tìm kiếm trong blog</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Hiển thị trên trang</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Đăng ký bài viết của tất cả người dùng</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Đăng ký sẽ cho phép bạn theo dõi bài viết mới của người dùng trên blog</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Bài viết người dùng mới</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Đăng ký để gửi bình luận</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Đăng ký sẽ cho phép bạn theo dõi những bình luận mới về bài viết</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Đăng bình luận</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Đăng ký tất cả bài viết</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Đăng ký cho phép bạn theo dõi bài viết mới trên blog</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Bài viết blog mới</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Chọn nội dung bạn muốn ẩn khỏi các trang tin và trang danh sách blog và nhấp vào nút "Cắt Nội Dung".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Cắt Nội Dung</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Hủy đăng ký bài viết của người dùng</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Hủy đăng bình luận về bài viết</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Huỷ đăng ký tất cả bài viết</value>
+  </data>
+</root>

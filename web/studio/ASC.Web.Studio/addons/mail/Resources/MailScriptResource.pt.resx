@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Erro de ligação à conta</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Configurações de conta</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Contas</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acções</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Deseja ativar o % 1?</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Acesso ao documento negado.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Documento não encontrado ou não existe no local de armazenamento escolhido.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Ficheiros vazios não são suportados.</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Nota: o tamanho do arquivo não deve exceder %1 MB. O tamanho total de todos os arquivos deve ser não mais do que %2 MB.</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Seleccione a tag/etiqueta</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Criar nova empresa no CRM</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Criar nova pessoa de CRM</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>Contactos CRM</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Quer desativar o % 1?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Deseja eliminar % 1?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>A eliminar mensagens...</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Realizado</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Escrever o primeiro rascunho</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Escrever nova mensagem</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Crie a primeira conta</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Criar conta de correio electrónico para enviar e receber mensagens diretamente do seu portal. Ver o histórico de mensagens, contatos e ficheiros no seu navegador web em qualquer lugar, a qualquer momento. Organize as suas mesnsagens usando as suas própias tags/etiquetas. </value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Nenhuma conta foi ainda configurada</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Ir para o CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Esta lista conterá todos os seus contactos do CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>A lista de contactos está vazia</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Criar novo marcador de Mail</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Você precisa primeiro criar uma tag/etiqueta para depois a usar </value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Nenhuma etiqueta/marcador criada(o)</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Escrever nova mensagem</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Esta conta já existe</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Campo 'Para' vazio</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Endereço incorreto</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Endereço incorreto</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Ocorreu algum erro!</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Expandir todos</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Outros</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Período personalizado</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Escolher</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Do remetente</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Pessoas</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>ler</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Para o endereço de email</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Não lidas</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>Com anexos</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Com oportunidades</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Com a tag</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Mensagem encaminhada</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Todas as mensagens dos últimos 30 dias serão importadas.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>carregando anexos...</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Criação de caixa de correio em curso...</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>A mensagem não foi enviada.\r\nTem a certeza que a deseja apagar?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>mais %1</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Mover mensagens</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Criar nova conta</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Nova mensagem</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Não é Spam</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Obtendo as configurações padrão de domínio...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Rascunho</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Para a frente</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>ler</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Deseja apagar todas as mensagens de Spam?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Deseja eliminar todas as mensagens do caixote de lixo?</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Restaurando mensagens</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Salvando a mensagem</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Esta conta foi desactivada. Por favor, active esta conta ou seleccione outra.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Enviando mensagem</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Assunto</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Contatos ONLYOFFICE™</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Para</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Contactos totais</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Não lidas</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>Com anexos</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Sem tags</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Com tags</value>
+  </data>
+</root>

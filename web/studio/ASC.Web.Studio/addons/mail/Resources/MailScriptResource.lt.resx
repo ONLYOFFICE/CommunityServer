@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Klaida prisijungiant prie paskyros.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Klaida prisijungiant prie paskyros</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Paskyros nustatymai</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Paskyros</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Veiksmai</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Pridėti paskyrą</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Pridėkite naują el. pašto paskyrą, kad pradėtumėte darbą su ONLYOFFICE™ el. paštu.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Pašto serveris</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Pseudonimas)</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Prieiga prie dokumento uždrausta.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>El. pašto paskyra išjungta</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>Išjungti</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Darbotvarkė</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Visa diena</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Kalendorius</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>žemėlapis</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Atsakyti</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Galbūt</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Uždaryti</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Suskleisti viską</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Bendrieji nustatymai</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Kopijuojama į Mano Dokumentus</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Sukurti kontaktą</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Sukurti el. pašto dėžutę</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Sukurti el. pašto dėžutę</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Sukurti naują kontaktą</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Sukurti asmeninį kontaktą</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Bendrovė</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM Kontaktai</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>El. pašto paskyros išjungtos.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>El. pašto paskyra išjungta</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Baigta</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Redaguoti kontaktą</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Rašykite pirmąjį juodraštį</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Rašyti naują laišką</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Pereiti į CRM</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Rašyti naują laišką</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Kalendorius nepasiekiamas</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Atveriant šią žinutę įvyko klaida.</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Pasirinkite</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Bendrovės</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Svarbus</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Už laikotarpį</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Praėjusi savaitė</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Persiųsta žinutė</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Nuo</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Pereiti į Kalendorių</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Pereiti prie įvykio</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Pagalba</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Paslėpti</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Svarbus</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>įkeliami priedai...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>Nuo</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Autoatsakiklis</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Paskyrų valdymas</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Prierašo nustatymai</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Pažymėti visus laiškus, skirtus</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Pažymėti visus laiškus nuo siuntėjų</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Tęsti be paveikslėlių</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>kiti %1</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Naujas laiškas</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Ne šlamštas</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Juodraštis</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Persiųsti</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Atsakyti</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Asmeniniai kontaktai</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Spausdinti viską</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Spausdinti</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Cituojamas tekstas paslėptas]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Pažymėti kaip skaitytą</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Laiškų atkūrimas</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Išsaugoti nepavyko.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Laiškas išsaugomas</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Pasirinkti</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Laiškas siunčiamas</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Serveris</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Šlamštas</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Žymelė išsaugoma...</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Portalo kontaktai</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Iš viso kontaktų:</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Pažymėti kaip neskaitytą</value>
+  </data>
+</root>

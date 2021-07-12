@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Захиалагчдыг зохион байгуулах</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Бүгд</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Бүгд{!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Холбогдсон даалгавруудтай хамт зөөх</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Бүгд{!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Цаг хугацааны хэмжүүрийг эхлүүлэх/Зогсоох</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Цаг нэмэх</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Завсарлах</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Шинээр тохируулах</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Эхлэх</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Цуцлах</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Нуух</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>-г шинээр үүсгэх</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Шинэ төсөл эхлүүлэх</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Он сар өдөр</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Устгах</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Танилцуулга</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Бичиг баримтууд</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Засах</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Холбоо барих мэдээллийг холбох эсвэл нэмэх</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Дагах</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Ерөнхий тохиргооний дагуу, багийн гишүүн бүр сонгогдсон төсөл бүр дэх хугацаа, зорилт, баримт бичгүүд болон хэлэлцүүлэг гэх бүх бичвэрүүдийг үзэх эрхтэй. Багийн аль нэг гишүүн зарим бичвэрт нэвтрэх эрхийг хязгаарлахын тулд баруун талд байрлах холбоосыг дарна. Аль нэг багийн гишүүдэд нэвтрэх эрх олгохын тулд мөн адил алхам хийх бөгөөд Админы эрх үл олгогдоно. Зөвхөн ОNLYOFFICE Админ нь бүх төсөл дэх, бүх бичвэрүүдэд нэвтрэх эрхтэй. </value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Багаа хэрхэн удирдах вэ?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Нуух</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Нэмж судлах... </value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Идэвхитэй</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Миний дагадаг төслүүд</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Хамгийн сүүлийн үеийн</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Миний хэлэлцүүлгүүд</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Миний төслүүд</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Холбоо барих мэдээлэл</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Төслүүд</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Даалгаврыг зөөх</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Хэлэлцүүлэг дэх шинэ сэтгэгдлүүд</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Даалгаврууд дахь шинэ сэтгэгдлүүд</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Холбоосонд холбоо барих мэдээлэл байхгүй</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Өгөгдөл байхгүй</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Уг даалгавар өөр даалгавруудтай холбогдсон байгаа тул хэрэв устгахыг хүсвэл холбоосыг эхлээд болиулна уу</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Холбоосуудыг устгаж зөөх</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Тэмдэглэл:Энэ үйлдэл буцаан хийгдэж болохгүй</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Урьдчилан үзэх</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Төслийн менежертэй адил зүйл хийх|Төслийн менежерийг томилох|Аль ч төслийг засварлах, үүсгэх ба устгах|Загваруудыг үүсгэх/засварлах</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Багуудыг бүрдүүлж даалгавруудыг томилох. Төслийн зорилтот цэгүүдийн хугацааны төлөвлөгөөг гаргах, төслийн үйл явцыг хянах ба тайлангуудыг гаргах</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Багуудыг бүрдүүлж даалгавруудыг томилох. Төслийн зорилтот цэгүүдийн хугацааны төлөвлөгөөг гаргах, төслийн үйл явцыг хянах ба тайлангуудыг гаргах</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Төслүүд</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Төсөлтэй холбогдох хүмүүсийн холбоо барих мэдээлэл</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Төслийн нэр</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Цааш унших</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Хэрэглэгчийг багаа хасах</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Тайлангууд</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Хадгалах</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Шинэ даалгаврыг хадгалах ба үүсгэх</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Өөрчлөлтүүдийг хадгалах</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Хайх</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Сонгох</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Байгаа холбоо мэдээллүүдээс сонгох эсвэл шинийг нэмэх </value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Тохиргоо</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Үзүүлэх</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Хуудас дээр үзүүлэх</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Зарцуулсан хугацаа</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Сэтгэгдүүдийг дагах</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Нэмэгдсэн даалгавар</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Тогтоосон дуусах хугацаанаас эхлэх хугацаа нь заавал өмнө байна</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Таны зөөхийг хүсэж буй даалгавар нь өөр даалгавруудтай холбогдсон байна.{0}Тиймээс доорх үйлдлүүдээс нэгийг нь сонгоно уу:</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Холбоосуудыг устгаж шинэчлэх</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Хугацаа</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Сэтгэгдэл нэмэх</value>
+  </data>
+</root>

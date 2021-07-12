@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CommonAddUsers" xml:space="preserve">
+    <value>ユーザーの追加</value>
+  </data>
+  <data name="CommonGroup" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="CommonGroupHead" xml:space="preserve">
+    <value>頭</value>
+  </data>
+  <data name="CommonGroups" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="CommonGuest" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="CommonGuests" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="CommonRegDate" xml:space="preserve">
+    <value>登録日</value>
+  </data>
+  <data name="CommonSchemaName" xml:space="preserve">
+    <value>共通の</value>
+  </data>
+  <data name="CommonUser" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="CommonUsers" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="CommonUserTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="DefaultAddUsers" xml:space="preserve">
+    <value>従業員の追加</value>
+  </data>
+  <data name="DefaultGroup" xml:space="preserve">
+    <value>部門</value>
+  </data>
+  <data name="DefaultGroupHead" xml:space="preserve">
+    <value>頭</value>
+  </data>
+  <data name="DefaultGroups" xml:space="preserve">
+    <value>デパート</value>
+  </data>
+  <data name="DefaultGuest" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="DefaultGuests" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="DefaultRegDate" xml:space="preserve">
+    <value>以来採用</value>
+  </data>
+  <data name="DefaultSchemaName" xml:space="preserve">
+    <value>企業の</value>
+  </data>
+  <data name="DefaultUser" xml:space="preserve">
+    <value>従業員</value>
+  </data>
+  <data name="DefaultUsers" xml:space="preserve">
+    <value>社員</value>
+  </data>
+  <data name="DefaultUserTitle" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="EducationAddUsers" xml:space="preserve">
+    <value>先生／学生を追加する</value>
+  </data>
+  <data name="EducationGroup" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="EducationGroupHead" xml:space="preserve">
+    <value> グループの担当者</value>
+  </data>
+  <data name="EducationGroups" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="EducationGuest" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="EducationGuests" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="EducationRegDate" xml:space="preserve">
+    <value>登録日</value>
+  </data>
+  <data name="EducationSchemaName" xml:space="preserve">
+    <value>教育機関</value>
+  </data>
+  <data name="EducationUser" xml:space="preserve">
+    <value>先生／学生</value>
+  </data>
+  <data name="EducationUsers" xml:space="preserve">
+    <value>先生／学生</value>
+  </data>
+  <data name="EducationUserTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+</root>

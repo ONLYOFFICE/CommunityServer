@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.הערה נערכה לדיון  : "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ערך הערה לדיון : "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"קרא עוד":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^כתובת הפורטל שלך  "${__VirtualRootPath}":"${__VirtualRootPath}" 
+ "ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.הערה נערכה למשימה : "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ערך את ההערה ל משימה - "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" : 
+
+$AdditionalData
+
+"קרא עוד":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^כתובת הפורטל שלך "${__VirtualRootPath}":"${__VirtualRootPath}" . 
+"ערוך את הרשמתך לעדכונים אלה":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.דיון עודכן: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ערך את הדיון:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"קרא עוד":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.פרוייקטים: ייבא את הנתונים שלך מ-Basecamp
+
+הנתונים החדשים יובאו בהצלחה
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.צורפת לצוות הפרוייקט
+
+"$__AuthorName":"$__AuthorUrl" הוסיף אותך כחבר צוות בפרוייקט ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.הודעה על פקיעת תוקף של אבן דרך: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+אבן הדרך מתוך הקמפיין ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] עברה את תאריך היעד: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.דיון נמחק : "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" מחק את הדיון  "$EntityTitle" בפרוייקט -  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+
+^כתובת הפורטל שלך:  "${__VirtualRootPath}":"${__VirtualRootPath}" portal.
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.הודעה על תאריך יעד של אבן דרך: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+נותרו פחות מ-48 שעות עד לפקיעת תוקף תאריך היעד שנקבע לאבן דרך בתוך הפרוייקט ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.תגובה חדשה בדיון: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" הוסיף תגובה חדשה בתוך הדיון:
+
+$AdditionalData
+
+"קרא עוד":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.תגובה חדשה למשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" הוסיף תגובה חדשה למשימה:
+
+$AdditionalData
+
+"קרא עוד":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.דיון חדש: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" התחיל דיון חדש:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"קרא עוד":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>פרוייקט [$ProjectTitle]: הוספת לצוות הפרוייקט</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>פרוייקטים. פרוייקט נמחק: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: קיבלת מינוי כמנהל פרוייקט</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה החזרה לפעילות של משימה: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.תזכורת למשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" ביקש להזכיר לך את המשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+
+
+#end
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.תזכורת למשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+היום הוא תאריך היעד למשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.הוסרת מרשימת חברי הצוות בפרוייקט
+
+הוסרת מרשימת חברי הצוות בפרוייקט ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.אסבן דרך שהוקצתה לך: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" מינה אותך אחראי לביצוע אבן הדרך ששמה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" בתוך הפרוייקט "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^קיבלת מייל זה כי אתה רשום בפורטל "${__VirtualRootPath}":"${__VirtualRootPath}". כדי לשנות את אופן ההתראות שאתה מקבל, אנא גש לאזור "הגדרה של הודעות":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.מינו אותך למנהל פרויקט: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+"$__AuthorName":"$__AuthorUrl" מינה אותך לתפקיד מנהל הפרוייקט ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+$AdditionalData
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.הוקצתה לך תת-משימה חדשה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" מינה אותך אחראי על תת-משימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.קיבלת משימה חדשה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" מינה אותך אחראי על המשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.תת-משימה נסגרה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ביצע סגירה של תת-משימה השייכת למשימה["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID"].
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.תת-משימה חדשה נוצרה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" יצר את תת-המשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+בתוך פרוייקט: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.משימה נסגרה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" סגר את המשימה במסגרת הפרוייקט ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+$AdditionalData
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.משימה חדשה נוצרה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+"$__AuthorName":"$__AuthorUrl" יצר את המשימה: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" .
+
+$AdditionalData.get_item("TaskDescription")
+
+פרוייקט: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+כתובת הפורטל שלך: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"ערוך את הרשמתך לעדכונים אלה":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: הדיון התעדכן: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>פרוייקטים: ייבא נתונים מ-Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: שינויים בצוות הפרוייקט</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: הודעה על פקיעת תוקף תאריך יעד של אבן דרך: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. אבן דרך הושלמה: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. אבן דרך חדשה נוצרה: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: הודעה על תעריך יעד של אבן דרך: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה עריכה בפרטי אבן דרך: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: תגובות חדשות לדיון: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: נוספה תגובה למשימה: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: נוסף דיון חדש: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>פרוייקטים. פרוייקט נמחק: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>הוספת לצוות הפרוייקט</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>הדיון נמחק</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>אבן דרך חדשה נוצרה</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>אבן הדרך חודשה</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>דיון חדש נוצר</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>פרוייקטים. פרוייקט נמחק</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>מונית למנהל הצוות</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>תת משימה הוקצתה לך</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>משימה הוקצתה לך</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>תת משימה נסגרה</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>תת משימה חדשה נוצרה</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>תת משימה נמחקה</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>תת משימה חודשה</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>משימה נסגרה</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>משימה חדשה נוצרה</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>משימה נמחקה</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>משימה חודשה </value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: תזכורת לגבי משימה: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: תזכורת לגבי משימה: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: שינויים בצוות הפרוייקט</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. קיבלת אחריות לביצוע אבן דרך: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: קיבלת מינוי כמנהל פרוייקט</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: הוקצתה לך תת-משימה חדשה: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: הוקצתה לך משימה: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: תת משימה נסגרה: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: תת משימה נוצרה: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה מחיקה של תת-משימה: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה החזרה לפעילות של תת-משימה: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: משימה נסגרה: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>פרוייקטים [$ProjectTitle]: משימה נוצרה: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה מחיקה של משימה: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה עריכה בפרטי המשימה: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>פרוייקט: [$ProjectTitle]. בוצעה החזרה לפעילות של משימה: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>אף אחד</value>
+  </data>
+</root>

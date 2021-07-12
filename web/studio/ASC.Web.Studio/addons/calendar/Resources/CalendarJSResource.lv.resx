@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Pieņemts:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Pieslēgt pasta kontus</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>uzaicinājumu sūtīšanai</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalendārs</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Notikums</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Pievienot jaunu notikumu</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>Visa diena</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Diena</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Periods</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Mēnesis</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Nedēļa</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Izveidot jaunu kalendāru</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Krāsa.</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Rediģēt kalendāru</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Teksta krāsa</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Laika josla:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Pievienot</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Mani kalendāri</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Citi kalendāri</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Pārvaldīt</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Izveidot jaunu notikumu</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minūtes</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 stundas</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>Pusstundu</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minūtes</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>Diena</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>Pēc noklusējuma</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>Stunda</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Brīdinājums</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>Nekad</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Tas ir visu dienu notikums.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Visas dienas notikums</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Viesi:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Sāciet ievadīt e-pasta adresi vai kontakta vārdu no jūsu personīgajiem, CRM kontaktiem vai portāla lietotāju vidus vai izmantojiet citu e-pastu, lai uzaicinātu personas uz jūsu notikumu.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalendārs.</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Apraksts:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Sīkāk</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>No:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Izveidot jaunu notikumu</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Rediģēt notikumu</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Apskatīt notikumu</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Vieta:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Vairāk informācijas</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Šis pasākums nav visu dienu notikums.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Pēc izvēles</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organizē:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Īpašnieks</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>Pielāgots</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>Katru dienu</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Atkārtot</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>Katru mēnesi</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>Nekad</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>Katru nedēļu</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>Katru gadu</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Obligāti</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Lietotāji ar piekļuvi</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Pievienot lietotājus</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Šis pasākums nav koplietots.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>ATCELTS</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>APSTIPRINĀTS</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Statuss:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>ZEM JAUTĀJUMA</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Notikuma nosaukums:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Līdz:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Atteikties</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Nav notikumu ko parādīt.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Paslēpt mini kalendāru</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Rādīt mini kalendāru</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d notikumi</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Pievienot lietotājus koplietošanai</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Rādīt %d vairākam lietotāju skaitam</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Koplietots ar:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Rediģēt kalendāru</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Īpašnieks</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Paslēpt no saraksta</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Ātrā meklēšana</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Pārvaldīt citu kalendāru</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Kalendāra skats</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Sakarsta skats</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Notikums atcelts</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Vai vēlaties nosūtīt uzaicinājumus viesiem?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Sūta ielūgumus</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Nesūtīt</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Sūtīt</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Jauni un dzēstie viesi</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Vai vēlaties nosūtīt ziņas par atcelšanu pastāvošajiem viesiem?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Sūta ziņojumus par atcelšanu</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Ziņojumu sūtīšanas laikā radās kļūda</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Paiņojums veiksmīgi nosūtīts</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Vai vēlaties pastāvošajiem viesiem nosūtīt ziņu par izmaiņām?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Sūta atjauninājumus</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Lūdzu, izvēlieties, ko jūs vēlētos informēt par atjauninājumiem: tikai jaunos un dzēstos viesus vai arī visus. Ja izvēlaties iespēju 'Nesūtīt', paziņojumi netiks sūtīti.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Noraidīts:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Visi notikumi sērijā</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Piemērot</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Šis pasākums, un viss, kas seko</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Dzēst periodisku notikumu</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Dzēsto pasākumu nevar atjaunot. Vai tiešām vēlaties turpināt?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Dzēst notikumu</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Tikai šis notikums</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Visas turpmākās izmaiņas tiks piemērotas vienīgi jūsu kalendāram.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Notikuma viesi nesaņems paziņojumu. Izmantojiet savus kalendārus paziņojumu sūtīšanai.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Viesi:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Atlasiet failu</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Eksportēt notikumu no ONLYOFFICE™ kalendāra</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>fails nav atlasīts</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>fails ir atlasīts</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Imports/Eksports</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Importēt notikumus ONLYOFFICE™ kalendārā</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Nederīgs iCal faila formats </value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Ievadiet iCal feed saiti</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalendārs no iCal</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal feed saite:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>sākot ar</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>pēc</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>katru</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>katru</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>pirmais</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Atkārtošanās iestatījumi</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>diena</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>mēnesis</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>nedēļa</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>gads</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>pēdējais</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>dienas</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>mēneši</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>nedēļas</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>gadi</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>reižu skaits</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>datums</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>nekad</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>pēdējais bet viens</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>otrais</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>trešais</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>reizes</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>beigās</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Varbūt</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Nē</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Jā</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Apmeklē</value>
+  </data>
+</root>

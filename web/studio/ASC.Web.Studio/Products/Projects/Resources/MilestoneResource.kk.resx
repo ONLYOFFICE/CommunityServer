@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Сақтау</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Жобаны таңдаңыз</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Жауаптыны таңдаңыз</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Кезеңді жабу</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>д</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>ай</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Екі ай</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Апта</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Қадамды өшіру</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Сіз қадамды жойғыңыз келе ме?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Кезеңдерді өшіру</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Сіз қадамдарды жойғыңыз келе ме?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Бұл бөлімде сүзгіге сәйкес кезеңдерді көрсету мүмкін емес.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Сипаттама</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Осы сүзгіге сәйкес кезең жоқ</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>кезең</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>төлеу мерзімі</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Кезеңдер әлі жоспарланбаған</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Негізгі кезеңдер</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Кезеңдер жобаны жоспарлау процесінде негізгі уақыт белгілерін білдіреді. Кезеңді жасағаннан кейін сіз жобаның барлық қатысушылары үшін оның міндеттерімен толтыра аласыз. Қадамды жоспарлаңыз және тапсырмаларды уақытында орындағанына көз жеткізу үшін орындау мерзімін белгілеңіз.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>алдағы</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Сіз ашық тапсырмалармен кезеңді жаба алмайсыз.</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Танымалдыққа қою</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Әрбір кезең атауы болуы керек</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>кешіктірілген</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Бірінші кезеңнің жоспары</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Маған 48 сағат бұрын еске салыңыз</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>жауапкершілік</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Басты кезең</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>атау</value>
+  </data>
+</root>

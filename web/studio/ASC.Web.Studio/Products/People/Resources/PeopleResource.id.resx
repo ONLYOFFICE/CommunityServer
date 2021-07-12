@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Hak Akses Portal</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Tambahkan</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Tambahkan {!group} </value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Tambahkan anggota
+</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Nonaktif</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Ubah status</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Ubah status pengguna</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Upgrage paket harga Anda dan ulangi pengoperasian atau status pengguna lain tidak akan berubah.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Ubah status pengguna</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Anda tidak dapat mengubah status untuk pemilik portal dan Anda sendiri</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Pengguna dengan status 'Nonaktif' akan diaktifkan.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Pengguna dengan status 'Aktif' akan dinonaktifkan.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Ubah tipe</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Upgrade paket harga Anda dan ulangi pengoperasian atau tipe pengguna lain tidak akan berubah.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Ubah tipe pengguna</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Anda tidak dapat mengubah tipe untuk administrator portal dan Anda sendiri</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Pengguna dengan tipe '{!User}' akan dipindahkan ke tipe '{!Guest}'  </value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Pengguna dengan tipe '{!Guest}' akan dipindahkan ke tipe '{!User}'</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Atur ulang filter</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Hanya pengguna atau pengunjung dengan status 'Nonaktif' yang dapat dihapus</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Hapus pengguna dari portal</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Batalkan semua pilihan</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Nonaktifkan</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Aktifkan</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Tuliskan nama</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>File yang diunggah tidak ditemukan</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Ukuran gambar terlalu besar</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Ukuran gambar terlalu besar</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Tipe file gambar tidak dikenal</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nama Depan</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Sembunyikan daftar pengguna terpilih</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Impor Orang</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Tautan Undangan</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Ubah email</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Ubah kata sandi</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Buat</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Hapus profile</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Kirim undangan sekali lagi</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Kirim tautan aktivasi sekali lagi</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Kirim email</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Kirim pesan</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Status berlangganan</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Nonaktif</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Tips perangkat</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Anggota</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Tidak ada orang yang sesuai dengan filter Anda di bagian ini. Silakan pilih opsi filter lain atau hapus filter untuk melihat semua orang di bagian ini.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Tidak ada hasil yang sesuai dengan pencarian Anda.</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Di atas</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Tambahkan pengguna baru, undang atau impor. Kelola pengguna dan lihat informasi rinci mereka.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Orang</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Atau {0}baca mengenai penggunaan untuk tujuan nirlaba{1}.</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Setelah pengguna mengkonfirmasi undangan untuk bergabung di portal, statusnya akan berubah menjadi 'Aktif'</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Kirim undangan sekali lagi</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Undangan ke portal akan dikirim sekali lagi kepada pengguna terpilih dengan status 'Tunda' yang tidak dinonaktifkan.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Pilih semua</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tampilkan pada halaman</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Lihat daftar pengguna terpilih</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Pengguna telah berhasil dihapus</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Jumlah total</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Menunggu konfirmasi</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Tulis Surat</value>
+  </data>
+</root>

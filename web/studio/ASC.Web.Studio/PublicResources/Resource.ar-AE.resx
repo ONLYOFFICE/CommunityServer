@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRights" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>اضف {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>اضافة {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>كل المستخدمين</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>كامل الصلاحيات</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} المستخدمين يستطيعون</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>تم ارسال رابط لتأكيد العملية على البريد : االبريد الإلكتروني الخاص بصاحب البوابة</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>تم ارسال رابط لتأكيد العملية على البريد : االبريد الإلكتروني الخاص بصاحب البوابة</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>اضف {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>اضف مجموعات</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>اضف تعليق</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>اضف مستخدمين</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>اعدادات</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>تفعيل</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>المشرفين</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>رد</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>اتصال</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>متصل</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>قطع الاتصال</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>في</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>تصريح</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>اضف {!group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>تاريخ الميلاد</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>اضف جهة اتصال جديدة</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>تم ارسال رابط لتأكيد العملية على البريد : االبريد الإلكتروني الخاص بصاحب البوابة</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>يناير, فبراير, مارس, ابريل, مايو, يونيو, يوليو, اغسطس, سبتمبر, اوكتوبر, نوفمبر, ديسمبر</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>مسح عامل التصفية</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>اغلاق</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>تعليقات</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>معلومات الاتصال</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>استمر</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>تخصيص</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>يوم</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>يوم</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>ايام</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>عطل</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>عطل</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>معطل</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>تعطيل</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} سابقا</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} يوم</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} الايام</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} الايام</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>فقط</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} ساعة</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} ساعات</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} ساعات</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} دقيقة</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} دقائق</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} دقائق</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} شهر</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} أشهر</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} أشهر</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} سنة</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} سنوات</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} سنوات</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>الغد</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>الأمس</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>حرر ملفك الشخصي</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>فعل حساب البريد الإلكتروني</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>كلمة المرور خاطئة</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>غير البريد الإلكتروني</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>تغير البريد الإلكتروني</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>كل {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>تفعيل الاتصال الامن SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>تفعيل</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>الرابط انتهى</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>بريد الكتروني غير صحيح</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>انثى</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>اخر 3 اشهر</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>اخر شهر</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>الاسبوع الماضي</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>الشعار</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>مجموعة</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>المجموعات</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>اضف مستخدمين للبوابة</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>رابط الدعوه</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>تعلم المزيد ...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>تحميل ...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>الموقع</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>شارك</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>الدخول بحساب شبكات التواصل الإجتماعي</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>ذكر</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>رقم الجوال الرئيسي</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>غير رقم الهاتف</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>مرسل</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>غير رقم الجوال</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>ملفي الشخصي</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>قالب</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>معطل</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>غير كلمه المرور</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>اشخاص</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>نشر</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>تاريخ الانضمام</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>البحث في النتائج</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>الجنس</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>عرض الكل</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>عرض كل النتائج</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>مجنون</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>يبكي</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>رقص</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>غاضب</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>اخضر</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>موسيقى</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>الملف الخاص بالتواصل الاجتماعي</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>احصائيات</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>اللغة والوقت</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>اشترك</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>اشتراكات</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>تم تحديث الاعدادات بنجاح</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>الدفعات</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>تم إنشاءه</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>اجمالي المستخدمين</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>اجمالي النتائج</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>الرفع</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>مستخدم</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>مستخدمين</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>الوظيفه / المسمى</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>اللغة والوقت</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

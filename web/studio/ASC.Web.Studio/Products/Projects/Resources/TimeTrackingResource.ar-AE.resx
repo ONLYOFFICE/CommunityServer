@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>مغلق</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>لا توجد ساعه توقيت تناسب عامل التصفيه في هذا القسم</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ساعة</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>دقائق</value>
+  </data>
+  <data name="NoTimersFilter" xml:space="preserve">
+    <value>لا توجد ساعه توقيت</value>
+  </data>
+  <data name="NoTimersNote" xml:space="preserve">
+    <value>ملاحظه الوقت المستغرق في تنفيذ مهمه ما مهم وسوف يظهر تأثير ذلك على ادارتك للوقت. ابداء ساعه التوقيت عند البدء في المهمه واوقفها عنداتمام المهمه. قم بإضافه الوقت المحتسب الى المهمه المحددة</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>لم يتم بدء ساعه توقيت بعد</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>h</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>ابداء العد</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>اجمالي الوقت المستغرق على المهمه:</value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>اجمالي الوقت المستغرق على الانشطه يطابق عامل التصفيه:</value>
+  </data>
+</root>

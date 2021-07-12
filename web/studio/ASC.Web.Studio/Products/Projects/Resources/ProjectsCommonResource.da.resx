@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Administrer abonnenter</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Alle {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Flyt med sammenkoblede opgaver</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Alle {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Start/Stop Timer</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Tilføj klokkeslæt</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Nulstil</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab Projekter</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Prøv mobil-applikation</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Skift farve</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Statuser er kun tilgængelige for brugeren, som oprettede opgaven</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Skift ikon</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Skjul</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Fælles indstillinger</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopier</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Opret</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Start nyt projekt</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Sæt nødvendig ordre for opgavers status. Hverenkelt kategori skal have mindst én status.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Ny Status</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slet</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Link eller tilføj kontakt</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Vælg de eksisterende CRM kontakter fra listen for at linke dem til det projekt du administrerer, eller tilføj nye kontakter. Rediger kontakternes personlige information. En dybere integration med CRM vil hjælpe dig med at arbejde mere effektivt. </value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Kontakt listen er tom</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Hverenkelt status skal have en titel</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Der er ingen projekter der matcher dette filter</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Følg</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Marker dette afkrydsningsfelt, hvis du ikke er en leder af det projekt, du opretter, men ønsker at registrere alle ændringerne inden for det. Oplysninger om alle nyoprettede milepæle, opgaver og diskussioner vil indgå i det daglige "Hvad er nyt" notifikation.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>Det {1} private projekt {2} er en måde at begrænse adgangen til dit projekt, så kun dine gruppemedlemmer kan få adgang til det.{0} At gemme projektet som et privat tillader dig også at angive adgangsrettigheder for hver gruppemedlem inde i dette projekt.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>Det {1} private projekt {2} er en måde at begrænse adgangen til dit projekt, så kun dine gruppemedlemmer kan få adgang til det.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>En afgørende milepæl er en milepæl, som du anser for at være en vigtigere milepæl end andre.{0} Alle de afgørende milepæle er markeret med en rød ikonnøgle placeret nær dets titel.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Du kan skifte mellem tre projektstatusser: {0}{1} aktiv.{2} Alle de oprettede projekter, du arbejder på i øjeblikket er markeret som aktiv indtil du beslutter at afbryde eller fuldføre dem.{0}{1}Midlertidigt afbrudt.{2} Hvis du beslutter midlertidigt at suspendere arbejdet på projektet, dens status vil blive midlertidigt afbrudt. For at genoptage projektet, så gør den aktiv ved at indstille den tilsvarende status.{0}{1}Lukket.{2}, Når arbejdet på projektet udføres og alle opgaver er lukkede, fuldføres projektet ændres dens status til lukket. For videre arbejde skal du genaktivere den.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>For at tilføje medlemmer til din gruppe lige nu, klik på {1} Administrér Team {2} link og vælg de brugere du ønsker at tilføje fra listen.{0} Du kan også tilføje eller fjerne team medlemmer senere ved at klikke på {1} Administrér team {2} tappen på din projekt {1} oversigts {2} side og klikke på {1} Administrér Team {2} knappen.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Som standard kan hvert medlem af projektgruppen få vist alt indhold inde i det markerede projekt: milepæle, opgaver, dokumenter og diskussioner. For at begrænse adgangen skal du blot markere det gruppemedlem, som du ønsker at angive adgangsrettigheder for og klikke på et af linkene til højre. På samme måde kan du angive adgangsrettighederne til hvert medlem af projektgruppen medmindre han ikke har administrator privilegier. Administratoren har fuld adgang til alt indhold på tværs af alle projekter.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Hvad betyder "følg dette projekt"?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Hvad er et privat projekt?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Hvad betyder en afgørende milepæl?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Hvilke projektstatusser findes der?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Hvordan styre du din gruppe?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skjul</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Skjul Enheder I Pausede Projekter</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Denne bruger modtager ikke informationer om denne diskussion, fordi projektet har privat status og brugeren er ikke medlem af projekt teamet.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Lær mere...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktive</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projekter jeg følger</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Nyeste</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Mine diskussioner</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Mine projekter</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontakter</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projekter</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Flyt opgave</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Nye kommentarer i diskussioner</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Nye kommentarer i opgaver</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Ingen kontakt til link</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Ingen data</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Opgaven er forbundet med andre opgaver. Hvis du sletter den, fjernes alle forbindelser.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Fjern forbindelser og flyt</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Personlige Indstillinger</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Bemærk: denne handling kan ikke fortrydes.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>forhåndsvisning</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Gøre det samme som projektleder|Udpeg projektleder|Opret og rediger, slet hvert et projet|Opret og rediger skabeloner</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Oprette hold og tildel opgaver. Planlæg projektets milepæle, spor projektaktivitet og generer rapporter.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Opret hold og tildel opgaver. Planlæg projektets milepæle, spor projektaktivitet og generer rapporter.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Opret hold og tildel opgaver. Planlæg projektets milepæle, spor projektaktivitet og generer rapporter.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projekter</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Få vist projekter og deltag i diskussioner|Opret og rediger milepæle, opgaver, diskussioner, dokumenter|Registrer tid for opgaver, generer rapporter|Dan projektgruppen og angiv adgangsrettigheder</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Kontakter der vil blive forbundet med projektet.</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Projekt titel </value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Læs mere</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Fjern bruger fra teamet</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Erstat</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Rapport Mappe</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Rapporter</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Gem og tilføj ny opgave</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Gem ændringer</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Søg</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Vælg</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Vælg fra eksisterende kontakter eller tilføj en ny</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Indstillinger</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Alle brugere kan oprette et projekt</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Vis</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Vis på side</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Faktureret Tid</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Tidsforbrug</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Startside</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Abonner på kommentarer</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Opgave tilføjet</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Startdatoen skal være før afleveringsdatoen</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Opgaven du flytter er forbundet med andre opgaver. {0} Vælg en handling:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Opgave Statuser</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Fjern links og opdater</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Vælg teksten du vil skjule for feed siderne og diskussions liste siden og klik "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tid</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Tidsregistrering</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Samlede</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Stop med at følge</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Fjern link imellem projekt og kontakten</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Afmeld kommentarer</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Opdater afleveringsfrist</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Opgaven du opdaterer er forbundet med andre opgaver. {0} Vælg en handling:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>HH</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Tilføj kommentar</value>
+  </data>
+</root>

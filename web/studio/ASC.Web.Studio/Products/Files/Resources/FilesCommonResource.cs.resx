@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Přístup</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Mimo portál</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentář</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Pouze pro čtení</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Plný přístup</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Odmítnut přístup</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Přehled</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrátor</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Nejdříve musíte získat přístup k souboru, aby jste s ním mohli pracovat</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>POKRAČOVAT</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Otevírání toho souboru v ONLYOFFICE™ vytvoří jeho kopii v Office OPEN XML formátu ve Vašem Google Drive. Původní soubor nebude nijak upraven. Při dalších úpravách souboru v ONLYOFFICE™ musíte otevřít novou kopii.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Znovu nezobrazovat</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Zadejte název souboru</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Vybrat typ souboru</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Já</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konvertovat a otevřít</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Ke stažení</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentář</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Změna vlastníka</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Konvertovat z {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Zkopírováno</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Vytvořeno</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Vytvořeno v DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Upraveno</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Přepsáno</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Obnoveno z revize {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Obnoveno ze změny dokumentu {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Nahráno</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Připojovací URL</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Konvertovat do</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Název dokumentu</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Odmítnuto</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Vyskytla se chyba během odesílání</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Odesílání dokumentu pomocí DocuSign bylo zrušeno</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Dokument byl poslán k zapsání pomocí DocuSign.</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Zrušeno</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Vložit komentář</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Špatný požadavek.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Tohoto uživatele nemůžete vybrat</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Konvertování trvá příliš dlouho.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Nastala chyba v Documents Service</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Soubor je otevřen pro editování {0}. Momentálně není podporována funkce na spolu-editování.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Soubor lze editovat v mobilní aplikaci {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Prázdný soubor</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Požadovaný soubor nebyl nalezen</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Soubor větší než {0} nebude konvertován</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Soubor větší než {0} nebude zkopírován</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Soubor větší než {0} nebude upraven</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Soubor větší než {0} nebude přesunut</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Není možné zkopírovat složku do její vlastní podsložky</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Požadovaná složka nebyla nalezena</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Špatný název</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Soubor je momentálně uzamčen jiným uživatelem</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Nejsou k dispozici žádné účty pro odeslání zprávy. Jděte do Pošty a připojte e-mailovou schránku.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Minimálně {0} e-mailových zpráv nebylo odesláno. Prosím navštivte e-mailový modul pro zobrazení chyb.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Příliš mnoho stahování.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Omlouváme se, ale formát tohoto souboru není podporován</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Autor, který provedl poslední změnu je neznámý.</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Soubor byl poškozen při ukládání</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Nepodařilo se získat soubor, který chcete uložit.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Nemáte dostatečné oprávnění k provedení operace</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Nelze autorizovat u {0} poskytovatele s přiděleným pověřením.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Nemáte dostatečné oprávnění k vytváření</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Nelze smazat soubor, protože je otevřen pro úpravy</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Nelze smazat složku, protože jeden z jejích souborů je otevřen pro úpravy</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Nemáte dostatečná oprávnění k odstranění souboru</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Nemáte dostatečná oprávnění k odstranění složky</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Nemáte dostatečná oprávnění k úpravám souboru</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Dokument již editujete v jiném okně</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Nemáte dostatečné oprávnění k zobrazení souboru</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Nemáte dostatečné oprávnění k zobrazení obsahu složky</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Nemáte dostatečná oprávnění k přejmenování souboru</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Nemáte dostatečná oprávnění k přejmenování složky</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Nelze aktualizovat soubor, protože je otevřen pro úpravy</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Nemáte dostatečné oprávnění k zobrazení obsahu složky</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Obsah složky třetí strany není k dispozici. Pokuste se znovu připojit k účtu.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Chyba při spuštění editujícího souboru</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Nelze aktualizovat soubor, který je otevřen pro úpravy</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Uživatel nenalezen</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Nelze nahlížet na prvky v koši</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Každý</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Soubor</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Složka</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Název složky</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonymní</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>Nový</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Přihlásit se</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Soubor vytvořen ve složce "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Náhled</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Udělej to samé jako uživatel|Odkaz na Dropbox, Box a další účty v sekci "Běžné dokumenty"|Nastavení přístupních práv k dokumentům a složkám v sekci "Běžné dokumenty".</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Vytvářejte, upravujte a sdílejte dokumenty. Spolupracujte na nich v reálném čase. Je garantována 100% kompatibilita s MS Office formáty.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Vytvářejte, upravujte a sdílejte dokumenty. Spolupracujte na nich v reálném čase. Je garantována 100% kompatibilita s MS Office formáty.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Vytvořit a upravit vlastní dokumenty stejně tak jako sdílené dokumenty se správnými přístupními právy|Udělit přístup ke čtení/upravování dalším uživatelům k dokumentům a složkám|Odkaz na Dropbox, Box nebo další účty v sekci "Moje dokumenty" </value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User}odstraněn</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Označit jako přečtené</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Hledat</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Sdílet</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Hlásit pokud je složka sdílená</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Zobrazit verze</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Velikost</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Upozornění, kdy dokument je označen pomocí DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Upozornění, když dokument v DocuSing změní status</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Upozornit při sdílení</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Upozornění, když je vyřízení e-mailů hotové</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Vyplňte pro změnu</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Název složky</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Znovu připojte</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Účet</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Nastavit na sdílení a vložit do složky "Běžné Dokumenty"</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Vytvořeno</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Dokumenty uživatele {0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Aktualizováno</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Odstraněno</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Vybrat</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Nastavení oprávnění</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Zobrazit akce souborů</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Zobrazit akce složek</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Podsložky</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Nahráno</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Označte jako verzi</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Označte jako revizi</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Verze a revize:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Křestní jméno</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Příjmení</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Soubor je odemčen</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

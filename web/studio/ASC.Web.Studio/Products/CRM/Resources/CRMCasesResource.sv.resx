@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Spara och Skapa Nytt Fall</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Alla fall</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Rättigheterna kommer sättas på fallen där du är författare</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Fall deltagare</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Fall Deltagare</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Falletikett</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Lista över falletiketter</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Falltitel</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Stänga fall</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Skapar fall...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Skapa det första fallet</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Skapa nytt fall</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Radera fall</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Raderar fall</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Redigera fall</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Redigera «{0}»-fallet</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Fall tillåter dig att behålla i en och samma plats all motsvarande historik, tilldela aktiviteter, ladda upp dokument för kontakter som deltar i en gemensam evenemang. Till exempel kan det vara en team training eller en utställning.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Inga fall som matchar ditt filter kan visas i denna sektion. Vänligen välj andra filtreringsalternativ eller rensa filtret för att se alla fall i denna sektion. Annars kan du skapa fallet om det inte finns med i listan.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Inga fall att visa för detta filter</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Fallistan är tom</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Deltagarlistan är tom</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Lägg till deltagare i ditt fall från listan över företag eller personer. Efteråt kommer du veta vem kommer delta i de uppkommande evenemangen kopplade med detta fall.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Importera fall</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>En korrekt formaterad CSV-fil ska väljas på din dators hårddisk. Den måste innehålla fälten eller kolumnerna åtskiljade av den utvald avgränsningstecken som kommer användas för att importera personer eller företag. Filerna som innehåller mer än {0} rader bör divideras i mindre delar för en korrekt importering. Försäkra dig om att du har valt portalanvändarna som ska få tillgång till informationen som importeras, annars kommer datan från CSV-filen bli tillgänglig för alla portalanvändare.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Välj en CSV-fil och sätt behörigheter innan du importerar fall</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Matcha kolumner i din fil med de motsvarande ONLYOFFICE™ CRM fälten. Vänligen observera att för att importera fall på rätt sätt måste du ha minst en kolumn från din fil matchad med 'Fallnamn'-fältet i ONLYOFFICE™ CRM. Fälten som innehåller datum måste ha följande formatet: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Vänligen, kontrollera fälten</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Gå till falllistan</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Importering av fall kan ta upp till flera minuter beroende på antal data.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importen har startat</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Fall deltagare</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Öppet fall</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Deltagare</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Begränsa tillgång till fallet</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Spara Ändringar</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Gå till profil</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Öppna i en ny flik</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Starta importen</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Alla fall</value>
+  </data>
+</root>

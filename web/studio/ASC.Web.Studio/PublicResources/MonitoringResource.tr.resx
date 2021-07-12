@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Önbelleği temizle</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Portal iş düzeltimi için kullanılan tüm kodlar ONLYOFFICE™ maksimum performansı içindir. Bazen (genelde yoğun bir güncellemeden sonra yada portal davranışında bir yanlışlık gözlemlendiği zaman) önbelleği temizlemeniz gerekebilir. &lt;b&gt;Önbelleği temizle&lt;/b&gt; tuşunu kullanarak kodları sunucudan boşaltabilir ve tekrar yükleyebilirsiniz. Bu operasyon sırasında portal verisi kaybı yaşanmaz.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Portal davranışında yanlışlık fark ettiyseniz bu seçeneği kullanın</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Önbellek</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Sorunuz olması halinde {0}SSS sayfamızı{1} ziyaret ediniz yada {2}support.onlyoffice.com{3} adresinden bize ulaşınız</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Sorularınız varsa {0}support.onlyoffice.com{1} adresinden bize ulaşın.</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Bizimle iletişime geçin</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Dönem</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>&lt;b&gt;Kayıtlar&lt;/b&gt; bölümü .zip dosyasında seçilen zaman aralığında tüm portal kayıtlarınızı yüklemenize izin verir. Zaman aralığı başlangıç ve bitiş tarihlerini seçin ve kayıtları almak için &lt;b&gt;Yükle&lt;/b&gt; tuşuna tıklayın.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Tüm kayıtları yükle</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Kayıtlar</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>&lt;b&gt;Portlar&lt;/b&gt; bölümü ONLYOFFICE™ portalının doğru çalışması ve durumu için(açık yada kapalı) gerekli tüm portların listesini içerir. ONLYOFFICE™ sunucusunun doğru olarak çalışması için bu portların &lt;b&gt;Açık&lt;/b&gt; durumda olması gerekir. Bazı portlarda sadece gelen yada giden bağlantılardan birinin açık olması gerekebilirken bazısında iki bağlantı tipinin de açık olması gerekbileceğini unutmayınız.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Sıralanan tüm portlar açık olmalıdır</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Portlar</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>&lt;b&gt;Servisler&lt;/b&gt; bölümü mevcut tüm ONLYOFFICE™ servislerini ve durumlarını gösterir(çalışan yada durdurulmuş). Servisleri servis durumunun sağındaki ilgili tuşları kullanarak tekrar başlatabilir yada durdurabilirsiniz.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>ONLYOFFICE™ hizmetler ve güncel durumları</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Hizmetler</value>
+  </data>
+</root>

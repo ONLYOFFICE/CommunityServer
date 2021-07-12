@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Σχόλιο</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Μόνο για ανάγνωση</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Πλήρης πρόσβαση</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Άρνηση πρόσβασης</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Επισκόπηση</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού Box</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού DropBox</value>
+  </data>
+  <data name="ButtonAddFavorite" xml:space="preserve">
+    <value>Σημείωση ως αγαπημένο</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού Google</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Προσθήκη λογαριασμού Nextcloud</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Προθήκη λογαριασμού OneDrive</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Άλλος λογαριασμός</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Ακύρωση όλων</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Αλλαγή ιδιοκτήτη</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Εκκαθάριση φίλτρου</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Δημιουργία αντιγράφου</value>
+  </data>
+  <data name="ButtonCopyExternalLink" xml:space="preserve">
+    <value>Αντιγραφή εξωτερικού συνδέσμου</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Αντιγραφή</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Αντιγραφή</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Δημιουργία εγγράφου</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Φάκελος</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Παρουσίαση</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>Δημιουργία παρουσίασης</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Λογιστικό φύλλο</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>Δημιουργία λογιστικού φύλλου</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Έγγραφο</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Λήψη</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Δημιουργία αντιγράφου αρχείου</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Άδειασμα κάδου απορριμμάτων</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Αρχεία</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Έγγραφα</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Όλα τα αρχεία</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Φάκελοι</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Εικόνες</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Μέσα</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Παρουσιάσεις</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Λογιστικά φύλλα</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Μετάβαση στα Έγγραφά μου</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Μάθετε περισσότερα...</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Μετακίνηση ή αντιγραφή</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Μετακίνηση σε</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Εντάξει</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="ButtonRemoveTemplateShort" xml:space="preserve">
+    <value>Αφαίρεση</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Μετονομασία</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Επαναφορά</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Όλα</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Αποστολή με DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Ρυθμίσεις δικαιωμάτων</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Εμφάνιση ιστορικού εκδόσεων</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Παράκαμψη</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Στην κορυφή</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Μεταφόρτωση</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Μεταφόρτωση αρχείων</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Μεταφόρτωση φακέλου</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Ιστορικό εκδόσεων</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Ακυρώθηκε</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Μετατροπή και άνοιγμα εγγράφου</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>Αποθήκευση εγγράφου</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>Μεταφόρτωση εγγράφου</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Αλλαγή ιδιοκτήτη</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Κοινές ρυθμίσεις</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Επιβεβαίωση αντικατάστασης</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Επιβεβαίωση</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Σημείωση: Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Επιβεβαίωση μετακίνησης</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Μετατροπή</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Λήψη ως</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Σφάλμα μετατροπής</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Κοινά έγγραφα</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Άνοιγμα στον περιηγητή</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Συγχαρητήρια</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Έγγραφα</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Αποθήκευση στον φάκελο:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Μήνυμα</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Προσθήκη μηνύματος</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Αφαίρεση μηνύματος</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Όνομα εγγράφου</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Προσθήκη {!user}</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Λήψη ως</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Λήψη</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Λήψη</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Μέγεθος</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Αυτόματα</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Ύψος</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Πλάτος</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>Κανένα αρχείο στον φάκελο</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Κανένας συνδεδεμένος λογαριασμός</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Σφάλμα</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Αγαπημένα</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Φίλτρο</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Φάκελοι</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Έναρξη τώρα</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>μέσω ηλεκτρονικής αλληλογραφίας</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Επιλογή όλων </value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Τα έγγραφά μου</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Άνοιγμα τοποθεσίας</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Απόκρυψη λίστας εγγράφων</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Συνθηματικό</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Έγγραφα έργου</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Σημείωση ως ανεγνωσμένο</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Σημείωση όλων ως ανεγνωσμένα</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Σημείωση ως ανεγνωσμένο</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>Όνομα αρχείου</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Επιλογή φακέλου</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Κοινές ρυθμίσεις</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Διαμοιρασμός</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Διαμοιρασμένα με εμένα</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Δείτε περισσότερα</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Ρυθμίσεις</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Λογαριασμοί τρίτων</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Σύνδεση λογαριασμού</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Σύνδεση λογαριασμών</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Γίνεται σύνδεση λογαριασμού</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Τίτλος φακέλου</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartykDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Επανασύνδεση</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Λογαριασμός</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Αναζήτηση σε</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Επιλογή</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Κάδος απορριμάτων</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Αφαίρεση από τη λίστα</value>
+  </data>
+</root>

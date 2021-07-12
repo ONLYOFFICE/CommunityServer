@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>추가 사용자</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>메시지를 추가</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>관리자</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>파일 첨부</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>문서에서 파일을 첨부</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>프로젝트 문서에서 파일을 첨부</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>프리젠 테이션을 만듭니다</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>스프레드 시트를 만듭니다</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>문서 만들기</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>자세히...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>뿐만 아니라 원본 형식으로 문서를 업로드</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>당신이 업로드 빠른 편집을 위해 {0} Office Open XML 내부 형식 {1}로 변환됩니다 모든 문서.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>파일을 삭제</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>파일을 다운로드</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>파일을 편집합니다</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0} 오른쪽 포털 또는 {2} 업로드가 {3}들이 여기까지 할 수에 생성 {1} 파일을 {4} 개방 {5} 및 {6} 편집 {7}들이 ONLYOFFICE™ 포털 편집기를 사용하여.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>문서의 목록이 비어 있습니다</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>제목은 다음과 같은 문자를 포함 할 수 없습니다 :</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>모두</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>피드</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>이 필터와 일치하는 뉴스가 없습니다</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>필터와 일치하는 뉴스는이 섹션에 표시 할 수 없습니다.</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>필터 :</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>검색어를 입력</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>보낸 사람</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>정렬</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>받는 사람</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>로그 아웃</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>더</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>새 문서</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>새 파일</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>여기에 표시 할 필요가 없습니다</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>모든 포털 활동은이 섹션에서 여기에 표시됩니다. 지금 표시 할 포털에 아무런 이벤트가 없습니다. 포탈을 사용하기 시작 내용으로 작성하여 모든 뉴스는이 페이지에 표시됩니다.</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>참고 :이 작업은 실행 취소 할 수 없습니다.</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>당신이 파일을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>이 목록에서 제거</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>메시지를 삭제</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>필터 다시 설정</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>알림 보내기</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>공유 설정</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>다음 뉴스보기</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>무료</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>당신은 새로운 요금제를 선택 하시겠습니까?</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>예, 계획을 업그레이드</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>년</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>포털의 저장 공간이 초과</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>포털에서 모든 오래된 내용을 삭제하거나 큰 저장 공간 하나에 현재 가격 계획을 변경하시기 바랍니다.
+당신의 문제에 대해 설명해주세요</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>충분하지 않아 무료 저장 공간</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>새 사용자를 추가 할 수 없습니다</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>새 사용자를 추가하면 현재 가격 계획에 의해 허용 포털 회원의 최대 수를 초과하게됩니다.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>새 사용자 추가</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>당신은 문서 ({0})을 만들 스프레드 시트 ({1}), 프리젠 테이션 ({2})와 가장 인기있는 형식으로 다운로드 할 수 있습니다.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>다음 파일을 편집 할 수 있습니다 : {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>다음 extentions으로 파일을 열 수 있습니다 : {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>당신이 문서에 원하는 파일을 업로드 할 수 있습니다.</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>파일 업로드</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>새로운 소식</value>
+  </data>
+</root>

@@ -1,0 +1,301 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Accepteren</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Toevoegen aan massamailing</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Sluit geschiedenis</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Creëren</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Afwijzen</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Verwijder</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Verwijder mailing</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Verwijder lid</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Verstuur uitnodiging</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Chat rooms</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Welkom bij {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anoniem</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Verstuurde bestanden verwijderen</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Alle bestanden</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>De bestanden die u heeft verstuurd via chat beslaan &lt;b&gt;&lt;/b&gt; van de schijfruimte van het portaal. Als u ervoor kiest om deze bestanden te verwijderen, zal het ruimte vrijmaken, maar de bestanden zullen niet langer toegankelijk zijn via de links in de geschiedenis voor alle deelnemers aan het gesprek. Selecteer wat u wilt verwijderen:</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Bestanden meer dan een maand geleden verzonden</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Bestanden meer dan een jaar geleden verzonden</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Bezig met verbinden...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Verbind Me</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Creëer chat room</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Verstuur meerdere</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Snelkoppelingen aanmaken en Talk opstarten als webapplicatie.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Gebruik Ctrl+Enter om berichten te zenden, Enter om een nieuwe paragraaf te beginnen</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Smileys</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Filter Inschakelen/Uitschakelen</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>De Adobe Flash Player versie is niet correct</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Toon/Verberg groepen</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Berichten geschiedenis</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player is niet geïnstalleerd</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Selecteer een persoon in de contacten lijst om een gesprek te beginnen</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Bestand versturen</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Sleep hier een contact om een ontvanger toe te voegen. </value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Toon tab aan de linkerkant</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Toon tab aan de rechterkant</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>lezen</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Sleep hier een contact om een ontvanger toe te voegen</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Huidige Status</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Niet meer vragen</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>kies eerst gebruiker{0}van lijst om chat te beginnen</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Weet je zeker dat je deze gebruiker van de chat wil verwijderen? </value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Nieuw bericht</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>heeft je uitgenodigd</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Weet je zeker dat je deze kamer wil verwijderen? </value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Verzenden</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Tijdelijke chatroom (wordt verwijderd als alle gebruikers deze verlaten)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Onderwerp</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Geldige symbolen</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Mailings</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Talk</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Zoek berichten in geschiedenis</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Bestand: {0}Grootte: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>van</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Toon lijst</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Afwezig</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Beschikbaar</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Chat met collega's in real-time. Laat de contactenlijst automatisch updaten. Krijg meldingen van nieuwtjes. </value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Browser Notificaties</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Massamailing aanmaken</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Creëer chat room</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Verwijder gebruiker uit chat</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Uitnodigen voor chat</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Verwijder chat</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>letters, cijfers, en punten (.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Typ een bericht...</value>
+  </data>
+</root>

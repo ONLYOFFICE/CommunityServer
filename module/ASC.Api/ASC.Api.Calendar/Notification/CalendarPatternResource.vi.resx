@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CalendarSharingEmailPattern" xml:space="preserve">
+    <value>#if($SharingType == "calendar")
+h1.Đã cấp quyền truy cập vào Lịch: $CalendarName
+ 
+ 
+"$UserName":"$UserLink" đã cấp cho bạn quyền truy cập vào lịch: $CalendarName 
+ 
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về các lịch được chia sẻ với bạn, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^
+#end
+#if($SharingType == "event")
+h1.Đã cấp quyền truy cập vào Sự kiện: $EventName
+ 
+ 
+"$UserName":"$UserLink" đã cấp cho bạn quyền truy cập vào sự kiện: $EventName
+ 
+ 
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về các lịch được chia sẻ với bạn, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^
+#end</value>
+  </data>
+  <data name="CalendarSharingJabberPattern" xml:space="preserve">
+    <value>#if($SharingType == "calendar")
+Lịch. Đã cấp quyền truy cập vào Lịch: $CalendarName
+#end
+#if($SharingType == "event")
+Lịch. Đã cấp quyền truy cập vào Sự kiện: $EventName
+#end</value>
+  </data>
+  <data name="CalendarSharingSubject" xml:space="preserve">
+    <value>#if($SharingType == "calendar")
+Lịch. Đã cấp quyền truy cập vào lịch: $CalendarName
+#end
+#if($SharingType == "event")
+Lịch. Đã cấp quyền truy cập vào sự kiện: $EventName
+#end</value>
+  </data>
+  <data name="EventAlertEmailPattern" xml:space="preserve">
+    <value>h1.Nhắc nhở về Sự kiện: $EventName
+ 
+ 
+Sự kiện $EventName được ấn định vào ngày $EventStartDate #if($EventEndDate!="")- $EventEndDate #end
+#if($EventDescription!="")
+ 
+ Mô tả sự kiện:
+ 
+$EventDescription
+#end
+ 
+ 
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận nhắc nhở về sự kiện, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="EventAlertJabberPattern" xml:space="preserve">
+    <value>Sự kiện $EventName được ấn định vào ngày $EventStartDate #if($EventEndDate!="")- $EventEndDate #end
+#if($EventDescription!="")
+ 
+ Mô tả sự kiện:
+ 
+$EventDescription
+#end</value>
+  </data>
+  <data name="EventAlertSubject" xml:space="preserve">
+    <value>Lịch. Nhắc nhở về sự kiện: $EventName</value>
+  </data>
+</root>

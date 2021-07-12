@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Opprett ny oppgave</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Opprett ny oppgave</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Forfallsdato</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Stengt oppgave</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Lenk med kontakt</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Lag den første oppgaven</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Opprett oppgave</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Egendefinert periode</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andre brukere</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Slett oppgave</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Forfallsdato</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Rediger oppgave</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Velg en CSV-fil</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Vennligst, verifiser feltene</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Gå til oppgavelisten</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Oppgaveimport kan ta flere minutter, basert på datamengden.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importering har startet</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Importer oppgaver</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Mine oppgaver</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>aldri</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Stengt</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Forfalt</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 minutter</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>fem minutter</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>en halvtime</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>en time</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>en dag</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>to timer</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ansvarlig</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Lagrer oppgaven</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Start import</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Oppgave</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Oppgavekateogri</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Telefonsamtale</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Salgsprospekt</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Prøveversjon</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Telefaks</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Lunsj</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Avtale</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Notis</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Levering</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Sosiale nettverk</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Oppgavebeskrivelse</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Tildel til</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Oppgaver</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Oppgavestatus</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Stengt</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Oppgavetittel</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>tre dager</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Alle oppgaver</value>
+  </data>
+</root>

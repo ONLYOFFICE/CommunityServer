@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
+    <value>注意您的客戶在社交網絡中對您的產品和品牌的看法。只需將Twitter帳戶與聯繫人連接，然後按照門戶網站上的tweet新聞提要。</value>
+  </data>
+  <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
+    <value>沒有關聯的Twitter 帳戶</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>內部錯誤</value>
+  </data>
+  <data name="ErrorTwitterAccountNotFound" xml:space="preserve">
+    <value>找不到Twitter帳戶</value>
+  </data>
+  <data name="ErrorTwitterConnectionFailure" xml:space="preserve">
+    <value>無法連接到Twitter</value>
+  </data>
+  <data name="ErrorTwitterRateLimit" xml:space="preserve">
+    <value>超過了允許的最大Twitter請求數。稍後再試。</value>
+  </data>
+  <data name="ErrorTwitterUnauthorized" xml:space="preserve">
+    <value>該應用程序沒有Twitter存取權限。請重新連接Twitter帳戶。</value>
+  </data>
+  <data name="ErrorUnknownTwitterAccount" xml:space="preserve">
+    <value>未知的Twitter帳戶</value>
+  </data>
+  <data name="LinkTwitterAccount" xml:space="preserve">
+    <value>連結Twitter帳戶</value>
+  </data>
+  <data name="NoAccountsHasBeenFound" xml:space="preserve">
+    <value>找不到帳戶</value>
+  </data>
+  <data name="NoCompaniesHasBeenFound" xml:space="preserve">
+    <value>找不到公司</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>請稍候...</value>
+  </data>
+  <data name="SocialMediaAccountNotFoundTwitter" xml:space="preserve">
+    <value>Twitter帳戶未連接</value>
+  </data>
+</root>

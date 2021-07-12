@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. New Acara Ditambahkan ke "$ EntityTitle": "$ {__ VirtualRootPath} / $ {EntityRelativeURL}" $ __ DateTime "$ __ AuthorName": "$ __ AuthorUrl" telah menambahkan acara baru untuk "$ EntityTitle": "$ {__ VirtualRootPath} / $ {EntityRelativeURL}":  $ AdditionalData.get_item ("EventContent")  #foreach ($ Fileinfo di $ AdditionalData.get_item ("File"). Keys)  #beforeall  ----------------------------------------  #each  "$ Fileinfo": "$ AdditionalData.get_item (" File "). get_item ($ Fileinfo)"  # end  ^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}" Portal. Jika Anda tidak ingin menerima pemberitahuan tentang peristiwa baru yang ditambahkan dalam modul CRM, silahkan mengelola "pengaturan langganan" Anda: ". $ RecipientSubscriptionConfigURL" ^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. CRM. Kontak baru Dibuat Menggunakan 'Situs Contact Form' "$ EntityTitle": "$ {__ VirtualRootPath} /Products/CRM/Default.aspx?ID=$EntityID" $ __ DateTime Sebuah kontak baru telah dibuat dengan menggunakan 'Situs Contact Form' "$ EntityTitle": "$ {__ VirtualRootPath} /Products/CRM/Default.aspx?ID=$EntityID" Informasi kontak: #foreach ($ ContactInfo di $ AdditionalData.Keys) #each $ ContactInfo: $ AdditionalData.get_item ($ ContactInfo) # end ^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}" Portal. Untuk mengubah jenis pemberitahuan, silahkan mengelola "pengaturan langganan" Anda: ". $ RecipientSubscriptionConfigURL" ^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Ekspor Data Berhasil Selesai 
+
+Silahkan ikuti link ini untuk men-download arsip: "exportdata.zip":"${EntityRelativeURL}" 
+
+*Catatan*: link ini berlaku selama 24 jam saja. 
+
+Jika Anda memiliki pertanyaan atau butuh bantuan jangan ragu untuk menghubungi kami di "support.onlyoffice.com":"http://support.onlyoffice.com" 
+
+Salam, 
+ONLYOFFICE™ Dukungan Tim 
+"www.onlyoffice.com":"http://onlyoffice.com/" 
+
+^Anda menerima email ini karena Anda adalah pengguna terdaftar dari "${__VirtualRootPath}":"${__VirtualRootPath}" Portal. Untuk mengubah jenis pemberitahuan, silahkan mengelola "pengaturan langganan":"$RecipientSubscriptionConfigURL"^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1. CRM. Data Impor Berhasil Selesai 
+
+Pergi ke "Contacts":"$__VirtualRootPath/Products/CRM/" daftar. 
+
+Jika Anda memiliki pertanyaan atau butuh bantuan jangan ragu untuk menghubungi kami di "support.onlyoffice.com":"http://support.onlyoffice.com" 
+
+Salam, 
+ONLYOFFICE™ Dukungan Tim 
+"www.onlyoffice.com":"http://onlyoffice.com/" 
+
+^Anda menerima email ini karena Anda adalah pengguna terdaftar dari "${__VirtualRootPath}":"${__VirtualRootPath}" Portal. Untuk mengubah jenis pemberitahuan, silahkan mengelola "pengaturan langganan":"$RecipientSubscriptionConfigURL"^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1.Anda yang Bertanggung jawab untuk Peluang: "$ EntityTitle": "$ {__ VirtualRootPath} /Products/CRM/Deals.aspx?id=$EntityID" 
+
+$ __ DateTime "$__AuthorName":"$__AuthorUrl" telah menunjuk Anda bertanggung jawab untuk kesempatan: $EntityTitle. 
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Peluang deskripsi: 
+$AdditionalData.get_item("OpportunityDescription") 
+#end 
+
+^Anda menerima email ini karena Anda adalah pengguna terdaftar dari "${__VirtualRootPath}":"${__VirtualRootPath}" Portal. Untuk mengubah jenis pemberitahuan, silahkan mengelola "pengaturan langganan":"$RecipientSubscriptionConfigURL" ^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Task Assigned to You: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Access Memang untuk "$ EntityTitle": "$ {__ VirtualRootPath} / $ {EntityRelativeURL}" $ __ DateTime "$ __ AuthorName": "$ __ AuthorUrl" telah diberikan Anda akses ke "$ EntityTitle": "$ {__ VirtualRootPath} / $ {EntityRelativeURL}". ^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}" Portal. Jika Anda tidak ingin menerima pemberitahuan tentang akses yang diberikan kepada item CRM, silahkan mengelola "pengaturan langganan" Anda: ". $ RecipientSubscriptionConfigURL" ^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Reminder about the task: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. Acara baru Ditambahkan ke $ EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. Kontak Baru Dibuat Menggunakan 'Situs Contact Form'</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. Ekspor Data Berhasil Selesai</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. Data Impor Berhasil Selesai</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. Anda sebagai Penanggung Jawab untuk Peluang: $ EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. Tugas yang ditugaskan ke Anda: $ EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. Akses Menjadi $ EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>CRM. Pengingat tentang Tugas: $ EntityTitle</value>
+  </data>
+</root>

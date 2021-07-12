@@ -1,0 +1,1393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Tindakan</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Identitas Tindakan</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>Tipe Tindakan</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>Administrator yang Ditambahkan: {0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>Administrator yang Dihapus: {0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Pesan Administrator Diperbarui</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>Administrator [{0}]. Akses Penuh Terbuka</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>Lampirkan</value>
+  </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Audit Seumur Hidup Diperbarui</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>Laporan Riwayat Audit Telah Diunduh</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>Laporan Riwayat Audit ({0}-{1})</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>Kunci otorisasi pihak ketiga diperbarui</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>Kasus [{0}]. File Dilampirkan" {1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>Kasus Ditutup: {0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>Kasus Dibuat: {0}</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>Kasus [{0}]. Riwayat Acara Dibuat: {1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>Kasus [{0}]. Tag Dibuat: {1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>Kasus Dihapus: {0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>Kasus [{0}]. Riwayat Acara Dihapus: {1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>Kasus [{0}]. Tag Dihapus: {1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>Kasus [{0}]. File Dihapus Dari Lampiran: {1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>Kasus [{0}]. Perusahaan Terkait: {1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>Kasus [{0}]. Orang Ditautkan: {1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>Kasus Dibuka: {0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>Kasus [{0}]. Akses Dibuka</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>Kasus [{0}]. Akses Dibatasi: {1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>Kasus. Tag Dibuat: {0}</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>Kasus Dihapus: {0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>Kasus. Tag Dihapus: {0}</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>Kasus yang Diekspor Ke File CSV: {0}</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>Kasus Diimpor Dari File CSV</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Kasus</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>Kasus [{0}]. Perusahaan Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>Kasus [{0}]. Orang Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>Kasus Diperbarui: {0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>Kolom Pengguna Kasus Dibuat: {0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>Kolom Pengguna Kasus Dihapus: {0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Urutan Kolom Pengguna Kasus Diperbarui: {0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>Kolom Pengguna Kasus Diperbarui: {0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>Tema Warna Diubah</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>Pengaturan Umum</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>Perusahaan Digabung: {0} - {1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>Perusahaan [{0}]. File Dilampirkan: {1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>Perusahaan Dibuat: {0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>Perusahaan [{0}]. Riwayat Acara Dibuat: {1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>Perusahaan [{0}]. Tag Seseorang Dibuat: {1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>Perusahaan [{0}]. Tag Dibuat: {1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>Perusahaan Dibuat dengan Web Form: {0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>Perusahaan Dihapus: {0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>Perusahaan [{0}]. Riwayat Acara Dihapus: {1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>Perusahaan [{0}]. Tag Dihapus: {1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>Perusahaan[{0}]. Dihapus Dari Lampiran: {1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>Perusahaan [{0}]. Orang Ditautkan: {1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>Perusahaan [{0}]. Proyek Ditautkan: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>Perusahaan [{0}]. Orang Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>Perusahaan [{0}]. Proyek Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>Perusahaan Diperbarui: {0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>Perusahaan [{0}]. Tingkat Emosi Seseorang Diperbarui</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>Perusahaan [{0}]. Foto Diperbarui</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Perusahaan [{0}]. Info Penting Diperbarui</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Perusahaan [{0}]. Tingkat Emosi Diperbarui</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>Perusahaan [{0}]. File Diunggah: {1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>Kolom Pengguna Perusahaan Dibuat: {0}</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>Kolom Pengguna Perusahaan Dihapus: {0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Urutan Kolom Pengguna Perusahaan Diperbarui: {0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>Kolom Pengguna Perusahaan Diperbarui: {0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>Email Untuk Menghubungi Admin Telah Terkirim</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>Kontak [{0}]. Proyek Ditautkan: {1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>Kontak [{0}]. Tugas Dibuat: {1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>Kontak. Tag Dibuat: {0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>Kontak Dihapus: {0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>Kontak. Tag Dihapus: {0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>Kontak Diekspor Ke File CSV: {0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>Kontak Diimpor Dari File CSV</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontak</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Tag Kontak Diperbarui</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>Tingkat Emosi Kontak Telah Dibuat: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>Tingkat Emosi Kontak Telah Dihapus: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Tingkat Emosi Kontak Diperbarui</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>Urutan Tingkat Emosi Kontak Diperbarui: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>Tingkat Emosi Kontak Diperbarui: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>Tingkat Emosi Kontak[{0}]. Warna Diperbarui</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>Tipe Kontak Dibuat: {0}</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>Tipe Kontak Dihapus: {0}</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>Tipe Kontak</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>Urutan Tipe Kontak Diperbarui: {0}</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>Tipe Kontak Diperbarui: {0}</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>Kontak [{0}]. Proyek Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>Kolom Pengguna Kontak Dibuat: {0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>Kolom Pengguna Kontak Dihapus: {0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Urutan Kolom Pengguna Kontak Diperbarui: {0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>Kolom Pengguna Kontak Diperbarui: {0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Cookie Diperbarui</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>Buat</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>Semua Data telah Diekspor</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>Mata Uang Standar Diperbarui</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>Entita CRM. File Dihapus Dari Lampiran: {0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>File CRM</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>SMTP Mail dikirim ke Kontak: {0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan SMTP Diperbarui</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Urutan Kategori Tugas CRM Diperbarui: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>Kategori Tugas CRM Dibuat: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>Kategori Tugas CRM Dihapus: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>Kategori Tugas CRM Diperbarui: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>Ikon Kategori Tugas CRM Diperbarui: {0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>Tugas CRM Ditutup: {0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>Tugas CRM Dibuat: {0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>Tugas CRM Dihapus: {0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>Tugas CRM Dibuka: {0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>Tugas CRM Diekspor ke File CSV: {0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>Tugas CRM Diimpor Dari File CSV</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>Tugas CRM</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>Tugas CRM Diperbarui: {0}</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>Email Percobaan Dikirim</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>Nilai Tukar Mata Uang Diperbarui: {0} - {1}</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Navigasi Kustom Diperbarui</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Halaman Depan Diperbarui</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>Hapus lampiran</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi [{1}]. File Dilampirkan: {2}</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi [{1}]. Komentar Dibuat</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi [{1}]. Komentar Dihapus</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi [{1}]. Komentar Diperbarui</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi Dibuat: {1}</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi Dihapus: {1}</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi [{1}]. File Dihapus Dari Lampiran: {2}</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskusi</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi Diperbarui: {1}</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi yang Diikuti Diperbarui: {1}</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan DNS Diperbarui</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>Lokasi Layanan Dokumen Diperbarui</value>
+  </data>
+  <data name="DocumentsForcesave" xml:space="preserve">
+    <value>Pengaturan forcesave Diperbarui</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Timpa telah Diperbarui</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="DocumentsStoreForcesave" xml:space="preserve">
+    <value>Pengaturan forcesave store diperbarui</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Pihak Ketiga Diperbarui</value>
+  </data>
+  <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Format Unggahan Diperbarui</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>Ekspor</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>Atur pemilik [{0}] ke [{1}]</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>File Dikonversi ke Format Internal: {0}</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>File [{0}]. Disalin Dari Folder "{1}" Ke Folder: "{2}"</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>File [{0}]. Disalin Dengan Menimpa Data Dari Folder "{1}" Ke Folder: "{2}"</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>File Dibuat: {0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>File [{0}]. Revisi: {1}. Versi Dibuat</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>File Dihapus: {0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>File [{1}]. Revisi: {1}. Versi Dihapus</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>File Diunduh: {0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>File [{0}]. Diunduh Sebagai: {1}</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>Folder [{0}]. File Diimpor: {1}. Penyedia: {2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>File Dikunci: {0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>File [{0}]. Dipindahkan Dari Folder "{1}" Ke Folder: "{2}"</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>File [{0}]. Dipindahkan Ke Folder Trash</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>File [{0}]. Dipindahkan Dengan Menimpa Data Dari Folder "{1}" Ke Folder: "{2}"</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>File Diganti Nama: {0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>File [{0}]. Revisi: {1}. Versi Dipulihkan</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>Document {1} sudah di tandai via {0}</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>Mengirim tautan bersama ke berkas [{0}]. Penerima: [{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>Dokumen {1} dikirim untuk ditandai melalui {0}</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>Kunci File Dibuka: {0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>File Diperbarui: {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>File [{0}]. Akses Diperbarui</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>File [{0}].Revisi{1}. Komentar Diperbarui</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>File Diunggah: {0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>Folder [{0}]. Disalin Ke Folder: {1}</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>Folder [{0}]. Disalin Dengan Menimpa Data Ke Folder: {1}</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>Folder Dibuat: {0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>Folder Dihapus: {0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>Folder [{0}]. Dipindah Ke Folder: {1}</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>Folder [{0}].Dipindah Ke Folder Trash</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>Folder [{0}]. Disalin Dengan Menimpa Data Ke Folder: {1}</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>Folder Diganti Nama: {0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>Folder [{0}]. Akses Diperbarui</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>Ikuti</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Pengaturan Sphinx Diperbarui</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>Umum</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Sambutan Diperbarui</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>Grup Dibuat: {0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>Grup Dihapus: {0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>Grup</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>Grup Diperbarui: {0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>Akun Tamu</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>Tamu Diaktifkan: {0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>Tamu Dibuat: {0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>Tamu Dibuat Via Undangan: {0}</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>Tamu Diimpor: {0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Kategori Riwayat Acara. Urutan Diperbarui: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>Kategori Riwayat Acara Dibuat: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>Kategori Riwayat Acara Dihapus: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>Kategori Riwayat Acara Diperbarui: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>Kategori Riwayat Acara [{0}]. Ikon Diperbarui</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>Impor</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>Invoice Dibuat: {0}</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>Ketentuan Standar Invoice Diperbarui</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>Invoice Dihapus: {0}</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>Invoice Downloaded: {0}</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>Item Invoice Dibuat: {0}</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>Item Invoice Dihapus: {0}</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>Item Invoice Dihapus: {0}</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>Item Invoice Diperbarui: {0}</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>Format Angka Invoice Diperbarui</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>Invoice Dihapus: {0}</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>Pengaturan Invoice</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>Invoice [{0}]. Status Diperbarui: {1}</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>Pajak Invoice Dibuat: {0}</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>Pajak Invoice Dihapus: {0}</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>Pajak Invoice Diperbarui: {0}</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>Invoice Diperbarui: {0}</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Bahasa Diperbarui</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>Lisensi key telah diunggah</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>Tautan</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>Login Gagal</value>
+  </data>
+  <data name="LoginFailBruteForce" xml:space="preserve">
+    <value>Login gagal. Terlalu banyak percobaan</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>Login Gagal. Profil Dinonaktifkan</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>Login Gagal. Kombinasi nama pengguna-kata sandi salah</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value>Keamanan IP: Login Gagal</value>
+  </data>
+  <data name="LoginFailRecaptcha" xml:space="preserve">
+    <value>Login gagal. Recaptcha tidak valid</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>Login Gagal. Akun Jejaring Sosial yang Ditautkan Tidak Ditemukan</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>Gagal Login lewat API</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>Gagal Login lewat API &amp; Kode SMS</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>Login via API &amp; Sosial Media Gagal</value>
+  </data>
+  <data name="LoginFailViaApiTfa" xml:space="preserve">
+    <value>Gagal login melalui API &amp; aplikasi Authenticator</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>Login via SMS gagal</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>Login via SSO gagal</value>
+  </data>
+  <data name="LoginFailViaTfaApp" xml:space="preserve">
+    <value>Login melalui aplikasi Authenticator gagal</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>Laporan Riwayat Login Diunduh</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>Laporan Riwayat Login ({0}-{1})</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Login Berhasil</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>Login Via Akun Jejaring Sosial Berhasil</value>
+  </data>
+  <data name="LoginSuccessSocialApp" xml:space="preserve">
+    <value>Login berhasil via aplikasi sosial</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>Berhasil Login via API</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>Berhasil Login via API &amp; Kode SMS</value>
+  </data>
+  <data name="LoginSuccessViaApiTfa" xml:space="preserve">
+    <value>Sukses Login via API &amp; aplikasi authenticator</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>Login via SMS berhasil</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>Login via API &amp; Sosial Media Sukses</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>Berhasil Login via SSO</value>
+  </data>
+  <data name="LoginSuccesViaTfaApp" xml:space="preserve">
+    <value>Login berhasil via aplikasi authenticator</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Layanan Mail Telah Diperbarui</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Tahap Pekerjaan Dibuat: {1}]</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>Proyek [{0}]. Tahap Pekerjaan Dihapus: {1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Tahap pekerjaan</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Tahap Pekerjaan Diperbarui: {1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>Proyek [{0}]. Tahap Pekerjaan [{1}]. Status Diperbarui: {2}</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>Pindah</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>Kesempatan. Tag Dibuat: {0}</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>Kesempatan Dihapus: {0}</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>Kesempatan. Tag Dihapus: {0}</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>Kesempatan Diekspor Ke File CSV: {0}</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>Kesempatan Diimpor Dari File CSV</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>Kesempatan [{0}]. File Dilampirkan: {1}</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>Kesempatan Dibuat: {0}</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>Kesempatan [{0}]. Riwayat Acara Dibuat: {1}</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>Kesempatan [{0}]. Tag Dibuat: {1}</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>Kesempatan Dihapus: {0}</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>Kesempatan [{0}]. Riwayat Acara Dihapus: {1}</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>Kesempatan [{0}]. Tag Dihapus: {1}</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>Kesempatan [{0}]. File Dihapus Dari Lampiran: {1}</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>Kesempatan [{0}]. Perusahaan Ditautkan: {1}</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>Kesempatan [{0}]. Orang Ditautkan: {1}</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>Kesempatan [{0}]. Akses Dibuka</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>Kesempatan [{0}]. Akses Terbatas: {1}</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>Tahap Kesempatan Dibuat: {0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>Tahap Kesempatan Dihapus: {0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>Urutan Tahap Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>Tahap Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>Warna Tahap Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>Kesempatan [{0}]. Perusahaan Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>Kesempatan [{0}]. Orang Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>Tahap Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>Kolom Pengguna Kesempatan Dibuat: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>Kolom Pengguna Kesempatan Dihapus: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Urutan Kolom Pengguna Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>Kolom Pengguna Kesempatan Diperbarui: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>Profil Organisasi</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>Profil Organisasi. Nama Perusahaan Diperbarui: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>Profil Organisasi. Logo Invoice Diperbarui</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>Pengaturan Lainnya</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>Pemilik Diubah: {0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>Pemilik [{0}]. Instruksi Perubahan Pemilik Dikirim</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>Pemilik [{0}].Instruksi Deaktivasi Portal Dikirim</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>Pemilik [{0}]. Instruksi Menghapus Portal Dikirim</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>Halaman</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Kekuatan Kata Sandi Diperbarui</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>Orang</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>Orang [{0}]. File Dilampirkan" {1}</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>Orang Didaftarkan: {0}</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>Orang [{0}]. Tag Perusahaan Dibuat: {1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>Orang [{0}]. Riwayat Acara Dibuat: {1}</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>Orang [{0}]. Tag Dibuat: {1}</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>Orang Didaftarkan dengan Web Form : {0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>Orang Dihapus: {0}</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>Orang [{0}]. Riwayat Acara Dihapus: {1}</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>Orang [{0}]. Tag Dihapus: {1}</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>Orang [{0}]. File Dihapus Dari Lampiran: {1}</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>Orang [{0}]. Proyek Ditautkan: {1}</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>Orang Didaftarkan: {0}</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>Orang Digabungkan: {0} - {1}</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>Orang</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>Orang [{0}]. Proyek Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>Orang Diperbarui: {0}</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>Orang [{0}]. Tingkat Emosi Perusahaan Diperbarui</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>Orang [{0}]. Foto Diperbarui</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Orang [{0}]. Info Penting Diperbarui</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Orang [{0}]. Tingkat Emosi Diperbarui</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>Orang [{0}]. File Diunggah: {1}</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>Kolom Pengguna Orang Dibuat: {0}</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>Kolom Pengguna Orang Dihapus: {0}</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Urutan Kolom Pengguna Orang Diperbarui: {0}</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>Kolom Pengguna Orang Diperbarui: {0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Akses Portal Diperbarui</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>Portal Dinonaktifkan</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>Portal Dihapus</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>Produk [{0}]. Akses Dibuka</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>Produk [{0}]. Grup [{1}]. Akses Dibuka</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>Produk [{0}]. Pengguna [{1}]. Akses Dibuka</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>Produk [{0}]. Akses Dibatasi</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>Produk [{0}]. Administrator Ditambahkan: {1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>Produk</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>Produk [{0}]. Administrator Dihapus: {1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>Daftar Produk Diperbarui</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>Produk</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>Proyek Dibuat: {0}</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>Template [{0}]. Proyek Dibuat: {1}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Proyek Dihapus: {0}</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>Proyek [{0}]. Anggota Dihapus: {1}</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>Proyek Diikuti: {0}</value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>Proyek [{0}]. Perusahaan Ditautkan: {1}</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>Proyek [{0}]. Kontak Ditautkan: {1}</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>Proyek [{0}]. Orang Ditautkan: {1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>Proyek Diimpor Dari Basecamp: {0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Proyek</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Proyek</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>Template Proyek Dibuat: {0}</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>Template Proyek Dihapus: {0}</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>Template Proyek Diperbarui: {0}</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>Proyek Tidak Diikuti: {0}</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>Proyek [{0}]. Perusahaan Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>Proyek [{0}]. Orang Tidak Ditautkan: {1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>Proyek Diperbarui: {0}</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>Proyek [{0}]. Anggota [{1}]. Hak Akses Diperbarui</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>Proyek [{0}]. Status Diperbarui: {1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>Proyek [{0}]. Tim Diperbarui: {1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>Reassigns</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>Laporan</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>Template Laporan Proyek Dibuat: {0}</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>Template Laporan Proyek Dihapus: {0}</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>Template Laporan Proyek Diperbarui: {0}</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>Kirim</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>Perintah Mengundang Dikirimkan: {0}</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>Sesi Selesai</value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>Sesi Dimulai</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSO Dinonaktifkan</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSO Diaktifkan</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>Mulai backup</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>Mulai migrasi portal region</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Sub-Tugas Dibuat: {2}</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Sub-Tugas Dihapus: {2}</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Sub-Tugas Diperbarui: {2}</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Sub-Tugas [{2}]. Status Diperbarui: {3}</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>Akun Sistem</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>ID Target</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. File Dilampirkan: {2}</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Komentar Dibuat</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas  [{1}]. Komentar Dihapus</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Komentar Diperbarui</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas Dibuat: {1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>Proyek [{0}]. Diskusi [{1}]. Tugas Dibuat: {2}</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas Dihapus: {1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas: {1}. File Dihapus Dari Lampiran: {2}</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>Proyek [{0}]. Tahap Pekerjaan [{1}]. Tugas Dipindahkan: {2}</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas Ditautkan: {1} - {2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Tugas</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas Tidak Ditautkan: {1} - {2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Waktu Tugas Diperbarui: {2}</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>Waktu Tugas Dihapus: {0}</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>Waktu Tugas [{0}]. Status Diperbarui: {1}</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Waktu Tugas Diperbarui: {2}</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Tidak Ditautkan Dengan Tahap Pekerjaan.</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas Diperbarui: {1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas Yang Mengikuti Diperbarui: {1}</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>Proyek [{0}]. Tugas [{1}]. Status Diperbarui: {2}</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>Template Tim Diubah</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>Pihak Ketiga Dibuat: {0}. Penyedia: {1}</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>Pihak Ketiga Dihapus: {0}. Penyedia: {1}</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>Pihak Ketiga diperbarui: {0}. Penyedia: {1}</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Pantauan Waktu</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Zona Waktu Diperbarui</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Domain Email Aman Diperbarui</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>Pengaturan Otentikasi Dua Faktor Diperbarui</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>Tinggalkan</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>Akun Tidak Dikenal</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>Hapus tautan</value>
+  </data>
+  <data name="UpdateAccessActionType" xml:space="preserve">
+    <value>Akses Diperbarui</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>Perbarui</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>Unggah</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>Pengguna Diaktifkan: {0}</value>
+  </data>
+  <data name="UserAddedAvatar" xml:space="preserve">
+    <value>Pengguna [{0}]. Avatar Ditambahkan</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>Pengguna Dibuat: {0}</value>
+  </data>
+  <data name="UserCreatedViaInvite" xml:space="preserve">
+    <value>Pengguna Dibuat Melalui Undangan: {0}</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Data yang ditugaskan kembali:dari pengguna{0}ke pengguna{1}</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>Pengguna Dihapus: {0}</value>
+  </data>
+  <data name="UserDeletedAvatar" xml:space="preserve">
+    <value>Pengguna [{0}]. Avatar Dihapus</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>Pengguna [{0}]. File Diperbarui: {1}</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>Pengguna Diimpor: {0}</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>Akun Jejaring Sosial Ditautkan. Penyedia: {0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>Pengguna Dihapus: {0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>Pengguna [{0}]. Instruksi Aktivasi Terkirim</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>Instruksi Penghapusan Profil Terkirim</value>
+  </data>
+  <data name="UserSentEmailInstructions" xml:space="preserve">
+    <value>Pengguna [{0}]. Instruksi Perubahan Email Terkirim</value>
+  </data>
+  <data name="UserSentPasswordInstructions" xml:space="preserve">
+    <value>Pengguna [{0}]. Instruksi Perubahan Kata Sandi Terkirim</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>Pengguna [{0}]. Instruksi Aktivasi Terkirim</value>
+  </data>
+  <data name="UsersUpdatedStatus" xml:space="preserve">
+    <value>Pengguna [{0}]. Status Diperbarui</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>Pengguna [{0}]. Tipe Diperbarui</value>
+  </data>
+  <data name="UserTfaDisconnected" xml:space="preserve">
+    <value>Aplikasi Authenticator terputus:{0}</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>Kode backup telah dibuat</value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>Akun Jejaring Sosial Tidak Ditautkan. Penyedia: {0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Pengguna Diperbarui: {0}</value>
+  </data>
+  <data name="UserUpdatedAvatarThumbnails" xml:space="preserve">
+    <value>Pengguna [{0}]. Thumbnail Avatar Diperbarui</value>
+  </data>
+  <data name="UserUpdatedEmail" xml:space="preserve">
+    <value>Email dimutakhirkan</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>Bahasa Diperbarui</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>Kata Sandi Diperbarui</value>
+  </data>
+  <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
+    <value>Kunci Formulir Kontak Situs Web Diperbarui</value>
+  </data>
+</root>

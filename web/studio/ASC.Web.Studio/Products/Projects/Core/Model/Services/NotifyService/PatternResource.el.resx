@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Σχόλιο επεξεργασμένο για συζήτηση: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" έχει επεξεργαστεί ένα σχόλιο στη συζήτηση: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Διαβάστε περισσότερα":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Λάβετε αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου επειδή είστε εγγεγραμμένος χρήστης της πύλης "${__VirtualRootPath}":"${__VirtualRootPath}". Για να αλλάξετε τον τύπο ειδοποίησης, παρακαλούμε διαχειριστείτε τις "ρυθμίσεις συνδρομής":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Η συζήτηση που επεξεργάστηκε: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" έχει επεξεργασθεί την συζήτηση:
+
+$AdditionalData.get_item("MessagePreview")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall 
+
+---------------------------------------- 
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+"Διαβάστε περισσότερα":"$__VirtualRootPath/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Η διεύθηνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργαστείτε τις ρυθμίσεις εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Εργα. Εισαγωγή των δεδομένων από Basecamp 
+
+Τα νέα δεδομένα  έχουν εισαχθεί επιτυχώς 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Έχετε συμπεριληφθεί στην ομάδα του έργου
+
+"$__AuthorName":"$__AuthorUrl" σας έχει προσθέσει στην ομάδα εργασίας για το έργο ["$ProjectTitle":"$__VirtualRootPath/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Ειδοποίηση εκπρόθεσμου Οροσήμου: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Το Ορόσημο του έργου ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] είναι εκπρόθεσμο: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1. Γνωστοποίηση Ημερομηνίας λήξης οροσήμου:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+
+Λιγότερο από 48 ώρες έχουν απομείνει μέχρι την ημερομηνία λήξης του ορόσημου για το έργο
+["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"].
+
+Η διεύθηνση της πύλης σας : "$__VirtualRootPath ":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Νέο σχόλιο στην συζήτηση: "$EntityTitle":"${__VirtualRootPath}/products
+/projects/messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" έχει προσθέσει ένα νέο σχόλιο στην συζήτηση: 
+
+$AdditionalData 
+
+"Διαβάστε περισσότερα":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+Η διεύθηνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Νέο σχόλιο για την εργασία: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" έχει προσθέσει ένα νέο σχόλιο στην εργασία: 
+
+$AdditionalData
+
+"Διαβάστε περισσότερα":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+Η διεύθηνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath"
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Νέα Συζήτηση: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" έχει αρχίσει μία νέα συζήτηση:
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+----------------------------------------
+
+ #each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end 
+
+"Διαβάστε περισσότερα":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+Η διεύθηνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Διαγράφηκε η συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Νέα Συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Έργα. Το έργο διαγράφηκε: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Η υπο-εργασία έκλεισε: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Η υπο-εργασία δημιουργήθηκε: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Η υπο-εργασία διαγράφηκε: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Υπενθύμιση για την Εργασία: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+"$__AuthorName":"$__AuthorUrl" σας υπενθυμίζει για την εργασία: 
+
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+$AdditionalData.get_item("TaskDescription") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Υπενθύμιση για την εργασία: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Σήμερα είναι η τελευταία προθεσμία για την εργασία: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+$AdditionalData.get_item("TaskDescription") 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Εχετε διαγραφεί απο την ομάδα εργασίας
+
+Εχετε διαγραφεί απο την ομάδα εργασίας για το έργο ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+Η διεύθηνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Έχετε ορισθεί ως Διαχειριστής του έργου: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+"$__AuthorName":"$__AuthorUrl" σαε έχεο ορίσει ως διαχειριστή του έργου
+["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]. 
+
+$AdditionalData 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Εργασία που έχει ανατεθεί σε σας: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+"$__AuthorName":"$__AuthorUrl" σας έχει ορίσει ως υπεύθηνο για την εργασία: 
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+$AdditionalData.get_item("TaskDescription") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Εργασία περατώθηκε: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;
+ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" έχει περατώσει την εργασία για το έργο ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"]. 
+
+$AdditionalData 
+
+Η διεύθυνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Εργασία δημιουργήθηκε: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+"$__AuthorName":"$__AuthorUrl" έχει δημιουρίσει την εργασία: "$EntityTitle":"${__VirtualRootPath}/products
+/projects/tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+$AdditionalData.get_item("TaskDescription") 
+
+Project: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+Η διεύθηνση της πύλη σας: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Επεξεργασία ρυθμίσεων εγγραφής":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Επεξεργασμένο σχόλιο για συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Επεξεργασμένο σχόλιο στην εργασία: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Συζήτηση που επεξεργάστηκε: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Έργα. Εισαγωγή των δεδομένων από Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Αλλαγές στην Ομάδα Έργου</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Γνωστοποίηση εκπρόθεσμου ορόσημου: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Διαγράφηκε η συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Έργα [$ProjectTitle].Γνωστοποίηση Ημερομηνίασ λήξης οροσήμου: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Νέο σχόλιο για Συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Νέο σχόλιο για την Εργασία: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Νέο αρχείο στην συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Νέο αρχείο στην εργασία: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Νέα Συζήτηση: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Έργα. Το έργο διαγράφηκε: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Έχετε προστεθεί στην ομάδα του έργου</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Διαγράφηκε η συνομιλία</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Το ορόσημο έχει κλείσει</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Δημιουργήθηκε νέο ορόσημο</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Το ορόσημο έχει διαγραφεί</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Το ορόσημο έχει επαναληφθεί</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Δημιουργήθηκε νέα συνομιλία</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Έργα. Το έργο διαγράφηκε</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Σας έχει ανατεθεί ορόσημο</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Έχετε διοριστεί διαχειριστής έργου</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Η υπο-εργασία έχει ανατεθεί σε εσάς</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Η εργασία σας έχει ανατεθεί</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Η υπο-εργασία έχει κλείσει</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Έχει δημιουργηθεί μια νέα επιμέρους εργασία</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Η υπο-εργασία έχει διαγραφεί</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Η εργασία έχει κλείσει</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Δημιουργήθηκε νέα εργασία</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Η εργασία έχει διαγραφεί</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Η εργασία επαναλήφθηκε</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Υπενθύμιση σχετικά με την εργασία: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Υπενθύμιση σχετικά με την εργασία: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Αλλαγές στην Ομάδα Έργου</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Είχατε οριστεί ως Υπεύθυνος Έργου</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Εργασία που έχει ανατεθεί σε σας: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Η υπο-εργασία έκλεισε: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Η υπο-εργασία δημιουργήθηκε: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Η υπο-εργασία διαγράφηκε: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Έγινε επεξεργασία της υπο-εργασίας: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Εργασία Κλειστή: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Έργα [$ProjectTitle]. Εργασία Δημιουργήθηκε: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Κανείς</value>
+  </data>
+</root>

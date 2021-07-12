@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>清除缓存</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>用于门户正常工作的所有脚本均将缓存为ONLYOFFICE™最高性能。有时（通常在主要更新后或门户行为中观察到某些错误）时， 您需要清除缓存。请使用&lt;b&gt;清除缓存&lt;/b&gt;按钮，从服务器刷新脚本并重新加载它们。该操作过程中不会丢失门户数据。</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>如果您在门户网站中观察到某些错误行为，请使用此选项</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>缓存</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>若您有任何疑问，请访问我们的{0}常问问题{1}，或通过{2}support@onlyoffice.com {3}与我们联系</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>如果您有任何问题，请通过{0} support.onlyoffice.com {1}与我们联系</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>联系我们</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>时间段</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>&lt;b&gt;日志&lt;/b&gt; 可让您将选定时间段内的所有门户日志下载到.zip文件。选择期间开始和结束时间，然后单击&lt;b&gt;下载&lt;/b&gt;按钮获取日志。</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>下载全部日志</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>&lt;b&gt;端口&lt;/b&gt;部分包含ONLYOFFICE™门户正确工作及其状态（打开或关闭）所需的所有端口的列表。要使ONLYOFFICE™服务器正常工作，这些端口必须为&lt;b&gt;打开&lt;/b&gt;状态。请注意，一些端口只需允许传入或传出连接，而其他端口将需要两种连接类型。</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>所有以下端口必须打开</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>端口</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>&lt;b&gt;服务&lt;/b&gt;部分显示所有可用的ONLYOFFICE™服务及其状态（运行或停止）的列表。您可以使用服务状态右侧的相应操作按钮重新启动正在运行的服务，或启动已停止的服务。</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>ONLYOFFICE™服务及其当前状态</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>服务</value>
+  </data>
+</root>

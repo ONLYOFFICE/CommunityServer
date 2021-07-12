@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Quyền truy cập Cổng thông tin</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Thêm mốc sự kiện</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Thêm quản lý dự án</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Thêm nhiệm vụ</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Quản lý dự án có thể</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>thêm hoặc xoá người dùng khỏi nhóm dự án</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>thiết lập quyền truy cập cho các thành viên của dự án (chỉ với {0}dự án kín{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>quản lý (tạo, sửa, xóa) các mốc sự kiện, nhiệm vụ, thảo luận, tài liệu và {2}{0}hạn chế truy cập tới chúng{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>quản lý (tạo, sửa, xóa) các mốc sự kiện, nhiệm vụ, thảo luận, tài liệu</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Liên hệ qua Talk</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Gửi email</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Đóng dự án</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Tạo Dự án Đầu tiên</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Tạo dự án mới</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Xóa dự án</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Bạn thực sự muốn xóa dự án này?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Không thể hiển thị dự án phù hợp với tiêu chí lọc của bạn trong mục này</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Sửa dự án</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Tạo dự án và làm việc hiệu quả</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Danh sách Dự án trống</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Theo dõi dự án này</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Thêm nhiệm vụ vào mốc sự kiện</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Tất Cả Người Phụ Trách</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Chỉ định người phụ trách</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Chế độ toàn màn hình</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Bảng bên trái</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Tạo liên kết</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Liên kết đang được tạo</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Nhấp đúp vào tiêu đề ở thanh bên trái</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Bấm chuột phải vào người chịu trách nhiệm trên thanh bên trái</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Chỉnh sửa tiêu đề</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Để xem biểu đồ Grant, bạn cần chọn ít nhất một dự án mà bạn muốn xem trên biểu đồ này.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Không có dự án nào được chọn.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Biểu đồ Gantt</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Ưu tiên cao</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Chú thích</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Đã đóng</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Các đối tượng đồ thị có thể hiển thị khác nhau tùy từng tình huống:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Quá hạn</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Dùng phím H để mở bảng điều khiển kèm danh sách hoạt động chính.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Liên kết không chính xác</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Các biểu tượng dưới đây sẽ hiển thị khi con trỏ chuột đưa lên các đối tượng đồ thị.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Chú thích</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Liên kết nhiệm vụ</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Đưa trỏ chuột vào nhiệm vụ, bấm vào vòng tròn màu trắng, rê chuột vào nhiệm vụ khác và thả chuột khi xuất hiện vòng tròn màu trắng</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Loại liên kết</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Liên kết với</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Chỉ mở nhiệm vụ và mốc sự kiện</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>In</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Làm lại</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Mở lại</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Bấm chuột phải vào nhiệm vụ (mốc sự kiện)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Mở menu xổ xuống</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Bấm chuột phải vào vùng trống</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Tạo nhiệm vụ mới</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Bấm chuột phải vào vùng trống và kéo chuột phải</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Tạo nhiệm vụ mới kèm ngày đến hạn</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Tìm hiểu thêm</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Phóng to cả màn hình</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Nhiệm vụ không có ngày đến hạn</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Thang thời gian</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Dùng con lăn chuột để thay đổi thang thời gian</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Nhanh chóng trở lại các hoạt động của hôm nay từ bất cứ đâu</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Hoàn tác</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Danh sách hoàn tác cũng sẽ được xoá và bạn sẽ không thể hoàn tác tất cả hành động trước đó.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Di chuyển qua trái</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Di chuyển sang phải</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Dự án kín</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Lưu dưới dạng dự án kín</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Quản lý nhóm</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Nhập thời gian thủ công</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Bạn không thể đóng một dự án có các mốc sự kiện đang thực hiện.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Bạn không thể đóng một dự án có các nhiệm vụ mở.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Thông báo cho quản lý dự án bằng email</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Dự án</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Xóa dự án</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Quản lý dự án</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Dự án</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Trạng thái dự án</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Nhóm</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Template dự án</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Template dự án</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Làm mới biểu đồ</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Lưu dự án</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Chọn template dự án</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Nhiệm vụ đã đóng. Bấm để mở danh sách toàn bộ mốc sự kiện hiện tại.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Mở nhiệm vụ. Bấm để mở danh sách toàn bộ mốc sự kiện hiện tại.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Người dùng phụ trách mốc sự kiện. Bấm vào để xem tất cả các mốc sự kiện do người dùng này quản lý.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Quản lý dự án. Bấm vào để xem tất cả các dự án do người dùng này quản lý.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Mở nhiệm vụ. Bấm để mở danh sách toàn bộ dự án hiện tại</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Nhóm. Bấm để mở danh sách tất cả thành viên của nhóm dự án.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Mở nhiệm vụ con. Bấm vào để mở danh sách toàn bộ nhiệm vụ hiện tại.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Người phụ trách nhiệm vụ. Bấm để xem các tất nhiệm vụ được giao cho người dùng hiện tại.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Người phụ trách nhiệm vụ. Bấm để xem tất cả những người phụ trách nhiệm vụ này.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Xem các mốc sự kiện đang thực hiện</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Xem Nhiệm Vụ Mở</value>
+  </data>
+</root>

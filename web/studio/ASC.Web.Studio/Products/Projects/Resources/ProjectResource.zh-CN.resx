@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>工作站访问权限</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>添加里程碑</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>创建这个项目</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>添加专案经理</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>添加任务</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>项目经理能</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>添加用户到项目团队或者从项目团队中删除用户</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>设置项目成员的访问权限（仅适用于{0}非公开{1}项目）</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>管理（创建，编辑，删除）里程碑、任务、讨论话题和文件，并能{2}{0}限制其他成员的访问权限{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>管理（创建，编辑，删除）的里程碑，任务，讨论，文档</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>与TA聊天</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>发送电​​子邮件</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>结束项目</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>创建第一个项目</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>创建新项目</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>删除项目</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>您确定要删除此项目吗？</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>删除项目</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>确实要删除这些项目吗？</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>暂无符合此筛选条件的里程碑</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>编辑项目信息</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>通过项目管理更高效地开展工作</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>利用项目有效地工作</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>暂无项目</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>跟进此项目</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>将任务添加到里程碑</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>负责任的所有使用者</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>负责使用者分配</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>全屏模式</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>左图模式</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>创建链接。</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>正在创建链接</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>双击左侧面板上的标题</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>用鼠标右键单击该用户负责的左侧面板上</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>编辑标题</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>要查看甘特图，你需要选择你想要使用图表来直观至少有一个项目。</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>没有项目已经被选择。</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>甘特图</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>高优先级</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>图例</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>已结束</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>图表对象可能有不同的外观根据情况：</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>已逾期</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>您可以启动面板使用H键的主要行动列表。</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>链接无效</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>下面的符号显示当鼠标光标悬停在图表对象。</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>图表图例</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>链接任务</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>将鼠标悬停在任务，单击白色圆圈，拖动光标到另一个任务，然后松开在出现白色圆​​圈</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>链接类型</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>添加链接</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>打开任务和里程碑只</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>重做</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>重开</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>用鼠标右键单击任务（里程碑）</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>打开下拉菜单</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>用鼠标右键单击之内空的空间</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>添加新任务</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>用鼠标右键单击在空白处并向右拖动</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>创建具有到期日的新任务</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>了解更多</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>适应屏幕</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>任务没有到期日</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>天后</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>时间轴规模</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>一周后</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>使用鼠标滚轮来改变时间表规模</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>快速地从任何地方回到今天的活动</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>撤消</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>撤消列表也将被清除，您将无法撤消以前的所有行动。</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>左移</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>右移</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>非公开项目</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>是的，我明白，保存为非公开项目</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>管理团队</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>手动输入时间</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>项目属下还有未完成的里程碑，不能结束此项目。</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>项目属下还有未完成的任务，不能结束此项目。</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>通过电子邮件通知项目经理</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>删除项目</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>项目经理</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>项目状态</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>团队</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>项目模板</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>项目模板</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>刷新图表</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>保存项目</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>选择项目模板</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>已结束任务。点选开启目前里程碑的全部项目。</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>开启中任务。点选打开目前里程碑的全部开启中任务清单。</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>里程碑负责使用者。点选检视目前使用者所管理的全部里程碑。</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>专案经理。点选检视目前使用者所管理的全部专案。</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>开启中任务。点选打开目前专案的全部开启中任务清单。</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>团队 。点选打开专案团队全部成员清单。</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>开启中子任务。点选打开目前任务的全部开启中子任务清单。</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>任务负责使用者。点选显示被指派至目前使用者的全部任务。</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>任务负责使用者。点选显示负责此任务的全部使用者。</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>查看进行中的里程碑</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>查看进行中的任务</value>
+  </data>
+</root>

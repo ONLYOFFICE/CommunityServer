@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>حسابات</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>اجراءات</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>تم</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>فترة مخصصة</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>الشركات</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>مهم</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>اشخاص</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>اجعله مقروء</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>اجعلة غير مقروء</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>مع العلامة</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>مهم</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>جارئ انشاء حسابك البريدي ...</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>Mb</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>انشاء حساب جديد</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>مسودة</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>اعادة توجية</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>رد</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>اجعله مقروء</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>اعادة تعيين عامل التصفية</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>استعادة</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>بريد مزعج</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>علامات</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>الى</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>اجعلة غير مقروء</value>
+  </data>
+</root>

@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Acceptera</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Lägg till i massutskick</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Stäng historik</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Neka</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Ta bort utskick</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Ta bort medlem</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Skicka inbjudan</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Prata</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Chattrum</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Anslutning</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Välkommen till {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anonym</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Radera skickade filer</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Alla filer</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>Filerna du skickade via chat tar &lt;b&gt;&lt;/b&gt; av portalens diskutrymme. Om du väljer att radera dessa filer kommer det frigöra utrymme, men filerna kommer inte längre vara åtkomliga genom länkarna i historiken för alla deltagare i konversationen. Välj vad som ska raderas:</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>Filer skickade för mer än en månad sedan</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>Filer skickade för mer än ett år sedan</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Ansluter...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Anslut mig</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Skapa chattrum</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Skicka flera</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Skapa genvägar och starta Talk som en webbapplikation.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Använd Ctrl+Enter för att skicka meddelanden, Enter för att börja en ny paragraf</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Uttryckssymboler</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Aktivera/Avaktivera filter</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Versionen av Adobe Flash Player är inte korrekt</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Visa/Dölj grupper</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Meddelandehistorik</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player är inte installerat</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Föregående</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Välj en person från kontaktlistan för att börja prata</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Skicka fil</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Dra en kontakt hit för att lägga till en mottagare.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Visa flik till vänster</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Visa flik till höger</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>läs</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Sök via innehåll i meddelanden</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Dra en kontakt hit för att lägga till en mottagare</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Nuvarande status</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Fråga inte nästa gång</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>välj först användare{0}från listan för att starta chatta</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort den här användaren från chatten?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Nytt meddelande</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>har bjudit in dig</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Är du säker på att du vill radera det här rummet?</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Tillfälligt rum (kommer raderas när alla användare lämnat det)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Ämne</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Giltiga symboler</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Utskick</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Prata</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Hitta Kontakt</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>Sök i meddelandenshistorik</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Fil: {0}Storlek: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>av</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>Visa lista</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Iväg</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Inte tillgängligt</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Ej ansluten</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Tillgänglig</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Chatta med kollegor i realtid. Få kontaktlistan automatiskt uppdaterad. Mottag aviseringar för vad som är nytt.</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Webbläsaraviseringar</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Skapa massutskick</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Skapa chattrum</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Radera användare från chatten</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Bjud in till chatt</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Ta bort chatt</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>bokstäver, nummer, och punkter (.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Skriv ett meddelande...</value>
+  </data>
+</root>

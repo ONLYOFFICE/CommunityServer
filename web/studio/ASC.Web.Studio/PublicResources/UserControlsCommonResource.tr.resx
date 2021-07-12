@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Aktif kullanıcılar ziyaretçi ayrıcalığına sahip portal üyeleri ve "devre dışı" statüsündeki kullanıcılardır</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Anket seçimi ekle</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>{!User} ekle</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Yeni Sosyal Profil Ekle</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Mesaj ekle</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Yönetici</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Toplam oy sayısı</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Anket Seçenekleri</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Dosyaları Ekle</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Dökümanlardan dosya ekle</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Proje dökümanlarından dosya ekle</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Bitly ile portal daveti linklerini ve paylaşılan belge linklerini kısaltın</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Sosyal medya hesaplarınızla portala girin ve kişilerinizi arayın</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Favori bulut depolama hizmetine bağlan ve tüm dosyalarını tek bir yerde sakla</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Sunum oluştur</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Spreadsheet Oluştur</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Döküman Oluştur</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Daha fazla bilgi edinin...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>İptal Et</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>Portal 'Ayarlar' bölümünden alan adını daha sonra değiştirebilirsiniz.</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Şirket Büyüklüğü</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Şirket</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Dökümanları orjinal formatında da yükle</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Daha hızlı düzenleme için yüklediğiniz tüm dökümanlar Office Open XML formatına çevrilecektir.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Dosyayı sil</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Dosyayı yükle</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Dosya Düzenle</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>Portalınızda dosyalar {0}yaratın{1} yada ONLYOFFICE™ portal editörünüzü kullanarak {4}açabilmek{5} ve {6}düzenleyebilmek{7} için buraya {2}yükleyin{3}.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>Dosyalarınızı anında portalınıza {2}yükleyin{3}.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Dökümanlar listesi boş</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Anket sorusu giriniz</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Anket seçeneği seçin</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Başlık şu karakterleri içeremez:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Herkes</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Gönderi ekle</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Yer imi ekle</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Belgelere Git</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Belgeler</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Yeni şirket oluştur</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Yeni kişi oluştur</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Yeni proje oluştur</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Topluluk modülüne eklenen herhangi bir şey burada gösterilecektir. Kullanıcılar ilginç bilgileri, düşünceleri ve deneyimleri diğerleriyle paylaşabilir, görüşlerini ifade edebilir ve diğer yorumlardan geri bildirim alabilir.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Henüz hiçbir etkinlik eklenmedi</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>CRM modülü etkinlikleri burada gösterilmektedir. Eklenen yeni şirketler ve kişiler veya düzenlenen mevcut şirket ve kişiler, oluşturulan yeni vakalar, fırsatlar ve görevler - CRM ile ilgili her şey bu sekmede yer alır.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Henüz hiçbir CRM etkinliği eklenmedi</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Projeler modülündeki değişiklikler burada gösterilmektedir. Üyesi olduğunuz veya takip ettiğiniz projeler, yeni görevleriniz ve mevcut görevlerdeki değişiklikler hiçbir şeyi kaçırmamanızı sağlayacaktır.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Henüz hiçbir proje eklenmedi</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Portal belgelerindeki değişiklikler burada gösterilmektedir. Sizinle paylaşılan yeni belgeler, erişiminiz olan mevcut belgelerdeki değişiklikler, tüm portal kullanıcıları için ortak belgeler burada gösterilmektedir.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Etkinlik ekle</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Yayın</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Bu anket için birden fazla seçime izin ver</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Bu filtreyle eşleşen haber yok</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen haber yok.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Bu filtreyle eşleşen arama yok</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen arama yok.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Portal Kullanıcıları için Link</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>ONLYOFFICE portalınız için ödeme yapmak istiyorsanız Şimdi Satın Al tuşuna tıklayın.</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Lütfen ONLYOFFICE ödemenizi yapın ve kazanın:</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filtre:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>sorgunuzu giriniz</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>'dan</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Şöyle sırala:</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>şuna</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Bu kutuyu işaretleyerek {0}Lisans Anlaşması{1} koşullarını kabul etmiş olursunuz</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Lisans süresi dolmuş veya kullanıcı kotası lisansla eşleşmiyor</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Lisans Aktivasyon Belgesi</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Lisans anahtarı hatalı</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Lisans anahtarı girmeniz gerekiyor</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE Modülleri ve Araçları:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online Belge Editörü{1}{0}Belge Yönetimi{1}{0}E-posta{1}{0}Projeler{1}{0}CRM{1}{0}Takvim{1}{0}Topluluk{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} aktif kullanıcı</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ aktif kullanıcı</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Oturumu Kapat</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Numara giriniz</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>Portal erişim kodu içeren SMS {0}{1}{2} cep telefonunuza gönderildi. {5} Lütfen kodu girin ve "{3}" tuşuna tıklayın. Eğer 3 dakikadan fazla süre içinde mesajı almazsanız "{4}" tuşuna tıklayın.</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Mevcut telefon numaranız: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Cep telefonu numarası giriniz</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>İki aşamalı doğrulama ekstra portal güvenliği sağlamak için etkinleştirilmiştir. Portalda çalışmaya devam etmek için mobil telefon numaranızı giriniz. Mobil telefon numarası ülke koduyla girilmelidir.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Daha fazla</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Yeni Döküman</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Yeni Dosya</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Burada gösterilecek bir şey yok</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Tüm portal aktiviteleri bu bölümde görüntülenir. Şu anda portalda gösterilecek bir etkinlik yok. Portalınızı kullanmaya başlayın, içerikle doldurun ve tüm haberler bu sayfada gösterilecektir.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Sonraki</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Yorum yok</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Not: Bu eylem geri alınamaz.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Bu anket için yalnızca bir seçime izin ver</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Anket Sorusu</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Anket Tipi</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Önceki</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Bu dosyayı silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Kar amacı gütmeyen kullanım hakkında oku</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Bu listeden kaldır</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Mesajı kaldır</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Filtreyi Sıfırla</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>ara</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Modülde ara</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Hepsini seç</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Bildirim Gönder</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Kullanıcı veya grup ekle ve onlara hak sağla.</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Paylaşım Ayarları</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Sonraki haberleri göster</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>İnternet Sitesi</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Kaynak kodu {0}GitHub'da{1} mevcut</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Temel fiyat</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Tüm para birimleri için Avangate inceleyin</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>Fiyatlandırma planınız bu dosya boyutu için uygun değil.</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Büyük dosya boyutu</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Ücretsiz</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Tam fiyat listesini aç</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Yeni fiyat planı mı seçmek istiyorsunuz?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Sınırlı süreli teklif</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Evet, planı yükselt</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 Aylık{2}{1} Abonelik</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 Yıllık{2}{1} Abonelik</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 Yıllık{1} Abonelik</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Kar amacı gütmeyen kuruluş planını kullanıyorsunuz.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Portal ödeme süreniz geçti.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>{0} - {1} aktif kullanıcı planı kullanıyorsunuz. {2}Ödeme süreniz geçti.{3}{4} ONLYOFFICE kullanmaya devam etmek için mevcut üyeliğinizi uzatın veya aşağıdaki tablodan başka bir üyelik seçin.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>{0} - {1} aktif kullanıcı planı kullanıyorsunuz.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>ONLYOFFICE™ İşletme Sürümünü kullanıyorsunuz.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>ay</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>yıl</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 yıl</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Teklif yalnızca yıllık abonelikler için geçerlidir.</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>En Popüler Abonelik</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Yeni bir portal eklediğiniz takdirde mevcut ödeme planınızda izin verilen portal sayısı aşılacaktır.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Kaydet {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>Kullanıcı/ay başına {0}</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Talep gönder</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Talep içeriği</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Lütfen talep ayrıntılarınızı burada açıklayın</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Lütfen mesajınızı buraya girin</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Portal saklama alanı aşıldı</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Lütfen portalınızdan süresi geçmiş tüm içeriği silin yada güncel fiyat planınızı daha büyük saklama alanı olanla değiştirin.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Yeterli saklama alanı yok</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Takım arkadaşı sayısı seçiniz</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Ne kadar kullanıcıya ihtiyacınız var?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Ekibiniz için uygun plan {0}{2} - {3} aktif kullanıcı{7} + {4}{1} Depolama Alanı</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Yeni kullanıcı eklenemiyor</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Yeni kullanıcı eklemeniz halinde mevcut fiyat planınıza göre izin verilen maksimum portal üyesi sayısı aşılacaktır.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Yeni kullanıcı ekleniyor</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>{0} aktif kullanıcıdan{1} fazla kullanıcı için fiyatlandırma planları yalnızca talep üzerine verilmektedir.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Fiyatlandırma planını düşüremezsiniz.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>devamını oku</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Döküman ({0}), spreadsheet ({1}), sunum ({2}) oluşturabilir ve bunları en popüler formatlara çevirebilirsiniz.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Şu dosyaları düzenleyebilirsiniz: {0}. </value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Dosyaları şu uzantılarla açabilirsiniz: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Dökümanlara istediğiniz dosyaları yükleyebilirsiniz.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Fiyat planını yükselt</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Dosya yükle</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Seçim</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Burada gösterilecek bir şey yok</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Burada gösterilecek bir şey yok</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Oy Ver</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Yenilikler</value>
+  </data>
+</root>

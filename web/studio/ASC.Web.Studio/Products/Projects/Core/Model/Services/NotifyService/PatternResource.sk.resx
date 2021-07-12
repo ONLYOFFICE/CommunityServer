@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Komentár upravený k diskusii: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" upravil komentár k diskusii: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Viac informácií":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Komentár upravený pre úlohu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" upravil komentár k úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Viac informácií":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak nechcete dostávať upozornenia o tejto úlohe, prosím "zrušte odber":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Diskusia bola upravená: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" upravil diskusiu: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"":  
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"Viac informácií":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projekty. Import údajov z Basecamp-u 
+
+Nové údaje sa naimportovali správne.
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Boli ste pridaný do projektového tímu:  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vás pridal do projektového tímu:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Oznámenie o prekročení termínu míľnika: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+Míľnik projektu ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] je v meškaní: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" . 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Diskusia bola odstránená: "$EntityTitle"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vymazal diskusiu "$EntityTitle" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Míľnik bol uzatvorený: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" uzatvoril míľnik "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Vytvorený míľnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pridal nový míľnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Oznámenie konečného termínu míľnika: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Ostáva menej ako 48 hodín do konečného termínu míľnika "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Míľnik bol odstránený: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" odstránil míľnik "$EntityTitle" z projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Míľnik bol upravený: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" upravil míľnik "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Míľnik bol obnovený:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" obnovil míľnik "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Nový komentár k diskusii: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pridal nový komentár k diskusii: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Nový komentár k úlohe: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pridal nový komentár k úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData 
+
+"Viac informácií":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak nechcete dostávať upozornenia týkajúce sa tejto úlohy, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^  </value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Nový súbor k diskusii: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pridal nový súbor do diskusie "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak už nechcete dostávať oznámenia o tejto diskusii, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Nový súbor k úlohe: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pridal nový súbor k úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak nechcete dostávať upozornenia týkajúce sa tejto úlohy, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Bola vytvorená nová diskusia: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vytvoril novú diskusiu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"Viac informácií":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Projekt odstránený: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" odstránil projekt "$EntityTitle".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Boli ste pridaný do projektového tímu</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Diskusia bola odstránená: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol uzatvorený: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol vytvorený: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol odstránený: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol obnovený: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Nová diskusia: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekty. Projekt bol vymazaný: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bol Vám priradený míľnik: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Boli ste menovaný za manažéra projektu</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bola Vám pridelená podriadená úloha:  $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bola Vám pridelená úloha: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola ukončená: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bola vytvorená podriadená úloha: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola odstránená: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola obnovená: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Ukončená úloha: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola vytvorená: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola odstránená: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola obnovená: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Pripomenutie úlohy: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" pripomína úlohu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Pripomenutie úlohy: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Dnes je termín ukončenia pre úlohu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription")
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Boli ste odstránený z projektového tímu: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" Vás odstránil z tímu v projekte: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Úloha už viac nie je priradená k Vám: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime už viac nie ste zodpovedný za úlohu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData.get_item("TaskDescription")
+
+^Tento email ste dostali, pretože ste registrovaným užívateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Bol Vám priradený míľnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vás označil zodpovedným za míľnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Boli ste menovaný ako projektový manažér: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vás menoval projektovým manažérom pre projekt "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":  
+
+$AdditionalData 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Bola Vám pridelená podriadená úloha: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vás menoval zodpovedným za podriadenú úlohu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" priradenú k úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak už nechcete dostávať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Bola Vám pridelená úloha: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vám pridelil úlohu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Podriadená úloha bola uzavretá: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" zatvoril podriadenú úlohu úlohy["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"]. 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak už nechcete dostávať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Bola vytvorená podriadená úloha: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+"$__AuthorName":"$__AuthorUrl" vytvoril podriadenú úlohu: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" k úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Podriadená úloha je priradená "$Responsible".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak už nechcete dostávať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Podriadená úloha bola odstránená: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" vymazal podriadenú úlohu: "$SubEntityTitle" v úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak si neprajete prijímať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Úprava podriadenej úlohy: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" upravil podriadenú úlohu "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" úlohy "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Za podriadenú úlohu je zodpovedný "$Responsible". 
+
+^Tento email ste dostali, pretože ste registrovaným užívateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak si neprajete prijímať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Podriadená úloha bola obnovená: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" obnovil podriadenú úlohu: "$SubEntityTitle" v úlohe "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak si neprajete prijímať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Úloha bola zatvorená: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" zatvoril úlohu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak nechcete dostávať upozornenia o tejto úlohe, prosím "zrušte odber":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Nová úloha bola vytvorená: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vytvoril úlohu: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData.get_item("TaskDescription") 
+
+Úloha je pridelená "$Responsible"
+
+ ^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak si neprajete prijímať oznámenia o tejto úlohe prosím, "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Úloha odstránená: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vymazal úlohu "$EntityTitle" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Úloha upravená: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" upravil  úlohu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Úloha presunutá: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" odstránil úlohu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" z míľnika "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+Úloha "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" nie je súčasťou žiadneho míľnika.
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Úloha presunutá: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" presunul úlohu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" míľniku "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Na zmenu typu oznámení, zmeňte prosím svoje "nastavenia oznámení":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Úloha obnovená: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" obnovil úlohu "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu. Ak si neprajete prijímať oznámenia o tejto úlohe, prosím "odhláste sa":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Upravený komentár k diskusii: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Upravený komentár k úlohe: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Diskusia bola upravená: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projekty. Import údajov z Basecamp-u</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Boli ste pridaný do projektového tímu</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Oznámenie o míľnikoch po termíne splnenia: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Diskusia bola odstránená: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol uzatvorený: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol vytvorený: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Oznámenie o termíne splnenia míľnika: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol odstránený: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol upravený: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Míľnik bol obnovený: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Nový komentár k diskusii: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Nový komentár k úlohe: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Pridaný súbor k diskusii: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Pridaný súbor k úlohe: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Nová diskusia: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projekty. Projekt bol vymazaný: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Boli ste pridaný do projektového tímu</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Diskusia bola vymazaná</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Míľnik bol uzavretý</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Nový míľnik bol vytvorený</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Míľnik bol vymazaný</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Míľnik bol obnovený</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Nová diskusia bola vytvorená</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekty. Projekt bol odstránený</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Bol vám pridelený míľnik</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Bol ste menovaný manažérom projektu</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Bola Vám pridelená podriadená úloha</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Bola Vám pridelená úloha</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Podriadená úloha bola uzavretá</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Bola vytvorená nová podriadená úloha</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Podriadená úloha bola vymazaná</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Podriadená úloha bola obnovená</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Úloha bola uzavretá</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Bola vytvorená nová úloha</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Úloha bola vymazaná</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Úloha bola obnovená</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Pripomenutie úlohy: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Pripomenutie úlohy: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Boli ste odstránený z projektového týmu</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha Vám už viac nie je priradená: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bol Vám priradený míľnik: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Boli ste menovaný za manažéra projektu</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bola Vám pridelená podriadená úloha:  $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bola Vám pridelená úloha: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola ukončená: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Bola vytvorená podriadená úloha: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola odstránená: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola upravená: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Podriadená úloha bola obnovená: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Ukončená úloha: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola vytvorená: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola odstránená: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola upravená: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola odstránená: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola presunutá: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projekty [$ProjectTitle]. Úloha bola obnovená: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Nikto</value>
+  </data>
+</root>

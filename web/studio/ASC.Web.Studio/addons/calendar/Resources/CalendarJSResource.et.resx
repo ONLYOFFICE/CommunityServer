@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Sündmus</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Lisa uus sündmus</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Loo</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>kogu päeva</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Päev</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Periood</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Kuu</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Täna</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Nädal</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Loo uus kalender</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Värv:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Muuda kalendrit</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Teksti värv:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Ajavöönd:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Lisa</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Minu kalendrid</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Muud kalendrid</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Korraldama</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Lisa uus sündmus</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minutit enne</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 tundi enne</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>pool tundi enne</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minutit enne</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>päev enne</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>vaikimisi</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>tund enne</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Meeldetuletus:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>mitte kunagi</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>See on kogu päeva sündmus.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Kogu päeva kestev sündmus</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalender:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Kustuta</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Kirjeldus:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Redigeeri</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Alates:</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>See üritus ei kesta terve päev.</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Omanik:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>Kohandatud</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>iga päev</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Korda:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>iga kuu</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>mitte kunagi</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>iga nädal</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>iga aasta</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Seda sündmust pole jagatud.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Kuni:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Teavitustest loobuma</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Sündmused puuduvad.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Peida väike kalender</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Näita väikest kalendrit</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d sündmused</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Lisa kasutajaid jagamiseks</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Jagatud:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Muuda kalendrit</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Omanik:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Peida nimekirjast</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Kiirotsing</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Halda muid kalendreid</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Täna</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Kalendri vaade</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>nimekirja vaade</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Kõik sündmused seerias</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Rakenda</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>See üritus ja kõik, mis järgnevad</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Kustuta korduv sündmus</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>See üritus ainult</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Vali fail</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Sulge</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Ekspordi sündmused ONLYOFFICE™ kalendrist</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>Ühtegi faili pole valitud</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>fail on valitud</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Impordi/Ekspordi</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Impordi sündmused ONLYOFFICE™ kalendrisse</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Vale iCal faili formaat</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Sisesta iCal Feed link</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalender iCal voost</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal-Feedlink:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>alates</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>peale</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>iga</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Loobu</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>iga</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>esimene</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Korduvuse seaded</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>päev</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>kuu</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>nädal</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>aasta</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>viimane</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>päevad</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>kuud</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>nädalad</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>aastad</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>mitu korda</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>Kuupäev</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>mitte kunagi</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>eelviimane</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Salvesta</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>sekund</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>kolmas</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>korda</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>lõpp</value>
+  </data>
+</root>

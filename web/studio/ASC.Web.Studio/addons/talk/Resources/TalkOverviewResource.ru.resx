@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Автоматически обновляемый список контактов избавляет Вас от необходимости добавлять или удалять контакты вручную.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Оповещения в браузере</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Чат-комната</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Вкладки чата</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Список контактов с настройками</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>По умолчанию все оповещения будут приходить и на электронную почту, и в Чат. Настроить их можно в</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Удалить отправленные файлы</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Контакты по группам</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>здесь</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Скрывать офлайн-контакты</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Рассылка</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Дополнительная информация об оповещениях доступна {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Настройка оповещений</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Чат - это корпоративная система обмена мгновенными текстовыми сообщениями между сотрудниками в реальном времени.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Чат предлагает все традиционные функции, которые Вы ожидаете от мессенджера -  выбор статуса, хранение истории переписки, передача файлов, поддержка многопользовательских чатов и т. д. </value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Обзор Чата</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Запустите наш веб-клиент, чтобы начать использование Чата прямо сейчас без предварительных настроек.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>странице вашего профиля</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Отправлять сообщения по Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Настройки поля ввода</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Запустить веб-клиент</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Никаких лишних настроек! Нажмите, чтобы запустить веб-клиент и начать общаться прямо сейчас.</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>разделе "Подписки" на {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Звуковые оповещения</value>
+  </data>
+</root>

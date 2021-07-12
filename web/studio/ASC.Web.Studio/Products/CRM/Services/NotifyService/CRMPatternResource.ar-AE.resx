@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. تم اضافه حدث جديد "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"            
+$__DateTime "$__AuthorName":"$__AuthorUrl" قام بإضافه حدث لـ "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}":                                                               
+          $AdditionalData.get_item("EventContent")
+
+          #foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+          #beforeall
+
+          ----------------------------------------
+
+          #each
+
+          "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+          #end
+
+          ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about new events added within the CRM module, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. CRM. تم اضافه جهه اتصال جديده بإستخدام نموذج الاتصال بالموقع 
+Form':"$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+    
+$__DateTime تم اضافه جهه اتصال جديده بإستخدام نموذج الاتصال بالموقع
+Form':"$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+#foreach($contactInfo in $AdditionalData.Keys)
+#each
+
+$contactInfo: $AdditionalData.get_item($contactInfo)
+
+#end
+
+          
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the noifications about new contacts added to CRM, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Data Export Successfully Completed
+
+Please, follow this link to download the archive: "exportdata.zip":"${EntityRelativeURL}".
+
+*Note*: this link is valid for 24 hours only. Please complete the operation within that period. 
+
+If you have any questions or need assistance please feel free to contact us at "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Best regards,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about data export, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>قديم</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Task Assigned to You: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the task: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Access Granted to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has granted you the access to "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
+
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. If you don't want to receive the notifications about the access granted to the CRM items, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. تم اضافه حدث جديد لـ $EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. تم انشاء جهة اتصال جديده بإستخدام "نموذج الإتصال من الموقع"</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. تم تصدير البيانات بنجاح</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>قديم</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. مهام اسندت اليك: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. تم منح الصلاحيات لـ $EntityTitle</value>
+  </data>
+</root>

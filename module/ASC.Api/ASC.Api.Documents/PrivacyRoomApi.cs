@@ -44,7 +44,7 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <visible>false</visible>
         [Update("keys")]
-        public object SetKeys(string publicKey, string privateKeyEnc, bool update = false)
+        public object SetKeys(string publicKey, string privateKeyEnc)
         {
             SecurityContext.DemandPermissions(new UserSecurityProvider(SecurityContext.CurrentAccount.ID), Core.Users.Constants.Action_EditUser);
 
@@ -53,8 +53,7 @@ namespace ASC.Api.Documents
             var keyPair = EncryptionKeyPair.GetKeyPair();
             if (keyPair != null)
             {
-                if (!string.IsNullOrEmpty(keyPair.PublicKey)
-                    && !update)
+                if (!string.IsNullOrEmpty(keyPair.PublicKey))
                 {
                     return new { isset = true };
                 }

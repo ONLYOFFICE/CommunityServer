@@ -1,0 +1,579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Prijatý:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Pripojiť poštové účty</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>Poslať pozvánky
+
+</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalendár</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Udalosť</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Vytvoriť novú udalosť</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Vytvoriť</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>celý deň</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Deň</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Perióda</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Mesiac</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Týždeň</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Vytvoriť nový kalendár</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Farba:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Upraviť kalendár</value>
+  </data>
+  <data name="calendarCategoriesDialog_importHeader" xml:space="preserve">
+    <value>Importovať udalosti</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Farba textu:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Časové pásmo:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Moje kalendáre</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Ostatné kalendáre</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Spravovať</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Vytvoriť novú udalosť</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minút</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 hodiny</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>polhodina</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minút</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>deň</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>štandardné</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>hodina</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Varovanie:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>nikdy</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Toto je celodenná udalosť.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Celodenná udalosť</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Hostia:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Začnite písať e-mailovú adresu alebo meno vlastného kontaktu, CRM kontaktu, používateľov portálu alebo použite ľubovoľný iný e-mail na pozvanie ľudí na Vašu udalosť.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalendár:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Zatvoriť</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Popis:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Detaily</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Od:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Vytvoriť novú udalosť</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Upraviť udalosť</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Zobraziť udalosť</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Miesto:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Viac informácií</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Táto udalosť nie je celodenná.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Voliteľný</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organizátor:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Majiteľ:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>vlastný</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>každý deň</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Opakovať:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>každý mesiac</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>nikdy</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>každý týždeň</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>každý rok</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Vyžadovaný</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Používatelia na zdieľanie</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Pridať používateľov</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Táto udalosť nie je zdieľaná.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>Zrušené</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>POTVRDENIE</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Stav:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>PREDBEŽNÝ</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Názov udalosti:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Do:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Odhlásiť</value>
+  </data>
+  <data name="calendarExportEvents_fromFile" xml:space="preserve">
+    <value>Zo súboru</value>
+  </data>
+  <data name="calendarExportEvents_syncByLink" xml:space="preserve">
+    <value>Synchronizácia s kalendárom podľa odkazu</value>
+  </data>
+  <data name="calendarImportEvents_calendarLabel" xml:space="preserve">
+    <value>Importovať do</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Neexistujú žiadne udalosti na zobrazenie.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Skryť mini kalendár</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Zobraziť mini kalendár</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d udalosti</value>
+  </data>
+  <data name="calendarNewLabel" xml:space="preserve">
+    <value>Nový kalendár</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Pridať používateľov na zdieľanie</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Zobraziť %d viac používateľov</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Zdieľané s:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Upraviť kalendár</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Majiteľ:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Skryť zo zoznamu</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Rýchle vyhľadávanie</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Spravovať ďalšie kalendáre</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Zobrazenie kalendára</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Zobrazenie zoznamu</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Udalosť bola zrušená</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Chcete poslať pozvánky hosťom?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Odosielanie pozvánok</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Neposielať</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Poslať</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Noví a odstránení hostia</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Každý</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Chcete poslať zrušenia existujúcim hosťom?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Odosielanie zrušní</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Pri odosielaní upozornení sa vyskytla chyba</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Upozornenia boli úspešne odoslané</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Chcete poslať aktualizácie existujúcim hosťom?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Odosielanie aktualizácií</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Prosím vyberte, kto má byť o aktualizáciách upozornený: noví a odstránení hostia alebo všetci. Ak vyberiete možnosť 'Neposielať', nebudú odoslané žiadne upozornenia.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Odmietnuté:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Všetky udalosti v sérii</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Aplikovať</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Táto udalosť a všetko čo nasleduje</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Odstrániť opakujúcu sa udalosť</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Vymazaná udalosť sa nedá obnoviť. Naozaj chcete pokračovať?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Odstrániť udalosť</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Len táto udalosť</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Všetky nasledujúce zmeny sa použijú len vo Vašom kalendári.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Hostia udalosti nebudú upozornení. Použite svoje vlastné kalendáre na odosielanie upozornení.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Hostia:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Vybrať súbor</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Zatvoriť</value>
+  </data>
+  <data name="icalStream_export_caldav" xml:space="preserve">
+    <value>CalDAV</value>
+  </data>
+  <data name="icalStream_export_copy_button" xml:space="preserve">
+    <value>Kopírovať</value>
+  </data>
+  <data name="icalStream_export_description" xml:space="preserve">
+    <value>Ak chcete nakonfigurovať export udalostí z tohto kalendára do iného kalendára, skopírujte príslušný odkaz a pridajte ho do požadovaného kalendára.</value>
+  </data>
+  <data name="icalStream_export_header" xml:space="preserve">
+    <value>Exportovať a synchronizovať</value>
+  </data>
+  <data name="icalStream_export_ical" xml:space="preserve">
+    <value>iCal</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Export udalostí z kalendára ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>Nie je vybratý žiadny súbor</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>súbor je vybratý</value>
+  </data>
+  <data name="icalStream_importEventsLabel" xml:space="preserve">
+    <value>Importovať udalosti</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Import/Export</value>
+  </data>
+  <data name="icalStream_importLinkNew" xml:space="preserve">
+    <value>Vyberte súbor iCal</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Import udalostí do kalendára ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Nesprávny formát súboru iCal</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Zadajte odkaz na informačný kanál iCal</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalendár z informačného kanála iCal</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>Odkaz na informačný kanál iCal:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>počnúc od</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>po</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>každý</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>každý</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>prvý</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Opakované nastavenie</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>deň</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>mesiac</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>týždeň</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>posledný</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>dní</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>podľa</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>mesiacov</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>týždňov</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>rokov</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>počet opakovaní</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>dátum</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>nikdy</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>predposledný</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>druhý</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>tretí</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>opakovaní</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>koniec</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Možno</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Áno</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Prítomný/navštevovanie</value>
+  </data>
+</root>

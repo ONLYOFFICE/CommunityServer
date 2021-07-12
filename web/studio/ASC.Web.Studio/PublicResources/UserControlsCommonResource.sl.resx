@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Dodaj izbiro ankete</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Dodaj {!Users}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Dodaj nov socialni profil</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Dodaj sporočilo</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Skupno število glasov</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Izbire ankete</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Pripni datoteke</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Pripni datoteko iz dokumentov</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Pripni datoteko iz dokumentov projekta</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Ustvari predstavitev</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Ustvari preglednico</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Ustvari dokument</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Več o tem...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Dokumente prav tako naloži v prvotnem formatu</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Vsi dokumenti, ki jih boste naložili, bodo pretvorjeni v Office Open XML format za lažje urejanje.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Izbriši datoteko</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Prenesi datoteko</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Uredi datoteko</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Ustvarite{1} datoteke neposredno na portal {2}naložite{3} za zmožnost {4}odpiranja{5} in {6}urejanja{7} z uporabo ONLYOFFICE™ portalnega urejevalca.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Seznam dokumentov je prazen</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Vnesi svoje anketno vprašanje</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Izberi izbiro ankete</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Naslov ne more vsebovati sledečih znakov:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>vsi</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Viri</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Dovoli več izbir za to anketno vprašanje</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Ni novic, ki se ujemajo s tem filtrom</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Na tem oddelku ni novic za prikaz, ki se ujemajo z višim filtrom.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Ni klicev, ki se ujemajo s tem filtrom</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Noben klic, ki se ujema z vašim filtrom, ne more biti prikazan na tem oddelku.</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>vnesite svojo poizvedbo</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Razvrsti po</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>k</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Izpiši se</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Vnesi številko</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>SMS s kodo za dostop portala je bil poslan na vašo {0}{1}{2} mobilno številko.{5}Prosim vnesito kodo in pritisnite "{3}" gumb. Če v 3 minutah ne boste prejeli nobenega sporočila, pritisnite "{4}" gumb.</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Vaša trnutna mobilna številka: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Vnesi telefonsko številko</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Dvo-faktorska avtentikacija je omogočena za zagotavljanje dodatne varnosti portala. Vnesite svojo telefonsko številko za nadaljevanje dela na portalu. Vnesena mora biti mobilna številka z mednarodnim formatom s kodo države.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Več</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Nov dokument</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Nova datoteka</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Tukaj ni ničesar za prikazati</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Na tem oddelku so prikazane vse dejavnosti portala. Trenutno na portalu ni dogodkov za prikaz. Začnite uporabljati portal, napolnite ga z vsebino in vse novice bodo prikazane na te strani.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Naslednji</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Ni komentarjev</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Opomba: tega dejanja ni mogoče razveljaviti.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Za to anketno vprašanje dovoli le eno izbiro</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Anketno vprašanje</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Vrsta ankete</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Prejšnji</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izbrisati to datoteko?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Odstrani s tega seznama</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Odstrani sporočilo</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Ponastavi filter</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>Iskanje</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Išči v modulu</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Izberi vse</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Pošlji obvestilo</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Nastavitve deljenja</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Pokaži naslednje nastavitve</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Brezplačen</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Si želite izbrati nov cenovni načrt?</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Da, posodobi načrt</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Uporabljate načrt za neprofitno organizacijo.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>mesec</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>leto</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Le na leto</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Prostor za shranjevanje na portalu je presežen</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Iz svojega portala prosim izbrišite preteklo vsebino, ali pa spremenite trenuten cenovni načrt na takega z večjo shrambo.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Ni dovolj prostega prostora</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Ne morem dodati novih uporabnikov</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Dodajanje novih uporabnikov bo preseglo maksimalno dovoljeno število članov portala, ki je v skladu s trenutnim plačilnim načrtom.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Dodajanje novih uporabnikov</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Lahko ustvarjate dokumente ({0}), razpredelnice ({1}), predstavitve ({2}) in jih prenesete v najpopularnejše formate.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Lahko uredite sledeče datoteke: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Datoteke lahko odprete s sledečimi končnicami: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>V Dokumente lahko naložite katere koli datoteke.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Priimek</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Posodobi cenovni načrt</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Naloži datoteko</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Izbira</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Tukaj ni ničesar za prikazati</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Tukaj ni ničesar za prikazati</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Glasuj</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Kaj je novega</value>
+  </data>
+</root>

@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>पोर्टल पहुँच अधिकार</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>मील का पत्थर जोड़ें</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>परियोजना प्रबंधक को जोड़ें</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>कार्य जोड़ें</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>परियोजना प्रबंधक कर सकते हैं</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>करने के लिए उपयोगकर्ताओं को जोड़ने या हटाने / परियोजना टीम से</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>({0} निजी परियोजना {1} केवल) परियोजना के सदस्यों के लिए पहुँच अधिकार सेट</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>उन्हें मील के पत्थर, कार्य, चर्चाओं, दस्तावेजों और {2} {0} प्रतिबंधित एक्सेस (हटाने के लिए, बनाने, संपादित) का प्रबंधन {1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>मील के पत्थर, कार्य, चर्चाओं, दस्तावेजों (हटाने के लिए, बनाने, संपादित) का प्रबंधन</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>टॉक के माध्यम से संपर्क करें</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>ईमेल भेजें</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>बंद परियोजना</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>पहला परियोजना बनाएँ</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>नई परियोजना का निर्माण</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>प्रोजेक्ट हटाना</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>आप इस परियोजना को हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>आपके फिल्टर कोई भी एक्टिविटी मैच नहीं हो रही हे</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>संपादित परियोजना</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>परियोजनाओं बनाएँ और प्रभावी रूप से कार्य</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>परियोजनाओं सूची खाली है</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>इस परियोजना का पालन करें</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>मील का पत्थर है कार्य जोड़ें</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>सभी जिम्मेदार उपयोगकर्ता</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>जिम्मेदार उपयोगकर्ताओं को असाइन करें</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>पूर्ण स्क्रीन मोड</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>बाईं पैनल मोड</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>लिंक बनाएँ</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>लिंक बनाया जा रहा है</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>बाएं साइड पैनल पर शीर्षक डबल क्लिक करें</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>बाएं साइड पैनल पर जिम्मेदार उपयोगकर्ता राइट क्लिक करें</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>संपादित शीर्षक</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>क्या आप चार्ट का उपयोग कल्पना करना चाहते हैं कि कम से कम एक परियोजना का चयन करने की जरूरत है एक गैंट चार्ट को देखने के लिए।</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>कोई भी प्रोजेक्ट सेलेक्ट नहीं किया हे </value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>गैंट चार्ट</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>उच्च प्राथमिकता</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>लीजेंड</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>सक्रिय</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>चार्ट वस्तुओं अलग उपस्थिति स्थिति के आधार पर हो सकता है:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>अतिदेय</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>आप एच कुंजी का उपयोग मुख्य क्रियाओं की सूची के साथ पैनल शुरू कर सकते हैं।</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>अमान्य लिंक</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>माउस कर्सर चार्ट वस्तुओं पर hovered है जब नीचे प्रतीकों प्रदर्शित कर रहे हैं।</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>चार्ट लेजेंड</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>कार्य लिंक</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>एक काम पर होवर सफेद वृत्त क्लिक करें, एक और काम _ कर्सर खींचें और फिर दिखाई दिया सफेद सर्कल पर इसे रिलीज</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>लिंक प्रकार</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>के साथ जोड़ो</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>ओपन कार्यों और मील के पत्थर ही</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>आज</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>छाप</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>फिर से करना</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>फिर से खोलना</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>कार्य (मील का पत्थर) पर राइट क्लिक करें</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>ओपन लटकती मेनू</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>खाली जगह के भीतर राइट क्लिक करें</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>नए कार्य बनाएँ</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>खाली जगह और खींचें सही भीतर राइट क्लिक करें</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>नियत तिथि के साथ नए कार्य बनाएँ</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>और अधिक जानें</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>स्क्रीन में फिट</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>नियत तारीख के बिना टास्क</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>दिनों</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>महीना</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>टाइमलाइन पैमाने</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>समय पैमाने पर परिवर्तन करने के लिए माउस पहिया का उपयोग करें</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>जल्दी से किसी भी जगह से आज के गतिविधियों के लिए वापस</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>पूर्ववत</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>पूर्ववत सूची भी साफ हो जाएगा और आप सभी पिछले कार्रवाई पूर्ववत _ में सक्षम नहीं होगा</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>ले जाएँ लेफ्ट साइड </value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>ले जाएँ राइट साइड</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>प्राइवेट परियोजना</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>निजी के रूप में प्रोजेक्ट को सहेजें</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>टीम का प्रबंधन</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>मैनुअल समय इनपुट</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>आप सक्रिय मील के पत्थर के साथ एक परियोजना को बंद नहीं कर सकते।</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>आप खुला कार्यों के साथ एक परियोजना को बंद नहीं कर सकते।</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>ईमेल द्वारा परियोजना प्रबंधक को सूचित</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>ठीक</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>परियोजना</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>प्रोजेक्ट हटाना</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>वर्णन</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>प्रोजेक्ट मैनेजर</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>परियोजना </value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>परियोजना की स्थिति</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>टीम</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>परियोजना टेम्पलेट</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>परियोजना टेम्पलेट</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>ताज़ा चार्ट</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>परियोजना को सुरक्षित करो</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>चुनें परियोजना टेम्पलेट</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>टैग</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>बंद कार्य। वर्तमान में मील का पत्थर के लिए पूरी सूची को खोलने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>ओपन कार्य। वर्तमान में मील का पत्थर के लिए पूरी सूची को खोलने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>जिम्मेदार उपयोगकर्ता मील का पत्थर। वर्तमान उपयोगकर्ता द्वारा प्रबंधित सभी मील के पत्थर को देखने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>प्रोजेक्ट मैनेजर। वर्तमान उपयोगकर्ता द्वारा प्रबंधित सभी परियोजनाओं को देखने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>ओपन कार्य। वर्तमान परियोजना के लिए पूरी सूची को खोलने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>टीम। सभी परियोजना टीम के सदस्यों की सूची को खोलने के लिए क्लिक करें</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>ओपन उपकार्यों। वर्तमान कार्य के लिए पूरी सूची को खोलने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>जिम्मेदार उपयोगकर्ता कार्य। वर्तमान उपयोगकर्ता को सौंपा सभी कार्यों को देखने के लिए क्लिक करें।</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>जिम्मेदार उपयोगकर्ता कार्य। कार्य के लिए जिम्मेदार सभी उपयोगकर्ताओं को देखने के लिए क्लिक करें।</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>सक्रिय मील के पत्थर देखें</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>ओपन कार्य देखें</value>
+  </data>
+</root>

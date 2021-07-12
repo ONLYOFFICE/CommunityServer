@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>파일을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>페이지를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>선택한 버전을 비교</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>게시</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>되돌아 가다</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>업로드</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>버전 {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>카테고리가 아직 생성되지 않았습니다</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>모든 위키 문서 카테고리는 여기에 나열되어 있습니다. 카테고리가 페이지에 생성되면, 여기에 카테고리 목록에 추가됩니다.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>이 섹션에 표시 할 파일 없음</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>모든 위키 저자가 위키 페이지에 업로드 된 파일은이 섹션에 보관됩니다. 이 파일은 위키 나 HTML 마크 업을 사용하여 페이지에 첨부 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>이 섹션에 표시 할 페이지가 없습니다</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>색인 페이지가 알파벳 순서 위키 작성자에 의해 생성 된 모든 페이지를 나열합니다. 페이지가 생성되면, 자동으로 색인에 추가됩니다.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>이 섹션에 표시 할 페이지가 없습니다</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>작성자과의 새로 만들거나 최근에 수정 된 페이지는 여기에서 확인하실 수 있습니다. 그들은 자동으로 생성하거나 편집 시간별로 정렬 목록에 추가됩니다.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>이 섹션에 표시 할 페이지가 없습니다</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>작성자과의 최근에 수정 된 페이지는 여기에서 확인하실 수 있습니다. 그들은 자동으로 편집 시간별로 정렬 목록에 추가됩니다.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>새 파일</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>새 페이지</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>파일을 편집합니다</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>페이지 편집</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>파일이 존재하지 않습니다. {0Create}이 이름을 가진 파일 [{1search 결과}의 [또는 검색]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;The requested page does not exist. &lt;/div&gt;Would you like to {0create} it[[ o search in the {1search result}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>파일 업로드</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>새 페이지 만들기</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>페이지를 삭제</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>페이지를 편집</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>카테고리 : {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>페이지 인쇄</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>역사 내역 보기</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>기업 위키</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>업로드 할 파일을 선택하지 않습니다.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>내부 오류가 발생했습니다.관리자에게 문의하시기 바랍니다.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>페이지 마크 업에 오류가 있습니다</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>변동이 없습니다.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>이 문서는 다른 사용자에 의해 수정되었습니다. 최신 버전을 볼 수 있습니다 페이지를 새로 고침하세요.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>페이지 제목 필드는 비어 있습니다.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>페이지 이름이 잘못되었습니다.다른 이름을 입력 해주세요.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>이 제목이있는 페이지가 이미 존재합니다.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>변경 사항이 저장되었습니다.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>카테고리에 페이지를 추가합니다</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>페이지 업데이트 / 의견</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>새 페이지</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>페이지에 가입</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>위키 검색</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>탈퇴</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>추가 댓글</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>삭제 댓글</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>편집 주석</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>파일 추가</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>파일 삭제</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>페이지 추가</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>페이지 수정</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>페이지 버전이 되돌아</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>비교 버전. {0} 버전으로. {1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>파일 업로드</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>기록</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>{0}에서의 최신 변경 사항 {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>이 버전을 되돌릴 하시겠습니까?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blogi luotiin: </value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Kirjanmerkki luotiin: </value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>Asiakkuushallinnan tapaus luotiin:</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Kommentti lisättiin:</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>Asiakkuudenhallinnan kontakti luotiin:</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>Asiakkuudenhallinnan mahdollisuus luotiin:</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Keskustelu luotiin:</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Tapahtuma luotiin:</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Asiakirja luotiin/ladattiin: </value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Kansio luotiin:</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Keskusteluryhmä luotiin:</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Kysely luotiin:</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Postaus luotiin:</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Välitavoite luotiin:</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Projekti luotiin:</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Tehtävä luotiin:</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Hallintapaneeliin pääsy</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Portaaliisi pääsy</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Nettitoimistoosi pääsy</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Aseta Nyt</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Kutsu Nyt</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Soittopyyntö</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Lisätietoa &gt;&gt;</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP testiviesti
+
+Tämä viesti luotiin automaattisesti testaamaan sinun SMTP asetuksia. Jos näet tämän viestin, niin se tarkoittaa että asetukset ovat oikein ja voit käyttää niitä portaalissasi.
+
+
+Parhain Terveisin,
+ONLYOFFICE Tiimi</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Ole hyvä ja aktivoi sähköpostiosoitteesi</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. ${__VirtualRootPath} portaalin turvavarmenne luotu</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText} salasana tuki</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Matkapuhelimen numeron vaihdon pyyntö</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portaalin omistajan muutos</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portaalin osoitteen muutos</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Käyttäjän viesti pääkäyttäjille</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Kutsu liittyä ${__VirtualRootPath} portaaliin</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Toisen alueen portaalin migraation virhe</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Toisen alueen portaaliin migraatio alkoi</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Toisen alueen portaalin migraatio on suoritettu onnistuneesti</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>${__VirtualRootPath} portaalin deaktivointi</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portaalin poisto</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Portaalin osoitteen muutos</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portaalista profiilisi poisto</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Profiilisi: ${__VirtualRootPath} on muutettu</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Palautus valmis</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Palautus alkoi</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} portaalin profiilin muutoksen tiedonanto</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Mitä uutta portaalissasi: $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP testiviesti</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Uusi käyttäjä lisätty ${LetterLogoText} portaaliin</value>
+  </data>
+</root>

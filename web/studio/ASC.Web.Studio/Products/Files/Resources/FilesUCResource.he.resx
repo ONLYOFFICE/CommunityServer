@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>לקריאה בלבד</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>גישה מלאה</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>מנע גישה</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>חשבון Box</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>חשבון Dropbox</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>חשבון גוגל</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>שינוי פרטי צד שלישי</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>נקה מסנן</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>צור תיקיה</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>צור מצגת</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>צור גיליון אלקטרוני</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>צור מסמך</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>מחיקת צד שלישי</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>הורד</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>ריקון סל המיחזור</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>תיקיות</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>אימג'ים</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>מצגות</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>גליונות אלקטרוניים</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>עבור אל תיקיית המסמכים שלי</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>למד עוד...</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>העבר אל</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>שחזר</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>בחר הכל</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>הגדרות שיתוף</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>הצג גירסאות</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>דלג</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>למעלה</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>העלה</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>אישור לדרוס את הישן</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>שים לב: לא ניתן לבטל פעולה זו.</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך להסיר רכיבים אלה מהרשימה?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>מסמכים נפוצים</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>הורד מסמך</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>הורד תיקיה</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>במקטע 'מסמכים נפוצים' מוצגים כל המסמכים ששותפו ע"י מנהלי הפורטל לצורך גישה משותפת. רק מנהל הפורטל רשאי ליצור תיקיות במקטע זה, אך מי שמקבל הרשאת גישה מתאימה, כל אחד ממשתמשי הפורטל יכול להעלות קבצים לכאן.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>באפשרותך לגרור לכאן קבצים מהמחשב שלך כדי להעלות אותם לפורטל שלך ביתר קלות.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>אזור 'ששותפו איתי' נועד כדי להציג קבצים בהם ניתנה לך גישה ע"י אחרים. אם עדיין לא צפית בשינויים האחרונים בקובץ מסויים, הוא יסומן כ'חדש'. באפשרותך להסיר את הקבצים מרשימה זו ע"י לחיצה על הכפתור  המתאים.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>המסמכים וקבצי התמונה שאתה {0} יוצר {1} או {2} מעלה {3} לפורטל, נשמרים כאן באזור 'המסמכים שלי'. אתה יכול {4} לפתוח {5} ו {6} לערוך {7} אותם באמצעות ONLYOFFICE™ Portal Editor, לשתף אותם עם חברים או עמיתים לעבודה ולארגן בתיקיות.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>בסעיף זה נשמרים מסמכים וקבצי תמונה שיצרת או העלית עבור הפרוייקט שלך. באפשרותך לפתוח ולערוך אותם באמצעות ONLYOFFICE™ Portal Editor וגם לארגן אותם בתיקיות.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>אזור 'סל המיחזור' מכיל את כל הקבצים שנמחקו. באפשרותך לשחזר אותם במקרה שהם נמחקו בטעות, או למחוק אותם לצמיתות. שים לב: כאשר תמחק את הקבצים מתוך 'סל המיחזור' לא תהיה יותר אפשרות לשחזרם.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>אין כאן קבצים להצגה בסינון זה</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>לא ניתן להציג קבצים או תיקיות התואמים למסנן שלך בסעיף זה. אנא שנה את אפשרויות הסינון או נקה את הגדרות המסנן כדי להציג את כל הקבצים הכלולים בסעיף זה. באפשרותך גם לחפש את הקובץ הנדרש בסעיפים אחרים.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>אין קבצים להצגה בסעיף זה</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>מסנן</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>תיקיות</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>בחר הכל</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>המסמכים שלי</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>תצוגה מקדימה</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>פתח תיקיה</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>סיסמה</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>מסמכים של הפרוייקט</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>סמן כנקרא</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>בחר תיקיה</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>ששותפו איתי</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>הענק גישה לאנשים מחוץ לפורטל</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>עבור לתצוגה מצומצמת</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>עבור לתצוגה רגילה</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>מחיקת צד שלישי</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>כותרת התיקיה</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>הפוך למשותף והכנס לרשימת מסמכים משותפים</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>בחר</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>באפשרותך ליצור מסמכים (doct), גליונות אלקטרוניים (xlst), מצגות (pptt) ולהוריד אותם לתבניות הפופולריות ביותר.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>באפשרותך לערוך את הקבצים הבאים: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>באפשרותך לפתוח את הקבצים עם הסיומות הבאות: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>לאזור המסמכים תוכל להעלות כל קובץ שתרצה.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>סל המיחזור</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>הסר מהרשימה</value>
+  </data>
+</root>

@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Kaydet ve Yeni Olay Oluştur</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>Tüm Çantalar</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Evrak Çantası</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Yayıncı olduğunuz olaylara izinler düzenlenecektir</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Çanta Katılımcısı</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Çanta Katılımcıları</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>Çanta etiketi</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>Çanta etiket listesi</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Durum</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Çanta Başlığı</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Vakayı kapat</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Olay oluşturuluyor...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>İlk olayı oluştur</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Yeni olay oluştur</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Olayı sil</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Olaylar siliniyor</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Vakayı düzenle</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>«{0}» Vakasını Düzenle</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Evrak çantaları tüm yazışma geçmişini aynı yerde tutmaya, görev atamaya, aynı etkinliğe katılan kişilere ortak belge yüklemeye izin verir. Örneğin, bir takım eğitimi ya da sergi organizasyonu bir çanta olabilir.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen olay yok. Lütfen diğer filtre seçeneklerini seçin yada tüm olayları görmek için filtreyi sıfırlayınız. Yada listede eksikse yeni olay oluşturabilirsiniz.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>Bu filtre için burada görüntülenecek hiçbir vaka yok</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>Vaka listesi boş</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>Katılımcı listesi boş</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Şirketler yada kişiler listesinden olayınıza katılımcılar ekleyin. Bu tamamlandıktan sonra bu olayla ilgili kimlerin gelecek etkinliklerde yer alacağını bileceksiniz.</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>Vakaları içe aktar</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Düzgün oluşturulmuş bir CSV dosyası bilgisayar HDD'nizde seçilmelidir. Sınırlayıcı tarafından bölünmüş alan yada sütunlar içermelidir. Olayları aktarmak için kullanılacaktır.{0} sıradan fazla olanlar uygun aktarım için küçük parçalara bölünmelidir. Bilgilere erişim verilmiş kullanıcıları seçtiğinizden emin olunuz aksi halde CSV dosyasındaki veri sadece size mevcut olacaktır.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Bir CSV dosyasını seçin ve içe aktarmadan önce erişim haklarını ayarlayın</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Dosya sütünlarınızı ilgili ONLYOFFICE™ CRM alanlarıyla eşleştirin. Olayları doğru aktarmak için dosyanızdan en az bir sütunun ONLYOFFICE™ CRM'nin 'Olay Başlığıyla' eşleşmesi gerektiğini unutmayınız. Tarih içeren alanlar şu formatta olmalıdır: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lütfen alanları doğrulayın</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Vakalar listesine git</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Olay aktarımı veri miktarına bağlı olarak birkaç dakika sürebilir.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>İçe alma başlatıldı</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Çanta Katılımcıları</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Açık vaka</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Katılımcılar</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Çantaya erişimi sınırla</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Değişiklikleri Kaydet</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>Profile git</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>Yeni bir sekme aç</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>İçe Aktarıma Başla</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Tüm Çantalar</value>
+  </data>
+</root>

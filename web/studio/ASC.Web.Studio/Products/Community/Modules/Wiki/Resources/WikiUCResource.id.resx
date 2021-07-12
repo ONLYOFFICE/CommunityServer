@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Edit bagian:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Nama File</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Teks</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Judul Halaman</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Unggah File</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Nama File yang Diunggah</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Perbesar</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Membuat Wiki sangatlah mudah, bahkan jika sebelumnya Anda belum pernah menggunakan bahasa pemrograman. Anda hanya perlu mengingat beberapa aturan sederhana di bawah ini. Semoga bermanfaat bagi Anda. 
+
+@@TOC@@ ==Bagian, Paragraf, Daftar, Baris== 
+
+Untuk memulai bagian baru, gunakan simbol = di awal paragraf: 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+=Section=&lt;br&gt; 
+==Subsection==&lt;br&gt; 
+===Sub-subsection===&lt;br&gt; 
+
+&lt;p&gt; Dengan menyisipkan @@TOC@@ di sebuah halaman, semua bagian dan sub-bagian halaman akan disatukan di sebuah daftar isi. 
+&lt;/p&gt; 
+
+Bahasa Wiki mengabaikan jeda antar baris. Anda dapat menggunakannya untuk memisahkan kalimat-kalimat dalam paragraf. 
+
+&lt;p&gt; 
+Gunakan tag «br» untuk membuat jeda baris tanpa memisahkannya ke dalam paragraf baru. 
+&lt;/p&gt; 
+
+Untuk mengawali sebuah paragraf baru, tekan Enter dua kali, seperti saat Anda menggunakan editor teks biasa. 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+Membuat daftar berbutir pun mudah: 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+* awali setiap butir daftar dengan tanda bintang;&lt;br&gt; 
+** semakin banyak tanda bintang;&lt;br&gt; 
+** menunjukkan urutan butir yang semakin di bawah.&lt;br&gt; 
+&lt;/p&gt; 
+
+&lt;p&gt; # Daftar bernomor pun tidak sulit dibuat:&lt;br&gt; 
+## strukturnya terlihat rapi;&lt;br&gt; 
+## dan mudah dibaca.&lt;br&gt; 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+JIKA terdapat spasi di awal baris, 
+MAKA format baris tersebut akan sama persis dengan apa yang tertulis; 
+dengan jenis huruf yang sama; tanpa jeda baris;[[no links]]. 
+
+Jika perlu, Anda dapat menggunakan spasi di awal baris: 
+
+*tempelkan teks yang sebelumnya telah diformat; 
+*tampilkan kode sumbernya; 
+*buat/tempelkan ascii art (gambar yang tersusun dari simbol teks). 
+
+Garis horisontal dibuat menggunakan empat tanda hubung: 
+&lt;nowiki&gt; 
+&lt;p&gt; ---- 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+==Menyisipkan Tautan== 
+&lt;nowiki&gt; 
+&lt;p&gt; 
+Untuk menyisipkan tautan ke halaman wiki, masukkan judul halaman di dalam tanda kurung siku ganda: &lt;br&gt; [[Help]]&lt;/p&gt; 
+
+&lt;p&gt; 
+Jika tautan dan judul yang ingin ditampilkan pada halaman ternyata berbeda, tuliskan judul tautan setelah simbol | : &lt;br&gt; [[Halaman Bantuan Bahasa Wiki|Halaman Bantuan]] &lt;/p&gt; 
+
+&lt;p&gt; 
+Tautan eksternal ditulis langsung pada teks, seperti ini: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt; 
+Jika Anda ingin mengubah judul tautan eksternal, gunakan sebuah kurung persegi, dan tuliskan judul setelah spasi: &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt; 
+Untuk menyisipkan alamat email, gunakan sebuah kurung persegi: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Untuk menambahkan sebuah halaman ke kategori, tambahkan tautannya ke dalam kategori yang diinginkan[[Kategori: Kategori yang diinginkan]] di bagian bawah halaman. 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+==Memformat Teks== 
+
+Ikuti tips berikut ini untuk memformat teks: 
+
+''Italics'' 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+''membuat teks cetak miring'' 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+
+'''Bold''' 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+'''membuat teks cetak tebal''' 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+
+'''''Bold Italics''''' 
+&lt;nowiki&gt; 
+&lt;p&gt; 
+'''''membuat teks cetak tebal miring''''' 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+
+__Underline__ 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+__membuat teks bergaris bawah__ 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+
+--Strike-- 
+
+&lt;nowiki&gt; 
+
+&lt;p&gt; 
+--membuat teks dengan coretan-- 
+&lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+Indeks: &lt;sup&gt;superscript&lt;/sup&gt; and &lt;sub&gt;subscript&lt;/sub&gt; 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+&lt;sub&gt;your subscript index&lt;/sub&gt;&lt;br&gt; 
+&lt;sup&gt;your superscript index&lt;/sup&gt; &lt;/p&gt; 
+
+&lt;p&gt; 
+Anda juga dapat menggunakan &lt;small&gt; small text &lt;/small&gt; untuk menuliskan komentar, format spesial untuk menampilkan &lt;code lang="language"&gt;program code&lt;/code&gt; huruf dengan fragmen dan ketinggian tertentu &lt;tt&gt;technical terms&lt;/tt&gt;. 
+&lt;/p&gt; 
+
+
+&lt;/nowiki&gt; 
+
+==Menyisipkan Gambar== 
+
+Untuk dapat menyisipkan gambar ke halaman wiki, Anda harus mengunggahnya ke wiki terlebih dahulu. 
+
+Gunakan tautan berikut ini untuk menyisipkan berbagai jenis gambar: 
+
+&lt;nowiki&gt; 
+&lt;p&gt; 
+Gambar = [[Gambar:Judul Gambar]]&lt;/p&gt; 
+&lt;p&gt; 
+Gambar dengan ukuran tertentu = [[Gambar:Judul Gambar | Lebar_px]]&lt;/p&gt; 
+&lt;p&gt; 
+Gambar dengan deskripsi = [[Gambar:Judul Gambar | Deskripsi]]&lt;/p&gt; 
+&lt;p&gt; 
+Gambar thumbnail = [[Gambar:Judul Gambar | thumb]] – kompresi akan dilakukan pada gambar dan gambar akan diratakan ke sebelah kanan. &lt;/p&gt; 
+&lt;/nowiki&gt; 
+
+==Transfer dari HTML ke Wiki== 
+
+Jika Anda memiliki teks berformat html yang ingin ditransfer, Anda dapat melakukan dengan cepat dan mudah. Klik '''Buat halaman baru''' pada panel '''Tindakan''' . Kemudian tempelkan teks Anda pada halaman editor dan beralihlah ke tampilan bahasa wiki dengan mengklik ikon Wiki pada panel format di atas. Tag html akan diubah menjadi bahasa wiki. Periksalah hasilnya, betulkan kesalahan kecildan tekan  '''Terbitkan'''. Halaman Anda telah siap.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Bantuan</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Selamat Datang di ONLYOFFICE™ Wiki!''' 
+
+Anda dapat membuat halaman, tautan dan menggabungkannya dalam kategori melalui browser web Anda. Wiki merupakan sebuah alat untuk menyimpan dokumentasi terkait proyek yang memiliki ciri khas berupa fitur-fitur sebagai berikut : 
+
+*beragam penulis. Setiap anggota'''ONLYOFFICE™''' dapat mengedit konten halaman manapun. 
+*editing cepat. Klik tautan '''Edit''' yang terdapat di setiap halaman dan mulailah mengedit langsung dari browser Anda
+*kemudahan transfer dari HTML ke WIKI. Baca petunjuknya di [[Internal:Help#HTML to Wiki Transfer|how]] 
+*dukungan versi halaman. Lihat apa saja yang telah diedit, dengan cara mengembalikan halaman ke versi sebelumnya.
+
+@@TOC@@ 
+
+==Navigasi dan Struktur Wiki== 
+
+Anda dapat menavigasikan wiki melalui '''Panel Navigasi''' yang selalu tersedia saat Anda membuka halaman '''ONLYOFFICE™''' wiki. 
+
+===Halaman=== 
+
+Semua halaman wiki yang Anda buat akan diurutkan secara alfabetik di halaman [[Internal:Index|Indeks]] .&lt;br&gt; 
+Semua halaman yang baru dibuat akan diurutkan secara kronologis di halaman [[Internal:NewPages|Halaman Baru]] .&lt;br&gt; 
+Daftar halaman terbaru yang diedit dapat dibaca di halaman [[Internal:Recently|Edit Terbaru]] .
+
+===File=== 
+
+Anda dapat mengunggah file dengan berbagai ukuran dan format ke wiki, serta menyertakan tautan untuk mengunggah gambar saat membuat halaman wiki. Baca selengkapnya [[Internal:Help#Inserting Images|di sini]]. 
+
+===Bantuan=== 
+
+Membuat halaman untuk'''ONLYOFFICE™''' wiki adalah hal yang mudah. Anda hanya harus mengetahui beberapa aturan sederhana. Buka [[Internal:Help|tips bahasa wiki]] untuk membaca selengkapnya mengenai aturan-aturan bahasa pemrograman wiki. 
+
+==Membuat Wiki Anda== 
+
+Untuk membuat wiki Anda sendiri, mulailah dengan membuat sebuah halaman baru dengan mengklik tautan  '''Buat halaman baru''' pada panel '''Tindakan''' . Kemudian, tulis teks di halaman editor teks. Gunakan [[Internal:Help|tips bahasa wiki]] agar teks dapat ditampilkan dengan baik di halaman. 
+
+Ingatlah bahwa halaman editing tersebut adalah adalah halaman pribadi tempat Anda mengatur segala sesuatu sesuai dengan kebutuhan Anda. Konten pada halaman tersebut pun dapat diedit. Misalnya, Anda dapat menghapus tulisan yang pernah Anda buat dan menyertakan tautan ke proyek Anda. &lt;br&gt;Selamat mencoba!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Halaman tidak ditemukan. Klik {di sini} untuk membuat dan mengeditnya.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Penanda</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Tebal</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Pra-blok</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Untuk menandai secara visual kode dari pihak ketiga</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>Contoh kode HTML</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Tautan eksternal</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Tautan file lokal</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (memerlukan moderator)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Garis horisontal</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Gambar</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Italics</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Baris baru</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR tag</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Tidak dapat diterjemahkan menggunakan bahasa Wiki</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Tautan Halaman</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Tag khusus</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Coret</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Subskrip</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Superskrip</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Simbol khusus</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Garis bawah</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Blok</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Ukuran file yang diunggah melebihi ukuran maksimal</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Unduh file</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Ukuran maksimal file untuk diunggah adalah {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Bagian: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Halaman telah dipindahkan= 
+Nama halaman diganti menjadi [[{0}|{0}]]. 
+Anda dapat membuka versi terbaru [[{0}|di sini]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Daftar Isi</value>
+  </data>
+</root>

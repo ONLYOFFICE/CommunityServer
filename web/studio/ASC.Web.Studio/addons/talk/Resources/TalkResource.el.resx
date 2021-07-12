@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Αποδοχή</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Προσθήκη στη μαζική αλληλογραφία</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Κλείσιμο ιστορικού</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Δημιουργία</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Αρνούμαι</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Λάκτισμα</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Κατάργηση</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Κατάργηση</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>Κατάργηση αλληλογραφίας</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>Κατάργηση μέλος</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Αποστολή πρόσκλησης</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Ομιλία</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Αίθουσες Συνομιλιών</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Σύνδεση</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Καλώς ήλθατε στο {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Ανώνυμος</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Διαγραφή απεσταλμένων αρχείων</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>Όλα τα αρχεία</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>% H:% M:% s% d% b% Y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Σύνδεση ...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Συνδέστε Me</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Δημιουργία αίθουσας συνομιλιών</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Αποστολή πολλαπλών</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Δημιουργία συντομεύσεων και ξεκινήσατε συζήτηση ως  εφαρμογή web.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Χρησιμοποιήστε Ctrl Enter για την αποστολή μηνυμάτων, το Enter για να ξεκινήσετε μια νέα παράγραφο</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Φατσούλες</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Ενεργοποίηση / απενεργοποίηση φίλτρου</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Η έκδοση του Adobe Flash Player  δεν είναι σωστή</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Εμφάνιση / Απόκρυψη των ομάδων</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Ιστορικό μηνύματος</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player δεν έχει εγκατασταθεί</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Έρευνα</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Επόμενο</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Προηγούμενο</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Επιλέξτε ένα άτομο από τη λίστα επαφών για να ξεκινήσει μια συζήτηση</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Αποστολή αρχείου</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Σύρετε μια επαφή εδώ για να προσθέσετε έναν παραλήπτη.</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Εμφάνιση καρτέλας αριστερά</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Εμφάνιση καρτέλα στα δεξιά</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>Διάβασε</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Αναζήτηση ανά περιεχόμενο μηνυμάτων</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Σύρετε μια επαφή εδώ για να προσθέσετε έναν παραλήπτη</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Τρέχουσα Κατάσταση</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Μην ρωτήσετε την επόμενη φορά</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>πρώτα επιλέξτε το χρήστη {0} από τη λίστα για να ξεκινήσει η συζήτηση</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Θέλετε πραγματικά να καταργήσετε αυτόν το χρήστη από τη συνομιλία;</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Όνομα</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Νέο μήνυμα</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>σας έχει προσκαλέσει</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Θέλετε πραγματικά να διαγράψετε αυτήν την αίθουσα;</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Αποστολή</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Προσωρινή αίθουσα (θα διαγραφεί όταν όλοι οι χρήστες το αφήνουν)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Θέμα</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Έγκυρα σύμβολα</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Αλληλογραφίες</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Ομιλία</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Εύρεση επαφής</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Φάκελος: {0} Μέγεθος: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>του</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>% H:% M:% S</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Μακριά</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Δεν διατίθεται</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Αποσυνδεδεμένο</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Διαθέσιμο</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>Συνομιλήστε με τους συναδέλφους σε πραγματικό χρόνο. Αποκτήσατε λίστα επαφών που ενημερώνεται αυτόματα. Λάβατε κοινοποιήσεις στο "τι νέο υπάρχει" .</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Ειδοποιήσεις Περιηγητού</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Δημιουργία μαζικής αλληλογραφίας</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Δημιουργία αίθουσας συνομιλιών</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>Χρήστης Kick από συνομιλία</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Πρόσκληση σε συζήτηση</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Διαγραφή συνομιλίας</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>Γράψτε ένα μήνυμα...</value>
+  </data>
+</root>

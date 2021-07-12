@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.AssemblyInfo" />
+
+  <PropertyGroup>
+    <ASCDir>..\..\</ASCDir>
+    <ConfigurationSites  Condition=" '$(ConfigurationSites)' == '' ">Debug</ConfigurationSites>
+    <BuildTargets   Condition=" '$(BuildTargets)' == ''  ">Restore;Build</BuildTargets>
+    <DeploySites Condition="'$(DeploySites)' == ''">0</DeploySites>
+  </PropertyGroup>
+
+  <Target Name="Build">
+    <Message Text="$(BuildTargets) projects ($(Configuration)):"/>
+    <Message Text="-  %(ProjectSitesToBuild.Filename)%(ProjectSitesToBuild.Extension)"/>
+    <Message Text="  "/>
+
+    <CreateItem Include="$(ASCDir)\build\msbuild\">
+      <Output ItemName="AlToolPath" TaskParameter="Include"/>
+    </CreateItem>
+
+    <MSBuild
+	    BuildInParallel="true"
+        Projects="$(ASCDir)Sites.sln"
+        Targets="$(BuildTargets)"
+        Properties="Configuration=$(ConfigurationSites);DeployTo=$(DeployTo);AlToolPath=%(AlToolPath.FullPath)"
+        RebaseOutputs="true"
+        StopOnFirstFailure="true"/>
+  </Target>
+
+  <Target Name="SetAssemblyInfo">
+    <Message Text="%(ProjectToBuild.Filename)"/>
+    <AssemblyInfo CodeLanguage="CS"
+                  OutputFile="%(ProjectToBuild.RootDir)%(ProjectToBuild.Directory)Properties\AssemblyInfo.cs"
+                  AssemblyProduct="ONLYOFFICE"
+                  AssemblyTitle="%(ProjectToBuild.Filename)"
+                  AssemblyCompany="Ascensio System SIA"
+                  AssemblyCopyright="Ascensio System SIA 2015"
+                  AssemblyTrademark="ONLYOFFICE™"
+                  AssemblyVersion="8.0.0.0"
+                  AssemblyFileVersion="8.0.0.0"/>
+  </Target>
+
+</Project>

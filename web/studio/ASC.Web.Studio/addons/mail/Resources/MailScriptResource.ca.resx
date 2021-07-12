@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Error de connexió al compte</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Paràmetres de configuració del compte</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Comptes</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Accions</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Tot</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>L'accés al document és prohibit.</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>S'ha produït un error durant la connexió al compte de correu {0}. Si us plau, reviseu la configuració del compte. Si esteu segurs que tots els paràmetres de configuració són correctes, accediu al vostre servei de correu electrònic utilitzant la interfície habitual i confirmeu qualsevol correu de verificació, si n'hi ha algun. Si l'error persisteix visiteu la secció de {1}Solució de problemes{2} del Centre d'Ajuda. </value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Seleccioneu una etiqueta</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Contraure-ho tot</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Crea una nova empresa al CRM</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Crea una nova persona al CRM</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>Contactes del CRM</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Esteu segurs que voleu esborrar l'etiqueta %1?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Esborrant els missatges</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Escriviu el primer esborrany</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Escriviu un missatge nou</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Crea una nova etiqueta de correu</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Escriviu un missatge nou</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Període personalitzat</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Selecciona</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Empreses</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Amb etiqueta</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>S'importaran tots els correus electrònics dels últims 30 dies</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Creant una bústia de correu electrònic...</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 més</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Afegir un compte nou</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Creant una etiqueta...</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Sense etiquetes</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Amb etiquetes</value>
+  </data>
+</root>

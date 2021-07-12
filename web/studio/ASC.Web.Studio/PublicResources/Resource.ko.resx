@@ -1,0 +1,1479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRights" xml:space="preserve">
+    <value>접근 권한</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>{0} 모듈에대한 액세스 주어집니다</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>추가 {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>{!user} 추가</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>모든 사용자</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>포털 소유자를 변경</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>변경 이메일을 통해 확인 후 적용됩니다.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>포털 소유자를 변경하려면 아래의 새 포탈 소유자의 이름을 선택하십시오.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} 모듈은 비활성화되고 포털에서 표시되지 않습니다. 을 사용하려면 포털 설정의 모듈 및 도구 섹션을 참조</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>사용자 목록이 비어 있습니다</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>전체 액세스</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>변경 포털 운영자 | 권리 제외하고는 포털 소유자와 동일한 액세스 권한이 비활성화하거나 포털을 삭제</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>포털 소유자는 수</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>모듈 관리자와 동일한 작업을 수행 | 모듈 관리자 선정 | 설정 모듈 액세스 권한을 | 관리 포털 구성 | 관리 사용자 계정 | 변경 포털 운영자 | 백업 포털 데이터 | 포털을 비활성화 또는 삭제</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} 관리자 수</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} 사용자 수</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} 다른 액세스 권한을 가진 사용자 수</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>목록에서 사용자</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>귀하의 계정은 현재 거의 활성화</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>포털 비활성화</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>이메일 (포털 소유자의 이메일 주소) : 작업을 확인하기 위해 링크로 보냈습니다.</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>포탈 삭제</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>이메일 (포털 소유자의 이메일 주소) : 작업을 확인하기 위해 링크로 보냈습니다.</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>코드를 다시 보내기</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>코드를 입력</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>다시 한번 이메일을 활성화</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>유효성 검사 코드 필드는 비워 둘 수 없습니다</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>휴대 전화 번호를 입력</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>보내기</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>추가</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>추가 {!groups}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>그룹을 추가</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>메모 추가</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>신뢰할 수있는 도메인을 추가</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>사용자 추가</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>관리자 알림</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>메시지 보내기</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>포털에 액세스 할 수 없습니까?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>연락하는 데 사용할 수있는 이메일 주소</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>포털 관리를 문의</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>메시지가 성공적으로 전송되었습니다. 당신은 포탈 관리자가 연락을드립니다.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>관리자 메시지 설정</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>당신의 문제에 대해 설명해주세요</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>이 포털에 액세스하는 데 문제가 있거나 포털을 입력해야하지만, 작업을 수행하는 방법을 모르는 경우, 아래의 양식을 사용하여 포털 관리자에게 문의하십시오.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>관리자</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>모든 도메인</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>답변</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>연결</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>연결</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>분리</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>연결되지 않음</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>에</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>권한 부여</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>제목 페이지로 이동</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>백업</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>{0} 당신은 위의 링크를 사용하여 로컬 드라이브에 백업을 다운로드 할 수 있습니다. 링크는 요청 된 시간 이후 24 시간 동안 활성화됩니다. {1} 링크를 클릭하고 지시 사항을 포함하는 이메일 귀하의 이메일 주소로 발송되었습니다. {2}</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>추가 {!group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>생년월일</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>새 연락처 추가</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>입력 한 모든 데이터가 손실됩니다. 당신이 계속 하시겠습니까?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>로고 변경</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>이메일 (포털 소유자의 이메일 주소) : 작업을 확인하기 위해 링크로 보냈습니다.</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>1 월, 2 월, 3 월, 4 월, 5 월, 6 월, 7 월, 8 월, 9 월, 10 월, 11 월, 12 월</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>필터 지우기</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>댓글이 삭제되었습니다</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>계정을 비활성화 할 것인지 확인해주세요</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>계정을 삭제할 것인지 확인하시기 바랍니다</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>당신은 {0} (으) 포털 주소를 변경 하시겠습니까?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>포털 소유자가 성공적으로 변경되었습니다. {0} 10 초 당신은 리디렉션됩니다 {1} 여기 {2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>당신은 {0} (으) 포털 소유자를 변경하려면 확인하시기 바랍니다</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>계정을 다시 활성화 할 것인지 확인해주세요</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>당신은 코멘트를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>연락처 정보</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>계속</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>링크를 복사</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>백업을 만드는</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>사용자 정의 도메인 이름</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>사용자 정의</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>데이터 백업</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>비활성화</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>비활성화</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>귀하의 계정이 성공적으로 비활성화되었습니다. 10 초 {0} 당신이 여기 {2} {1}로 리디렉션됩니다</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>일시적으로 포탈을 비활성화하려면이 옵션을 사용하십시오.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>모듈 선택</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>기본 시작 페이지</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>이 작업은 취소 할 수 없습니다. 확실 삭제 하시겠습니까 {!group}`{0}`?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>귀하의 계정이 삭제되었습니다. {0} 10 초 당신은 리디렉션됩니다 {1} 여기 {2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>내 프로필을 삭제합니다</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>이메일 주소로 프로필을 삭제 지침을 보내기</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>프로파일 대화 상자를 삭제</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>프로필 삭제</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>영구적으로 포털을 삭제하려면이 옵션을 사용하십시오.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>수정 {!group}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>사용 안함</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!Users} 활성 {!Users} 목록에 표시되지 않습니다</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>작업을 확인하기 위해 링크는 {0} (포털 소유자의 이메일 주소)로 발송되었습니다.</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS 설정</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} 전</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} 일</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} 일</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} 일</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>막</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} 시간</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} 시간</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} 시간</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} 분</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} 분</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} 분</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} 개월</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} 개월</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} 개월</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} 년</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} 년</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} 년</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>그저께</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>내일</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>어제</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>프로필 수정</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>메일 주소</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>활성화 지침은 입력 된 이메일로 발송됩니다</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>인증 이메일에 제공된 링크를 사용하십시오. 활성화 링크가 포함 된 이메일을받지 못했습니까?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>모든 포털 기능에 액세스하려면 등록시 이메일 입력 활성화하십시오.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>다시 한 번 요청 활성화</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>인증 이메일이 귀하의 이메일 주소로 발송되었습니다. 귀하의 계정을 활성화 할 수있는 메시지의 링크를 클릭하십시오.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>이메일 활성화</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>비밀번호를 확인</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>포탈은 다음 도메인에 등록되어 :</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>잘못된 비밀번호</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>잘못된 이메일 주소</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>포탈은 다음 이메일에서 등록 :</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>이 설정이 저장되었습니다</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>을 변경</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>유형 비밀번호</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>비밀번호와 확인이 일치하지 않습니다</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>이메일 변경</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>활성화 지침은 입력 된 이메일로 발송됩니다</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>이메일 변경</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>이메일이 활성화되지 않습니다</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>모든 그룹</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>직원 검색</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>저장 공간을 복용 데이터가 없습니다</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL을 사용하도록 설정</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>사용자가 다시 활성 상태로 표시됩니다</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>새 이메일 주소를 입력</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>이 페이지를 볼 수있는 권한이 없습니다</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>오류 403 - 금지</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>이 작업을 수행 할 수있는 권한 없음</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>잘못된 이메일 또는 유효 기간이 만료 된 링크</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User}의 이메일이 이미 등록 되어 있습니다.</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>이메일 필드는 비어 있습니다</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>현재 이메일 주소와 새 이메일 주소는 동일합니다</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>모든 입력란을 기입 해주세요</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>업로드 된 파일을 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>귀하의 이메일 주소를 입력</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>첫 번째 이름을 입력</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>성을 입력하세요</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>링크의 유효 기간이 만료되었습니다</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>이미지 크기가 너무 큽니다</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>이미지 파일 크기가 너무 큽니다</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>잘못된 활성화 링크</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>귀하의 가격 계획은이 옵션을 지원하지 않습니다</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>잘못된 이메일</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>도메인 이름이 잘못되었습니다</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>암호가 비어 있습니다.</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>새 암호가 올바르지 않습니다. 이 포함되어야합니다</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>이 포함되어야합니다</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>숫자</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>특수 문자</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>대문자</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>알 수없는 이미지 파일 형식</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>사용자를 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>이있는 사용자는 '{0}'이메일을 찾을 수 없습니다</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>여성</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>최대 파일 크기 초과</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>참고 : 파일 크기가 초과 할 수 없습니다 {1} {0} {2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bytes,KB,MB,GB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>기간 동안</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>보낸 사람</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>받는 사람</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>지난 3 개월</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>지난 달</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>지난 주</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>귀하의 계정을 확인 할 수있는 링크가 지정된 이메일로 보냈습니다</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>비밀번호를 잊으셨습니까?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>에 로그인하는 방법이 {0} 링크를 클릭하십시오 {1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>보낸 사람</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>로고</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>인사말 설정</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>그룹</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>그룹 리드</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>그룹</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>당신은 {1} {2} 포탈, 포털과 관련된 모든 정보는 사람은 특정 기간 동안 거기에 액세스 할 수 없습니다 있도록 차단됩니다 비활성화하려는 경우. 그렇게하려면 {1} 비활성화 {2} 버튼을 클릭합니다. 작업을 확인하기 위해 링크는 포털 소유자의 이메일 주소로 전송됩니다. {0} 경우에는이 ONLYOFFICE™ 포털에 다시 와서 확인 이메일에 제공된 두 번째 링크를 사용해야합니다 그것을 다시 사용하고 싶습니다. 따라서 안전한 장소에이 메일을 유지하시기 바랍니다. {0} 당신이 ONLYOFFICE™ 포털을 사용합니다 생각하지 않는 경우 {1} 삭제 {2} 포탈 영구적으로 사용하여 요청을 제출하고자하는 {1} 삭제 {2} 버튼을 클릭합니다. 제발, 당신​​이 포털을 다시 활성화하거나 관련된 모든 정보를 복구 할 수 없다는 것을 명심하십시오.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1} 관리자 메일 설정 {2}는 포털 관리자에게 연락 할 수있는 방법입니다. 사람들이 포탈에 메시지를 보낼 수 있도록 {0} {2} 페이지에서 {1} 로그인에 문의 양식을 표시하려면이 옵션을 사용 그들은 포털에 액세스 문제가있는 경우에는 관리자에게 문의하십시오. {0}가 설정 매개 변수를 만드는 방법은 효과가 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭보세요.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0} 기본 시작 페이지 {1}이 포털에 로그인하거나 이미 매개 변수를 만들려면 로그인했을 때 ONLYOFFICE™ 로고를 클릭 한 후 오른쪽으로 이동 모듈을 선택하는 방법입니다 당신은 을 클릭 적용 설정 섹션의 맨 아래에있는 {0} 할인 {1} 버튼을 클릭합니다.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1} DNS 설정 {2}로 ONLYOFFICE™ 포털에 대한 대체 URL을 설정하는 방법입니다. {0} 당신은 어느 {2} 필드 {1} 포탈 주소에 원하는 별칭을 입력하거나 {1} 사용자 정의 도메인을 확인할 수 있습니다 이름 {2} 상자 아래 입력란에 ONLYOFFICE™ 포털에 귀하의 도메인 이름을 지정합니다. {0}이 (가) 당신이 효과를 클릭하여 섹션의 하단에있는 {1} 할인 {2} 버튼을 설정 매개 변수를 확인합니다.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1} 인사말 설정 {2}이 (가)에 표시 할 기본 포털 제목과 로고를 변경하는 방법입니다 {1} 포털의 환영 페이지 {2}. {0}이 {1} 제목에 원하는 이름을 입력합니다 {2} 필드. 포털 로고가 {1} 변경 로고 {2} 링크를 클릭하여 포털에로드 할 수 있습니다. 컴퓨터에 저장된 이미지를 선택 바꾸려면 {0}은 {1} 보다 크지 않도록 이미지를 업로드 할 수 있다는 점에 유의하여 주시기 바랍니다  250x100 픽셀 {2}이 (가), 그렇지 않으면 크기를 조정이 장소를 취할 것입니다. 최대 이미지 크기는 {1} 1메가바이트 {2}을 (를) 초과 할 수 없습니다.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>초대 링크 이 (가) 포털에 가입하도록 사용자를 초대 할 수있는 방법입니다.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1} 언어 및 시간대 설정 {2}이 (가) 모든 포털 사용자에 대한 전체 포털의 언어를 변경하려면 ONLYOFFICE™ 포털의 모든 이벤트가 올바른 날짜와 시간을 표시 할 수 있도록 시간대를 구성하는 방법입니다 귀하가 설정 한 매개 변수를 확인합니다. {0}이 (가) 효과가 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭보세요.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1} 신뢰할 수있는 메일 도메인 설정 {2}이 (가) 사용자가 자기 registeration에 사용되는 메일 서버를 지정하는 방법입니다. {0} 당신이 할 수있는 하나 {1} 사용자 정의 도메인 {2} 옵션을 선택하고 신뢰할 수있는 메일 서버를 입력 할 수 아래 입력란 그래서 그것을 계정을 가지고 그 사람이 {2} 페이지에서 로그인하거나이 옵션을 사용하지 않도록 {1}에 가입 링크를 클릭하여 그 (그녀) 자기를 등록 할 수 있습니다. {0} 매개 변수를 만들려면 당신은 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭하여 적용 설정합니다.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1} 비밀번호 강도 설정 {2}이 (가) 추측과 짐승 - 강제 공격을 저항에 암호의 효과를 결정하는 방법입니다. {0} 얼마나 오래 암호가해야 결정하기 위해 {1} 최소 비밀번호 길이는 {2} 막대를 사용 수. 비밀번호를 사용해야합니다 문자 집합을 결정하기 위해 아래의 해당 확인란을 선택합니다. 귀하가 설정 한 매개 변수를 확인하려면 {0}을 적용 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭합니다.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1} 포털 버전 {2}이 (가) 사용 가능한 ONLYOFFICE™ 포털 버전 사이를 전환 할 수있는 방법입니다. {0} 당신도 다시 포털의 이전 버전에 새 버전 또는 스위치를 사용할 수 있습니다. {0}가 설정 매개 변수를 만들려면 섹션의 하단에있는 {1} 할인 {2} 버튼을 클릭하여 적용됩니다.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1} 팀 템플릿 {2} 조직 (또는 그룹)를 이름에 사용자 정의 방법입니다, 그 회원들이 활동. {0} 사용 가능한 사전 설정 중 하나를 선택하거나 입력합니다 {1} 템플릿 {2} 드롭 다운 목록 이름은 목록에서 {1} {2} 사용자 정의 옵션을 제공합니다. {0} 선택한 템플릿 사용에게 섹션의 하단에있는 {1} 할인 {2} 버튼을 적용하려면 선택을 붙들어.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>도움말 센터</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>숨기기</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>귀하의 AIM 계정을 입력</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Blogger 프로필을 입력</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>귀하의 이메일 주소를 입력
+귀하의 이메일 주소를 입력</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>당신의 페이스 북 프로필을 입력</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>귀하의 GoogleTalk 계정을 입력</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>귀하의 GoogleBuzz 프로필을 입력</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>귀하의 Google 계정을 입력합니다</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>귀하의 ICQ 계정을 입력</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>귀하의 Jabber계정을 입력</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>귀하의 라이브 저널의 프로필을 입력하세요</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>휴대 전화 번호를 입력</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>귀하의 MSN 계정을 입력</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>귀하의 마이 스페이스의 프로필을 입력하세요</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>전화 번호를 입력</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>귀하의 스카이프 계정을 입력</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>당신의 트위터 프로필을 입력</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>귀하의 야후 계정을 입력</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>사용자가 이미 존재합니다</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>메일 주소</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>연락처가 접수되지 않았습니다. {0} 당신은 또한 다른 프로필에서 연락처를 가져올 수 있습니다.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>사용자 이름을 입력</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>사용자 이름을 입력</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>귀하의 이메일 주소를 입력</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>첫 번째 이름을 입력</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>가져 오기 오류</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>성을 입력하세요</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>이름, 위의 입력란에 포털에 추가됩니다 사용자의 이름과 이메일을 입력 해주십시오. 목록에 사용자를 추가 할 수있는 '추가'버튼을 클릭합니다.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>파일에서</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>가져 오기에 대해 선택한 파일 형식이 잘못되어 있습니다. {0}주세요 다른 파일을 선택하고 다시 가져 오기 프로세스를 반복합니다.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>포털에 사용자를 추가</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>성, 이름과 이메일 주소를 포함한 모든 사용자 필드가 올바르게 기입되어 있는지 확인</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>성</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>사용자 이름 또는 비밀번호가 잘못되었습니다.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>포털에서 작업을 시작하기 위해, 당신은 {0} 이름 {1}과 {0} 성 {1} 오른쪽 양식에 올바른 있는지 확인하고, {0} 개인 비밀번호를 설정해야 한 {1} 로그인 할 수 있어야합니다.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>초대 링크</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>당신은 당신의 친구, 아는 사람이나 동료에서이 포털로 연결되는 링크를 받았습니다</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>당신은 당신의 친구, 아는 사람이나 동료하여이 포탈에 추가되었습니다</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>당신이 포털에 가입하도록 초대!</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>성</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>자세히...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>로드 중입니다 ...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>위치</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>가입</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>소셜 네트워크를 통해 로그인</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>또는로 로그인 :</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>관련된 타사 계정을 찾을 수 없습니다. 먼저 프로필 편집 페이지에서 소셜 네트워킹 계정을 연결해야합니다.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>남성</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>자신을 승인하십시오</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>이메일 인증 지침은 {0} 이메일 주소로 보냈습니다</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>이메일 변경 방법은 {0} 이메일 주소로 보냈습니다</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>귀하의 이메일이 성공적으로 활성화되었습니다</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>{0} 이메일 주소로 초대장 지침을 보내</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>{0} 이메일 주소로 이메일을 인증 지침을 보내기</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>{0} 이메일 주소로 이메일을 변경 지침을 보내기</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>{0} 이메일 주소로 비밀번호를 변경 지침을 보냅니다</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>포털에 등록하면서 사용한 이메일 주소를 입력하십시오.비밀번호 복구 방법은 해당 이메일 주소로 보내집니다.</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>기본 휴대 전화</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>전화 번호를 변경</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>휴대 전화 번호를 변경하는 명령은 귀하의 이메일 주소로 발송됩니다</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>보냄</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>휴대 전화를 변경</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>사용자 전화 번호가 삭제되고 사용자 휴대폰 번호를 변경하는 방법에 대한 지침은 이메일 주소로 발송됩니다</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>내 프로필</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>
+템플릿</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>ONLYOFFICE™ 프리미엄 기능</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>이 알림 :</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>메일 주소</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>이메일 및 토크</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>이야기</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>비밀번호를 변경</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>비밀번호 변경</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>최소 암호 길이</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>비밀번호 복구</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>등장 인물</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>숫자를 사용하여</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>특수 문자를 사용하여</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>대문자를 사용</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>새 비밀번호를 만들</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>지급 내역</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>보류 중</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>사람들</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>잠시 기다려 주세요...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>포트</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>포털 소유자</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>모듈 및 도구</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>ONLYOFFICE™ 모듈과 필요한 도구를 선택합니다.장애인 모듈과 도구는 모든 포털 사용자에게 표시됩니다. 모듈과 도구를 사용하도록 설정 한 후 다시 그뿐만 아니라 모든 포털 사용자가 사용할 수있게됩니다 것을 명심하십시오.액세스를 제한하려면 포털 설정의 액세스 권한 섹션을 참조하십시오.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>도구</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>모듈</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>프로필</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>프로필이 삭제되었습니다</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>게시</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>재 활성화</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>귀하의 계정이 성공적으로 재 활성화되었습니다. {0} 10 초 당신은 리디렉션됩니다 {1} 여기 {2}</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>회원 가입일</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>등록 이메일</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>기억</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>초대 입력 된 이메일로 발송됩니다</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>다시 보내</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>당신은 다시 한번 초대장을 보내시겠습니까?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>다시 보내 초대</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>기본값으로 복원</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>모든 단어가 정확한지 다시 확인하고 다른 키워드를 사용해보십시오.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>아무것도 발견되지 않았습니다.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>검색 결과</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>보내기</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>다시 한번 초대장 보내기</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>초대장 보내기</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>가입하려면 여기를 클릭하십시오</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>포털 사용자가되고 싶으십니까?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>초대장이 발송됩니다 이메일 주소를 입력하십시오 :</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>귀하의 요청을 처리하는 동안 서버 소프트웨어가 오류를 enconted. 얼마 동안 기다렸다가 다시 시도하십시오. 오류가 지속되면, 당신은 아마도 사이트 관리자에게 문의해야 할 수도 있습니다.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>서버 오류</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>이 이미 현재 버전입니다</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>잘못된 포털 버전</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>성</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>보기</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>모두보기</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>모든 결과보기</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>등록 된 도메인의 이메일 계정을 가진 사용자 만 사용할 수 있습니다. 등록하려면 귀하의 이메일을 입력하고 송신 초대를 클릭합니다. 귀하의 ONLYOFFICE™ 계정을 활성화 할 수있는 링크가 포함 된 이메일 메시지가 지정된 이메일로 전송됩니다.</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>놀라움</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>폭탄</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>미친</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>고함</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>댄스</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>음주</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>성난</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>눈짓</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>녹색</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>할리우드 미소</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>슬픈</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>음악</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>미소</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>히죽 히죽 웃음</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>죄송합니다</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>슈퍼</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>혀</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>만세</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>이 옵션은 포털에 액세스 할 모든 사용자에 대해 SMS 한 번 암호 방식을 요구하는 이중 인증을 사용하거나 사용하지 않도록 할 수 있습니다</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>잘못된 코드</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>포털에 로그인 할 때 코드 : {0}</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>이중 인증</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP 설정</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>SNS 프로필</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>통계</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>신뢰할 수있는 메일 도메인 설정</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>비밀번호 강도 설정</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>언어 및 시간대 설정</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>포털 버전</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>구독하다</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>구독</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>인사말 설정이 저장되었습니다</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>설정이 성공적으로 업데이트되었습니다</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>프로필을 삭제하는 방법에 대한 지침은 귀하의 이메일 주소로 전송되었습니다</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>초대장이 성공적으로 다시 보냈습니다</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>필요한 매개 변수를 줄이거 나 현재 가격 계획을 보존 할 수 있습니다.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>지금 구입</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>길게하다</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>현재의 계획을 연장하거나 아래 표를 사용하여 변경할 수 있습니다.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>가장 귀하의 요구에 맞는 계획을 선택하십시오. 권장 계획은 아래의 강조 표시됩니다.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>내리 받이</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>저장 공간 크기가 허용 : {0}. 현재 저장 공간 : {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>허용 포털 사용자의 수 : {0}. 사용자의 현재 수 : {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>당신은 사용자 공간 / 번호가 선택한 요금제의 한계를 초과하는 스토리지로 다운 그레이드 계정 수 없습니다</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>할부가 있습니다</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>저장 공간 금액을 초과 직전입니다 : {0}</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>이 {0}에 만료됩니다.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>당신은 무료로 계획을 사용하고 있습니다.</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>가격 계획은 유료 연말까지 사용할 수 없습니다.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>자동으로 용어를 연장하려면 Avangate 계정의 할부 확인란에 확인하시기 바랍니다.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>할부를 취소하려면 Avangate 계정으로 이동하시기 바랍니다.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>가격 계획</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>지급</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>활성 사용자의 수가 추가 한 : {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>당신은 FreeTrial 계획을 사용하고 있습니다.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>ONLYOFFICE™ 사무소를 이용해 주셔서 감사합니다! {2} {0} 귀하의 무료 평가판 기간이 만료되었습니다. {1} 적합한 요금제를 선택하거나 무료 {3} 사용자 / 온라인 오피스 애플리케이션이없는 {4} 계획.로 전환하시기 바랍니다</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>생성되었습니다</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>사용되는 저장 공간</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>사용자의 총 수</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>시간대</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>블로거</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>메일 주소</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>페이스 북</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>휴대 전화</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>전화 번호</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>야후!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>상위 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>발견된 전체 정보</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>까지</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>시험 기간 : {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>무료 사용 기간이 만료되었습니다</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>사용자 정의 도메인</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>등록 {0}에서 이메일 계정을 가진 사용자 만 사용할 수 있습니다. 등록하려면 귀하의 이메일을 입력하고 송신 초대를 클릭합니다. 귀하의 ONLYOFFICE™ 계정을 활성화 할 수있는 링크가 포함 된 이메일 메시지가 지정된 이메일로 전송됩니다.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>알 수없는 오류가 발생했습니다</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>수신 거부</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>업로드</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>사용자</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>사용자들</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>직업 / 제목</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>가격 계획을 참조하십시오</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>조회</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>호스트</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>사용 그래프</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>방문</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>ONLYOFFICE™를 선택해 주셔서 감사합니다! 보안상의 이유로 암호 설정 절차는 수행해야합니다.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>귀하의 ONLYOFFICE™ 포털에 오신 것을 환영합니다</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>새로운 소식</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>언어 및 시간대 설정</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>포털 설정 - 쉽게 웹 오피스를 시작하려면 다음 단계를 통해 이동</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>등록 설정</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>이 포털에 가입하기로 결정했습니다.</value>
+  </data>
+</root>

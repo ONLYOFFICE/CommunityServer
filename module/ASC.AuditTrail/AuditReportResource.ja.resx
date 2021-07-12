@@ -1,0 +1,1387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>アクションＩＤ</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>アクションタイプ</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>追加された管理者：｛０｝</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>削除された管理者：｛０｝</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>管理者メッセージ設定は更新されました</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>管理者[{0}]。フルアクセスが付与されました。</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>添付する</value>
+  </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>監査証跡の生存期間設定は更新されました</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>監査証跡レポートはダウンロード済みです。</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>監査証跡レポート({0}-{1})</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>第三者承認キーは更新されました。</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>ブラウザ</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>イベント［｛０｝］。添付されたファイル：｛１｝</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>終了したイベント：｛０｝</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>作成したイベント：｛0｝</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>イベント［｛０｝］。作成された履歴イベント：｛１｝</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>イベント［｛０｝］。作成されたタグ：｛１｝</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>削除したイベント：｛０｝</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>イベント［｛０｝］。削除された履歴イベント：｛１｝</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>イベント［｛０｝］。削除されたタグ：｛１｝</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>イベント［｛０｝］。切り離されたファイル：｛１｝</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>イベント［｛０｝］。リンクされた企業：｛１｝</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>イベント［｛０｝］。リンクされた人：｛１｝</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>開始したイベント：｛０｝</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>イベント［｛０｝］。アクセスは許可された</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>イベント[{0}]。アクセス制限：{1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>イベント。作成されたタグ：｛0｝</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>削除されたイベント：｛０｝</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>イベント。削除されたタグ：｛0｝</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>CSVファイルに抽出されたイベント：｛０｝</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>CSVファイルから挿入されたイベント</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>イベント［｛０｝］。リンク解除された企業：｛１｝</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>イベント［｛０｝］。リンク解除された人：｛１｝</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>更新したイベント：｛０｝</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>イベントのユーザーフィールドが作成した：｛０｝</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>イベントのユーザーフィールドが削除した：｛０｝</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>イベントのユーザーフィールド順が変更した：｛０｝</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>イベントのユーザーフィールドが変更した：｛０｝</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>配色テーマは変更されました</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>共通設定</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>合併企業：｛0｝‐｛１｝</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>企業</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>企業［｛０｝］。添付されたファイル：｛１｝</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>作成された企業：｛0｝</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>企業［｛０｝］。作成された履歴イベント：｛１｝</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>企業[{0}]。作成された人物タグ：{1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>企業［｛０｝］。作成されたタグ：｛１｝</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>ウェブフォームで作成された企業：{0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>削除された企業：｛0｝</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>企業［｛０｝］。削除された履歴イベント：｛１｝</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>企業［｛０｝］。削除されたタグ：｛１｝</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>企業［｛０｝］。切り離されたファイル：｛１｝</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>企業［｛０｝］。リンクされた個人：｛１｝</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>企業［｛０｝］。リンクされたプロジェクト：｛１｝</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>企業［｛０｝］。リンク解除された個人：｛１｝</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>企業［｛０｝］。リンク削除されたプロジェクト：｛１｝</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>企業更新：｛0｝</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>企業 [{0}]。個人の顧客見込みレベルは変更されました</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>企業［｛０｝］。更新された写真</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>企業［｛０｝］。主要な情報を更新しました</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>企業[{0}]。顧客見込みレベルは変更されました</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>企業［｛０｝］。アップロードされたファイル：｛１｝</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>企業のユーザーフィールドが作成されました：｛０｝</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>企業のユーザーフィールドが削除されました：｛０｝</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>企業のユーザーフィールド順が更新されました：｛０｝</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>企業のユーザーフィールドが更新されました：｛０｝</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>メールが管理者に送信された</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>顧客[{0}]。リンクされたプロジェクト：{1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>顧客[{0}]。作成されたタスク：{1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>顧客。作成されたタグ：｛０｝</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>削除された顧客：{0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>顧客。削除されたタグ：｛０｝</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>CSVファイルに抽出された連絡先：｛０｝</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>CSVファイルから挿入された連絡先</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>顧客</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>顧客タグ設定は更新されました。</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>顧客見込みレベルは作成されました：｛０｝</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>顧客見込みレベルは削除されました：｛０｝</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>顧客見込みレベルは設定は更新されました</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>顧客見込みレベル順は更新されました：｛０｝</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>顧客見込みレベルは更新されました：｛０｝</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>顧客見込みレベル[{0}]。色は更新されました</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>顧客タイプは作成されました：｛０｝</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>顧客タイプは削除されました：｛０｝</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>顧客のタイプ</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>顧客タイプ順は更新されました：｛０｝</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>顧客タイプは更新されました：｛０｝</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>顧客[{0}]。リンク削除されたプロジェクト：{1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>連絡先ユーザーフィールドが作成されました：｛０｝</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>連絡先ユーザーフィールドが削除されました：｛０｝</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>連絡先ユーザーフィールド順は更新されました：｛０｝</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>連絡先ユーザーフィールドが更新されました：｛０｝</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>クッキー設定は変更されました</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>データがエクスポートされました。</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>既定の通貨は更新されました。</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value> CRMエンティティー。切り離されたファイル：｛0｝</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRMファイル</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>SMTPメールが送信された：{0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>SMTP設定は更新されました。</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>CRMタスクの種類順は変更されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>CRMタスクの種類は作成されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>CRMタスクの種類は削除されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>CRMタスクの種類は変更されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>CRMタスクの種類アイコンは変更されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>CRMタスクは終了されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>CRMタスクは作成されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>CRMタスクは削除されました：｛０｝</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>CRMタスクは開始されました：｛０｝</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>CSVファイルに抽出された連絡先：｛０｝</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>CSVファイルから挿入されたCRMタスク</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>CRMタスク</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>CRMタスクは変更されました：｛０｝</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>テストメールは送信されました</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>為替レートは更新です：{0} - {1}</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>カスタム・ナビゲーション設定を更新しました</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>既定開始ページ設定は更新されました。</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>切り離す</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。議論［｛１｝］。添付されたファイル：｛２｝</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。議論［｛１｝］。コメントが作成されました</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。議論［｛１｝］。コメントが削除されました</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。議論［｛１｝］。コメントが更新されました</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。作成された議論：｛１｝</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。削除された議論：｛１｝</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。議論［｛１｝］。切り離されたファイル：｛２｝</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>議論</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。更新された議論：｛１｝</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>プロジェクト[{0}]。議論追跡を更新した：｛１｝</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>DNS設定は更新です。</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>文書サービス位置は更新されました</value>
+  </data>
+  <data name="DocumentsForcesave" xml:space="preserve">
+    <value>強制保存の設定は更新された</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>上書きの設定は更新されました</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="DocumentsStoreForcesave" xml:space="preserve">
+    <value>強制保存の設定が更新です</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>第三者サービス設定は更新されました</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>[{0}]の所有者を[{1}]に設定します</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>ファイルは内部形式に変換されました：｛０｝</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>ファイル [{0}]。フォルダー"{1}"からフォルダ"{2}"にコピーされました。</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>ファイル [{0}]。ファイルは上書きを伴ってフォルダ"{1}"からフォルダ:"{2}"にコピーされました。</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>作成されたファイル：｛０｝</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>ファイル[{0}]。見直し{1}。バージョンは作成されました。</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>削除されたファイル：｛０｝</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>ファイル[{0}]。見直し{1}。バージョンは削除されました。</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>ダウンロードされたファイル：｛０｝</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>ファイル [{0}]。｛１｝としてダウンロードされました。</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>フォルダー[{0}]。インポートされたファイル:　{1}。プロバイダー: {2}。</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>ロックされたファイル：｛０｝</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>ファイル [{0}]。フォルダー"{1}"からフォルダ"{2}"に移動されました。</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>ファイル [{0}]。ゴミ箱フォルダーに移動されました。</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>ファイル [{0}]。ファイルは上書きを伴ってフォルダ"{1}"からフォルダ:"{2}"に移動されました。</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>ファイルの名前は変更された：｛０｝</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>ファイル[{0}]。見直し{1}。バージョンは復元されました。</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>｛1｝文書は｛0｝で署名された</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>[{0}]ファイルの共有リンクが送信された。受取人：[{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>｛1｝文書は｛0｝に署名するように送信された</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>ロック削除されたファイル：｛０｝</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>更新されたファイル：｛０｝</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>ファイル [{0}]。アクセスは更新されました。</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>ファイル[{0}]。見直し{1}。コメントは更新されました。</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>アップロードされたファイル：｛０｝</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>フォルダ[{0}]。フォルダ｛１｝にコピーされました。</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>フォルダ [{0}]。ファイルは上書きを伴ってフォルダ：{1}にコピーされました。</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>作成されたフォルダ：｛０｝</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>削除されたフォルダ：｛０｝</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>フォルダ[{0}]。フォルダ：｛１｝に移動されました。</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>フォルダ[{0}]。ゴミ箱フォルダに移動されました。</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>フォルダ [{0}]。ファイルは上書きを伴ってフォルダ：{1}に移動されました。</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>名前を更新されたフォルダ：｛０｝</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>フォルダ[{0}]。アクセスは更新されました。</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>管理する</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Sphinx設定は更新されました。</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>一般的</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>ようこそページ設定は更新されました</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>グループは作成されました：｛０｝</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>グループは削除されました：｛０｝</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>グループは更新されました：｛０｝</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>お客様アカウント</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>お客様は有効されました：｛０｝</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>お客様は作成されました：｛０｝</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>招待を介してお客様は作成されました：｛０｝</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>お客様は追加されました：｛０｝</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>イベント履歴カテゴリ。順は更新されました：{0}。</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>イベント履歴カテゴリは作成されました：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>イベント履歴カテゴリは削除されました：{0}。</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>イベント履歴カテゴリは更新されました：{0}。</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>イベント履歴カテゴリ[{0}]。アイコンは更新されました。</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>作成された請求書：｛０｝</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>請求書の既定条件は更新されました。</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>削除された請求書：｛０｝</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>ダウンロードされた請求書：｛０｝</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>作成された請求書項目：｛０｝</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>削除された請求書項目：｛０｝</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>削除された請求書項目：｛０｝</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>更新された請求書項目：｛０｝</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>請求書数表現形式は変更されました</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>削除された請求書：｛０｝</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>請求書設定</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>請求書</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>請求書［｛０｝］。更新された状態：｛１｝</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>作成された請求書税金：｛０｝</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>削除された請求書税金：｛０｝</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>更新された請求書税金：｛０｝</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>更新された請求書：｛０｝</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>言語設定は更新されました</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>ライセンスキーはアップロードされました　</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>リンク</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>ログイン失敗</value>
+  </data>
+  <data name="LoginFailBruteForce" xml:space="preserve">
+    <value>ログイン失敗。試行回数が多すぎる</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>ログインは失敗です。プロファイルはロックです。</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>ログイン失敗。ユーザー名/パスワードの組み合わせは間違っているようです</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value> IPセキュリティ: ログインに失敗しました。</value>
+  </data>
+  <data name="LoginFailRecaptcha" xml:space="preserve">
+    <value>ログイン失敗。reCAPTCHA（リキャプチャ）が間違っているようです</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>ログイン失敗。関連付けられたソーシャルアカウントが見つかりません</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>APIを介してログイン失敗</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>APIとSMSコードを介してログイン失敗</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>APIとソーシャルメディアを介してログイン失敗</value>
+  </data>
+  <data name="LoginFailViaApiTfa" xml:space="preserve">
+    <value>APIと認証アプリを介してログイン失敗</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>SMS介してログイン失敗</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>SSOを介してログイン失敗</value>
+  </data>
+  <data name="LoginFailViaTfaApp" xml:space="preserve">
+    <value>認証アプリを介してログイン失敗</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>ログイン履歴レポートがダウンロードされました</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>ログイン履歴レポート({0}-{1})</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>ログイン成功</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>ソーシャルアカウントを介してログイン成功</value>
+  </data>
+  <data name="LoginSuccessSocialApp" xml:space="preserve">
+    <value>ソーシャルアプリでログインに成功した</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>APIでログインに成功した</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>APIとSMSコードでログインに成功した</value>
+  </data>
+  <data name="LoginSuccessViaApiTfa" xml:space="preserve">
+    <value>APIと二要素認証のアプリでログインに成功した</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>SMS介してログイン成功</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>APIとソーシャルメディアを介してログイン成功</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>SSOでログインに成功した</value>
+  </data>
+  <data name="LoginSuccesViaTfaApp" xml:space="preserve">
+    <value>二要素認証のアプリでログインに成功した</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>メールサービス設定は更新です</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>プロジェクト[{0}]。作成されたマイルストーン：{1}</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>プロジェクト[{0}]。削除されたマイルストーン：{1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>マイルストーン</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>プロジェクト[{0}]。更新されたマイルストーン：{1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>プロジェクト[{0}]。マイルストーン[{1}]。状態は更新されました：｛２｝</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>モジュール</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>移動</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>機会。作成されたタグ：｛０｝</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>削除された機会：｛0｝</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>機会。削除されたタグ：｛０｝</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>CSVファイルに抽出された機会：｛０｝</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>CSVファイルに抽出された機会</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>機会[{0}]。添付されたファイル：｛１｝</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>作成された機会：｛０｝</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>機会[{0}]。作成された履歴イベント：｛１｝</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>機会[{0}]。作成されたタグ：｛１｝</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>削除された機会：｛０｝</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>機会[{0}]。削除された履歴イベント：｛１｝</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>機会[{0}]。削除されたタグ：｛１｝</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>機会［｛０｝］。切り離されたファイル：｛１｝</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>機会 [{0}]。リンクされた企業：｛１｝</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>機会[{0}]。リンクされた人：｛１｝</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>機会 [{0}]。アクセス開始</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>機会 [{0}]。アクセス制限：{1}</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>機会段階の作成：{0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>機会段階の削除：{0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>機会段階の手順更新：{0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>更新された機会ステージ：｛０｝</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>機会段階の色更新：{0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>機会 [{0}]。リンク削除された企業：｛１｝</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>機会[{0}]。リンク削除された人：｛１｝</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>取引は更新された:｛０｝</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>更新された機会ステージ：｛０｝</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>機会ユーザーフィールドの作成：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>機会ユーザーフィールドの削除：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>機会ユーザーフィールドの手順更新：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>機会ユーザーフィールドの更新：{0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>企業プロファイル。所在地が更新されました。</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>組織のプロファイル。企業名は更新です：｛０｝</value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>組織のプロファイル。請求書ロゴは変更されました。</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>別の設定</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>他の</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>所有者が変更されました：{0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>所有者[{0}]。所有者変更の指導が送信されました</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>所有者[{0}]。ポータル停止の指導が送信されました</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>所有者[{0}]。ポータル削除の指導が送信されました</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>パスワード強度設定が更新です</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>人達</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>人物[{0}]. 添付されたファイル：｛１｝</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>作成された個人：｛０｝</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>人物[{0}].　企業タグは作成されました：{1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>人物[{0}]. 作成された履歴イベント：｛１｝</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>人物[{0}]。作成されたタグ：｛１｝</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>ウェブフォームで作成された人：{0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>削除された個人：｛０｝</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>人物[{0}]. 削除された履歴イベント：｛１｝</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>人物[{0}]。削除されたタグ：｛１｝</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>人物[{0}].　切り離されたファイル：｛１｝</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>人物[{0}]。リンクされたプロジェクト：｛１｝</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>作成された人物：｛０｝</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>併合された人物：｛０｝－｛１｝</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>人物</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>人物[{0}]。リンク削除されたプロジェクト：｛１｝</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>更新された個人：｛０｝</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>人物[{0}]。会社の顧客見込みレベルが更新です</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>人物[{0}]. 写真はアップロードされました</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>人物[{0}]。 主要な情報を更新しました</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>人物[{0}]。顧客見込みレベルが更新です</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>人物[{0}]. アップロードされたファイル：｛１｝</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>個人ユーザーフィールドは作成されました：｛０｝</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>個人ユーザーフィールドは削除されました：｛０｝</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>個人ユーザーフィールド順は更新されました：｛０｝</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>個人ユーザーフィールドは更新されました：｛０｝</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>プラットフォーム</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>ポータル・アクセス設定が変更されました</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>ポータルが非能動化された</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>ポータルが削除された</value>
+  </data>
+  <data name="PrivacyRoomDisable" xml:space="preserve">
+    <value>プライバシー・ルームはオフです</value>
+  </data>
+  <data name="PrivacyRoomEnable" xml:space="preserve">
+    <value>プライバシー・ルームはオンです</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>製品[{0}]。アクセスは許可された</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>製品[{0}]。グループ[{1}]。アクセスは許可された</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>製品[{0}]。ユーザー[{1}]。アクセスは許可された</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>製品[{0}]。アクセスが制限された</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>製品[{0}]。管理者が追加された：{1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>製品</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>製品[{0}]。管理者が削除された：{1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>製品リストが更新された</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>製品</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>作成されたプロジェクト：｛０｝</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>テンプレート[{0}]。プロジェクトは作成されました：｛１｝</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>削除されたプロジェクト：｛０｝</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。削除された加入者：｛１｝</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>追跡されているプロジェクト：｛０｝ </value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンクされた企業：｛１｝</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンクされた連絡先：｛１｝</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンクされた個人：{1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>プロジェクトはBasecampから挿入された：｛0｝</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>プロジェクト・テンプレートを作成した：｛０｝</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>プロジェクト・テンプレートを削除した：｛０｝</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>プロジェクト・テンプレートを更新した：｛０｝</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>追跡されないようになったプロジェクト：｛０｝</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンク削除された企業：｛１｝</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンク削除された個人：{1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>更新されたプロジェクト：｛０｝</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>プロジェクト[{0}]。加入者[{1}]。アクセス権は変更されました。</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>プロジェクト[{0}]。更新された状態：{1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>プロジェクト[{0}]。更新されたチーム：{1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>再割当て</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>プロジェクト・レポート・テンプレートを作成した：｛０｝</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>プロジェクト・レポート・テンプレートを削除した：｛０｝</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>プロジェクト・レポート・テンプレートを更新した：｛０｝</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>送信する</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>手順は送信された：｛０｝</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>セッションは完成です </value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>セションは開始です</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSOは無効です</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSOは有効です</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>バックアップ開始</value>
+  </data>
+  <data name="StartStorageDecryption" xml:space="preserve">
+    <value>ストレージ復号化を開始</value>
+  </data>
+  <data name="StartStorageEncryption" xml:space="preserve">
+    <value>ストレージ暗号化を開始する</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>ポータル地域移行は開始です</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。作成されたサブタスク：｛２｝</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。削除されたサブタスク：｛２｝</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。更新されたサブタスク：｛２｝</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。サブタスク[{2}]。更新された状態：｛３｝</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>システムアカウント</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>対象ＩＤ</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。添付されたファイル：｛２｝</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。作成されたコメント</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。削除されたコメント</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。更新されたコメント</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>プロジェクト[{0}]。作成されたタスク：{1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>プロジェクト［｛０｝］。議論［｛１｝］。タスクは作成されました：｛２｝</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>プロジェクト[{0}]。削除されたタスク：{1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク{1}。切り離されたファイル：｛２｝</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>プロジェクト[{0}]。マイルストーン[{1}]。タスクは移動されました：｛２｝</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンクされたタスク：{1} - {2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>プロジェクト[{0}]。リンク削除されたタスク：{1} - {2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。タスクかかる時間を作成した：｛１｝</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>タスクかかる時間は削除された：｛０｝</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>タスクかかる時間 [{0}]。状態は更新された：｛０｝</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。タスクかかる時間を更新した：｛１｝</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。マイルストーンからリンク解除された。</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>プロジェクト[{0}]。更新されたタスク：{1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク追跡を更新した：｛１｝</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>プロジェクト[{0}]。タスク[{1}]。更新された状態：｛２｝</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>チームテンプレートを変更しました</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>第三者は作成された：｛０｝。プロバイダー：｛１｝</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>第三者は削除された：｛０｝。プロバイダー：｛１｝</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>第三者は更新された：｛０｝。プロバイダー：｛１｝</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>タイムトラッキング</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>時間帯設定は更新されました</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>信頼できるドメイン設定は変更された</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsDisabled" xml:space="preserve">
+    <value>二要素認証設定は更新された:　二要素認証は無効です</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledBySms" xml:space="preserve">
+    <value>二要素認証設定は更新された:　ＳＭＳ確認は有効されました</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledByTfaApp" xml:space="preserve">
+    <value>二要素認証設定は更新された:認証アプリは有効にされました</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>二要素認証設定は更新されました</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>管理止む</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>不明なアカウント</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>リンク削除</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>有効されたユーザー：｛０｝</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>作成されたユーザ：｛０｝</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>データを再割り当てした:ユーザー{0}からユーザー{1}に</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>削除されたユーザー：｛０｝</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>ユーザー [{0}]。ファイルはアップロードされた：｛１｝</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>ユーザーはインポートされた：｛０｝</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>リンクされたソーシャルアカウント。プロバイダ：{0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>ユーザーは削除されました：{0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>ユーザー [{0}]。登録指導は送信された：｛１｝</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>「プロファイル削除」指導は送信されました。</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>ユーザー [{0}]。登録指導は送信された</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>ユーザー[{0}]。タイプは更新された</value>
+  </data>
+  <data name="UserTfaDisconnected" xml:space="preserve">
+    <value>確認システムアプリケーションが接続を切断しました：｛0｝</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>新しいバックアップコードが作成された</value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>リンク削除されたソーシャルアカウント。プロバイダ：{0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>ユーザーは更新された：｛０｝</value>
+  </data>
+  <data name="UserUpdatedEmail" xml:space="preserve">
+    <value>メールは更新です</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>言語は更新です</value>
+  </data>
+  <data name="UserUpdatedMobileNumber" xml:space="preserve">
+    <value>ユーザー [{0}]。電話番号は更新された：｛１｝</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>パスワードが更新された</value>
+  </data>
+</root>

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Přidat operátora</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>Přidat operátory</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Přidat vyzvánění</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Přezdívka</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0}Přezdívka{1} pomáhá identifikovat číslo pomocí nějakého slova nebo fráze (např. Podpora, prodej atd.). Zobrazí se v seznamu virtuálních čísel.</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Zadejte název čísla</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Koupit telefonní číslo</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Zakoupení čísla</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Hovor</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Náklady</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Datum/čas</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Doba trvání</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Doba čekání</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Odstranit</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>Číslo bude uloženo do služby Twilio, ale nebude k dispozici pro aktuální portál</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Odstranit číslo</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Odstranit číslo</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Odstranit vyzvánění</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Koupit nové IP telefonní číslo pro přidání do portálu ONLYOFFICE. Po přidání můžete použít toto telefonní číslo pomocí portálu CRM.</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Poznámka: telefonní čísla, která již máte na webové stránce Twilio, nelze převést na portál.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Nebyla přidána žádná telefonní čísla IP</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Obecné nastavení</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Uvítací melodie</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>{0}Fronta příchozích hovorů{1} zobrazuje číslo příchozích hovorů přidělených aktuálně dostupným operátorům. Pokud počet příchozích hovorů přesáhne frontu, budou přesměrováni do služby hlasové pošty.</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>Délka fronty příchozích hovorů</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>Po propojení budou všechny hovory zpracovány aktuálním portálem.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Propojení zakoupeného čísla</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Spojení čísel</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>Číslo je úspěšně propojeno!</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Nahrávání probíhá, počkejte prosím</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>Nejsou dostupná žádná čísla, zkuste to prosím později.</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>Nemáte dosud žádná čísla.</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>Nemáte žádná čísla. Mohou být zakoupena {0}zde{1}.</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>Tato čísla nebyla nalezena
+</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Počet operací</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>Můžete je nastavit {0}zde{1}.</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Čísla, která v současné době máte</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operátor</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Pauza operátora</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Zakázáno</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0}Pauza operátora{1} umožňuje operátorovi mít ještě před přijetím hovorů nějaký čas. To může být použito k přijetí některých poznámek k předchozímu hovoru atd.</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Povoleno</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Odchozí hovory</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Vyzvánění ve frontě</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Rychlé nastavení</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0}Rychlé nastavení{1} se používá k rychlému zapnutí nebo vypnutí odchozích hovorů, k volání čísla a také ke stanovení pracovní doby, kdy bude číslo k dispozici klientům.
+</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Nahrávání hovoru</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>Záznamy konverzací jsou uloženy ve formátu WAV. Váš prohlížeč v tomto formátu nepodporuje přehrávání zvukových souborů, tzn. nebudete moci tyto nahrávky poslouchat.</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>Seznam prohlížečů podporujících tuto funkci lze nalézt {0}zde{1}</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Seznam vyzvánění</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Nastavení vyzvánění</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0}Nastavení vyzvánění{1} se používá k prohlížení a úpravě vyzváněcích tónů aktuálně přiřazených různým operacím telefonu.</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0}Doporučená vyzvánění{1}: Velikost souboru nesmí překročit 5 MB. Podporované formáty: MP3.</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Hledat</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Nastavení čísla</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Neuvedeno</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Aktualizovat nastavení</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Virtuální čísla</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Virtuální čísla a operátoři</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0}Virtuální čísla{1} se používají pro komunikaci s klienty CRM pomocí telefonů VoIP poskytovaných společností Twilio</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>Hlasová schránka</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Hlasové vyzváněcí melodie</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Čekající vyzváněcí tóny</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>Čekací časový limit</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 minut</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 minut</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 minut</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0}Čas čekání{1} ukazuje dobu, po kterou bude zákazník čekat na odpověď operátora. Po uplynutí této doby bude hovor přesměrován na službu hlasové pošty.</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Pracovní doba
+</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Nesprávný interval</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Zadejte čas ve formátu ##:##</value>
+  </data>
+</root>

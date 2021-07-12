@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>Avtor</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>Komentarji</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>Datum nastanka</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>Ustvarjalec</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>Čas</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>Mejnik</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>Udeleženec</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>Prioriteta</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Odgovoren</value>
+  </data>
+  <data name="ByStartDate" xml:space="preserve">
+    <value>Začetni datum</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>Z oznako</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Ponastavi filter</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Čas po meri</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>Naročene razprave</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>Sledeno</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Skupine</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Jaz</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>Moje razprave</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>Mejniki z mojimi nalogami</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>Moji projekti</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>Moje naloge</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Ni odgovornega</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Drug</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>Drugi mejniki</value>
+  </data>
+  <data name="OtherParticipant" xml:space="preserve">
+    <value>Drugi udeleženec</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>Drugi projekti</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Drugi uporabniki</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Zapadlo</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Izdani</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Neizdani</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Ne Obračunljiv</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Prejšnji mesec</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Prejšnji teden</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>Vodja projekta</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Zadnjih 7 dni</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="StatusAllClosedTask" xml:space="preserve">
+    <value>Vse zaprte</value>
+  </data>
+  <data name="StatusAllOpenTask" xml:space="preserve">
+    <value>Vse odprte</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Arhivirano</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Zaprto</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Zaprto</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>Zaprto</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Aktivno</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>Začasno ustavljeno</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Oznaka</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Naloge</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>Član ekipe</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Časovno obdobje</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>Prihajajoči</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>Prihajajoči</value>
+  </data>
+  <data name="WithoutTag" xml:space="preserve">
+    <value>Brez oznake</value>
+  </data>
+</root>

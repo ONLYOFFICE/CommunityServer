@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessSettingsHeader" xml:space="preserve">
+    <value>Zugriffseinstellungen für {0}</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Kommentarе</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>Benutzerdefinierter Filter</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Ausfüllen von Formularen</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Besitzer</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Schreibgeschützt</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Voller Zugriff</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Zugriff verweigern</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Variiert</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Verfasser</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Keine Unterordner</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumente</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Alle Dateien</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Ordner</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Bilder</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>Inhaltlich</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Medien</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Suche</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Präsentationen</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Tabellen</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Mehr anzeigen {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Hochladevorgang...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Mehr anzeigen {0} von {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Verfasser</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Erstellungsdatum</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Zuletzt geändertes Datum</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Größe</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Der Code ist in die Zwischenablage kopiert.</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Möchten Sie wirklich {0} aus dem Modul 'Dokumente' entfernen? Dies wird Ihr Konto {1} nicht beeinflussen.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Möchten Sie wirklich den Papierkorb leeren?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Möchten Sie wirklich die aktuelle Seite verlassen? Das Herunterladen der Dateien wird abgebrochen.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Möchten Sie wirklich das Dokument löschen? Bitte beachten Sie, dass es nicht mehr verfügbar wird, wenn Sie es mit jemandem geteilt haben. Möchten Sie fortsetzen?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Möchten Sie wirklich den Ordner löschen? Bitte beachten Sie, dass es nicht mehr verfügbar wird, wenn Sie ihn mit jemandem geteilt haben. Möchten Sie fortsetzen?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Möchten Sie wirklich diese Elemente löschen? Bitte beachten Sie, dass die Dateien nicht mehr verfügbar werden, wenn Sie diese Dateien / diesen Ordner mit jemandem geteilt haben. Möchten Sie fortsetzen?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Sie ziehen auf Elemente aus dem {1} Verzeichnis zu bewegen. In diesem Fall werden sie von Ihrem {1} Konto gelöscht und nicht mehr für andere Nutzer zugänglich sein, falls diese Elemente zuvor geteilt wurden. {0}Sind Sie sicher, dass Sie die Elemente bewegen wollen?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Gemeinsame Dokumente</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Benutzerdefiniertes Format</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Gruppen</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Archivieren der Daten</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Daten ändern</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Fertigstellung der Version</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Signieren via DocuSign</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Die Versionen werden geladen...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Als gelesen markiert</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Verschieben</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Löschvorgang...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Umbenennen</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Version wird aktualisiert...</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Die Datei wird auf die Verschlüsselung vorbereitet</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Die Datei wird verschlüsselt</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Die verschlüsselte Datei wird gespeichert</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumente</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Dokument signieren({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Wählen Sie zumindest einen Ordner bzw. ein Dokument zum Herunterladen</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Geben Sie einen Kommentar ein</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Sie können einen Ordner bzw. eine leere Datei nicht hochladen</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Fehler bei der Umwandlung</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Alle Felder müssen ausgefüllt werden</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Die maximale Dateigröße ist überschritten</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Sie müssen sich einloggen, um etwas hinzufügen zu können</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Das Dateiformat wird nicht unterstützt</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Das eingegebene Kennwort ist falsch. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Bitte warten Sie, bis der vorherige Download zu Ende ist, oder brechen Sie ihn ab</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Sie haben keine Berechtigung, diese Operation durchzuführen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Sie können diese Aktion in diesem Ordner nicht durchführen</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Der Titel darf keine der folgenden Zeichen enthalten: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Das Portal Speicher hat keinen freien Speicherplatz. Sie können keine Dateien größer als {0} hochladen.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Die Datei mit dem Namen {0} ist bereits im Ordner {1} vorhanden.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Umgewandelt</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Umwandlung</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} Dokumente mit demselben Namen sind bereits im Ordner '{1}' vorhanden. Dateien überschreiben?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Hochgeladen</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Hochladevorgang</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box-Verzeichnis</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign Konto</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox-Verzeichnis</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google-Verzeichnis</value>
+  </data>
+  <data name="FolderTitlekDrive" xml:space="preserve">
+    <value>kDrive Verzeichnis</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint-Verzeichnis</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive-Verzeichnis</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Verzeichnis</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Verzeichnis</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Jetzt ist'{0}' Besitzer von '{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>jetzt ist'{0}'Besitzer von{1}Elementen</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' geändert</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Kopieren {1}{0}{2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} Elemente wurden kopiert</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' kopiert</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} Elemente</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Neue Datei '{0}' ist erstellt</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Die neue Datei '{0}' wurde in '{1}' erstellt</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Neuer Ordner '{0}' ist erstellt</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Unmöglich das Verzeichnis in sein Unterverzeichnis zu kopieren</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Unmöglich das Verzeichnis in sein Unterverzeichnis zu verschieben</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Sie haben keine Zugriffsrechte einige Datei(en) zu verschieben</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Verschieben {1}{0}{2}</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} Elemente wurden verschoben</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' verschoben</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Das Dokument '{0}' ist gelöscht</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Der Ordner '{0}' ist gelöscht</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>{0} ist erfolgreich von {1} gelöscht</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Der Drittanbieter '{0}' ist nicht verbunden</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Der Name des Dokuments '{0}' ist auf '{1}' geändert</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Der Name des Ordners '{0}' ist auf '{1}' geändert</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' hinzugefügt zu '{1}'</value>
+  </data>
+  <data name="InfoTemplateAdd" xml:space="preserve">
+    <value>Dateien zu Vorlagen hinzugefügt</value>
+  </data>
+  <data name="InfoTemplateRemove" xml:space="preserve">
+    <value>Dateien aus Vorlagen entfernt</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} Dokumente sind erfolgreich hochgeladen</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Meine Dokumente</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Originalformat</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Sonstiges</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Präsentationen</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Hochladen der Datei {0} für Anzeige fehlgeschlagen</value>
+  </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>Privatraum</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Dokumente der Projekte</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>Revisionen: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Ihnen wurde Zugriff auf das Dokument {0} gewährt. Klicken Sie auf den Link, um das Dokument zu öffnen: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Ihnen wurde Zugriff auf das Dokument {0} gewährt</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Fügen Sie Benutzer oder Gruppen und erteilen Sie ihnen die notwendigen Zugriffsberechtigungen{0} Schreibgeschützt, Review oder voller Zugriff.</value>
+  </data>
+  <data name="SharingSettingsHeader" xml:space="preserve">
+    <value>Freigabeeinstellungen für {0}</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Tabellen</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Archivieren der Daten</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Als gelesen markiert</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} Operationen</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Verschieben</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Verbindungseinstellungen für {0} ändern</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Ist momentan in Bearbeitung</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Wird momentan bearbeitet von: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Gesperrt</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Gesperrt von: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Mehr Funktionen</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Neue Präsentation</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Neue Tabelle</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Neues Dokument</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Neuer Ordner</value>
+  </data>
+  <data name="TitleSettingsAdmin" xml:space="preserve">
+    <value>Administrative Einstellungen</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Allgemeine Einstellungen</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Hilfe</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Konten anschließen</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitlekDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Unbekannter Fehler...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Hochladevorgang abgeschlossen</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Hochladevorgang...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Hochladen von {0} Dateien ({1}% fertig)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} von {1} belegt</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+</root>

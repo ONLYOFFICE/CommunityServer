@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>진행중인 업무</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>보고서 자동 생성</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>기간</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>이 항목을 기준으로 정렬하실라면 클릭하세요</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>양식 만들기</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>사용자 이름</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>마감일</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>양식에 이름을 지정해야합니다</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>매일</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>매월</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>매주</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>보고서 생성</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>잘못된 날짜 범위</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>지난 달</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>지난주</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>이전 년</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>이 프로젝트는 이정표 및 작업들이 없습니다</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>회원들</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>완료된 작업 보고서</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2} 진행중인 작업이 없는 프로젝트는 첨부없이 열려있는 작업과 함께 프로젝트의 목록을 표시합니다. {3} {2}열려있는 작업이있는 모든 프로젝트를 보려면 보고서 바로 생성  버튼을 클릭하세요. {3}{2} 특정 그룹 내에서 이러한 프로젝트를 확인하거나 특정 사용자를 확인하려면 원하는 그룹 및 사용자를 선택한 다음 보고서 생성 버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>진행중인 작업이없는 {!Users}</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2} 작업 부하 보고서는 상태에 따라 사용자에게 할당 된 작업의 수를 그룹화 표시합니다. {3}{2} 모든 사용자에 대한 데이터를 보려면, 바로 생성 보고서 버튼을 클릭합니다. {3}{2}특정 그룹이나 사용자를 선택하려면 아래에있는 보고서 매개 변수를 구성한 다음 보고서 생성 버튼을 클릭하십시오. {3} {1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>작업량</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0} {2} 기한이 지난 이정표 보고서는 연체 이정표 목록에 표시됩니다. {3} {2} 모든 프로젝트에서 기한이 지난 이정표를 보려면, 보고서 생성버튼을 클릭하세요. {3} {2} 특정프로젝트에 기한이 지난 이정표만 보려면 드롭 다운 목록에서 원하는 프로젝트를 선택하고 보고서 생성버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>지연된 이정표</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0} {2} 기한이 지난 작업 보고서는 연체 작업 목록에 표시됩니다. {3} {2} 모든 프로젝트에서 기한이 지난 작업을 보려면, 보고서 생성버튼을 클릭하세요. {3} {2} 특정프로젝트에 기한이 지난 작업만 보려면 드롭 다운 목록에서 원하는 프로젝트를 선택하고 보고서 생성버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>지연된 작업들</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>작업 보고서를 열기</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>보고서«{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0} {2} 프로젝트 목록 보고서는 프로젝트의 목록을 표시합니다. {3} {2} 각각의 관리자, 작업, 이정표, 행동하고, 팀 구성원의 수와 모든 활성 프로젝트를 보려면, 생성 보고서 버튼을 클릭하세요. {3} {2} 특정 그룹 및 프로젝트를 보거나, 진행중 및 완료된 프로젝트를 보려면 아래의 보고서 매개 변수를 구성한 다음 생성 보고서 버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>프로젝트 목록</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0} {2} 진행중인 이정표가 없는 프로젝트는 첨부없이 열려있는 이정표와 함께 프로젝트의 목록을 표시합니다. {3} {2}열려있는 이정표가있는 모든 프로젝트를 보려면 보고서 바로 생성 버튼을 클릭하세요. {3}{2} 특정 그룹 내에서 이러한 프로젝트를 확인하거나 특정 사용자를 확인하려면 원하는 그룹 및 사용자를 선택한 다음 보고서 생성 버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>진행중인 이정표가 없는 프로젝트</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2} 진행중인 작업이 없는 프로젝트는 첨부없이 열려있는 작업과 함께 프로젝트의 목록을 표시합니다. {3} {2}열려있는 작업이있는 모든 프로젝트를 보려면 보고서 바로 생성 버튼을 클릭하세요. {3}{2} 특정 그룹 내에서 이러한 프로젝트를 확인하거나 특정 사용자를 확인하려면 원하는 그룹 및 사용자를 선택한 다음 보고서 생성 버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>진행중인 작업이 없는 프로젝트</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>보고서</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0} {2} 프로젝트 작업 보고서는 그들이에 부착되어있는 프로젝트 이정표에 따라 그룹화 작업의 목록이 표시됩니다. {3} {2} 프로젝트의 표시된 책임자와 모든 작업 및 상태의 목록을 보려면 "바로 보고서 생성" 버튼을 클릭하세요. {3} {2} 특정 프로젝트에 작업만 보려면 상태에 따라, 아래의 보고서 매개 변수를 구성한 다음 "보고서 생성" 버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>프로젝트 작업</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0} {2} 시간 추적 보고서는 시간 레지스터에 근거 계산의 총 작업 시간 사용자의 목록을 표시합니다. {3} {2}이 보고서가 작업을 수행에 사용자가 보낸 시간의 총 금액을 추적 할 때 유용합니다 . {3} {1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>시간 계산</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0} {2} 향후 이정표 보고서는 다가오는 이정표의 목록을 표시합니다. {3} {2} 일주일의 기간 동안 모든 프로젝트에서 다가오는 이정표를 보려면, 보고서 바로 생성을 클릭하세요. {3} {2} 주어진 프로젝트 및 다른 기간에 대한 향후 이정표를 보려면 먼저 기간별 목록에서 드롭 다운 목록 및 다른 여백 날짜에서 원하는 프로젝트를 선택하고 보고서 생성 버튼을 클릭하세요. {3} {1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>다가오는 이정표</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0} {2} 사용자 활동 보고서는 특정 기간에 대한 프로젝트 내에서 특정 사용자의 모든 작업을 표시합니다. {3} {2} 지난 주에 자신의 활동을 표시하려면 보고서 바로 생성 버튼을 클릭하세요. {3} {2}다른 기간을 설정하거나 다른 사용자를 선택하고, 아래의 보고서 매개 변수를 구성한 다음 보고서 생성 버튼을 클릭하십시오. {3} {1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>사용자 활동</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0} {2} 사용자 작업 보고서는 그들이에 할당 된 사용자에 따라 그룹화 작업의 목록이 표시됩니다. {3}{2}사용자의 모든 작업을 보려면 보고서 생성 버튼을 클릭합니다. 특정 프로젝트 또는 특정 상태 만 보려면 {3}{2}, 아래의 보고서 매개 변수를 구성한 다음 보고서 생성 버튼을 클릭하세. {3} {1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>사용자 작업</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>작업 보기</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>양식들</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>양식 제목</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>이번 달</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>이번 주</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>이번 년</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>사용자 보기</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>{!그룹}보기</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>프로젝트보기</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>사용자 보기</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>사용자 작업에 의해보기</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>완료된 프로젝트 보기</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>주</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>어제</value>
+  </data>
+</root>

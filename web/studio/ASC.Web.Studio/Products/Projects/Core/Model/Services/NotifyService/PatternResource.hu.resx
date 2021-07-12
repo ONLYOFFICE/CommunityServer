@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Hozzászólás szerkesztve a megbeszélésben: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Szerkesztette a hozászólást a megbeszélésben: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Továbbiak":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Azért kaptad ezt az e-mailt, mert regisztrált felhasználója vagy a  "${__VirtualRootPath}":"${__VirtualRootPath}" oldalnak. Értesítéseid megváltoztatásához használd a "felíratkozási beállítások" menüpontot:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Hozzászólás szerkesztve a következő feladathoz: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" szerkesztette az egyik hozzászólást a következőhöz:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladat: 
+
+$AdditionalData
+
+"Olvass tovább":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Azért kapta ezt az üzenetet, mert a "${__VirtualRootPath}":"${__VirtualRootPath}" portál felhasználója. Ha nem kíván több értesítést kapni ezzel a feladattal kapcsolatban, kérem "iratkozzon le":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.A beszélgetés szerkesztve lett: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" szerkesztette a beszélgetést: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"További részletek":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+ ^Ezt a  levelet azért kapta, mert a(z) "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállításokat a "$RecipientSubscriptionConfigURL" oldalon az "feliratkozási beállítások" menüpont alatt kezelheti.^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projects. Adatimport a Basecamp-ból
+
+Az új adatok importja sikeres volt.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Hozzáadták Önt a(z): "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektcsapathoz
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hozzáadta Önt a(z):["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] projekt csapatához
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Értesítés lejárt mérföldkőről: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+A(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekt "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" mérföldköve lejárt.
+
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Beszélgetés törölve: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" törölte a(z) "$EntityTitle" beszélgetést a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben.
+
+^Azért kapta ez az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait, a "$RecipientSubscriptionConfigURL" oldalon: a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Mérföldkő lezárva: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" lezárta a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" mérföldkövet a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Mérföldkő létrehozva: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hozzáadott egy új, "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" elnevezésű mérföldkövet a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekthez. 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Mérföldkő időpontja értesítés miatt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" kevesebb mint 48 óra a mérföldkő határideje ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] projekt till marad.
+
+A portál cím: "$__VirtualRootPath":"$__VirtualRootPath" 
+
+"Az előfizetési beállítások szerkesztése":"$RecipientSubscriptionConfigURL"</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Mérföldkő törölve: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" törölte a(z) "$EntityTitle" mérföldkövet a(z)  "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben:
+
+$AdditionalData 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Mérföldkő szerkesztve: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" szerkesztette a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mérföldkövet a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben. 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Mérföldkő folytatva:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" folytatta a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" mérföldkövet a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben: 
+
+$AdditionalData
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Új hozzászólás a megbrszéléshez: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"hozzászólást adott a(z): "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" megbeszéléshez
+
+$AdditionalData 
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>H1.Új megjegyzés a feladathoz: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" új hozzászólást adott a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladathoz: 
+
+$AdditionalData
+
+"Részletek":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Új fájl a megbeszéléshez: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" új fájlt adott a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" megbeszéléshez: 
+
+$AdditionalData
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a megbeszélésről, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Új fájl a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladathoz
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" egy új fájlt adott a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladathoz.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Új megbeszélés indult: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" létrehozta a(z): "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": megbeszélést 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Részletek":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Projekt törölve: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" törölte a(z) "$EntityTitle" projektet.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Ön részévé vált a projektcsapatnak</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Megbeszélés törölve: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő lezárva: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő létrehozva: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő törölve: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő folytatva: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Új megbeszélés: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projektek. Projekt törölve: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Önhöz rendelt mérföldkövek: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Önt kinevezték projektmenedzsernek</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Önhöz rendelt alfeladat: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Hozzád rendelt feladat: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Alfeladat lezárva: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Alfeladat létrehozva: $SubEntityTitle </value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Részfeladat törölve: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Részfeladat folytatva: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. A lezárt feladat: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat létrehozva: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat törölve: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat folytatva: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.A feladattal kapcsolatos emlékeztető: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" értrsíti Önt a feladatról: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^"</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Emlékeztető a feladattal kapocsolatban: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+A: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") feladat határideje ma van.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Eltávolították önt a(z): "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektcsapatból
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" eltávolította Önt a : "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekt csapatából
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.A feladat nem tartozik többé Önhöz: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime Ön a továbbiakban nem felel a(z): "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatért a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben: 
+
+$AdditionalData.get_item("TaskDescription")
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Mérföldkövet rendeltek Önhöz: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" kinevezte Önt a(z) : "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mérföldkő felelősének a "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben. 
+
+^Azért kapta ez az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Ki lett nevezve a(z): "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekt menedzserévé
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": projekt menedzserévé nevezte ki Önt.
+
+$AdditionalData 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Alfeladatot rendeltek Önhöz: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" kinevezte Önt a(z): "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladathoz hozzáadott "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" alfeladat felelősévé.
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója.  Ha nem szeretne értesítéseket kapni erről a beszélgetésről, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Önhöz rendelt feladat: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl"kinevezte Önt a(z): "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladat felelősévé a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" projetben.
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Alfeladat lezárva: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" lezárta a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladathoz tartozó alfeladatot. 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a beszélgetésről, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Alfeladat létrhozva: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hozzáadta a(z): "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" új alfeladatot a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladathoz. 
+
+The subtask is assigned to "$Responsible". 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Alfeladat törölve: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" törölte a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladat "$SubEntityTitle" alfeladatát. 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:""${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Alfeladat szerkesztve: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" szerkesztette a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladat "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" alfeladatát. 
+
+Az új alfeladatért "$Responsible" a felelős. 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Alfeladat folytatva: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" folytatta a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladat "$SubEntityTitle" alfeladatát.  
+
+^Azért kapta ezt az emailt mert Ön a(z) "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, itt iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Feladat lezárva: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" lezárta a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatot a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben: 
+
+$AdditionalData 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Feladat létrhozva: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" hozzáadta a(z): "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatot a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projekthez:
+
+ $AdditionalData.get_item("TaskDescription") 
+
+A feladatot "$Responsible" kapta.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Feladat törölve: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" törölte a(z) "$EntityTitle" feladatot a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben:
+
+$AdditionalData 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Feladat szerkesztve: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" szerkesztette a(z)  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatot a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Feladat áthelyezve: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" eltávolította a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatot a(z)  "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mérföldkőtől a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben.
+
+A(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladat jelenleg nem része egyetlen mérföldkőnek sem.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Feladat áthelyezve: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" áthelyezte a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatot a(z) "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mérföldkőhöz a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben. 
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Az értesítési beállítások módosításait a "$RecipientSubscriptionConfigURL" oldalon a "feliratkozási beállítások" menüpont alatt végezheti el.^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Feladat folytatva:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" folytatta a(z) "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" feladatot a(z) "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektben: 
+
+$AdditionalData
+
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója. Ha nem szeretne értesítéseket kapni erről a feladatról, "itt" iratkozhat le:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Szerkesztett hozzászólás a megbeszéléshez: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Szerkesztett hozzászólás feladathoz: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Megbeszélés szerkesztve: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projektek. A Basecamp-ből származó adatok importálása</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Ön részévé vált a projektcsapatnak</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Értesítés lejárt mérföldkőről: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Megbeszélés törölve: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő lezárva: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő létrehozva: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Éretesítés a mérföldkő határidejéről: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő törölve: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő szerkesztve: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Mérföldkő folytatva: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Új Hozzászólás a(z): $EntityTitle megbeszéléshez</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Új megjegyzés a(z): $EntityTitle feladathoz</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Új fájl a megbeszéléshez: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Új fájl a feladathoz: $EntityTitle </value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Új megbeszélés: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projektek. Projekt törölve: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Ön tagja lett a projektcsapatnak</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Megbeszélést törölték</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Mérföldkő lezárult</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Új mérföldkő került be a projektbe</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>A mérföldkövet törölték</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Mérföldkő folytatása</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Új megbeszélés indult
+</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projektek. Projekt törölve</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>A mérföldkövet Önhöz rendelték</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Kinevezték projektmenedzsernek</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Az alfeladatot Önhöz rendelték</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Feladatot rendeltek Önhöz</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Az alfeladat lezárva.</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Új alfeladatot hoztak létre</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Az alfeladat törölve.</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Az alfeladat újraindult</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>A feladat lezárva.</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Új feladatot hoztak létre</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>A feladat törölve.</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>A feladatvégzés folytatódik.</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Feladat emlékeztető: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Feladat emlékeztető: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Ön nem része már a projektcsapatnak</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. A feladat a továbbiakban nincs Önhöz rendelve: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Önhöz rendelt mérföldkövek: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Önt kinevezték projektmenedzsernek</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Önhöz rendelt alfeladat: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Önhöz rendelt tevékenység: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Alfeladat lezárva: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. A létrehozott részfeladat: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Részfeladat törölve: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Részfeladat szerkesztve: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Részfeladat folytatva: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Lezárt alfeladat: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>A projektek [$ProjectTitle]. Feladat létrehozva: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat törölve: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat szerkesztve: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat eltávolítva: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat áthelyezve: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projektek [$ProjectTitle]. Feladat folytatva: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Senki</value>
+  </data>
+</root>

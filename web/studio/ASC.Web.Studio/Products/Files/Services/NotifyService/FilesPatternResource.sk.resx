@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Všetci signatári vyplnili $DocumentTitle
+
+Toto je e-mailové upozornenie, ktoré vás informuje, že všetci signatári vyplnili "$DocumentTitle":"$DocumentURL".
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Ak chcete získať ďalšie informácie, prihláste sa do svojho účtu DocuSign.
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Odoslanie pošty je dokončené
+
+Požiadali ste o zasielanie správ v účte $MailsCount a toto e-mailové upozornenie Vás informuje o tom, že odosielanie je dokončené. $Message
+
+Úspešne odoslané e-mailové správy môžete nájsť v priečinku "Odoslané":"$__VirtualRootPath/addons/mail/#sent" v module MAIL.
+
+^Tento email ste dostali, pretože ste registrovaným používateľom "${__VirtualRootPath}":"${__VirtualRootPath}" portálu.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1.Prístup k dokumentu: "$DocumentTitle":"$DocumentURL" bol udelený
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vám udelil prístup k dokumentu "$DocumentTitle":"$DocumentURL" s právami: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1.Prístup k priečinku "$DocumentTitle":"$DocumentURL" bol udelený.
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Vám povolil prístup k priečinku "$DocumentTitle":"$DocumentURL" s právami: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Dokumenty. Všetci signatári vyplnili $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Dokumenty. Stav prihlásenia sa zmenil</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Dokumenty. Pošta je odoslaná.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Dokumenty. Prístup umožnený k dokumentu $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Dokumenty. Prístup umožnený k priečinku: $DocumentTitle</value>
+  </data>
+</root>

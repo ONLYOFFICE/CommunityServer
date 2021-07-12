@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Корпоративният блог</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Блогове</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>Всички записи на автора</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Блогове</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>Полето за публикацията не може да бъде празно</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Добави коментар</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>Коментари</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете публикацията?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>Редактиране на публикация</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>Още не са създадени блогове</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>Създайте първия блог</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>Създайте своя собствена страница, за да споделите интересна информация, мисли и опит с други хора, да изразите мнението си, да получите отзиви от коментарите на потребителите.</value>
+  </data>
+  <data name="EmptyScreenBlogTextVisitor" xml:space="preserve">
+    <value>Преглеждайте страници с интересна информация, идеи и опит на други потребители, изразявайте мненията си, получавайте обратна информация от коментарите на потребителите.</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>Въведете желаните етикети, разделени със запета</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>Създайте нова публикация</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Публикувам</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Предварителен преглед</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>Прочети още ...</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Търсене в блогове</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Показване на страницата</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>Абонирайте се за всички потребителски публикации </value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>Абонаментът ви позволява да проследявате нови потребителски публикации в блогове</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>Нови потребителски публикации</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Абонирайте се за публикуване на коментари</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>Абонаментът ви позволява да проследявате нови коментари</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>Публикувайте коментари</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>Абонирайте се за всички публикации</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>Абонаментът ви позволява да проследявате нови публикации в блогове</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>Нови публикации в блога</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>Етикети</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Изберете текста, който искате да бъде скрит от страниците на емисията и страницата с списък на блога, и кликнете върху бутона "Изрязване на текст".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Изрязване на текст</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Обща сума</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>Прекратете абонамента за потребителските публикации</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>Отписване на коментари от публикацията</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>Отпишете се от всички публикации</value>
+  </data>
+</root>

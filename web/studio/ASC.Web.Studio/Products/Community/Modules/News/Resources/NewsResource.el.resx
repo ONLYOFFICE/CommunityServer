@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>Προσθήκη Ειδήσεων</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>Σχόλιο Ειδήσεων</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>Επεξεργασία ειδήσεων</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Τα τελευταία εταιρικά νέα, ανακοινώσεις και δημοσκοπήσεις</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Συμβάντα</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>Είστε σίγουροι ότι θέλετε να διαγράψετε αυτό το γεγονός;</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Διαγραφή</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Επεξεργασία</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Δεν επιτρέπεται η πρόσβαση</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Εισάγετε την ερώτηση δημοσκόπησης σας</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Εισάγετε τουλάχιστον δύο επιλογές δημοσκόπησης</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>Η εκδήλωση έχει διαγραφεί</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>Ειδήσεις</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>Δημοσκοπήσεις</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Κλείσε</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Νέο συμβάν</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>Νέα ψηφοφορία</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>Ανακοινώσεις</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>Κείμενο</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>Όλες οι εκδηλώσεις</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>Τίτλος</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>Επεξεργασία γεγονότος</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>Επεξεργασία Δημοσκόπησης</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>Παραγγελίες</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>Τύπος συμβάντος</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>Ειδοποίηση για νέα σχόλια</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>Εγγραφές συμβάντων</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Δημοσίευση</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Συγγραφέας</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Προεπισκόπηση</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>Το πεδίο του τίτλου είναι υποχρεωτικό</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Αποθήκευση</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Αναζήτηση συμβάντων</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>Προσυπογράψτε στα σχόλια</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Σύνολο</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>Διαγραφή από τα σχόλια</value>
+  </data>
+</root>

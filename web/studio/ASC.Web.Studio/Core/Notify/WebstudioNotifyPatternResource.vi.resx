@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blog đã được tạo lúc</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Bookmark được tạo lúc</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>Trường hợp CRM đã được tạo lúc</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Bình luận được thêm lúc</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>Liên hệ CRM đã được tạo lúc</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>Cơ hội CRM đã được tạo lúc</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Thảo luận đã được tạo tại</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Sự kiện đã được tạo tại</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Tài liệu đã được tạo/đăng tải lên tại</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Thư mục đã được tạo tại</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Diễn đàn được tạo tại</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Thăm dò ý kiến đã được tạo tại</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Bài viết đã được tạo lúc</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Mốc sự kiện đã được tạo tại</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Dự án được tạo tại</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Nhiệm vụ được tạo tại</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Truy cập Control Panel</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Truy cập Cổng thông tin</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Truy cập Web-Office</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Cấu hình ngay</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Mời ngay</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Yêu cầu một Cuộc gọi</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Chọn Gói dịch vụ ngay bây giờ</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Tìm hiểu thêm &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.Kích hoạt email của bạn cho cổng "${__VirtualRootPath}":"$InviteLink".
+
+Xin chào!
+
+Để bắt đầu tham gia vào cuộc sống trên cổng thông tin "${__VirtualRootPath}":"$InviteLink" bạn cần kích hoạt địa chỉ email của bạn. Điều này được thực hiện vì lý do an ninh.
+
+p=. "Nhấp vào đây để kích hoạt địa chỉ email của bạn":"$InviteLink"
+
+Liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất kích hoạt email của bạn trong khoảng thời gian đó.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1.Bản sao lưu cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}" đã được tạo
+
+Thân gửi $OwnerName,
+
+Một file sao lưu chứa dữ liệu từ cổng "${__VirtualRootPath}":"${__VirtualRootPath}" của bạn đã được tạo.
+
+Để tìm hiểu thêm về quy trình sao lưu, vui lòng tham khảo hướng dẫn người dùng "Sao lưu dữ liệu":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx" của chúng tôi.
+
+
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1.Người dùng mới được thêm vào cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+"$__AuthorName":"$__AuthorUrl" đã tham gia cổng thông tin của bạn tại "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^Bạn nhận được email này vì bạn là quản trị viên của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về người dùng mới, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^
+
+h1.Yêu cầu thay đổi mật khẩu cho cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Đã có yêu cầu thay đổi mật khẩu bạn sử dụng để đăng nhập cổng "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+Vui lòng truy cập liên kết dưới đây để thay đổi mật khẩu của bạn:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình thay đổi mật khẩu trong khoảng thời gian đó.
+
+Nếu bạn không muốn thay đổi mật khẩu của mình hoặc nhận được địa chỉ email này do nhầm lẫn, hãy bỏ qua nó hoặc liên hệ với quản trị viên cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}" để biết chi tiết.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Yêu cầu thay đổi điện thoại di động
+
+Bạn đã yêu cầu thay đổi điện thoại di động được dùng để nhập cổng ${LetterLogoText}.
+
+Vui lòng truy cập liên kết dưới đây để thay đổi điện thoại di động của bạn:
+
+$GreenButton
+
+Nếu bạn không muốn thay đổi điện thoại di động hoặc nhận được email này do nhầm lẫn, vui lòng bỏ qua nó hoặc liên hệ với quản trị viên cổng thông tin của bạn để tìm hiểu chi tiết.</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1.Thay đổi người sở hữu cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Thân gửi $OwnerName,
+
+Đã có yêu cầu thay đổi người sở hữu cổng "${__VirtualRootPath}":"${__VirtualRootPath}" sang cho $UserName.
+
+Vui lòng truy cập liên kết dưới đây để xác nhận hoạt động:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình thay đổi người sở hữu cổng thông tin trong khoảng thời gian đó.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Thay đổi địa chỉ cổng thông tin
+
+Thân gửi $OwnerName,
+
+Đã có yêu cầu thay đổi địa chỉ cổng "${__VirtualRootPath}":"${__VirtualRootPath}" thành "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end.
+
+Vui lòng truy cập liên kết dưới đây để xác nhận hoạt động:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình thay đổi địa chỉ cổng thông tin trong khoảng thời gian đó.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1.Tin nhắn từ cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Email: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1.Lời mời tham gia cổng "${__VirtualRootPath}":"$InviteLink"
+
+Chào bạn,
+
+Bạn đã yêu cầu tham gia cổng "${__VirtualRootPath}":"$InviteLink" tại ${LetterLogoText} - nền tảng quản lý tài liệu và dự án. Hãy tham gia cổng thông tin và bắt đầu hợp tác với đồng nghiệp hoặc bạn bè của bạn ngay lập tức.
+
+Để chấp nhận lời mời hãy nhập tên và mật khẩu của bạn vào liên kết sau:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có giá trị trong 48 giờ. Vui lòng hoàn tất thao tác này trong khoảng thời gian đó.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Lỗi di chuyển cổng vùng khác
+
+Đã xảy ra lỗi khi di chuyển sang khu vực $RegionName. Vui lòng thử lại sau.
+Cổng của bạn hiện vẫn khả dụng ở địa chỉ cũ "$PortalUrl":"$PortalUrl"
+
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh trong "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Lỗi di chuyển cổng vùng khác
+
+Đã xảy ra lỗi khi di chuyển sang khu vực khác. Vui lòng thử lại sau.
+Cổng của bạn hiện vẫn khả dụng ở địa chỉ cũ "$PortalUrl":"$PortalUrl"
+
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh trong "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Đã bắt đầu di chuyển sang cổng vùng khác
+
+Đã bắt đầu di chuyển cổng thông tin đến khu vực $RegionName. Có thể mất một khoảng thời gian tùy thuộc vào lượng dữ liệu của bạn.
+
+*Lưu ý*: cổng thông tin sẽ không khả dụng trong quá trình di chuyển. Sau khi quá trình di chuyển hoàn tất, URL cổng thông tin sẽ được thay đổi và sẽ không thể truy cập vào tất cả các liên kết tài liệu đã được chia sẻ.
+
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1.Dừng hoạt động cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Thân gửi $OwnerName,
+
+Bạn đã yêu cầu tạm dừng hoạt động cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Vui lòng truy cập liên kết dưới đây để xác nhận hoạt động:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình dừng hoạt động cổng thông tin trong khoảng thời gian đó.
+
+Bạn có thể kích hoạt lại cổng của mình bất kỳ lúc nào bằng cách nhấp vào liên kết sau:
+p=. "Kích hoạt lại cổng":"$ActivateUrl" (liên kết này không có giới hạn thời gian)
+
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1.Xoá cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Thân gửi $OwnerName,
+
+Bạn đã yêu cầu xóa vĩnh viễn cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}" của bạn.
+
+*Quan trọng! Tất cả dữ liệu được lưu trữ trên cổng thông tin cũng như chi tiết đăng ký của bạn sẽ bị mất và không thể khôi phục.*
+
+#if($AutoRenew == "True")
+Trước khi xóa cổng thông tin này, hãy đảm bảo rằng thanh toán tự động đã được tắt. Bạn có thể kiểm tra trạng thái thanh toán tự động trong "tài khoản Avangate":"https://secure.avangate.com/myaccount/" của bạn.
+#end
+
+Nếu bạn vẫn muốn xoá cổng "${__VirtualRootPath}":"${__VirtualRootPath}" của bạn, vui lòng truy cập liên kết bên dưới để xác nhận thao tác:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình xóa cổng thông tin trong khoảng thời gian đó.
+
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Thay đổi địa chỉ cổng thông tin
+
+Thân gửi $UserDisplayName,
+
+Địa chỉ cổng thông tin $PortalUrl của bạn đã được thay đổi sang địa chỉ mới "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+*Lưu ý*: Hiện tại sẽ không thể truy cập vào tất cả các liên kết tài liệu đã chia sẻ cũng như các thiết lập DNS và tùy chọn đăng nhập một lần sẽ ngừng hoạt động cho đến khi bạn thay đổi chúng. Các liên kết iCal của bên thứ ba được thêm vào lịch của bạn cũng sẽ ngừng cập nhật cho đến khi bạn tải lại chúng.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Xóa hồ sơ khỏi cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Bạn đã yêu cầu xóa vĩnh viễn hồ sơ của bạn khỏi cổng "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+Nếu bạn vẫn muốn xóa hồ sơ của mình, vui lòng truy cập liên kết dưới đây để xác nhận hoạt động:
+
+$GreenButton
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 7 ngày. Vui lòng hoàn tất quá trình xóa hồ sơ trong khoảng thời gian đó.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.Hồ sơ của bạn tại "$__VirtualRootPath":"$__VirtualRootPath" đã được thay đổi
+
+Thân gửi $UserName,
+
+Thông tin hồ sơ người dùng của bạn tại "$__VirtualRootPath":"$__VirtualRootPath" đã được thay đổi bởi "$__AuthorName":"$__AuthorUrl".
+
+Để xem hồ sơ của bạn, vui lòng truy cập liên kết dưới đây:
+"$UserName":"$MyStaffLink"
+
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Thân gửi $UserName,
+
+Quá trình phân bổ lại dữ liệu từ người dùng "$FromUserName":"$FromUserLink" cho người dùng "$ToUserName":"$ToUserLink" đã được hoàn tất.
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Yêu cầu giấy phép doanh nghiệp
+
+h3.Tên
+$UserName
+
+h3.Họ
+$UserLastName
+
+h3.Chức vụ
+$Position
+
+h3.Email
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Điện thoại
+$Phone
+
+h3.Website của Công ty
+$Website
+
+h3.Tên Công ty
+$CompanyTitle</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Đã bắt đầu khôi phục cổng
+
+Đã bắt đầu khôi phục cổng thông tin. Có thể mất một khoảng thời gian tùy thuộc vào lượng dữ liệu của bạn.
+
+*Lưu ý*: cổng thông tin sẽ không khả dụng trong quá trình khôi phục.
+
+Nếu bạn có câu hỏi hoặc cần trợ giúp, vui lòng liên hệ với chúng tôi theo địa chỉ  "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi loại thông báo này, vui lòng điều chỉnh trong "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1.Thông báo thay đổi hồ sơ trên cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+"$__AuthorName":"$__AuthorUrl" đã thay đổi thông tin hồ sơ tại cổng "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^Bạn nhận được email này vì bạn là quản trị viên của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về cập nhật hồ sơ, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1.Có gì mới trên cổng "${__VirtualRootPath}":"${__VirtualRootPath}" vào ngày $Date
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Tác giả*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^ Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về các sự kiện mới trên cổng "${__VirtualRootPath}":"${__VirtualRootPath}", vui lòng điều chỉnh trong "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>Tin nhắn SMTP thử nghiệm
+
+Tin nhắn này được tạo tự động để kiểm tra thiết lập SMTP của bạn. Nếu bạn đang xem nó, điều này có nghĩa là thiết lập đã chính xác và bạn có thể sử dụng chúng trên cổng thông tin của bạn.
+
+
+Trân trọng,
+Đội ONLYOFFICE</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1.Người dùng mới được thêm vào cổng "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+"$__AuthorName":"$__AuthorUrl" đã tham gia cổng thông tin của bạn tại "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^Bạn nhận được email này vì bạn là quản trị viên của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về người dùng mới, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Vui lòng kích hoạt địa chỉ email của bạn</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. ${__VirtualRootPath} đã tạo bản sao lưu của cổng</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText} trợ giúp mật khẩu</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Yêu cầu thay đổi điện thoại di động</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Thay đổi người sở hữu cổng</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Thay đổi địa chỉ cổng</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Thông báo của người dùng đến các quản trị viên</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Lời mời tham gia cổng ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Lỗi di chuyển cổng sang vùng khác</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Đã bắt đầu di chuyển cổng sang vùng khác</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Đã hoàn tất di chuyển cổng sang vùng khác</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>Ngưng hoạt động Cổng ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>Xoá cổng ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Thay đổi địa chỉ cổng</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>Xóa hồ sơ của bạn khỏi cổng ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Hồ sơ của bạn tại ${__VirtualRootPath} đã được thay đổi</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Đã hoàn tất phân bổ lại dữ liệu người dùng</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Yêu cầu giấy phép doanh nghiệp</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>Yêu cầu thông tin về gói dịch vụ của SaaS</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Hoàn tất khôi phục</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Đã bắt đầu khôi phục</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__ VirtualRootPath} thông báo thay đổi hồ sơ cổng thông tin</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Có gì mới trên cổng thông tin của bạn vào ngày $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>Tin nhắn SMTP thử nghiệm</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Đã thêm người dùng mới vào cổng ${LetterLogoText}</value>
+  </data>
+</root>

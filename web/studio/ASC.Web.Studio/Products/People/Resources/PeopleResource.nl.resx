@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Toegangsrechten portal</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>{!group} toevoegen</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Voeg leden toe</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Gedeactiveerd</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Wijzig Status</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Wijzig gebruikersstatus</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Als dit aantal groter is dan het huidige abonnement zult u uw abonnement moeten verhogen en de actie moeten herhalen of andere statussen van gebruikers zullen niet worden veranderd.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Wijzig gebruikersstatus</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>U kunt de status niet veranderen voor de portaaleigenaar en voor uzelf</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>De gebruikers met de status 'Geblokkeerd' zullen worden gedeblokkeerd. </value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>De gebruikers met de status 'Actief' zullen worden geblokkeerd. </value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Wijzig type</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Verhoog uw abonnement en herhaal de actie of andere gebruikerstypes zullen niet worden veranderd.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Wijzig gebruikerstype</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>U kunt het type niet veranderen voor de portaalbeheerders en voor uzelf</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Gebruikers met het type '{!User}' zullen worden veranderd naar type '{!Guest}' </value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Gebruikers met het type '{!Guest}' zullen worden veranderd naar type '{!User}'  </value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Filter terugzetten</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bevestiging</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Alleen gebruikers of gasten met de status 'Geblokkeerd' kunnen worden verwijderd</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Verwijder de gebruikers uit het portaal</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselecteer alles</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Deactiveer</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Vul een naam in</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Het geüploade bestand kon niet worden gevonden</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Afbeelding is te groot</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>De bestandsgrootte van de afbeelding is te groot</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Onbekend afbeeldingsbestandtype</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Verberg de lijst met geselecteerde gebruikers</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Personen Importeren</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Uitnodigingslink</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Verander e-mail</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Verander wachtwoord</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Aanmaken </value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Profiel verwijderen</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Stuur uitnodigingen opnieuw</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Stuur activatiekoppeling opnieuw</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Verstuur e-mail</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Verstuur bericht</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Inschrijvingen</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Gedeactiveerd</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Tooltips</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Leden</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>Er zijn geen mensen die voldoen aan jouw filter. Selecteer alsjeblieft andere filteropties of verwijder de filter om al de mensen weer te geven in deze sectie. </value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Er zijn geen resultaten die voldoen aan jouw zoekopdracht</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Bovenaan</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Doe hetzelfde als een gebruiker|Maak profielen en groepen aan|Importeer profielen|Gebruikers uitnodigen</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Voeg nieuwe gebruikers toe, nodig uit of importeer ze. Beheer gebruikers en bekijk hun gedetailleerde informatie. </value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Medewerkers</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Bekijk profielen en groepen</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Of {0}lees over non-profit gebruik{1}.</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Nadat gebruikers de uitnodiging accepteren zal hun status veranderen naar "Actief". </value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Stuur uitnodiging opnieuw</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>De uitnodiging voor het portaal zal nogmaals worden verzonden naar de geselecteerde gebruikers met de status 'Wachtend' die niet zijn geblokkeerd.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Selecteer alles</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tonen op pagina</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Bekijk de geselecteerde gebruikerslijst</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Gebruiker is succesvol verwijderd</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Totale aantal</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Wacht op bevestiging</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Schrijf Brief</value>
+  </data>
+</root>

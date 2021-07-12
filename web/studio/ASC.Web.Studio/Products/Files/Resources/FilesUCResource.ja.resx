@@ -1,0 +1,871 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>ユーザー設定フィルター</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>フォーム記入</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>フルアクセス</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>アクセスを拒否する</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>見直し</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>アカウントを追加する</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>管理者設定</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Boxアカウントを追加</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropboxのアカウントを追加</value>
+  </data>
+  <data name="ButtonAddFavorite" xml:space="preserve">
+    <value>お気に入りとしてマーク</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Googleアカウントを追加</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Nextcloudアカウントを追加する</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDriveのアカウントを追加</value>
+  </data>
+  <data name="ButtonAddTemplate" xml:space="preserve">
+    <value>テンプレートとして使用する</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>別のアカウント</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>全てをキャンセル</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>所有者を変更する</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>接続設定を変更する　</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>[フィルタのクリア]</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>コピーを作成する</value>
+  </data>
+  <data name="ButtonCopyExternalLink" xml:space="preserve">
+    <value>外部リンクをコピーする</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>テンプレートから作成</value>
+  </data>
+  <data name="ButtonCreateByTemplateShort" xml:space="preserve">
+    <value>テンプレートから</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>文書を作成する</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>プレゼンテーション</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>プレゼンテーションを作成する</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>スプレッドシート</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>スプレッドシートを作成する</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>ドキュメント</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>第三者サービスを切断する</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>ファイルのコピーを作成する</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>文書の埋め込み</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>ごみ箱を空に</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>アーカイブ</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>全てのファイル</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>イメージズ</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>メディア</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>プレゼンテーション</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>スプレッドシート</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>'{0}'に移動する</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>私の文書に移動します</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>詳細はこちら...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>共著者にブロックする</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>移動またはコピーする</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>に移動</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>変更したバージョンを上書きする</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>お気に入りから削除</value>
+  </data>
+  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="ButtonRemoveTemplate" xml:space="preserve">
+    <value>テンプレートから削除する</value>
+  </data>
+  <data name="ButtonRemoveTemplateShort" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>リネーム</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>復元する</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>DocuSignで署名する</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>送信する</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Eメールで送信する</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>共有設定</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
+    <value>共有設定</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>バージョン履歴を表示する</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>スキップ</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>親フォルダに戻る</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>ブロックを解除する</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>上に</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>アップロードをキャンセルして閉じる</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>ファイルアップロード</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>フォルダーアップロード</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>ダイアログ最大化</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>ダイアログ最小化</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>バージョン履歴</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>バージョンを形成する</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>ファイルがパスワードで保護されています。変換するようにパスワードを入力してください。</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>文書を変換して開く</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>文書保存</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>文書アップロード</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>変更が適用されると、現在のファイル／フォルダ所有者は、自分が属しているグルップのアクセス設定、または既定のフォルダ権限に従ってアクセス権を取得します。</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>所有者を変更する</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>ダウンロードする各ファイルの形式を選択します</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>共有設定</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>エレメントをゴミ箱に移動するときに通知を表示する</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>今後このメッセージを表示しない</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>フォルダでは二つの異なっているファイルがあるようになります。</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>上書き確認</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>ファイルは同じ名前を持っているファイルにバージョンとして追加されます。</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>注：このアクションは、取り消すことができません。</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>注：アカウントからの削除を取り消すことはできません。</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>ファイルがコピーされません。移動先のフォルダーに元のファイルが留保されます。</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>元の形式だけでなく、ファイルのコピーを保存</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>開いた文書ファイルは、より高速に表示、編集するようにOffice Open XML形式に変換されます。</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>ファイルコピーは{0}マイドキュメント{1}フォルダに作成されます</value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>編集過程をより早くするために、全てのアップロードした文書は対向なOffice Open XML形式（docx, xlxsまたは pptx）に変換されるようになります。</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>元の形式でファイルのコピーを保存します</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>移動確認</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>あなたはリストからこれらの要素を削除してもよろしいですか？</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>同じ名前の既存のファイルのファイルのバージョンを更新します。 {0}それ以外の場合、ファイルのコピーが作成されます。{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>接続URL </value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>変換</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>としてダウンロード</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>変換が正常に終了しました。</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>'{0}'フォルダでファイルが作成されました</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>変換誤差</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>変換しています...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>共有文書</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>お客様はONLYOFFICEポータルを作成したところです。{0}アプリを終了せずに, オフラインファイルをポータルにアップロードして、共同作業を行うことができます。{0}{0}ブラウザでポータルを開くと {1}プロジェクト {2}、 {1}ＣＲＭ{2}、 {1}カレンダー{2}、 {1}メール{2}などの機能を使用できます。</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>ブラウザで開く</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>購入について質問の場合に、｛０｝メールでお問い合わせください。</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>技術的問題の場合に｛０｝メールでお問い合わせください。</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>ポータルへようこそ！</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>おめでとうございます</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="DocuSignAdmin" xml:space="preserve">
+    <value>これをするには、ポータル設定に移動して統合-&gt;第三者サービス統合 {0}設定に移動{1}をご使用ください</value>
+  </data>
+  <data name="DocuSignCaption" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="DocuSignConnect" xml:space="preserve">
+    <value>文書に署名するには、DocuSignサービスに接続する必要があります。</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>保存するフォルダ：</value>
+  </data>
+  <data name="DocuSignHelp" xml:space="preserve">
+    <value>詳細については、 {0}ヘルプセンター{1}をご覧ください。</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>メッセージを追加する</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>メッセージを削除する</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>文書名</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>{!user}を追加する</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>署名者の受信者リスト</value>
+  </data>
+  <data name="DocuSignUser" xml:space="preserve">
+    <value>これをするには、ポータル管理者にご連絡ください。</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>としてダウンロード</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>自動</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>高さ</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>幅</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>’共有文書’セクションでは、一般的なアクセスのためのポータル管理者によって共有されているすべてのドキュメントを示しています。唯一のポータル管理者は、このセクションでフォルダを作成しますが、アクセスしてポータルユーザーもここに自分のファイルをアップロードすることができ付与することができます。</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>さらに簡単にポータルにアップロードするにはここをお使いのコンピュータからファイルをドラッグアンドドロップします。</value>
+  </data>
+  <data name="EmptyScreenDescrFavorites" xml:space="preserve">
+    <value>ファイルをお気に入りとしてマークしたり、このリストから削除したりするには、コンテキストメニューをご使用ください。</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>セクション 'Meの共有者、お友達や同僚があなたに与えたアクセスのファイルを表示するために使用されます。あなたはドキュメントの最新の変更内容を見ていない場合、それらは"新しい"とマークされます。あなたは、適切なボタンをクリックすると、リストからファイルを削除することができます。</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>文書や画像ファイルは{0}を作成{1}{2}ポータルへのアップロード{3}は"マイドキュメント"内にここに保存されてください。次のことができます{4}{5}のオープンと{6} ONLYOFFICE™ポータルエディタを使って編集{7}彼らは、フォルダに整理、友人や同僚と共有することができます。</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>{2}アップロード{3}された文書とイメージファイルが”マイドキュメント”セクションで保存されています。友達と同僚にファイルを共有し、フォルダーに入れて整理できます。</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyAsk" xml:space="preserve">
+    <value>管理者に個室を有効にするようご連絡ください。</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyBrowser" xml:space="preserve">
+    <value>個室での作業は、ONLYOFFICEデスクトップアプリから利用できます。 {0}説明書{1}</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyEnable" xml:space="preserve">
+    <value>{0}個室を有効にする{1}</value>
+  </data>
+  <data name="EmptyScreenDescrPrivacyList" xml:space="preserve">
+    <value>{0} docx、xlsx、pptxの最も安全なストレージ。{1}{0}信頼できるチームメイトとの安全な共有。{1}{0}暗号化された編集と同時の共同作業。{1}{0}解読不能 AES-256　アルゴリズム。{1}</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>作成またはあなたのプロジェクトのためにアップロードされた文書や画像ファイルについては、このセクションに保存されています。あなたはONLYOFFICE™ポータルエディタを使用してそれらを開いて編集することができ、フォルダに整理します。</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>このセクションはプロジェクトのためにアップロードされた文書とイメージファイルを保存するセクションです。ONLYOFFICE ポータルエヂターを使用してこのファイルを表示できます。</value>
+  </data>
+  <data name="EmptyScreenDescrRecent" xml:space="preserve">
+    <value>[最近]セクションには、最近に表示または編集したファイルが表示されます。</value>
+  </data>
+  <data name="EmptyScreenDescrTemplates" xml:space="preserve">
+    <value>ファイルをテンプレートとしてマークしたり、このリストから削除したりするには、コンテキストメニューをご使用ください。</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>すべての削除されたファイルは「ごみ箱」に移動されます。間違って削除されたファイルをを復元するか、完全に削除することができます。「ごみ箱」から削除されたファイルは、もう復元できないことにご注意ください。</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>ここで、このフィルター用に表示されるファイルがありません</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>あなたのフィルタに一致するファイルまたはフォルダは、このセクションに表示することはできません。このセクション内のすべてのファイルを表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。また、あなたが他のセクションで必要なファイルを探すことができます。</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>このフォルダにファイルがありません</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>このセクションに表示されるファイルがありません</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>まだ第三者サービスのクラウドに接続していません</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>｛０｝形式のファイルを選択します</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>｛０｝タイプのファイルを選択します</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>フィルタリング</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>今すぐ開始</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>短くする</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>電子メールを介して</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>元の形式とは異なっている形式に変換したい場合に、データが失われる可能性があることにご注意してください。</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>すべてを選択</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>{0}は最大ファイルサイズです</value>
+  </data>
+  <data name="MobileAndroid" xml:space="preserve">
+    <value>GooglePlayでONLYOFFICE Documentsを入手する</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>アプリをダウンロードする</value>
+  </data>
+  <data name="MobileIos" xml:space="preserve">
+    <value>AppStoreでONLYOFFICEドキュメントをダウンロードする</value>
+  </data>
+  <data name="MobileLinux" xml:space="preserve">
+    <value>Linux用のONLYOFFICEデスクトップエディタをダウンロードする</value>
+  </data>
+  <data name="MobileMac" xml:space="preserve">
+    <value>MacOS用のONLYOFFICEデスクトップエディタをダウンロードする</value>
+  </data>
+  <data name="MobileWin" xml:space="preserve">
+    <value>Windows用のONLYOFFICEデスクトップエディタをダウンロードする</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>{0}協力する　チームがありますか？ {0}{1}詳細について{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>文書管理</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRMと請求書</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>タスク管理とガントチャート</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>メールアグリゲータ</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>プロジェクトと協力チームを持っていますか？{0}小社はお客様のために何かを用意しました。{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>同僚と下請けを招待して、追加機能を利用できます：</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>チームと協力するにはONLYOFFICE™へようこそ！</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>私の文書</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>ファイルがある場所を開く</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>文書一覧を隠す</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>文書リストを表示する</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="PrivacyRoom" xml:space="preserve">
+    <value>個室</value>
+  </data>
+  <data name="PrivacyRoomEmptyFolder" xml:space="preserve">
+    <value>入力したすべての記号が暗号化されているONLYOFFICE個室へようこそ</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>プロジェクト文書</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>最近</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>既読にする</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>全てを開封済みにする</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>開封済みにする</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>保存された文書を新しいタブで開く</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>フォルダーを選択する</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>操作を選択してください：</value>
+  </data>
+  <data name="SettingFavorite" xml:space="preserve">
+    <value>お気に入りを表示する</value>
+  </data>
+  <data name="SettingForcesave" xml:space="preserve">
+    <value>編集時に、中間バージョンを保持する</value>
+  </data>
+  <data name="SettingRecent" xml:space="preserve">
+    <value>最近の表示</value>
+  </data>
+  <data name="SettingSection" xml:space="preserve">
+    <value>追加のセクション</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>保存した中間バージョンを保持する</value>
+  </data>
+  <data name="SettingTemplates" xml:space="preserve">
+    <value>テンプレートを表示する</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>共有設定</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>ファイルバージョンを格納する</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>共有</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>ミーと共有</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>外部リンクアクセス</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>リンクと埋め込みコードにアクセスを提供します</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>詳細を表示する</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>ウィンドウを最小化して表示する</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>コンパクトビューに切り替え</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>一般的なビューに切り替え</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>テンプレート</value>
+  </data>
+  <data name="TemplatesEmpty" xml:space="preserve">
+    <value>テンプレートがない</value>
+  </data>
+  <data name="TemplatesLoader" xml:space="preserve">
+    <value>読み込み中...</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>サードパーティのアカウント</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>クラウドを接続する</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>アカウントを接続</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>次のサービスはONLYOFFICE™アカウントに接続のために利用可能です。ファイルが”マイドキュメント”フォルダで表示され、一つのワークスペースで文書を編集して保存されることができます。</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>接続に成功させるように｛０｝このページ｛１｝で必要なデータを入力してください。</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>アカウントを接続する</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>変更するように書き込んでください</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>第三者サービスを切断する</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>ユーザーが第三者サービスのストレージに接続できるようにする</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>フォルダのタイトル</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Googleドライブ</value>
+  </data>
+  <data name="ThirdPartykDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>再接続する</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>共有し、共有文書に入れる</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>ビジネスのためのSharePoint / OneDrive</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>検索範囲</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>と｛０｝全てのサブフォルダ｛１｝</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>サブフォルダなし検索するようにここでクリックしてください</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>あなたは、ドキュメント（ {0}）を作成したスプレッドシート（ {1}）、プレゼンテーション（ {2}）と最も一般的なフォーマットにそれらをダウンロードすることができます。</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>あなたは、次のファイルを編集することができます：{0}。</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>あなたは、次のextentionsでファイルを開くことができます：{0}。</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>あなたが望む任意のファイルドキュメントへアップロードすることができます。</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>ごみ箱</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>リストから削除</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>既存のファイルを同じ名前と上書きする</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>料金プランを引き上げる</value>
+  </data>
+</root>

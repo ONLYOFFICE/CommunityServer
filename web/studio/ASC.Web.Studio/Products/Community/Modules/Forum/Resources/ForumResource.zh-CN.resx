@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>企业论坛讨论区</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>新建论坛</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>新论坛</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>您确定要执行这项操作吗？</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>暂无论坛</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>创建第一个论坛</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>创建自己的论坛，开展讨论、和大家分享一些有趣的信息，发起投票调查……让您的论坛有更多互动。</value>
+  </data>
+  <data name="EmptyScreenForumTextVisitor" xml:space="preserve">
+    <value>访问论坛，参与讨论，评论一些有趣的信息。</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>找不到该讨论话题</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>创建自己的论坛，开展讨论、和大家分享一些有趣的信息，发起投票调查……让您的论坛有更多互动。</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>暂无讨论话题</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>发起第一个讨论话题</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>发起讨论话题或参与开放的讨论，和大家分享一些有趣的资讯，发起投票调查……让您的论坛有更多互动。</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>很抱歉，您没有权限执行这项操作</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>请填写类别名称</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>创建分类时发生未知的错误</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>编辑分类时发生错误</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>填写名称</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>退订/订阅时发生错误</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>请填写论坛的名称</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>"{0}"论坛的话题</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>所有论坛</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>版主</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>填写名称</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>发起新的投票</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>发布新帖</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>新建话题</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>最新论坛话题</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>帖子</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>最近更新</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>论坛搜索</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>帖子</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>订阅新话题</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>订阅此论坛</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>订阅此话题</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>论坛已成功创建</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>分类编辑器</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>论坛简介</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>论坛编辑器</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>论坛名称</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>论坛</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>话题</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>话题</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>订阅话题</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>新建分类</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>取消订阅新帖子</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>取消订阅本论坛</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>取消订阅此话题</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>次点击</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>可见列表</value>
+  </data>
+</root>

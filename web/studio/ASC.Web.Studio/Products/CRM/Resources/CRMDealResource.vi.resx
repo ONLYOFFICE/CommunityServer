@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Lưu và Thêm cơ hội mới</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Tất cả cơ hội</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Cổ phần</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>sửa</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>mỗi ngày</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>mỗi giờ</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>mỗi tháng</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>mỗi tuần</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>mỗi năm</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Thanh toán định kỳ</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Giai đoạn</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Loại giai đoạn </value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Liên hệ cơ hội</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Tạo cơ hội đầu tiên</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Tạo cơ hội mới</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Cơ hội của giai đoạn</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Tuỳ chỉnh thời gian</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Người dùng khác</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Cơ hội</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Các quyền này sẽ được đặt cho các cơ hội mà bạn là tác giả</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Tổng</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Giai đoạn Cơ hội</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Nhân viên bán hàng thu thập một loạt các câu trả lời cho các câu hỏi để xác định các yêu cầu của khách hàng tiềm năng</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Cần định giá</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Cần liên hệ với người mua tiềm năng để hiểu được triển vọng bán hàng trong tương lai</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Liên hệ ban đầu</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Không thành công. Cơ hội được đóng do thiếu triển vọng</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Đóng không thành công</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Người mua tiềm năng này đã bày tỏ quan tâm tới hàng hóa hoặc dịch vụ của nhân viên bán hàng này</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Có triển vọng</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Nhân viên bán hàng này muốn xác định liệu khách hàng này có thể là người mua tiềm năng của họ hay không</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Áp dụng các tiêu chuẩn phù hợp ban đầu</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Người mua tiềm năng này đã nhận tài liệu chào hàng từ nhân viên bán hàng này</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Đề xuất</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Người mua tiềm năng được xác định là người hoặc tổ chức có quan tâm và có quyền mua một sản phẩm hoặc dịch vụ</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Hoài nghi</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Người mau tiềm năng này đã đã thảo luận chi tiết chào hàng của bạn</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Đàm phán</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Một thỏa thuận. Cơ hội được đóng thành công</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Chốt/Giao dịch</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Loại giai đoạn </value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Người tham gia Cơ hội</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Người tham gia Cơ hội</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Cơ hội</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Tag Cơ hội</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Danh sách Tag Cơ hội</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Tag cơ hội</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Xóa cơ hội</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Đang xóa cơ hội</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Chỉnh sửa cơ hội «{0}»</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Chỉnh sửa cơ hội</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Cơ hội cho phép bạn theo dõi doanh thu tiềm năng từ khách hàng của mình. Xác định {0}các giai đoạn cơ hội{1} phù hợp với phương thức kinh doanh của bạn, duy trì lịch sử, giao nhiệm vụ, tải lên tài liệu, tính toán lợi nhuận với từng khách hàng.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Không thể hiển thị cơ hội phù hợp với tiêu chí lọc của bạn trong phần này. Vui lòng chọn tùy chọn lọc khác hoặc xóa bộ lọc để xem toàn bộ cơ hội trong phần này. Hoặc bạn có thể tạo cơ hội nếu nó không có trong danh sách.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Không có cơ hội để hiển thị cho tiêu chí lọc này</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Danh sách cơ hội trống</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Nhập tiêu đề cơ hội</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Mọi cơ hội phải có một người phụ trách</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Danh sách người tham gia trống</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Thêm người tham gia vào cơ hội của bạn từ danh sách công ty hoặc cá nhân. Sau khi hoàn thành, bạn sẽ biết địa chỉ liên hệ nào liên quan đến cơ hội này và bạn có thể làm việc với ai.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Ngày đến hạn dự kiến/thực tế</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Ngân sách</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Người tham gia</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Giai đoạn/loại giai đoạn</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Nhập cơ hội</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Bạn nên chọn file CSV được tạo đúng cách trên ổ cứng máy tính của bạn. Nó phải chứa các trường hoặc cột được phân cách bởi dấu phân cách được chọn để nhập các cơ hội. Các file chứa nhiều hơn {0} hàng nên được chia thành các phần nhỏ hơn để đảm bảo nhập đúng. Đảm bảo là bạn đã chọn những người dùng cổng thông tin cần được cấp quyền truy cập vào thông tin được nhập, nếu không dữ liệu từ file CSV này sẽ khả dụng cho tất cả người dùng cổng thông tin.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Chọn file CSV và đặt quyền truy cập trước khi bạn nhập các cơ hội</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Khớp các cột trong file của bạn với các trường tương ứng trong ONLYOFFICE™ CRM. Lưu ý là để nhập chính xác các cơ hội bạn cần có ít nhất các cột sau trong file của bạn khớp với các trường của ONLYOFFICE™ CRM: 'Tiêu đề Cơ hội', 'Người phụ trách Cơ hội'. Các trường có chứa ngày tháng phải có định dạng sau: {0}. Trường tiền tệ phải được đặt theo mã quốc tế gồm ba chữ cái (ví dụ: USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Vui lòng xác nhận các trường</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Đi tới danh sách cơ hội</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Nhập cơ hội có thể mất vài phút tùy thuộc vào lượng dữ liệu của bạn.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Đã bắt đầu nhập</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Liên kết hoặc tạo cơ hội</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Cơ hội của tôi</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Tiêu đề cơ hội</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Ngân sách không được thiết lập</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Người tham gia cơ hội khác</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Người tham gia</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Hạn chế truy cập vào cơ hội</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Xác suất thành công</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Người phụ trách cơ hội</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Đi tới hồ sơ</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Mở trong tab mới</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Hiển thị tổng số tiền</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Bắt đầu nhập</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Các giai đoạn cơ hội cho phép bạn xác định các bước cần thiết để hoàn thành thỏa thuận. Các giai đoạn cơ hội mặc định là tiếp cận, thảo luận, định giá, đàm phán, cam kết, thành công, điểm không. Để có thể chỉnh sửa chúng, cần có quyền quản trị cổng thông tin.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Tất cả cơ hội</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Tổng số trang</value>
+  </data>
+</root>

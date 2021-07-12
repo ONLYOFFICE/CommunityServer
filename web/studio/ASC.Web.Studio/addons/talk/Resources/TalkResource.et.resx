@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>Nõustu</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>Lisa masspostitusse</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>Sulge ajalugu</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>Loo</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>Keeldu</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>Raputa</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>Eemalda</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>Saada kutse</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Vestle</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>Jututoad</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>Tere tulemast {0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>Anonüümne</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%H:%M:%S %d %b %y</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>Ühenduse loomine...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>Ühenda mind</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>Loo jututuba</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>Masspostitus</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>Loo otseteed ja algata vestlus kui veebirakendus.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Sõnumi saatmiseks vajuta Ctrl+Enter, uue lõigu alustamiseks vajuta Enter</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>Emotikonid</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>Luba / keela filter</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Adobe Flash Player'i versioon ei ole õige</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>Näita/Peida gruppe</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>Vestluse ajalugu</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>Adobe Flash Player ei ole installitud</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>Otsi</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>Järgmine</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>Eelmine</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>Vali kontaktide nimekirjast kasutaja, et vestlust alustada</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>Saada fail</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>Lohistage kontakt siia adressaadi lisamiseks</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>Näita vasakpoolstet sakki</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>Näita parempoolset sakki</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>loe</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>Lohistage kontakt siia adressaadi lisamiseks</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>Praegune olek</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>Ära küsi järgmine kord</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>esmalt vali kasutaja{0} vestluse alustamiseks</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>Soovid sa kindlasti eemaldada selle kasutaja jututoast?</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>Uus sõnum</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>sind on kutsutud</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>Soovid sa kindlasti kustutada selle ruumi?</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>Saada</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>Ajutine tuba (kustutatakse peale kõikide kasutajate lahkumist toast)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>Teema</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>Kehtivad sümbolid</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>Postitused</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Vestle</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>Faili: {0}Suurus: {1}</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Eemal</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Hõivatud</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Ühenduseta</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Kättesaadav</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>Interneti sirvija teated</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>Loo masspostitus</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>Loo jututuba</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>Kutsu vestlema</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>Kustuta jututuba</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>tähed, numbrid, ja punktid (.)</value>
+  </data>
+</root>

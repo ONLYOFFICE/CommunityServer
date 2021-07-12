@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>פעולות</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>הוסף</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>הוסף תג</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>הוסף משתתף</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>הוסף אירוע זה</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>מוסיף הערה זו ...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>הוסף {!user}</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>שדה תואם ב- ONLYOFFICE™ CRM </value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>קבצים מצורפים</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>מחבר</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>אחורה</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>קטגוריה</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>קטגוריה</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>שינוי</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>בחר</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>סגור חלון זה</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>סגור חלון</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק רכיבים אלה?</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>תוכן</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>ממיר מטבע</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>תאריך יצירה</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>הוסף תג חדש</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>מטבע</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>{!User} נוכחי</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>התאמה אישית</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>תקופה מותאמת אישית</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>תאריך</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>מחק אירוע זה</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>מחק משתתף</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>מחק תג</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>מחיקת משתמש</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>תיאור</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>תאריך יעד</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>דוא"ל</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>פגישה</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>שליחה נכשלה - נסיון שני ב- {0} שניות.</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>מחשבון</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>זמין ל{!Users}</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>הרשאות גישה</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>גישה הוענקה</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>צרף קובץ</value>
+  </data>
+</root>

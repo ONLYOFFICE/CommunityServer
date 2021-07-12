@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Sommige inputparameters zijn ongeldig.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Toegang tot het document is geweigerd.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Document kon niet worden gevonden of bestaat niet in de gekozen opslag.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Lege velden worden niet ondersteund.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Bericht kon niet worden gevonden.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Totale grootte van alle bijlagen overschrijdt limiet.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Er is een onverwachtse fout opgetreden. Probeer het alstublieft later opnieuw.</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>Dit bericht is automatisch opgesteld door mail delivery software.</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>Verander uw bericht</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>Als de fout zich blijft voordoen, lees dan alstublieft het {url_begin}FAQ onderdeel{url_end} om meer te weten te komen over het probleem.</value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>Levering mislukt voor bericht met onderwerp "{onderwerp}" van {datum}.</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>Reden</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>Bericht kon niet worden afgeleverd aan ontvanger(s)</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>Controleer alstublieft de adressen van de ontvangers en het berichtformaat. Als u zeker weet dat uw bericht juist is, controleer dan al de accountinstellingen {account_naam} en, als alles klopt, meld u dan aan bij de e-mailservice die u gebruikt en bevestig eventuele verificatievragen, als ze er zijn. Probeer het daarna opnieuw.</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>Berichtaflevering mislukt.</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Dit veld mag niet leeg zijn</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>Onjuist e-mailadres in %1 veld</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Tag %1 bestaat al</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>Tagnaam mag niet leeg zijn</value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>Bcc</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>Aan</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>IMAP serververbinding time-out overschreden.</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>IMAP respons:</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>POP3 serververbinding time-out overschreden.</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>POP3 respons:</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>SMTP serververbinding time-out overschreden.</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>SMTP respons:</value>
+  </data>
+</root>

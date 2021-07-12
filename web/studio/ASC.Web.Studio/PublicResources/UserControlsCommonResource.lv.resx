@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Aktīvie lietotāji ir portāla dalībnieki, izņemot viesus un lietotājus ar statusu "atspējots"</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Pievienot atbildes variantu</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Jauns {!user}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Pievienot jaunu sociālo profilu</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Pievienot tekstu</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Kopējais balsu skaits</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Atbilžu varianti</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Pievienot failus</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Pievienot failu no Dokumentiem</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Pievienot failu no projekta dokumentiem</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Saīsiniet portāla uzaicinājuma saites un saites dokumentu kopīgošanai ar Bitly</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Ieejiet portālā ar saviem sociālo tīklu kontiem un atrodiet kontaktus</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Pievienojiet savus iecienītākos mākoņu glabāšanas pakalpojumus un uzglabājiet visus savus failus vienuviet</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Izveidot prezentāciju</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Izveidot  tabulu</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Izveidot dokumentu</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Uzziņiet vairāk ...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>Jūs varat vēlāk nomainīt domēna nosaukumu, izmantojot portāla "Uzstādījumu" sadaļu.</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Uzņēmuma izmērs</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Uzņēmums</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Augšupielādēt dokumentus arī oriģinālajā formātā</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Visi dokumenti jus augšupielādējat tiks konvertēti Office Open XML formātā ātrākai rediģēšanai.</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Izdzēst failu</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Lejuplādēt failu</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Rediģēt failu</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Izveidojiet{1} failus tieši uz jūsu portālā vai {2}augšupielādējiet{3} tos šeit, lai varētu {4}atvērt{5} un {6}rediģēt{7} tos, izmantojot ONLYOFFICE™ portāla redaktoru.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Augšupielādējiet{3} failus tieši portālā.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Dokumentu saraksts ir tukšs</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Ievadiet jūsu aptaujas jautājumu</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Izvēlēties atbildes variantu</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Nosaukums nedrīkst saturēt nevienu no šīm rakstzīmēm:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Pievienot ierakstu</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Pievienot grāmatzīmi</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Iet uz Dokumentiem</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Izveidot jaunu uzņēmumu</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Izveidot jaunu personu</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Izveidot jaunu projektu</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Šeit tiks uzrādīti visi materiāli, kas tiek pievienoti Kopienas modulim. Lietotāji var dalīties ar interesantu informāciju, idejām, viedokļiem, kā arī saņemt atsauksmes no citu komentāriem.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Vēl nav pievienots neviens notikums</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>CRM moduļa notikumi, kas ir pieejami jums, parādīsies šeit. Jauni uzņēmumi vai personas, kas pievienotas vai esošo rediģēšana, jaunas lietas, iespējas un uzdevumi – viss saistībā ar CRM parādīsies šajā cilnē.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Nav pievienotu CRM notikumu</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Šeit tiks uzrādītas izmaiņas Projektu modulī. Projekti, kuru dalībnieks vai sekotājs eat, jūsu jaunie uzdevumi vai izmaiņas esošajos nodrošinās to, ka neko nenokavējat.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Vēl nav pievienots neviens projekts</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Šeit tiks uzrādītas izmaiņas portāla dokumentos, kas ir jums pieejami. Jaunie dokumenti, kas ir kopīgoti ar jums, izmaiņas eksistējošajos dokumentos, kuriem jums ir piekļuve un visiem lietotājiem pieejamie dokumenti tiek attēloti šeit.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Pievienot pasākumu</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Lenta</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Ļaut vairākus atbilžu variantus uz šo aptaujas jautājumu</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Nav ziņu kas atbilst šīm filtram</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Nav ziņu kas atbilst filtram var parādīt šajā sadaļā.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Nav šim filtram atbilstošu zvanu</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Jūsu filtram nav atbilstošu zvanu.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Saite portāla lietotājiem</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Ja vēlaties samaksāt par savu ONLYOFFICE portālu, spiediet "Pirkt tūlīt"</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Lūdzu, apmaksājiet savu ONLYOFFICE un saņemiet:</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filtrs:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>ievadiet pieprasījumu</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Atlasīt</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Šķirot pēc</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>līdz</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Atzīmējot šo lauciņu, jūs piekrītat {0}Licences vienošanās{1} nosacījumiem</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Licencei beidzies termiņš vai lietotāju kvota tai neatbilst</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Licences aktivizēšanas fails</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Licences atslēga nav pareiza</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>Jums ir jāievada licences atslēga</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE moduļi un rīki:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Tiešsaistes dokumentu redaktori{1}{0}Dokumentu pārvaldība{1}{0}Pasts{1}{0}Projekti{1}{0}CRM{1}{0}Kalendārs{1}{0}Kopiena{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} aktīvi lietotāji</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>Vairāk nekā {0} aktīvu lietotāju</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Izrakstīties</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Ievadiet numuru</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>Uz jūsu mobilo tālruni {0}{1}{2} ir nosūtīts sms ar portāla piekļuves kodu .{5} Lūdzu, ievadiet to un spiediet "{3}". Ja ziņojums nav saņemts vairāk nekā 3 minūtes, spiediet "{4}".</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Jūsu pašreizējais mobilā tālruņa numurs: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Ievadiet mobilā tālruņa numuru</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Ir iespējota divu faktoru autentifikācija, lai nodrošinātu papildu portāla drošību. Ievadiet savu mobilā tālruņa numuru, lai turpinātu darbu pie portāla. Mobilā tālruņa numurs ir jāievada, izmantojot starptautisko formātu ar valsts kodu.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Vairāk</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Jauns dokuments</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Jauns Fails</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Nekas tiks parādīts šeit</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Visas portāla darbības ir parādītas šeit, šajā sadaļā. Tieši tagad nav portāla notikumu, kas var būt parādīti. Sāciet, izmantojot savu portālu, piepildiet to ar saturu, un visi jaunumi tiks parādīti šajā lapā.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Tālāk</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Nav komentāru</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Piezīme: šo darbību nevar atsaukt.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Atļaut vienīgi vienu atbildes variantu uz šo aptaujas jautājumu</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Jautājums</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Aptaujas veids</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Atpakaļ</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst šo failu?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Izlasiet par nekomerciālo lietošanu</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Noņemt no šī saraksta</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Noņemt ziņu</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Atjaunot filtru</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>meklēt</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Meklēt modulī</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Izvēlēties visu</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Nosūtīt paziņojumu</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Pievienojiet lietotājus vai grupas un piešķiriet tiem tiesības.</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Koplietošanas iestatījumi</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Rādīt nākamās ziņas</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Vietne</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Pirmkods ir pieejams {0}GitHub{1}</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Pamatcena</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Pilnais valūtu saraksts ir pieejams Avangate</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>Jūsu cenu plānam ir būtiski faila izmēra ierobežojumi.</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Liela izmēra fails</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Bezmaksas</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Atvērt pilno cenu sarakstu</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Vai jūs vēlaties izvēlēties jaunu cenu plānu?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Ierobežots piedāvājums</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Jā, uzlabot plānu</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 mēnešu {2}{1} abonements</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 gadu{2}{1} abonements</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 gadu{1} abonements</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Jūs izmantojat plānu bezpeļņas organizācijai.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Jūsu portāla maksājums ir nokavēts.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>Jūs izmantojat {0} - {1} aktīvo lietotāju plānu. {2}Maksājums ir nokavēts.{3}{4} Lai turpinātu lietot ONLYOFFICE, pagariniet esošo plānu vai nomainiet to zemāk esošajā tabulā.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>Jūs izmantojat  {0} - {1} aktīvo lietotāju plānu.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>Jūs izmantojat ONLYOFFICE™ Enterprise Edition.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>mēnesis</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>gads</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 gadi</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Piedāvājums ir pieejams vienīgi ikgadējiem abonentiem</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Populārākais abonements</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Jauna portāla pievienošana paaugstinās maksimālo portālu skaitu, ko pieļauj jūsu šībrīža cenu plāns</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Saglabāt {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} no lietotāja mēnesī</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Nosūtīt pieprasījumu</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Pieprasījumu saturs</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Lūdzu, šeit precizējiet sava pieprasījuma detaļas</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Lūdzu, ievadiet savu ziņojumu</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Portāls uzglabāšanas telpa ir pārsniegts</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Lūdzu izdzēst visu novecojušo saturu no portāla vai mainīt pašreizējo cenu plānu uz plānu ar lielāku uzglabāšanas telpu.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Nav pietiekami brīvas atmiņas</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Izvēlēties komandas biedru skaitu</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Cik daudz lietotāju jums vajag?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Jūsu komandai atbilst plāns {0}{2} - {3} aktīvi lietotāji{7} + {4}{1} diska glabātuves</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Nevar pievienot jaunus lietotājus</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Jauno lietotāju pievienošana pārsniegs maksimālo portāla biedru skaitu, ko pieļauj jūsu pašreizējais cenu plāns.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Jauno lietotāju pievienošana</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>Cenu plāni ar vairāk nekā {0} aktīviem lietotājiem{1} ir pieejami vienīgi pēc pieprasījuma.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>Jūs nevarat pāriet uz zemāku cenu plānu.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>lasīt vairāk</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Jūs varat izveidot dokumentus ({0}), tabulas ({1}), prezentācijas ({2}), un lejupielādēt tās populārākajos formātos.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Jūs varat regiģēt šādus failus: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Jūs varat atvērt failus ar šādiem paplašinājumiem: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Jūs varat augšupielādēt visus failus, Dokumenti modulī.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Uzvārds</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Paaugstināt tarifu plānu</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Augšuplādēt failu</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Variants</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Šeit nav, ko uzrādīt</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Šeit nav, ko uzrādīt</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Balsot</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Kas Jauns</value>
+  </data>
+</root>

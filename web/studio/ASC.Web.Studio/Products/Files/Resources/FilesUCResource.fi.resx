@@ -1,0 +1,613 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Vain luku</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Täydet oikeudet</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Estä käyttö</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Tarkasta</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Lisää tili</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Liitä Box-tili</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Liitä Dropbox-tili</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Liitä Google-tili</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Liitä OneDrive-tili</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Muu tili</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Peruuta kaikki</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Vaihda omistaja</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Vaihda kolmannen osapuolen info</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Poista suodatin</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Luo kopio</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopioi</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Kansio</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Esitys</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Laskentataulukko</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Asiakirja</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Poista ulkoinen palvelu</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Luo tiedoston kopio</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Asiakirjan upottaminen</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Tyhjennä roskakori</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arkistoidut</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Kansiot</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Kuvat</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Esitykset</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Laskentataulukot</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Siirry kansioon '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Siirry Omiin asiakirjoihin</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Opi lisää...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Lukitse</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Siirrä tai Kopioi</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Siirrä</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Avaa</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Korvaa version päivityksellä</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Nimeä uudelleen</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Lähetä DocuSign toiminnolla</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Jakamisen asetukset</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Näytä versiot</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Ohita</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Takaisin ylempään kansioon</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Vapauta</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Päällimmäisenä</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Versiohistoria</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Luo uusi versio</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Peruutettu</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Muunna ja avaa tiedosto</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Siinä vaiheessa kun muutokset ovat tehty, niin nykyinen kansion omistaja saa käyttöoikeudet ryhmän käyttöoikeuksien asetusten mukaan, mihin hän kuuluu, tai kansion vastaavien oletusarvojen mukaan.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Vaihda omistaja</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Valitse ladattavien tiedostojen muoto</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Yleiset asetukset</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Kansiossa tulee olemaan kaksi erilaista tiedostoa.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Korvaa vahvistus</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Tiedosto lisätään tiedostoon, jolla on sama nimi kuin versiolla.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Vahvistus</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Huomautus: Tätä toimintoa ei voi peruuttaa.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Huomio: poistamista ei voi peruuttaa</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Mitään tiedostoa ei kopioitu. Alkuperäinen tiedosto säilytetään kohdekansiossa.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Tallenna tiedosto myös sen alkuperäisessä muodossa</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Avaamasi asiakirja muunnetaan Office Open XML muotoon nopeampaa katselua ja muokkausta varten.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Tiedoston kopio luodaan {0}Omat Asiakirjat{1} kansioon</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Lisää asiakirjat myös niiden alkuperäisessä muodossa</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Siirron varmennus</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa nämä luettelosta?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Päivitä tiedosto korvaamalla sen vanhempi versio. {0}Muussa tapauksessa päivitetty versio talletetaan eri nimellä{1}</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Muunna</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Tallenna muodossa</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Muunnos suoritettu onnistuneesti</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Tiedosto on luotu kansioon '{0}'</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Muunnosvirhe. </value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Muunnetaan...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Yhteiset tiedostot</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Olet juuri luonut ONLYOFFICE portaalisi.{0} Voit tuoda tietokoneellasi olevia tiedostoja portaaliin, ja voit missä tahansa muokata tai jakaa niitä, vaikkapa työtovereillesi.{0}{0} Avaa portaalisi selaimeen, jotta voit nähdä lisää ominaisuuksia, kuten esim. {1}Projektit{2}, {1}Asiakkuudenhallinta{2}, {1}Kalenteri{2}, {1}Sähköposti{2}.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Avaa selaimessa</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Mihin tahansa ostoon liittyviin kysymyksiin, lähetä meille sähköpostia: {0}. </value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Jos sinulla on teknisiä ongelmia, niin ole hyvä ja ota meihin yhteyttä: {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Tervetuloa portaaliisi!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Onnittelut</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Tallenna kansioon:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Viesti</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Lisää viesti</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Poista viesti</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Asiakirjan nimi</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Lisää {!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Allekirjoittajan vastaanottajien luettelo</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Tallenna muodossa</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Automaattinen</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Korkeus</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Leveys</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Yhteiset asiakirjat -osio näyttää kaikki pääkäyttäjän yleiseen käyttöön jakamat tiedostot. Vain pääkäyttäjä voi luoda kansioita tässä osiossa, mutta pääsyn saaneet portaalin käyttäjät voivat lisätä tiedostojaan tänne.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Vedä ja pudota tiedostot tietokoneesta tähän lisätäksesi ne sivustolle helposti.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Jaettu kanssani -osio näyttää tiedostot, joihin muut käyttäjät ovat antaneet sinulle pääsyn. Mikäli et ole nähnyt uusimpia muutoksia asiakirjoissa, ne merkitään uusiksi. Voit poistaa tiedostot luettelosta klikkaamalla asianmukaista painiketta.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>Asiakirjat ja kuvat jotka {0}luot{1} tai {2}lisäät{3} sivustolle säilytetään Omat asiakirjat kansiossa. Voit {4}avata{5}, {6}muokata{7} ja jakaa niitä muiden käyttäjien kanssa sekä järjestellä niitä kansioihin.
+
+Yhteiset ja sinulle jaetut asiakirjat löydät tämän ikkunan vasemmassa ylälaidassa olevasta alasvetovalikosta.
+</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Asiakirjat ja kuvat, jotka {2}tallennat{3} sivustolle, talletetaan 'Omat Asiakirjat" osioon. Voit jakaa niitä ystäviesi ja työtoveriesi kanssa ja järjestellä ne kansioihin.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Projektia varten luodut tai lisätyt asiakirjat ja kuvat säilytetään tässä osiossa. Voit avata, muokata ja järjestää niitä kansioihin.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Kaikki poistetut tiedostot siirretään Roskakoriin. Voit palauttaa vahingossa poistetut tiedostot tai poistaa ne pysyvästi. Huomaa, että Roskakorista poistettuja tiedostoja ei voida palauttaa.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Tällä suodattimella ei löytynyt tiedostoja</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Yhtään suodattimiasi vastaavaa tiedostoa tai kansioita ei löytynyt. Muuta suodatinasetuksia tai tyhjennä suodattimet nähdäksesi lisää hakutuloksia. Voit myös etsiä tarvitsemaasi tiedostoa muissa osissa.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Ei näytettäviä tiedostoja</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Ei liitettyjä tilejä</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Suodatin</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Kansiot</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Aloita nyt</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>sähköpostitse</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Valitse kaikki</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Asiakirjan enimmäiskoko on {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Onko sinulla tiimi, {0}jonka kanssa teet yhteistyötä? {0}{1}Lue lisää{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Asiakirjojen hallinta</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>Asiakkuudenhallinta ja laskutus</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Tehtävien hallinta ja Gantt-kaavio</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Sähköpostin hallinta</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Onko sinulla tiimi, jonka kanssa haluat tehdä yhteistyötä?{0}Meillä on jotakin hienoa sinua varten.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Kutsu kollegasi tai alihankkijasi mukaan ja hyödynnä näitä lisätoiminnallisuuksia:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Tervetuloa "ONLYOFFICE™ for teams" palveluun!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Omat Asiakirjat</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Avaa</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Piilota asiakirjaluettelo</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Näytä asiakirjojen luettelo</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projektin asiakirjat</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Merkitse luetuksi</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Merkitse kaikki luetuiksi</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Valitse kansio</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Ole hyvä ja valitse toiminto:</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Yleiset asetukset</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Jaa</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Jaettu kanssani</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Aseta linkin pääsyoikeudet</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Näytä lisää</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Näytä tämä ikkuna pienennettynä</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Suppeat tiedot</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Laajat tiedot</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Ulkoiset palvelut</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Liitä tili</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Liitä tilejä</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Voit liittää seuraavat palvelut ONLYOFFICE™ Asiakirjat moduuliin. Ne näytetään 'Omat Asiakirjat' kansiossa ja voit muokata ja tallentaa niitä yhdessä portaalin paikassa.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Liitetään tiliä</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Poista ulkoinen palvelu</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Salli ulkoisten palvelujen asetukset käyttäjille</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Kansion nimi</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Merkitse jaetuksi ja lisää Yhteisiin asiakirjoihin</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive for Business</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Voit luoda asiakirjoja ({0}), laskentataulukoita ({1}), esityksiä ({2}) ja ladata ne suosituimpiin tiedostomuotoihin.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Voit muokata seuraavia tiedostoja: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Voit avata tiedostoja seuraavilla tiedostopäätteillä: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Voit ladata haluttuja tiedostoja Asiakirjat moduuliin.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Roskakori</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Poista luettelosta</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Korvaa olemassaoleva tiedosto</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Päivitä hintavaihtoehtosi</value>
+  </data>
+</root>

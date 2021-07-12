@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrowserNoCanvasSupport" xml:space="preserve">
+    <value>Ihr Browser unterstützt die HTML5 Canvas-Tag nicht.</value>
+  </data>
+  <data name="CompanyNameForCanvasLogo" xml:space="preserve">
+    <value>Firmenname</value>
+  </data>
+  <data name="ErrorFileNotImage" xml:space="preserve">
+    <value>Unbekannter Bilddateityp</value>
+  </data>
+  <data name="ErrorImageSize" xml:space="preserve">
+    <value>Bildgröße überschritt die zulässige Werte</value>
+  </data>
+  <data name="HelpAnswerWhiteLabelSettings" xml:space="preserve">
+    <value>Die Größen werden für die Retina-Displays angezeigt. Für die Displays mit der Standardauflösung werden die Breite und Höhe des Logos anhand der bestimmten Werte beim Hochladen geändert.</value>
+  </data>
+  <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
+    <value>Die Funktion {0}Einstellungen des Portallogos{1} ist nur für die kostenpflichtigen Portale verfügbar.</value>
+  </data>
+  <data name="LogoDark" xml:space="preserve">
+    <value>Logo für die Über-/Login-Seite</value>
+  </data>
+  <data name="LogoDocsEditor" xml:space="preserve">
+    <value>Logo für Kopfzeile der Editoren</value>
+  </data>
+  <data name="LogoFavicon" xml:space="preserve">
+    <value>Favicon</value>
+  </data>
+  <data name="LogoLightSmall" xml:space="preserve">
+    <value>Logo für Kopfzeile des Portals</value>
+  </data>
+  <data name="LogoSettings" xml:space="preserve">
+    <value>Einstellungen des Portallogos</value>
+  </data>
+  <data name="LogoUploadRecommendation" xml:space="preserve">
+    <value>Wir empfehlen Ihnen, Bilder im {0}PNG{1} Format mit transparentem Hintergrund zu verwenden</value>
+  </data>
+  <data name="SuccessfullySaveWhiteLabelSettingsMessage" xml:space="preserve">
+    <value>White-Label-Einstellungen wurden erfolgreich gespeichert</value>
+  </data>
+  <data name="UseAsLogoButton" xml:space="preserve">
+    <value>Verwenden als Logo</value>
+  </data>
+</root>

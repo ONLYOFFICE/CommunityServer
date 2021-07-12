@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Tilgang</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Utenfor portalen</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Skrivebeskyttet</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Full tilgang</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Nekt tilgang</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Produktomtale</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>For å jobbe med filen må du gi tilgang til den</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>FORTSETT</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Ved å åpne denne filen i ONLYOFFICE™ blir en ny utgave laget i Office Open XML-formatet på din Google Drive. På denne måten vil ikke original-filen endres. For å redigere filen ONLYOFFICE™  senere må du åpne den nye utgaven av filen.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Ikke vis dette igjen</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Legg inn filnavn</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Velg filtype</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Forfatter</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Meg</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konverter og åpne</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Last ned</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Konvertert fra {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Kopiert</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Opprettet</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Endret</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Gjenopprettet versjon av {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Lastet opp</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>URL for tilkobling</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Konverter til</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Dokument navn</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Legg inn en kommentar</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Feil forespørsel.</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Konverteringen tar for lang tid.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Feil oppstod i Dokument-tjenesten</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0} åpnet filen for redigering i en mobilapp</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Tom fil</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Den påkrevde filen ble ikke funnet</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Filer større enn {0} vil ikke konverteres</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Filer større enn {0} vil ikke bli kopiert</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Fil større enn {0} vil ikke redigeres</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Filer større enn {0} vil ikke bli flyttet</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Du kan ikke kopiere mappen til dens egen undermappe</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Mappen ble ikke funnet</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Feil tittel</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Denne filen er for øyeblikket låst av en annen bruker</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Det er ingen tilgjengelige kontoer for å sende meldingen. Gå til E-post og koble til en konto.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>For mange nedlastinger</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Beklager, dette formatet støttes ikke</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Forfatteren er ukjent for det lagrede dokumentet</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Filen ble ødelagt da du forsøkte å lagre den</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Kunne ikke få tak i filen som skulle lagres</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å utføre handlingen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Kan ikke godkjenne hos {0} tilbyder med denne identiteten.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å opprette</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Kan ikke slette filen fordi den er åpen for redigering</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Kan ikke slette mappen fordi en av filene er åpen for redigering</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å slette denne filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å slette mappen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å redigere denne filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Dokumentet redigeres av deg i en annen arkfane</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å lese filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å se innholdet i mappen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å omdøpe filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å omdøpe mappen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Kan ikke oppdatere filen fordi den er åpen for redigering</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Du har ikke nok rettigheter til å se innholdet i mappen</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Innholdet i eksterne mapper er ikke tilgjengelig. Prøv å koble til kontoen på nytt.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Fil redigering start-feil</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Du kan ikke oppdatere en fil som er åpen for redigering</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Du har ikke tilgang til å forhåndsvise elementer i papirkurven</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Mappe</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Mappenavn</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Gjest</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>ny</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Logg inn</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Gjenopprett</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Forhåndsvisning</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Gjør det samme som en annen bruker|Koble Dropbox, Box og andre konti i 'Felles Dokumenter'|Sett adgangsrettigheter til dokumenter og foldere i sektionen 'Felles Dokumenter'</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Opprett, endre, lagre og del dokumenter. Tilkoble din Google Drive, Dropbox og Box konti og samle alle dokumenter på ett sted.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Opprett, endre, lagre og del dokumenter. Tilkoble din Google Drive, Dropbox og Box konti og samle alle dokumenter på ett sted.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Opprett og rediger dine egne dokumenter samt delte dokumenter (hvis du har korrekte adgangs rettigheder) |Gi lese/skrive rettigheter for andre brukere til dokumenter og foldere|Tilkoble Dropbox, Box og andre konti i 'Mine dokumenter'.</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} fjernet</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Merk som lest</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Søk</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Gi beskjed når en mappe deles</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Vis versjoner</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Beskjed når et dokument deles</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mappe tittel</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Del og legg i mappen 'Felles Dokumenter'</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Opprettet</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Oppdatert</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Slettet</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Velg</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Tilgangs-innstillinger</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Vis fil-handlinger</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Vis mappe-handlinger</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Undermapper</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Lastet opp</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Merk som versjon</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Mer som revisjon</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versjonshistorikk:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Fornavn</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Etternavn</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Filen er låst opp</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

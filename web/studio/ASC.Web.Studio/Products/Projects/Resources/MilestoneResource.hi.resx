@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>सहेजें</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>परियोजना का चयन करें</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>जिम्मेदार चुनें</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>बंद माइलस्टोन</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>महीना</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>दो महीने</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>सप्ताह</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>मील का पत्थर मिटायें</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>आप मील का पत्थर हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>इस फ़िल्टर को कोई चर्चा मैच नहीं कर रही हैं माइलस्टोन प्रोजेक्ट मैं नहीं हैं </value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>वर्णन</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>कोई भी माइलस्टोन फ़िल्टर के साथ मैच नहीं हो रहा हे </value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>मील का पत्थर</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>नियत तारीख</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>कोई भी मील के पत्थर के अभी तक नहीं योजना बनाई गई है</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>मील के पत्थर</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>मील के पत्थर परियोजना की योजना प्रक्रिया में प्रमुख timestamps के निशान। एक मील का पत्थर बन जाने के बाद आप सभी इस परियोजना के प्रतिभागियों के लिए कार्यों के साथ इसे भरने कर सकते हैं। एक मील का पत्थर योजना और कार्य समय पर पूरा कर रहे हैं कि यह सुनिश्चित करने के लिए एक नियत तारीख निर्धारित किया है।</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>आगामी</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>आप खुला कार्यों के साथ एक मील का पत्थर बंद नहीं कर सकते हैं।</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>सूचित करना</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>प्रत्येक मील का पत्थर एक शीर्षक होनी चाहिए</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>अतिदेय</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>पहला मील का पत्थर योजना</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>नियत तारीख से पहले मुझे 48 घंटे में याद दिलाएं</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>जिम्मेदार</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>महत्वपूर्ण मील का पत्थर</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+</root>

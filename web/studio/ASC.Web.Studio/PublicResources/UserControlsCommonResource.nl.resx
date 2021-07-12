@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>De actieve gebruikers zijn de portaalleden, met uitzondering van gasten en gebruikers met de status "uitgeschakeld"</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Voeg enquete keuze toe</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>{!Users} toevoegen</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Voeg een nieuw sociaal media profiel toe</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Bericht toevoegen</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Totaal aantal stemmen</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Pollkeuzes</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Bijlages toevoegen</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Bijlage toevoegen uit Documenten</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Bijlage toevoegen van een project</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Verkort uitnodigingslinks voor het portaal en links voor gedeelde document met Bitly </value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Log in op het portaal met uw social media accounts en zoek naar contacten</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Verbind uw favoriete cloudopslagdiensten en beheer al uw bestanden op een plaats</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Presentatie maken</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Spreadsheet maken</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Document aanmaken</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lees verder...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>U kunt de domeinnaam later veranderen door het onderdeel 'Instellingen' in het portaal te gebruiken.</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Bedrijfsgrootte</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Bedrijf</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Upload de bestanden ook in origineel formaat</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Alle documenten die u upload zullen worden geconverteerd naar het Office Open XML-formaat om sneller te bewerken. </value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Bestand verwijderen</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Download Bestand</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Bewerk Bestand</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Maak{1} bestanden direct aan op je portal of {2}upload{3} deze hier om ze te {4}openen{5} en {6}bewerken{7} met de ONLYOFFICE™-portal-editor. </value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Upload{3} bestanden rechtstreeks naar uw portaal.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>De lijst met documenten is leeg</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Voer uw vraag voor de poll in</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Pollkeuze selecteren</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Titel mag geen van de volgende karakters bevatten:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Iedereen</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Voeg bericht toe</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Voeg bookmark toe</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Naar Documenten gaan</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Nieuw bedrijf aanmaken</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Nieuw persoon aanmaken</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Nieuw project aanmaken</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Alles wat in de Community-module wordt toegevoegd, wordt hier weergegeven. Gebruikers kunnen interessante informatie, gedachten en ervaringen met anderen delen, hun meningen uiten, feedback krijgen door middel van opmerkingen van anderen.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Er zijn nog geen gebeurtenissen toegevoegd</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>De gebeurtenissen voor de CRM-module die beschikbaar zijn voor u worden hier weergegeven. Nieuw toegevoegde bedrijven en personen of bewerking van de bestaande, nieuw aangemaakte casussen, kansen en taken - alles wat betreft CRM gaat naar dit tabblad.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Nog geen CRM gebeurtenissen toegevoegd</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Hier worden de wijzigingen in de Projectenmodule weergegeven. De projecten waar u lid van bent of volgt, uw nieuwe taken of wijzigingen aan de bestaande, dit helpt u om niets te missen.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Er zijn nog geen projecten toegevoegd</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>De wijzigingen in de portaaldocumenten die beschikbaar zijn voor u zullen hier getoond worden. Nieuwe documenten die met u worden gedeeld, veranderingen in de bestaande documenten waar u toegang tot hebt, en documenten die gemeenschappelijk zijn voor alle portaalgebruikers, worden hier allemaal weergegeven.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Voeg gebeurtenis toe</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Meerdere keuzes toestaan voor deze pollvraag</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Er is geen nieuws dat overeenkomt met deze filter</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Geen nieuws dat overeenkomt met uw filter kan worden weergegeven in dit onderdeel.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Er zijn oproepen die overeenkomen met dit filter</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Er zijn geen oproepen die overeenkomen met uw filter om weer te geven in dit onderdeel.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Link voor portaalgebruikers</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Als u wilt betalen voor uw ONLYOFFICE portaal, klik dan op de knop Nu Kopen.</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Betaal alstublieft voor uw ONLYOFFICE en ontvang:</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>voer uw zoekterm in</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Sorteren op</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>naar</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Door het aanvinken van dit veld</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Licentie verlopen of gebruikersquotum komt niet overeen met de licentie</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>Licentie Activatiebestand</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Licentiesleutel is niet correct</value>
+  </data>
+  <data name="LicenseKeyNotFound" xml:space="preserve">
+    <value>U moet een licentiesleutel invoeren</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE Modules en Hulpmiddelen:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online documenteditors{1}{0}Documentbeheer{1}{0}Mail{1}{0}Projecten{1}{0}CRM{1}{0}Kalender{1}{0}Community{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} actieve gebruikers</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ actieve gebruikers</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Nummer invoeren</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>Een SMS met de toegangscode voor het portaal is verzonden naar uw {0}{1}{2} mobiele telefoonnummer. {5}Vul alstublieft de code in en klik op de knop "{3}". Als er geen bericht is ontvangen na meer dan 3 minuten, klikt u op de knop "{4}".</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Uw huidige mobiele telefoonnummer: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Mobiel telefoonnummer invoeren</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>De twee-factor authenticatie is ingeschakeld om extra portaalbeveiliging te bieden. Voer uw mobiele telefoonnummer in om door te gaan met werken op het portaal. Het mobiele telefoonnummer moet ingevoerd worden in een internationaal formaat, met landcode.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Meer</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Nieuw document</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>Nieuw bestand</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Er is hier niets om weer te geven</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Alle portaalactiviteiten worden hier in dit onderdeel weergegeven. Op dit moment zijn er geen gebeurtenissen op het portaal om weer te geven. Begin met gebruiken van uw portaal, vul het met de inhoud en al het nieuws wordt op deze pagina weergegeven.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Geen opmerkingen</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Opmerking: deze actie kan niet ongedaan gemaakt worden.</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Slechts één keuze toestaan voor deze pollvraag</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Pollvraag</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Polltype</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Weet je zeker dat je dit bestand wilt verwijderen?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Lees over non-profit gebruik</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Van deze lijst verwijderen</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Verwijder bericht</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Filter opnieuw instellen</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>zoeken</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Zoeken in module</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alles selecteren</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Melding verzenden</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Voeg gebruikers of groepen toe en</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Instellingen voor Delen</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Volgend nieuws tonen</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Broncode is beschikbaar op {0}GitHub{1}</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Basisprijs</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Zie Avangate voor de volledige lijst van valuta</value>
+  </data>
+  <data name="TariffFileSizeLimitReason" xml:space="preserve">
+    <value>Uw abonnement heeft strenge beperkingen voor de bestandsgrootte.</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Grote bestandsgrootte</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Gratis</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Volledige prijslijst openen</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Wilt u een nieuw abonnement kiezen?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Aanbieding beperkte tijd geldig</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Ja, abonnement upgraden</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 maand{2}{1} abonnement</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 jaar{2}{1} abonnement</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 jaar{1} abonnement</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>U gebruikt een abonnement voor een non-profit organisatie.</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Uw portaalbetaling is verlopen.</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>U gebruikt een abonnement voor {0} - {1} actieve gebruikers. {2}De betaling is te laat.{3}{4} Om door te gaan met het gebruik van ONLYOFFICE, verleng het bestaande abonnement of verander het met de tabel hieronder.</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>U gebruikt een abonnement voor {0} - {1} actieve gebruikers.</value>
+  </data>
+  <data name="TariffPaidStandalone" xml:space="preserve">
+    <value>U gebruikt ONLYOFFICE™ Enterprise Editie.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>maand</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>jaar</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 jaar</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Het aanbod is alleen beschikbaar voor jaarlijkse abonnees.</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Meest Populaire Abonnement</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Het toevoegen van een portaal zal</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Opslaan {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} per gebr./mnd</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Uw verzoek versturen</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Vraag inhoud op</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Beschrijf hier alstublieft de details van uw verzoek </value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Typ alstublieft hier uw bericht</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>De portaalopslagruimte is overschreden</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Verwijder alstublieft alle verouderde inhoud van het portaal of verander het huidige abonnement in een met meer opslagruimte.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Niet genoeg vrije opslagruimte</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Kies het aantal teamleden</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Hoeveel gebruikers heeft u nodig?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Het abonnement dat past bij uw team is {0}{2} - {3} actieve gebruikers{7} + {4}{1} Schijfopslag</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Kan geen nieuwe gebruikers toevoegen</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Het toevoegen van nieuwe gebruikers zal</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Toevoegen nieuwe gebruikers</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>De abonnementen met meer dan {0} actieve gebruikers{1} zijn alleen beschikbaar op aanvraag.</value>
+  </data>
+  <data name="TariffUserWarnDescr" xml:space="preserve">
+    <value>U kunt een abonnement niet downgraden.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>meer informatie</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>U kunt documenten maken ({0}), spreadsheets({1}), presentaties ({2}) en deze downloaden in de meest populaire formaten. </value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>U kunt de volgende bestanden bewerken: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>U kunt de bestanden openen met de volgende extensies: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>U kunt elk bestand dat u wilt uploaden naar Documenten.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Abonnement upgraden</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Bestand uploaden</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Keuze</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Er is hier niets om weer te geven</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Er is hier niets om weer te geven</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Stemmen</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>What's New</value>
+  </data>
+</root>

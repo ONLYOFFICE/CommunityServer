@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Újabb sor hozzáadása</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Új adónem létrehozása</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Mentés és új tétel létrehozása</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Összes számla</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Dokumentum csatolása</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Formátum megváltoztatása</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Ügyféllel kapcsolatos jegyzetek</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Első számla létrehozása</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Első tétel létrehozása</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Első adónem létrehozása</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Első tétel létrehozása</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Adónem létrehozása</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Új számla létrehozása</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Új tétel létrehozása</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Pénznem</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Minden számlánál meg kell adni a pénznemet</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Biztosan törölhető a '{0}' számla?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Számla törlése folyamatban...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Biztosan törölhető a(z) «{0}» tétel?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Biztosan törölhető a(z) «{0}» adónem?</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Számla törlése</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Számlák törlése</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Minden számlánál meg kell adni az esedékesség időpontját</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Számla szerkesztése</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Üres a termékek és szolgáltatások felsorolása</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Üres a számlalista</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Üres a számlán megjelenő adónemek felsorolása</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Tétel kiválasztása</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Nincs megadva ár</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Az ár rosszul van megadva</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>A mennyiség rosszul van megadva</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Valutaárfolyam</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Ezt a mezőt ki kell tölteni</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Ár</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Adók</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Számla</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Ügyfél</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Minden számlánál meg kell adni egy ügyfelet</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Archiválva</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Számla nyelve</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Minden számlánál ki kell választani a nyelvet</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Számlaszám</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Ez a számlaszám már nem elérhető</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>1. adónem neve</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>1. adónem mértéke</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>2. adónem neve</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>2. adónem mértéke</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Már van a rendszerben ilyen nevű adónem</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Adónem neve</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Számla kiállításának időpontja</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Minden számlánál meg kell jelölni egy dátumot</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Megjelölés piszkozatként</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Megjelölés kiegyenlítettként</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Megjelölés elutasítottként</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Megjelölés kiszámlázottként</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Minden számlánál meg kell adni egy számot</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Nyomtatás</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Termékek és szolgáltatások</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Termék vagy szolgáltatás kiválasztása a felsorolásból vagy új hozzáadása</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Minden számlán szerepelniük kell tételeknek</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Mennyiség</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>"{0}" hiba lépett fel a számla mentésekor. Később próbáld meg újra.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Értékesítő</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Küldés emailben</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>«{0}» tétel frissítése</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Változások mentése folyamatban...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Figyelmeztetés</value>
+  </data>
+</root>

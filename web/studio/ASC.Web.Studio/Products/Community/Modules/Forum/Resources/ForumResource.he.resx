@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>דיונים בתוך פורום החברה</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>פורומים</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>צור פורום חדש</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>פורום חדש</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>הכל</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך לבצע פעולה זו?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>עדיין לא הופעלו פורומים</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>צור את הפורום הראשון</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>צור פורומים משלך, קח חלק פעיל בדיונים, שתף מידע מעניין, ארגן שאלונים או סקרים.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>לא נמצאו נושאים לדיון</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>צור פורומים משלך, קח חלק פעיל בדיונים, שתף מידע מעניין, ארגן שאלונים או סקרים.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>עדיין לא נוצרו נושאים לדיון</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>צור את הנושא הראשון</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>צור נושאים לדיון בפורום, קח חלק פעיל בדיונים, שתף מידע מעניין, ארגן שאלונים או סקרים.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>אין הרשאות לביצוע פעולה זו</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>הזן את שם הקטגוריה</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>אופס! אירעה שגיאה לא ידועה בעת הנסיון ליצור קטגוריה חדשה</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>אירעה שגיאה בעת עריכת הקטגוריה</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>הזן שם</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>אירעה שגיאה בעת ההרשמה לעדכונים</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>הזן את שם הפורום</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>נושא לדיון בתוך פורום  "{0}"</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>כל הפורומים</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>שינוי</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>מנהלי פורומים</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>הזן שם</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>הוסף סקר חדש</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>הוסף הודעה חדשה</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>צור נושא חדש לדיון</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>נושאי דיון חדשים</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>פוסטים</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>עדכון אחרון</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>חיפוש פורום</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>פוסטים</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>קבל עדכונים לנושאי דיון חדשים</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>קבל עדכונים של פורום זה</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>קבל עדכונים של נושא הדיון הזה</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>הפורום נוצר בהצלחה</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>פורום</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>קטגוריה</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>תיאור הקטגוריה</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>עורך קטגוריות</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>תיאור הפורום</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>עורך הפורום</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>שם הפורום</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>פורומים</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>נושא לדיון</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>נושאים לדיון</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>פוסטים חדשים בתוך נושא לדיון</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>יצירת קטגוריה חדשה</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>בטל מינוי לעדכונים על נושאים חדשים לדיון
+</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>בטל מינוי לעדכונים על הפעילות בפורום זה</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>בטל מינוי לעדכונים על נושא זה</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>כמות צפיות</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>הרשימה הגלויה לעין</value>
+  </data>
+</root>

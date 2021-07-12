@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Permitir</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Archivos adjuntos</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Quitar</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>¿Está seguro(a) de que desea realizar esta acción?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Editado</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Archivo vacío </value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>No hay permisos para realizar esta acción</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>Ha ocurrido un error al eliminar este post</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Introduzca dos variantes como mínimo</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Introduzca el nomrbe del tema</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Introduzca un mensaje</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>Impostible eliminar este post, ya que hay otros que están enlazados a él.</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>El tamaño máximo de archivo está superado</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Adjuntar archivo</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Introduzca las etiquetas necesarias separándolas por comas</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>El tamaño máximo del archivo adjunto no puede superar {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Funciones de moderador</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Introduzca un nombre</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Añadir nuevo post</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Progreso total</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Vista previa</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Posts</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Vista previa</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Publicar</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Introduzca su pregunta</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Citar</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>escribió</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Últimos posts en tema</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Última actualización</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Mostrar en página</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Adjutar</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Introduzca el nombre del tema</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Suscribirse a este tema</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>El tema ha sido quitado con éxito</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>El tema ha sido cerrado con éxito</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>El archivo adjunto ha sido eliminado con éxito</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>El post ha sido eliminado con éxito</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>El tema ha sido eliminado con éxito</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>El tema ha sido editado con éxito</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>El tema ha sido creado con éxito</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>El tema ha sido adjuntado con éxito</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiquetas</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Introduzca un mensaje</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Foro</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Vistas</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Ayer</value>
+  </data>
+</root>

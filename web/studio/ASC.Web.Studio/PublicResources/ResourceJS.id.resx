@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Kolom kode validasi tidak boleh kosong</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Masukkan nomor telepon seluler</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Tambahkan</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>Tambahkan filter</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Gunakan simbol {0}?{1} dan {0}*{1} untuk melakukan pencarian karakter tunggal/jamak. Contohnya, untuk mencari seluruh kata yang berawalan huruf {0}O{1}, tuliskan {0}O*{1}.{2}Pelajari selengkapnya...{3}</value>
+  </data>
+  <data name="AscOrDesc" xml:space="preserve">
+    <value>Terkecil ke terbesar/terbesar ke terkecil</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>Salinan backup telah berhasil dibuat.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Sibuk</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Jumlah pembelian yang berhasil</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Panggilan masuk</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Panggilan tidak terjawab</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Perubahan telah diterapkan</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Perubahan berhasil diterapkan.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Terjadi error. Silakan hubungi administrator Anda.</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Lengkapi</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Apakah Anda ingin melanjutkan?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Buat kontak baru</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>Tidak ada kontak dalam daftar ini</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>Tuliskan nama perusahaan</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Tidak ada kontak</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Tidak ada kontak seperti itu</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Perusahaan tersebut tidak ada</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Lanjutkan</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Buat</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Error saat menyusun laporan</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Komentar tidak boleh kosong</value>
+  </data>
+  <data name="EmptySelectedArea" xml:space="preserve">
+    <value>Pilih area untuk Avatar</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Masukkan email</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Silahkan lengkapi data disini</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>Tuliskan nama grup</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Tuliskan nama depan</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Tuliskan nama belakang</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Grup tersebut tidak ada</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Orang tersebut tidak ada</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>Nama depan tidak valid</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>Nama belakang tidak valid</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>maksimal 64 karakter</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Tanggal pendaftaran harus setelah tanggal lahir</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Tidak dapat menambah akun dan kontak yang sama.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Anda hanya dapat memasukkan maksimal 64 karakter pada kolom ini.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Email salah</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Nama Portal sudah diambil</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>karakter yang tidak diizinkan dalam nama portal</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Nama POrtal terlalu pendek</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Nama Portal belum berhasil diubah</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>Pengguna telah berhasil ditambahkan.</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nama Depan</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Grup {0} berhasil dibuat.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Buat grup baru</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>Tidak ada grup dalam daftar ini</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Tidak ada grup seperti itu</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>dari</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Kesalahan format alamat IP</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Undang</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Pengaturan telah berhasil diperbarui</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Nama Belakang</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Kolom kosong</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Nomor port salah</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Lisensi tidak cocok</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Tautan telah di salin ke clipboard</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Silakan tunggu...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Sedang memuat, silakan tunggu.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Memuat...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>sepanjang hari</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Event telah dibatalkan</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Dibatalkan: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Event telah selesai</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} sementara menerima undangan untuk</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} menolak undangan</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Menjawab: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} terima undangan</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} mengundang Anda untuk</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Undangan: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>dan</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>kurang lebih</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>di</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>setiap</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>untuk</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>jam</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>jam</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>dalam</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>terakhir</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>bulan</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>bulan</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>pada</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>di</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>atau</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value>the</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>waktu</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>waktu</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Event telah berubah</value>
+  </data>
+  <data name="MailNoSubject" xml:space="preserve">
+    <value>Tidak ada subyek</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Terjadi masalah saat mencoba mengirim pesan ini.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Pemberitahuan pembatalan telah dikirim ke peserta.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Pesan telah terkirim.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Saya</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Tidak ada tahap pekerjaan dalam proyek ini</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Tidak ada tahap pekerjaan seperti itu</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Jangan Pernah Tampilkan</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="OpenTalk" xml:space="preserve">
+    <value>Membuka Obrolan</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Eror ketika menjalankan operasi</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Operasi telah berhasil diselesaikan.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Anda akan mengganti nama portal Anda.{1}{0}Anda yakin ingin melanjutkan?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Konfirmasi perubahan nama portal</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Buat proyek baru</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>Tidak ada proyek dalam daftar ini</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Harus ada manajer untuk masing-masing proyek</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Masing-masing proyek harus memiliki judul</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Tidak ada proyek dalam grup ini</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Tidak ada proyek seperti itu</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Tidak ada orang seperti itu</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>Jalan</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Pembatasan yang sama</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Pengaturan berhasil disimpan</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Pilih file</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Pilih folder</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Nama perusahaan</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Tipe kontak</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Nama Depan</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Grup</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Pimpinan</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Nama Belakang</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Manajer</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Orang</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>dipilih</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Ketik</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Tamu</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Saya telah membuat Web-Office. Bergabunglah dengan saya di sini:{0}#ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Tampilkan Selanjutnya</value>
+  </data>
+  <data name="StartFilter" xml:space="preserve">
+    <value>Mulai filter</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Hubungkan</value>
+  </data>
+  <data name="StorageButtonResetToDefault" xml:space="preserve">
+    <value>Atur ulang kembali ke awal</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>Pengaturan CDN</value>
+  </data>
+  <data name="StorageStorageTitle" xml:space="preserve">
+    <value>Pengaturan penyimpanan</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} pengguna berhasil ditambahkan ke portal</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Pengaturan telah berhasil diperbarui</value>
+  </data>
+  <data name="TemplateNotFound" xml:space="preserve">
+    <value>Template tidak ditemukan</value>
+  </data>
+  <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
+    <value>Berlangganan Tips &amp; Trik</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>Anda akan berhenti berlangganan semua pemberitahuan mengenai modul "{0}". Anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>File kosong</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Error saat mengunggah file</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Format file yang didukung: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Ukuran file tidak boleh melebihi 5MB</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>tunda</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Profil untuk {0} berhasil dibuat</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Buat profil baru</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>Tidak ada pengguna dalam daftar ini</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Melebihi jumlah maksimal pengguna aktif</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Tidak ada grup yang telah dibuat di portal hingga saat ini. Buka modul Orang untuk mengelompokkan pengguna.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>Tidak ada pengguna dalam grup ini</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Tidak ada pengguna seperti itu</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Jika Anda menutup halaman ini sekarang, semua data yang dimasukkan atau data yang belum disimpan akan hilang.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Ini berarti Anda dapat:{1}melihat konten portal terbuka untuk semua pengguna portal,{2}meninggalkan komentar,{3}melampirkan dan mengunduh file.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>Jika Anda memerlukan hak tambahan, silakan hubungi administrator portal Anda.</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>Administrator portal mengundang Anda sebagai tamu di portal.</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Mulai bekerja</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Anda belum membuat kata sandi. Anda dapat membuatnya melalui tautan 'Lupa kata sandi?' pada halaman login portal. Anda yakin ingin melanjutkan?</value>
+  </data>
+</root>

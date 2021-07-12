@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>Comentarii</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>Prin data crearii</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>Creat de</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>Termen limita</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>Oră</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>Reper Intermediar</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>Prin prioritate</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>Prin proiect</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Prin responsabil</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>Eticheta</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>Prinn titlu</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Termen limită</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Grup</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Eu</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Fara responsabil</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Depășit</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Facturat</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Arhivat</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Activ</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>Deschide</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>În pauză</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Sarcini</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>Membru în echipă</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+</root>

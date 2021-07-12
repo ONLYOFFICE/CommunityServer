@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Le preberi</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Poln dostop</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Zavrni dostop</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Dodaj račun</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Dodaj Box račun</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dodaj Dropbox račun</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Dodaj Google račun</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Dodaj OneDrive račun</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Drug račun</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Prekliči vse</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Spremeni informacijo tretje skupine</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Počisti filter</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Ustvari kopijo</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Predstavitev</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Razpredelnica</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Izbriši tretjo skupino</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Prenesi</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Izprazni koš</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arhivi</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mape</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Slike</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Predstavitve</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Razpredelnice</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Pojdi k '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Pojdi v moje dokumente</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Več o tem...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Blokiraj</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Premakni v</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Preimenuj</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Obnovi</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Vse</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Nastavitve deljenja</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Pokaži zgodovino različice</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Preskoči</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Nazaj k starševski mapi</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Odblokirati</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Na vrhu</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Naloži</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Končaj različico</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Preklicano</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Pretvori in odpri dokument</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Izberi format za vsako datoteko, ki se bo prenašala</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Pogoste nastavitve</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Prepiši potrditev</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Opozorilo: Tega dejanja ni mogoče razveljaviti</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Opozorilo: odstranitve s svojega računa se ne more razveljaviti</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Kopijo datoteke shrani tudi v prvotnem formatu</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Dokument, ki ga boste odprli, bo pretvorjen v format Office Open XML za hitrejše gledanje in urejanje.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Kopija datoteke bo ustvarjena v mapi {0}Moji dokumenti{1}</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Dokumente prav tako naloži v prvotnem formatu</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Ali ste prepričani, da želite te elemente odstraniti s seznama?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Posodobite različico datoteke za obstuječo istoimensko datoteko {0}V nasprotnem primeru bo ustvarjena kopija datoteke.{1}</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Pretvori</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Prenesi kot</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Pretvorba je bila uspešna</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Datoteka je bila ustvarjena v mapi '{0}' </value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Napaka pretvorbe</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Se pretvarja...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Pogosti dokumenti</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Prenesi kot</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Prenesi</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Prenesi</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Samodejno</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Višina</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Širina</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Oddelek 'Pogosti dokumenti' prikazuje vse dokumente, ki jih je delil administrator portala za pogost dostop. Le administrator portala lahko ustvarja mape v tem oddelku. S podanim dostopom lahko uporabniki portala svoje datoteke tu nalagajo.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Potegnite in spustite datoteke iz svojega računalnika tu za še lažje nalaganje na portal.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Oddelek 'Deljeno z mano' je uporabljen za prikaz datotek, do katerih dostop so vam dali kolegi ali prijatelji. V primeru, da niste videli zadnjih sprememb dokumentov so označeni z 'novo'. Datoteke lahko s seznama odstranite s pritiskom na primeren gumb.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>Dokumenti in slikovne datoteke, ki jih {0}ustvarite{1} ali {2}naložite{3} na portal so shranjene tu v oddelku 'Moji dokumenti'. Lahko jih {4}odprete{5} in {6}uredite{7} z uporabo ONLYOFFICE™ urejevalnika besedil, jih delite s prijatelji ali kolegi in jih organizirate v mape.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Dokumenti in slikovne datoteke, ki jih {2}naložite{3} na portal so hranjene tu v 'Moji dokumenti' oddelku. Lahko jih delite s svojimi prijatelji, kolegi, organizirate v mape.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Dokumenti in slikovne datoteke, ki jih ustvarite ali naložite za svoj projekt so shranjene v tem oddelku. Lahko jih odprete in uredite z uporabo ONLYOFFICE™ urejevalnika besedil in jih organizirate v mape.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Oddelek 'koš' je prostor, kamor so premaknjene vse izbrisane datoteke. Če ste jih izbrisali po pomoti jih lahko obnovite, ali pa jih popolnoma izbrišete. Prosim vedite, da, ko datoteke izbrišete iz 'koša' teh ni več mogoče obnoviti.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Tukaj ni nikakršnih datotek za prikaz za ta filter</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>V tem oddelku ni mogoče pokazati datotek ali map, ki se ujemajo s tem filtrom. Prosim izberite druge možnosti filtriranja ali počistite filter za ogled vseh datotek na oddelku. Prav tako si lahko ogledate datoteko, ki jo potrebujete v drugih oddelkih. </value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>V tem oddelku ni datotek za prikaz</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Ni povezanih računov</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Napaka</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Mape</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Začni zdaj</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>preko e-pošte</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Izberi vse</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Maksimalna velikost datoteke je {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Imate ekipo {0}za kolaboracijo? {0}{1}Več informacij{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Upravljanje z dokumeti</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM in obračunavanje</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Upravljanje nalog in Gantogram</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Agregator e-pošte</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Imate projekt in ekipo za sodelovanje?{0}Pripravili smo nekaj za vas.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Povabite svoje kolege ali podizvajalce in uživajte koristi dodatnih funkcij:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Dobrodošel ONLYOFFICE™ za ekipe!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Moji Dokumenti</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Geslo</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Dokumenti projekta</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Označi kot prebrano</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Vse označi kot prebrano</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Izberi mapo</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Pogoste nastavitve</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Deli</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Deljeno z mano</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Ustvari dostop za povezavo</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Pokaži več</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>To okno pokaži pomanjšano</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Nastavitve</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Preklopi v kompaktni pogled</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Preklopi v navadni pogled</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Računi tretje skupine</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Škatla</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Poveži račun</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Poveži račune</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Sledeče račune lahko povežete z ONLYOFFICE™ dokumenti. Prikazani bodo v mapi 'Moji Dokumenti', kjer jih boste lahko urejali in shranjevali na portalu na skupnem mestu.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Povezovanje računa</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Izbriši tretjo skupino</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Omogoči nastavitve tretje skupine za uporabnike</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Naslov mape</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Naredi deljeno in premakni v Pogoste Dokumente</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive za podjetje</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Lahko ustvarjate dokumente ({0}), razpredelnice ({1}), predstavitve ({2}) in jih prenesete v najpopularnejše formate.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Lahko uredite sledeče datoteke: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Datoteke lahko odprete s sledečimi končnicami: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Katere koli datoteke lahko naložite v Dokumente.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Koš</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Odstrani s seznama</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Prepiši obstajajočo datoteko z enakim imenom</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Posodobi svoj načrt</value>
+  </data>
+</root>

@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Hak Akses &amp; Tag</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Aturlah hak akses bagi pengguna yang ditambahkan melalui "Formulir Kontak Situs Web"; jika tidak, semua pengguna CRM akan melihat kontak baru. Buat tag untuk klien baru dalam daftar yang akan ditandai.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Hak Akses Portal</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Tambahkan tugas template baru</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Tambahkan kontainer template tugas baru</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Tambahkan Pilihan</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Alamat</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Menambahkan tag</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Jangan tampilkan dialog Kontak Menghubungkan lagi</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Tambahkan kontainer template tugas</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Menambahkan kontainer template tugas</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Menambahkan template tugas</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Tambahkan template tugas ini</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Tambahkan kontainer template tugas ini</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Pembuktian asli</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Informasi Dasar</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Orang &amp; Perusahaan</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Ubah warna</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Jangan tampilkan dialog Kontak Menghubungkan lagi</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Ubah ikon</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Ubah Logo</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Checkbox</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Kolom</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Pengaturan Umum</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Tipe Kontak</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Membuat kategori</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Membuat level suhu</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Membuat tipe kontak</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Buat pengguna bidang</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Membuat tahap</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Membuat bidang</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Buat kategori baru</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Kategori Baru</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Buat tipe kontak baru</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Tipe Kontak Baru</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Buat tahap baru</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Tahap Baru</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Buat bidang baru</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Bidang Baru</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Buat level temperatur baru</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Level Suhu Baru</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Buat tag baru</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Tag Baru</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Pengaturan Mata Uang</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Pengguna Bidang</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Tidak berhasil menutup kesempatan</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Berhasil menutup kesempatan</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Mata Uang default</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Hapus kategori</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Hapus level suhu</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Hapus tipe kontak</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Hapus bidang</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Bidang yang dipilih dengan semua data akan dihapus dari semua kontak di mana hadir. Apakah Anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Hapus tahap</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Hapus tag</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Hapus template tugas</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Hapus kontainer template tugas</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Hapus tag tidak terpakai</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Tingkat suhu kontak membiarkan Anda mencirikan pembeli potensial Anda dengan cara tertentu. Misalnya, tingkat suhu dapat "Dingin", "Panas", "Hangat", yang berarti kesediaan kontak untuk membeli produk Anda.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Anda dapat mengedit atau menghapus tingkat suhu kontak hanya dalam kasus tidak ada kontak dari tingkat ini.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Tipe kontak membiarkan Anda mencirikan kontak Anda dengan cara tertentu. Jenis kontak default "Klien", "Pesaing", "Partner", "Pemasok" yang mengklasifikasikan kontak berdasarkan peran mereka dalam kaitannya dengan organisasi.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Anda dapat mengedit atau menghapus tipe kontak hanya dalam kasus tidak ada kontak jenis ini.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Tahap kesempatan membiarkan Anda menentukan langkah yang diperlukan untuk menyelesaikan kesepakatan. Misalnya, Anda dapat menambahkan tahap kesempatan "Penawaran Umum", "Pembayaran", "Eksekusi". set urutan yang diperlukan untuk tahap kesempatan menyeret mereka.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Anda dapat mengedit atau menghapus tahap kesempatan hanya dalam kasus tidak ada kesempatan pada tahap ini.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Riwayat kategori acara memungkinkan Anda untuk membagi riwayat acara Anda ke dalam grup. Standard riwayat kategori  acara adalah mail, catatan, panggilan telepon, pertemuan. Anda harus memiliki hak administrator untuk dapat mengedit mereka.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Anda dapat mengedit atau menghapus kategori riwayat peristiwa hanya dalam kasus tidak ada riwayat peristiwa dalam kategori ini.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Kategori Task membiarkan Anda membagi tugas Anda ke dalam kelompok tergantung pada niat capaian tujuan Anda. Misalnya, kategori tugas dapat "Janji", "Panggilan telepon"atau" Ekspresi syukur ".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Anda dapat mengedit atau menghapus tahap kategori tugas hanya dalam kasus tidak ada tugas dengan kategori ini.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Offset di hari</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Unggah semua data dalam satu arsip-ZIP</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>Mulai generasi arsip ZIP</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Tautkan untuk mengunggah arsip ZIP</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Sunting kategori</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Sunting level suhu</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Sunting tipe kontak</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Sunting bidang</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Sunting tahap</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Sunting «{0}» kategori tugas</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Mengedit «{0}» tingkat suhu</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Edit "{0}" tipe kontak</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Sunting «{0}» tahap kesempatan</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Mengedit «{0}» Template tugas</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Edit «{0}» kontainer Template tugas</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Sunting template tugas</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Sunting kontainer template tugas</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Bidang pengguna kosong</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Bidang pengguna membiarkan Anda menentukan informasi tambahan tentang klien, kesempatan atau kasus. Misalnya, Anda dapat menambahkan kolom 'Sumber' untuk menentukan mana pengguna yang berasal dari: iklan, penjualan langsung, dll Anda dapat mengedit atau menghapus bidang pengguna hanya dalam kasus tidak ada kontak atau peluang dengan nilai bidang ini.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Daftar tag kosong</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Tag dapat digunakan untuk menggambarkan dan kontak kelompok (baik perusahaan dan orang), peluang dan kasus yang memiliki sesuatu yang mirip di dalamnya. Misalnya, Anda dapat menandai semua orang dari perusahaan yang berbeda tetapi dari bidang bisnis yang sama dengan tag umum untuk menyortir lebih baik lagi. Anda dapat mengedit atau menghapus tag hanya dalam kasus tidak ada kontak, kesempatan atau kasus dengan tag ini.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Daftar template tugas kosong</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Template tugas memungkinkan Anda untuk membuat tugas-tugas serupa dalam modul CRM. Anda dapat menambahkan tugas ke kontak, kesempatan atau kasus dengan satu klik mouse. Pilih wadah untuk membuat tugas untuk setiap kontainer template tugas.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Bidang ini harus diisi dengan benar</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Setiap bidang harus memiliki judul</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Judul bidang tidak boleh kosong</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Memungkinkan SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Ekspor</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Ekspor Semua Data</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Fungsi ekspor menghasilkan arsip-ZIP yang berisi file CSV dengan semua data CRM Anda (kontak, peluang, kasus, sejarah, dll) Email dengan link ke arsip yang dibuat akan dikirim ke alamat email Anda</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Susun daftar untuk program eksternal</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Daftar bidang</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Pemilihan bidang</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Pilih bidang yang akan ditampilkan pada form</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Formulir sumber kode</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Gunakan formulir ini di situs Anda</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Ini adalah bagaimana formulir di situs Anda akan terlihat</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Formulir properti</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Pengaturan utama Formulir Kontak Situs Web</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Susun Formulir</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Riwayat Kategori Acara</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Pemilik</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Login Pemilik</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Kata Sandi Pemilik</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>SMTP internal ({0} penerima email maksimum)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Hanya untuk perusahaan</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Hanya untuk orang</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Kemungkinan berhasil</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Beritahu {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Pilih {!user} yang akan menerima pemberitahuan saat kontak baru ditambahkan melalui "Formulir Kontak Situs Web"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Hitung dari tugas sebelumnya</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Hitung mulai dari kontainer</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Logo invoice</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Bidang lain</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Portal</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Hapus pilihan</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Pulihkan ke Standar</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Pengalihan URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Alamat situs web Anda di mana pengguna akan diarahkan setelah formulir diisi.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Baris</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Tersimpan</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Pilih box</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Pilihan</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Tampilan Nama Pengirim</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Alamat Email Pengirim </value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Sesuaikan bidang pengguna</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Atur alamat penagihan organisasi Anda yang akan digunakan untuk semua faktur. Pilih {0}Negara{1} dari daftar dan isilah kolom dengan {0}Alamat{1}, {0}Kota{1}, {0}Provinsi{1} dan {0}Kode Pos{1}.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>{0}Logo{1} standar dari organisasi Anda akan ditampilkan pada {0}Invoice{1}.{3}Untuk mengganti logo, klik tautan 'Ubah Logo' dan pilih gambar yang disimpan pada komputer Anda untuk memuatnya ke portal Anda. Harap diingat, Anda dapat mengunggah gambar yang tidak melebihi {0}{4}x{5} pixel{1}; ukuran gambar akan diubah jika melebihi batas tersebut. Ukuran maksimum gambar tidak boleh melebihi {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Ukuran</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Kirim data</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Tag dengan judul ini sudah ada</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Template tugas</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Area teks</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Teks</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipe</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Formulir Kunci Web</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Sebuah web kunci berbentuk unik yang berfungsi untuk otentikasi bentuk yang digunakan untuk mengirim data dan perlu bentuk kerja yang benar. Hal ini dilakukan untuk alasan keamanan untuk mencegah spam, penipuan dan melindungi formulir web Anda dari penggunaan yang tidak sah. Ketika Anda membuat kunci baru bentuk yang ada dengan kode sebelumnya akan berhenti bekerja.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Formulir Kontak Situs Web</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Bentuk kunci tidak valid</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Gunakan fungsi Formulir Kontak Situs Web untuk membuat formulir yang dapat Anda publikasikan di situs Anda. Formulir tersebut dapat digunakan untuk mencatat kontak baru secara otomatis. Tentukan bagian-bagian formulir, pilih kolom yang akan disertakan dan susunlah kode untuk membuat formulir web Anda sendiri.</value>
+  </data>
+</root>

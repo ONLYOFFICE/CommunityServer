@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneTitle" xml:space="preserve">
+    <value>Tambahkan Judul Tahap Pekerjaan</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Tambahkan Tugas</value>
+  </data>
+  <data name="AddTaskTitle" xml:space="preserve">
+    <value>Tambahkan Judul Tugas</value>
+  </data>
+  <data name="AllProjectTmpl" xml:space="preserve">
+    <value>Semua Template Proyek</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Pilih Penanggung jawab</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Buat Proyek</value>
+  </data>
+  <data name="CreateProjTmpl" xml:space="preserve">
+    <value>Buat template proyek baru</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>Buat dari Template - {0}</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditProjStructure" xml:space="preserve">
+    <value>Edit Struktur Proyek</value>
+  </data>
+  <data name="EditProjTmpl" xml:space="preserve">
+    <value>Edit Template Proyek</value>
+  </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>Buat Template Pertama</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>Template proyek membantu Anda membuat proyek serupa beserta hal-hal terkait, seperti membentuk tim proyek, merencanakan tahap pekerjaan, waktu penyimpanan tugas dan diskusi yang diperlukan setiap kali memasukkan data yang sama.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>Tidak ada template proyek</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>Tahap pekerjaan harus memiliki judul</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>tahap pekerjaan</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Beritahu Penanggung Jawab</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Anda yakin ingin menghapus template ini?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>Hapus Template</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>Simpan &amp; Buat proyek dari template</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Simpan Perubahan</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tugas</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>Tugas harus memiliki judul</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>tugas</value>
+  </data>
+  <data name="TasksWithoutMilestone" xml:space="preserve">
+    <value>Tugas tanpa tahap pekerjaan</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="TitleErrorTemplate" xml:space="preserve">
+    <value>Template harus memiliki judul</value>
+  </data>
+</root>

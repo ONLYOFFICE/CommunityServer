@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Yeni tapşırıq əlavə et</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Yeni tapşırıq əlavə et</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>qurtarma tarixi</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Qapalı tapşırıq</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Kontakt ilə bağlantı qur</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>İlk tapşırığı yarat</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Tapşırıq yarat</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>İstifadəçi periodu</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Digər istifadəçilər</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Tapşırığı sil</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıqlama</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>qurtarma tarixi</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Tapşırığı redaktə et</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Tapşırıqlar Sizin etməyinizin lazım olduğu işləri xatırladan vasitədir. Misal üçün, tapşırıq növbəti görüşü və ya telefon zəngini xatırlatmaq üçün istifadə oluna bilər. Siz {0}müxtəlif kateqoriyalara{1} aid tapşırıqlar yarada, onları kontakt ilə, saziş ilə və ya tədbir ilə əlaqələndirə bilərsiniz, və ya özünüz üçün sadə xatırlama yarada bilərsiniz.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Bu bölmədə filtrə uyğun tapşırıq yoxdur. Lütfən, digər parametrləri seçin və ya filtri təmizləyin ki, bu bölmədəki bütün tapşırıqları görəsiniz. Siz həmçinin gərəkli tapşırıqları Kontaktlarda, Sazişlərdə və ya Tədbirlərdə axtara bilərsiniz.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Bu filtrə uyğun heç bir tapşırıq yoxdur</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Tapşırıq siyahısı boşdur</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Kompüterinizdən düzgün formalı CSV fayl seçilməlidir. Onun seçilmiş ayrıcılarla bölünmüş sahələri və sütunları olmalıdır ki, tapşırıqların importu üçün istifadə olunacaqlar. Düzgün import etmək üçün {0}-dan çox sətri olan faylları daha kiçik hissələr bölmək lazımdır.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSV fayl seçin</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Faylınızdan sütunları ONLYOFFICE™ CRM'in müvafiq sahələri ilə üst-üstə qoyun. Lütfən, diqqət edin ki, tapşırıqların düzgün importu üçün ən az halda heç olmasa faylınızdan olan növbəti sütunlat ONLYOFFICE™ CRM sahələrinə uyğun olmalıdırlar: 'Tapşırıq başlığı', 'Cavabdeh', 'İcra tarixi'. Tarixlər olan sahələr bu formatda olmalıdırlar: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Lütfən, sahələri yoxlayın</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Tapşırıq siyahısına keç</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Tapşırıqların importu verilənlərinizin həcmindən asılı olaraq bir neçə dəqiqə vaxt ala bilər.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>İmport başladı</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Tapşırıqları import et</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Tapşırıqlarım</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Qapalı</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Açıq</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Gecikmiş</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Cavabdeh</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Tapşırıq qeyd edilir</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>İmporta başla</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Taprışıq</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Tapşırıq kateqoriyası</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Tapşırıq kateqoriyası</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Telefon zəngi</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Saziş</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>Elektron poçt</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Faks</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>İcra yoxlanışı</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Nahar</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Görüş</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Qeyd</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Çatdırma</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Sosial şəbəkələr</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Məmnuniyyət ifadəsi</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Tapşırıq açıqlaması</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Ayırmaq</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>tapşırıqlar</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Tapşırıq statusu</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Qapalı</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Açıq</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Tapşırıq başlığı</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Yaxınlaşan</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 gün</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vaxt</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Nail olmaq istədiyiniz məqsəddən asılı olaraq, tapşırıqlar kateqoriyası tapşırıqlarınızı qruplara bölməyə kömək edir. Standart tapşırıq kateqoriyaları bunlardır - telefon zəngi, saziş, demo, elektron poçt, faks, icra yoxlanışı, nahar, görüş, qeyd, çatdırılma, sosial şəbəkələr, təşəkkür bildirişi. Onları redaktə etmək üçün administrator hüquqları olmalıdır.</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Həftə</value>
+  </data>
+</root>

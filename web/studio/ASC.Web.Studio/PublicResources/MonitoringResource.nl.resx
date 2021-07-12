@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>De cache wissen</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Alle scripts die worden gebruikt zodat het portaal goed werkt worden gecached voor een maximale prestatie van ONLYOFFICE™. Soms (meestal na een belangrijke update of wanneer er onjuistheden in het portaalgedrag worden waargenomen) moet u de cache wissen. Gebruik de knop &lt;b&gt;Cache wissen&lt;/b&gt; om de scripts van de server te halen en ze opnieuw te laden. Tijdens de actie gaan er geen portaalgegevens verloren.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Gebruik deze optie als u onjuist portaalgedrag signaleert</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Bekijk onze {0}FAQ pagina{1} als u vragen heeft of neem contact met ons op via {2}support@onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Als u vragen heeft neem dan contact met ons op via {0}support.onlyoffice.com{1}</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Neem Contact Met Ons Op</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>Het onderdeel &lt;b&gt;Logboeken&lt;/b&gt; stelt u in staat om alle portaallogboeken te downloaden voor een geselecteerde tijdsperiode, gearchiveerd naar een .zip-bestand. Selecteer de start- en eindtijd van de periode en klik op de knop &lt;b&gt;Downloaden&lt;/b&gt; om de logboeken te ontvangen.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Alle logs downloaden</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>Het onderdeel &lt;b&gt;Poorten&lt;/b&gt; bevat de lijst met alle poorten die nodig zijn voor het correct werken van het ONLYOFFICE™ portaal en hun status (open of gesloten). Om uw ONLYOFFICE™ -server goed te laten werken, moeten deze poorten de status &lt;b&gt;Open&lt;/b&gt; hebben. Houd er alstublieft rekening mee dat het voor sommige poorten alleen nodig is om inkomende of uitgaande verbindingen toe te staan, terwijl anderen beide verbindingssoorten nodig hebben.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Alle volgende poorten moeten open zijn</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Poorten</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>Het onderdeel &lt;b&gt;Services&lt;/b&gt; geeft de lijst weer van alle beschikbare ONLYOFFICE™ diensten en hun status (in uitvoering of gestopt). U kunt de lopende diensten opnieuw opstarten of de gestopte diensten starten met de juiste actieknop, rechts van de servicestatus.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>ONLYOFFICE™ services en hun huidige status</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Diensten</value>
+  </data>
+</root>

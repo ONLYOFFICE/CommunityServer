@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>添加并创建新发票</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>添加帐单地址</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>添加送达地址</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>添加行</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>地址已成功更新</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>创建新税务</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>正在创建税</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>保存并创建新项目</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>添加此发票</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>全部发票</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>数额</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>附加文档</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>自动生成</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>寄送至</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>修改格式</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>所有未来发票将使用以下字段设置前缀/数字格式。请检查相应的框，以自动生成数字。</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>修改状态</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>客户备注</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>如果您按照ONLYOFFICE™邮件发送发票，将会显示在发票上和邮件正文中。</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>与客户一致</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>创建第一张发票</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>创建第一个项目</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>创建第一个税务</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>创建项目</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>创建创建发票项目</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>创建税</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>创建新发票</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>创建新项目</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>创建新税务</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>货币</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有一种货币</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0}天</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>这些默认条款将用于未来发票。</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>您确定要删除“{0}”发票吗？</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>正在删除发票...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>正在删除项目...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>您确定要删除«{0}»项目吗？</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>您确定要删除«{0}»税吗？</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>正在删除税务...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>删除此发票</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>正在删除发票</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>折扣</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>截止日期</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>请设置自定义到期日期，或选择右侧的一个预设日期，将此日期与发布日期相关联。</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>出具日期超过到期日</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>收据时到期</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有到期日</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>重复并创建新发票</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>重复发票</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>重复发票</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>重复发票«{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>编辑账单地址</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>编辑寄送地址</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>编辑发票</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>编辑发票«{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>编辑税务</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>本部分可让您设置可以包含在发票中的项目列表。创建列表后，您可以从中选择所需的项目以添加到付款凭证。您也可以在需要时添加新项目。</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>没有与您的筛选条件匹配的发票项目可以在本节中显示。请选择其他筛选条件选项或清除筛选条件，以查看本节中的所有发票项目。或者，您可以创建发票项目，如果它不在列表中的话。</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>此处无显示此筛选条件的发票项目</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>产品与服务列表为空</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>“发票”部分可让您创建可为您的客户提供的付款凭证。在添加发票后，可以在此处显示可用的列表。</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>没有与您的筛选条件匹配的发票可以在本节中显示。请选择其他筛选条件选项或清除筛选条件，以查看本节中的所有发票。或者如果列表中不存在，则可以创建发票。</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>此处无显示此筛选条件的发票</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>发票列表为空</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>发票税可让您为您或您的客户居住的国家/地区创建额外的税款。您可以添加税务名称，利率和描述。您还可以在需要时添加新税。</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>发票税务列表为空</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>未找到机会</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>选择项目</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>税务名称字段不得为空</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>税率字段不得为空</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>价格为空</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>价格有误</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>数量有误</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>税率值有误</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>汇率</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>您必须填写该字段</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>税务名称已存在</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>库存</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>项目名称</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>价格</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>库存数量</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>税务</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>按标题，SKU或简介查找</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>发票</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>客户</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有一位客户</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>收货人</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>您的默认CRM货币用于在“产品与服务目录”中设置价格。若想更改，请前往&lt;a href="settings.aspx?type=common" target="_blank"&gt;常用设置&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>存档</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>一个或多个发票项目有负库存数量</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>价格</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>有库存</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>无库存</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>发票语言</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>每张发票必须有语言</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>发票号码</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>发票号码已被占用</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>发票</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>税1名称</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>税1税率</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>税2名称</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>税2税率</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>拥有该名称的税务已被注册</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>税务类别可让您为您或您的客户居住的国家/地区创建额外的税款。您可以添加税务名称，税率和描述。</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>只有在“产品与服务”部分未使用税务类别时，才可以删除该税务类别。</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>税务名称</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>率</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>发票日期</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有一个日期</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>您的默认CRM货币。&lt;br/&gt;若想更改它，请前往&lt;a href="?type=common" target="_blank"&gt;常用设置&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>添加您现有的存货物品数量。每次将项目添加到发票时，这个数字均会减少。当您收到更多库存时，只需将其添加到您当前的库存。</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>与机会关联</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>出具发票</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>标记为草稿</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>标记为已付</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>标记为被拒</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>标记为结清</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>数值</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>格式有误或已存在相同号码的发票</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>开始编号为空</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有号码</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>已逾期</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>订单号</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>前缀</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>价格</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>产品与服务</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>从列表中选择产品或服务或新添</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有项目</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>正在保存号码设置...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>正在保存条款设置...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>保存发票时发生错误“{0}”。请稍后再试。</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>卖家</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>通过电邮发送</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>设为默认</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>设置默认条款</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>设为空值</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>运送目的地</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>显示发票资料</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>在新标签中打开</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>开始编号</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>库存单位（SKU）</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>小计</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>税</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>条款</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>每张发票必须有条款</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>发票总计</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>发票总计</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>追踪库存</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>更新项目«{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>更新«{0}»税</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>正在保存更改……</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+</root>

@@ -1,0 +1,1458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Giriş hüququ</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>{0} moduluna giriş verilmişdir</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>{!group} əlavə et</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>{!user} əlavə et</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Bütün istifadəçilər</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Portal sahibini dəyişdir</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Dəyişikliklər elektron poçt ilə təsdiq olunandan sonra qüvvəyə minəcəklər.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Portal sahibini dəyişmək üçün lütfən, aşağıda Portalın yeni sahibinin adını seçin.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} modulu söndürülüb və portalda gösterilmir. Yandırmaq üçün sağdakı keçiddən istifadə edin.</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>İstifadəçi siyahısı boşdur</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Tam giriş</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Sadalanan hüquqdan başqa, portal sahibinin malik olduğu giriş hüquqları əldə et|Portal sahibini dəyiş|Portalı deaktiv et və ya sil</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Portal sahibi bacarır</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Modulların idarəçilərinin etdiklərini etmək|Modulların administratorlarını təyin etmək|Modullarda giriş hüququ vermək|Portal konfiqurasiyasını idarə etmək|İstifadəçi hesablarını idarə etmək|Portal sahibini dəyişmək|Portal verilənlərinin rezevr nüsxələrini çıxarmaq|Portalı deaktiv etmək və ya silmək</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} administratorlar üçün</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} istifadəçilər edə bilər</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} fərqli giriş haqlarına sahib istifadəçilər üçün</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Siyahıdan istifadəçilər</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Sizin hesabınız demək olar ki, aktivləşdirilib</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Təsdiqlənmə</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Hesabın deaktivasiyası</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Əməliyyatı təsdiq etmək üçün keçid: e-poçt ünvanına göndərildi. (portal sahibinin e-poçt ünvanı)</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Hesabın silinməsi</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Əməliyyatı təsdiq etmək üçün keçid: e-poçt ünvanına göndərildi. (portal sahibinin e-poçt ünvanı)</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Kodu bir də göndərin</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Kodu daxil edin</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Elektron poçt ünvanını yenidən aktivləşdir</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Təsdiq kodu sahəsi boş ola bilməz</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Mobil telefon nömrəsi daxil edin</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Göndər</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Əlavə et</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>{!group} əlavə et</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Qruplar əlavə et</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Şərh yaz</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>İnanılmış domen əlavə et</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>İstifadəçi əlavə et</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>İstifadəçi əlavə et</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Administrator bildirişləri</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Mesaj göndərin</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Portala daxil olmaq olmur?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Sizinlə əlaqə saxlamaq üçün elektron poçt ünvanı</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Portal idarəçisinə müraciət edin</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Sizin mesajınız uğurla göndərilmişdi. Portalın administratoru Sizinlə əlaqə saxlayacaq.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>İzn ver</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Administratora ismarıc ayarları</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Lütfən, probleminizi təsvir edin</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Əgər Sizin bu portala girişinizlə bağlı probleminiz varsa, və ya Siz portala daxil olmalı olduğunuz halda bunu necə etməyi bilmirsinizsə, lütfən, portalın idarəçisinə aşağıdakı formadan istifadə edərək müraciət edin.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Administratorlar</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Hər hansı bir domen adı</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Cavab ver</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Bağlan</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Birləşdirildi</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Bağlantını kəs</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Birləşdirilməyib</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>da</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Avtorizasiya</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Başlıq səhifəsinə keç</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Yedəkləmə</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>{0}Aşağıdakı keçiddən istifadə edərək, ehtiyat kopiyasını yerli diskə endirə bilərsiniz.
+                                        Keçid sorğudan sonra 24 saat ərzində etibarlı olacaq.{1}
+                                        Keçidli və instruksiyalı məktub Sizin e-poçtunuza göndərildi.
+                                    {2}</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>{!group} əlavə et</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Doğum Tarixi</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Yeni kontakt əlavə et</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Yazdığınız bütün verilənlər itəcək. Davam etmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Loqonu dəyişdir</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Əməliyyatı təsdiq etmək üçün keçid: e-poçt ünvanına göndərildi. (portal sahibinin e-poçt ünvanı)</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Yan,Fev,Mar,Apr,May,İyun,İyul,Avq,Sen,Okt,Noy,Dek</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Filtri təmizlə</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Qapat</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Şərhlər</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>Şərh silindi</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Təsdiqlənmə</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Lütfən, hesabınızı deaktiv etmək istəyinizi təsdiqləyin</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Lütfən, hesabınızı silmək istəyinizi təsdiqləyin</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Portal ünvanını {0} olaraq dəyişmək istədiyinizə əminsinizmi?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Portal sahibi uğurla dəyişdirildi. {0}10 saniyə ərzində {1}buraya{2} yönləndiriləcəksiniz.</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Portal sahibini {0}'a dəyişdirmək istəyinizi lütfən təsdiq edin</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Lütfən, hesabınızı yenidən aktivləşdirmək istəyinizi təsdiqləyin</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Şərhi silmək istədiyinizə əminsinizmi?</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Bağlantı məlumatları</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Davam et</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Keçidi köçür</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>Rezerv nüsxəsi yaradılır</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>İstifadəçi domen adı</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Xüsusiləşdirmə</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>İstifadəçi seçimləri</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Verilənlərin rezevr nüsxəsi</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>gün</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>günlər</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Deaktiv et</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Deaktiv et</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Hesabınız uğurla deaktiv edildi.{0} 10 saniyə ərzində {1}buraya{2} yönləndiriləcəksiniz</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>{0}
+                Siz portalınızı kimsənin portalınıza bir müddət girə bilməyəcəyi müddət üçün müvəqqəti deaktiv edə bilərsiniz.
+            {1}Deaktiv et düyməsini basın ki, davam edəsiniz. Əməliyyatın təsdiq edilməsi üçün portalın sahibinin e-poçt ünvanına keçid göndəriləcək. Portalın istifadəsini yeniləmək üçün, məktubda göndərilmiş ikinci keçiddən təsdiq ilə istifadə etməlisiniz.{2}</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Modul seçimi</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Varsayılan başlanğıc səhifə</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Bu əyləm geri qaytarıla bilməz. Davam etmək istəyirsiniz mi?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Hesabınız uğurla silindi. {0} 10 saniyə ərzində {1}buraya{2} yönləndiriləcəksiniz.</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Profilimi sil</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Elektron poçt ünvanına silinmə instruksiyalarını göndər</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Profil dialoqunu sil</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Profili sil</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Portalınızı ömürlük silə bilərsiniz. Bundan sonra bütün verilənlər itəcək və bərpa olunmayacaq.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>{!group} redaktə et</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Yasaqlandı</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Yasaqla</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!User} istifadəçisi aktiv {!users} siyahısında görünməyəcək</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Əməliyyatı təsdiq etmək üçün keçid {0} ünvanına göndərildi. (portal sahibinin e-poçt ünvanı)</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS Ayarları</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} öncə</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} gün</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} gün</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} gün</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>sadəcə</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} saat</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} dəqiqə</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} dəqiqə</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} dəqiqə</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} ay</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} ay</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} ay</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} il</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} il</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} il</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Sırağagün</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Bu gün</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Sabah</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Dünən</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Profili redaktə et</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Elektron poçt</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Aktivləşdirmə instruksiyaları daxil edilmiş elektron poçta göndəriləcək.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Elektron poçtun aktivləşdirilməsi</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Parolu təsdiqlə</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Sizin portal bu domenə qeyd olunub:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Yalnış parol</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Səhv elektron poçt ünvanı</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Sizin portalınız bu elektron poçt ünvanından qeydiyyatdan keçib:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Bu ayarlar uğurla qeyd edildilər</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Dəyişdir bunu</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Parolu yazın</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Parol və onun təsdiqi üst-üstə düşmür</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>E-mail'i dəyiş</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Aktivləşdirmə instruksiyaları daxil edilmiş elektron poçta göndəriləcək.</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Elektron poçtun dəyişdirilməsi</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Elektron poçt aktivləşdirilməyib</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Bütün{!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Personal axtarışı</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Disk sahəsini tutacaq verilənlər yoxdur</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL'ə izn ver</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>İzn ver</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!User} təkrar aktiv olanda görünəcək</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Yeni elektron poçt ünvanı yazın</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Sizin bu səhifəyə baxmaq haqqınız yoxdur</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Səhv 403 - Qadağandır</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Bu əyləmi gerçəkləşdirməyə icazə yoxdur</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Etibarsız elektron poçt və ya vaxtı keçmiş keçid</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} bu e-poçt ünvanı artıq qeyd olunub</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Elektron poçt sahəsi boşdur</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>İndiki elektron poçt və yeni elektron poçt eynidirlər</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Lütfən, bütün sahələri doldurun</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Yüklənən fayl tapılmadı</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Elektron poçt ünvanınızı daxil edin</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Adınızı yazın</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Soyadınızı daxil edin</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Keçidin vaxtı keçib</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Şəklin ölçüsü çox böyükdür</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Təsvir faylının ölçüsü çox böyükdür</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Etibarsız aktivasiya keçidi</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Sizin tarif planınız bu imkanı dəstəkləmir</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Etibarsız elektron poçt</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Etibarsız domen adı</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Parol boşdur.</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Yalnış yeni parol. O, bunları içərməlidir</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Bunda olmalıdır</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>rəqəmlər</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>Xüsusi simvollar</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>böyük hərflər</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Naməlum şəkil faylı növü</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>İstifadəçi tapılmadı</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>"{0}" elektron poçtlu istifadəçi tapılmadı</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Qadın</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Faylın maksimal ölçüsü aşıldı</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Qeyd: faylın ölçüsü {1}{0}{2}-dən çox ola bilməz</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bayt, kilobayt, meqabayt, giqabayt</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>period üçün</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>Başlayaraq</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>qədər</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>son 3 ay</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>keçən ay</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>keçən həftə</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Hesabınızı təsdiqləmək üçün keçid göstərilmiş elektron poçt ünvanına göndərildi</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Parolunuzu unutmusunuz mu?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Daxil olmaq üçün lütfən bu {0}keçidi{1} izləyin</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>Başlayaraq</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Loqo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Salamlama ayarları</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Qrup</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Qrup lideri</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Qruplar</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Əgər Siz portalı {1}deaktiv etmək{2} istəyirsinizsə, Sizin portal və onunla əlaqədar bütün məlumatlar bloklanacaq və müəyyən müddət ərzində heç kim o məlumatlara daxil ola bilməyəcək. Bunun üçün {1}deaktiv etmək{2} düyməsinə basın. Əməliyyatın təsdiq olunması üçün keçid portalın sahibinin elektron poçt ünvanına göndəriləcək.{0}Əgər Siz ONLYOFFICE™'a qayıtmaq və onun istifadəsini davam etmək istəsəniz, Siz elektron poçt ilə göndərilmiş ikinci təsdiq keçidindən istifadə edə bilərsiniz. Lakin, lütfən, Sizə göndərilən məktubu səliqə ilə qoruyun.{0}Əgər Siz ONLYOFFICE™ portalını istifadə edəcəyinizi düşünmürsünüzsə, Siz portalınızı ömürlük {1}silmək{2} itəyirsinizsə, {1}silmək{2} funksiyasından istifadə edərək, sorğunuzu göndərin. Lütfən, yadda saxlayın ki, bundan sonra Siz portalınızı yenidən aktiv edə bilməyəcəksiniz və ya onunla əlaqədar hər hansı bir məlumatı geri qaytara bilməyəcəksiniz.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}İdarəçi İsmarıcları Ayarları{2} portal idarəçisi ilə əlaqə saxlamaq yoludur.{0}Bu seçənəyi aktiv edin ki, {1}Daxil ol{2} səhifəsindəki əlaqə formasını əks etdirəsiniz. Bununla da, istifadəçilər portala daxil olmaq problemi yaşadıqları zaman portal idarəçisinə ismarıc göndərəcəklər.{0}Tətbiq olunmuş dəyişikliklərin qüvvəyə minməsi üçün bölmənin aşağısındakı {1}Qeyd et{2} düyməsini basın.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Varsayılana görə başlanğıc səhifə{1} o modulu seçməyə imkan verir ki, hansına ki, Siz portala daxil olan kimi keçirsiniz və ya Siz sistemdəsiniz və ONLYOFFICE™ loqotipinə basırsınız. Verilmiş parametrlərin qüvvəyə minməsi üçün bölmənin aşağısındakı {0}Qeyd et{1} düyməsini basın.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}DNS ayarlamaları{2} sizin ONLYOFFICE™ portalınız üçün alternativ URL-ünvan yaratmaq imkanı verir.{0}Siz istədiyiniz ləqəbi {1}Portal Ünvanı{2} sahəsinə daxil edə, və ya {1}İstifadəçi domen adı{2} qutusunu yoxlaya və aşağı sahədə ONLYOFFICE™ portalı üçün öz domen adınızı təyin edə bilərsiniz.{0} Etdiyiniz dəyişiklikləri tətbiq etmək üçün, bölmənin aşağı tərəfində {1}Qeyd et{2} düyməsini basın.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Salamlama Ayarları{2} portalın {1}Birinci{2} Səhifəsində əks olunan və portalın fərz edilən başlığını və loqotipini dəyişməyə imkan verir.{0}İstədiyiniz adı {1}Başlıq{2} sahəsinə yazın. Portalın loqosunu dəyişmək üçün {1}Loqonu Dəyiş{2} keçidinə basın və kompüterdə olan şəkillərdən birini seçin ki, portala yükləyəsiniz.{0}Lütfən, nəzərə alın ki, ölçüsü {1}250x100{2} pikseldən çox olmayan şəkilləri yükləmək olar, əks halda şəklin ölçüsü dəyişəcək. Maksimal şəkil ölçüsü {1}1 Meqabaytı{2} keçməməlidir.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Dəvət keçidi istifadəçilərin Sizin portala qoşulması üçün dəvətnamədir.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Dil Və Saat Qurşağı Ayarlamaları{2} bütün istifadəçilər üçün bütün portalın dilini dəyişməyə və saat qurşağını ayarlamağa imkan verir ki, ONLYOFFICE™ portalındakı olaylar düzgün tarix və vaxtla əks olunsunlar. Müvafiq açılan siyahıları açın ki, tələb olunan parametrləri verəsiniz.{0} Onları tətbiq etmək üçün, bölmənin aşağı hissəsində yerləşən {1}Qeyd et{2} düyməsindən istifadə edin.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Trusted Mail Domain Settings{2} is a way to specify the mail servers that may be used for user self-registering in ONLYOFFICE™.{0}You can either check the {1}Custom domains{2} option and enter the trusted mail server in the field below or select the {1}Any domains{2} option.{0}In these cases any member of your company who has an account at specified mail server will be able to register him(her)self by clicking the {1}Join{2} link on the {1}Sign In{2} page and entering an email address with the trusted domain name you add.{0}To disable this option check the corresponding radio button.{0}To apply the changes you made use the {1}Save{2} button at the bottom of the section.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Parolun güvənlik ayarları{2} parolun güvənliyini təyin etməyə imkan verir (parolun tapılmaya və birbaşa yığıma müqavimət effektivliyi).{0}{1}Parolun minimal{2} {1}Uzunluğu{2} sürüngəcindən istifadə edin ki, parolun etibarlı olması üçün nə qədər uzun olmasını təyin edə biləsiniz. Uyğun gələn seçənəkləri aşağıda qeyd edin ki, parolda hansı simvol yığınının istifadə olunmasını təyin edə biləsiniz.{0}
+Edilmiş dəyişiklikləri tətbiq etmək üçün bölmənin aşağısında {1}Qeyd et{2} düyməsindən istifadə edin.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Portal Versiyası{2} ONLYOFFICE™ portallarının mövcud versiyaları arasında seçim etmək imkanı verir.{0}Siz yeni versiyanı istifadə edə və ya portalın öncəki versiyasına qayıda bilərsiniz.{0}Tətbiq olunmuş dəyişikliklərin qüvvəyə minməsi üçün bölmənin aşağısındakı {1}Qeyd et{2} düyməsini basın.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Komanda şablonu{2} - qurumu və ya qrupu, onun iştirakçılarını və onların hərəkətlərini adlandırmağın düzənli yoludur. {0}{1}Şablon{2} siyahısını açın ki, öncədən ayarlanmışlardan birini seçəsiniz və öz adlandırmalarınızı daxil edərək, siyahıdan {1}İstifadəçi üçün{2} seçənəyini seçin.{0}Seçilmiş şablonu tətbiq etmək üçün, bölmənin aşağısındakı {1}Qeyd et{2} düyməsindən istifadə edin.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Yardım Mərkəzi</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Gizlət</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>AIM hesabınızı daxil edin</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Blogger profilinizi daxil edin</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Elektron poçtunuzu daxil edin</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Facebook profilinizi daxil edin</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>GoogleTalk hesabınızı daxil edin</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz profilinizi daxil edin</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Google hesabınızı daxil edin</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>ICQ hesabınızı daxil edin</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Jabber hesabınızı daxil edin</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>LiveJournal profilinizi daxil edin</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Mobil telefon nömrənizi daxil edin</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>MSN hesabınızı daxil edin</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>MySpace profilinizi daxil edin</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Telefon nömrənizi daxil edin</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Skype hesabınızı daxil edin</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Twitter profilinizi daxil edin</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Yahoo hesabınızı daxil edin</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>İstifadəçi artıq mövcuddur</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>Elektron poçt</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Heç bir əlaqə alınmadı.{0}Siz həmçinin başqa profillərdən əlaqələri import edə bilərsiniz.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>İstifadəçinin adını yazın</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>İstifadəçinin soyadını yazın</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Elektron poçtunuzu daxil edin</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Adınızı yazın</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>İmport zamanı xəta baş verdi</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Soyadınızı daxil edin</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Lütfən, portala əlavə olunacaq istifadəçinin adını, soyadını və elektron poçt ünvanını daxil edin. İstifadəçini siyahıya əlavə etmək üçün "Əlavə et" düyməsinə basın.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Fayldan</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>İmport üçün seçilmiş fayl düzgün formatda deyil.{0}Lütfən, başqa faylı seçin və import prosesini təkrar edin.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>İstifadəçilərin portala əlavə olunması</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Ad, soyad, elektron poçt ünvanı daxil olmaqla, bütün istifadəçi sahələrinin düzgün doldurulduğuna əmin olun.</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Etibarsız istifadəçi adı və ya parol</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Portalda işləməyə başlamaq üçün, lütfən, {0}adınızı{1} və {0}soyadınızı{1} sağdan formaya daxil edin və portala daxil olmaq üçün {0}şəxsi paroldan{1} istifadə edin.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Dəvət keçidi</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Parol</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Siz bu portala öz dostunuzdan, tanışınızdan və ya həmkarınızdan keçid aldınız.</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Siz bu portala öz dostunuz, tanışınız və ya həmkarınız tərəfindən əlavə olundunuz</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Sizi bu portala qoşulmağa dəvət etdilər!</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Daha çox öyrənin...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Yüklənir...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Yer</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Daxil ol</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Qoşul</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Sosial şəbəkələr vasitəsi ilə login</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>və ya daxil olun:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Əlaqəli üçüncü partiya hesab tapılmır</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Kişi</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Lütfən, avtorizasiya olunun</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Elektron poçt aktivləşdirmə instruksiyaları {0} elektron poçt ünvanına göndərildi</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Elektron poçt dəyişdirilmə instruksiyaları {0} elektron poçt ünvanına göndərildi.</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Sizin elektron poçt uğurla aktivləşdirilmişdi</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>{0} elektron poçt ünvanına dəvətnamə instruksiyalarını göndər</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>{0} elektron potçuna elektron poçt aktivləşdirmı instruksiyalarını göndər</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>{0} elektron poçtuna elektron poçt dəyişmə instruksiyalarını göndər</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>{0} elektron poçt ünvanına parol dəyişmə instruksiyalarını göndər</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Portalda qeydiyyatdan keçən zaman istifadə etdiyini elektron poçtunuzu daxil edin. Parolu bərpa etmə instruksiyaları həmin elektron poçt ünvanına göndəriləcəklər.</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Əsas mobil telefon nömrəsi</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Telefon nömrəsini dəyişdir</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Mobil telefon nömrənizin dəyişdirilməsi instruksiyası Sizin elektron poçt ünvanınıza göndəriləcək</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Göndərildi</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Mobil telefon nömrəsini dəyiş</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>İstifadəçinin telefonu silinəcək və telefon nömrəsinin dəyişdirilməsi instruksiyası elektron poçt ünvanına göndəriləcək</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Profilim</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Şablon</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Komanda şablonu</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Bildir:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>Elektron poçt</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>Elektron poçt və söhbət</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Söhbət</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Yasaqlandı</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parol</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Parolu dəyişdir</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Parolun dəyişdirilməsi</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Parolun minimal uzunluğu</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Parolun bərpa edilməsi</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>simvollar</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Rəqəmləri işlət</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Xüsusi simvolları işlət</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Böyük hərfləri işlət</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Yeni parol yarat</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Ödəniş tarixi</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Gözləmə</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Adamlar</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Lütfən gözləyin...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Portal Sahibi</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Modullar və Alətlər</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Ehtiyacınız olan ONLYOFFICE™ modullarını və alətlərini seçin. Yasaqlanmış modullar və alətlər bütün portal istifadəçilərindən gizlədiləcəklər. Nəzərdə saxlayın ki, modulların və alətlərin icazəli edilməsindən sonra onlar bütün portal istifadəçilərinə açıq olurlar. Girişi məhdudlaşdırmaq üçün Portal Ayarlarının Giriş Hüquqları bölməsinə keçin.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Alətlər</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Modullar</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profil silindi</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Yayınla</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Yenidən aktivləşdir</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Hesabınız uğurla yenidən aktivləşdirildi. {0}10 saniyə ərzində {1}buraya{2} yönləndiriləcəksiniz</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Qeydiyyat tarixi</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Sizin qeydiyyat elektron poçtunuz</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Yadda saxla</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Dəvətnamə daxil edilmiş elektron poçta göndəriləcək</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Yenidən göndər</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Dəvətnaməni yenidən göndərmək istəyirsiniz mi?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Dəvətnaməni yenidən göndər</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Varsayılanı bərpa et</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Axtar</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Bütün sözlərin düzgün yazılmasına əmin olun. Digər açar sözlərdən istifadə etməyə çalışın.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Heç nə tapılmadı</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Axtarış nəticələri</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Göndər</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Dəvətnaməni bir də göndərin</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Dəvətnaməni göndərin</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Qoşulmaq üçün buraya basın</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Portal istifadəçisi olmaq istıyirsiniz mi?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Dəvətnamənin göndəriləcəyi elektron poçt ünvanını daxil edin:</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Sizin sorğunuzun proqram təminatında emalı zamanı xəta baş verdi. Lütfən, bir müddət gözləyib yenidən sınayın. Əgər xəta təkrarlanırsa, xətanın baş verdiyi saytın administratoruna müraciət edin.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Server xətası</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Bu artıq indiki versiyadır</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Etibarsız portal versiyası</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Cins</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Göstər</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Hamısını göstər</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Bütün nəticələri göstər</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>İstənilən domen hesabında elektron poçtu olan istifadəçilər qeydiyyatdan keçə bilərlər.
+Qeydiyyatdan keçmək üçün, elektron poçt ünvanınıı daxil edin və Dəvətnamə Göndər düyməsinə basın. Sizin ONLYOFFICE™ haesabınızı aktivləşdirmə keçidi olan məktub göstərilmiş ünvana göndəriləcək.</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Sürpriz</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Dəli</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Ağlama</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Rəqs</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>İç</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Hirsli</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Göz qırpmaq</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Yaşıl</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywood təbəssümü</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Üzgün</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Musiqi</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Təbəssüm</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Gülüş</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Təəssüf</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Goggles</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Dil</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Ura</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>Bu seçənək iki faktorlu autentifikasiyanı yandırın söndürməyə imkan verir, portala giriş üçün bütün istifadəçilərdən birdəfəlik SMS parol tələb edir.</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Səhv kod</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Portala daxil olmaq üçün kodunuz: {0}</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>İki faktorlu autentifikasiya</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP Ayarları</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Sosial profillər</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Etibarlı elektron poçt domen ayarları</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Parol güvənlik ayarları</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Dil və saat qurşağı ayarları</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Portal versiyası</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Abunə ol</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Abunəliklər</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Salamlama ayarları uğurla qeyd edildi</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Ayarlar uğurla yeniləndi</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Profilinizin silinməsi üçün instruksiyalar Sizin elektron poçt ünvanınıza göndərildi</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Dəvətnamələr uğurla yenidən göndərildilər</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Siz istifadəçilərin sayını və ya məşğul edilmiş disk yerini azaltmalısınız ki, bu tarif planını seçəsiniz, və ya {0}bizim dəstək xidmətimizə yaza bilərsiniz{1}</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Al</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Uzat</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Alçalt</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Tarif planı saxlama kvotası: {0}.Hazırkı saxlama kvotası{1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Tarif planının istifadəçilərinin sayı:{0}.İstifadəçilərin indiki sayı:{1}</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Tarif planı daha ucuz tarif planına dəyişdirilmədi</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Avtomatik yenilənmə aktivləşdirilib</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Disk boşluğu dolmaq üzrədir: {0}</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Şərtləri avtomatik olaraq uzatmaq üçün, lütfən, əmin olun ki, Təkrarlanan Ödəniş yoxlama qutusu Sizin Avangate hesabınızda aktivdir.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Təkrarlanan Ödənişləri ləğv etmək üçün, lütfən, Avangate hesabınıza keçin.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Tarif planları</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Ödəmələr</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Portalda {0} istifadəçi var</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Siz tarif planını istifadə edirsiniz, onun vaxtı tarixində bitir</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>ONLYOFFICE™'ı sınadığınız üçün təşəkkür edirik!{2}{0}Ödənişsiz sınaq müddəti bitdi.{1} Portalı istifadə etməyə davam etmək üçün uyğun tarif planını seçin.{2}Əgər hansısa suallarınız və ya şübhələriniz varsa, bizə rahatlıqla müraciət edin {3}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Yaradıldı</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>İstifadə olunan disk yeri</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Toplam istifadəçi</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Saat qurşağı</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Elektron poçt</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Mobil telefon</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefon nömrəsi</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>İlk 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Toplam tapıldı</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>qədər</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Sınaq müddəti: {0} {1}</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>İstifadəçi domenləri</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>{0} hesabında elektron poçtu olan istifadəçilər qeydiyyatdan keçə bilərlər.
+Qeydiyyatdan keçmək üçün, elektron poçt ünvanınıı daxil edin və Dəvətnamə Göndər düyməsinə basın. Sizin ONLYOFFICE™ haesabınızı aktivləşdirmə keçidi olan məktub göstərilmiş ünvana göndəriləcək.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Bilinməyən bir xəta baş verdi</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Abunəlikdən çıx</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Yüklə</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>İstifadəçi</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>İstifadəçilər</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>İş/Vəzifə</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Tarif planlarına bax</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>isabət</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>hostlar</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Ziyarət</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Ziyarətlər</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>ONLYOFFICE™'ı seçdiyiniz üçün təşəkkür edirik!Təhlükəsizlik məqsədi ilə parolunuzu təyin etməlisiniz.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Öz ONLYOFFICE™ portalınıza xoş gəldiniz</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Yeniliklər</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Dil və saat qurşağı ayarları</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Portal ayarları - bu sadə addımları keçin ki, öz web ofisinizi asanlıqla yaradasınız</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Qeydiyyat ayarları</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Siz bu portala birləşməyi qərara aldınız.</value>
+  </data>
+</root>

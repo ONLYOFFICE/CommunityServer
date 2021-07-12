@@ -1,0 +1,651 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>驗證碼字段不能為空</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>輸入手機號碼</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>驗證碼字段不能為空</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>增加</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>添加過濾器</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>使用{0}？{1}和{0} * {1}符號執行單/多字符搜索。例如，要搜索以{0} O {1}開頭的所有單詞，請使用{0} O * {1}查詢。要搜索確切的詞組，請使用引號。{2}了解詳情... {3}</value>
+  </data>
+  <data name="AscOrDesc" xml:space="preserve">
+    <value>升序／降序</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>備份副本已成功創建。</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>忙碌</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>成功購買號碼</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>來電</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>未接來電</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>應用已更改</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>更改已成功應用。</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>關閉</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>遇到錯誤。請與您的管理員聯繫。</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>你想繼續嗎？</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>建立新的聯絡人</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>此列表中沒有聯繫人</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>輸入公司名稱</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>沒有聯絡人</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>無聯絡人</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>沒有這樣的公司</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>繼續</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>生成報告時出錯</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>評論不能為空</value>
+  </data>
+  <data name="EmptySelectedArea" xml:space="preserve">
+    <value>選擇一個頭像區域</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>錯誤</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>輸入電子郵件</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>請填寫此字段</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>輸入群組標題</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>輸入名字</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>輸入姓氏</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>沒有這樣的群組</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>沒有這樣的人</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>無效的名字</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>姓氏無效</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>最多64個字符</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>註冊日期必須晚於出生日期</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>無法添加相同的帳戶並聯繫兩次。</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>您最多只能為此字段輸入64個字符。</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>不正確的電子郵件</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>門戶名稱已被使用</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>門戶名稱中不允許使用字符</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>門戶名稱太短</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>門戶名稱未更改</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>用戶已成功添加。</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>組{0}已成功創建。</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>建立新群組</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>此列表中沒有群組</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>無群組</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>於</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>IP地址格式錯誤</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>邀請</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>設置已成功更新</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>空字段</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>端口號錯誤</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>您需要閱讀並同意許可協議</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>執照不正確</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>連結已復製到剪貼板</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>請稍候...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>加載中請稍候</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>載入中...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>一整天</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>活動已被取消。</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>已取消：{0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>活動已結束。</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0}暫時接受了邀請</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0}拒絕了邀請</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>回復：{0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>
+{0}接受了邀請</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0}邀請您參加</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>邀請：{0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>近似</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>每</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>對於</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>最後</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>上</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>在</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>未知格式</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value>的</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>次數</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>直到</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>平日</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>平日</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>活動已更改。</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>更新：{0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>您暫時接受了邀請</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>您拒絕了邀請</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>您接受了邀請至</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>您已將邀請發送給</value>
+  </data>
+  <data name="MailNoSubject" xml:space="preserve">
+    <value>無主題</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>嘗試發送此消息時出現問題。</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>活動取消通知已發送給與會者。</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>您的請求已發送給與會者。</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>您的回復已發送到組織者。</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>信息已發送。</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>我</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>該專案沒有里程碑</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>無里程碑</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>永遠不顯示</value>
+  </data>
+  <data name="NotAddedAnyTemplates" xml:space="preserve">
+    <value>您尚未添加任何模板</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>離線</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>上線</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>打開 開啟</value>
+  </data>
+  <data name="OpenTalk" xml:space="preserve">
+    <value>公開談話</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>執行操作時出錯。</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>操作已成功完成。</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}您將要重命名門戶。{1} {0}您確定要繼續嗎？{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>門戶重命名確認</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>建立新的專案</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>此列表中沒有專案</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>每個專案必須要有管理者</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>每個專案必須有標題</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>該群組中沒有專案</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>無專案</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>沒有這個人</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>路徑</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>相同的限制</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>設置已成功保存</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>選擇檔案</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>選擇資料夾</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>公司名稱</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>聯絡人類型</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>名字</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>群組</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>主管</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>經理</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>已選</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>來賓</value>
+  </data>
+  <data name="SendTariffRequest1" xml:space="preserve">
+    <value>您的請求已成功提交。我們的經理會在最近的時間與您聯繫。</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>我創建了自己的網絡辦公室。在這裡加入我：{0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>顯示下一則</value>
+  </data>
+  <data name="StartFilter" xml:space="preserve">
+    <value>啟動過濾器</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>連接</value>
+  </data>
+  <data name="StorageButtonResetToDefault" xml:space="preserve">
+    <value>重置為預設</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>CDN 設定</value>
+  </data>
+  <data name="StorageStorageTitle" xml:space="preserve">
+    <value>儲存設定</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0}個用戶已成功添加到門戶</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>設置已成功更新</value>
+  </data>
+  <data name="TemplateNotFound" xml:space="preserve">
+    <value>找不到模板</value>
+  </data>
+  <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
+    <value>訂閱技巧與竅門</value>
+  </data>
+  <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
+    <value>退訂提示與技巧</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>您將要取消訂閱“ {0}”模塊的所有通知。你確定你要繼續嗎？</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>空檔案</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>上載檔案時發生錯誤</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>支持的文件格式：mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>檔案大小不能超過5MB</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>待處理</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>{0}的配置文件已成功創建</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>建立新的個人資料</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>此列表中沒有用戶</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>超過最大活動用戶數</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>到目前為止，尚未在門戶網站上創建任何組。轉到人員模塊以對用戶進行分組。</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>該組中沒有用戶</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>無使用者</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>如果現在離開，所有輸入或未保存的數據將丟失。</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>
+{0}這意味著您可以：{1}查看為所有門戶網站用戶打開的門戶網站內容，{2}留下評論，{3}附加並下載文件。{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>如果您需要其他權利，請聯繫您的門戶網站管理員。</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>歡迎來到ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>門戶網站管理員邀請您作為訪客用戶進入門戶網站。</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>開始工作</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>歡迎來到ONLYOFFICE！</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>您尚未設置任何密碼。您稍後可以使用“忘記密碼了？”進行操作。門戶登錄頁面上的連結。你確定你要繼續嗎？</value>
+  </data>
+</root>

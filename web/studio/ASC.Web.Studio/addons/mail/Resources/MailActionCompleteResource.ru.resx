@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContactSuccess" xml:space="preserve">
+    <value>Новый контакт успешно добавлен.</value>
+  </data>
+  <data name="AddMailboxSuccess" xml:space="preserve">
+    <value>Почтовый ящик "{0}" успешно добавлен.</value>
+  </data>
+  <data name="AddMailGroupSuccess" xml:space="preserve">
+    <value>Почтовая группа "{0}" успешно добавлена.</value>
+  </data>
+  <data name="clearFolder" xml:space="preserve">
+    <value>Папка %folder% была очищена.</value>
+  </data>
+  <data name="deleteFilteredConversations" xml:space="preserve">
+    <value>Все выбранные цепочки писем были удалены.</value>
+  </data>
+  <data name="deleteFilteredMessages" xml:space="preserve">
+    <value>Все выбранные письма были удалены.</value>
+  </data>
+  <data name="DeleteManyContacts" xml:space="preserve">
+    <value>Удалено контактов: %count%</value>
+  </data>
+  <data name="deleteManyConversations" xml:space="preserve">
+    <value>%count% цепочек писем было удалено.</value>
+  </data>
+  <data name="deleteManyMessages" xml:space="preserve">
+    <value>%count% писем было удалено.</value>
+  </data>
+  <data name="DeleteOneContact" xml:space="preserve">
+    <value>Контакт удален.</value>
+  </data>
+  <data name="deleteOneConversation" xml:space="preserve">
+    <value>Цепочка писем была удалена.</value>
+  </data>
+  <data name="deleteOneMessage" xml:space="preserve">
+    <value>Письмо было удалено.</value>
+  </data>
+  <data name="EditContactSuccess" xml:space="preserve">
+    <value>Контакт успешно отредактирован.</value>
+  </data>
+  <data name="moveFilteredConversationsTo" xml:space="preserve">
+    <value>Все выбранные цепочки писем были перемещены в папку %folder%.</value>
+  </data>
+  <data name="moveFilteredMessagesTo" xml:space="preserve">
+    <value>Все выбранные письма были перемещены в папку %folder%.</value>
+  </data>
+  <data name="moveManyConversationsTo" xml:space="preserve">
+    <value>%count% цепочек писем было перемещено в папку %folder%.</value>
+  </data>
+  <data name="moveManyMessagesTo" xml:space="preserve">
+    <value>%count% писем было перемещено в папку %folder%.</value>
+  </data>
+  <data name="moveOneConversationTo" xml:space="preserve">
+    <value>Цепочка писем была перемещена в папку %folder%.</value>
+  </data>
+  <data name="moveOneMessageTo" xml:space="preserve">
+    <value>Письмо было перемещено в папку %folder%.</value>
+  </data>
+  <data name="RemoveDomainSuccess" xml:space="preserve">
+    <value>Домен "{0}" успешно удален.</value>
+  </data>
+  <data name="RemoveMailboxSuccess" xml:space="preserve">
+    <value>Почтовый ящик "{0}" успешно удален.</value>
+  </data>
+  <data name="RemoveMailGroupSuccess" xml:space="preserve">
+    <value>Почтовая группа "{0}" успешно удалена.</value>
+  </data>
+  <data name="restoreFilteredConversations" xml:space="preserve">
+    <value>Все выбранные цепочки писем были восстановлены.</value>
+  </data>
+  <data name="restoreFilteredMessages" xml:space="preserve">
+    <value>Все выбранные письма были восстановлены.</value>
+  </data>
+  <data name="restoreManyConversations" xml:space="preserve">
+    <value>%count% цепочек писем было восстановлено.</value>
+  </data>
+  <data name="restoreManyMessages" xml:space="preserve">
+    <value>%count% писем было восстановлено.</value>
+  </data>
+  <data name="restoreOneConversationTo" xml:space="preserve">
+    <value>Цепочка писем была восстановлена в папке %folder%.</value>
+  </data>
+  <data name="restoreOneMessageTo" xml:space="preserve">
+    <value>Письмо было восстановлено в папке %folder%.</value>
+  </data>
+  <data name="updateMailboxSuccess" xml:space="preserve">
+    <value>Почтовый ящик "{0}" успешно обновлен.</value>
+  </data>
+  <data name="updateMailGroupSuccess" xml:space="preserve">
+    <value>Почтовая группа "{0}" успешно обновлена.</value>
+  </data>
+</root>

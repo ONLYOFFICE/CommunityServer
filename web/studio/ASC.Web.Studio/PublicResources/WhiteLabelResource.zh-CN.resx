@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BrowserNoCanvasSupport" xml:space="preserve">
+    <value>您的浏览器不支持HTML5 canvas标签。</value>
+  </data>
+  <data name="CompanyNameForCanvasLogo" xml:space="preserve">
+    <value>公司名称</value>
+  </data>
+  <data name="ErrorFileNotImage" xml:space="preserve">
+    <value>未知的图片类型</value>
+  </data>
+  <data name="ErrorImageSize" xml:space="preserve">
+    <value>图像尺寸超过允许的参数</value>
+  </data>
+  <data name="HelpAnswerWhiteLabelSettings" xml:space="preserve">
+    <value>显示Retina显示屏的尺寸。对于具有标准分辨率的显示器，上传时，标签宽度和高度将相应调整。</value>
+  </data>
+  <data name="HelpAnswerWhiteLabelSettingsForPaid" xml:space="preserve">
+    <value>该功能{0}设置门户网站标志{1}只提供给付费的门户网站。</value>
+  </data>
+  <data name="LogoDark" xml:space="preserve">
+    <value>关于/登录页面的标志</value>
+  </data>
+  <data name="LogoDocsEditor" xml:space="preserve">
+    <value>编辑器标题的标志</value>
+  </data>
+  <data name="LogoFavicon" xml:space="preserve">
+    <value>Favicon</value>
+  </data>
+  <data name="LogoLightSmall" xml:space="preserve">
+    <value>门户标头的标志</value>
+  </data>
+  <data name="LogoSettings" xml:space="preserve">
+    <value>门户标志设置</value>
+  </data>
+  <data name="LogoUploadRecommendation" xml:space="preserve">
+    <value>我们建议您使用透明背景的{0}PNG{1}格式的图像</value>
+  </data>
+  <data name="SuccessfullySaveWhiteLabelSettingsMessage" xml:space="preserve">
+    <value>白标签设置已成功保存</value>
+  </data>
+  <data name="UseAsLogoButton" xml:space="preserve">
+    <value>用作标志</value>
+  </data>
+</root>

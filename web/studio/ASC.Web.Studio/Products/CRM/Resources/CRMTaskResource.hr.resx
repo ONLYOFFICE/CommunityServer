@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Napravite novi zadatak</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>datum krajnjeg roka</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkazati</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Zatvoren zadatak</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Poveznica sa kontaktom</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Napravite prvi zadatak</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Dodaj zadatak</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Određeni period</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Ostali korisnici</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Obriši zadatak</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>datum krajnjeg roka</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Uredi zadatak</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Popis zadataka je prazan</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Otiđi do liste zadataka</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Moji zadaci</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Zatvoren</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Otvori</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Prekoračen rok</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Odgovoran</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Spremanje zadatka</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Zadatak</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Kategorije zadataka</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Kategorija zadatka</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Telefonski poziv</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Prilika</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Kontrola izvršenja</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Ručak</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Sastanak</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Zabilješka</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Dostava</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Društvene mreže</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Zahvalnica</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Opis zadatka</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Dodijeli</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Zadaci</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Status zadatka</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Zatvoren</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Otvoreno</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Naslov zadatka</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Nadolazeći</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 dana</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vrijeme</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danas</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Danas</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tjedan</value>
+  </data>
+</root>

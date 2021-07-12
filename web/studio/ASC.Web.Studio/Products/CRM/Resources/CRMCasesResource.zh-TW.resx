@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>保存並創建新案例</value>
+  </data>
+  <data name="AllCases" xml:space="preserve">
+    <value>全部案件</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>案件</value>
+  </data>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>權限將設置為您是作者的情況</value>
+  </data>
+  <data name="CasesByStatus" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>案件參與者</value>
+  </data>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>案件參與者</value>
+  </data>
+  <data name="CasesTag" xml:space="preserve">
+    <value>案例標籤</value>
+  </data>
+  <data name="CasesTagList" xml:space="preserve">
+    <value>案件標簽清單</value>
+  </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>案件標籤</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>結束案件</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>正在創建案例...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>建立第一個案件</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>建立新的案件</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>刪除案件</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>案件刪除中</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>編輯案件</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>編輯«{0}»案件</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>通過案例，您可以將所有通信歷史記錄保存在同一位置，分配任務，為參加共同事件的聯繫人上載文檔。例如，它可以是團隊培訓或展覽組織。</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>此部分中不會顯示與您的過濾器匹配的案例。請選擇其他過濾器選項或清除過濾器以查看此部分中的所有情況。或者，如果列表中沒有該案例，則可以創建該案例。</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>這裡沒有要顯示此過濾器的案例</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>案件清單為空</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>參與者列表為空</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>從公司或個人列表中將參與者添加到您的案例中。完成此操作後，您將知道誰將參加與此案相關的即將發生的事件。</value>
+  </data>
+  <data name="ImportCases" xml:space="preserve">
+    <value>輸入案件</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>應在計算機硬碟上選擇格式正確的CSV文件。它必須包含由選定定界符分隔的字段或列，這些定界符或列將用於導入案例。包含多於{0}行的文件應分成較小的部分以便正確導入。確保選擇了需要授予存取權以導入信息的門戶網站用戶，否則CSV文件中的數據將對所有門戶網站用戶可用。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>在導入案例之前，請選擇一個CSV文件並設置存取權限</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>將文件列與相應的ONLYOFFICE™CRM字段匹配。請注意以下事實：要正確導入案例，您的文件中至少需要有一列與ONLYOFFICE™CRM的“案例標題”字段匹配。包含日期的字段必須具有以下格式：{0}。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>請驗證字段</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>移至案件清單</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>案例的導入可能需要幾分鐘，取決於您的數據量。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>導入已開始</value>
+  </data>
+  <data name="MembersCase" xml:space="preserve">
+    <value>案件參與者</value>
+  </data>
+  <data name="OpenCase" xml:space="preserve">
+    <value>開啟案例</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>參加者</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>限制案件存取</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>儲存變更</value>
+  </data>
+  <data name="ShowCaseProfile" xml:space="preserve">
+    <value>移至個人資料</value>
+  </data>
+  <data name="ShowCaseProfileNewTab" xml:space="preserve">
+    <value>在新標籤頁中打開</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>開始匯入</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>全部案件</value>
+  </data>
+</root>

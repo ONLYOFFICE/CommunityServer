@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Mengisi Formulir</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Pemilik</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Baca Saja</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Akses Penuh</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Tolak Akses</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Ulasan</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Bervariasi</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arsip</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Penyusun</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Tidak ada subfolder</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Semua file</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Gambar</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>Dalam konten</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Mencari</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Presentasi</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Spreadsheet</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Tipe</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Tampilkan selengkapnya {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Mengunggah...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Tampilkan {0} selengkapnya dari {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Penyusun</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Tanggal pembuatan</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Tanggal terakhir diubah</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Ukuran</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Tipe</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Kode telah disalin ke clipboard</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Anda yakin ingin menghapus {0} dari modul 'Dokumen'? Ini tidak akan berpengaruh pada akun {1} Anda.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Anda yakin ingin mengosongkan recycle bin?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Anda yakin ingin menutup halaman ini? Unduhan file akan dihentikan.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Anda akan menghapus file ini? Harap dicatat, bahwa jika Anda telah membaginya dengan seseorang, menjadi tidak tersedia. Apakah anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Anda akan menghapus folder ini? Harap dicatat, bahwa jika Anda telah membaginya dengan seseorang, menjadi tidak tersedia. Apakah Anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Anda yakin ingin menghapus elemen tersebut?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Anda akan memindahkan elemen dari direktori {1}. Dalam kasus seperti ini, mereka akan dihapus dari akun {1} Anda dan tidak akan lagi dapat diakses oleh pengguna lain, jika elemen-elemen ini sebelumnya telah dibagikan. {0} Anda yakin ingin memindahkan elemen?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Dokumen Umum</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Format khusus</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Departemen</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Mengarsipkan Data</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Ubah data</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Menyelesaikan versi</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Pembuatan</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Tandatangan via DocuSign</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Memuat versi...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Tandai Telah Dibaca</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Pindah</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Menghapus...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Ganti nama</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Memperbarui versi</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Mempersiapkan file untuk enkripsi</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Sedang enkripsi file</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Menyimpan file enkripsi</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Tandatangan dokumen ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Pilih minimal satu folder/dokumen untuk diunduh</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Tuliskan komentar</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Anda tidak dapat mengunggah folder atau file kosong</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Konversi Error</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Semua kolom harus diisi</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Ukuran file melebihi batas maksimal</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Anda harus login untuk menambahkan</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Maaf, format file ini tidak didukung</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Password yang Anda masukkan salah. Silakan coba lagi</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Silakan tunggu unduhan sebelumnya selesai atau batalkan unduhan</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk menjalankan pengoperasian </value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Anda tidak dapat melakukan tindakan tersebut di folder ini</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Judul tidak boleh terdiri dari karakter berikut ini: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Penyimpanan portal telah kehabisan ruang kosong. Anda tidak dapat mengunggah file yang lebih besar dari {0}.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Sudah ada file dengan nama {0} di dalam folder {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Dikonversi</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Mengkonversi</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} dokumen dengan nama yang sama di dalam folder '{1}'. Timpa file?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Diunggah</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Mengunggah</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Direktori Box</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>Akun DocuSign</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Direktori Dropbox</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Direktori Google</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>Direktori SharePoint</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>Direktori OneDrive</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>Direktori WebDAV</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Direktori Yandex</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Sekarang '{0}' adalah pemilik '{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Sekarang '{0}' adalah pemilik {1} item</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' diubah</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Salin {1}{0}{2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} elemen disalin</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' disalin</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} elemen</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>File baru '{0}' telah dibuat</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>File '{0}' yang baru telah dibuat di '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Folder Baru '{0}' telah dibuat</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Anda tidak dapat menyalin folder ke sub-foldernya</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Anda tidak dapat memindahkan folder ke sub-foldernya</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Anda tidak memiliki hak akses untuk memindahkan beberapa file</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Pindah {1}{0}{2}</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>{0} elemen dipindahkan</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' dipindahkan</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Dokumen '{0}' telah dihapus</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Folder '{0}' telah dihapus</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>{0} dari {1} berhasil dihapus </value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Pihak Ketiga '{0}' telah dihapus</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Nama dokumen '{0}' diganti menjadi '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Nama folder '{0}' diganti menjadi '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' ditambahkan ke '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} dokumen berhasil diunggah</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Dokumen Saya</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Format asli</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Presentasi</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Gagal mengunggah file {0} untuk ditampilkan</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Dokumen Proyek</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>revisi: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Anda telah diberikan akses ke dokumen {0}. Klik tautan di bawah untuk membuka dokumen sekarang: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Anda telah diberikan akses ke dokumen {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Tambahkan pengguna atau grup dan beri izin {0} untuk membaca, meninjau, atau menyunting dokumen.</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Spreadsheet</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Mengarsipkan Data</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Menyalin</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Menghapus</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Tandai Telah Dibaca</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} pengoperasian</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Pindah</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Ubah pengaturan koneksi {0}</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Sekarang sedang diedit</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Sekarang sedang diedit oleh: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Dikunci</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Dikunci oleh: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Fitur Lain</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Presentasi Baru</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Spreadsheet Baru</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Dokumen baru</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Folder Baru</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Pengaturan Umum</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Bantuan</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Hubungkan akun</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Error tidak diketahui...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Selesai mengunggah</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Mengunggah ...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Mengunggah file {0} ({1}% selesai)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} dari {1} digunakan</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Pengguna</value>
+  </data>
+</root>

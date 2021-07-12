@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Vissa input parametrar är ogiltiga.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Tillgång till dokumentet nekas.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Dokumentet hittades ej eller fins ej på den valda lagringsplatsen.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Tomma filer stöds inte.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Meddelandet hittades ej.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Den totala storleken av alla bilagor överskrider gränsen.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Ett oförutsägbart fel har inträffats. Vänligen försök igen senare.</value>
+  </data>
+  <data name="CreatingLinkHeader" xml:space="preserve">
+    <value>Skapar länk</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>Detta meddelandet skapades automatiskt av en programvara för mejlleverans.</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>Ändra ditt meddelande</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>Om felet kvarstår, vänligen läs {url_begin}FAQ sektionen{url_end} för att lära dig mer om problemet.</value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>Leverans misslyckades för meddelandet med ämnet "{subject}" från den {date}.</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>Anledning</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>Meddelandet kunde ej levereras ej till mottagare/mottagarn</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>Vänligen kontrollera dina mottagares adresser samt formatet av meddelandet. Om du är säker på att ditt meddelande är korrekt, kontrollera alla {account_name} kontoinställningar, och, om allting är korrekt, logga in till mejltjänsten du använder och bekräfta alla eventuella kontrollfrågor. Försök igen efter detta.</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>Meddelandeleverans misslyckades</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Detta fält kan inte vara tomt</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>Inkorrekt epostadress i %1 fältet</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Etiketten %1 finns redan</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>Etikettnamnet kan inte var tomt</value>
+  </data>
+  <data name="ErrorUserFoldeNameCantBeEmpty" xml:space="preserve">
+    <value>Mappnamnet kan inte vara tomt</value>
+  </data>
+  <data name="ErrorUserFolderNameAlreadyExists" xml:space="preserve">
+    <value>Mappen %1 finns redan</value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>Bcc</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>Till</value>
+  </data>
+  <data name="FinishedHeader" xml:space="preserve">
+    <value>Färdiga</value>
+  </data>
+  <data name="GetAttachmentsHeader" xml:space="preserve">
+    <value>Hämta bilagor</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>Timeout på IMAP serveranslutning.</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>IMAP svar:</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>POP3 serveranslutning</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>POP3 svar:</value>
+  </data>
+  <data name="PreparationArchiveHeader" xml:space="preserve">
+    <value>Gör arkivet klart</value>
+  </data>
+  <data name="SetupTenantAndUserHeader" xml:space="preserve">
+    <value>Inställning innehavare och användare</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>Timeout på SMTP serveranslutning.</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>SMTP svar:</value>
+  </data>
+  <data name="ZippingAttachmentsHeader" xml:space="preserve">
+    <value>Komprimerar bilagor</value>
+  </data>
+</root>

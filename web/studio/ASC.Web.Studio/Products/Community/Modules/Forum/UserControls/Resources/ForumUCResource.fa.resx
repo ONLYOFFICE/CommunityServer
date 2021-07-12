@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CancelButton" xml:space="preserve">
+    <value>انصراف</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>الحاق فایل</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>پیام</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>یک نام وارد کنید</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>اضافه کردن پست جدید</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>باز</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>پست ها</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>انتشار</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>سوال خود را وارد کنید</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>نقل قول</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>پاسخ</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>برچسب ها</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>دیروز</value>
+  </data>
+</root>

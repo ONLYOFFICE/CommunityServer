@@ -1,0 +1,910 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>账户连接错误。</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>若错误仍存在，请阅读{0}常问问题部分{1}，了解问题详情。</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>账户连接错误</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>帐户设置</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Google账户已成功重新连接</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>该账户使用OAuth连接，编辑有限。</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>帐户</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>您要激活 %1 吗？</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>添加账户</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>您想现在添加您的第一个邮件账户吗？</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>您无任何邮件账户关联到ONLYOFFICE™邮件。请添加您的邮件账户，开始接收和发送电子邮件。</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>添加新账户，开始使用ONLYOFFICE™电邮。</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>邮件服务器</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(别名)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>%mailbox_address%邮箱别名，仅可在管理面板进行编辑</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>和</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>一些输入参数无效。</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>文档访问权限被拒。</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>所选存储中找不到或文档不存在。</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>不支持空文件。</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>某些服务（如Gmail）可能不允许执行文件</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>注意：单个附件大小不能超过 %1 MB。所有附件的总大小不能超过 %2 MB。</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>消息找不到。</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>所有附件的总大小超过限制。</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>发生了一些意外错误。请稍后重试。</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0}邮件账户长时间无法连接，必须被禁用。{1}请检查您输入的所有账户设置，或登录到您使用的邮件服务，并检查安全设置。当您确定账户连接的所有问题均得到解决时，您可以随时在已连接的账户列表中启用。</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>由于连接错误，邮件账户已被禁用。</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>邮件账户被禁用</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>{0}邮件账户的发送和接收操作有问题。{1}原因可能是您更改了账户密码。请检查您输入的所有账户设置，或登录您使用的邮件服务，并检查安全设置。</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>连接到账户时出错。</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>议程表</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>无更晚的活动</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>无更早的活动</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>所有天</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>前一天</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>日历</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>地图</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>无位置</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>组织方</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>参与者</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>复发</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>可能</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>地点</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>人物</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>修改账户设置</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>选择标签</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>折叠全部</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>通用设置</value>
+  </data>
+  <data name="ContainsLabel" xml:space="preserve">
+    <value>包含</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>此对话包含可能包含隐藏图像的折叠消息。 您要打印吗？</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>此会话包含目前无法显示的图像。您要打印吗？</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>复制文件时出错</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>复制到我的文档文件夹</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>创建联系人</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>创建邮箱</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>我们为您提供现成的免费默认域名，以便您立即创建新邮箱。</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>该域名对于所有门户通用，因此建议您的公司域名用于共你说电子邮件通讯</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>创建邮箱</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>创建新联系人</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>在CRM中新建客户企业</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>在CRM中新建客户联系人</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>创建个人联系人</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM联系人</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>您确定要停用 %1 吗？</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>您的部分账户无法接收邮件。</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>此账户用于默认发送邮件</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>您确定要删除 %1 吗？</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>您确定想删除%1标签吗？</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>删除邮件</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>请检查您的邮件收件人地址和邮件格式。若您确信信息无误，请查看所有{account_name}账户设置。若一切正确，请登录您使用的邮件服务，并确认任何验证问题，以防出现任何问题。之后再试一次。</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>若错误仍存在，请阅读{faq_link_open_tag}常问问题部分{faq_link_close_tag}，以了解关于此问题的更多信息。</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>消息“{subject}”传送失败。</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>消息传送失败。</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>邮件账户已被禁用。</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>邮件账户已被禁用</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>您的门户网站尚未使用很长时间，因此连接到ONLYOFFICE™Mail的邮件账户已被禁用。若您仍然想使用它们，请转到您的账户页面并重新启用它们。</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>编辑联系人</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>将附件上传到所选文件夹失败。</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>附件错误</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>所选“附件”文件夹无法访问，并与您的{account}邮件账户取消关联。请检查您是否拥有所选文件夹的充足访问权限，并将其重新关联。</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>所选“附件”文件夹无法访问，并与您的{account}邮件帐户取消关联。 请检查所选文件夹是否存在，并将其重新链接。</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>撰写第一稿</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>草稿部分可让您创建和排序可以稍后发送给不同人员的邮件。在这里，您可以勾选最重要的消息或删除不必要的消息。</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>该文件夹在此处无显示的消息</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>撰写新消息</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>收件箱部分可让您管理收到的邮件。在这里，您可以看到通讯历史记录，勾选最重要的消息，按标签分类电子邮件或删除不必要的邮件。</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>未收到任何消息</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>设置第一个账户</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>设置账户，以便在门户上发送、接收和保留您的消息。随时随地通过任何浏览器访问邮件历史记录、联系人和文件。使用自己的标签排序邮件。为现成的免费默认域创建邮箱。</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>尚未设置任何账户</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>前往CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>此联系人列表将包含来自CRM的所有客户</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>联系人列表为空</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>此联系人列表将显示通讯录中的所有私人联系人。您尚未输入任何联系人。</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>创建新邮件标签</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>您需要先创建一个标签，然后再使用它</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>未创建标签</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>撰写新消息</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>“已发送”部分可让您管理发送的消息。在这里，您可以勾选最重要的邮件，按类别分组邮件或删除不必要的邮件。</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>尚未发送任何消息</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>垃圾邮件部分包含您标识为垃圾邮件的邮件。在这里，您可以删除电子邮件，将其分类为“非垃圾邮件”或删除整个部分。</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>该文件夹在此处无显示的消息</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>“垃圾箱”部分包含已删除的消息。在这里，您可以恢复一些电子邮件或永久删除。</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>该文件夹在此处无显示的消息</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>邮件自动回复已启用</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>此帐户已存在</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>日历无法访问</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>空值</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>请填写“收件人”</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>邮件地址不正确</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>邮件地址不正确</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>未选择邮箱</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>哎呀，出错了！</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>未选择用户</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>尝试打开此消息时出错。</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>请刷新页面，然后再次尝试打开此消息。若问题仍然存在，请{0}联系我们的客服团队。{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>对于不便之处，我们深表歉意，但邮件无法载入ONLYOFFICE™Mail。使用添加为附件的原始邮件副本，并使用任何可用的邮件客户端软件或{0}与我们的客服联系。{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>此电话号码已存在</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>%1标签已存在</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>不支持的文件格式</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>若想重新关联此账户，请从“设置&gt;账户管理”页面上的关联账户列表中先删除该账户。</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>现有账户</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>展开全部</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>将消息导出到CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>邮件导出错误</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>到处消息时出错。</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>您尝试导出的消息已与所选的CRM项目相关联。</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>成功完成导出消息到CRM联系人历史</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>添加标签</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>温度水平</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>自定义时间段</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>企业</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>温度水平</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>未指定</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>发件人</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>紧急</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>自定义时间段</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>按时期</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>上周</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>人员</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>已读</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>发送给</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>未读</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>有附件的</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>有日历</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>有商机的</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>包含标签...</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>转发</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>转发邮件</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>发送自</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>您可以{0}或在{1}中修改它</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>前往{0}，启用它们。</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>前往日历</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>前往活动</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>小组无法设置为默认邮箱</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>始终隐藏图像，来自</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="IfLabel" xml:space="preserve">
+    <value>如果</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>该账户已成功连接。</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>过去30天的所有邮件将被导入。</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>消息导入正在进行中。可能需要一些时间。您可以关闭此窗口并继续使用邮件，或甚至关闭浏览器。导入将在后台继续。</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>紧急</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>以前使用其他服务接收到的某些消息可能无法被导入。请阅读{0}常问问题{1}了解详情。</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>若导入邮件时出错，请阅读{0}常问问题部分{1}了解详情。</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>通过链接插入</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>关联对话到CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>将会话与CRM联系历史关联成功完成</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>对话链接错误</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>将对话连接到CRM时出错。</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>所选的CRM项目不再可用，或连接已丢失。请验证所选的CRM项目位置，并检查您的网络连接。若错误仍存在，请联系您的门户网站管理员。</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>加载附件...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>邮件自动回复</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>正在新建邮箱...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>邮箱更新...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>管理账户</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>管理签名</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>标记全部收件人电邮</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>标记所有发件人电邮</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>此消息包含此时无法显示的图像。您想继续吗？</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>无图像继续</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>此消息包含此时无法显示的图像。您想打印吗？</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>确认无图像打印</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>该消息尚未发送。您确定要删除吗？</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>多%1</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>更多详情</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>正在转移邮件</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>新建帐户</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>新邮件</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>无需进一步操作。</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>无与您的筛选条件匹配的消息可以显示在此文件夹中。请选择其他筛选条件选项或清除筛选条件以查看此文件夹中的所有消息。</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>该筛选条件在此处无显示的消息</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>无主题</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>不重要</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>这不是垃圾邮件</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>正在获取默认域设置...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="OrLabel" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>草稿</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>转发</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>个人联系人</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>打印全部</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>打印</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>您的门户网站上超出了可用的磁盘存储空间。并非所有邮件均可加载，也不会发送新邮件。请从收件箱中删除一些邮件，或从文档模块中删除一些文件。此外，您还可以更改定价计划，以获得更多的可用磁盘空间。</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>超出可用的磁盘存储空间</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[引用文本被隐藏]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>已读</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>您确定要清空垃圾邮件箱吗？</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>您确定要清空回收站吗？</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>电子邮件文件夹重置失败。</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>电子邮件文件夹重置成功。</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>无与您的筛选条件匹配的CRM联系人可以在此页面上显示。请选择其他筛选条件选项或清除筛选条件以查看所有CRM联系人。</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>此处无显示此筛选条件的CRM联系人</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>重置筛选</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>未找到与所选筛选条件匹配的联系人。请选择其他筛选条件或清除此筛选条件以查看所有联系人。</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>没有与此筛选条件匹配的联系人</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>没有与您的筛选条件匹配的门户联系人可以在此页面上显示。请选择其他筛选条件选项或清除筛选条件以查看所有门户联系人。</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>此处无显示此筛选条件的门户联系人</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>恢复</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>正在恢复邮件</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>它已成功在我的文档中保存了%real_count% from %count%。</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>保存失败。</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%'已成功保存于日历。</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' 已成功保存于'%folder_name%'。</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>正在保存邮件</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>此账户已停用。 请激活此账户或选择其他账户。</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>正在发送邮件</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>服务器邮箱，仅在管理面板中编辑</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>电子邮件收件夹设置失败。</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>电子邮件收件夹设置成功。</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>设置为默认值并用于发送邮件</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>分享文件设置</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>此签名将在该账户所有邮件的末尾添加。您可以写下您的姓名、联系人或口号。</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>垃圾邮件</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>正在保存标签...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>从CRM导入。您无法在此处编辑或删除此标签。</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>本站用户</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>发送给</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>联系人总数</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>从CRM取消关联</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>未读</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>使用签名</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>有附件的</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>无标签的</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>包含标签...</value>
+  </data>
+</root>

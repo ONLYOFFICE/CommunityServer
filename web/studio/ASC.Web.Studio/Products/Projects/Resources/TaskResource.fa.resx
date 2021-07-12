@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>پذیرش وظیفه</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>پذیرش</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>اضافه کردن</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>ایجاد زیروظیفه جدید</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>افزودن وظیفه جدید</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>افزودن زیر وظیفه</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>افزودن وظیفه جدید</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>همه وظایف</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>واگذار شده به</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>تغییر وضعیت</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>انتخاب پروژه</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>بسته شده</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>بسته شده توسط</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>ایجاد شده توسط</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>تاریخ ایجاد</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>ویرایش وظیفه</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>زیاد</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>مرحله</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>انتقال وظیفه به یک مرحله دیگر</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>هیچ کس</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>هیچ وظیفه ای هنوز ایجاد نشده است</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>باز</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>اولویت</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>پروژه</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>آیا مطمئن هستید که می خواهید این وظیفه را حذف کنید؟</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>وظیفه</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>شرح وظیفه</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>ایجاد کننده</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>واگذار شده به</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>وظایف</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>عنوان وظیفه</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>هیچ کس</value>
+  </data>
+</root>

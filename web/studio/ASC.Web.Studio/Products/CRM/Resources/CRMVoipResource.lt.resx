@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Pridėti operatorių</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>Pridėti operatorius</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Pridėti melodiją</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Pseudonimas</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0}Pseudonimas{1} leidžia identifikuoti numerį kokios nors žodžio ar frazės pagalba (pvz., techninė pagalba, pardavimai, ir pan.). Jis bus matomas virtualių numerių sąraše.</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Įrašykite numerio pavadinimą</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Pirkti telefono numerį</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Numerio pirkimas</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Skambinti</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Agentas</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Klientas</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Kaina</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Data/laikas</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Trukmė</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Tipas</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Laukimo laikas</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>Numeris bus išsaugotas Twilio, bet neprieinamas šiam portalui</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Pašalinti numerį</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Pašalinti numerį</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Pašalinti melodiją</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Nusipirkite naują IP telefonijos numerį, kad galėtumėte jį pridėti į ONLYOFFICE portalą. Tai atlikę, galėsite naudoti šį telefono numerį su portalo CRM.</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Pastaba: telefono numeriai, kuriuos jau turite Twilio tinklapyje, negali būti perkelti į portalą.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Kol kas nėra pridėta jokių IP telefonijos numerių</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Bendrieji nustatymai</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Pasisveikinimo melodijos</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>{0}Įeinančių skambučių eilė{1} rodo įeinančių skambučių, priskirtų šiuo metu prieinamiems operatoriams, skaičių. Jei įeinančių skambučių skaičius viršija eilės dydį, skambučiai bus nukreipiami į balso pašto tarnybą.</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>Įeinančių skambučių eilės ilgis</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>Po susiejimo, visi skambučiai bus nukreipiami per portalą.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Susieti nupirktą numerį</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Numerio susiejimas</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>Numeris sėkmingai susietas</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Duomenys įkeliami. Prašome palaukti.</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>Deja, nėra prieinamų numerių. Pabandykite vėliau.</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>Dar neturite numerių.</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>Jūs dar neturite numerių. Juos galite įsigyti {0}čia{1}.</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>Tokių numerių nerasta</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Numerio operatoriai</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>Galite juos nustatyti {0}čia{1}.</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Jūsų turimi numeriai</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Operatorius</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Operatoriaus pauzė</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Išjungta</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0}Operatoriaus pauzė{1} leidžia suteikti operatoriui šiek tiek laiko prieš atsiliepiant į kitą skambutį. Šis laikas gali būti skirtas pastaboms apie paskutinį pokalbį pasižymėti ir pan.</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Įjungta</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Išeinantys skambučiai</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Eilės melodijos</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Greiti nustatymai</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0}Greiti nustatymai{1} naudojami norint greitai įjungti ar išjungti išeinančių skambučių įrašymą numeriui, o taip pat nustatyti darbo laiką, kada numeris bus pasiekiamas klientams.</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Skambučio įrašas</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>Pokalbių įrašai išsaugoti WAV formatu. Jūsų naršyklė nepalaiko WAV formato garso failų, t.y. Jūs negalėsite perklausyti šių įrašų.</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>Naršyklių, palaikančių šią funkciją, sąrašas yra {0}čia{1}</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Melodijų sąrašas</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Melodijos nustatymas</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0}Melodijos nustatymas{1} naudojamas perklausiti ir keisti melodijas, kurios dabar nustatytos skirtingoms telefoninėms operacijoms.</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0}Įkeliamos melodijos rekomendacijos{1}: Failo dydis neturi viršyti 5 Mb. Palikomas formatas: MP3.</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Paieška</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Numerio nustatymas</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Nenurodyta</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Atnaujinti nustatymus</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Virtualūs numeriai</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Virtualūs numeriai ir operatoriai</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0}Virtualūs numeriai{1} naudojami bendravimui su CRM klientais IP telefonijos per Twilio pagalba.</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>Balso paštas</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Balso pašto melodijos</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Laukimo melodija</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>Laukimo pertrauka</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 minučių</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 minučių</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 minutės</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0}Laukimo laikas{1} rodo laiką, kurį klientas lauks operatoriaus atsakymo. Kai šis laikas bus viršytas, klientas bus nukreiptas į balso pašto tarnybą.</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Darbo valandos</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Nekorektiškas intervalas</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Įrašykite laiką ##:## formatu</value>
+  </data>
+</root>

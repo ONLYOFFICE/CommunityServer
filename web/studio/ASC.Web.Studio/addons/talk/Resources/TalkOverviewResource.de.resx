@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Die Kontaktliste wird automatisch aktualisiert, sobald Mitarbeiter hinzugefügt bzw. entfernt werden. Sie brauchen nicht die Liste manuell zu prüfen.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Benachrichtigung im Browser</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Chatroom</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Chat-Registerkarten</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Kontaktliste mit Einstellungen</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Standardmäßig werden alle Benachrichtigungen an Ihre E-Mail-Adresse und in Chat versandt. Sie können diese hier konfigurieren:</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Gesendete Dateien löschen</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Kontaktliste, die in Gruppen vereinigt</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>hier</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Offline-Kontakte ausblenden</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Mailing</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Weitere Informationen zur Benachrichtigung finden Sie hier{0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Einstellen der Benachrichtigung</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Chat ist ein unternehmensinternes Instant-Messenger-System zum Austauschen der Sofortnachrichten unter den Mitarbeitern.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Chat bietet Ihnen alle traditionellen Funktionen eines Messengers: Auswahl des Status, Speicherung der Historie, Übertragung der Dateien, Mehr-Benutzer-Unterstützung und viel mehr.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Chat-Übersicht</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Führen Sie unseren Webclient aus, um den Chat sofort ohne vorherige Einstellung zu benutzen.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Profilseite</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Nachrichten per Ctrl+Enter senden</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Einstellungen des Eingabefelds</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Webclient ausführen</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Keine zusätzlichen Einstellungen! Klicken Sie hier, um Webclient auszuführen und Sofortnachrichten zu senden.</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Der Subscription Bereich auf {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Tonbenachrichtigungen für Ereignisse</value>
+  </data>
+</root>

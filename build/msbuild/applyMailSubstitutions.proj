@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy">
+
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.Xml.XmlMassUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CopyDirectory" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.RemoveDuplicatesAssemblies" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.RegexReplace" />
+  
+  <PropertyGroup>
+    <Configuration Condition="$(Configuration)==''">Debug</Configuration>
+    <RootDir Condition="$(RootDir)==''">..\..\</RootDir>
+    <DeployTo Condition="$(DeployTo)==''">localhost</DeployTo>
+    <DeployDir Condition="$(DeployDir)==''">$(RootDir)build\deploy\</DeployDir>
+    <MailFilesDir>$(DeployDir)MailFiles\</MailFilesDir>
+    <OutDir Condition="$(OutDir)==''">$(DeployDir)$(DeployTo)\</OutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <MailFiles Include="$(MailFilesDir)/Services/**/*" />
+  </ItemGroup>
+  
+  <Target Name="Deploy">
+    <Message Text="Deploy parameters:"/>
+    <Message Text="  DeployTo = $(DeployTo)"/>
+
+    <RemoveDir Directories="$(OutDir)" ContinueOnError="true" Condition="'$(LeaveOutDir)' != '0'" />
+
+    <Copy
+      SourceFiles="@(MailFiles)"
+      DestinationFolder="$(OutDir)/Services/%(MailFiles.RecursiveDir)"/>
+     
+    <CallTarget Targets="ChangeConfigs" Condition=" Exists( '$(MailFilesDir)Substitutions\' ) "/>
+
+  </Target>
+
+  <Target Name="ChangeConfigs">
+    <ItemGroup>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>    
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\web.consumers.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Consumers.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\web.storage.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\mail.agg.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\web.consumers.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Consumers.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\web.storage.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\mail.agg.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\mail.agg.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\ASC.Mail.Aggregator.CollectionService.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailAggregatorSrv\ASC.Mail.EmlDownloader.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Agg.Srv.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\ASC.Mail.Watchdog.Service.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Dog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Dog.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailWatchdog\mail.dog.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Dog.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\web.autofac.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Autofac.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\web.storage.config" >
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Web.Storage.Config.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\ASC.Mail.StorageCleaner.exe.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Cln.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.log4net.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Cln.Log4net.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+      <ConfigFiles Include="$(OutDir)Services\MailCleaner\mail.cln.nlog.config">
+        <SubstitutionsFile>$(MailFilesDir)\Substitutions\Mail.Cln.NLog.Substitutions.xml</SubstitutionsFile>
+      </ConfigFiles>
+
+      <ConfigFiles Remove="@(ConfigFiles)" Condition="!Exists('%(ConfigFiles.SubstitutionsFile)')"/>
+    </ItemGroup>
+
+    <RegexReplace Expression="(.+)\." Input="$(DeployTo)">
+      <Output PropertyName="Substitution" TaskParameter="Output"/>
+    </RegexReplace>
+
+    <XmlMassUpdate
+      Condition="$(Substitution) != $(DeployTo)"
+      ContentFile="%(ConfigFiles.FullPath)"
+      ContentRoot="/"
+      SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)"
+      SubstitutionsRoot="/configuration/substitutions/$(Substitution)"
+      NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity"/>
+    <XmlMassUpdate
+      ContentFile="%(ConfigFiles.FullPath)"
+      ContentRoot="/"
+      SubstitutionsFile="%(ConfigFiles.SubstitutionsFile)"
+      SubstitutionsRoot="/configuration/substitutions/$(DeployTo)"
+      NamespaceDefinitions="un=http://schemas.microsoft.com/practices/2010/unity"/>
+  </Target>
+
+</Project>

@@ -1,0 +1,30 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir Condition="$(RootDir)==''">..\..\..\</RootDir>
+    <MsbuildDir>$(RootDir)build\msbuild\</MsbuildDir>
+    <CopyrightDir>$(MsbuildDir)Copyright\</CopyrightDir>
+    <ChangeCopyright Condition="'$(ChangeCopyright)' == ''">0</ChangeCopyright>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(MsbuildDir)ASC.Web.Core.BuildTask.dll" TaskName="ASC.Web.Core.BuildTask.WriteCopyrightText" />
+
+  <Target Name="Build">
+    <CallTarget Targets="WriteCopyrightText" Condition=" '$(ChangeCopyright)' == '1' "/>
+  </Target>
+
+  <Target Name="WriteCopyrightText">
+    <!--
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)empty.txt" Ignore="file:$(CopyrightDir)Ignore.txt"/>
+    -->
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)NKTCopyright.txt" Ignore="file:$(CopyrightDir)Ignore.txt"/>
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)NKT.txt" Include="*AssemblyInfo.cs" Ignore="file:$(CopyrightDir)IgnoreSimple.txt" Replace="file:$(CopyrightDir)AscensioSystem.txt"/>
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)R7.txt" Include="*.license" Ignore="\common\ASC.Billing.Service\" Replace="file:$(CopyrightDir)Onlyoffice.txt"/>
+    <!--
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)NKT.txt" Include="file:include.txt" Ignore="file:$(CopyrightDir)IgnoreSimple.txt" Replace="file:$(CopyrightDir)AscensioSystem.txt"/>
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)R7Domain.txt" Include="file:include.txt" Ignore="file:$(CopyrightDir)IgnoreSimple.txt" Replace="file:$(CopyrightDir)OnlyofficeDomain.txt"/>
+    <WriteCopyrightText Writer="$(CopyrightDir)crwriter.exe" StartDirectory="$(RootDir)" CopyrightFile="$(CopyrightDir)R7.txt" Include="file:include.txt" Ignore="file:$(CopyrightDir)IgnoreSimple.txt" Replace="file:$(CopyrightDir)Onlyoffice.txt"/>
+    -->
+  </Target>
+
+</Project>

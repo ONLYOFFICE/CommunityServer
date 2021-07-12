@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>הוסף חדשות</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>תגוב על חדשות</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>עריכת חדשות</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>הודעות, סקרים וחדשות ברמת החברה</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>אירועים</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק אירוע זה?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>צור את ההודעה הראשונה</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>עין לא נוספו הודעות </value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>צור את האירוע הראשון</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>עדיין לא נוספו אירועים</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>עדיין לא נוספו חדשות</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>צור את עדכוני החדשות הראשונים</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>צור את ההזמנה הראשונה (צור את הסדר הראשון)</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>עדיין לא נוספו הזמנות</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>צור את הסקר הראשון</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>עדיין לא נוספו סקרים</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>צור אירועים משלך, פרסם הודעות חשובות, שתף את החדשות העדכניות ביותר והוסף סקרים לאיסוף דעות מהעובדים איתך ישירות בתוך הפורטל.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>הגישה נדחתה</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>הזן את שאלת הסקר שלך</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>הזן לפחות שתי תשובות אפשריות</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>האירוע נמחק בהצלחה</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>תצוגה מקדימה</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>חדשות</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>סקרים</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>הסתר</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>אירוע חדש</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>סקר חדש</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>הודעות</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>טקסט</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>כל האירועים/חדשות</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>כותרת</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>עריכת אירוע</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>עריכת סקר</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>הזמנות</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>סוג אירוע</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>תגובות לאירוע</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>אירועים חדשים</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>פרסם</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>שם המחבר</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>תצוגה מקדימה</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>חובה למלא שדה של כותרת</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>חיפוש אירועים</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>קבל עדכונים למייל על תגובות חדשות</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>בטל עדכונים למייל עבור תגובות</value>
+  </data>
+</root>

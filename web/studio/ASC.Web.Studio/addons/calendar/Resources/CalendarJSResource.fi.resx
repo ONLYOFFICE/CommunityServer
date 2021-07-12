@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Hyväksytty:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Yhdistä sähköpostitilit</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>kutsujen lähettämiseksi</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalenteri</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Tapahtuma</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Lisää uusi tapahtuma</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Luo</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>koko päivän</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Päivä</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Ajanjakso</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Kuukausi</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Viikko</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Luo uusi kalenteri</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Väri:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Muokkaa kalenteria</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Tekstin väri:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Aikavyöhyke:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Omat kalenterit</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Muut kalenterit</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Hallitse</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Lisää uusi tapahtuma</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minuuttia</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 tuntia</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>puoli tuntia</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minuuttia</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>oletusarvo</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>tunti</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Hälytys:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>ei koskaan</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Tämä on koko päivän tapahtuma.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Koko päivän kestävä tapahtuma</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Vieraat:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Aloita kirjoittamalla sähköpostiosoite tai kontaktin nimi henkilökohtaisesta rekisteristäsi, asiakasrekisteristä tai
+portaalin käyttäjistä tai käytä mitä tahansa sähköpostiosoitetta kutsumaan henkilöitä tapahtumaasi.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalenteri:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Kuvaus:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Yksityiskohdat</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Alkaen:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Luo uusi tapahtuma</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Muokkaa tapahtumaa</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Selaa tapahtumaa</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Paikka:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Lisätietoa</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Tämä tapahtuma ei kestä koko päivää.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Valinnainen</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organisoija:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Omistaja:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>mukautettu</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>joka päivä</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Toista:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>kuukausittain</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>ei koskaan</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>joka viikko</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>joka vuosi</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Tarvitaan</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Käyttäjät, joille tieto jaetaan</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Lisää käyttäjiä</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Tätä tapahtumaa ei ole jaettu.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>PERUUTETTU</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>VAHVISTETTU</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Tila:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>ALUSTAVA</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Tapahtuman nimi:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Asti:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Peru tilaus</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Ei näytettäviä tapahtumia.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Piilota minikalenteri</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Näytä minikalenteri</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d tapahtumat</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Lisää käyttäjät jakamista varten</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Näytä %d lisää käyttäjiä</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Jaettu:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Muokkaa kalenteria</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Omistaja:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Piilota luettelosta</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Pikahaku</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Hallitse muita kalentereita</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Kalenterinäkymä</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Luettelonäkymä</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Tapahtuma peruutettu</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Haluatko lähettää kutsut vieraille?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Lähetetään kutsut</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Älä lähetä</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Uudet ja poistetut vieraat</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Haluatko lähettää peruutukset nykyisille vieraille?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Lähetetään peruutukset</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Virhetilanne tapahtui lähetettäessä tiedonantoja</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Tiedonannot ovat lähetetty onnistuneesti</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Haluatko lähettää päivitykset nykyisille vieraille?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Lähetetään päivitykset</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Ole hyvä ja valitse kenelle haluat lähettää tiedonantoja päivityksistä: vain uudet ja poistetut vieraat, tai kaikille. Jos valitset  'Älä lähetä' vaihtoehdon, niin tiedonantoja ei lähetetä. </value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Hylätty:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Sarjan kaikki tapahtumat</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Käytä</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Tämä tapahtuma ja kaikki sitä seuraavat</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Poista toistuva tapahtuma</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Poistettavaa tapahtumaa ei voida palauttaa. Oletko varma että haluat jatkaa?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Poista tapahtuma</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Vain tämä tapahtuma</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Kaikki seuraavat muutokset käytetään vain kalenteriisi</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Tapahtuman vieraille ei lähetetä tiedonantoa. Käytä omia kalentereitasi, jotta voit lähettää tiedonantoja.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Vieraat:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Valitse tiedosto</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Vie tapahtumat ONLYOFFICE™-kalenterista</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>ei valittua tiedostoa</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>tiedosto on valittu</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Tuo/vie</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Tuo tapahtumia ONLYOFFICE™-kalenteriin</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>iCal-tiedoston muoto on väärä</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Kirjoita iCal-syötelinkki</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalenteri iCal-syötteestä</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal-syötelinkki:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>alkaen</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>jälkeen</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>jokainen</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>jokainen</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>ensimmäinen</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Toistumisen asetukset</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>kuukausi</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>viikko</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>vuoden</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>viimeinen</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>päivää</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>mukaan</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>kuukautta</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>viikkoa</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>vuotta</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>kuinka monta kertaa</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>päivämäärä</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>ei koskaan</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>viimeistä edellinen</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>toinen</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>kolmas</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>kertaa</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>loppu</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Ehkä</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Ei</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Kyllä</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Osallistuu</value>
+  </data>
+</root>

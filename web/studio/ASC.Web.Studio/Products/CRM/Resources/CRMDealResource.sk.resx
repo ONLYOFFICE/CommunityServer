@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>Pridať novú príležitosť</value>
+  </data>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Uložiť a vytvoriť novú príležitosť</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Všetky príležitosti</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Podiel
+</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fixný</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>za deň</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>za hodinu</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>za mesiac</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>za týždeň</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>za rok</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Opakovanie platieb</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Fáze</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Typ fázy</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Kontakt príležitosti</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Pridať prvú príležitosť</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Vytvoriť novú príležitosť</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Príležitosť vo fáze</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Vlastné obdobie</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Ostatní používatelia</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Príležitosť</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Povolenia budú nastavené na príležitosti, v ktorých ste autor</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>SÚČET</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Fáza príležitosti</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Predajca sériou rozhovorov vo forme otázok a odpovedí identifikuje požiadavky klienta</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Potreba hodnotenia</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Kontakt s potenciálnym kupujúcim je potrebný na pochopenie budúcej perspektívy predaja</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Počiatočný kontakt</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Neúspešné. Príležitosť je uzavretá kvôli nedostatku perspektívy</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Neúspešne zatvorené</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Potenciálny kupujúci vyjadril svoj záujem o tovar alebo služby predávajúceho</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Kvalifikovaný výhľad</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Predajca sa pokúša zistiť, či zákazník môže byť jeho potenciálnym kupujúcim</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Uplatňovanie kritérií počiatočnej vhodnosti</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Potenciálny kupujúci dostal písomnú ponuku od predajcu</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Návrh</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Potenciálny kupujúci je identifikovaný ako osoba alebo subjekt, ktorý má záujem a právomoc na nákup výrobku alebo služby</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Podozrivý</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Potenciálny kupujúci už podrobne diskutoval o Vašej ponuke</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Rokovania</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Dohodnuté. Príležitosť je úspešne uzavretá</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Uzatvorenie/obchod</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Typ fázy</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Účastník príležitosti</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Účastníci príležitosti</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Príležitosti</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Značka príležitosti</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Zoznam značiek príležitosti</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Značky príležitosti</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Odstrániť príležitosť</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Vymazávanie príležitostí</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Upraviť «{0}» príležitosť</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Upraviť príležitosť</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Príležitosti Vám umožňujú sledovať potenciálny predaj Vašim klientom. Určte {0}fázy príležitostí{1} v súlade s Vašim obchodným procesom, uchovávajte históriu, priraďte úlohy, odovzdávajte dokumenty, vypočítajte zisk s každým klientom.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>V tejto sekcii sa nemusia zobrazovať žiadne príležitosti zodpovedajúce Vášmu filtrovaniu. Ak chcete zobraziť všetky príležitosti v tejto sekcii, vyberte ďalšie možnosti filtra alebo zrušte filter. Alebo môžete vytvoriť príležitosť v prípade, že nie je v zozname.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Pre tento filter tu nie sú žiadne príležitosti na zobrazenie</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Zoznam príležitostí je prázdny</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Zadajte názov príležitosti</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Každá príležitosť musí mať zodpovednú osobu</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Zoznam účastníkov je prázdny</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Pridajte účastníkov k príležitosti zo zoznamu firiem alebo osôb. Po tomto kroku budete vedieť, aké kontakty sú spojené s touto príležitosťou a s kým môžete jednať.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Predpokladaný/skutočný dátum splatnosti</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Rozpočet</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Účastník</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Fáza/typ fázy</value>
+  </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>Nájsť príležitosť podľa názvu</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Import príležitostí</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Z disku počítača vyberte správne pripravený CSV súbor. Musí obsahovať polia alebo stĺpce oddelené vybratým oddeľovačom, ktoré sa použijú na importovanie príležitostí. Súbory obsahujúce viac ako {0} riadkov by mali byť rozdelené na menšie časti pre správny import. Uistite sa, že ste vybrali používateľov portálu, ktorí potrebujú mať prístup k informáciám, ktoré sa majú importovať, inak budú údaje z CSV súboru dostupné pre všetkých používateľov portálu.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Pred importovaním príležitostí vyberte súbor CSV a nastavte prístupové práva</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Porovnajte svoje stĺpce so zodpovedajúcimi poliami ONLYOFFICE™ CRM. Venujte pozornosť skutočnosti, že pre správne importovanie príležitostí je potrebné, aby Váš súbor obsahoval aspoň nasledujúce stĺpce s poľami ONLYOFFICE™ CRM: 'Názov príležitosti', 'Zodpovedný za príležitosť'. Pole obsahujúce dátumy musia mať nasledujúci formát: {0}. Pole meny musí byť nastavené podľa medzinárodného trojpísmenového kódu (napr. USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Prosím, overte polia</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Prejsť do zoznamu príležitostí</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Import príležitostí môže trvať niekoľko minút v závislosti od množstva Vašich údajov.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Import sa začal</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>Vyberte si z existujúcich príležitostí alebo pridajte novú</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Prepojte alebo vytvorte príležitosť</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Moje príležitosti</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Názov príležitosti</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Rozpočet nie je nastavený</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Ďalší účastníci príležitosti</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Účastníci</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Obmedziť prístup k príležitosti</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Pravdepodobnosť úspechu</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Zodpovedný za príležitosť</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Prejsť na profil</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Otvoriť na novej karte</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Zobraziť celkovú sumu</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Začať importovať</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Fázy príležitosti umožňujú určiť kroky potrebné na dokončenie obchodu. Štandardné fázy príležitostí sú postoj, diskusia, hodnotenie, rokovanie, záväzok, úspech, nulový bod. Aby bolo možné ich upraviť, sú potrebné administrátorské práva portálu.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Celková suma</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Všetky príležitosti</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Stránkový prenos/Celková stránka
+
+
+</value>
+  </data>
+</root>

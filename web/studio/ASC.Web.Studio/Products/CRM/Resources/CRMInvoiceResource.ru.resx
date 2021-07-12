@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Добавить и создать новый счет</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Добавить адрес выставления счета</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Добавить адрес доставки</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Добавить строку</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Адрес успешно обновлен</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Создание нового налога</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Создание налога</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Сохранить и создать новую позицию</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Добавить этот счет</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Все счета</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Сумма</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Прикрепить документ</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>генерировать автоматически</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Плательщик</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Срок оплаты</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Изменить формат</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Все последующие счета будут иметь префикс и формат номера, заданные в полях ниже. Установите соответствующий флажок, чтобы генерировать номера автоматически.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Изменить статус</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Примечания</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Используйте это поле для выражения благодарности покупателю за покупку и/или предоставления специального предложения, например, скидки 20% при оплате в течение 5 дней.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>совпадает с покупателем</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Создать первый счет</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Создать первую позицию</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Создать первый налог</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Создать позицию</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Создание позиции счета</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Создать налог</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Создание нового счета</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Создать новую позицию</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Создать налог</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должна быть валюта</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} дней</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Эти условия по умолчанию будут использоваться в последующих счетах.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Вы действительно хотите удалить счет '{0}'?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Удаление счета...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Удаление позиции...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Вы действительно хотите удалить позицию «{0}»?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Вы действительно хотите удалить налог «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Удаление налога...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Удалить этот счет</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Удаление счетов</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Скачать</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Срок оплаты</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Задайте пользовательский срок оплаты или выберите один из предустановленных сроков справа, чтобы связать эту дату с датой выставления счета.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Дата выставления позже срока оплаты</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>При получении</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должен быть срок оплаты</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Дублировать и создать новый счет</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Дублировать счет</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Дублировать счет</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Дублирование счета «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Изменить адрес выставления счета</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Изменить адрес доставки</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Редактировать счет</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Редактирование счета «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Редактировать налог</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Этот раздел позволяет Вам составить список товаров и услуг, которые можно включать в счета. После создания списка можно выбирать из него нужную позицию для добавления в платежный документ. Новые позиции можно добавлять по мере необходимости.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>В этом разделе нет позиций, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все позиции в этом разделе. Или Вы можете создать позицию, если ее нет в списке.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Нет позиций, соответствующих этому фильтру</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Список товаров и услуг пуст</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Раздел 'Счета' позволяет Вам создавать платежные документы, которые Вы можете выставить своим клиентам. Здесь будет отображаться список доступных счетов после того, как Вы их добавите.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>В этом разделе нет счетов, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все счета в этом разделе. Или Вы можете создать счет, если его нет в списке.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Нет счетов, соответствующих этому фильтру</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Список счетов пуст</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Налоги счетов позволяют Вам создавать дополнительные налоги, специфичные для определенных стран или регионов. Можно добавить название налога, ставку и описание. Новые налоги можно добавлять по мере необходимости.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Список налогов пуст</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Возможных сделок не найдено</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Выбрать позицию</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Поле Название налога необходимо заполнить</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Поле Ставка требуется заполнить</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Поле Цена не заполнено</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Цена указана некорректно</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Количество указано некорректно</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>некорректное значение ставки</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Обменный курс</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Это поле необходимо заполнить</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Такое название налога уже существует</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Количество товара на складе</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Название позиции</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Наличное количество</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Налоги</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Поиск по названию, номеру SKU или описанию</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Счет</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Покупатель</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должен быть покупатель</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Получатель</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Валюта CRM по умолчанию используется для установки цен в каталоге товаров и услуг.&lt;br/&gt;Чтобы изменить ее, перейдите в &lt;a href="settings.aspx?type=currency" target="_blank"&gt;Настройки валюты&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Активные</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Архивный</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Одна или более позиций имеют отрицательное значение количества товара на складе</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>С указанием количества товара на складе</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Без указания количества товара на складе</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Язык счета</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>У каждого счета должен быть язык</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Номер счета</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Номер счета уже используется</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Счет</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Название налога 1</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Ставка налога 1</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Название налога 2</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Ставка налога 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Налог с таким названием уже зарегистрирован</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Налоговые категории позволяют Вам создавать дополнительные налоги, специфичные для определенных стран или регионов. Можно добавить название налога, ставку и описание.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Удалить налоговую категорию можно только в том случае, если она не используется в разделе Товары и услуги.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Название налога</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Ставка</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Дата выставления</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должна быть дата выставления</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Позиция</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Валюта CRM по умолчанию.&lt;br/&gt;Чтобы изменить ее, перейдите в &lt;a href="?type=currency" target="_blank"&gt;Настройки валюты&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Добавьте количество позиций, которые в текущий момент есть на складе. Это количество будет уменьшатся при каждом добавлении позиции в счет. При поступлении нового товара просто добавьте его к текущему количеству здесь.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Связать с возможной сделкой</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Выставить счет</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Отметить как черновик</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Отметить как оплаченный</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Отметить как отклоненный</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Отметить как выставленный</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Некорректный формат или счет с таким номером уже существует</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Начальный номер не указан</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должен быть номер</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Просроченные</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Номер заказа</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Префикс</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Напечатать</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Товары и услуги</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Выберите товар или услугу из списка или добавьте новую позицию</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должны быть позиции</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Сохранение настроек нумерации...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Сохранение настроек условий...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>При сохранении счета произошла ошибка "{0}". Повторите попытку позже.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Продавец</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Отправить по почте</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Установка условий по умолчанию</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Получатель</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Показать профиль счета</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Открыть в новой вкладке</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Начальный номер</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Идентификатор товарной позиции (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Подытог</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Налог</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Условия</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>У каждого счета должны быть условия</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Всего счетов</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Отслеживать количество товара</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Обновление позиции «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Обновление налога «{0}»</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Сохранение изменений...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Внимание</value>
+  </data>
+</root>

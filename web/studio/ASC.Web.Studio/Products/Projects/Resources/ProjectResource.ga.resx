@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Cuir garsprioc leis</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Cuir i dtaisce é</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Cuir bainisteoir tionscadail leis</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Seol Ríomhphost</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Dún an Tionscadal</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Cruthaigh tionscadal nua</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Scrios Tionscadal</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>An bhfuil tú cinnte gur mian leat an tionscadal seo a scriosadh?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Scrios tionscadail</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>An bhfuil tú cinnte gur mian leat na tionscadail seo a scriosadh?</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Cuir tionscadal in eagar</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Lean an tionscadal seo</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Dún é</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Cruthaigh nasc</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Tá an nasc á chruthú</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Cuir an teideal in eagar</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Níor roghnaíodh tionscadal.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Cairt Gantt</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Ard-tosaíocht</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Eochair eolais</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Gníomhach</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Dúnta</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Dlite thar téarma</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Nasc neamhbhailí</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Nasc le</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Inniu</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Clóbhuail é</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Athdhéan é</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Athoscail</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Oscail an roghchlár anuas</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Foghlaim tuilleadh</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Oiriúnaigh don scáileán é</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Lá</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Mí</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Seachtain</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Bog ar chlé é</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Bog ar dheis é</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Bainistigh an Fhoireann</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Ní féidir leat tionscadal a bhfuil cúraimí oscailte aige a dhúnadh.</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Tá go maith</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Tionscadal</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Scrios Tionscadal</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Cur síos</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Bainisteoir Tionscadail</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Tionscadail</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Foireann</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Teideal</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Roghnaigh</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Clibeanna</value>
+  </data>
+</root>

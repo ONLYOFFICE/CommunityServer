@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Правка</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Правити секцію</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Ім'я файлу</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Ім'я сторінки</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Передпроглядання</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Завантажити файл</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Ім'я завантаженого файлу</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Збільшити</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Створити Вікі-сторінку дуже просто, навіть якщо Ви ніколи не користувалися мовою текстової розмітки. Вам знадобиться лише кілька простих правил, наведених на цій сторінці. Сподіваємося, що вони будуть Вам корисними.
+
+@@TOC@@
+
+==Розділи, абзаци, списки, рядки==
+
+Щоб позначити новий розділ, використовуйте знак = на початку розділу:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Розділ=&lt;br&gt;
+==Підрозділ==&lt;br&gt;
+===Під-підрозділ===&lt;br&gt;
+
+&lt;p&gt;
+Використовуйте @@TOC@@ для того, щоб об'єднати всі розділи і підрозділи на сторінці в таблицю вмісту. 
+&lt;/p&gt;
+
+Перенесення рядка не впливає на розмітку. Ви можете використовувати його для розділення речень всередині абзацу.  
+
+&lt;p&gt;
+Використовуйте тег «br», щоб почати новий рядок, не починаючи новий абзац.   
+&lt;/p&gt;
+
+Щоб почати новий абзац, двічі натисніть Enter - так само, як в будь-якому текстовому редакторі. 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Складайте марковані списки таким чином: 
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* починайте кожен пункт із зірочки;&lt;br&gt;
+** чим більше зірочок;&lt;br&gt;
+** тим глибший рівень списку.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Можете використовувати нумеровані списки:&lt;br&gt;
+## вони добре структуровані;&lt;br&gt;
+## і легко читаються.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ ЯКЩО рядок починається з пробілу,
+ ТО він буде відформатований так, як був набраний; 
+ тим самим шрифтом; без переносу рядків;[[без посилань]].
+
+Ви можете використовувати пробіл на початку рядка, якщо Вам треба: 
+
+*вставити попередньо відформатований текст;
+*відобразити вихідний код; 
+*створити/вставити символьну графіку (створення зображень за допомогою текстових символів).
+
+Горизонтальна лінія позначається за допомогою чотирьох рисок: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Додавання посилань==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Щоб додати посилання на іншу Вікі-сторінку, вставте її назву в подвійні квадратні дужки: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+Якщо назва сторінки і назва посилання не співпадають, напишіть бажану назву після знаку |: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
+
+&lt;p&gt;
+Зовнішні посилання вставляються прямо в текст: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+Якщо Вам треба змінити назву зовнішнього посилання, вставте його в квадратні дужки і напишіть бажану назву через пробіл:  &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt;
+Щоб додати e-mail адресу, використовуйте квадратні дужки:  &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+Щоб додати сторінку в категорію, створіть посилання на бажану категорію [[Category: Бажана категорія]]  внизу сторінки. 
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==Форматування тексту==
+
+Для форматування тексту використовуйте такі правила: 
+
+''Курсив''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''Ваш текст курсивом''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''Жирний'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''Ваш текст, виділений жирним'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''Жирний курсив'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''Ваш текст, виділений курсивом і жирним'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__Підкреслення__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__Ваш підкреслений текст__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--Закреслення--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--Ваш закреслений текст--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+Індекси: &lt;sup&gt;superscript&lt;/sup&gt; and &lt;sub&gt;subscript&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;підрядковий індекс&lt;/sub&gt;&lt;br&gt;
+&lt;sup&gt;надрядковий індекс&lt;/sup&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+Ви також можете використовувати &lt;small&gt;дрібний шрифт&lt;/small&gt; для коментарів, спеціальне форматування для виведення елементів &lt;code lang="мова"&gt;код програми&lt;/code&gt; фрагменти і текст фіксованої ширини для &lt;tt&gt;технічні терміни&lt;/tt&gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==Додавання зображень==
+
+Щоб додати зображення на вікі-сторінку, попередньо завантажте його в вікі. 
+Використовуйте наступні посилання для того щоб додати різні типи зображень:
+
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Зображення = [[Image:Ім'я зображення]]&lt;/p&gt;
+&lt;p&gt;
+Зображення з фіксованою шириною = [[Image: Ім'я зображення | Ширина_px]]&lt;/p&gt;
+&lt;p&gt;
+Зображення з описом = [[Image: Ім'я зображення | Опис]]&lt;/p&gt;
+&lt;p&gt;
+Мініатюра = [[Image:Image Name | thumb]] – малюнок буде зменшений і вирівняний по правому краю.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Переведення HTML в Wiki ==
+
+Якщо у Вас є текст, відформатований в HTML, який Вам би хотілося перенести сюди, Ви можете зробити це легко і швидко. Натисніть '''Створити нову сторінку''' на панелі '''Дії'''. Потім вставте текст у вікно редактора і перемкніться на екран вікі-розмітки, натиснувши на кнопку "Wikі" на панелі форматування. Html-теги будуть перетворені на вікі-розмітку. Перевірте правильність розташування тексту і малюнків на сторінці, виправте помилки і натисніть '''Опублікувати'''. Ваша сторінка готова.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Довідка</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Ласкаво просимо до ONLYOFFICE™ Wiki!'''
+
+Тут Ви зможете створити сторінки, пов'язані між собою посиланнями, і об'єднати їх в категорії прямо через Ваш інтернет-браузер. Вікі - це зручний інструмент для ведення документації по проекту, що володіє наступними характеристиками:
+
+*декілька авторів. Будь-який користувач '''ONLYOFFICE™''' може редагувати будь-яку сторінку.
+*швидке редагування. Натисніть на посилання '''Редагувати''', що є на кожній сторінці і внесіть зміни, використовуючи ваш браузер.
+*просте перенесення з HTML у Wiki. Подробиці [[Internal:Help#Перенесення із HTML у Wiki|як]]
+*підтримка версії сторінки. Не згодні зі змінами? Поверніться до попередньої версії сторінки.
+
+@@TOC@@ 
+
+==Структура та Вікі-навігація==
+
+Ви можете переміщуватися тут за допомогою панелі навігації, доступної в будь-який момент, поки Ви знаходитесь в вікі.
+
+===Сторінки===
+
+Алфавітний перелік всіх створених сторінок розташовується на сторінці  [[Internal:Index|Index]]&lt;br&gt;
+Перелік всіх нещодавно створених сторінок в хронологічному порядку знаходиться на сторінці [[Internal:NewPages|New Pages]]&lt;br&gt;
+Перелік всіх нещодавно відредагованих сторінок знаходиться на сторінці [[Internal:Recently|Recently Edited]]
+
+===Категорії===
+
+Ви можете об'єднати декілька пов'язаних сторінок в категорію. Всі категорії і пов'язані з ними сторінки відображаються на сторінці [[Internal:Categories|Categories]] . Ви можете додати сторінку в уже існуючу категорію або створити нову. Докладніше про те, як додати сторінку в категорію, читайте [[Internal:Help|here]].
+
+===Файли===
+
+Ви можете завантажувати в вікі файли будь-якого формату і розміру, а також надавати посилання на зображення, завантажені в вікі, при створенні сторінок. Детальніше про це читайте [[Internal:Help#Inserting Images|here]].
+
+===Допомога===
+
+Створення сторінок для "ONLYOFFICE™" вікі - це просто. Вам знадобиться всього кілька простих правил, ознайомитися з якими Ви можете на сторінці [[Internal:Help|wiki markup tips]].
+
+
+==Створення власної Вікі==
+
+Почніть створювати вікі зі створення нової сторінки - натисніть на посилання '''Створити нову сторінку''' на панелі '''Дій'''. У вікні редактора введіть Ваш текст. Для коректного відображення тексту на сторінці скористайтеся [[Internal:Help|wiki markup tips]].
+
+Не забувайте, що це Ваш особистий простір, який Ви можете організувати на свій розсуд. Навіть ця сторінка може бути відредагована. Наприклад, Ви можете видалити вміст і заповнити сторінку посиланнями на вікі-сторінки Ваших проектів. &lt;br&gt;Бажаємо успіху!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Даною сторінки не існує. Натисніть {Cюди} для її створення і редагування.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Якір</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Жирний</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Pre-блок</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Для візуального виділення рядка стороннього коду</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Коментар</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>Приклад HTML-коду</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Зовнішнє посилання</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Посилання на локальний файл</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (використовуйте в міру)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Горизонтальна лінія</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Зображення</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Курсив</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Переклад рядка (одинарний)</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>Тег NoBR</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Не інтерпретується на мові Wiki</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Посилання на сторінку</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Спеціальні теги</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Перекреслений</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Підрядковий</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Надрядковий</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Спеціальні символи</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Підкреслений</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Блок</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Перевищено максимальний розмір завантажуємого файлу</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Завантажити файл</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Категорії</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Максимальний розмір завантажуваного файлу {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Секція: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Сторінка переміщена=
+Ім'я сторінки змінено на [[{0}|{0}]].
+Ви можете знайти останню версію [[{0}|тут]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Заголовок</value>
+  </data>
+</root>

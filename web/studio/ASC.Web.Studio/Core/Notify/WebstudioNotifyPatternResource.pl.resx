@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blog został utworzony w</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Utworzono zakładkę w</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>Sprawa CRM została utworzona w</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Komentarz został dodany w</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>Kontakt CRM został utworzony w</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>Możliwość CRM powstała w</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Dyskusja została utworzona w</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Wydarzenie zostało utworzone w</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Dokument został utworzony / przesłany na</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Folder został utworzony w</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Forum zostało utworzone w</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Ankietę utworzono w</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Post utworzono w</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Etap stworzony w</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Projekt powstał w</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Zadanie zostało utworzone w</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Panel sterowania dostępem</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Uzyskaj dostęp do portalu</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Uzyskaj dostęp do witryny sieci Web</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Skonfiguruj teraz teraz</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Zaproś teraz</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Zażądać połączenia</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Wybierz teraz plany cenowe</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Dowiedz się więcej &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.Aktywuj Swój adres e-mail na stronie "${__VirtualRootPath}":"$InviteLink".
+
+Witaj!
+
+Aby rozpocząć pracę na stronie "${__VirtualRootPath}":"$InviteLink", musisz aktywować Swój adres e-mail. Odbywa się to w celu bezpieczeństwa.
+
+$GreenButton
+
+Ten link jest ważna tylko 7 dni. Proszę, wykonaj aktywację w ciągu tego czasu.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1.Utworzono kopię zapasową danych portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Witam, $OwnerName,
+
+Utworzony plik kopii zapasowej, który zawiera dane z portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+Aby uzyskać dodatkowe informacje na temat procedury tworzenia kopii zapasowych, proszę odnieść się do naszej instrukcji "Kopia zapasowa":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx".
+
+
+Jeśli masz jakieś pytania, zawsze możesz napisać do nas na adres "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Pozdrawiam,
+zespół ONLYOFFICE™
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1.Password change request for "${__VirtualRootPath}":portal"${__VirtualRootPath}"
+
+Wysłano prośbę o zmianę hasła używanego do wejścia do portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+Aby zmienić hasło, kliknij poniższy link:
+
+$GreenButton
+
+*Uwaga*: link ten jest ważny tylko przez 7 dni. W tym czasie zakończ proces zmiany hasła.
+
+Jeśli nie chcesz zmienić hasła lub otrzymywać tego e-maila pomyłkowo, zignoruj go lub skontaktuj się z administratorem portalu "${__VirtualRootPath}":"${__VirtualRootPath}", aby dowiedzieć się szczegółów.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Wniosek o zmianę numeru telefonu komórkowego
+
+Został złożony wniosek o zmianę numeru telefonu komórkowego, który służy do uzyskania dostępu do portalu ${LetterLogoText}.
+
+Kliknij na poniższy link, aby zmienić numer telefonu komórkowego:
+
+$GreenButton
+
+Jeśli nie chcesz zmieniać numeru telefonu komórkowego lub otrzymałeś tę wiadomość przez pomyłkę, proszę, zignoruj go lub skontaktuj się z administratorem portalu o wyjaśnienia.</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1.Zmień właściciela portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Szanowny Panie Właściciel,
+
+Wysłano prośbę o zmianę właściciela portalu "${__VirtualRootPath}":${__VirtualRootPath}" na $UserName.
+
+Proszę wykonać poniższy link, aby potwierdzić operację:
+
+$GreenButton
+
+*Uwaga*: link ten jest ważny tylko przez 7 dni. Proszę zakończyć proces zmiany właściciela portalu w tym okresie.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Zmień adres portalu
+
+Szanowny Panie Właściciel,
+
+Wysłano prośbę o zmianę adresu portalu "${__VirtualRootPath}":"${__VirtualRootPath}" na "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end.
+
+Proszę wykonać poniższy link, aby potwierdzić operację:
+
+$GreenButton
+
+*Uwaga*: link ten jest ważny tylko przez 7 dni. Proszę zakończyć proces zmiany adresu portalu w tym okresie.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1.Wiadomość z portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+E-Mail: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1.Zaproszenie na portal "${__VirtualRootPath}":"$InviteLink"
+
+Witam,
+
+Wysłałeś prośbę o członkostwo w uczestnicy portalu "${__VirtualRootPath}":"$InviteLink". ${LetterLogoText} - to platforma do zarządzania dokumentami i projektami. Zostań członkiem portalu i zacząć wspólnie pracować z kolegami lub przyjaciółmi teraz.
+
+Aby zaakceptować zaproszenie, należy przejść pod adres i wpisać nazwę użytkownika i hasło:
+
+$GreenButton
+
+*Uwaga*: ten link jest aktywny tylko 48 godzin. Proszę wykonać tę operację w ciągu tego czasu.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Błąd po przeniesieniu portalu na inny region
+
+Po przeniesieniu portalu w regionie $RegionName wystąpił błąd. Proszę, spróbuj ponownie później.
+Teraz Twój portal dostępny pod dotychczasowym adresem "$PortalUrl":"$PortalUrl"
+
+Jeśli masz jakieś pytania, zawsze możesz skontaktować się z nami pod adresem "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Pozdrawiam,
+zespół ONLYOFFICE™
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Otrzymujesz tę wiadomość, ponieważ jesteś zarejestrowany na portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Aby zmienić typ alertu, należy skonfigurować ustawienia subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Błąd po przeniesieniu portalu na inny region
+
+Po przeniesieniu portalu na inny region wystąpił błąd. Proszę, spróbuj ponownie później.
+Teraz Twój portal dostępny pod dotychczasowym adresem "$PortalUrl":"$PortalUrl"
+
+Jeśli masz jakieś pytania, zawsze możesz skontaktować się z nami pod adresem "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Pozdrawiam,
+zespół ONLYOFFICE™
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Otrzymujesz tę wiadomość, ponieważ jesteś zarejestrowany na portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Aby zmienić typ alertu, należy skonfigurować ustawienia subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Inna migracja portalu regionu rozpoczęła się
+
+Migracja portalu do regionu $RegionName zostaje uruchomiona. Może to zająć trochę czasu w zależności od ilości danych.
+
+*Uwaga*: portal nie będzie dostępny podczas procesu migracji. Po zakończeniu migracji adres URL portalu zostanie zmieniony, a wszystkie udostępnione linki dokumentów będą niedostępne.
+
+Jeśli masz pytania lub potrzebujesz pomocy, skontaktuj się z nami pod adresem "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Z poważaniem,
+Zespół wsparcia ONLYOFFICE ™
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Otrzymujesz ten e-mail, ponieważ jesteś zarejestrowanym użytkownikiem portalu "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1.Doaktywacja portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Szanowny Panie Właściciel,
+
+Proś o tymczasową dezaktywację portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Proszę wykonać poniższy link, aby potwierdzić operację:
+
+$GreenButton
+
+*Uwaga*: link ten jest ważny tylko przez 7 dni. W tym okresie zakończ proces dezaktywacji portalu.
+
+Możesz ponownie aktywować swój portal klikając następujący link:
+p=. "Uaktywnij portal":"$ActivateUrl" (ten link nie ma limitu czasu)
+
+Jeśli masz pytania lub potrzebujesz pomocy, skontaktuj się z nami pod adresem "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Z poważaniem,
+Zespół wsparcia ONLYOFFICE ™
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1.Usuwanie portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Witam, $OwnerName,
+
+Żądaliście trwałe usuwanie portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+*Ważne! Wszystkie dane zapisane na Swojej stronie, a także informacje o rejestracji zostaną całkowicie usunięte bez możliwości odzyskania danych.*
+
+#if($AutoRenew == "True")
+Przed tym, jak usunąć portal, prosimy upewnić się, że opcja automatycznego odnowienia posiadanego abonamentu jest wyłączona. Sprawdzić stan tej opcji można w "gabinecie na miejscu Avangate":"https://secure.avangate.com/myaccount/".
+#end
+
+Jeśli nadal chcesz usunąć portal "${__VirtualRootPath}":"${__VirtualRootPath}", kliknij na poniższy link, aby potwierdzić operację:
+
+$GreenButton
+
+*Uwaga*: ten link jest ważna tylko 7 dni. Proszę, wykonaj usuwanie portalu w ciągu tego czasu.
+
+Jeśli masz jakieś pytania, zawsze możesz napisać do nas na adres "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Pozdrawiam,
+zespół ONLYOFFICE™
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Zmień adresu portalu
+
+Drogi $UserDisplayName,
+
+Twój portal $PortalUrl został zmieniony na nowy adres "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+*Uwaga*: wszystkie udostępnione linki dokumentów są teraz niedostępne, a także ustawienia DNS i opcje jednorazowego logowania przestają działać, dopóki ich nie zmienisz. Zewnętrzne linki iCal dodawane do kalendarza również przestaną się aktualizować do czasu ich ponownego załadowania.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Usuwanie profilu z portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Zażądałeś trwałego usunięcia swojego profilu z portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+Jeśli nadal chcesz usunąć swój profil, kliknij poniższy link, aby potwierdzić operację:
+
+$GreenButton
+
+*Uwaga*: link ten jest ważny tylko przez 7 dni. Proszę zakończyć proces usuwania profilu w tym okresie.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.Twój profil w "$__VirtualRootPath":"$__VirtualRootPath" został zmieniony
+
+Szanowni Państwo,
+
+Szczegóły profilu użytkownika "$__VirtualRootPath":"$__VirtualRootPath" zostały zmienione przez "$__AuthorName":"$__AuthorUrl".
+
+Aby wyświetlić swój profil, kliknij poniższy link:
+"$UserName":"$MyStaffLink"
+
+
+^Otrzymujesz ten e-mail, ponieważ jesteś zarejestrowanym użytkownikiem portalu "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Szanowny $UserName,
+
+Proces przypisywania danych od użytkownika "$FromUserName":"$FromUserLink" do użytkownika "$ToUserName":"$ToUserLink" został pomyślnie zakończony.
+
+^Otrzymujesz ten e-mail, ponieważ jesteś zarejestrowanym użytkownikiem portalu "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Żądanie licencji na wersję Enterprise
+
+h3.Nazwa
+$UserName
+
+h3.Nazwisko
+$UserLastName
+
+h3.Stanowisko
+$Position
+
+h3.Email
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Telefon
+$Phone
+
+h3.Na stronie internetowej firmy
+$Website
+
+h3.Nazwa firmy
+$CompanyTitle
+
+h3.Wielkość firmy
+$CompanySize
+
+h3.Spis treści zapytania
+$Body
+
+h3.Adres portalu
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1Uruchomienie portali
+
+Rozpoczęcie odbudowy portalu. Może to zająć trochę czasu w zależności od ilości danych.
+
+*Uwaga*: portal nie będzie dostępny podczas procesu przywracania.
+
+Jeśli masz pytania lub potrzebujesz pomocy, skontaktuj się z nami pod adresem "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Z poważaniem,
+Zespół wsparcia ONLYOFFICE ™
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Otrzymujesz ten e-mail, ponieważ jesteś zarejestrowanym użytkownikiem portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Aby zmienić typ powiadomienia, zarządzaj "ustawieniami subskrypcji":"$RecipientSubscriptionConfigURL"^</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1.Powiadomienie o zmianie profilu na portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Użytkownik "$__AuthorName":"$__AuthorUrl" zmienił swój profil na portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+^Otrzymujesz tę wiadomość, ponieważ jesteś administratorem portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Jeśli nie chcesz otrzymywać powiadomień o aktualizacjach profilu, proszę zmienić ustawienia subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1.Aktualności portalu "${__VirtualRootPath}":"${__VirtualRootPath}" $Date
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b $whatsNewActivity.Bułka tarta) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.Adres URL"
+*Autor*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^Otrzymujesz tę wiadomość, ponieważ jesteś zarejestrowany na portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Jeśli nie chcesz otrzymywać powiadomień o nowych zdarzeniach na stronie "${__VirtualRootPath}":"${__VirtualRootPath}", proszę zmienić ustawienia subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>Wiadomość testowa SMTP
+
+Ten komunikat został wygenerowany automatycznie, aby przetestować ustawienia SMTP. Jeśli przeglądasz to oznacza, że ustawienia są prawidłowe i możesz je używać w portalu.
+
+
+Z poważaniem,
+Zespół ONLYOFFICE</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1. Nowy użytkownik jest dodawany do portalu "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Użytkownik "$__AuthorName":"$__AuthorUrl" dołączył do portalu "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+^Otrzymałeś tę wiadomość, ponieważ jesteś administratorem portalu "${__VirtualRootPath}":"${__VirtualRootPath}". Jeśli nie chcesz otrzymywać powiadomień o nowych użytkowników, zmień "ustawienia subskrypcji":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Proszę aktywować swój adres e-mail</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. Utworzono utworzoną kopię zapasową portalu ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>Pomoc w hasłach ${LetterLogoText}</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Żądanie zmiany numeru telefonu</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>$ {LetterLogoText}. Zmiana właściciela portalu</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Zmiana adresu portalu</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Komunikat użytkownika dla administratorów</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Zaproszenie na portal ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>$ {LetterLogoText}. Inny błąd migracji portalu obszaru</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Rozpoczęła się inna migracja portalu regionu</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Kolejna migracja portalu regionu zakończona pomyślnie</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>Dezaktywacja portalu ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>Usuwanie portalu ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>$ {LetterLogoText}. Zmiana adresu portalu</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>Usunięcie profilu na portalu ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Twój profil na portalu ${__VirtualRootPath} został zmieniony</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Przenoszenie danych użytkownika jest zakończone</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Wniosek o licencję Enterprise</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>Wniosek o plan wyceny usługi SaaS</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Przywróć zakończony</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Zaczęło się przywracanie</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} powiadomienie o zmianie profilu portalu</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Co nowego w portalu za $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>Wiadomość testowa SMTP</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Nowy użytkownik dodany do portalu ${LetterLogoText}</value>
+  </data>
+</root>

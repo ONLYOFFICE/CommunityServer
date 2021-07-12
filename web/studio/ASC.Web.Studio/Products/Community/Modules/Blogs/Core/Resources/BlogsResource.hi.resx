@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>कॉर्पोरेट ब्लॉग</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>ब्लॉग</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>लेखक के सभी रिकॉर्ड</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>ब्लॉग</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>पद विषय मैदान खाली नहीं किया जा सकता</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>शीर्षक</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>रद्द करना</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>टिप्पणी जोड़ना</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>टिप्पणियां</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>आप पोस्ट हटाना चाहते हैं आप सुनिश्चित हैं?</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>पाठ</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>हटाना</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>संपादित</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>संपादित पोस्ट</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>अभी तक कोई ब्लॉग बनाया नहीं गया हे </value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>पहला ब्लॉग बनाएं</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>अपनी राय व्यक्त, दूसरों के साथ रोचक जानकारी, विचारों और अनुभवों को साझा करने के लिए अपने स्वयं के पृष्ठ बनाएं। उपयोगकर्ताओं 'टिप्पणी करने से प्रतिक्रिया प्राप्त हो सकती हे ।</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>जरूरत टैग का दर्ज कीजिये और उन्हें  अल्पविराम के साथ उन्हें अलग कीजिये </value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>बंद</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>नए पोस्ट बनाएँ</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>प्रकाशित करना</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>लेखक</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>पूर्वावलोकन</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>और पढ़ें</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>ब्लॉग में खोजें</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>पृष्ठ पर दिखाए </value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>सभी उपयोगकर्ता के पदों के लिए सदस्यता लें</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>सदस्यता आपके ब्लॉग में नए उपयोगकर्ता पदों को ट्रैक करने की अनुमति देता है</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>नया उपयोगकर्ता के पदों को</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>टिप्पणी पोस्ट करने के लिए सदस्यता लें</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>सदस्यता आपके नई टिप्पणी पोस्ट को ट्रैक करने की अनुमति देता है</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>टिप्पणियां पोस्ट करें</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>सभी पदों के लिए सदस्यता लें</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>सदस्यता आपके ब्लॉग में नए पदों को ट्रैक करने की अनुमति देता है</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>नए ब्लॉग पोस्ट</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>टैग</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>यदि आप फ़ीड पन्नों से छुपा हुआ होना करने के लिए पाठ और ब्लॉग की सूची पृष्ठ का चयन करें और "पाठ कट" बटन पर क्लिक करें।</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>पाठ कट</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>संपूर्ण</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>उपयोगकर्ता के पदों से सदस्यता रद्द</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>टिप्पणी पोस्ट से सदस्यता रद्द</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>सभी पदों से सदस्यता समाप्त</value>
+  </data>
+</root>

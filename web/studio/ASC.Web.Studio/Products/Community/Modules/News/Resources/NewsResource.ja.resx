@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>タイプを追加</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>ニュースコメント</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>編集ニュース</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>最新の企業ニュース、お知らせとポーリング</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>{0}に新しいイベントを追加するにはここをクリックして{1}</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>最初の発表を作成</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>全くアナウンスはまだ追加されていません</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>最初のイベントを作成します。</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>イベントはまだ追加されていません</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>新しいニュースはありませ追加されていません</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>最初のニュースを作成します。</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>最初の注文を作成します。</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>何も注文はまだ追加されていません</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>最初のポーリングを作成</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>投票トピックはまだ追加されていません</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>ニュースを追加</value>
+  </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>ポータルで新着情報（例えば、イベント、お知らせ、ニュース）と世論調査を表示し、同僚の意見を調べます。</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>アクセスが拒否されました</value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>あなたの投票の質問を入力してください</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>少なくとも2つのポールの選択肢を入力してください</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>イベントが削除されました</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>ニュース</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>世論調査</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>新しいイベントを作成</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>新しいアンケートを作成</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>お知らせ</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>テキスト</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>すべてのイベント</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>イベントの編集</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>ポーリングを編集</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>受注</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>イベントタイプ</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>イベントのコメント</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>新しいイベント</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>パブリッシュ</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>筆者</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>タイトルフィールドが必須である</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>イベント検索</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>ページに表示</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>コメントを購読</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>コメントからの退会</value>
+  </data>
+</root>

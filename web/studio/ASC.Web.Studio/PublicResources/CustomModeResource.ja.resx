@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>© Ascensio System SIA {0}.版権所有。</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>個人的なONLYOFFICEは私的なクラウド・ストレージで文書、スプレッドシートとプレゼンテーションの無料なオンライン編集スイートです。</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>Wordをオンラインで編集する、オンラインWord編集者、無料なWordオンライン、Wordオフィスオンライン</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>または別のサービスを使用してサインイン</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>人達をイベントに招待するように、自分連絡からのメールアドレスか連絡名、CRMの連絡先、ポータルユーザーまたは別のメールを入力し始めてください。</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>アカウント確認の電子メールが届きます。</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>便利な共有編集と見直し</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>文書協力</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>MS Office形式と１００％互換です。</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>接続手順</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>アカウントを作成する</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>クラウドを作成する</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>文書議論</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE文書編集者</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>どんなレベルの複雑さのフォーマットによる文書でも簡単に作成と編集できます。</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>メールアドレスを入力してください</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>または別のサービスを使用してサインイン</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>パスワードをお忘れですか？</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>ここではポータルアドレスを変更できます。　「onlyoffice.com/onlyoffice.eu」の前に表示される部分を入力してください。{0}
+{1}ご注意ください{2}：{1}保存{2}ボタンをクリックすると、古いポータルアドレスが新しいONLYOFFICEユーザに使用できるようになります。</value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEエンタープライズエディションを登録するように、ライセンスキーは必要です。</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}オンライン文書エヂター{1}{0}文書管理{1}{0}メール{1}{0}プロジェクト{1}{0}CRM{1}{0}カレンダー{1}{0}コミュニティー{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>アカウントログイン</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>クラウドに接続する</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>いつも手元にあるONLYOFFICE</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>まだ登録されていませんか？</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEデスクトップ</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEコピーをクラウドに接続して、アプリを終了せずに文書を協力できます。</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>オンラインONLYOFFICE </value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEオンライン版</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>$UserNameさん、
+
+プロファイルは正常に"${__VirtualRootPath}":"${__VirtualRootPath}"に追加されました。すぐに使用が開始します！
+
+ｈ３．文書処理を始める：
+
+＃文書、スプレッドシート及びプレゼンテーションを作成し、編集します。
+＃クラウドストレージを接続し、文書管理の統合職場を作成します。
+＃チームメイトと文書を共有します。
+＃文書協力の異なる方法を検討できます：二つの実時間協力モード、見直し、コメント、チャットなどです。
+
+
+ｈ３．追加の ${LetterLogoText}ツールを試行します：
+
+＃"${LetterLogoText} メール":"${__VirtualRootPath}/addons/mail/"にメールアカウントを追加します。
+＃マイルストーンとタスクを追加してワークフローを管理できるように、”プロジェクト”:"${__VirtualRootPath}/products/projects/"を作成します。
+＃接客業務を管理するのために”ＣＲＭ”:"${__VirtualRootPath}/products/crm/" を使います。
+＃ブログ、掲示板を初め、エベントを追加し、ブックマークを共有するように、”コミュニティ”:"${__VirtualRootPath}/products/community/"を使用します。
+＃作業スケジュールを整理するように組み込みの”カレンダー” :"${__VirtualRootPath}/addons/calendar/"を使用します。
+＃チームメイトと話したい時に、”チャット”:"${__VirtualRootPath}/addons/talk/"を使用します。
+
+$GreenButton  
+
+敬具、
+${LetterLogoText}チーム</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. 成功なデータ輸出
+
+アーカイブをダウンロードするように、リンクを他どいてください："${EntityTitle}":"${EntityRelativeURL}" 
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、「サブスクリプション設定」を管理してください:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1. CRM. 成功なデータ輸入
+
+リストをご覧する："${Tag_EntityListTitle}":"$__VirtualRootPath/${Tag_EntityListRelativeURL}"
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録ユーザーであるのためにそのメールを送信されました。通知型を変更するように、「サブスクリプション設定」を管理してください:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>ｈ１．個人ONLYOFFICEへようこそ！
+
+個人オフィスを作成したところです。
+
+ｈ３．こちらは文書を編集して保存したり、友達にアクセス権を提供したり、どこからでも文書を修理のを可能にする仮想作業空間です。
+
+ONLYOFFICEはMicrosoft Office™文書形式と互換性で、作成されたオブジェクト書式と品質の 損失が皆無であることを保証します。
+
+ｈ３．簡単に作業に取りかかるために、ONLYOFFICEの可能性は下記の通りです：
+
+－コンピューターからファイルをアップロードし、または新たの作成すること；
+
+－全ての共通の形式と修理すること；
+
+－オートシェイプ、グラフ、表及び数式などを編集すること；
+
+－編集機能を拡大するように、様々な追加機能を使用すること； 
+
+「Chromeの拡張機能」を介して、個人ONLYOFFICEクラウドに容易にアクセスできます："https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US"。
+
+「デスクトップ編集者」:"https://www.onlyoffice.com/download-desktop.aspx"を使用して、無料で、オフラインに文書を編集し、またはiOSかAndroid デバイスに「モバイル編集スイート」:"https://www.onlyoffice.com/mobile.aspx"をダウンロードします。
+
+敬具、
+ONLYOFFICEチーム</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
+    <value>$PersonalHeaderStart お好みのクラウドストレージをONLYOFFICEに接続します$PersonalHeaderEnd 
+
+お客様がクラウドオフィスを作成した時から一週間が経ったので、見逃したかもしれない有益な機能を明らかにしてあげる時が来たと信じています。
+
+ONLYOFFICEに*Dropbox*、*Google Drive*、*Box*、*OneDrive*、*Nextcloud*、*ownCloud*、*kDrive*、または*Yandex.Disc*を接続し、すべてのドキュメントに対して単一文書管理スペースを作成します。ONLYOFFICE で外部ファイルを編集し、保存しておくストレージに保存で切るようになります。ONLYOFFICEにファイルストレージを接続する方法は  "こちらです":"${__HelpLink}/tipstricks/add-resource.aspx". 
+
+ONLYOFFICE エディターを特定　”接続アプリ”":"https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn". を使用してGoogle Driveに統合する可能もあります。
+
+もっと多くの文書管理機能の必要がありますか？
+
+h3. "クラウド":"https://www.onlyoffice.com/cloud-office.aspx" または "サーバー":"https://www.onlyoffice.com/server-solutions.aspx" の業務用ONLYOFFICEを３０日の試用期間に登録して、以下のビジネスツールセットと共に拡大な文書管理機能を使用してみてください：
+
+－プロジェクト内のチーム文書を管理すること； 
+
+－ＣＲＭとメールと文書を統合すること；
+
+－ユーザのグループと文書を共有すること;
+
+－チームコミュニケーションツールを使用してワークフローを最適化 すること；
+
+興味がありますか？詳しい情報は、”業務用ONLYOFFICE”："http://www.onlyoffice.com/document-management.aspx"をクリックしてください。
+
+敬具、
+ONLYOFFICEチーム</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>今日は、
+
+個人使用のONLYOFFICEアカウントを登録されたところです。”こちら”："$InviteLink"　をクリックして、登録を承認し、パスワードを作成します。
+
+リンクを開けない場合に、"$InviteLink":"$InviteLink"をコピーして、ブラウザのアドレスバーに貼り付けできます。
+
+敬具、
+ONLYOFFICEチーム</value>
+  </data>
+  <data name="pattern_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>personal.onlyoffice.comでアカウント削除を要求しました。要求を完成するために、リンクに従ってください（リンクは７日間中に有効です）。
+
+$GreenButton
+
+＊ご注意ください＊：削除すると、「プライバシーポリシー」:"https://help.onlyoffice.com/products/files/doceditor.aspx?fileid=5048502&amp;amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0"に従い、アカウントとそれに対応しているデータも消去されるようになります。
+
+削除したくない場合に、このメッセージを無視して下さい。
+
+ご質問があったら、"support@onlyoffice.com":"mailto:support@onlyoffice.com"で連絡ください。
+
+敬具、
+ONLYOFFICEチーム</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>$UserNameさん、
+
+"$FromUserName":"$FromUserLink"のデータ削除過程は正常に終了されました。
+
+個人データの削除により解放された容量：
+
+＃文書 ‐ $DocsSpace 
+＃メール ‐ $MailSpace
+＃チャット ‐ $TalkSpace
+
+^"${__VirtualRootPath}":"${__VirtualRootPath}" ポータルの登録なユーザーであるのためにそのメールを送信されました。^</value>
+  </data>
+  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>h3.新しいポータルが登録された
+
+# ポータルURL: "${__VirtualRootPath}":"${__VirtualRootPath}"
+# 名前: $UserName
+# 名字: $UserLastName
+# メール: $UserEmail
+# 電話番号: $Phone
+# 作成日: $Date</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEプレゼンテーションエディター</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>印象的なプレゼンテーションを作成し、観衆に思想を提示するためのツールを提供します。</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>ユーザーと同じ操作を行います| ［共通文書］セクションのDropboxやBoxなどのアカウントをリンクします|［共通文書］セクションには、文書やフォルダへのアクセス権限を設定します</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>独自の文書を作成し、この文書及び適切なアクセス権と共有された文書を編集します|文書やフォルダの読書／編集アクセス権を別のユーザーに提供します|"文書"セクションでDropboxやBoxなどのアカウントをリンクできます</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>今すぐ作成する</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEニュースレターの申し込みます</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE{0}諸条件{1}に同意します。</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>覚える</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>校閲</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>文章を変更せずに編集内容を提案するように、「校閲」モードを有効にしてください。</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>登録メールは　{mail}　に送信されています。</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>クラウド登録</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}二要素認証{1}はポータルに入るのより安全な方法です。資格情報を入力した後で、接続された認証アプリで得たコードを入力する必要です。{2}より安全なポータルアクセスのためにこの機能をを有効にします。{2}セクションの以下の{0}保存{1}ボタンをクリックと、変化を保存します。{2}</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICEスプレッドシートエディター</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>専門的な仕事にスプレッドシートを提供して、複雑な計算を実行して、お客様のデータを管理すのを助けます。</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>個人的なONLYOFFICEへようこそ</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>常用されるクラウドストレージをONLYOFFICEに接続します。</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>個人的なONLYOFFICE。パスワード アシスタンス</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>個人的なONLYOFFICE。メールアドレスの照合を行ってください。</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>個人的なONLYOFFICEアカウントを解除する</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>${LetterLogoText}。ユーザーデータの削除は完成です。</value>
+  </data>
+  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>新しいポータルが作成された</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>利用条件</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>ご登録いただきありがとうございます。</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>共同作業クラウド</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>個人的なオンラインオフィス</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>変更履歴の記録</value>
+  </data>
+  <data name="TwoEditingModesCustomMode" xml:space="preserve">
+    <value>二つの共同編集モード</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>「実時間編集」モードで行われる変更点は、全ての共同作業者にリアルタイムで表示されます。「一括編集」モードでは、本文を編集し、保存した後にのみ、変更点が共同作業者に表示されるようになります。</value>
+  </data>
+</root>

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="All" xml:space="preserve">
+    <value>Tot</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Tots els {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Tots els {!users}</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Afegir hora</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Esborra</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripció</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edita</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Seguiu</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Marqueu aquesta casella si no sou el cap del projecte que esteu creant, però voleu seguir tots els canvis dins el projecte. La informació sobre totes les fites, tasques i debats acabades de crear us serà afegida a la notificació diària sobre les novetats del portal.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>De forma predeterminada, cada membre de l'equip d'un projecte pot veure tot el contingut dins del projecte seleccionant: fites, tasques, documents i debats. Per a restringir-ne l'accés només heu de seleccionar el company d'equip a qui vulgueu establir els drets d'accés i fer clic en un dels vincles de la dreta. De la mateixa manera podeu establir els drets d'accés per a cada membre del projecte a menys què ell/a no disposi de privilegis d'administrador del portal. L'administrador de ONLYOFFICE™ diposa d'accés complet a tot el contingut de tots els projectes.</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Actiu</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Contactes</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Fer el mateix que el cap del projecte|Assignar el cap del projecte|Creeu, editeu i esborreu qualsevol projecte|Creeu/editeu plantilles</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Creeu equips i assigneu tasques. Programeu les fites del projecte, seguiu-ne l'activitat i genereu informes.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Creeu equips i assigneu tasques. Programeu les fites del projecte, seguiu-ne l'activitat i genereu informes.</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Contactes que es vincularàn al projecte</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Afegir comentari</value>
+  </data>
+</root>

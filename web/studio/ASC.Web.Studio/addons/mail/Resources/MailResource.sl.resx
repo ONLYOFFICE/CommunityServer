@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Pravice za dostop portala</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Prosim preverite vse nastavitve računa, ki ste jih vnesli. Če ste prepričani, da so nastavitve pravilne, se vpišite v mail storitev, ki jo uporabljate in potrdite kakršna koli potrditvena vprašanja, če ta obstajajo. Nato ponovno poskusite.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Ime računa</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Lahko upravljate račune in z uporabo seznama prilagodite njihove nastavitve.</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>Nastavitev za račune povezane z uporabo OAuth ni mogoče urediti. Zanje lahko spremenite le ime računa.</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Urejanje računov</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Po aktivaciji svojega računa boste še naprej prejemali njegova sporočila</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Aktiviraj račun</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Aktiviraj</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Dodaj kopijo</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Dodaj e-naslov</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Dodaj oznako</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Napredne nastavitve</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Vedno prikaži slike od</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Izbriši vse</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Prenesi vse</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Pripni datoteke iz dokumentov</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Priponke</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Pripni k CRM kontaktu</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Tip avtentikacije</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Dodaj nov račun</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Slike so onemogočene.</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Prazna mapa</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Pošlji e-sporočilo pošiljatelju</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Dodaj nov račun</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Ustvari novo oznako</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Po deaktivaciji svojega računa, njegovih sporočil ne boste več prejemali.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Deaktiviraj</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Deaktiviraj</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Če izbrišete svoj račun, bodo vsa sporočila odstranjena s poštnega predala.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Izbriši oznako</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Če s seznama odstranite oznako, bo prav tako odstranjena iz kontaktov in označenih sporočil.</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Prikaži slike</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Prenesi</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Odpri v urejevalniku besedil</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Šifrirano geslo</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Ta naslov že obstaja</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Vse shrani v Moje Dokumente</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Prosim izberite CRM predmete za pripenjanje tega sporočila k:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Izvozi</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Izvozi v:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Zgodovina pošiljanja bo na voljo CRM uporabnikom glede na pravice dostopa.</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Izvozi v CRM</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Razdruži mapo</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Osnutki</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Prejeta sporočila</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Poslano</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Smeti</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Posreduj</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Poln dostop</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Polna velikost</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Pridobi privzete nastavitve</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Naslednji</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Prejšnji</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Mail skupina, urejena le v administracijski plošči</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP strežnik</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Pomembno</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Poveži z CRM</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Izberi predmet:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Primer</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Priložnost</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Prosim izberite CRM predmete za pripenjanje tega pogovora k:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Vsa sporočila iz tega pogovora (vključno s prihodnjimi sporočili) bodo prikazana v CRM. Zgodovina sporočanja bo na voljo CRM uporabnikom glede na pravice dostopa.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Poveži v:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Poišči z imenom</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Razdruži vse</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Nalaganje...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>E-pošta</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Ovozi le sporočila zadnjih 30 dni</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Označi kot pomembno</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Označi kot nepomembno</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Označi kot prebrano</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Označi kot neprebrano</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Označi vsa sporočila iz</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Račun je bil deaktiviran.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>Več</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Več</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Ustvari novo oznako</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>ni naslova</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>nič</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>nič</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>ni teme</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>ali poveži z:</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Na vrhu</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Odpri v novem zavihku</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>Vse</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>Pomembno</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>Pomembno</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>preberi</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>preberi</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>neprebrano</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>neprebrano</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>s priponkami</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>s priponkami</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Prekliči izbor</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>Izbrano</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Geslo</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Strežnik</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Prejmi mail</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Dobi nova sporočila</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Odgovori vse</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Odgovori</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Shrani v Moje Dokumente</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Shrani v Dokumente Projekta</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Shranjeno v</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Izberi vse</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Mapa za priponke</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Mapa za priponke</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Pošlji</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Pošlji mail</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Strežnik</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavitve</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Pokaži več računov</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Pokaži več oznak</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaži na strani</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Preprosto geslo</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Odpri v novem zavihku</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Strežnik</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Uredi oznako</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Ime oznak</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>Sporočila in kontakte lahko označite z uporabo oznak. V prihodnosti bodo olajšale iskanje potrebnih sporočil z uporabo  možnosti filtriranja oznak.</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Lahko urejate ali izbrišete oznake ustvarjene le v Mailu. Oznake uvožene z CRM modula ne morejo biti urejene ali izbrisane. Administrator jih lahko spremeni neposredno v CRM modulu.</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Upravljanje oznak</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Res želite prekiniti povezavo tega pogovora iz CRM?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Razdružitev tega pogovora z CRM ga bo razdružila z vseh kontaktov, priložnosti in primerov, ki ste jih izbrali prej.
+Vsa sporočila, ki ste jih prejeli prej, bodo ostala v CRM zgodovini sporočanja, a nadaljnja sporočila s pogovora ne bodo prikazana v CRM.</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>razdruži</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Naloži datoteko</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Šifra za IMAP strežnik</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Šifriranje za POP strežnik</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Šifriranje za SMTP strežnik</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Pogled</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Poglej profil kontakta</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Sestavi sporočilo</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Ustvari nov e-mail</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Včeraj</value>
+  </data>
+</root>

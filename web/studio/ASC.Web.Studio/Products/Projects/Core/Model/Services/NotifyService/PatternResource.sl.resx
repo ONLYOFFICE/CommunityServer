@@ -1,0 +1,659 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Komentar urejen za razpravo:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the discussion: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData  
+
+"Preberite več":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^To e-pošto ste prejeli, ker ste registreran uporabnik portala"${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Komentar urejen za nalogo:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" has edited a comment to the "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" task: 
+
+$AdditionalData
+
+"Preberite več":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^To e-pošto prejemate, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če obvestil o tej nalogi ne želite prejemati, se prosim "odjavite":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Razprava Urejena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je uredil razpravo: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end 
+
+"glasi more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^To e-pošto ste prejeli, ker ste registrirani uporabnik"${__VirtualRootPath}":"${__VirtualRootPath}"portal. Za spreminjanje obvestil, uredite "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projekti. Uvozi podatke iz Basecampa
+
+Novi podatki so bili uspešno uvoženi.
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Dodani ste bili v ekipo projekta: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je dodal v ekipo projekta:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Obvestilo za zapadli mejnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+Mejnik "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" projekta "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" je zapadel. 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Razprava izbrisana: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je izbrisal razpravo "$EntityTitle" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Mejnik zaprt: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je zaprl "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" prijekt.
+
+ ^Ta e-mail si prejel, ker si registrirani uporabnik "${__VirtualRootPath}":"${__VirtualRootPath}" portala. Za spremembo obvestil, prosimo uredite "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Ustvarjen mejnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je dodal/a nov mejnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" k "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" projektu. 
+
+^Prejel si ta e-mail, ker si registrirani uporabnik "${__VirtualRootPath}":"${__VirtualRootPath}" portala. Za spremembo obvestil spremenite "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Obvestilo za rok mejnika: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Ostalo je manj kot 48 ur do roka projekta "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" milestone in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Mejnik izbrisan: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je izbrisal mejnik "$EntityTitle" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1. Mejnik urejen: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je uredil "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mmejnik v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Mejnik nadaljevan: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je nadaljeval mejnik "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^
+
+</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Nov komentar k razpravi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" Je dodal nov komentar k razpravi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Preberite več":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Nov komentar k nalogi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" je dodal nov komentar k nalogi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Preberi več":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Nova datoteka k razpravi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je dodal novo detoteko k razpravi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim "odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Nova datoteka k nalogi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je dodal novo detoteko k nalogi"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Ustvarjena nova razprava: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je začel novo razpravo: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Preberi več":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Projekt izbrisan: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je izbrisal projekt "$EntityTitle" 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Dodani ste bili v projektno ekipo</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Razprava izbrisana: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik zaprt: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik ustvarjen: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik izbrisan: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik nadaljevan: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Nova razprava: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekti. Projekt izbrisan: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik dodeljen vam: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Določeni ste bili za vodjo projekta</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga dodeljena vam: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga dodeljena vam: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga zaprta: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga ustvarjena: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Pod naloga izbrisana: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga nadaljevana: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Naloga zaprta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga ustvarjena: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga izbrisana: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga nadaljevana: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Opomnik o nalogi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas opominja o nalogi:"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Opomnik o nalogi: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Danes je rok za nalogo: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Odstranjeni ste bili iz ekipe projekta: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je odstranil iz ekipe projekta: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Naloga vam ni več dodeljena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime niste več odgovorni za nalogo: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" : 
+
+$AdditionalData.get_item("TaskDescription")
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Dodeljen ti je mejnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" te je določil/a za odgovornega za mejnik: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" in the "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" project. 
+
+^Prejel si ta e-mail, ker si registrirani uporabnik "${__VirtualRootPath}":"${__VirtualRootPath}" portala. Za spremembo obvestil spremenite "nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Imenovani ste bili za vodjo projekta: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je imenoval za vodjo projekta "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Dodeljena vam je pod naloga: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je imenoval za odgovornega za pod nalogo:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" dodan k nalogi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Naloga dodeljena vam: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" vas je imenoval za odgovornega za nalogo: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Pod naloga zaprta: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je zaprl podnalogo dodano k nalogi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Pod naloga ustvarjena: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je dodal novo pod nalogo:"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" k nalogi "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Pod naloga je dodeljena"$Responsible". 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Pod naloga izbrisana: "$SubEntityTitle"
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" je izbrisal pod nalogo: "$SubEntityTitle" naloge"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Pod naloga urejena: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je uredil "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" pod nalogo naloge "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+Pod naloga je dodeljena "$Responsible".  
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Pod naloga nadaljevana: "$SubEntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je nadaljeval pod nalogo: "$SubEntityTitle" naloge"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim "odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Naloga zaprta: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" je zaprl nalogo "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim "odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Naloga ustvarjena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je dodal novo nalogo: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" k projektu"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData.get_item("TaskDescription") 
+
+Naloga je dodeljena "$Responsible"
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Naloga izbrisana: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je izbrisal nalogo "$EntityTitle" v projektu"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData 
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Naloga urejena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je uredil "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" nalogo v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" .
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Naloga premaknjena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je odstranil "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" nalogo iz "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mejnika v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" naloga zdaj ni del katerega koli mejnika.
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Naloga premaknjena: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" je premaknil "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" nalogo v"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" mejnik v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" . 
+
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če želite spremeniti vrsto obvestil, prosim uredite svoje "Nastavitve naročnine":"$RecipientSubscriptionConfigURL".^
+</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Naloga nadaljevana: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+ $__DateTime "$__AuthorName":"$__AuthorUrl" je nadaljeval nalogo "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" v projektu "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" :
+
+$AdditionalData
+
+^To e-pošto ste prejeli, ker ste registriran uporabnik portala "${__VirtualRootPath}":"${__VirtualRootPath}". Če ne želite prejemati obvestil o tej razpravi, se prosim"odjavite":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Urejen komentar k razpravi: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Urejen komentar k nalogi: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Razprava urejena: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projekti. Uvozi podatke iz baze</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Dodani ste bili v projektno ekipo</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Obvestilo zapadlega mejnika: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projects [$ProjectTitle]. Razprava izbrisana: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik zaprt: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik ustvarjen: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Opozorilo za rok mejnika: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik izbrisan: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik urejen: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik nadaljevan: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Nov komentar k razpravi: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Nov komentar k nalogi: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Nova detoteka k razpravi: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Nova detoteka k nalogi: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Nova razprava: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projekti. Projekt izbrisan: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Dodani ste bili k projektni ekipi</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Razprava je izbrisana</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Mejnik je bil zaprt</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Nov mejnik je ustvarjen</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Mejnik je bil izbrisan</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Mejnik je bil nadaljevan</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Nova diskusija je ustvarjena</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projekti. Projekt izbrisan</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Dodeljen vam je bil mejnik</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Imenovani ste bili za vodjo projekta</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Pod naloga dodeljena vam</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Naloga vam je bila dodeljena</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Pod naloga je bila zaprta</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Nova pod naloga je ustvarjena</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Pod naloga je bila izbrisana</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Pod naloga nadaljevana</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Naloga je bila zaprta</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Nova naloga je ustvarjena</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Naloga je bila izbrisana</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Naloga je bila nadaljevana</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Opomin o nalogi: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Opomin o nalogi: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Odstranjeni ste bili iz projektne ekipe</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga vam ni več dodeljena: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Mejnik dodeljen vam: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Določen si za vodjo projekta</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga dodeljena vam: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga dodeljena vam: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga zaprta: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga ustvarjena: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Pod naloga izbrisana: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga urejena: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Pod naloga nadaljevana: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projekti[$ProjectTitle]. Naloga zaprta: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga ustvarjena: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga izbrisana: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga urejena: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga odstranjena: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga premaknjena: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projekti [$ProjectTitle]. Naloga nadaljevana: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Nihče</value>
+  </data>
+</root>

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. 所有签署者已完成 $DocumentTitle
+
+该电邮通知旨在告知您所有签署者已完成 "$DocumentTitle":"$DocumentURL".
+
+^您收到此电邮，因为您是"${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+登录您的DocuSign账户，获取更多信息。
+
+^您收到此电邮，因为您是"${__VirtualRootPath}":"${__VirtualRootPath}"门户的注册用户。^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__作者名字":"$__作者Url地址" 在文档注释中提到您
+这是一封邮件，用于通知“$文档标题”：“$文档URL地址”文档的注释中“$__作者名字”：“$__作者Url名字”提到了您：
+$信息
+^您收到此电子邮件是因为您是“${__虚拟路}”：“${__虚拟路}”门户的注册用户.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. 邮件发送已完成
+
+此电邮通知旨在告知您：您已请求发送$MailsCount信息，且该流程现已完成。 $Message
+
+成功发送的邮件信息可在您的“邮件”模块的"Sent":"$__VirtualRootPath/addons/mail/#sent"文件夹中查找。
+
+^您收到此电邮，因为您是"${__VirtualRootPath}":"${__VirtualRootPath}"门户的注册用户。^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1.获得文档访问权限: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 向您开发了访问文档 "$DocumentTitle":"$DocumentURL" 的权限。
+
+同时，您还有以下权限： "$AccessRights"。
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1.获得文件夹访问权限: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 向您开放了访问文件夹 "$DocumentTitle":"$DocumentURL" 的权限。
+
+同时，您还拥有以下权限: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>文档。 所有签署者已完成$ DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>文档。 签名状态已更改</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>文档。文档中提及</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>文档。 邮件发送已完成。</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>文档：允许访问 $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>文档：允许访问 $DocumentTitle</value>
+  </data>
+</root>

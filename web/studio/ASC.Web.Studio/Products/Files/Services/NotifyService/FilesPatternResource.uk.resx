@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>H1 Всі підписувачі заповнили $DocumentTitle
+
+Це повідомлення електронної пошти, інформує вас, що всі підписувачі заповнили "$DocumentTitle":"$DocumentURL".
+
+^Ви отримуєте цей електронний лист, оскільки ви зареєстрований користувач порталу "${__VirtualRootPath}":"${__VirtualRootPath}"^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Увійдіть у свій обліковий запис DocuSign для отримання додаткової інформації.
+
+^Ви отримуєте цей електронний лист, оскільки ви зареєстрований користувач порталу "${__VirtualRootPath}":"${__VirtualRootPath}"^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1.Розсилка завершена
+
+Це повідомлення електронної пошти інформує вас про те, що ви надіслали запит на розсилку повідомлень $MailsCount, і процес було завершено. $Message
+
+Успішно відправлені повідомлення електронної пошти можна знайти в папці "Надіслані":"$__VirtualRootPath/addons/mail/#sent" в модулі Mail.
+
+^Ви отримуєте цей електронний лист, оскільки ви зареєстрований користувач порталу "${__VirtualRootPath}":"${__VirtualRootPath}"^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1.Надано доступ до документу: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" 
+
+надав Вам доступ до документу "$DocumentTitle":"$DocumentURL"
+
+з правами доступу: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1.Надано доступ до папки:"$DocumentTitle":"$DocumentURL"
+$__DateTime "$__AuthorName":"$__AuthorUrl" надав вам доступ до "$DocumentTitle":"$DocumentURL" папки з наступними правами доступу: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Документи. Всі підписи завершені $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Документи. Статус реєстрації змінено</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Документи. Поштова розсилка завершена.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Документи. Надано Доступ до $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Документи. Надано Доступ до $DocumentTitle</value>
+  </data>
+</root>

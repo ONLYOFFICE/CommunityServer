@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Handlinger</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Legg til</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Legg til {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Annen informasjon</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Legg til epostkonto</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Legg til merkelapp</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Legg til deltaker</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Legg til denne hendelsen</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Legger til notat...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Legg til {!user}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Varsel</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Tilsvarende ONLYOFFICE™ CRM-felt</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Vedlegg</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Tilknytt kontakt</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Forfatter</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Tilbake</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Mer informasjon...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Saker</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Endre</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Velg</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Tilbakestill filter</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Lukk dette vinduet</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Lukk vindu</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Fil-kolonne</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bekreftelse</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Er du sikker på at du vil slette disse elementene?</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Innhold</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Sats</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Valuta-konvertering</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Opprettet dato</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Opprett</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Opprett Ny Kontakt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Opprett nytt prosjekt</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Legg til ny merkelapp</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Gjeldende {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Egendefinert</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Egendefinert periode</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andre brukere</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dato</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} dag(er) på overtid</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Salgsprospekter</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Slette denne hendelsen</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Slett deltaker</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Slette merkelapp</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Slett bruker</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Duplikater</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Ingen elementer med denne filtreringen finnes</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Angi beløp</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Frist</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Ansvarlig</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Søk etter en bedrift eller en person etter navn...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Fra</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Skjul filvedlegg-panelet</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Telefonsamtale</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Avtale</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Notis</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignorer den første raden når du importerer</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Duplikat</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Søk etter duplikater blir utført basert på epost-feltet</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Overskriv</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Hopp over</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Skanner filen...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Start import av data</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informasjon er sendt</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Siste måned</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Brevets brødtekst</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Tilknytte til</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Vennligst vent...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>E-postens brødtekst</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Fra</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Kan ikke levere meldingen til {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Ugyldig e-postadresse: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Levering mislyktes - vil forsøke på nytt om {0} sekunder.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>E-post emne</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Til</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkulator</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Min hendelser</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Neste</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Ingen elementer</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Ingen treff</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Ikke angitt</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Varsle</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>På toppen</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Annet</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Forrige element</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Forrige</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>privat</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Tilgjengelig for {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Begrens tilgang</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Tilgangsrettigheter</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Plei dine kunderelasjoner, ta tak i viktige saker og ha full oversikt over kundehistorikk og salg.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Plei dine kunderelasjoner, ta tak i viktige saker og ha full oversikt over kundehistorikk og salg.{0}Importer din kundedatabase fra en fil{1}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM
+(Kundekontakter)</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Opprett ny kontakt, oppgave, sak, salgsprospekt med muligheter for å begrense tilgang til dem|Endre kontakt, oppgave, sak, salgsprospekt med tilgangsrettigheter</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Prosjekter</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Tilknyttet</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ansvarlig</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Lagre endringer</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Lagrer endringer...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Velg alle</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Varsle brukere</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Semikolon</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Send e-post</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Angi tillatelser</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Innstillinger</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Vis</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Vis filvedlegg-panelet</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Vis informasjon</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Vis på siden</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Lagre dette brevet i historikken</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Emne</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Nye hendelser</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Nye kontakter</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Eksportering fullført</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Oppgaver tildelt deg</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Tilgang gitt</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Oppsummeringstabell</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Merkelapper</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Oppgaver</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Denne måneden</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Tittel</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Til</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Oppheve kobling mot kontakt</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Opp</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Legg ved fil</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Vis filer</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Anrop</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>I går</value>
+  </data>
+</root>

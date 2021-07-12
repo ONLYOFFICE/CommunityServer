@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="AddMailboxLabel" xml:space="preserve">
+    <value>Aggiungi nuova cassetta postale</value>
+  </data>
+  <data name="AddMailboxToNewDomainInfo" xml:space="preserve">
+    <value>Aggiungi indirizzi di posta usando il nuovo dominio.</value>
+  </data>
+  <data name="AddMailgroupLabel" xml:space="preserve">
+    <value>Aggiungi nuovo gruppo di posta</value>
+  </data>
+  <data name="AddNewDomainButton" xml:space="preserve">
+    <value>Aggiungi il proprio domonio</value>
+  </data>
+  <data name="AliasesLabel" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="ChangeMailboxPasswordPopupInfo" xml:space="preserve">
+    <value>Digita una nuova password</value>
+  </data>
+  <data name="CreateMailboxHeaderInfo" xml:space="preserve">
+    <value>Crea nuova cassetta postale</value>
+  </data>
+  <data name="CreateMailboxPopupHeader" xml:space="preserve">
+    <value>Inserisci l'indirizzo della cassetta postale e seleziona l'utente per il quale desideri creare la cassetta postale.</value>
+  </data>
+  <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
+    <value>Crea nuovo gruppo di posta</value>
+  </data>
+  <data name="CreateMailgroupPopupHeader" xml:space="preserve">
+    <value>Inserisci l'indirizzo del gruppo di posta e seleziona le cassette postali da includere in questo gruppo di posta.</value>
+  </data>
+  <data name="DeleteDomain" xml:space="preserve">
+    <value>Elimina dominio</value>
+  </data>
+  <data name="DeleteDomainAttention" xml:space="preserve">
+    <value>Se elimini il tuo dominio tutte le cassette postali e gruppi con questo dominio verranno anche eliminati.</value>
+  </data>
+  <data name="DeleteGroupAttention" xml:space="preserve">
+    <value>L'eliminazione del gruppo di posta non influenza le cassette postali in alcun modo</value>
+  </data>
+  <data name="DeleteGroupLabel" xml:space="preserve">
+    <value>Elimina gruppo di posta</value>
+  </data>
+  <data name="DeleteMailboxAttention" xml:space="preserve">
+    <value>Se elimini la cassetta postale del server tutti i messaggi verranno eliminati dalla cassetta postale.</value>
+  </data>
+  <data name="DeleteMailboxLabel" xml:space="preserve">
+    <value>Elimina cassetta postale</value>
+  </data>
+  <data name="DeleteShureText" xml:space="preserve">
+    <value>Desideri eliminare %1?</value>
+  </data>
+  <data name="DNSSettingsLabel" xml:space="preserve">
+    <value>Impostazioni DNS</value>
+  </data>
+  <data name="DomainAddedPopupHeader" xml:space="preserve">
+    <value>Dominio aggiunto</value>
+  </data>
+  <data name="DomainDnsSettingsPopupHeader" xml:space="preserve">
+    <value>Impostazioni del dominio %1</value>
+  </data>
+  <data name="DomainWizardAddRecord" xml:space="preserve">
+    <value>Ora hai bisogno di aggiungere un record %1 al pannello di controllo del tuo dominio.</value>
+  </data>
+  <data name="DomainWizardCompleteBtn" xml:space="preserve">
+    <value>Fatto</value>
+  </data>
+  <data name="DomainWizardCopyInfo" xml:space="preserve">
+    <value>Apri il pannello di controllo del tuo dominio in un'altra scheda del browser e copia il testo in grassetto nei campi adatti o seleziona l'opzione più adatta dalle opzioni disponibili:</value>
+  </data>
+  <data name="DomainWizardDKIMRecord" xml:space="preserve">
+    <value>Registrazione DKIM (DomainKeys Identified Mail)</value>
+  </data>
+  <data name="DomainWizardDomainAlreadyExists" xml:space="preserve">
+    <value>Il dominio "{0}" è già utilizzato.</value>
+  </data>
+  <data name="DomainWizardDomainNameSymbolInfo" xml:space="preserve">
+    <value>In alcuni casi il servizio di gestione DNS non permette di usare '@' come nome a dominio/sottodomonio. Usa il tuo nome a dominio con '.' alla fine, es.: '%1.' </value>
+  </data>
+  <data name="DomainWizardDomainNotVerified" xml:space="preserve">
+    <value>Il dominio "{0}" non è verificato.</value>
+  </data>
+  <data name="DomainWizardGoNextStep" xml:space="preserve">
+    <value>Se l'hai già fatto, procedi al passo successivo.</value>
+  </data>
+  <data name="DomainWizardMXRecord" xml:space="preserve">
+    <value>Registrazione MX (Mail Exchange)</value>
+  </data>
+  <data name="DomainWizardName" xml:space="preserve">
+    <value>Nome:</value>
+  </data>
+  <data name="DomainWizardNextBtn" xml:space="preserve">
+    <value>Avanti</value>
+  </data>
+  <data name="DomainWizardOwnershpCheckRecord" xml:space="preserve">
+    <value>Registrazione per la conferma della proprietà del dominio</value>
+  </data>
+  <data name="DomainWizardPopupHeader" xml:space="preserve">
+    <value>Aggiungi dominio</value>
+  </data>
+  <data name="DomainWizardPrevBtn" xml:space="preserve">
+    <value>Indietro</value>
+  </data>
+  <data name="DomainWizardPriority" xml:space="preserve">
+    <value>Priorità:</value>
+  </data>
+  <data name="DomainWizardProveDomainOwnershipInfo" xml:space="preserve">
+    <value>Prima di inziare a creare i tuoi indirizzi di posta elettronica aziendali hai bisogno di aggiungere un record TXT al pannello di controllo del tuo dominio per confermare la tua proprietà del dominio.</value>
+  </data>
+  <data name="DomainWizardSPFRecord" xml:space="preserve">
+    <value>Registrazione SPF (Sender Policy Framework)</value>
+  </data>
+  <data name="DomainWizardStep" xml:space="preserve">
+    <value>passaggio %1 di %2</value>
+  </data>
+  <data name="DomainWizardTextOrValue" xml:space="preserve">
+    <value>Testo/valore:</value>
+  </data>
+  <data name="DomainWizardToFAQ" xml:space="preserve">
+    <value>Puoi consultare anche {0}FAQ{1} per trovare le istruzioni dettagliate per i servizi di hosting popolari.</value>
+  </data>
+  <data name="DomainWizardType" xml:space="preserve">
+    <value>Tipo:</value>
+  </data>
+  <data name="DomainWizardWaitDNSrefrashInfo" xml:space="preserve">
+    <value>Si prega di notare: l'aggiornamento di un record DNS può richiedere da certi minuti a certe ore. Aspetta un certo tempo se hai cambiato il record non molto tempo fa.</value>
+  </data>
+  <data name="DomainWizardWriteDomainName" xml:space="preserve">
+    <value>Scrivi nome a dominio della tua azieda nel campo sottostante:</value>
+  </data>
+  <data name="EditGroupAddressesLabel" xml:space="preserve">
+    <value>Modifica indirizzi del gruppo di posta</value>
+  </data>
+  <data name="EditMailboxLabel" xml:space="preserve">
+    <value>Modifica casella di posta</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>Gruppo</value>
+  </data>
+  <data name="MailboxAddressLabel" xml:space="preserve">
+    <value>Indirizzo della cassetta postale</value>
+  </data>
+  <data name="MailboxAliasLabel" xml:space="preserve">
+    <value>Alias della cassetta postale</value>
+  </data>
+  <data name="MailboxUserLabel" xml:space="preserve">
+    <value>Utente della cassetta postale</value>
+  </data>
+  <data name="MailgroupAddressLabel" xml:space="preserve">
+    <value>Indirizzo del gruppo di posta</value>
+  </data>
+  <data name="MailgroupMailboxesLabel" xml:space="preserve">
+    <value>Cassette postali del gruppo di posta</value>
+  </data>
+  <data name="MigrateFromMSExchangeButton" xml:space="preserve">
+    <value>Migrare da MS Exchange</value>
+  </data>
+  <data name="NewDomainAttention" xml:space="preserve">
+    <value>Gli indirizzi di posta precedentemente esistenti su questo dominio non possono essere trasferiti automaticamente nel portale. È necessario aggiungerli nuovamente</value>
+  </data>
+  <data name="NoDomainSetUpButton" xml:space="preserve">
+    <value>Imposta primo dominio</value>
+  </data>
+  <data name="NoDomainSetUpDescription" xml:space="preserve">
+    <value>Impoosta il proprio dominio per creare e gestire le cassette postali aziendali come username@yourcompany.com. Puoi creare le cassette postali per i tuoi impiegati che vengono visualizzate nei loro client di Posta ONLYOFFICE.</value>
+  </data>
+  <data name="NoDomainSetUpHeader" xml:space="preserve">
+    <value>Nessun dominio impostato</value>
+  </data>
+  <data name="NotInGroupLabel" xml:space="preserve">
+    <value>non nel gruppo</value>
+  </data>
+  <data name="SenderNameLabel" xml:space="preserve">
+    <value>Nome del mittente</value>
+  </data>
+  <data name="UnverifiedDomainAddedPopupBody" xml:space="preserve">
+    <value>Ora puoi creare cassette postali come {0}.</value>
+  </data>
+  <data name="UnverifiedDomainAddedPopupHeader" xml:space="preserve">
+    <value>Il tuo dominio è stato aggiunto con successo.</value>
+  </data>
+  <data name="UnverifiedDomainRecordExplain" xml:space="preserve">
+    <value>Verifica</value>
+  </data>
+  <data name="UnverifiedDomainRecordWarning" xml:space="preserve">
+    <value>Le impostazioni di un o certi record DNS per il tuo dominio non sono corrette. Va' al pannello di impostazioni del tuo dominio e verifica la presenza dei record sottostanti.</value>
+  </data>
+  <data name="UserLabel" xml:space="preserve">
+    <value>Utente</value>
+  </data>
+  <data name="VerifiedDomainAddedPopupBody" xml:space="preserve">
+    <value>Abbiamo aggiunto il tuo dominio all'elenco di domini postali però non puoi usarlo subito per creare le cassette postali. Ciò potrebbe essere dovuto al fatto che il tempo richiesto non è ancora passato. Aspetta certi server possono richiedere fino a 24 ore per aggiornare le informazioni DNS.</value>
+  </data>
+  <data name="VerifiedDomainAddedPopupFooter" xml:space="preserve">
+    <value>Una volta il tuo dominio è pronto, un messaggio email verrà inviato al tuo indirizzo {0}.</value>
+  </data>
+  <data name="VerifiedDomainAddedPopupHeader" xml:space="preserve">
+    <value>Il dominio è stato aggiunto con successo però potrai usarlo in sequito.</value>
+  </data>
+  <data name="VerifyButton" xml:space="preserve">
+    <value>Verifica</value>
+  </data>
+  <data name="ViewMailboxConnectionSettingsPopupInfo" xml:space="preserve">
+    <value>Impostazioni di connessione</value>
+  </data>
+  <data name="WebDomainLabel" xml:space="preserve">
+    <value>Dominio</value>
+  </data>
+</root>

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Tất cả đã hoàn tất ký tên vào $DocumentTitle
+
+Email này thông báo tới bạn rằng tất cả đã hoàn tất ký tên vào "$DocumentTitle":"$DocumentURL".
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Đăng nhập vào tài khoản DocuSign của bạn để biết thêm thông tin.
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng thông tin "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Đã gửi thư thành công
+
+Email này thông báo tới bạn rằng bạn đã yêu cầu gửi $MailsCount tin nhắn và tiến trình này hiện đã hoàn tất. $Message
+
+Bạn có thể tìm thấy các tin nhắn đã được gửi thành công trong thư mục "Đã gửi":"$__VirtualRootPath/addons/mail/#sent" của mô-đun Thư.
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Đã cấp quyền truy cập cho tài liệu: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" đã cấp cho bạn quyền truy cập tài liệu "$DocumentTitle":"$DocumentURL" với quyền truy cập là: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Đã cấp quyền truy cập cho thư mục: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" đã cấp cho bạn quyền truy cập vào thư mục "$DocumentTitle":"$DocumentURL" với quyền truy cập là: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Tài liệu. Tất cả đã hoàn tất ký tên vào $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Tài liệu. Trạng thái ký tên đã thay đổi</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Tài liệu. Đã gửi thư thành công.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Tài liệu. Đã cấp quyền truy cập cho tài liệu: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Tài liệu. Đã cấp quyền truy cập cho thư mục: $DocumentTitle</value>
+  </data>
+</root>

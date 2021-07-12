@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Faktyczna data finalizacji umowy</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Umowa dodaje się...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Dodaj e-mail</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Dodanie faktury ...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Dodaj telefon</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Utwórz nowe zadanie</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>adresy</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>adresy</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>partia</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>na dzień</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>na godzinę</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>na miesiąc</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>na tydzień</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>na rok</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Adres rozliczeniowy</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Przegląd</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>sprawa</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Zamknięte</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Otwórz</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Edytuj</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Zaznacz jako podstawowy</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Wybrać</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Miejscowość</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Czy na pewno chcesz zmienić ten klucz?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Uwaga: wszystkie wcześniej utworzone formularze nie będą działać</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć to zadanie?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Wszystkie wprowadzone informacje zostaną utracone.
+Czy na pewno chcesz dalej?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Podaj nazwę Twojego konta w Twitter. Na przykład teamlabdotcom</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Kraj</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Obecny miesiąc</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Obecny tydzień</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Niestandardowy okres</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Umowa</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć sprawę "{0}"?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Usunięcie sprawy ...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć firmę '{0}'?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Uwaga: czynność nie można będzie cofnąć.</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Usuwanie kontaktu ...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć operację '{0}'?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Trwa usuwanie umowy...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć osobę '{0}'?</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Adres dostawy</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Edytuj e-mail</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Zapisywanie zmian...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Zapisywanie zmian ...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Edytuj telefon</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Edytuj pole "{0}"</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Edytuj zadanie</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>Wybrano {0}</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Lista elementów nie może być pustą</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Każdy list musi mieć ciało</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Każde zadanie powinno mieć deadline</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Każde zadanie powinno mieć odpowiedzialną osobę</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Każde zadanie powinno mieć nazwę</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Nie znaleziono żadnych pól odpowiadających "Tytułowi przypadku"</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Żadna osoba nie została wybrana</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Nie znaleziono żadnych pól odpowiadających "Imię" lub "Nazwa firmy"</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} adresatów e-mail</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Podaj nazwę wydarzenia</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Pola obowiązkowe nie wolno duplikować.</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Format obrazka nie jest obsługiwany</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Format pliku nie jest obsługiwany</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Błąd podczas ładowania obrazka na serwer</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Nie znaleziono żadnych pól odpowiadających "Tytułu umowy", "Odpowiedzialny za umowę"</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Nie można znaleźć żadnych pól odpowiadających "Tytułu zadania", "Odpowiedzialny", "Termin"</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>Typ"{0}" jest podstawowy. Nie możesz jego usunąć.</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>Typ "{0}" jest ostatnim. Nie można go usunąć.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>To jedyny etap umowy. Nie możesz go usunąć.</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>Kategoria "{0}" jest ostatnią. Nie można go usunąć.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>Kategoria "{0}" jest podstawową. Nie możesz jej usunąć.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Prawdopodobna data finalizacji umowy</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Znajdź konto na Twitter</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Twoja lista odbiorców została wygenerowana. {0} Kliknij poniższe linki, aby przesłać adresy e-mail do programu pocztowego.
+</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Przejdź do ustawień</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Powiązanie z projektem</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Ładuję...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>sprawy</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>firmy</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>kontakty</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>umowy</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>zdarzenia</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>osoby</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>zadania</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Następny</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Następny (aby wyświetlić podgląd)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Nie ma żadnych przypadków</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Brak daty deadline</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Nie ma firm</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Brak kontaktów</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Brak umów</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Nie ma zdarzeń</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Nie wybrano żadnego pliku</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Nie ma osób</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>brak tematu</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Brak zadań</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>sprawa</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>firma
+</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>kontakt</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>umowa</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>zdarzenie</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>osoba</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>zadanie</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>w ciągu {0} dni</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>w ciągu {0} godzin</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>w ciągu {0} miesięcy</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>w ciągu {0} tygodni</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>w ciągu {0} lat</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Odśwież stronę</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Proszę czekać...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Możliwe profile dla {0}</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Poprzedni</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Główny</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} odbiorcy nie mają adresów e-mail.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Zapisz zmiany</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Wybierz plik CSV</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Wybrany plik CSV: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Wysłać</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Ustawienia zostały pomyślnie zaktualizowane</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Pokaż więcej</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Poziom temperatury</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Stan</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Pomyślnie zamknięte</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>Zadanie «{0} jest zamknięte</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Powered by {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>{0} dni {1} godziny {2} minut od rozpoczęcia kontenera</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>Z poprzedniego zadania {0} dni {1} godziny {2} minuty</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dzisiaj</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Nieudane zamknięcie</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Odpowiedziano</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Abonament</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>kontakt został usunięty</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Koszt</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Trwanie</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Niewykluczone</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Wychodzący</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Rodzaj</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Kod pocztowy</value>
+  </data>
+</root>

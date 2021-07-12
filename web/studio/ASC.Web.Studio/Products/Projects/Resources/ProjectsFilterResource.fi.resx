@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>Omistaja</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>mukaan</value>
+  </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>Kommentit</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>Luontipäivä</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>Perustaja</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>Määräpäivä</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>Aika</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>Välitavoite</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>Kuvaus</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>Jäsen</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>Prioriteetti</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Vastuuhenkilö</value>
+  </data>
+  <data name="ByStartDate" xml:space="preserve">
+    <value>Aloituspäivämäärä</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>Tunniste</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Tyhjennä suodatin</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Mukautettu kausi</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Määräpäivä</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>Seuraamani keskustelut</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>Seurattu</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Ryhmä</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Ryhmät</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Minä</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>Omat keskustelut</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>Välitavoitteiden omat tehtävät</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>Omat projektit</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>Omat tehtävät</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Ei vastuuhenkilöä</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Muut</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>Muut välitavoitteet</value>
+  </data>
+  <data name="OtherParticipant" xml:space="preserve">
+    <value>Muu osallistuja</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>Muut projektit</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Muut käyttäjät</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Erääntynyt</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Laskutettu</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Ei laskutettu</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Ei laskutettava</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Edellinen kuukausi</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Edellinen viikko</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>Projektipäällikkö</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Edellisten seitsemän päivän aikana</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Arkistoitu</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Aktiivinen</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>Keskeytetty</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Tunniste</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tehtävät</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>Projektiryhmän jäsen</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Ajanjakso</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>Tulevat</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>Tulevat</value>
+  </data>
+</root>

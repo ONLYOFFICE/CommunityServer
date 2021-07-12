@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApproveButton" xml:space="preserve">
+    <value>Dovoli</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Priponke</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ClearStickyTopicButton" xml:space="preserve">
+    <value>Loči</value>
+  </data>
+  <data name="CloseTopicButton" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izvesti to dejanje?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="Edited" xml:space="preserve">
+    <value>Urejeno</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Prazna datoteka</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Ni dovoljenj za izvajanje tega dejanja</value>
+  </data>
+  <data name="ErrorDeletePost" xml:space="preserve">
+    <value>Prišlo je do napake med brisanjem te objave</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Vnesi vsaj dve izbiri ankete</value>
+  </data>
+  <data name="ErrorSubjectEmpty" xml:space="preserve">
+    <value>Vnesi ime teme</value>
+  </data>
+  <data name="ErrorTextEmpty" xml:space="preserve">
+    <value>Vnesi sporočilo</value>
+  </data>
+  <data name="ExistsReferencesChildPosts" xml:space="preserve">
+    <value>Objava ne more biti izbrisana, saj so z njo povezane druge objave</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Maksimalna velikost datoteke je presežena</value>
+  </data>
+  <data name="FileUploadAddButton" xml:space="preserve">
+    <value>Pripni datoteko</value>
+  </data>
+  <data name="HelpForTags" xml:space="preserve">
+    <value>Vnesite potrebne oznake in jih ločite z vejicami</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="MaximumAttachmentSize" xml:space="preserve">
+    <value>Maksimalna velikost pripete datoteke ne more preseči {0} MB</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Sporočilo</value>
+  </data>
+  <data name="ModeratorFunctions" xml:space="preserve">
+    <value>Funkcije moderatorja</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Vnesi ime</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Dodaj novo objavo</value>
+  </data>
+  <data name="OpenTopicButton" xml:space="preserve">
+    <value>Odpri</value>
+  </data>
+  <data name="OverallProgress" xml:space="preserve">
+    <value>Splošni napredek</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Objave</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="QuestionEmptyMessage" xml:space="preserve">
+    <value>Vnesi svoje vprašanje</value>
+  </data>
+  <data name="Quote" xml:space="preserve">
+    <value>Citiraj</value>
+  </data>
+  <data name="QuoteCaptioon_Wrote" xml:space="preserve">
+    <value>napisal</value>
+  </data>
+  <data name="RecentPostFromTopic" xml:space="preserve">
+    <value>Zadnje objave v temi</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Zadnja posodobitev</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Odgovori</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Pokaži na strani</value>
+  </data>
+  <data name="StickyTopicButton" xml:space="preserve">
+    <value>Palica</value>
+  </data>
+  <data name="SubjectEmptyMessage" xml:space="preserve">
+    <value>Vnesi ime teme</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Naroči na to temo</value>
+  </data>
+  <data name="SuccessfullyClearStickyTopicMessage" xml:space="preserve">
+    <value>Tema je bila uspešno odznačena</value>
+  </data>
+  <data name="SuccessfullyCloseTopicMessage" xml:space="preserve">
+    <value>Tema je bila uspešno zaprta</value>
+  </data>
+  <data name="SuccessfullyDeleteAttachmentMessage" xml:space="preserve">
+    <value>Pripeta datoteka je bila uspešno odstranjena</value>
+  </data>
+  <data name="SuccessfullyDeletePostMessage" xml:space="preserve">
+    <value>Objava je bila uspešno izbrisana</value>
+  </data>
+  <data name="SuccessfullyDeleteTopicMessage" xml:space="preserve">
+    <value>Tema je bila uspešno izbrisana</value>
+  </data>
+  <data name="SuccessfullyEditTopicMessage" xml:space="preserve">
+    <value>Tema je bila uspešno urejena</value>
+  </data>
+  <data name="SuccessfullyOpenTopicMessage" xml:space="preserve">
+    <value>Tema je bila uspešno ustvarjena</value>
+  </data>
+  <data name="SuccessfullyStickyTopicMessage" xml:space="preserve">
+    <value>Tema je bila uspešno označena</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Oznake</value>
+  </data>
+  <data name="TextEmptyMessage" xml:space="preserve">
+    <value>Vnesi sporočilo</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Forum</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Skupno</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Ogledi</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Včeraj</value>
+  </data>
+</root>

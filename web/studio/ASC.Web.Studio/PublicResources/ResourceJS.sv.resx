@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Upptagen</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Missat samtal</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Ändringarna har applicerats</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Ändringarna har applicerats.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Ett fel inträffade. Vänligen kontakta din administratör.</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Skapa ny kontakt</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Fortsätt</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>maximum 64 karaktärer</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Det går inte att lägga till samma konto och kontakt två gånger.</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Portalnamnet används redan</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Portalnamnet är för kort</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Skapa ny grupp</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>av</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Tomt fält</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Vänligen vänta...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>hela dagen</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Avbrytna:</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} avvaktande accepterade inbjudan till</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} avböjde inbjudan till</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Svara: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} Accepterade inbjudan till</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} bjöd in dig till</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>och</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>ungefär</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>på</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>dagar</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>varje</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>för</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>sist</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>månad</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>månader</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>på</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>på</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>vardag</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>vardagar</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>vecka</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>veckor</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>år</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>Du skickade inbjudningen till</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Ett fel inträffade under sändningen av detta meddelande</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Ditt svar har skickats till organisatören.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Meddelandet har skickats.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Mig</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Visa aldrig</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Ej ansluten</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}Du är på väg att andra namnet på din portal.{1}{0}Är du säker på att du vill fortsätta?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Portalnamnsbyte, bekräfta</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Skapa nytt projekt</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>Sökväg</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Välj fil</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Välj mapp</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Företag</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Företagsnamn</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Grupp</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>vald</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Användare</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Gäst</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>Anslut</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} användare har lagts till i portalen</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Tom fil</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>väntande</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Skapa ny profil</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Detta betyder att du kan: {1}se portalens innehåll öppet till samtliga portalanvändare,{2}lämna kommentarer,{3}bifoga och ladda ned filer.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Välkommen till ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Välkommen till ONLYOFFICE!</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>Du har inte definierat något lösenord. Du kommer kunna göra det senare genom 'Glömt ditt lösenord?' länken på portalens loginsida. Är du säker på att du vill fortsätta?</value>
+  </data>
+</root>

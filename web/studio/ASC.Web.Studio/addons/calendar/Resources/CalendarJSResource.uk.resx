@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Прийнято:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Підключити поштові облікові записи</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>надіслати запрошення</value>
+  </data>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Календар</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Подія</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Створити нову подію</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>весь день</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Період</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Створити новий календар</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Колір:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Редагування календаря</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Колір тексту:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Часовий пояс:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Мої календарі</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Інші календарі</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Управління</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Створити нову подію</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>за 15 хвилин</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>за 2 години</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>за півгодини</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>за 5 хвилин</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>за день</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>за замовчуванням</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>за годину</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Попереджати:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>ніколи</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Ця подія на весь день.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Подія на весь день</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Гості:</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Почніть вводити адресу електронної пошти або ім'я контакту зі своїх особистих CRM контактів,
+користувачів порталу або використовуйте будь-який інший електронний лист для запрошення людей до вашої події.</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Календар:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Опис:</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>початок:</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Створити нову подію</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Редагувати подію</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>Переглянути подію</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Розміщення:</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Ця подія не на весь день.</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Необов'язково</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Органайзер:</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Власник:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>настроюваний</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>Кожного дня</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Повторювати:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>Кожного місяця</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>ніколи</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>Кожного тижня</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>Кожного року</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Вимагається</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Користувачі для обміну</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Додати користувачів</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Доступ до цієї події не відкрито.</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>Скасовано</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>Підтверджено</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Статус:</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>ОСНОВНІ</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Назва події:</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Закінчення:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Відписатися</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Немає подій для відображення.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Приховати міні-календар</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Показати міні-календар</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d подій</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Додати користувачів для спільного доступу</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Показати ще %d користувачів</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Доступно для:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Редагування календаря</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Власник:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Не показувати в списку</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Швидкий пошук</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Управління іншими календарями</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>У вигляді календаря</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Відображення списком</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Подія скасована</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Ви хочете відправити запрошення гостям?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Відправлення запрошень</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Не відправлено</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Надіслати</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>Нові та вилучені гості</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Кожен</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Ви хочете відправити скасування існуючих гостям?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Скасування відправлення</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>Під час надсилання повідомлень сталася помилка</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Повідомлення успішно відправлені</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Ви хочете надіслати оновлення існуючим гостям?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Відправлення оновлень</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Будь ласка, виберіть тих, кому ви хотіли б повідомити про оновлення: лише нові та вилучені гості або всі. Якщо ви виберете параметр 'Не надсилати',повідомлення не надсилатимуться.</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Відхилено:</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Усі події в циклі</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Застосувати</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Ця подія та всі наступні</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Видалити повторювані події</value>
+  </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>Видалена подія не зможе бути відновлена. Ви упевнені, що хочете продовжити?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Видалити подію</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Лише ця подія</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>Усі наступні зміни будуть застосовані тільки до вашого календаря.</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Гості події не отримають повідомлення. Використовуйте свої власні календарі, щоб надсилати повідомлення.</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Гості:</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Вибрати файл</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Експортувати події з календаря ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>файл не вибрано</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>файл вибрано</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Імпорт/Експорт</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Імпортувати події в календар ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Неправильний формат файлу iCal</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Ввести посилання каналу iCal</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Календар із каналу iCal</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>Посилання каналу iCal:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>починаючи з</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>після</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>кожний</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>кожний</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>перший</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Настройка повторення</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>день</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>місяць</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>тиждень</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>рік</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>останній</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>дні</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>за допомогою</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>місяці</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>тижні</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>роки</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>кількість разів</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>дата</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>ніколи</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>передостанній</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>другий</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>третій</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>разів</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>кінець</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Можливо</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Так</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Відвідуючи</value>
+  </data>
+</root>

@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BtnAccept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="BtnAddToMailing" xml:space="preserve">
+    <value>添加到邮件列表</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="BtnCloseHistory" xml:space="preserve">
+    <value>关闭历史记录</value>
+  </data>
+  <data name="BtnCreate" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="BtnDecline" xml:space="preserve">
+    <value>拒绝</value>
+  </data>
+  <data name="BtnDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="BtnKick" xml:space="preserve">
+    <value>踢出</value>
+  </data>
+  <data name="BtnRemove" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="BtnRemoveConference" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="BtnRemoveMailing" xml:space="preserve">
+    <value>删除邮件列表</value>
+  </data>
+  <data name="BtnRemoveMember" xml:space="preserve">
+    <value>删除成员</value>
+  </data>
+  <data name="BtnSendInvite" xml:space="preserve">
+    <value>发送邀请</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>聊天</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="ConferenceGroupName" xml:space="preserve">
+    <value>聊天室</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="DefaultConferenceSubjectTemplate" xml:space="preserve">
+    <value>欢迎来到{0}</value>
+  </data>
+  <data name="DefaultContactTitle" xml:space="preserve">
+    <value>匿名</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>删除已发送文件</value>
+  </data>
+  <data name="DeleteSentFilesAll" xml:space="preserve">
+    <value>所有文件</value>
+  </data>
+  <data name="DeleteSentFilesInfo" xml:space="preserve">
+    <value>您通过聊天发送的文件占用门户磁盘空间的&lt;b&gt;&lt;/b&gt;。 若您选择删除这些文件，这将释放空间，但所有对话参与者的历史记录中的链接将不再可以访问这些文件。 请选择要删除的文件：</value>
+  </data>
+  <data name="DeleteSentFilesMonth" xml:space="preserve">
+    <value>发件发送于一个月以前</value>
+  </data>
+  <data name="DeleteSentFilesYear" xml:space="preserve">
+    <value>文件发送于一年以前</value>
+  </data>
+  <data name="FullDateFormat" xml:space="preserve">
+    <value>%y-%b-%d %H:%M:%S</value>
+  </data>
+  <data name="HintClientConnecting" xml:space="preserve">
+    <value>正在连接...</value>
+  </data>
+  <data name="HintClientDisconnected" xml:space="preserve">
+    <value>连线</value>
+  </data>
+  <data name="HintCreateConference" xml:space="preserve">
+    <value>创建聊天室</value>
+  </data>
+  <data name="HintCreateMassend" xml:space="preserve">
+    <value>群发消息</value>
+  </data>
+  <data name="HintCreateShortcutDialog" xml:space="preserve">
+    <value>创建快捷方式并启动聊天功能。</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>使用Ctrl + 回车键发送消息，使用回车键开始新的段落</value>
+  </data>
+  <data name="HintEmotions" xml:space="preserve">
+    <value>表情</value>
+  </data>
+  <data name="HintFilter" xml:space="preserve">
+    <value>启用/禁用 过滤器</value>
+  </data>
+  <data name="HintFlastPlayerIncorrect" xml:space="preserve">
+    <value>Adobe Flash Player版本不正确</value>
+  </data>
+  <data name="HintGroups" xml:space="preserve">
+    <value>显示/隐藏 组</value>
+  </data>
+  <data name="HintHistory" xml:space="preserve">
+    <value>历史记录</value>
+  </data>
+  <data name="HintNoFlashPlayer" xml:space="preserve">
+    <value>没有安装Adobe Flash Player</value>
+  </data>
+  <data name="HintSearch" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="HintSearchNextMessage" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="HintSearchPrevMessage" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="HintSelectContact" xml:space="preserve">
+    <value>从联系人列表中选择一个人开始交谈</value>
+  </data>
+  <data name="HintSendFile" xml:space="preserve">
+    <value>发送文件</value>
+  </data>
+  <data name="HintSendInvite" xml:space="preserve">
+    <value>将联系人拖放到此处以创建一个收信人。</value>
+  </data>
+  <data name="HintShowLeftTab" xml:space="preserve">
+    <value>在左侧显示标签</value>
+  </data>
+  <data name="HintShowRightTab" xml:space="preserve">
+    <value>在右侧显示标签</value>
+  </data>
+  <data name="HintUnreadMessages" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>按邮件内容搜索</value>
+  </data>
+  <data name="LabelConferenceSplash" xml:space="preserve">
+    <value>将联系人拖放到此处以创建一个收信人</value>
+  </data>
+  <data name="LabelCurrentStatus" xml:space="preserve">
+    <value>当前状态</value>
+  </data>
+  <data name="LabelDoNotAsk" xml:space="preserve">
+    <value>下一次不要询问</value>
+  </data>
+  <data name="LabelFirstSplash" xml:space="preserve">
+    <value>请先从列表中选择一个用户开始聊天</value>
+  </data>
+  <data name="LabelKickOccupant" xml:space="preserve">
+    <value>您确定要将此用户移出聊天室吗？</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="LabelNewMessage" xml:space="preserve">
+    <value>新信息</value>
+  </data>
+  <data name="LabelRecvInvite" xml:space="preserve">
+    <value>邀请您</value>
+  </data>
+  <data name="LabelRemoveRoom" xml:space="preserve">
+    <value>您确定要删除这个聊天室吗？</value>
+  </data>
+  <data name="LabelSend" xml:space="preserve">
+    <value>发送</value>
+  </data>
+  <data name="LabelTemporaryRoom" xml:space="preserve">
+    <value>临时房间 (所有用户离开时，此聊天室将被删除)</value>
+  </data>
+  <data name="LabelTopic" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="LabelValidSymbols" xml:space="preserve">
+    <value>有效字符</value>
+  </data>
+  <data name="MailingsGroupName" xml:space="preserve">
+    <value>邮件列表</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>聊天</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SearchOnHistory" xml:space="preserve">
+    <value>搜索历史消息</value>
+  </data>
+  <data name="SendFileMessage" xml:space="preserve">
+    <value>文件: {0}大小: {1}</value>
+  </data>
+  <data name="SeparatorOfFoundMessages" xml:space="preserve">
+    <value>的</value>
+  </data>
+  <data name="ShortDateFormat" xml:space="preserve">
+    <value>%H:%M:%S</value>
+  </data>
+  <data name="ShowUserList" xml:space="preserve">
+    <value>显示列表</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>忙碌</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>离线</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>在线</value>
+  </data>
+  <data name="TalkDescription" xml:space="preserve">
+    <value>与同事们进行在线沟通。自动获取最新的联系方式。还能实时了解工作站中的动态。</value>
+  </data>
+  <data name="TitleBrowserNotificationsDialog" xml:space="preserve">
+    <value>浏览器通知</value>
+  </data>
+  <data name="TitleCreateMailing" xml:space="preserve">
+    <value>创建群发邮件</value>
+  </data>
+  <data name="TitleCreateRoom" xml:space="preserve">
+    <value>创建聊天室</value>
+  </data>
+  <data name="TitleKickOccupantDialog" xml:space="preserve">
+    <value>从聊天中踢出用户</value>
+  </data>
+  <data name="TitleRecvInvite" xml:space="preserve">
+    <value>邀请交谈</value>
+  </data>
+  <data name="TitleRemoveRoomDialog" xml:space="preserve">
+    <value>删除聊天</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="ValidSymbols" xml:space="preserve">
+    <value>字母、 数字和句点(.)</value>
+  </data>
+  <data name="WriteMessage" xml:space="preserve">
+    <value>写消息...</value>
+  </data>
+</root>

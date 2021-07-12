@@ -1,0 +1,1378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>操作ID</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>操作类型</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>管理员已添加：{0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>管理员已删除：{0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>管理员消息设置已更新</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>管理员[{0}]。 完全访问已开启</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>附加</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>审计跟踪报告已下载</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>审计跟踪报告（{0} - {1}）</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>第三方授权秘钥已更新</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>浏览器</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>案例 [{0}]。文件已附加： {1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>案例已关闭: {0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>案例已创建: {0}</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>案例[{0}]。 历史活动已创建：{1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>案例[{0}]。 标签已创建：{1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>案例已删除: {0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>案例[{0}]。 历史活动已删除：{1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>案例[{0}]。 标签已删除：{1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>案例 [{0}]。文件取消连接： {1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>案例[{0}]。 公司已连接: {1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>案例[{0}]。 人员已连接：{1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>案例已打开: {0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>案例[{0}]。 访问已打开</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>案例[{0}]。 访问已限制</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>案例。 标签已创建：{0}</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>案例已删除: {0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>案例。 标签已删除：{0}</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>导出为CSV文件的案例：{0}</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>从CSV文件导入的案例</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>案例</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>案例 [{0}]。公司取消连接： {1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>案例[{0}]。 人员已取消连接：{1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>案例已更新: {0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>案例用户栏已创建: {0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>案例用户栏已删除: {0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>案例用户栏顺序已更新: {0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>案例用户栏已更新: {0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>颜色主题已修改</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>通用设置</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>公司已合并: {0} - {1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>企业</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>公司[{0}]。 文件已附加：{1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>公司已创建：{0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>公司[{0}]。 历史活动已创建：{1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>公司[{0}]。 人员标签已创建：{1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>公司[{0}]。 标签已创建：{1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>网页表单创建的公司：{0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>公司已删除：{0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>公司[{0}]。 历史活动已删除：{1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>公司[{0}]。 标签已删除：{1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>公司[{0}]。 文件已取消连接：{1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>公司[{0}]。 人员已连接：{1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>公司[{0}]。 项目已连接：{1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>司[{0}]。 人员已取消关联：{1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>公司[{0}]。 项目已取消连接：{1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>公司已更新：{0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>公司[{0}]。 人员温度水平已更新</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>公司[{0}]。 照片已更新</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>公司[{0}]。 主要信息已更新</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>公司[{0}]。温度水平已更新</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>公司[{0}]。 文件已上传：{1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>公司用户栏已创建：{0}</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>公司用户栏已删除：{0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>公司用户栏订单已更新：{0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>公司用户栏已更新：{0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>联系管理员邮件已发送</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>联系人[{0}]。项目已关联：{1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>联系人[{0}]。 任务已创建：{1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>联系人。标签已创建：{0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>联系人已删除: {0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>联系人。标签已删除：{0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>联系人导出到CSV文件：{0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>联系人从CSV文件导入</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>联系人</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>联系人标签设置已更新</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>联系人温度已创建：[{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>联系人温度已删除：[{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>联系人温度设置已更新</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>联系人温度水平顺序已更新：[{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>联系人温度已更新：[{0}]</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>联系人温度等级[{0}]。 颜色已更新</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>联系人类型已创建：{0}</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>联系人类型已删除：{0}</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>联系人类型</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>联系人类型顺序已更新：{0}</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>联系人类型已更新：{0}</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>联系人[{0}]。 项目已取消关联：{1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>联系人用户字段已创建：{0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>联系人用户字段已删除：{0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>联系人用户字段顺序已更新：{0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>联系人用户字段已更新：{0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Cookie设置已更新</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>创建</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>所有数据已导出</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>默认货币已更新</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>CRM实体。 独立的文件：{0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRM文件</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>发送到联系人的SMTP邮件：{0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>SMTP设置已更新</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>CRM任务类别顺序已更新：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>CRM任务类别已创建：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>CRM任务类别已删除：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>CRM任务类别已更新：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>CRM任务类别图标已更新：{0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>CRM任务已关闭：{0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>CRM任务已创建：{0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>CRM任务已删除：{0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>CRM任务已打开：{0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>导出到CSV文件的CRM任务：{0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>从CSV文件导入的CRM任务</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>CRM任务</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>CRM任务已更新：{0}</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>测试邮件已发送</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>货币汇率更新：{0} - {1}</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>默认开始页面设置已更新</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>取消置顶</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>项目[{0}]。讨论[{1}]。文件已附加: {2}</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>项目[{0}]。讨论[{1}]。评论已创建</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>项目[{0}]。讨论[{1}]。评论已删除</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>项目[{0}]。讨论[{1}]。评论已更新</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>项目[{0}]。讨论已创建：{1}</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>项目[{0}]。讨论已删除：{1}</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>项目[{0}]。讨论[{1}]。文件已分离: {2}</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>讨论</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>项目[{0}]。讨论已更新：{1}</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>项目[{0}]。讨论 以下内容已更新：{1}</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>DNS设置已更新</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>文件服务位置已更新</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>更新配置文件覆盖</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="DocumentsStoreForcesave" xml:space="preserve">
+    <value>存储强制保存设置已更新</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>第三方设置已更新</value>
+  </data>
+  <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
+    <value>上传格式设置已更新</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>将[{0}]的所有者设为[{1}]</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>文件转换为内部格式：{0}</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>文件[{0}]。从文件夹复制“{1}”到文件夹：“{2}”</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>文件[{0}]。 从文件夹“{1}”复制并覆盖到文件夹: "{2}"</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>文件已创建：{0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>文件[{0}]。 修订{1}。 评论已创建</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>文件已删除：{0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>文件[{0}]。 修订{1}。 评论已删除</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>文件已下载：{0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>文件[{0}]。下载为：{1}</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>文件夹[{0}]。 文件已导入：{1}。 提供者：{2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>文件已锁定：{0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>文件[{0}]。 从文件夹“{1}”移动到文件夹：“{2}”</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>文件[{0}]。移至垃圾文件夹</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>文件[{0}]。 从文件夹“{1}”到移动并覆盖到文件夹：“{2}”</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>文件已重命名：{0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>文件[{0}]。 修订{1}。 评论已恢复</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>通过{0}签名{1}的文件</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>发送共享链接到[{0}]文件。收件人：[{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>文件{1}已通过{0}发送，以签名</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>文件已解锁：{0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>文件已更新: {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>文件[{0}]。访问已更新</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>文件[{0}]。 修订{1}。 评论已更新</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>文件已上传: {0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>文件夹[{0}]。 已复制到文件夹：{1}</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>文件夹[{0}]。 复制覆盖文件夹：{1}</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>文件夹已创建: {0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>文件夹已删除: {0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>文件夹[{0}]。 移至文件夹：{1}</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>文件夹[{0}]。 移至垃圾文件夹</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>文件夹[{0}]。 移动到覆写至文件夹：{1}</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>文件夹已重命名: {0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>文件夹[{0}]。 访问已更新</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>关注</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Sphinx设置已更新</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>欢迎页面设置已更新</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>小组已创建：{0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>小组已删除：{0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>小组</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>小组已更新：{0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>宾客账户</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>访客已激活：{0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>访客已创建：{0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>通过邀请创建的访客：{0}</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>访客已导入：{0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>历史活动类别。顺序已更新：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>历史活动类别已创建：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>历史活动类别已删除：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>历史活动类别已更新：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>历史活动类别[{0}]。 图标已更新</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>发票已创建：{0}</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>发票默认条款已更新</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>发票已删除：{0}</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>发票已下载：{0}</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>发票项目已创建：{0}</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>发票项目已删除：{0}</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>发票项目已删除：{0}</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>发票项目已更新：{0}</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>发票数字格式已更新</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>发票已删除：{0}</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>发票设置</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>发票</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>发票[{0}]。 状态已更新：{1}</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>发票税已创建：{0}</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>发票税已删除：{0}</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>发票税已更新：{0}</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>发票已更新：{0}</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>语言设置已更新</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>许可证秘钥已上传</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>链接</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>登录失败</value>
+  </data>
+  <data name="LoginFailBruteForce" xml:space="preserve">
+    <value>登录失败。尝试太多</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>登录失败。档案被禁用</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>登录失败。无效的用户名密码组合</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value>IP安全：登录失败</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>登录失败。关联的社交帐户未找到</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>通过API登录失败</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>通过API与短信验证码登录失败</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>通过API和社交媒体登录失败</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>通过短信登录失败</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>通过SSO登录失败</value>
+  </data>
+  <data name="LoginFailViaTfaApp" xml:space="preserve">
+    <value>通过身份验证程序应用程序登录失败</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>登录历史报告</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>登录历史报告（{0} - {1}）</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>登录成功</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>通过社交账户登录成功</value>
+  </data>
+  <data name="LoginSuccessSocialApp" xml:space="preserve">
+    <value>通过社交应用程序成功登录</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>通过API成功登录</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>通过API与短信验证码成功登录</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>通过短信登录成功</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>通过API和社交媒体登录成功</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>通过SSO成功登录</value>
+  </data>
+  <data name="LoginSuccesViaTfaApp" xml:space="preserve">
+    <value>通过身份验证程序应用程序成功登录</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>邮件服务设置已更新</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>项目[{0}]。里程碑已创建：{1}</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>项目[{0}]。里程碑已删除：{1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>里程碑</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>项目[{0}]。里程碑已更新：{1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>项目[{0}]。里程碑[{1}]。状态已更新：{2}</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>模块</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>移动</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>机会。标签已创建：{0}</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>机会已删除: {0}</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>机会。标签已删除：{0}</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>导出到CSV文件的机会：{0}</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>从CSV文件导入的机会：{0}</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>机会</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>机会[{0}]。 公司已附加：{1}</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>机会已创建：{0}</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>机会[{0}]。 历史活动已创建：{1}</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>机会[{0}]。标签已创建：{1}</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>机会已删除：{0}</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>机会[{0}]。 历史活动已删除：{1}</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>机会[{0}]。 标签已删除：{1}</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>机会[{0}]。 文件以取消连接：{1}</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>机会[{0}]。 公司已连接：{1}</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>机会[{0}]。 人员已连接：{1}</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>机会[{0}]。 访问已打开</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>机会[{0}]。 访问已限制: {1}</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>机会阶段已创建：{0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>机会阶段已删除：{0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>机会阶段顺序已更新：{0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>机会阶段已更新：{0}</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>机会阶段颜色已更新：{0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>机会[{0}]。 公司已取消连接：{1}</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>机会[{0}]。 人员已取消连接：{1}</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>机会已更新：{0}</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>机会阶段已更新：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>机会用户字段已更新：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>机会用户字段已删除：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>机会用户字段顺序已更新：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>机会用户字段已更新：{0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>组织简介。地址已更新</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>组织简介。公司名称已更新：{0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>组织简介。发票标志已更新</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>其他设置</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>其他人</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>所有者已更改：{0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>所有者[{0}]。 发送更改所有者说明</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>所有者[{0}]。 发送门户停用说明</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>所有者[{0}]。 发送门户删除说明</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>密码强度设置已更新</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>成员</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>人员[{0}]。 文件已附加：{1}</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>人员已创建：{0}</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>人员[{0}]。 公司标签已创建：{1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>人员[{0}]。历史活动已创建：{1}</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>人员[{0}]。标签已创建：{1}</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>用Web表单创建的人员：{0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>人员已删除：{0}</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>人员[{0}]。历史活动已删除：{1}</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>人[{0}]。标签已删除：{1}</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>人员[{0}]。 文件已分离：{1}</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>人员[{0}]。 项目已关联：{1}</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>人员已创建: {0}</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>人员已合并: {0} - {1}</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>人员</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>人[{0}]。 项目已取消关联：{1}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>人员已更新: {0}</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>人员[{0}]。公司温度水平已更新</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>人员[{0}]。照片已更新</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>人员[{0}]。负责人信息已更新</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>人员[{0}]。温度水平已更新</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>人员[{0}]。 文件已上传：{1}</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>人员用户字段已创建：{0}</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>人员用户字段已删除：{0}</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>人员用户字段顺序已更新：{0}</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>人员用户字段已更新：{0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>门户访问权限设置已更新</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>门户已停用</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>门户已删除</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>产品[{0}]。访问已打开</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>产品：[{0}]。小组[{1}]。访问已打开</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>产品：[{0}]。 用户[{1}]。访问已打开</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>产品[{0}]。访问已限制</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>产品[{0}]。管理员已添加：{1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>产品[{0}]。管理员已删除：{1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>产品列表已更新</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>产品</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>项目已创建: {0}</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>模板[{0}]。 项目已创建：{1}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>项目已删除: {0}</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>项目[{0}]。会员已删除：{1}</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>项目已关注: {0}</value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>项目[{0}]。公司已关联：{1}</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>项目[{0}]。联系人已关联：{1}</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>项目[{0}]。人员已关联：{1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>从Basecamp导入的项目：{0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>项目</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>项目模板已创建: {0}</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>项目报告已删除: {0}</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>项目模板已更新: {0}</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>项目已取消关注: {0}</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>项目[{0}]。公司已取消关联：{1}</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>项目[{0}]。人员已取消关联：{1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>项目已更新: {0}</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>项目[{0}]。会员[{1}]。访问权限已更新</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>项目[{0}]。状态已更新：{1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>项目[{0}]。任务已更新: {1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>重新分配</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>报告</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>项目报告模板已创建: {0}</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>项目报告模板已删除: {0}</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>项目报告模板已更新: {0}</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>发送</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>邀请说明已发送：{0}</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>会话已完成</value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>会话已开始</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSO已禁用</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSO已启用</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>开始备份</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>开始门户地区迁移</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。子任务已创建：{2}</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。子任务已删除：{2}</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。子任务已更新：{2}</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。子任务已创建： [{2}]。状态已更新: {3}</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>系统账户</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>目标ID</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。文件已附加：{2}</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。评论已创建</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。评论已删除</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。评论已更新</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>项目[{0}]。 任务已创建：{1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>项目[{0}]。讨论[{1}]。任务已创建: {2}</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>项目[{0}]。 任务已删除：{1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>项目[{0}]。任务：{1}。文件已分离：{2}</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>项目[{0}]。里程碑[{1}]。任务已删除：{2}</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>项目[{0}]。任务已关联: {1} - {2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>项目[{0}]。任务已取消关联: {1} - {2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。子任务时间已创建: {2}</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>任务时间已删除：{0}</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>任务时间[{0}]。状态已更新：{1}</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。子任务时间已更新: {2}</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。已从里程碑取消关联。</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>项目[{0}]。任务已更新：{1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>项目[{0}]。以下任务已更新：{1}</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>项目[{0}]。任务：[{1}]。状态已更新：{2}</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>团队模板已修改</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>第三方已创建：{0}。提供者：{1}</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>第三方已删除：{0}。提供者：{1}</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>第三方已更新：{0}。提供者：{1}</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>工时记录</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>时区设置已更新</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>受信任的邮件域设置已更新</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsDisabled" xml:space="preserve">
+    <value>已更新双因素身份验证设置：已禁用双因素身份验证</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>双因素身份验证设置已更新</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>取消关注</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>未知账户</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>取消关联</value>
+  </data>
+  <data name="UpdateAccessActionType" xml:space="preserve">
+    <value>访问已更新</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>上传</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>用户已激活：{0}</value>
+  </data>
+  <data name="UserAddedAvatar" xml:space="preserve">
+    <value>用户[{0}]。 头像已添加</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>用户已创建: {0}</value>
+  </data>
+  <data name="UserCreatedViaInvite" xml:space="preserve">
+    <value>通过邀请创建的用户：{0}</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>数据重新分配：从用户{0}到用户{1}</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>用户已删除: {0}</value>
+  </data>
+  <data name="UserDeletedAvatar" xml:space="preserve">
+    <value>用户[{0}]。 头像已删除</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>用户[{0}]。 文件已更新：{1}</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>用户已导入： {0}</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>社交账户已关联。 提供者：{0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>用户已删除：{0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>用户[{0}]。 发送激活说明</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>发送删除档案指示</value>
+  </data>
+  <data name="UserSentEmailInstructions" xml:space="preserve">
+    <value>户[{0}]。 发送邮件更改说明</value>
+  </data>
+  <data name="UserSentPasswordInstructions" xml:space="preserve">
+    <value>户[{0}]。 发送密码更改说明</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>用户[{0}]。 激活说明已发送</value>
+  </data>
+  <data name="UsersUpdatedStatus" xml:space="preserve">
+    <value>户[{0}]。 状态已更新</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>用户[{0}]。类型已更新</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>创建了新的备份代码</value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>社交账户已取消关联。 提供者：{0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>用户已更新: {0}</value>
+  </data>
+  <data name="UserUpdatedAvatarThumbnails" xml:space="preserve">
+    <value>用户[{0}]。 头像缩略图已更新</value>
+  </data>
+  <data name="UserUpdatedEmail" xml:space="preserve">
+    <value>电子邮件已更新</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>语言已更新</value>
+  </data>
+  <data name="UserUpdatedMobileNumber" xml:space="preserve">
+    <value>用户[{0}]。 手机号码已更新：{1}</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>密码已更新</value>
+  </data>
+  <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
+    <value>网站联系表格已更新</value>
+  </data>
+</root>

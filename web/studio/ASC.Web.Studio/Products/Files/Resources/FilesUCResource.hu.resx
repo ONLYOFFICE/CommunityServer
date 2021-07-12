@@ -1,0 +1,748 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Megjegyzés</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Űrlap kitöltése</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Csak olvasható</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Teljes hozzáférés</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Hozzáférés megtagadása</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Összefoglalás</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Fiók hozzáadása</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box fiók hozzáadása</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>DropBox fiók hozzáadása</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Google fiók hozzáadása</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Nextcloud fiók hozzáadása</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>OneDrive fiók hozzáadása</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Más fiók</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Minden megszakítása</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Tulajdonos megváltoztatása</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Kapcsolat beállításainak megváltoztatása</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Szűrő törlése</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Bezárás</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Másolat létrehozása</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Másol</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Másol</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Dokumentum létrehozása</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Mappa</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Bemutató</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>Prezentáció létrehozása</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Táblázat</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>Táblázat létrehozása</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokumentum</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Harmadik fél leválasztása</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Fájlmásolat létrehozása</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Beágyazott dokumentum</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Kuka kiürítése</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archívumok</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Összes fájl</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mappák</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Képek</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Adathordozó</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Bemutatók</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Táblázatok</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Menjen a '{0}' -hoz/hez</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Ugrás a Saját Dokumentumokhoz</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Tudjon meg többet...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Block / Kijelentkezés</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Áthelyezés vagy másolás</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Áthelyezés </value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Megnyitás</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Aktuális verzióval történő felülírás</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Átnevezés</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Visszaállítás</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Összes</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Küldés DocuSign-nal</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Küldés</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Küldés e-mailben</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Beállítások megosztása</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
+    <value>Beállítások megosztása</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Verziótörténet bemutatása</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Kihagyás</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Vissza a szülőkönyvtárba</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Feloldás / Bejelentkezés</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Tetején</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Feltöltés</value>
+  </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>Feltöltés megszakítása és bezárás</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Fájlok feltöltése</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Könyvtár feltöltése</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>Párbeszédablak felnagyítása</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>Párbeszédablak lekicsinyítése</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Verziótörténet</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Verzió véglegesítése</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Megszakítva</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>A fájl jelszóval védett. Adja meg a jelszót a folytatáshoz. </value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Átalakítás és megnyitás</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>Dokumentum mentés</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>Dokumentum feltöltés</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>A változtatások alkalmazása után a jelenlegi fájl/könyvtár tulajdonosa a saját csoportjának megfelelő, vagy az alapbeállítások szerinti jogosultságokat szerzi meg.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Tulajdonos megváltoztatása</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Válasszon formátumot a letöltendő fájloknak</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Általános beállítások</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Értesítés megjelenítése az elem kukába mozgatásakor</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>Ne mutassa újra ezt az üzenetet</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Két különböző fájl lesz a mappában.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Felülírás megerősítése</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>A fájl az azonos nevű fájlhoz kerül verzióként.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Fontos: ez a művelet nem visszavonható.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Fontos: a fiókból történő eltávolítás nem visszavonható.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Nincs másolva. Az eredeti fájl a célmappában marad</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Fájlmásolat mentése az eredeti formátumban is</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>A megnyitott dokumentumot Office Open XML formátumba alakítjuk át a gyorsabb megtekintés és szerkesztés érdekében.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Másolatfájl létrehozása a {0}Saját Dokumentumok{1} mappában</value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>Minden feltöltött dokumentum a megfelelő Office Open XML formátumába (docx, xlsx vagy pptx) lesz konvertálva a gyorsabb szerkesztés érdekében.</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Fájlmásolat mentése az eredeti formátumban is</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Áthelyezés megerősítése</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Biztosan eltávolítja a listáról ezeket az elemeket? </value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Meglévő fájl felülírása. {0}Egyébként fájlmásolat keletkezik.{1} </value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Kapcsolódási URL</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Átalakítás</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Letöltés mint</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>A konverzió sikeres volt.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>A fájl létrejött a '{0}' mappában</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Átalakítási hiba</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Konvertálás folyamatban...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Közös dokumentumok</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Sikeresen létrehozta ONLYOFFICE portálját.{0} Töltse fel a fájljait, hogy közösen dolgozhasson rajta másokkal az alkalmazás elhagyása nélkül.{0}{0} Nyissa meg a portálját böngészőben és fedezze fel a {1}Projekteket{2}, a{1}CRM-et{2}, a{1}Naptárat{2}, a{1}Levelezést{2} és még sok egyebet.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Megnyitás böngészőben</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Vásárlással kapcsolatos kérdés esetén írjon nekünk a {0} címen.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Esetleges technikai problémákkal kapcsolatban forduljon hozzánk {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Üdvözöljük a portálján!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Gratulálunk!</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Mentés mappába: </value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Üzenet</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Üzenet hozzáadása</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Üzenet eltávolítása</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Dokumentum neve</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>{!user} hozzáadása</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Aláíró címzetti lista</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Letöltés mint</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Méret</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Magasság</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Szélesség</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>A "Közös dokumentumok" részben a portál adminisztrátora által megosztott összes dokumentum látható. Csak a portál adminisztrátora hozhat létre mappákat ebben a szakaszban, de hozzáférés biztosításával a portálfelhasználók is feltölthetik a fájljaikat.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Fogd és húzd</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>A 'Velem megosztott' részben jelennek meg azok a fájlok amikhez a barátok vagy a munkatársak hozzáférést adtak. Ha olyan változások történtek a dokumentumokon, amiket még nem látott, azok 'új' megjelölést kapnak. Eltávolíthatók a fájlok a listából, a megfelelő gombra kattintva.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>A dokumentumok és képek, amiket{0}létrehoz{1}, vagy {2}feltölt{3} a portálra itt a "saját Dokumentumok" alatt találhatók. {4}Megnyithatja{5} és {6}szerkesztheti{7} azokat az ONLYOFFICE™ portálszerkesztővel, mappákba rendezheti, megoszthatja azokat a barátaival, munkatársaival.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>A dokumentumok és képek, amiket{0}létrehoz{1}, vagy {2}feltölt{3} a portálra itt a "saját Dokumentumok" alatt találhatók. Mappákba rendezheti, megoszthatja azokat a barátaival, munkatársaival.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>A dokumentumok és képek, amiket létrehoz, vagy feltölt a projektjéhez, itt találhatók. Mappákba rendezheti, megnyithatja és szerkesztheti azokat az ONLYOFFICE™ portálszerkesztővel.</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>A projekthez feltöltött dokumentumok és képek ebben a részben találhatók. Megtekinthetők az ONLYOFFICE portál szerkesztővel.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>A 'Lomtár'-ba helyeződnek át a törölt fájlok. Itt van lehetőség visszaállítani illetve véglegesen törölni őket. A Lomtárból törölt fájlok visszaállítására nincs lehetőség.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Nincs feltételeknek megfelelő fájl</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Ebben a szakaszban nem jeleníthetők meg a szűrőnek megfelelő fájlok vagy mappák. Válasszon más szűrési lehetőségeket, vagy törölje a szűrőt a jelen szakasz összes fájljának megtekintéséhez. Más szakaszban is keresheti a szükséges fájlt.</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>Nincsenek fájlok ebben a mappában</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Nincs megjeleníthető fájl ebben a szakaszban</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Nincs kapcsolódó fiók</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>Válassza ki a fájl {0} formátumát</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>Fájltípusok kijelölése:</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Szűrő</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Mappák</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Indítás most</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>Rövidít</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>Emailen keresztül</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>Ha az eredetitől eltérő formátumba konvertál, adatok veszhetnek el.</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Összes kiválasztása</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>A fájl maximális mérete {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Van egy {0} együttműködő csapat? {0}{1}Tudjon meg többet{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Dokumentum menedzselés</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM és számlázás</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Feladat menedzselés és Gantt-diagramm</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Email aggregátor</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Van projektje és csapata, akikkel együttműködhet?{0}Van valamink az Ön számára.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Hívja meg munkatársait vagy alvállalkozóit, és használja a további szolgáltatásokat:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Üdvözöljük az "ONLYOFFICE™ csapatoknak"-ban !</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Saját Dokumentumok</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Megnyitás</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Hely megnyitása</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Dokumentumlista elrejtése</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Mutassa a dokumentumok listáját</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projekt Dokumentumok</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Megjelölés olvasottként</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Összes megjelölése olvasottként</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Megjelölés olvasottként</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>Fájlnév</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>Mentett fájl megnyitása új lapon</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Mappa kiválasztása</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>válasszon:</value>
+  </data>
+  <data name="SettingForcesave" xml:space="preserve">
+    <value>Köztes verzió megtartása mialatt szerkeszt</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>Tartsa meg az összes átmeneti verziót</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Általános beállítások</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>Fájlverziók tárolása</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Megosztás</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Velem megosztott</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Külső link hozzáférés</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Hozzáférést ad a linkhez és a beágyazási kódhoz </value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Bővebben</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Mutassa ezt az ablakot kicsinyítve</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Váltás kompakt nézetre</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Váltás általános nézetre</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Harmadik fél fiókjai</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Fiók csatlakoztatása</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Fiókok csatlakoztatása</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>A alábbi szolgáltatások csatlaloztathatók az ONLYOFFICE™ fiókhoz. Ezek a 'Saját dokumentumok' mappa alatt jelennek meg, és lehetőséget biztosítanak arra, hogy helyről kezelje a dokumentumait.</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>A sikeres csatlakozáshoz adja meg a szükséges adatokat {0} ezen az oldalon{1}.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Fiók csatlakoztatása</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Töltse ki a változtatáshoz</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Harmadik fél leválasztása</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Harmadik fél beállítások engedélyezése a felhasználóknak</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mappa címe</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Újrakapcsolódás</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Fiók</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Ossza meg és helyezze a Közös Dokumentumokba</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint/OneDrive for Business </value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDav</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Keresés</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>és az {0}összes alkönyvtár{1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>Keresés almappák nélkül</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Válassza ki</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Készíthet dokumentumokat ({0}), táblázatokat ({1}), prezentációkat ({2}) és letöltheti azokat a legnépszerűbb formátumokban.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Az alábbi fájlokat szerkesztheti: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>A következő kiterjesztésű fájlok nyithatók meg: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Bármilyen fájlt feltölthet a Dokumentumokba.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Lomtár</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Eltávolítás listáról</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>A létező fájl felülírása ugyanazzal a névvel </value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Terv aktualizálása</value>
+  </data>
+</root>

@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOperatorBtn" xml:space="preserve">
+    <value>Додати оператора</value>
+  </data>
+  <data name="AddOperatorsBtn" xml:space="preserve">
+    <value>додати операторів</value>
+  </data>
+  <data name="AddRingtoneBtn" xml:space="preserve">
+    <value>Додати рінгтон</value>
+  </data>
+  <data name="Alias" xml:space="preserve">
+    <value>Псевдонім</value>
+  </data>
+  <data name="AliasDscrMsg" xml:space="preserve">
+    <value>{0} Псевдонім {1} допомагає ідентифікувати номер певним словом або фразою (наприклад, підтримка, продажі тощо). Він буде видно у списку віртуальних номерів.</value>
+  </data>
+  <data name="AliasPlaceholder" xml:space="preserve">
+    <value>Введіть назву номера</value>
+  </data>
+  <data name="BuyNumberBtn" xml:space="preserve">
+    <value>Купити номер телефону</value>
+  </data>
+  <data name="BuyNumberHeader" xml:space="preserve">
+    <value>Купівля номера</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Дзвінок</value>
+  </data>
+  <data name="CallAgent" xml:space="preserve">
+    <value>Агент</value>
+  </data>
+  <data name="CallClient" xml:space="preserve">
+    <value>Клієнт
+</value>
+  </data>
+  <data name="CallCost" xml:space="preserve">
+    <value>Вартість</value>
+  </data>
+  <data name="CallDatetime" xml:space="preserve">
+    <value>Дата\час</value>
+  </data>
+  <data name="CallDuration" xml:space="preserve">
+    <value>Тривалість</value>
+  </data>
+  <data name="CallType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="CallWaitingTime" xml:space="preserve">
+    <value>Час очікування</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="DeleteNumberBody" xml:space="preserve">
+    <value>Номер буде збережено в Twilio, але буде недоступним для поточного порталу</value>
+  </data>
+  <data name="DeleteNumberBtn" xml:space="preserve">
+    <value>Видалити номер</value>
+  </data>
+  <data name="DeleteNumberHeader" xml:space="preserve">
+    <value>Видалити номер</value>
+  </data>
+  <data name="DeleteRingtoneBtn" xml:space="preserve">
+    <value>Видалити рінгтон</value>
+  </data>
+  <data name="EditBtn" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="EmptyScreenNumberDescription1" xml:space="preserve">
+    <value>Купуйте новий номер IP-телефону, щоб додати його до порталу ONLYOFFICE. Після додавання ви можете використовувати цей номер телефону з порталом CRM.</value>
+  </data>
+  <data name="EmptyScreenNumberDescription2" xml:space="preserve">
+    <value>Примітка: телефонні номери, які ви вже маєте на веб-сайті Twilio, не можуть бути перенесені на портал.</value>
+  </data>
+  <data name="EmptyScreenNumberHeader" xml:space="preserve">
+    <value>Номери IP-телефонії ще не додані</value>
+  </data>
+  <data name="GeneralSettings" xml:space="preserve">
+    <value>Загальні налаштування</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Привітальні мелодії</value>
+  </data>
+  <data name="IncomingCallsQueueDscrMsg" xml:space="preserve">
+    <value>0} Черга вхідних викликів {1} показує кількість вхідних викликів, призначених для поточних операторів. Якщо кількість вхідних викликів перевищує чергу, вони будуть перенаправлені до служби голосової пошти.</value>
+  </data>
+  <data name="IncomingCallsQueueSize" xml:space="preserve">
+    <value>Довжина черги вхідних дзвінків</value>
+  </data>
+  <data name="LinkNumberBody" xml:space="preserve">
+    <value>Після з'єднання всі дзвінки будуть оброблятися за допомогою поточного порталу.</value>
+  </data>
+  <data name="LinkNumberBtn" xml:space="preserve">
+    <value>Посилання на придбаний номер</value>
+  </data>
+  <data name="LinkNumberHeader" xml:space="preserve">
+    <value>Кількість зв'язків</value>
+  </data>
+  <data name="LinkNumberSuccessMsg" xml:space="preserve">
+    <value>Номер успішно пов'язаний</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Завантаження триває, будь ласка, зачекайте</value>
+  </data>
+  <data name="NoAvailableNumbersMsg" xml:space="preserve">
+    <value>На жаль, доступних номерів немає. Повторіть спробу пізніше.</value>
+  </data>
+  <data name="NoExistingNumbersMsg" xml:space="preserve">
+    <value>Ви поки що не маєте жодних номерів.</value>
+  </data>
+  <data name="NoNumbersMsg" xml:space="preserve">
+    <value>У вас немає ніяких номерів. Вони можуть бути куплені {0} тут {1}.</value>
+  </data>
+  <data name="NoSearchingNumbersMsg" xml:space="preserve">
+    <value>Таких номерів не було знайдено</value>
+  </data>
+  <data name="NumberOperators" xml:space="preserve">
+    <value>Кількість операторів</value>
+  </data>
+  <data name="NumbersCountDscrMsg" xml:space="preserve">
+    <value>Ви можете встановити їх {0} тут {1}.</value>
+  </data>
+  <data name="NumbersCountMsg" xml:space="preserve">
+    <value>Номери, які у вас уже є</value>
+  </data>
+  <data name="Operator" xml:space="preserve">
+    <value>Оператор</value>
+  </data>
+  <data name="OperatorPause" xml:space="preserve">
+    <value>Пауза оператора</value>
+  </data>
+  <data name="OperatorPauseDisabled" xml:space="preserve">
+    <value>Заблокований</value>
+  </data>
+  <data name="OperatorPauseDscrMsg" xml:space="preserve">
+    <value>{0} Пауза оператора {1} дозволяє оператору мати деякий час, перш ніж приймати дзвінки ще раз. Це може бути використано для прийняття деяких приміток на попередній виклик тощо.</value>
+  </data>
+  <data name="OperatorPauseEnabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="OutgoingCalls" xml:space="preserve">
+    <value>Вихідні дзвінки</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Чергові мелодії</value>
+  </data>
+  <data name="QuickTuning" xml:space="preserve">
+    <value>Швидкі налаштування</value>
+  </data>
+  <data name="QuickTuningDscrMsg" xml:space="preserve">
+    <value>{0} Швидке налаштування{1} використовується для швидкого увімкнення або вимкнення вихідних дзвінків, запису дзвінків на номер, а також встановлення робочого часу, коли номер буде доступний клієнтам.</value>
+  </data>
+  <data name="RecordingCalls" xml:space="preserve">
+    <value>Запис дзвінка</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedMsg" xml:space="preserve">
+    <value>Записи розмов зберігаються у форматі WAV. Ваш браузер не підтримує відтворення аудіофайлів у цьому форматі, тобто ви не зможете прослухати ці записи.</value>
+  </data>
+  <data name="RecordingsCallsPlayNotSupportedTipMsg" xml:space="preserve">
+    <value>Список браузерів, які підтримують цю функцію, можна знайти {0} тут {1}</value>
+  </data>
+  <data name="RingtonesList" xml:space="preserve">
+    <value>Список мелодій</value>
+  </data>
+  <data name="RingtonesTuning" xml:space="preserve">
+    <value>Налаштування рінгтона</value>
+  </data>
+  <data name="RingtonesTuningDscrMsg" xml:space="preserve">
+    <value>{0} Налаштування дзвінка {1} використовується для перегляду та редагування сигналів, які в даний час призначені для різних операцій телефону.</value>
+  </data>
+  <data name="RingtonesUploadingRecomendationsMsg" xml:space="preserve">
+    <value>{0} Рекомендовані завантажені рингтони {1}: розмір файлу не повинен перевищувати 5 Мб. Підтримувані формати: MP3.</value>
+  </data>
+  <data name="SearchLabel" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="TuningNumber" xml:space="preserve">
+    <value>Налаштування номера</value>
+  </data>
+  <data name="UnspecifiedOption" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="UpdateSettingsBtn" xml:space="preserve">
+    <value>Оновити налаштування</value>
+  </data>
+  <data name="VirtualNumbers" xml:space="preserve">
+    <value>Віртуальні номери</value>
+  </data>
+  <data name="VirtualNumbersAndOperators" xml:space="preserve">
+    <value>Віртуальні номери та оператори</value>
+  </data>
+  <data name="VirtualNumbersDscrMsg" xml:space="preserve">
+    <value>{0} Віртуальні номери {1} використовуються для спілкування з вашими CRM-клієнтами за допомогою VoIP телефонів, наданих Twilio.</value>
+  </data>
+  <data name="Voicemail" xml:space="preserve">
+    <value>Голосова пошта</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Мелодії голосової пошти</value>
+  </data>
+  <data name="VoipModuleDescription" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="VoipModuleTitle" xml:space="preserve">
+    <value>VoIP</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Очікування дзвінків</value>
+  </data>
+  <data name="WaitingTimeout" xml:space="preserve">
+    <value>Очікування таймауту</value>
+  </data>
+  <data name="WaitingTimeout10Minutes" xml:space="preserve">
+    <value>10 хвилин</value>
+  </data>
+  <data name="WaitingTimeout15Minutes" xml:space="preserve">
+    <value>15 хвилин
+</value>
+  </data>
+  <data name="WaitingTimeout5Minutes" xml:space="preserve">
+    <value>5 хвилин
+</value>
+  </data>
+  <data name="WaitingTimeoutDscrMsg" xml:space="preserve">
+    <value>{0} Тайм-аут очікування {1} показує час, протягом якого клієнт буде чекати відповіді оператора. Коли цей час перевищено, дзвінок буде перенаправлений до послуги голосової пошти.</value>
+  </data>
+  <data name="WorkingHours" xml:space="preserve">
+    <value>Робочі години</value>
+  </data>
+  <data name="WorkingHoursFormatErrorMsg" xml:space="preserve">
+    <value>Неправильний інтервал</value>
+  </data>
+  <data name="WorkingHoursFormatTip" xml:space="preserve">
+    <value>Введіть час у форматі ##:## </value>
+  </data>
+</root>

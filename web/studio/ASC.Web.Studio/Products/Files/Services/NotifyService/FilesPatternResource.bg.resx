@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Всички подписващи лица завършиха $DocumentTitle 
+Това е известие по имейл, за да Ви уведомим, че всички подписващи лица са завършили "$DocumentTitle":"$DocumentURL".
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle 
+Влезте в своя DocuSign акаунт за повече информация. 
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__AuthorName":"$__AuthorUrl" Ви спомена в коментар на документ
+
+ Това е съобщение по пощата, за да ви уведоми, че сте били споменати от "$__AuthorName":"$__AuthorUrl" в коментара към
+"$DocumentTitle":"$DocumentURL" document:
+
+$Message
+
+^Вие получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Изпращане на поща 
+
+Това е известие по имейл, което ви информира, че сте поискали изпращането на съобщения $MailsCount и процесът е завършен.
+$Message
+
+Успешно изпратените пощенски съобщения могат да бъдат намерени в папката "Изпратени":"$__VirtualRootPath/ addons/ mail/#sent" на модула Поща.
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Достъп до документа: "$DocumentTitle":"$DocumentURL"
+$__DateTime "$__AuthorName":"$__AuthorUrl" ви даде достъп до "$DocumentTitle":"$DocumentURL" документ със следните права за достъп: "$AccessRights". 
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Достъпът до папката: "$DocumentTitle":"$DocumentURL"
+$__DateTime "$__AuthorName":"$__AuthorUrl" ви даде достъп до 
+"$DocumentTitle":"$DocumentURL" със следните права за достъп: "$AccessRights".
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Документи. Всички подписващи лица завършиха $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Документи. Състоянието на регистрацията се промени</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Документи. Споменава се в документ</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Документи. Изпращането е пълно.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Документи. Достъп до документа: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Документи. Достъпът до папката: $DocumentTitle</value>
+  </data>
+</root>

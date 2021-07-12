@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Блогът бе създаден на</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Маркерът бе създаден на</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>CRM е създаден на</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Коментарът бе добавен в</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>CRM контактът бе създаден в</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>Възможност за CRM бе създадена на</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Дискусията бе създадена на</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Събитието бе създадено в</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Документът бе създаден/качен на адрес</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Папката бе създадена на</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Форумът бе създаден на</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Анкетата бе създадена на</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Публикацията бе създадена на</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Milestone бе създаден на</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Проектът бе създаден на</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Задачата бе създадена на</value>
+  </data>
+  <data name="ButtonAccept" xml:space="preserve">
+    <value>Приемам</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Достъп до контролния панел</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Достъп до вашия портал</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Достъп до уеб-офиса</value>
+  </data>
+  <data name="ButtonActivateEmail" xml:space="preserve">
+    <value>Кликнете тук, за да активирате имейл адреса си</value>
+  </data>
+  <data name="ButtonChangeEmail" xml:space="preserve">
+    <value>Смени имейл адреса</value>
+  </data>
+  <data name="ButtonChangePassword" xml:space="preserve">
+    <value>Промяна на паролата</value>
+  </data>
+  <data name="ButtonChangePhone" xml:space="preserve">
+    <value>Промяна на номера на мобилния телефон</value>
+  </data>
+  <data name="ButtonChangeTfa" xml:space="preserve">
+    <value>Промяна на резервните кодове</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Конфигурирайте точно сега</value>
+  </data>
+  <data name="ButtonConfirmPortalAddressChange" xml:space="preserve">
+    <value>Потвърдете промяната на адреса на портала</value>
+  </data>
+  <data name="ButtonConfirmPortalOwnerUpdate" xml:space="preserve">
+    <value>Потвърдете актуализацията на собственика на портала</value>
+  </data>
+  <data name="ButtonConfirmTermination" xml:space="preserve">
+    <value>Потвърдете прекратяването на профила</value>
+  </data>
+  <data name="ButtonDeactivatePortal" xml:space="preserve">
+    <value>Деактивиране на портала</value>
+  </data>
+  <data name="ButtonDeletePortal" xml:space="preserve">
+    <value>Изтриване на портала</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Поканете точно сега</value>
+  </data>
+  <data name="ButtonJoin" xml:space="preserve">
+    <value>Кликнете тук, за да се присъедините към портала</value>
+  </data>
+  <data name="ButtonLeaveFeedback" xml:space="preserve">
+    <value>Оставете отзиви</value>
+  </data>
+  <data name="ButtonRemoveProfile" xml:space="preserve">
+    <value>Премахване на потребителския профил</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Заявка за повикване</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Изберете ценовите планове точно сега</value>
+  </data>
+  <data name="ButtonStartFreeTrial" xml:space="preserve">
+    <value>Започнете безплатен пробен период</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Научете повече &gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>Активирайте имейла си за "${__VirtualRootPath}": портал "$InviteLink". Здравейте!
+ За да започнете да участвате в живота на портала "${__VirtualRootPath}":"$InviteLink", трябва да активирате имейл адреса си. Това се прави поради съображения за сигурност. $GreenButton Тази връзка е валидна само за 7 дни. Завършете активирането на имейла си в рамките на този период.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>Създадено е резервно копие на портал ${__VirtualRootPath}:: "${__VirtualRootPath} Уважаеми $OwnerName, Създаден е архивен файл, съдържащ данни от вашия" ${__VirtualRootPath} ":" "${__VirtualRootPath}" портал. За да научите повече за процедурата за архивиране, вижте ръководството за потребителя "Резервиране на данни":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx". Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support.onlyoffice.com":"http://support.onlyoffice.com" Най-добри пожелания, Екип за поддръжка на ONLYOFFICE™ "www.onlyoffice.com":" http://onlyoffice.com/ "</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1.Запитване за промяна на парола за портал "${__VirtualRootPath}":"${__VirtualRootPath}" Има заявка за промяна на паролата, използвана за въвеждане на портал "${__VirtualRootPath}":"${__VirtualRootPath}". Моля, следвайте линка по-долу, за да промените паролата си: $GreenButton * Забележка *: Тази връзка е валидна само за 7 дни. Моля, завършете процеса на промяна на паролата в рамките на този период. Ако не искате да променяте паролата си или сте получили този имейл по погрешка, моля, игнорирайте го или се свържете с администратора на портала "${__VirtualRootPath}":"${__VirtualRootPath}", за да разберете подробностите.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>Заявка за промяна на мобилен телефон Вие поискахте да промените мобилния си телефон, използван за влизане в портала ${LetterLogoText}. Моля, следвайте връзката по-долу, за да промените мобилния си телефон: $GreenButton Ако не искате да сменяте мобилния си телефон или сте получили този имейл по погрешка, моля, пренебрегнете го или се свържете с администратора на портала, за да разберете подробностите.</value>
+  </data>
+  <data name="pattern_change_tfa" xml:space="preserve">
+    <value>h1.Backup кодове за промяна искане Вие сте поискали да промените вашите резервни кодове, използвани за влизане в ${LetterLogoText} портал. Моля, следвайте връзката по-долу, за да промените резервните си кодове: $GreenButton</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1.Change of "${__VirtualRootPath}":"Собственик на портал ${__VirtualRootPath} Уважаеми $OwnerName, Имаше искане за промяна на собственика на портала" ${__VirtualRootPath} ":" ${__VirtualRootPath} "на $UserName. Моля, следвайте връзката по-долу, за да потвърдите операцията: $GreenButton * Забележка *: тази връзка е валидна само за 7 дни. Моля, завършете процеса на промяна на собственика на портала в рамките на този период.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Промяна на адреса на портала
+
+Уважаеми $OwnerName,
+
+Имало е искане за промяна на адреса на портала "${__VirtualRootPath}":"${__VirtualRootPath}" на "$PortalAddress":"$PortalAddress" #if($PortalDns != "")("$PortalDns":"$PortalDns")#end.
+
+Моля, следвайте връзката по-долу, за да потвърдите операцията:
+
+$GreenButton
+
+*Забележка*: тази връзка е валидна само за 7 дни. Моля, завършете процеса на промяна на адреса на портала в рамките на този период.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>Съобщение от портала "${__VirtualRootPath}":"${__VirtualRootPath}" Имейл: $UserEmail $Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>Покана за присъединяване към "${__VirtualRootPath}": портал "$InviteLink" Здравейте, Вие поискахте да се присъедините към "${__VirtualRootPath}":"$InviteLink" портал на ${LetterLogoText} - платформа за управление на документи и проекти , Присъединете се към портала и започнете веднага да си сътрудничите с колегите или приятелите си. За да приемете поканата, моля въведете вашето име и парола, следвайки тази връзка: $GreenButton * Забележка *: Тази връзка е валидна само за 48 часа. Моля, завършете операцията в рамките на този период.</value>
+  </data>
+  <data name="pattern_mailbox_created" xml:space="preserve">
+    <value>Уважаеми $UserName, Администраторът ви е създал нова пощенска кутия &lt;b&gt; $Address &lt;/b&gt; за вас в портал "${__VirtualRootPath}":"${__VirtualRootPath}". Използвайте следните настройки за други имейл клиенти: Вход: &lt;b&gt; $Вход &lt;/b&gt; Парола: "&lt;b&gt; задайте парола &lt;/b&gt;":"$MyStaffLink" Входяща поща (IMAP): Сървър: &lt;b&gt; $Сървър &lt;/b&gt; Порт: &lt;b&gt; $ImapPort &lt;/b&gt; SSL/TLS: &lt;b&gt; $Шифроване &lt;/b&gt; Изходяща поща (SMTP): Сървър: &lt;b&gt; $Server &lt;/b&gt; Порт: &lt;b &gt; $SmtpPort &lt;/b&gt; SSL/TLS: &lt;b&gt; $Шифроване &lt;/b&gt; Изисква удостоверяване: &lt;b&gt; Да &lt;/b&gt; Ако сте получили този имейл по погрешка,</value>
+  </data>
+  <data name="pattern_mailbox_password_changed" xml:space="preserve">
+    <value>Уважаеми $UserName, Паролата за пощенската кутия &lt;b&gt; $Address &lt;/b&gt; е променена. Ако сте получили този имейл по погрешка, моля, игнорирайте го или се свържете с администратора на портала, за да разберете подробностите.</value>
+  </data>
+  <data name="pattern_mailbox_without_settings_created" xml:space="preserve">
+    <value>Уважаеми $UserName, Администраторът създаде нова пощенска кутия &lt;b&gt; $Address &lt;/b&gt; за вас в портал "${__VirtualRootPath}":"${__VirtualRootPath}". Ако сте получили този имейл по погрешка, моля, игнорирайте го или се свържете с администратора на портала, за да разберете подробностите.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Друга грешка при миграция на портала на друг регион Възникна грешка при мигрирането към региона $RegionName. Моля, опитайте отново по-късно. Вашият портал вече е достъпен на стария адрес "$PortalUrl":"$PortalUrl" Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support@onlyoffice.com":"mailto: support@onlyoffice.com" С най-добри пожелания, Екип за поддръжка на ONLYOFFICE™ "www.onlyoffice.com":"http://onlyoffice.com/" ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"${__VirtualRootPath} "портал. За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Друга грешка при миграцията на портала на регионален регистър Възникнала е грешка при мигрирането към друг регион. Моля, опитайте отново по-късно. Вашият портал вече е достъпен на стария адрес "$PortalUrl":"$PortalUrl" Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support@onlyoffice.com":"mailto: support@onlyoffice.com" С най-добри пожелания, Екип за поддръжка на ONLYOFFICE™ "www.onlyoffice.com":"http://onlyoffice.com/" ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"${__VirtualRootPath} "портал. За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>Началото на миграцията на портала на друг регион Стартира миграцията на портала към региона $RegionName. Може да отнеме известно време в зависимост от сумата на данните ви. * Забележка *: портала няма да бъде достъпен по време на процеса на миграция. След приключване на миграцията URL адресът на портала ще бъде променен и всички връзки за споделени документи ще бъдат недостъпни. Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес://onlyoffice.com/ "^ Получавате този имейл, защото сте регистриран потребител на портала" ${__VirtualRootPath} ":" ${__VirtualRootPath} ".</value>
+  </data>
+  <data name="pattern_personal_activate" xml:space="preserve">
+    <value>Здравейте, $UserName Успешно сте се регистрирали в ONLYOFFICE Personal "${__VirtualRootPath}":"${__VirtualRootPath}". Свържете любимото си облачно хранилище: Dropbox, Google Диск, OneDrive или Box, за да създадете едно работно пространство за документите, достъпни от всяко място. Научете повече за ONLYOFFICE Personal в "нашия блог":"$TagBlogLink". Радваме се, че сте тук. Останете на линия! С уважение, екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_after_registration1" xml:space="preserve">
+    <value>h1.Добре дошли в ONLYOFFICE Personal
+
+Вие току-що създадохте личния си офис в облака.
+
+h3.Това е виртуално работно пространство, където можете да редактирате и съхранявате документи, да работите с тях от всяка точка, предоставяйки достъп до вашите приятели или колеги.
+
+ONLYOFFICE е съвместим с форматите за документи на Microsoft Office ™ и не гарантира загуба на форматиране или качество на създадените обекти. Обещаваме ви да ви освободим от форматирането на главоболието за вярност и да дадете пълни професионални инструменти за редактиране във вашите ръце.
+
+h3.За бърз старт, ето какво можете да направите в ONLYOFFICE:
+
+- Качвайте файлове от компютъра си или създавайте нови;
+
+- Работа с всички популярни файлови формати;
+
+- Редактиране на автозапаси, диаграми, таблици, уравнения и други обекти;
+
+- Използвайте различни добавки за разширени функции за редактиране;
+
+- Лесен достъп до персоналния си облак чрез "разширение за Chrome":"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US".
+
+С уважение,
+екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_after_registration14" xml:space="preserve">
+    <value>$PersonalHeaderStart Няколко съвета за фрийлансери $PersonalHeaderEnd h3.ONLYOFFICE предоставя редица възможности за свободна практика, независимо дали сте на договор или наемате сами проект: - Споделяне за четене, прегледи или сътрудничество; - Редактиране и коментиране в реално време в режим Fast; - Строг режим на съвместно редактиране за частно редактиране на части от документа; - История на версиите; - Промяна на проследяването и предлагане; - вграден чат. Няма нужда да изтегляте файлове и да ги изпращате по имейл. Просто ги споделете от вашия облачен офис с външни връзки и си сътрудничи, където и да сте. Нуждаете се от повече работни инструменти? ONLYOFFICE решения за бизнес са безплатни за 30 дневен пробен период и ви осигуряват още повече възможности за работа на свободна практика и отдалечена работа. Например, можете да създавате и изпращате фактури на клиентите си, свържете се с тях с имейл и VoIP. За да научите повече за ONLYOFFICE за търговия, преминете към нашия "CRM преглед":"http://www.onlyoffice.com/crm.aspx". С уважение, екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_after_registration21" xml:space="preserve">
+    <value>$PersonalHeaderStart Нуждаете се от повече функции и автоматизация? Опитайте се да ONLYOFFICE за екипи $PersonalHeaderEnd h3.В случай, че си сътрудничите с екип или управлявате проект, ние ви предлагаме да опитате ONLYOFFICE за бизнес. В допълнение към онлайн редакторите и функциите за управление на документи, ще можете да: - контролирате задачите и да използвате * диаграмата на Гант в модула за управление на проекти; - Проследяване на продажбите, отношенията с клиентите и създаване на фактури в * CRM *; - Управлявайте всичките си имейл акаунти в e-mail * aggregator *; - Създаване на екипна комуникация с Messenger, блог, форуми и уики. Създайте едно съвместно работно пространство за вас и вашите съотборници. Регистрирайте пробен "в облака":"https://www.onlyoffice.com/registration.aspx" или "на вашия сървър":"https://www.onlyoffice.com/download-commercial.aspx?from=enterprise-edition"</value>
+  </data>
+  <data name="pattern_personal_after_registration28" xml:space="preserve">
+    <value>$PersonalHeaderStart Как да се подобри сигурността на вашия уеб офис $PersonalHeaderEnd Търсите начини за защита на вашите данни? Разгледайте допълнителните инструменти за съхраняване на вашите документи, които се предлагат в нашите решения за частни сървъри: - Получете пълен контрол върху данните си с * частен облак * на собствения си сървър; - Настройте * двуфакторна идентификация * и използвайте * Single Sign-On * с услуги на трети страни; - Прилагане на многостепенни * настройки за сигурност за влизане *; - Наблюдавайте * активността на потребителя * във вашия уеб-офис; - Изпълнете ръчно или автоматично * архивиране * на вашите данни. $GreenButton Научете повече за това как ONLYOFFICE запазва данните ви безопасни в нашия преглед на сигурността. С уважение, екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_change_password" xml:space="preserve">
+    <value>Налице е заявка за промяна на паролата, използвана за въвеждане на портал "${__VirtualRootPath}":"${__VirtualRootPath}". Моля, следвайте линка по-долу, за да промените паролата си: $GreenButton * Забележка *: Тази връзка е валидна само за 7 дни. Моля, завършете процеса на промяна на паролата в рамките на този период. Ако не искате да променяте паролата си или сте получили този имейл по погрешка, моля, игнорирайте го. С уважение, екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_confirmation" xml:space="preserve">
+    <value>Здравейте,
+
+Току-що сте регистрирали профил в решението ONLYOFFICE за лична употреба. Кликнете "тук":"$InviteLink", за да потвърдите регистрацията и да създадете парола.
+
+Ако не можете да отворите връзката, моля копирайте следното "$InviteLink":"$InviteLink" и го поставете в адресната лента на браузъра.
+
+С уважение,
+екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_profile_delete" xml:space="preserve">
+    <value>Вие поискахте прекратяване на профила си на адрес personal.onlyoffice.com. Следвайте връзката, за да завършите заявката (връзката е активна за период от 7 дни):
+
+$GreenButton
+
+*Забележка*: След изтриването, профилът ви и всички данни, свързани с него, ще бъдат изтрити за постоянно в съответствие с нашата "Декларация за поверителност":"https://help.onlyoffice.com/Products/Files/doceditor.aspx?fileid=5048502&amp;doc=SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0".
+
+Игнорирайте този имейл, ако не искате да продължите.
+
+Ако имате някакви въпроси, моля свържете се с нас на адрес "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+С уважение,
+екип на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1.Деактивиране на портал "${__VirtualRootPath}":"${__VirtualRootPath}" Уважаеми $OwnerName, Вие поискахте временно деактивиране на вашия портал "${__VirtualRootPath}":"${__VirtualRootPath}". Моля, следвайте връзката по-долу, за да потвърдите операцията: $GreenButton * Забележка *: тази връзка е валидна само за 7 дни. Моля, завършете процеса на деактивиране на портала в рамките на този период. Можете да активирате портала си по всяко време, като кликнете върху следната връзка: p =. "Reactivate Portal":"$ActivateUrl" (тази връзка няма ограничение във времето) Ако имате въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support@onlyoffice.com":"mailto: support@onlyoffice.com" за уважение, екип за поддръжка на ONLYOFFICE™ "www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1.Забелязване на портала "${__VirtualRootPath}":"${__VirtualRootPath}" Уважаеми $OwnerName, Вие поискахте да изтриете за постоянно вашия портал "${__VirtualRootPath}":"${__VirtualRootPath}". * Важно! Всички данни, съхранени на портала ви, както и данните за регистрацията ви, ще бъдат загубени и не могат да бъдат възстановени. * #If ($AutoRenew == "True") Преди да изтриете портала, уверете се, че автоматичното фактуриране е изключено. Можете да проверите състоянието на автоматичното фактуриране във Вашия "акаунт на Avangate":"https://secure.avangate.com/myaccount/". #end Ако все още искате да изтриете своя портал "${__VirtualRootPath}":"${__VirtualRootPath}", моля, следвайте връзката по-долу, за да потвърдите операцията: $GreenButton * Забележка *: Тази връзка е валидна само за 7 дни. Моля, завършете процеса на изтриване на портала в рамките на този период. Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support@onlyoffice.com":"mailto: support@onlyoffice.com" Поздрави, Екип за поддръжка на ONLYOFFICE™ "www.onlyoffice.com":"http://onlyoffice.com/ "</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Промяна на адреса на портала Уважаеми $UserDisplayName, Вашият адрес на портал $PortalUrl е променен на новия адрес "${__VirtualRootPath}":"${__VirtualRootPath}". * Забележка *: Всички връзки за споделени документи вече са недостъпни, както и DNS настройки и опции за единично влизане спират да работят, докато не ги промените. Връзките на iCal от трета страна, добавени към вашия календар, също ще спрат да се актуализират, докато не ги презаредите.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>Премахване на профила от портала "${__VirtualRootPath}":"${__VirtualRootPath}" Вие поискахте да изтриете профила си за постоянно от портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако все още искате да изтриете профила си, моля, следвайте връзката по-долу, за да потвърдите операцията: $GreenButton * Забележка *: Тази връзка е валидна само за 7 дни. Моля, завършете процеса на изтриване на подпрофила в рамките на този период.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.Вашия профил в "$__VirtualRootPath":"$__VirtualRootPath" е променен Уважаеми $UserName, Вашите потребителски профили в "$__VirtualRootPath":"$__VirtualRootPath" са променени от "$__AuthorName":"$__AuthorUrl". За да видите профила си, следвайте връзката по-долу: "$UserName":"$MyStaffLink" ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Уважаеми $UserName, Процесът на пренасочване на данни от потребител "$FromUserName":"$FromUserLink" на потребителя "$ToUserName":"$ToUserLink" е завършен успешно. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".</value>
+  </data>
+  <data name="pattern_reassigns_failed" xml:space="preserve">
+    <value>Уважаеми $UserName, Процесът на пренасочване на данни от потребител "$FromUserName":"$FromUserLink" на потребителя "$ToUserName":"$ToUserLink" е неуспешно. Съобщение за изключение: $Съобщение ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".</value>
+  </data>
+  <data name="pattern_remove_user_data_completed" xml:space="preserve">
+    <value>Уважаеми $UserName, Процесът на премахване на данни от потребител "$FromUserName":"$FromUserLink" е завършен успешно. Изтриването на лични данни е разрешено: # Документи - $DocsSpace # CRM - $CrmSpace # Поща - $MailSpace # Говоря - $TalkSpace ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":" ${__VirtualRootPath} "портал^</value>
+  </data>
+  <data name="pattern_remove_user_data_failed" xml:space="preserve">
+    <value>Уважаеми $UserName, Процесът на премахване на данни за потребителя "$FromUserName":"$FromUserLink" е неуспешен. Съобщение за изключение: $Съобщение ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}".</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Enterprise licence h3.Първо име $UserName h3.Последно име $UserLastName h3.Позиция $Позиция h3.Електронна поща "$UserEmail":"mailto: $UserEmail" h3.Phone $Телефон h3.Компания Сайт $Website h3.Компания име $CompanyTitle h3.Размер на компанията $CompanySize h3.Запитване за съдържание $Body h3.Пощенски адрес "${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>Започнато възстановяване на портала Започва възстановяването на портала. Може да отнеме известно време в зависимост от сумата на данните ви. * Забележка *: портала няма да бъде достъпен по време на процеса на възстановяване. Ако имате някакви въпроси или имате нужда от помощ, моля не се колебайте да се свържете с нас на адрес "support@onlyoffice.com":"mailto: support@onlyoffice.com" Поздрави, Екип за поддръжка на ONLYOFFICE™ "www.onlyoffice.com":"http://onlyoffice.com/ "^ Получавате този имейл, защото сте регистриран потребител на портала" ${__VirtualRootPath} ":" ${__VirtualRootPath} ". За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>"${__VirtualRootPath}":"${__VirtualRootPath}" известие за промяна на профил на портала "$__AuthorName":"$__AuthorUrl" е променило данните за профила си в "${__VirtualRootPath}":"${__VirtualRootPath}" портал. ^ Получавате този имейл, защото сте администратор на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за актуализации на потребителския профил, моля, управлявайте "настройките си за абонамент":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1.Нов на "${__VirtualRootPath}":"${__VirtualRootPath}" портал за $Date
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Автор*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action : $whatsNewActivity.Date.ToShortTimeString()
+
+#end
+#end
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за новите събития в портала "${__VirtualRootPath}":"${__VirtualRootPath}", моля, управлявайте своите "настройки за абонамент":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP тестово съобщение Това съобщение е генерирано автоматично за тестване на вашите SMTP настройки. Ако го преглеждате, това означава, че настройките са правилни и можете да ги използвате в портала си. С най-добри пожелания, Екипът на ONLYOFFICE</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1.Нов потребител добавя към "${__VirtualRootPath}":"${__VirtualRootPath}" портал "$__AuthorName":"$__AuthorUrl" се присъедини към вашия портал на "${__VirtualRootPath}":"${__VirtualRootPath}". ^ Получавате този имейл, защото сте администраторски потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за нови потребители, моля, управлявайте "настройките си за абонамент":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Моля, активирайте имейл адреса си</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. ${__VirtualRootPath} архивът на портала е създаден</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>Помощ за парола за ${LetterLogoText}</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Заявка за промяна на мобилен телефон</value>
+  </data>
+  <data name="subject_change_tfa" xml:space="preserve">
+    <value>${LetterLogoText}. Искане за промяна на резервните кодове</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Промяна на собственика на портала</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Промяна на адреса на портала</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Съобщение на потребителя до администраторите</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Покана за присъединяване към портала ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_mailbox_created" xml:space="preserve">
+    <value>${LetterLogoText}. Създаване на пощенска кутия</value>
+  </data>
+  <data name="subject_mailbox_password_changed" xml:space="preserve">
+    <value>${LetterLogoText}. Промяна на паролата на пощенската кутия</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText}. Друга грешка при мигрирането на портала за региона</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Започна още една миграция на портала на региона</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Друга миграция на портал за региони успешно приключи</value>
+  </data>
+  <data name="subject_personal_activate" xml:space="preserve">
+    <value>Добре дошли в ONLYOFFICE за лична употреба!</value>
+  </data>
+  <data name="subject_personal_after_registration1" xml:space="preserve">
+    <value>Добре дошли в ONLYOFFICE Personal</value>
+  </data>
+  <data name="subject_personal_after_registration14" xml:space="preserve">
+    <value>Няколко съвета за работа на свободна практика</value>
+  </data>
+  <data name="subject_personal_after_registration21" xml:space="preserve">
+    <value>Нуждаете се от повече функции? Опитайте ONLYOFFICE за екипи</value>
+  </data>
+  <data name="subject_personal_after_registration28" xml:space="preserve">
+    <value>Как да подобрим сигурността на вашия уеб офис</value>
+  </data>
+  <data name="subject_personal_after_registration7" xml:space="preserve">
+    <value>Свържете любимото си облачно хранилище към ONLYOFFICE</value>
+  </data>
+  <data name="subject_personal_change_password" xml:space="preserve">
+    <value>ONLYOFFICE Лична помощ за пароли</value>
+  </data>
+  <data name="subject_personal_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE Лични. Моля, активирайте имейл адреса си</value>
+  </data>
+  <data name="subject_personal_profile_delete" xml:space="preserve">
+    <value>ONLYOFFICE Прекратяване на личен акаунт</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>Деактивиране на портала ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>Изтриване на портала ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Промяна на адреса на портала</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>Изтриване на потребителския ви профил от портала ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Потребителският ви профил в ${__VirtualRootPath} е променен</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Прехвърлянето на потребителски данни е завършено</value>
+  </data>
+  <data name="subject_reassigns_failed" xml:space="preserve">
+    <value>${LetterLogoText}. Пренасочването на потребителски данни е неуспешно</value>
+  </data>
+  <data name="subject_remove_user_data_completed" xml:space="preserve">
+    <value>Премахването на потребителските данни е завършено</value>
+  </data>
+  <data name="subject_remove_user_data_failed" xml:space="preserve">
+    <value>${LetterLogoText}. Премахването на потребителските данни не бе успешно</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Заявка за лиценз за предприятие</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>Заявка за SaaS ценообразуване</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Възстановяването е завършено</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Възстановяването започна</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} известие за промяна на профила на портала</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Какво е новото на вашия портал за $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP тестово съобщение</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Нов потребител е добавен към портала ${LetterLogoText}</value>
+  </data>
+</root>

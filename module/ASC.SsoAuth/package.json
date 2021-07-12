@@ -1,0 +1,37 @@
+{
+  "name": "asc-sso-auth",
+  "version": "2.9.0",
+  "description": "ASC Single Sign-On handler",
+  "homepage": "http://www.onlyoffice.com",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "@authenio/samlify-node-xmllint": "^2.0.0",
+    "body-parser": "1.19.0",
+    "co": "^4.6.0",
+    "cookie-parser": "1.4.5",
+    "cors": "^2.8.5",
+    "express": "4.17.1",
+    "express-handlebars": "^4.0.6",
+    "express-session": "1.17.1",
+    "formidable": "^1.2.2",
+    "lodash": "^4.17.20",
+    "minify-xml": "^2.5.0",
+    "morgan": "1.10.0",
+    "nconf": "^0.10.0",
+    "node-fetch": "^2.6.1",
+    "node-forge": "^0.10.0",
+    "nodemon": "2.0.4",
+    "request": "^2.88.2",
+    "samlify": "^2.7.6",
+    "serve-favicon": "^2.5.0",
+    "url": "^0.11.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
+  }
+}

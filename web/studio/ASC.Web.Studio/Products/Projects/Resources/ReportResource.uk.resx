@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Активних завдань</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Генерувати такий звіт автоматично</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Інтервал часу</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Дата створення</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Інтервал часу</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Натисніть для сортування за цим стовпчиком</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Створити шаблон</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Ім'я користувача</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Строк завершення</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Шаблон повинен мати назву</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Кожного дня</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Кожного місяця</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Кожного тижня</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Генерувати звіт</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Невірний діапазон даних</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Попередній місяць</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Минулий тиждень</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Минулий рік</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>У цьому проекті поки що немає етапів і завдань</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Інший</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Учасників</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Статус оплати</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Звіт за закритими завданнями</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Звіт Користувачі без активних завдань відобразить список тих користувачів, у яких в даний момент немає активних завдань.{3}{2}Щоб переглянути всіх користувачів без активних завдань у всіх проектах, відразу натисніть Згенерувати звіт.{3}{2}Щоб вибрати конкретну групу або проект, спочатку налаштуйте параметри звіту, а потім натисніть Згенерувати звіт.{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} без відкритих завдань</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}Звіт 'Завантаження' відобразить кількість завдань, призначених користувачеві і згрупованих за статусом.{3}{2}Щоб переглянути дані по всім користувачам, відразу натисніть 'Згенерувати звіт'.{3}{2}Щоб вибрати конкретну групу або користувача, спочатку налаштуйте параметри звіту, а потім натисніть Згенерувати звіт.{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Завантаження</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2} Звіт 'Прострочені етапи' відобразить список прострочених етапів.{3}{2} Щоб переглянути прострочені етапи у всіх проектах, відразу натисніть 'Згенерувати звіт'.{3}{2} Щоб переглянути прострочені етапи тільки для заданого проекту, спочатку виберіть необхідний проект з випадаючого списку, а потім натисніть 'Згенерувати зві'т.{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Прострочені етапи</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}Звіт 'Прострочені завдання' відображає список прострочених завдань.{3}{2}Для перегляду прострочених завдань у всіх проектах натисніть посилання 'Згенерувати звіт'.{3}{2}Для перегляду прострочених завдань лише по заданому проекту спочатку оберіть потрібний проект з випадаючого списку, а потім натисніть посилання 'Згенерувати звіт'.{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Прострочені завдання</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Звіт по відкритих завданнях</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Звіт «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}Звіт 'Список проектів' відобразить список проектів.{3}{2}Щоб переглянути всі активні проекти з їх відповідальними, низкою завдань, етапами, діями та учасниками, відразу натисніть 'Згенерувати звіт'.{3}{2}Щоб переглянути проекти всередині конкретної групи та/або переглянути як активні, так і завершені проекти, спочатку налаштуйте параметри звіту, а потім натисніть 'Згенерувати звіт'.{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Список проектів</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2} Звіт 'Проекти без активних етапів' відобразить список проектів без активних етапів.{3}{2}Щоб переглянути всі проекти без активних етапів, відразу натисніть 'Згенерувати звіт'.{3}{2}Для перевірки таких проектів всередині конкретної групи або для перевірки окремого користувача, спочатку виберіть потрібну групу та/або користувача, а потім натисніть 'Згенерувати звіт'.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Проекти без відкритих етапів</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Звіт 'Проекти без активних завдань' відобразить список проектів без призначених активних завдань.{3}{2}Щоб переглянути всі проекти без активних завдань, відразу натисніть 'Згенерувати звіт'.{3}{2}Щоб перевірити такі проекти всередині конкретної групи або перевірити окремого користувача, спочатку виберіть потрібну групу та/або користувача, а потім натисніть 'Згенерувати звіт'.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Проекти без відкритих завдань</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Звіти</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}Звіт 'Завдання проекту' відобразить список завдань, згрупованих за проектом та етапом, з якими вони пов'язані.{3}{2}Щоб переглянути список всіх завдань у всіх проектах із зазначеними учасниками і статусом, відразу натисніть 'Згенерувати звіт'.{3}{2}Щоб переглянути завдання тільки конкретного проекту або заданого статусу, спочатку налаштуйте параметри звіту, а потім натисніть 'Згенерувати звіт'.{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Завдання проектів</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0} {2} Звіт про витрати часу - це список користувачів із зазначенням загального робочого часу, що базується за журналом обліку. {3} {2} Даний звіт допомагає відслідковувати загальну кількість часу, витрачену певним користувачем. {3} {1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Звіт про витрати часу</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Звіт 'Найближчі етапи' відобразить список етапів, що наближаються.{3}{2}Щоб переглянути найближчі етапи у всіх проектах за тижневий період, відразу натисніть 'Згенерувати звіт'.{3}{2}Щоб переглянути найближчі етапи для заданого проекту та/або іншого періоду часу, спочатку оберіть потрібний проект з випадаючого списку та/або встановіть інший крайній термін у полі 'Інтервал часу', а потім натисніть 'Згенерувати звіт'.{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Найближчі етапи</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}Звіт Активність користувача відобразить дії конкретного користувача в рамках Проектів за даний період часу.{3}{2}Щоб показати Вашу власну активність за попередній тиждень, відразу натисніть Згенерувати звіт.{3}{2}Щоб задати інший період часу або вибрати іншого користувача, спочатку налаштуйте параметри звіту, а потім натисніть Згенерувати звіт.{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Активність користувача</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}Звіт Завдання користувача відобразить список завдань, згрупованих по учасниках, яким вони доручені.{3}{2}Щоб переглянути всі завдання користувачів із зазначенням статусу, відразу натисніть Згенерувати звіт.{3}{2}Щоб переглянути завдання тільки конкретного проекту або заданого статусу, спочатку налаштуйте параметри звіту, а потім натисніть Згенерувати звіт.{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Завдання користувача</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Відобразити завдання</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Шаблони</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Назва шаблону</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Поточний місяць</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Поточний тиждень</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Поточний рік</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Перегляд за користувачами</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Перегляд по {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Перегляд по проектам</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Перегляд по користувачах</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Перегляд по завданнях користувача</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Відобразити закриті проекти</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Тижня</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Тижнів</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчора</value>
+  </data>
+</root>

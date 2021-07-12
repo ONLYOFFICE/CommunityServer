@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>צור סימניה</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>הוסף סימניה למועדפים</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>הוסף למועדפים</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>יוצר את הסימניה...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>תיאור הסימניה</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>תיאור מפורט של הסימניה</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>נשמר כסימניה על-ידי</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>חיפוש בסימניות</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>שם</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>מספר האנשים שבחרו להוסיף סימניה זו למועדפים שלהם</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>סימניות</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>הזן את התגיות הרצויות, מופרדות בפסיקים</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>כתובת URL</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>בדוק כתובת אינטרנט URL</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>בודק כתובת אינטרנט URL</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>תגובות</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>עבור אל התגובות של סימניה זו</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>תגובה</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>צור סימנייה חדשה</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>פרטים</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>עריכה</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>עריכת סימניה</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>עריכת סימניה</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>שדה כתובת אינטרנט של הסימניה אינו יכול להישאר ריק (URL)</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>עדיין לא נוספו סימניות</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>צור את הסימניה הראשונה</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>לא נמצאו סימניות</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>צור סימניות - דרך יעילה לאחסן ולחלוק מידע חשוב עם עמיתיך ישירות בפורטל שלך. הסימניות מאפשרות גישה מהירה לאתרים ומשאבים באינטרנט ומהווים קיצורי דרך נוחים. </value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>מועדפים</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>חודש</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>סימניות אחרונות</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>סימניות פופולריות</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>הסר סימניה מהמועדפים</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>הסר</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך להסיר את הסימניה {0} מהמועדפים?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>הסר סימניה</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>מסיר סימניה...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>שמור</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>הצג:</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>קבל עדכונים למייל על תגובות חדשות</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>תיוג</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>תגיות</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>המובילים היומיים</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>בטל עדכונים למייל עבור תגובות</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>שבוע</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>שנה</value>
+  </data>
+</root>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneTitle" xml:space="preserve">
+    <value>Добавить название вехи</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Добавить задачу</value>
+  </data>
+  <data name="AddTaskTitle" xml:space="preserve">
+    <value>Добавить название задачи</value>
+  </data>
+  <data name="AllProjectTmpl" xml:space="preserve">
+    <value>Все шаблоны проекта</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Выбрать ответственного</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Создать проект</value>
+  </data>
+  <data name="CreateProjTmpl" xml:space="preserve">
+    <value>Создать новый шаблон проекта</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>Создать по шаблону - {0}</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="EditProjStructure" xml:space="preserve">
+    <value>Редактировать структуру проекта</value>
+  </data>
+  <data name="EditProjTmpl" xml:space="preserve">
+    <value>Редактировать шаблон проекта</value>
+  </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>Создать первый шаблон</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>Шаблоны проектов позволяют создавать сходные проекты со всеми соответствующими материалами, такими как cформированная команда проекта, запланированные вехи, задачи и обсуждения, экономя время, которое тратится каждый раз на ввод одной и той же информации.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>Нет ни одного шаблона проекта</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>У каждой вехи должно быть название</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>вех</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Без ответственного</value>
+  </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Оповестить ответственных</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Вы действительно хотите удалить этот шаблон?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>Удалить шаблон</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>Сохранить и создать проект по шаблону</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>Каждая задача должна иметь название</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>задач</value>
+  </data>
+  <data name="TasksWithoutMilestone" xml:space="preserve">
+    <value>Задачи вне вех</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="TitleErrorTemplate" xml:space="preserve">
+    <value>Каждый шаблон должен иметь название</value>
+  </data>
+</root>

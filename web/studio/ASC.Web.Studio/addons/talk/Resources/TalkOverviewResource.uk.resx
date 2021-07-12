@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Автоматично оновлюваний список контактів позбавляє Вас від необхідності додавати або видаляти контакти вручну.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Повідомлення в браузері</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Чат-кімната</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Вкладки для чату</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Лист контактів із налаштуваннями</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>За умовчанням усі сповіщення надсилатимуться як на вашу адресу електронної пошти і у Розмову. Ви можете налаштувати їх на</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Видалити відправлені файли</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Список контактів, об'єднаних у групи</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>тут</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Сховати офлайн-контакти</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Розсилка</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Доступно більше інформаціїї про повідомлення{0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Налаштування повідомлення</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Чат - це корпоративна система обміну миттєвими текстовими повідомленнями між співробітниками в реальному часі.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Чат пропонує всі традиційні функції, які Ви очікуєте від месенджера - вибір статусу, зберігання історії переписки, передача файлів, підтримка багатокористувацьких чатів і т. д.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Огляд Чату</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Відкрийте наш веб-клієнт, щоб почати використання Чату прямо зараз без попередніх налаштувань.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Сторінка профілю</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Відіслати повідомлення за допомогою Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Налаштування поля введення</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Запустити веб-клієнт</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Ніяких зайвих налаштувань! Натисніть, щоб запустити веб-клієнт і почати спілкуватися прямо зараз.</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Розділ підписки на {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Голоси подій</value>
+  </data>
+</root>

@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Hozzáférés</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>A portálon kívül</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Megjegyzés</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Adatlap kitöltése</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Csak olvasható</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Teljes hozzáférés</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Hozzáférés megtagadása</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Összefoglalás</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>A fájlhoz való munkához hozzáféréssel kell rendelkezni</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>E fájl megnyitása az ONLYOFFICE™ szolgáltatásban a fájl új példányát hozza létre az Office Open XML formátumban a Google Drive-ban, így az eredeti fájl nem módosul. Az ONLYOFFICE™ programban történő további szerkesztéshez az új példányt kell megnyitni</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Ne mutasd ezt még egyszer</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Fájlnév begépelése</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Fájltípus kiválasztása</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Szerző</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Nekem</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Átalakítás és Megnyitás</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Mentés</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Megjegyzés</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Automatikusan mentve</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Tulajdonos megváltozott</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Átalakítás {0}-ból</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Másolt</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Létrehozva</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>A DocuSign hozta létre</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Szerkesztve</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>Titkosítással szerkesztve</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Titkosítva</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Mentve</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Felülírva</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Visszaállt a {0} revíziójáról</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Visszaállt a {0} dokumentum változásáról</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Feltöltve</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Kapcsolódási URL</value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>A szerkeszthetőség érekében a dokumentum konverziója ebbe: {0}</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Átalakítás</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>A dokumentumok szolgáltatás nem elérhető. Lépjen kapcsolatba a támogatási csoporttal</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Dokumentum neve</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Elutasítva</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Hiba keletkezett a küldés közben</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>A dokumentum DocuSign-on történő elküldését megszakították</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>A dokumentum a DocuSign-on keresztül el lett küldve aláírásra.</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Érvénytelenítés</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>Értesítés, ha a dokumentumban szerepel</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Megjegyzés hozzáfűzése</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Hiba</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Hibás kérés.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Nem lehetséges a felhasználó kiválasztása</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Az átalakítás túl sok időt igényel</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Hiba a Dokumentumok Szolgáltatásban</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>{0} szekeszti a fájlt. Jelenleg a társszerkesztés nem támogatott ehhez a fájlformátumhoz.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0} a fájlt mobil alkalmazással szerkeszti</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Üres fájl</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>A szükséges fájl nem található.</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>A(z) {0}-nál nagyobb fájl nem lesz átalakítva</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>A(z) {0}-nál nagyobb fájl nem másolódik</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>A(z) {0}-nál nagyobb fájl nem szerkeszthető</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>A(z) {0}-nál nagyobb fájl nem áthelyezhető</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>A mappa nem másolható annak almappájába</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Szükséges mappa nem található.</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Nem megfelelő cím</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>A fájlt más felhasználó zárolta</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Nincs elérhető fiók az üzenet elküldéséhez.A Mail modulban csatlakoztathat postafiókot.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Legalább {0} mail üzenetet nem lehetett elküldeni. Keresse fel a Mail modult, és nézze meg, hogy mi lehet a hiba oka.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Túl sok letöltés.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Sajnáljuk, ez a fájlformátum nem támogatott</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>A művelet megszakadt</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>A mentés szerzője nem ismert</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>A fájl megsérült mentés közben</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Nem sikerült a fájl elmentése</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Nincs engedélye a művelet végrehajtásához</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Nem lehetett azonosítani a (z) {0} szolgáltatónál megadott hitelesítő adatokkal.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Nincs engedélye létrehozásra</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>A fájl nem törölhető, mert szerkesztésre nyitva van</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>A mappa nem törölhető, mert az egyik fájl szerkesztésre meg van nyitva</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Nincs engedélye törölni a fájlt</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Nincs engedélye törölni a mappát</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Megfelelő jogosultságok hiánya miatt a fájl nem szerkeszthető</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>A dokumentumot egy másik lapon már szerkeszti</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>Nincs engedélye a fájl mozgatásához</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>Nincs jogosultsága a könyvtár áthelyezésére</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Nincs engedélye a fájl megtekintésére</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Nincs engedélye a mappa tartalmának megtekintése</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Nincs engedélye a fájl átnevezésére</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Nincs engedélye a mappa átnevezésére</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>A fájlt nem lehet frissíteni, mert szerkesztésre meg van nyitva</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Nincs engedélye a mappa tartalmának megtekintésére</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>A harmadik fél mappájának tartalma nem érhető el. Próbálja újra csatlakozni a fiókot.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Fájlszerkesztés indítási hiba</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Nem lehet frissíteni a fájlt ameddig meg van nyitva</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>A felhasználó nem található</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>A Lomtárban nem engedélyezett az elem előnézete</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Mindenki</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fájl</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Mappa</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Mappanév</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Névtelen</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Keresés a dokumentumok tartalma alapján</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>új</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Belépés</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Visszaállítás</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Fájl létrehozása a "{0}" mappában</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Tedd ugyanazt felhasználóként|Csatolakoztasson Dropbox, Box és egyéb fiókot a "Közös dokumentumok" részben|Hozzáférési jogok beállítása a dokumentumokhoz és mappákhoz a "Közös dokumentumok" részben</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Dokumentumok létrehozása, szerkesztése, és megosztása. Együttműködés valós időben. 100%-os kompatibilitás MS Office formátumokkal garantált. </value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Dokumentumok létrehozása, szerkesztése, és megosztása. Együttműködés valós időben. 100%-os kompatibilitás MS Office formátumokkal garantált. </value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Hozzon létre, szerkesszen, mentsen és osszon meg dokumentumokat. Csatlakozzon a Google Drive, Dropbox és Box fiókjaihoz, hogy a dokumentumai egy helyen legyenek. </value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Saját dokumentumok létrehozása és szerkersztése, a megfelelő jogosultságokkal rendelkező megosztott dokumentumok szerkesztése| Más felhasználók számára hozzáférést biztosít a dokumentumokhoz és mappákhoz | Dropbox, Box és egyéb fiókok csatolása a "Dokumentumok" szakaszban</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} eltávolítva</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Megjelölése olvasottként</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Keresés</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Megosztás</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Értesítsen, amikor egy mappát megosztottak</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Verziók megjelenítése</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Méret</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Értesítsen, ha a dokumentumot aláírták a DocuSign-on keresztül</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Értesítsen, ha a dokumentum állapota a DocuSign-ban változott</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Értesítsen amikor egy dokumentumot megosztanak</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Értesítsen, ha a levelezés befejeződött</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Töltse ki a változtatáshoz</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mappa címe</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Újrakapcsolódás</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Fiók</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Ossza meg és tegye a "Közös Dokumentumok" mappába</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Létrehozott</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>{!user} felhasználó dokumentumai {0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Frissítve</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Törölt</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Válassza ki</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Engedélyek beállítása</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Fájlműveletek mutatása</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Mappatevékenységek mutatása</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Almappák</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Feltöltött</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Megjelölés verzióként</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Megjelölés revízióként</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Verziótörténet és felülvizsgálatok</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Keresztnév</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Vezetéknév</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>A fájl feloldva</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

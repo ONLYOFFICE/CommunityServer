@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Aktuálny dátum obchodu
+
+</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Pridávanie príležitosti...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Pridať e-mail</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Pridávanie faktúry...
+
+</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Pridať telefón</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Vytvoriť novú úlohu</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>adresy</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>adresy</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>Skupina/hromada</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>za deň</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>za hodinu</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>za mesiac</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>za týždeň</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>za rok</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Fakturačná adresa
+
+</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Prezerať</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Obchodný prípad</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Zatvorené</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Otvorené</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Označiť ako primárne
+
+</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Vybrať</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Mesto</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Spoločnosť</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Naozaj chcete zmeniť tento kľúč?
+
+</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Poznámka: všetky predtým vytvorené formuláre už nebudú fungovať
+
+</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Naozaj chcete odstrániť túto úlohu?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Všetky zadané informácie sa stratia. Určite chcete pokračovať?
+
+</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Zadajte prosím názov svojho Twitter účtu. Napríklad teamlabdotcom
+
+</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Krajina</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Aktuálny mesiac</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Aktuálny týždeň</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Vlastné obdobie</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Príležitosť</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Naozaj chcete odstrániť {0} prípad?
+
+</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Vymazávanie prípadu...
+
+</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Naozaj chcete odstrániť {0} spoločnosť?
+
+</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Poznámka: táto akcia sa nedá vrátiť späť
+
+</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Vymazávanie kontaktu...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Naozaj chcete odstrániť {0} príležitosť?
+
+</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Vymazávanie príležitosti...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Naozaj chcete odstrániť {0} osobu?
+
+</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Doručovacia adresa</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Upraviť e-mail</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Ukladanie zmien...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Ukladanie zmien...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Upraviť telefón</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Editovať «{0}» pole</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Upraviť úlohu</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} vybrané</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Zoznam prvkov nemôže byť prázdny
+
+</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Každý list musí mať telo
+
+</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Každá úloha musí mať dodací termín/dátum splatnosti
+
+</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Za každú úlohu musí byť niekto zodpovedný</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Každá úloha musí mať názov
+
+</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Neboli nájdené žiadne polia zodpovedajúce 'Názvu prípadu'
+
+</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Nebola vybratá žiadna osoba</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Neboli nájdené žiadne polia zodpovedajúce 'Menu' alebo 'Názvu firmy'
+
+</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} maximálne príjemcov e-mailov
+
+</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Zadať názov prípadu
+
+</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Povinné polia sa nesmú duplikovať
+
+</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Formát obrázka nie je podporovaný
+
+</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Formát súboru nie je podporovaný
+
+</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Pri nahrávaní obrázka na server sa vyskytla chyba</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Neboli nájdené žiadne polia zodpovedajúce 'Názvu možnosti', 'Zodpovednej príležitosti' 
+</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Neboli nájdené žiadne polia zodpovedajúce 'Názvu úlohy', 'Zodpovedný', 'Dátum splatnosti'
+
+</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>Typ "{0}" je posledný. Nemožno ho vymazať.
+
+</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>Typ "{0}" je posledný. Nemožno ho vymazať.
+
+</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Toto je jediná fáza príležitostí. Nemožno ju vymazať.
+
+</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>Kategória "{0}" je posledná. Nemožno ju vymazať.
+
+</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>Kategória "{0}" je posledná. Nemožno ju vymazať.
+
+</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Odhadované dátumy splatnosti obchodu
+
+</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Nájsť účet na Twitteri
+
+</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Zoznam príjemcov bol vygenerovaný. {0} Kliknutím na nižšie uvedené odkazy odovzdáte svoje e-mailové adresy do e-mailového programu.
+
+</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Prejsť na Nastavenia</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Spojiť/prepojiť s projektom</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Nahrávam...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>Obchodné prípady</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>Spoločnosti</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>Príležitosti</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>Udalosti</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>Ľudia</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>Úlohy</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Nasledujúci</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Ďalej (na ukážku)
+
+</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Neexistujú žiadne prípady
+
+</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Žiadny dátum uzávierky
+
+</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Neexistujú žiadne spoločnosti
+
+</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Nie sú k dispozícii žiadne kontakty</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Neexistujú žiadne príležitosti
+</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Neexistujú žiadne udalosti</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Nebol vybratý žiadny súbor
+
+</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Neexistujú žiadne osoby
+
+</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>bez predmetu</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Neexistujú žiadne úlohy
+
+</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>Obchodný prípad</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>Spoločnosť</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>Príležitosť</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>Udalosť</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>Osoba</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>Úloha</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>Počas {0} dní
+
+</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>Počas {0} hodín
+
+</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>Počas {0} mesiacov
+
+</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>Počas {0} týždňov
+
+</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>Počas {0} rokov
+
+</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Prosím znova načítajte stránku
+
+</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Čakajte prosím...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Možné profily pre {0}
+
+</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Predchádzajúce</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Primárny</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} príjemcov nemalo e-mailové adresy.
+
+</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Uložiť zmeny</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Vyberať CSV súbor </value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Vybraný CSV súbor: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Poslať</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Nastavenia boli úspešne aktualizované</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Zobraziť viac</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Úroveň dôležitosti </value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>štát</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Úspešne zatvorené</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>Úloha «{0}» je zatvorená</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Poháňaný {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>{0} dní {1} hodín {2} minút od štartu kontajnera
+
+</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>Od predchádzajúcej úlohy {0} dní {1} hodín {2} minút
+
+</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Neúspešné zatvorené</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Odpovedané</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Telefonujúci/ten, kto volá</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>Kontakt odstránený</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Náklad</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Trvanie</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Vynechaný</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Odchádzajúci/výstupný
+
+</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>PSČ</value>
+  </data>
+</root>

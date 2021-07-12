@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthDocsCheckEmail" xml:space="preserve">
+    <value>Prüfen Sie Ihr E-Mail-Postfach, um das Konto zu bestätigen.</value>
+  </data>
+  <data name="AuthDocsEmailHint" xml:space="preserve">
+    <value>Geben Sie Ihre E-Mail-Adresse</value>
+  </data>
+  <data name="AuthDocsEnterViaSocial" xml:space="preserve">
+    <value>Oder melden Sie sich über soziale Netzwerke an</value>
+  </data>
+  <data name="AuthDocsForgotPswd" xml:space="preserve">
+    <value>Kennwort vergessen?</value>
+  </data>
+  <data name="AuthDocsMetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE Personal ist eine kostenlose Bearbeitungs-Suite für Textdokumente, Tabellen und Präsentationen mit einem individuellen Cloud-Speicher.</value>
+  </data>
+  <data name="AuthDocsMetaKeywords" xml:space="preserve">
+    <value>Word Office, Word Office online, Word Office kostenlos, Word Office Dokument</value>
+  </data>
+  <data name="AuthDocsOr" xml:space="preserve">
+    <value>oder anmelden</value>
+  </data>
+  <data name="AuthDocsSendActivationEmail" xml:space="preserve">
+    <value>Die Aktivierungsemail wurde gesendet an</value>
+  </data>
+  <data name="AuthDocsThanksRegistration" xml:space="preserve">
+    <value>Vielen Dank für die Registrierung bei ONLYOFFICE™ Personal.</value>
+  </data>
+  <data name="AuthDocsTitle" xml:space="preserve">
+    <value>Ihr persönliches Online-Office</value>
+  </data>
+  <data name="AuthDocsTitlePage" xml:space="preserve">
+    <value>Persönliches Online-Office</value>
+  </data>
+  <data name="CookieMessButton" xml:space="preserve">
+    <value>Einverstanden!</value>
+  </data>
+  <data name="CookieMessText" xml:space="preserve">
+    <value>Diese Website verwendet Cookies. Mit der Weiternutzung der Website stimmen Sie der {0}Datenschutzerklärung{1} zu.</value>
+  </data>
+  <data name="CreatePersonalButton" xml:space="preserve">
+    <value>ONLYOFFICE-Konto erstellen</value>
+  </data>
+  <data name="PersonalLogin" xml:space="preserve">
+    <value>Kontoanmeldung</value>
+  </data>
+  <data name="RegistryButtonCreateNow" xml:space="preserve">
+    <value>Jetzt erstellen</value>
+  </data>
+  <data name="RegistrySettingSpam" xml:space="preserve">
+    <value>Ich möchte Informationen über ONLYOFFICE per Newsletter erhalten.</value>
+  </data>
+  <data name="RegistrySettingTerms" xml:space="preserve">
+    <value>Ich bin mit ONLYOFFICE {0}Geschäftsbedingungen{1} und {2}Datenschutzerklärung{3} einverstanden.</value>
+  </data>
+</root>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdvertCommentedText" xml:space="preserve">
+    <value>Hozzászólások hozzáadva a bejelentéshez.</value>
+  </data>
+  <data name="AdvertCreatedText" xml:space="preserve">
+    <value>Hirdetések hozzáadása megtörtént</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Szerző</value>
+  </data>
+  <data name="BlogsModule" xml:space="preserve">
+    <value>Blogok</value>
+  </data>
+  <data name="BookmarkCommentedText" xml:space="preserve">
+    <value>Könyvjelző-hozzászólás hozzáadva</value>
+  </data>
+  <data name="BookmarkCreatedText" xml:space="preserve">
+    <value>Könyvjelző hozzáadva</value>
+  </data>
+  <data name="BookmarksModule" xml:space="preserve">
+    <value>Könyvjelzők</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>Felhasználó</value>
+  </data>
+  <data name="CancelCommentBtn" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="CaseCreatedText" xml:space="preserve">
+    <value>Ügy hozzáadása megtörtént</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Ügyek</value>
+  </data>
+  <data name="CommentErrorMsg" xml:space="preserve">
+    <value>Hozzáférési hiba a dokumentum hozzáadása közben.</value>
+  </data>
+  <data name="CommunityProduct" xml:space="preserve">
+    <value>Közösség</value>
+  </data>
+  <data name="CompanyCreatedText" xml:space="preserve">
+    <value>Cég hozzáadva</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kapcsolat</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kapcsolattartók</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmTaskModule" xml:space="preserve">
+    <value>Feladatok</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Aktuális hónap</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Aktuális hét</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Egyéni időtartam</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Határidő</value>
+  </data>
+  <data name="DiscussionCommentedText" xml:space="preserve">
+    <value>Hozzászólás hozzáadva a megbeszéléshez.</value>
+  </data>
+  <data name="DiscussionCreatedText" xml:space="preserve">
+    <value>Hozzászólás hozzáadva</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Megbeszélések</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokumentumok</value>
+  </data>
+  <data name="EventsModule" xml:space="preserve">
+    <value>Események</value>
+  </data>
+  <data name="FileCreatedText" xml:space="preserve">
+    <value>Fájl hozzáadva</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Fájlok</value>
+  </data>
+  <data name="FileUpdatedText" xml:space="preserve">
+    <value>Fájl frissítve</value>
+  </data>
+  <data name="FolderCreatedText" xml:space="preserve">
+    <value>Mappa hozzáadva</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Mappák</value>
+  </data>
+  <data name="ForumsModule" xml:space="preserve">
+    <value>Fórumok</value>
+  </data>
+  <data name="HideAdditionalCommentsBtn" xml:space="preserve">
+    <value>Egyéb hozzászólások elrejtése</value>
+  </data>
+  <data name="HideGroupedFeedsBtn" xml:space="preserve">
+    <value>További események elrejtése</value>
+  </data>
+  <data name="NewsCommentedText" xml:space="preserve">
+    <value>Hozzászólások hozzáadva a hírekhez </value>
+  </data>
+  <data name="OrderCommentedText" xml:space="preserve">
+    <value>Hozzászólások hozzáadva a megrendeléshez.</value>
+  </data>
+  <data name="OtherFeedsCountMsg" xml:space="preserve">
+    <value>+{0} -nyi még. </value>
+  </data>
+  <data name="PollCommentedText" xml:space="preserve">
+    <value>Hozzászólások hozzáadva a szavazáshoz</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Feladatok</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Megjegyzés hozzáadása</value>
+  </data>
+</root>

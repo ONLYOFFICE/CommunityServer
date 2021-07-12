@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_PostInTopicEmailPattern" xml:space="preserve">
+    <value>h1.הודעה חדשה בדיון פורום בתוך הנושא: "$TopicTitle":"$PostURL"
+
+$Date "$UserName":"$UserURL" פרסם הודעה חדשה בתוך הנושא "$TopicTitle":"$PostURL":
+
+$PostText
+
+"קרא עוד":"$PostURL"
+
+^הודעה זו נשלחה אליך משום שאתה משץצש רשום בפורטל "${__VirtualRootPath}":"${__VirtualRootPath}". אם אינך מעוניין להמשיך לקבל עדכונים על הודעות חדשות בנושא זה בפורום, אנא שנה את ההגדרות שלך באזור "עדכונים למינויים":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TopicInForumEmailPattern" xml:space="preserve">
+    <value>h1.נוצר דיון בנושא חדש בפורום: "$TopicTitle":"$TopicURL"
+
+$Date "$UserName":"$UserURL" פתח דיון חדש בפורום שכותרתו: "$TopicTitle":"$TopicURL"
+
+$PostText
+
+"קרא עוד":"$PostURL"
+
+
+^הודעה זו נשלחה אליך משום שאתה משץצש רשום בפורטל "${__VirtualRootPath}":"${__VirtualRootPath}". אם אינך מעוניין להמשיך לקבל עדכונים על דיונים חדשים שנפתחים בפורום, אנא שנה את ההגדרות שלך באזור "עדכונים למינויים":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_PostInTopicEmailPattern" xml:space="preserve">
+    <value>הקהילה:הודעה חדשה בפורום: $TopicTitle</value>
+  </data>
+  <data name="subject_TopicInForumEmailPattern" xml:space="preserve">
+    <value>הקהילה:הודעה חדשה בפורום: $TopicTitle</value>
+  </data>
+</root>

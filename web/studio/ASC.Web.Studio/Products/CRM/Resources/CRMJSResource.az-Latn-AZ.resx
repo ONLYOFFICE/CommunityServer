@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Sazişin qapadılması üçün faktiki tarix</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Saziş əlavə edilir...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Elektron poçt əlavə edin</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Telefon əlavə et</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Yeni tapşırıq əlavə et</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>ünvanlar</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>ünvanlar</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Ünvan</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>bağlama</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>günlük</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>saatlıq</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>aylıq</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>həftəlik</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>illik</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Tədbir</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Qapalı</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Açıq</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Əsas olaraq işarələ</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>şəhər</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Şirkət</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Siz gerçəkdən mi bu açarı dəyişmək istəyirsiniz?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Qeyd: öncə yaradılmış bütün formalar daha işləməyəcəklər</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Bu tapşırığı silmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Bütün daxil edilmiş məlumat itiriləcək.
+Siz istənilən halda davam etmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Twitter hesabınızın adını daxil edin. Örnək olaraq, teamlabdotcom</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Saziş</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>'{0}' tədbirini silmək istdiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Tədbir silinir...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>'{0}' şirkətini silmək istədiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Qeyd: bu əyləmi geri döndərmək olmayacaq</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Kontakt silinir...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>'{0}' sazişini silmək istdiyinizə əminsiniz mi?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Saziş silinir...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>'{0}' şəxsi silmək istədiyiniə əminsiniz mi?</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Elektron poçtu redaktə et</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Dəyişikliklər qeyd edilir...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Telefonu redaktə et</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>«{0}» sahəsini redaktə et</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Tapşırığı redaktə et</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} seçildi</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Elementlər siyahısı boş ola bilməz</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Hər məktubun mətni olmalıdır</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Hər tapşırığın yerin yetirilmə müddəti olmalıdır</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Hər tapşırığın cavabdehi olmalıdır</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Hər tapşırığın başlığı olmalıdır</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>'Tədbir başlığı'-na uyğun heç bir sahə tapılmadı</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Heç bir şəxs seçilməyib</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>'Ad' və ya 'Şirkət adı' sahələrinə uyğunluq tapılmadı</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>maksimum {0} elektron poçt alıcı</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Tədbir adını daxil edin</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Mütləq sahələr bir ekzemplyarda olmalıdırlar</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Şəkil formatı dəstəklənmir</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Fayl formatı dəstəklənmir</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Şəklin serverə yüklənməsi zamanı xəta baş verdi</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>'Saziş başlığı', 'Saziş cavabdehi' sahələrinə uyğunluq tapılmadı</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>'Tapşırıq başlığı', 'Cavabdeh', 'Yerinə yetirilmə tarixi' sahələrinə uyğunluq tapılmadı </value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>"{0}" tipi sonuncudur. Onun silinməsi mükün deyil.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Bu yeganə saziş səhifəsidir. Silinə bilməz.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>"{0}" kateqoriyası sonuncudur. Onun silinməsi mümkün deyil.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Təxmini qapadılma tarixi</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Twitter'də hesabı tap</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Alıcıların siyahısı yaradıldı.{0}Aşağıdakı keçidlərə basın ki, elektron poçt ünvanlarını elektron poçt proqramına keçirəsiniz.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Ayarlara keç</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Layihə ilə əlaqə</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Yüklənir...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>Tədbirlər</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>Şirkətlər</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>Kontaktlar</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>Sazişlər</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>Olaylar</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>Şəxslər</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>tapşırıqlar</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Növbəti (öncədən bax)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Tədbir yoxdur</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Qapanma tarixi yoxdur</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Heç bir şirkət yoxdur</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Heç bir kontakt yoxdur</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Heç bir saziş yoxdur</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Heç bir olay yoxdur</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Heç bir şəxs yoxdur</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>mövzu yoxdur</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Heç bir tapşırıq yoxdur</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>Tədbir</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>Şirkət</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>Saziş</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>Olay</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>Şəxs</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>tapşırıq</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>{0} gün ərzində</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>{0} saat ərzində</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>{0} ay ərzində</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>{0} həftə ərzində</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>{0} il ərzində</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Lütfən, səhifəni yenidən yükləyin</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>{0} üçün mümkün profillər</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Əsas</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} alıcının elektron poçt ünvanı yoxdur.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Dəyişiklikləri qeyd et</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>CSV fayl seçin</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Seçilmiş CSV fayl: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Göndər</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Ayarlar uğurla yeniləndi</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Ardını göstər</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Kontakt növü</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>ştat</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Uğurla qapatıldı</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>«{0}» tapşırığı qapalıdır</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>{0} tərəfindən təmin edilib</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>Konteynerin başlanmasından {0} gün {1} saat {2} dəqiqə</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>Öncəki tapşırıqdan {0} gün {1} saat {2} dəqiqə</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Uğursuz şəkildə qapatıldı</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>İndeks</value>
+  </data>
+</root>

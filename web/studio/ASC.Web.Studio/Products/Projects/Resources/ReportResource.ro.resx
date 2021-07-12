@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Sarcini Active</value>
+  </data>
+  <data name="AnyDate" xml:space="preserve">
+    <value>Orice</value>
+  </data>
+  <data name="AnyInterval" xml:space="preserve">
+    <value>Orice</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Facturat</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Data creării</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Creați Șablon</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Termen</value>
+  </data>
+  <data name="ErrorCreatingScript" xml:space="preserve">
+    <value>Nu s-a putut crea script-ul</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Zilnic</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Lunar</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Saptamanal</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generează raport</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Luna precedentă</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Săptămâna precedentă</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Anul precedent</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Altele</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Membrii</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Raport sarcini inchise</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users}cu nici o sarcina activa</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Volumul de muncă</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Sarcini cu termen depășit</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapoarte</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Sarcinile proiectului</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Arată sarcinile</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Template-uri</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Luna curentă</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Săptămâna curentă</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Anul curent</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Săptămână</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Săptămâni</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Săptămâni</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Ieri</value>
+  </data>
+</root>

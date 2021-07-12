@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Права доступу на порталі</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Дії</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Додати групу</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Додати учасників</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Заблокован</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Відмінити</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Змінити статус</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Змінити статус користувача</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Якщо цей номер перевищує поточний план ціноутворення, ви повинні оновити свій план та повторити операцію, або статус інших користувачів не буде змінено.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Змінити статус користувача</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Ви не можете змінити статус для власника порталу та для себе</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Користувачі зі статусом 'Disabled' будуть розблоковані.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Користувачі зі статусом 'Active' будуть заблоковані.</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Змінити тип</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Оновіть свій план і повторіть операцію або інші типи користувачів не будуть змінені.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Змінити тип користувача</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Ви не можете змінити тип для адміністраторів порталу та для себе</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Користувачам типу 'User' буде надано тип 'Guest'</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Користувачам типу 'Guest' буде надано тип 'User'</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Відмінити фільтр</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Підтвердження</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Тільки користувачі або гості із статусом "Вимкнено" можуть бути видалені</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Видалення користувачів з порталу</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Відмінити все</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Заблокувати</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Разблокувати</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Введіть назву</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Завантажуваний файл не знайдений</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Занадто великий розмір зображення</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Занадто великий розмір файлу зображення</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Невідомий тип файлу зображення</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Сховати список вибраних користувачів</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Імпортуйте людину</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Посилання запрошення
+</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Активний</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Змінити email</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Змінити пароль</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Видалити профіль</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Надіслати запрошення ще раз</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Відправити посилання активації ще раз </value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Відправити e-mail</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Надіслати повідомлення</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Підписки</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Заблокован</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Підказки</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Учасники
+</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>В даному розділі немає людей, які відповідають фільтру. Будь ласка, виберіть інші параметри або очистіть фільтр, для перегляду всіх людей в цьому розділі. </value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Результатів, які відповідають заданим критеріям, не знайдено </value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Вгору</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Зробити те ж саме, що і користувач | Створити профілі та групи | Імпортувати профілі | Запросити користувачів</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Додавайте нових користувачів, запрошуйте або імпортуйте їх. Керуйте користувачами та переглядайте детальну інформацію про них.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Люди</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Подивитись профілі і групи</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Або {0} читайте про некомерційне використання {1}.</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Після того, як користувачі підтвердять запрошення до порталу, їхній статус зміниться на "Активний".</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Надіслати запрошення ще раз</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Запрошення до порталу буде надіслано ще раз вибраним користувачам, які перебувають в статусі очікування і є незаблокованими.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Вибрати все</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Відображати на сторінці</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Проглянути список обраних користувачів</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Інформація о користувачі була успішно видалена</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Загальна кількість</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Очікування підтвердження</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>написати листа</value>
+  </data>
+</root>

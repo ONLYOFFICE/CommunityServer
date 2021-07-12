@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Cuir i dtaisce é</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Roghnaigh an tionscadal</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Roghnaigh an té atá freagrach as</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Dún Garsprioc</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>Mí</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Dhá mhí</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Seachtain</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Scrios Garsprioc</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>An bhfuil tú cinnte gur mian leat an gharsprioc a scriosadh?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Scrios Garspriocanna</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>An bhfuil tú cinnte gur mian leat garspriocanna a scriosadh?</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Cur síos</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Garsprioc</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>An Dáta Dlite</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Garspriocanna</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Ag teacht aníos</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Ní féidir leat garsprioc a bhfuil cúraimí oscailte aige a dhúnadh.</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Fógraigh</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Ní mór teideal a bheith ar gach garsprioc</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Dlite thar téarma</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Beartaigh an chéad gharsprioc</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Cuir é i gcuimhne dom 48 n-uair an chloig roimh an dáta dlite</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Freagrach</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Garsprioc ríthábhachtach</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Teideal</value>
+  </data>
+</root>

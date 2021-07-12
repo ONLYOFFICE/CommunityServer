@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewAddress" xml:space="preserve">
+    <value>Dodaj novu adresu</value>
+  </data>
+  <data name="AddNewCompany" xml:space="preserve">
+    <value>Dodaj novo preduzeće</value>
+  </data>
+  <data name="AddNewContact" xml:space="preserve">
+    <value>Dodaj novu osobu</value>
+  </data>
+  <data name="AddThisAndCreateCompanyButton" xml:space="preserve">
+    <value>Snimi i kreiraj novo preduzeće</value>
+  </data>
+  <data name="AddThisAndCreatePeopleButton" xml:space="preserve">
+    <value>Snimi i kreiraj novu osobu</value>
+  </data>
+  <data name="AddThisCompanyButton" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisPersonButton" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AfterStage" xml:space="preserve">
+    <value>Nivo temperature</value>
+  </data>
+  <data name="AllContacts" xml:space="preserve">
+    <value>Svi Kontakti</value>
+  </data>
+  <data name="AllPersons" xml:space="preserve">
+    <value>Sve osobe</value>
+  </data>
+  <data name="AssignContactFromExisting" xml:space="preserve">
+    <value>Izaberi od postojećih kontakata</value>
+  </data>
+  <data name="ContactType_Supplier" xml:space="preserve">
+    <value>Dobavljač</value>
+  </data>
+  <data name="DeleteThisPerson" xml:space="preserve">
+    <value>Izbriši osobu</value>
+  </data>
+  <data name="DeletingContacts" xml:space="preserve">
+    <value>Brišem kontakte</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Pozicija</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="PersonPosition" xml:space="preserve">
+    <value>Pozicija</value>
+  </data>
+  <data name="PublicContacts" xml:space="preserve">
+    <value>Javno</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Snimi izmene</value>
+  </data>
+  <data name="SaveThisAndCreateCompanyButton" xml:space="preserve">
+    <value>Sačuvaj i kreiraj preduzeće</value>
+  </data>
+  <data name="SaveThisAndCreatePeopleButton" xml:space="preserve">
+    <value>Snimi i kreiraj osobu</value>
+  </data>
+  <data name="SavingChangesProgress" xml:space="preserve">
+    <value>Snimam izmene...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Osoblje</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Dobavljač</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Svi kontakti</value>
+  </data>
+</root>

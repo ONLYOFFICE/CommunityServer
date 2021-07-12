@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Nhiệm vụ đang thực hiện</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Tự động tạo báo cáo như vậy</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Khoảng thời gian</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Ngày tạo</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Khoảng thời gian</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Bấm để sắp xếp theo cột này</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Tạo template</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Tên người dùng</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Hạn chót</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Bạn cần gán tên cho template này</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Hàng ngày</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Hàng tháng</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Hàng tuần</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Tạo báo cáo</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Khoảng thời gian không đúng</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Tháng trước</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Tuần trước</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Năm trước</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Dự án này không có mốc sự kiện và nhiệm vụ</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Khác</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Thành viên</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Trạng thái thanh toán</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Báo cáo Nhiệm vụ đã đóng</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Người Dùng Không Có Nhiệm Vụ Mở sẽ hiển thị danh sách những người dùng không có nhiệm vụ mở tại thời điểm này. {3}{2}Để xem tất cả người dùng không có nhiệm vụ mở trên tất cả các dự án, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để chọn một nhóm cụ thể hoặc một dự án cụ thể, cấu hình các thông số báo cáo dưới đây, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} không có Nhiệm Vụ Mở</value>
+  </data>
+  <data name="ReportEmployment_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Khối Lượng Công Việc sẽ hiển thị số lượng nhiệm vụ được giao cho một người dùng, được nhóm theo trạng thái của họ.{3}{2}Để xem dữ liệu của tất cả người dùng, bấm vào nút Tạo Báo Cáo ngay. {3}{2}Để chọn một nhóm hoặc người dùng cụ thể, cấu hình các thông số báo cáo dưới đây, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Khối lượng công việc</value>
+  </data>
+  <data name="ReportLateMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Mốc Sự Kiện Quá Hạn sẽ hiển thị một danh sách các mốc sự kiện quá hạn.{3}{2}Để xem các mốc sự kiện quá hạn trên tất cả các dự án, bấm vào Tạo Báo Cáo ngay.{3}{2}Để xem các mốc sự kiện quá hạn cho chỉ một dự án cụ thể, chọn dự án bạn muốn xem từ danh sách thả xuống, sau đó bấm vào Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Mốc sự kiện quá hạn</value>
+  </data>
+  <data name="ReportLateTasks_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Nhiệm Vụ Quá Hạn sẽ hiển thị một danh sách các nhiệm vụ quá hạn.{3}{2}Để xem các nhiệm vụ quá hạn trên tất cả các dự án, bấm vào nút Tạo Báo Cáo.{3}{2}Để xem nhiệm vụ quá hạn cho chỉ một dự án, chọn dự án bạn muốn xem từ danh sách thả xuống bên dưới, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Nhiệm vụ quá hạn</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Báo cáo Nhiệm vụ Mở</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Báo cáo «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Danh Sách Dự Án sẽ hiển thị tất cả các dự án.{3}{2}Để xem tất cả các dự án đang thực hiện tương ứng với quản lý, số nhiệm vụ, mốc sự kiện, hoạt động, và các thành viên nhóm, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để xem các dự án của một nhóm cụ thể và/hoặc xem các dự án đã đóng và đang thực hiện, cấu hình các thông số báo cáo bên dưới, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Danh sách dự án</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Các dự án kèm báo cáo Không Có Mốc Sự Kiện Mở sẽ hiện thị một danh sách các dự án không có mốc sự kiện mở kèm theo.{3}{2}Để xem tất cả dự án không có mốc sự kiện mở, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để xem các dự án tương tự trong một nhóm cụ thể hoặc xem một người dùng cụ thể, chọn nhóm và/hoặc người dùng muốn xem, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Dự Án Không Có Mốc Sự Kiện Mở</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Description" xml:space="preserve">
+    <value>{0}{2}Các dự án kèm báo cáo Không Có Nhiệm Vụ Mở sẽ hiển thị một danh sách các dự án không có nhiệm vụ mở được giao.{3}{2}Để xem tất cả dự án không có nhiệm vụ mở, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để xem các dự án tương tự trong một nhóm cụ thể hoặc xem một người dùng cụ thể, chọn nhóm và/hoặc người dùng muốn xem dưới đây, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Dự Án Không Có Nhiệm Vụ Mở</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
+  <data name="ReportTaskList_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Nhiệm Vụ Dự Án sẽ hiển thị danh sách các nhiệm vụ được nhóm theo dự án và mốc sự kiện đi kèm. {3}{2}Để xem danh sách các nhiệm vụ trên tất cả các dự án theo người phụ trách và trạng thái, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để xem những nhiệm vụ cho một dự án cụ thể hoặc một trạng thái, hoặc nhiệm vụ đã được tạo trong số tuần cụ thể, cấu hình các thông số báo cáo bên dưới, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Nhiệm vụ dự án </value>
+  </data>
+  <data name="ReportTimeSpendSummary_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Theo Dõi Thời Gian Làm hiển thị danh sách người dùng kèm tổng thời gian làm việc được tính toán dựa trên một máy tính giờ.{3}{2}Báo cáo này giúp theo dõi tổng thời gian một người dùng đã sử dụng khi thực hiện nhiệm vụ.{3}{1}</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Theo Dõi Thời Gian Làm</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Mốc Sự Kiện Sắp Tới sẽ hiển thị một danh sách các mốc sự kiện sắp diễn ra.{3}{2}Để xem các mốc sự kiện sắp tới trên tất cả các dự án trong thời gian một tuần, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để xem các mốc sự kiện sắp tới của một dự án và/hoặc một khoảng thời gian khác, chọn dự án muốn xem từ danh sách thả xuống và/hoặc thời điểm khác từ danh sách Khoảng Thời Gian, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Mốc sự kiện sắp tới</value>
+  </data>
+  <data name="ReportUserActivity_Descripton" xml:space="preserve">
+    <value>{0}{2}Báo cáo Hoạt Động Người Dùng sẽ hiển thị tất cả các hoạt động của một người dùng cụ thể trong Dự án trong một khoảng thời gian nhất định.{3}{2}Để hiển thị hoạt động của bạn trong tuần trước, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để thiết lập khoảng thời gian khác hoặc chọn người dùng khác, cấu hình các tham số báo cáo dưới đây, sau đó bấm vào nút Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Hoạt động người dùng</value>
+  </data>
+  <data name="ReportUserTasks_Description" xml:space="preserve">
+    <value>{0}{2}Báo cáo Nhiệm Vụ Người Dùng sẽ hiển thị danh sách các nhiệm vụ được được nhóm theo người dùng được phân công.{3}{2}Để xem tất cả các nhiệm vụ của người dùng có kèm theo trạng thái, bấm vào nút Tạo Báo Cáo ngay.{3}{2}Để xem riêng nhiệm vụ của một người dùng/dự án cụ thể hoặc một trạng thái, cấu hình các thông số báo cáo dưới đây, sau đó bấm vào Tạo Báo Cáo.{3}{1}</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Nhiệm vụ người dùng</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Hiển thị nhiệm vụ</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Tiêu đề template</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tháng hiện tại</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Tuần hiện tại</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Năm hiện tại</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Xem theo người dùng</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Xem theo {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Xem theo dự án</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Xem theo người dùng</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Xem theo nhiệm vụ của người dùng</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Hiển thị dự án đã đóng</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Hôm qua</value>
+  </data>
+</root>

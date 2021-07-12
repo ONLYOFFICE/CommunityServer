@@ -1,0 +1,763 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>на чтение</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>на чтение/запись</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Права доступа будут установлены только для тех контактов, которые были созданы вами.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Добавить группу</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Добавить учетную запись почты</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Добавить тег</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Добавить участника</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Добавить это событие</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Добавление заметки...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Добавить пользователя</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Используйте подстановочные знаки {0}?{1} и {0}*{1} для замены одного или нескольких символов при поиске. Например, чтобы найти все слова, начинающиеся с {0}O{1}, используйте запрос {0}O*{1}. Не рекомендуется использовать эти символы в начале запроса. Для поиска точного соответствия используйте кавычки.{2}Подробнее...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Предупредить</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Соответствующее поле в ONLYOFFICE™ CRM</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Вложения</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Связать с контактом</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Подробнее...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Мероприятия</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>выбрать</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Сбросить фильтр</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Закрыть это окно</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Закрыть окно</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Двоеточие</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Колонка в файле</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Запятая</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Напишите письмо, которое будет отправлено всем клиентам, выбранным из списка контактов. Вы можете проверить количество выбранных клиентов в поле 'Кому', ввести общую 'Тему' и использовать 'Персональные теги', чтобы включить в письмо всю необходимую информацию. Это бета-версия для тех, кто хочет попробовать новые функции ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Подтверждение</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Подтверждение изменений</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>Вы удалили себя из менеджеров контакта.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>Вы потеряете права доступа к этому контакту на чтение и запись, если соответствующие права доступа не разрешены для всех пользователей CRM.</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить эти элементы?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>Для изменения списка уровней теплоты контакта обратитесь к разделу {0}Настройки{1} модуля CRM</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Настройки контактов</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Контент</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Курс</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Конвертор валют</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Создать новый контакт</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Создать проект</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Добавить новый тег</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>Модуль CRM отключен</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Основные валюты</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Другие валюты</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Текущий {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Настройка</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Пользовательский период</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Другие пользователи</value>
+  </data>
+  <data name="DashboardCommunicateWithClients" xml:space="preserve">
+    <value>Взаимодействуйте с клиентами</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsFirstLine" xml:space="preserve">
+    <value>Отправляйте счета клиентам.</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsSecondLine" xml:space="preserve">
+    <value>Используйте IP-телефонию благодаря интеграции с сервисом Twilio.</value>
+  </data>
+  <data name="DashboardCommunicateWithClientsThirdLine" xml:space="preserve">
+    <value>Проводите массовые рассылки и организуйте мероприятия.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabase" xml:space="preserve">
+    <value>Создайте базу данных клиентов</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseFirstLine" xml:space="preserve">
+    <value>Добавляйте контакты вручную, получайте их из контактной формы, импортируйте из файла csv или из электронной почты.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseSecondLine" xml:space="preserve">
+    <value>Заполняйте подробные сведения о контакте, связывайте людей с компаниями и их профилями в социальных сетях.</value>
+  </data>
+  <data name="DashboardCreateClientsDatabaseThirdLine" xml:space="preserve">
+    <value>Структурируйте клиентскую базу с помощью типов контактов, тегов, настраивайте уровни теплоты контактов.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrm" xml:space="preserve">
+    <value>Кастомизируйте CRM-систему</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmFirstLine" xml:space="preserve">
+    <value>Настройте CRM-систему, предоставьте права доступа, задайте валюту по умолчанию и обменные курсы валют.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmSecondLine" xml:space="preserve">
+    <value>Добавляйте новые типы контактов, пользовательские поля, создайте собственную контактную форму для сайта.</value>
+  </data>
+  <data name="DashboardCustomizeYourCrmThirdLine" xml:space="preserve">
+    <value>Опишите бизнес-процесс вашей компании с помощью настраиваемых стадий возможных сделок.</value>
+  </data>
+  <data name="DashboardTrackSales" xml:space="preserve">
+    <value>Отслеживайте продажи</value>
+  </data>
+  <data name="DashboardTrackSalesFirstLine" xml:space="preserve">
+    <value>Ставьте менеджерам задачи, связывайте их с контактами.</value>
+  </data>
+  <data name="DashboardTrackSalesSecondLine" xml:space="preserve">
+    <value>Добавляйте возможные сделки, определяйте бюджет, анализируйте вероятность успеха.</value>
+  </data>
+  <data name="DashboardTrackSalesThirdLine" xml:space="preserve">
+    <value>Задавайте сроки, настраивайте напоминания о задачах, генерируйте отчеты.</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Дней до оплаты: {0}</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>Просрочено дней: {0}</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Возможные сделки</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Удалить событие</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Удалить участника</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Удалить тег</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Удалить пользователя</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Отменить выбор</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Поступать так же во всех аналогичных случаях</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Двойная кавычка</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Повторяющиеся записи</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Пустой файл</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>В этом разделе нет записей, соответствующих фильтру. Пожалуйста, выберите другие параметры или очистите фильтр, чтобы просмотреть все записи в этом разделе. Вы можете также поискать нужные записи в истории других контактов.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Не найдено записей, соответствующих данному фильтру</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Введите сумму</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Размер файла превышает {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Экспортировать список в файл CSV</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Экспортировать данные</value>
+  </data>
+  <data name="ExportDataInfo" xml:space="preserve">
+    <value>Все экспортированные файлы можно просмотреть, скачать, отредактировать или удалить в разделе {0}Документы/Мои документы{1}</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>Экспорт данных (выполнено {0}%)</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Превышен максимальный размер файла</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Срок выполнения</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Ответственный</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>С тегом</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Поиск компании или персоны по имени...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Из</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Скрыть панель для прикрепления файлов</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Список категорий событий истории можно изменить {0}здесь{1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Звонок</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Встреча</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Заметка</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>было получено</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>было отправлено</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Превышено максимальное число символов: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Игнорировать первую строку при импорте</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Дублировать</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Используйте эту опцию, чтобы импортировать контакты, дублируя совпадающие контакты. Например, у Вас в ONLYOFFICE™ CRM есть две записи - 'A' и 'B'. Вы хотите импортировать записи 'B' и 'C'. Если Вы выберете опцию 'Дублировать', при импорте будет создан дубликат записи 'B'.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>Проверка на дубликаты будет выполняться на основе поля Email</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Перезаписать</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Используйте эту опцию, чтобы импортировать контакты, перезаписывая существующие контакты. Например, у Вас в ONLYOFFICE™ CRM есть две записи - 'A' и 'B'. Вы хотите импортировать записи 'B' и 'C'. Если Вы выберете опцию 'Перезаписать', при импорте существующая запись 'B' будет заменена импортируемой.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Используйте эту опцию, чтобы импортировать контакты, сохраняя существующие контакты. Например, у Вас в ONLYOFFICE™ CRM есть две записи - 'A' и 'B'. Вы хотите импортировать записи 'B' и 'C'. Если Вы выберете опцию 'Пропустить', при импорте будет сохранена существующая запись 'B'.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Разделитель</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Кодировка</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>Параметры файла CSV</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Разделитель текста</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Сканирование файла ...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Начать импорт данных</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Информация представлена</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Счета</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Настройки счетов</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Налоги</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Прошлый месяц</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Подробнее...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Текст письма</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Связать с</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Пожалуйста, подождите...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Текст письма</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Копия</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>От кого</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>Функция массовой рассылки ONLYOFFICE™: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Не удалось доставить сообщение получателю {0}</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Некорректный адрес электронной почты: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Доставка не удалась - повтор через {0} секунд.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Тема письма</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Кому</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Калькулятор</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Мои</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Мои события</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Следующая запись</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Записей нет</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Нет доступных учетных записей</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Совпадений нет</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Оповестить</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Не задано</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Наверх</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Профиль организации</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Другие настройки</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Здесь Вы можете просмотреть письмо, которое написали. Используйте кнопку 'Назад', чтобы внести изменения, или 'Отправить', если результат Вас устраивает.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Предыдущая запись</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Предыдущий шаг</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>приватный</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Доступно для пользователей</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ограничить доступ</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>По умолчанию доступ имеют все {!users} портала. Для того чтобы ограничить доступ, поставьте галку ниже.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Права доступа</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Делать то же самое, что и пользователь CRM|Импортировать, экспортировать данные|Рассылать письма контактам CRM|Управлять настройками|Управлять любым контактом, задачей, мероприятием, сделкой</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Управляйте отношениями с клиентами, определяйте приоритетные контакты, отслеживайте историю общения и эффективность продаж.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Управляйте отношениями с клиентами, определяйте приоритетные контакты, отслеживайте историю общения и эффективность продаж.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Товары и услуги</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Создавать контакт, задачу, мероприятие, сделку с возможностью ограничения доступа к ним|Редактировать контакт, задачу, мероприятие, сделку, к которым предоставлен доступ</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Проекты</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Связано с</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Отчеты</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ответственный</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Сохранение изменений...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Оповестить пользователей</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Точка с запятой</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Отправить письмо</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Установить права</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Показать панель для прикрепления файлов</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Показать информацию</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Показывать на странице</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Одинарная кавычка</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Пробел</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Сохранить это письмо в истории</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Новые события</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Новые контакты</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Завершение экспорта</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Завершение импорта</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Назначение ответственным за возможную сделку</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Поставленные Вам задачи</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Предоставленный доступ</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Сводная таблица</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Табуляция</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Этот месяц</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>В</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Всего</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Компания/Персона</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Отвязать контакт</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Вверх</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Прикрепить файл</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Показать файлы</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Просмотреть историю переписки с этим участником</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Вызовы</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Номера</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>Настройки IP-телефонии</value>
+  </data>
+  <data name="WholeCRMModule" xml:space="preserve">
+    <value>Весь модуль CRM</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+</root>

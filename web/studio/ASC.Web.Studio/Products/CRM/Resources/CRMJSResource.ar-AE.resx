@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>المعلومات الحقيقيه للاتفاقيه</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>جاري اضافه فرصه ...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>اضف بريد الكتروني</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>اضف هاتف</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>إنشاء مهمة جديدة</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>العناوين</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>العناوين</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>باتش</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>باليوم</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>بالساعة</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>بالشهر</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>بالاسبوع</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>بالسنة</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>مشكلة</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>مغلق</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>افتراضي</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>اختر</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>المدينة</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>شركة</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد تغير هذا المفتاح؟</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>ملاحظه : كل النماذج القديمه لن تعمل مره اخرى</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد حذف هذه المهمه؟</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>جميع البيانات المدخله سيتم فقدها.
+هل انت متأكد من انك تريد الإكمال على ايه حال؟</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>الرجاء ادخال اسم المستخدم الخاص بك على تويتر</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>فرصه</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد حذف المشكله '{0}'؟</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>جاري حذف المشكلة ...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد حذف الشركة '{0}' ؟</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>ملاحظه: هذه الاجراء لا يمكن التراجع عنه</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>جاري حذف جهه الإتصال...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد حذف الفرصه '{0}' ؟</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>جاري حذف الفرصة...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>هل انت متأكد من انك تريد حذف الشخص '{0}' ؟</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>تحرير البريد الإلكتروني</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>جاري حفظ التعديلات ...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>تحرير رقم الهاتف</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>تحرير «{0}» الحقل</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>تحرير المهمه</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} محدد</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>قائمه العناصر لا يمكن ان تكون فارغة</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>كل رساله يجب ان تحتوي على نص</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>كل مهمه يجب ان تحتوي على موعد نهائي</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>يجب ان يكون هناك مسؤول لاي مهمه</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>كل مهمه يجب ان تحتوي على عنوان</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>لا توجد حقول مرتبطه بعنوان المشكله</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>لم يتم تحديد الشخص</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>لا توجد حقول مرتبطه بالاسم الاول او اسم العائلة او اسم الشركه</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} عدد الاقصى لمستقبلي الايميل</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>ادخل عنوان المشكله</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>الحقول الرئيسية لا يجب ان تكرر</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>لاحقه الصوره غير مدعومه</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>اللاحقه لهذا الملف غير مدعومه</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>حدث خطاء عند رفع الصوره على الخادم</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>لا توجد حقول مرتبطه بعنوان الفرصه او المسؤول عن الفرصه</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>لا توجد حقول مرتبطه بعنوان المهمه او المسؤول او الموعد النهائي</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>هذا "{0}" النوع هو الاخير لذلك لا يمكن حذفه</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>هذه الخطوه الوحيده لهذه الفرصه. لا يمكن حذفها.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>هذه "{0}" الفئه هي الاخيره. لذلك لا يمكن حذفها</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>الموعد النهائي المتوقع لإتمام الصفقه</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>ابحث عن الحساب في تويتر</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>تم انشاء قائمه المستلمين. {0} اضغط الرابط ادناه لترحيل عناوين المستلمين الى برنامج البريد.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>اذهب الى الاعدادات</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>اربط مع مشروع</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>تحميل ...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>مشاكل</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>الشركات</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>جهات الاتصال</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>فرص</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>احداث</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>اشخاص</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>مهام</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>التالي (للمعاينة)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>لا توجد مشاكل</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>لا يوجد تاريخ اغلاق</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>لا توجد شركات</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>لا توجد جهات اتصال</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>لا توجد فرص</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>لا توجد احداث</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>لا يوجد اشخاص</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>لا يوجد عنوان</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>لا توجد مهام</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>مشكلة</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>شركة</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>جهة اتصال</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>فرصه</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>حدث</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>شخص</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>مهمة</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>خلال{0} ايام</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>خلال {0} ساعه</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>خلال {0} اشهر</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>خلال {0} اسابيع</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>خلال {0} سنوات</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>الرجاء اعاده تحميل هذه الصفحه</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>ملفات شخصيه متوقعه لـ {0}</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>رئيسي</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} من مستقبلي الايميل لا يملكون بريد الكتروني</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>حفظ التعديلات</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>اختر ملف CSV</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>ملف الـ CSV المحدد: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>ارسال</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>تم تحديث الاعدادات بنجاح</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>عرض المزيد</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>نوع جهة الاتصال</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>الولاية</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>اغلق بنجاح</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>هذه «{0}» المهمه مغلقه</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>مدعوم من قبل {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>{0} يوم {1} ساعة {2} دقيقه منذ بدايه العد</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>من المهمه السابقه {0} ايام {1} ساعات {2} دقائق</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>لم يتم الاغلاق بنجاح</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>الرمز البريدي</value>
+  </data>
+</root>

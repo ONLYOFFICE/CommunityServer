@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>アクセス</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>ポルタルの外</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="AceStatusEnum_CustomFilter" xml:space="preserve">
+    <value>ユーザー設定フィルター</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>フォーム記入</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>読み取り専用</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>フルアクセス</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>アクセスを拒否する</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>見直し</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>ファイルを操作するように、アクセス権を付与するはずです。</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>続ける</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>このファイルをONLYOFFICE™で開く場合に、Google DriveでファイルがOffice Open XML形式にコーピーされるとなります。このようにして元のファイルが変更されません。ファイルをONLYOFFICE™で編集するために、新しいコーピーを開く必要があります。</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>このメッセージを表示しない</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>ファイル名を入力する</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>ファイルタイプを選択する</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>筆者</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>私に</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>変換＆オープン</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>テンプレートで作成</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>ダウンロード</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>お気に入りから削除する</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>自動保存</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>所有者が変更されました</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>｛０｝から変換しました。</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>コピーしました。　</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>作成した</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>DocuSignで作成しました</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>編集済みの</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>暗号化で編集しました</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>暗号にした</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>上書きした</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>{0}の改正から復元しました</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>{0}の文書変更から復元しました</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>アップロード済み</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>接続URL </value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>編集を可能にするように文書は｛０｝に変換されました。</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>に変換</value>
+  </data>
+  <data name="DashboardGoToMyDocuments" xml:space="preserve">
+    <value>私の文書に移動する</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfy" xml:space="preserve">
+    <value>共同編集を快適にご使用になれます</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyFirstLine" xml:space="preserve">
+    <value>2つの共同編集モードを切り替えられます。</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfySecondLine" xml:space="preserve">
+    <value>他のユーザーが同時で入力している内容を見られるように、ファストモードをご選択ください。</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyThirdLine" xml:space="preserve">
+    <value>高レベルのモードを有効にすると、段落がロックされ、よりプライベートににご作業になれます。</value>
+  </data>
+  <data name="DashboardShareFiles" xml:space="preserve">
+    <value>ファイルをご共有になれます</value>
+  </data>
+  <data name="DashboardShareFilesFirstLine" xml:space="preserve">
+    <value>チームまたは一般公開でファイルをご共有になれます。</value>
+  </data>
+  <data name="DashboardShareFilesSecondLine" xml:space="preserve">
+    <value>フォーム入力、編集、レビュー、コメントへのアクセスをご許可になれます。</value>
+  </data>
+  <data name="DashboardShareFilesThirdLine" xml:space="preserve">
+    <value>電子署名するには、文書をご送信になれます。</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationTools" xml:space="preserve">
+    <value>チームとより効率的に連携できます</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsFirstLine" xml:space="preserve">
+    <value>ドキュメントをレビューし、変更の追跡による編集をご提案になれます。</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsSecondLine" xml:space="preserve">
+    <value>コメントを追加し、特定の人に宛てることができます。</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsThirdLine" xml:space="preserve">
+    <value>バージョン履歴を見られ、以前のバージョンを復元できます。</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocs" xml:space="preserve">
+    <value>事務所の文書を操作できます</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsFirstLine" xml:space="preserve">
+    <value>文書やスプレッドシートやプレゼンテーションなどをご保存およびご編集になれます。</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsSecondLine" xml:space="preserve">
+    <value>docx、xlsx、およびpptxとの最高の互換性をお楽しみください。</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsThirdLine" xml:space="preserve">
+    <value>GoogleDrive、Dropbox、Box、OneDriveなどの第三者サービスのストレージを接続できます。 </value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>ドキュメント・サービスが使用可能ではありません。サポートチームにご連絡ください。</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>文書名</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>辞退した</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>送信中にエラーが発生してしまいました</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>DocuSignを介して文書を送信過程はキャンセルされました</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>DocuSignを介して文書が署名用に送信されていました</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>無効となりました</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>文書で記載されたこと通知する</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>コメントを入力する</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>不正なリクエスト。</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>このユーザーを選択できません</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>変換には時間がかかり過ぎます。</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>文書サービでスエラーが発生してしまいました</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>｛０｝はファイルを編集しています。そのファイルの形式では、共同編集機能が現在サポートされていません。</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>ファイルがモバイルアップで｛０｝によって編集するように開かれています</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>空ファイル</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>必要なファイルが見つかりませんでした</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>{0}より大きくファイルが変換されません</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>{0}より大きくファイルがコピーされません</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>{0}より大きくファイルが編集されません</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>{0}より大きくファイルが移動されません</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>あなたは、そのサブフォルダにフォルダをコピーすることはできません</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>必要なフォルダが見つかりませんでした</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>不適切なタイトル</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>このファイルが別のユーザーによってロックされています</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>メッセージを送信するのために、利用可能なアカウントが見つかりません。メールモジュールに移動し、メールボックスを接続してください。</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>少なくとも｛０｝通のメールメッセージが送信できませんでした。失敗のあり得る原因を確認するためには、「メール」モジュールのページを訪問してください。</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>あまりにも多くのダウンロード。</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>申し訳ありませんが、このファイル形式はサポートされていません</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>操作はャンセルされました</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>保存した人は不明です。</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>保存しようとした時に、ファイルが破損してしまいました</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>保存するようにファイルを取得することが失敗してしまいました</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>この操作を実行するための十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>指定された認証情報で｛０｝プロバイダを許可することができません。</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>作成するのに十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>それが編集用に開かれているため、ファイルを削除することはできません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>のいずれかのファイルが編集用に開かれているため、フォルダを削除することはできません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>ファイルを削除するための十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>フォルダを削除するのに十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>このファイルを編集するのに十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>この文書は、別のタブであなたによって編集されている</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>このファイルを移動するための権限ありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>このフォルダを移動するための権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>ファイルを表示するのに十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>フォルダの内容を表示するのに十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>ファイルの名前を変更するための十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>フォルダの名前を変更するための十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>それが編集のためにオープンされているため、ファイルを更新することはできません</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>フォルダの内容を表示するのに十分な権限がありません</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>第三者フォルダのコンテンツが利用できません。アカウントを再接続してください。</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>ファイル編集の開始でエラーが発生してしまいました</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>あなたは、編集のために開かれているファイルを更新することはできません</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>ユーザーが見つかりません</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>あなたはごみ箱に要素をプレビューすることはできません</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>皆</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>フォルダ</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>フォルダ名</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>匿名の</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>文書の内容による検索する</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>新しい</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>復元する</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>"{0}"フォルダでファイルが作成されています</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>ユーザーと同じ操作を行います| '共有文書 "セクションのリンクDropboxは、Boxと他のアカウント|'共有文書"セクションには、文書やフォルダへのアクセス権限を設定</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>文書を作成したり、編集したり及び共有したりすることができます。同時での共同制作可能もあります。MS Office形式の100%互換性が保証されています。</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>文書を作成したり、編集したり及び共有したりすることができます。チーム全体がアクセスできる共通のドキュメントをご作成およびご管理になれます。docx、xlsx、pptxとの100％の互換性が保証されています。</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>共有ドキュメントを表示およびダウンロードできます。または、共有フォルダにファイルをアップロードできます。docx、xlsx、pptxとの100％の互換性が保証されています。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>独自の文書だけでなく、適切なアクセス権を持つ共有ドキュメントを作成および編集|読書/文書やフォルダに他のユーザーへのアクセス権を編集を進呈|"マイドキュメント"セクションのリンクDropboxは、Boxと他のアカウント</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User}削除</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>既読にする</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>共有</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>フォルダが共有されたときに通知する</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>バージョンを表示</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>DocuSignを使用して文書が署名された時に通知する</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>DocuSign内の文書の状況が変更された時に通知する</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>共有されたときに通知</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>メーリングの完了を通知する</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>変更するように書き込んでください</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>フォルダのタイトル</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>再接続</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>共有され、'共有文書' フォルダに入れる</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>{!user}の文書{0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>更新した</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>削除された</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>アクセス許可の設定</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>ファイルアクションを表示</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>フォルダアクションを表示</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>サブフォルダ</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>アップロード</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>バージョンとしてマーク</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>改訂としてマーク</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>バージョンと改訂：</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>ファイルがアンロックとなりました</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

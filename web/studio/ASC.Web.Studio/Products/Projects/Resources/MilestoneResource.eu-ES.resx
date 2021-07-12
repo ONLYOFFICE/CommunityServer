@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Gorde</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Hautatu proiektua</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Hautatu arduraduna</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Mugarria itxi</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>hilabete</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Bi hilabete</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Astea</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Ezabatu mugarria</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Ziur zaude mugarria ezabatu nahi duzula?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Ezin da zure iragazkiekin bat datorren mugarririk erakutsi atal honetan.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripzioa</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Ez dago mugarririk bat egiten duenik iragazki honekin</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Mugarria</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Epe muga</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Oraindik ez dago mugarririk plangintzan</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Mugarriak</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Mugarriak denbora marka nagusiak dira proiektuaren plangintzan. Behin mugarria sortuta, zuk proiektuko partaide guztientzako atazekin bete ahal duzu. Planifikatu mugarri bat eta ezarri epe muga bat ataza guztiak garaiz betetzen direla ziurtatzeko.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Hurrengoak</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Ezin duzu itxi mugarria irekitako atazak baditu</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Jakinarazi</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Mugarri bakoitzak izenburu bat eduki behar du</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Iraungita</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Planifikatu lehenengo mugarria</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Gogorarazi epe muga baino 48 ordu lehenago</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Arduraduna</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Mugarri gakoa</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Izenburua</value>
+  </data>
+</root>

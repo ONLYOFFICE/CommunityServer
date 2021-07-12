@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>修改章节:{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>文本</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>页面标题</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>上传文件</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>上传的文件名</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>创建维基页是非常简单的。即便您在此之前从未使用过标记语言（markup language），只要掌握以下几个基本的规则就可以轻松创建规范、美观的维基页了。 我们衷心希望以下的内容能帮助您顺利地使用维基功能。
+
+@@TOC@@
+
+==章节、段落、列表、分割线==
+
+在段落开头使用等于号“=”表示新一节的开始：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=这是章标题=&lt;br&gt;
+==这是节标题==&lt;br&gt;
+===这是二级节标题===&lt;br&gt;
+
+&lt;p&gt;
+在页面中插入 @@TOC@@ 则会插入一个页内目录，此目录列出了页面内的所有章节标题的快速链接。
+&lt;/p&gt;
+
+维基标记语言会忽略断行符。您可以用它们来分隔段落中的句子。
+
+&lt;p&gt;
+使用 «br» 标记来另起一行，但不开始新一段。 
+&lt;/p&gt;
+
+&lt;p&gt;
+要开始新段落，您只需要敲两次回车就可以了。
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+创建项目列表也同样容易：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* 在行的开头加入星号“*”表示这是一个项目列表；&lt;br&gt;
+** 开头的星号越多；&lt;br&gt;
+** 列表级别越低。&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# 数字列表也很好弄，把星号换成井号“#”就可以了：&lt;br&gt;
+## 它们的结构很清晰；&lt;br&gt;
+## 也很容易阅读&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ 如果在行的开头输入一个空格“ ”，
+ 那么不论你在这行输入了什么内容，都会按原样显示出来（不带任何格式）；
+ 文字格式都个一样；没有分行符；也[[没有链接]]。
+
+如果您有以下需要，就可以通过在行头加入空格的方式来实现: 
+
+*需要将一些已带有格式的文本粘贴到该行；
+*需要显示源代码；
+*需要创建/粘贴ASCII图 (使用纯文本符号来画图)。
+
+四个短横线“-”就构成一条水平横线
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==插入链接==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+要插入与本维基内其他页面的链接，只需要将页面标题用两个中括号括起来就可以了：&lt;br&gt; [[帮助]]&lt;/p&gt;
+
+&lt;p&gt;
+如果您希望链接显示的文字和所链接的页面标题不一样，您可以将链接标题放在竖线“|”号后: &lt;br&gt; [[维基标记语言帮助|帮助页]]（竖线前的是目标页的标题；竖线后则是显示链接的文字，可以随意更改）。&lt;/p&gt; 
+
+&lt;p&gt;
+通过粘贴网址就可以做出外部链接，像这样: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+如果您希望链接显示自定义文字（而不是那个复杂的网址），您只需要将网址用中括号括起来，然后隔一个空格，再输入您要显示的链接文字：&lt;br&gt; [http://example.com 我的example工作站]&lt;/p&gt; 
+
+&lt;p&gt;
+要插入e-mail地址，请使用中括号，正确格式为：&lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+要将页面加入到已有的分类中，只需要将目标分类页链接[[Category: 目标分类名]]添加到该页的最后一行。
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==文本格式化==
+
+使用以下技巧来规范您的文本格式：
+
+''斜体''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''要变成斜体的文字放在两个半角单引号中间''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''粗体'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''要变成粗体的文字放在三个半角单引号中间'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''加粗的斜体'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''又加粗又要斜体的话，请给我两边都加上5个半角单引号'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__下划线__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__要为文字加上下划线，在它两边都加上两个连续的下划线__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--删除线--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--两边都加上两个半角的短横线“-”，文字就会加上删除线了哦--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+&lt;sup&gt;上标&lt;/sup&gt; 和 &lt;sub&gt;下标&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;上标文字&lt;/sub&gt;&lt;br&gt;
+&lt;sup&gt;下标文字&lt;/sup&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+您还可以使用 &lt;small&gt;小字体&lt;/small&gt; 来标识解说文字，使用&lt;code lang="language"&gt;这里可以放程序代码&lt;/code&gt;来显示代码片段，还可以通过&lt;tt&gt;专业术语&lt;/tt&gt;来强调文本。
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==插入图片==
+
+您需要先将图片上传到维基系统中，才可以将图片插入维基页。
+
+您可以通过下列链接方式来插入各种形式的图片：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+简易图片插入法 = [[Image:图片标题]]&lt;/p&gt;
+&lt;p&gt;
+插入固定宽度（此处为200px）的图片 = [[Image: 图片标题 | 200]]&lt;/p&gt;
+&lt;p&gt;
+插入带说明的图片 = [[Image:图片标题 | 图片说明]]&lt;/p&gt;
+&lt;p&gt;
+生成缩略图 =  [[Image:图片标题 | thumb]] – 图片将被压缩并右对齐。
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==将HTML转换为维基格式==
+
+如果您有一个HTML格式的文本，希望将它转换为example™维基页的话，我们为您提供一个便捷的方法。点击'''操作'''面板上的'''创建新页面'''链接。接着，将HTML文本粘贴到编辑器窗口中，然后点击编辑器上的“维基”图标将编辑器转换为维基标记格式。这样一来，所有的HTML标记将被转换为维基标记。接下来，您只需要稍稍检查一下页面格式，没有问题的话就可以点击'''发布'''按钮。您的维基页面就这样建好了！</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''欢迎使用ONLYOFFICE™维基!''' 
+
+在这里，您可以创建维基页面，对相关页面进行互链、分类等管理。维基是一种便捷的信息管理工具，您可以使用以下功能对项目相关的文档、文书、记录等信息进行管理：
+
+*多人协作。每一位'''ONLYOFFICE™'''工作站成员都可以编辑任何页面的内容。
+*快速进入编辑状态。只要点击页面上的'''修改'''链接就马上可以开始编辑当前浏览页的内容。
+*快速将HTML转换为维基格式。了解[[Internal:Help#HTML to Wiki Transfer|如何转换]] 
+*页面历史记录功能。 通过查看页面的历史记录，随时了解大家修改了哪些页面内容。
+
+@@TOC@@
+
+==维基导航与页面结构==
+
+您可以通过'''导航面板'''中的链接快速导航到维基页内的不同部分。 
+
+===页面===
+
+您所创建的所有维基页都会按字母顺序在[[Internal:Index|索引]]页列出。&lt;br&gt; 
+所有新创建的页面则按时间顺序在[[Internal:NewPages|新页面]]索引页列出。&lt;br&gt;
+最近更新的页面链接则位于[[Internal:Recently|最近更新]]页中。
+
+===分类===
+
+您可以将几个相关的页面组成一个分类。所有分类，连同它们属下的页面列表位于[[Internal:Categories|分类]]页中。您可以将一个维基页加入到已有的分类中，也可以为它创建一个新的分类。您可以[[Internal:Help|点击此处]]详细了解如何将页面加入到分类中。 
+
+===文件===
+
+您可以将任何格式的文件上传到维基中，也可以通过输入网址（URL）来为维基页添加图片。[[Internal:Help#Inserting Images|点击此处]]了解更详尽的图片上传功能.
+
+===帮助===
+
+在'''ONLYOFFICE™'''维基中创建页面是非常便捷的。您只需要掌握一些非常基本的规律就可以了。您可以查阅帮助中心的[[Internal:Help|维基页格式简介]]来了解如何编辑出美观大方的维基页面。 
+
+
+==创建您的维基页==
+
+要创建自己的维基页，请点击位于'''操作'''面板上的'''创建新页面'''链接。 接着，在新窗口的文本编辑器中填写您要添加的页面内容。 您可以查阅帮助中心的[[Internal:Help|维基页格式简介]]来了解如何编辑出合符规范的维基页面。 
+
+您可以根据自己的需要管理和修改所有维基页——连本简介页也是可以编辑的哦！例如，您可以完全删掉本页的内容，然后将页面内容替换为您的项目信息、相关链接，等等。&lt;br&gt;祝您使用愉快！</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>您要查看的页面不存在。请点击{这里}创建此页面。</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>锚点</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>加粗</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>用高光显示第三方代码</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML代码示例</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>外部链接</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>本地文件链接</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (建议尽少使用)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>横线</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>新一行</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR Tag</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>无法使用维基语言进行诠释</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>页面链接</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>特殊标签</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>下标</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>上标</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>特殊符号</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>下划线</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>文本块</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>上传文件过大</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>下载文件</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>分类</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>系统允许上传的最大文件尺寸为{0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, 章: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=页面已被移动=
+页面名称已更改为“[[{0}|{0}]]”。
+[[{0}|点击此处]]查看最新版的内容 </value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>页面导航</value>
+  </data>
+</root>

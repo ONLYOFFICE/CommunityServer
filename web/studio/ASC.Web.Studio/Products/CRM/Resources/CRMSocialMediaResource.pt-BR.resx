@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
+    <value>Fique ciente do que seus clientes pensam sobre seu produto e marca na rede social. Basta vincular a conta do twitter com o contato e seguir os feed de notícia tweet diretamente em seu portal.</value>
+  </data>
+  <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
+    <value>Não há contas de Twitter vinculadas</value>
+  </data>
+  <data name="ErrorInternalServer" xml:space="preserve">
+    <value>Erro interno</value>
+  </data>
+  <data name="ErrorTwitterAccountNotFound" xml:space="preserve">
+    <value>Conta do Twitter não foi encontrada</value>
+  </data>
+  <data name="ErrorTwitterConnectionFailure" xml:space="preserve">
+    <value>Não foi possível conectar com Twitter</value>
+  </data>
+  <data name="ErrorTwitterRateLimit" xml:space="preserve">
+    <value>Número máximo de solicitações para Twitter permitido foi excedido. Tente novamente depois.</value>
+  </data>
+  <data name="ErrorTwitterUnauthorized" xml:space="preserve">
+    <value>O aplicativo não tem acesso ao Twitter. Reconecte a conta do Twitter.</value>
+  </data>
+  <data name="ErrorUnknownTwitterAccount" xml:space="preserve">
+    <value>Conta do Twitter desconhecida</value>
+  </data>
+  <data name="LinkTwitterAccount" xml:space="preserve">
+    <value>Vincule uma conta do Twitter</value>
+  </data>
+  <data name="NoAccountsHasBeenFound" xml:space="preserve">
+    <value>Nenhuma conta foi encontrada</value>
+  </data>
+  <data name="NoCompaniesHasBeenFound" xml:space="preserve">
+    <value>Nenhuma empresa foi encontrada</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Aguarde...</value>
+  </data>
+  <data name="SocialMediaAccountNotFoundTwitter" xml:space="preserve">
+    <value>A conta do Twitter não está conectada</value>
+  </data>
+</root>

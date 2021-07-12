@@ -1,0 +1,674 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>アクセス権は、あなただけで作成された連絡先に設定されます。</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>加える</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>{!group}を追加する</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>追加情報</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>メールアカウントを追加する</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>タグの追加</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>参加者を追加</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>このイベントの追加</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>メモを追加...
+</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>加える{!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>{0}を使用しますか？{1}と{0} *{1}のシンボルがシングル/複数文字の検索を実行する。例えば、で始まるすべての単語を検索するには{0} O {1}、{0} O *{1}クエリを使用します。</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>対応ONLYOFFICE™ CRMのフィールド</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>添付ファイル</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>連絡先とリンク</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>筆者</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>バック</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>詳細はこちら...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>ケース</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>変更</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>フィルタリセット</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>完了する</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>このウインドウを閉じる</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>ウィンドウを閉じる</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>コロン</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Fileカラム</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>コンマ</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>連絡先リストで選択したすべてのクライアントに送信される文字を構成しています。あなたは"To"フィールドで選択したクライアントの数を確認することができ、共通の "件名"を入力して、お手紙に必要なすべての情報を含むように"パーソナルタグ"を使用します。これはONLYOFFICE™ CRMの新機能を試してみたい人のためのベータ版です。</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>変更確認</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>あなたは、これらの要素を削除してもよろしいですか？</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>連絡先設定</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>コンテンツ</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>率</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>通貨のコンバーター</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>作成日</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>新規連絡先を作成</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>プロジェクトの作成</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>新しいタグを追加</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>作成日時</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>通貨</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>基本的な通貨</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>別の通貨</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>現在{!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>他のユーザー</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>{0}日で期限</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>延滞：{0}日</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>イベントを削除</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>参加者を削除</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>タグを削除</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>ユーザーを削除します</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>すべての選択を解除</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>ドキュメント</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>二重引用符</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>重複レコード</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>空のファイル</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>あなたのフィルタに一致するレコードがこのセクションに表示することはできません。このセクション内のすべてのレコードを表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。また、あなたが他のコンタクト履歴に必要なレコードを探すことができます。</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>このフィルタのレコードはここで見つけることができない</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>金額を入力</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>{1}{0}{2}ファイルサイズを超えています</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>CSV形式ファイルに現在のリストをエクスポート</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>データをエクスポートする</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>データのエクスポート（{0}％完成）</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>最大ファイルサイズを超えています</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>作成日時</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>期日</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>責任がある</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>タグ付き</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>会社や名前で人を見つける...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隠す</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>添付ファイルパネルを非表示にする</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>歴史</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>任命</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>注意</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>受信されました</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>送信されました</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>最大の文字数を超えています: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>インポート時に最初の行を無視する</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>一致する連絡先を複製連絡先をインポートするには、このオプションを使用します。例えば'A'と 'B' - - あなたONLYOFFICE™ CRMの2つのレコードがあります。あなたは、'B'と 'C'のレコードをインポートしたいと思います。あなたが選択した場合にはインポート中に"複製"オプション、"B"への重複したレコードが作成されます。</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>重複はメールのフィールドに基づいて行われるかどうかをチェックします。</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>上書きする</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>既存の連絡先を上書きして連絡先をインポートするには、このオプションを使用します。例えば'A'と 'B' - - あなたONLYOFFICE™ CRMの2つのレコードがあります。あなたは、'B'と 'C'のレコードをインポートしたいと思います。ケースでは、"上書き"オプションを選択し、既存の'B'はインポート中にインポートされた1で上書きされます。</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>スキップ</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>既存の連絡先を維持する連絡先をインポートするには、このオプションを使用します。例えば'A'と 'B' - - あなたONLYOFFICE™ CRMの2つのレコードがあります。あなたは、'B'と 'C'のレコードをインポートしたいと思います。あなたは"スキップ"オプションを選択した場合にインポートする際、既存の'B'は保持されます。</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>デリミタ</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>エンコーディング</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSVファイルの設定値</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>テキスト区切り</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>ファイルをスキャンしています...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>データのインポートを開始</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>情報が提出される</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>請求書</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>請求書設定</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>租税</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>先月</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>詳細情報</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>手紙ボディ</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>とのリンク</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>しばらくお待ちください...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>メールの本文</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>"{0}"：ONLYOFFICE™ミサは、フィーチャーを送る</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>{0}にメッセージを配信できませんでした</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>無効な電子メールアドレス：{0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>配信に失敗しました - {0}秒後に再試行します。</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>電子メールの件名</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>へ</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>電卓</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>私の</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>私のイベント</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>次のレコード</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>レコードなしません</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>利用可能なメールアカウントはありません</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>一致するメッセージはありません。</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>指定されていない</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>通知する</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>指定されていない</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>上に</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>会社プロフィル</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>別の設定</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>ここでは、作成中の文字を見ることができます。いくつかの変更を加えたりして、結果を好めば"送信"ボタンを使用する"戻る"ボタンを使用します。</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>前歴</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>前のステップ</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>プライベート</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>{!users}が利用できる</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>アクセスを制限する</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>アクセスは、デフォルトですべてのポータル{!users}ユーザーに付与されます。アクセスは下記のチェックボックスをオンに制限する。</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>アクセス権</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>CRMユーザーと同じ操作を行います|インポート、エクスポートデータ| CRMの連絡先にメールを送る|管理設定の管理|任意の連絡先、タスク、ケース、機会</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>、あなたの顧客との関係を管理し、通信履歴や販売実績を追跡し、優先順位の連絡先を特定します。</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>、あなたの顧客との関係を管理し、通信履歴や販売実績を追跡し、優先順位の連絡先を特定します。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>製品およびサービス</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>[編集]連絡先、タスク、ケース、アクセス権を持つ機会セットアップ|はそれらへのアクセスを制限する可能性の連絡先、タスク、ケース、機会を生み出す</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>とリンク</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>責任がある</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>値</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>変更を保存</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>変更を保存...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>すべてを選択</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>ユーザーに通知します</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>セミコロン</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>メールを送信</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>権限を設定する</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>\を表示</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>添付ファイルパネルを表示</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>情報を表示します</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>ページに表示</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>単一引用符</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>スペース</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>歴史の中で、この手紙を保管</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>件名</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>新しいイベント</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>新しい連絡先</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>完成したエクスポート</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>インポート完了</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>自分に割り当てられたタスク</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>付与されたアクセス</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>集計テーブル</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>作表</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Eメール</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>今月</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>へ</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>会社/個人</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>解除接触</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>アップ</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>ファイルを添付する</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>ファイルを表示する</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>通話</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>共通の</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>数字</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨日</value>
+  </data>
+</root>

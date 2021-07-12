@@ -1,0 +1,560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>Blogs izveidots</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>Grāmatzīme izveidota</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>CRM lieta tika izveidota</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>Komentārs tika pievienots</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>CRM kontakts tika izveidots</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>CRM iespēja tika izveidota</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>Diskusija tika izveidota</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>Notikums tika izveidots</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>Dokuments tika izveidots / augšupielādēts</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>Mape izveidota</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>Mape tika izveidota</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>Aptauja izveidota</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>Ieraksts tika izveidots</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>Posms tika izveidots</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>Projekts tika izveidots</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>Uzdevums tika izveidots</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>Piekļuve vadības panelim</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>Piekļūt portālam</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>Piekļūt tīmekļa birojam</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>Konfigurēt tagad</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>Uzaiciniet tūlīt</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>Pasūtīt zvanu</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>Izvēlieties cenu plānus</value>
+  </data>
+  <data name="ButtonStartFreeTrial" xml:space="preserve">
+    <value>Uzsākt bezmaksas izmēģinājumu</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>Uzzināt vairāk&gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.Aktivizējiet savu e-pastu portālā "${__VirtualRootPath}":"$InviteLink".
+
+Sveiki!
+
+Lai uzsāktu darbu portālā "${__VirtualRootPath}":"$InviteLink", jums drošības nolūkos ir jāaktivizē sava e-pasta adrese.
+
+$GreenButton
+
+Šī saite ir derīga vienīgi 7 dienas. Lūdzu, pa šo laiku pabeidziet e-pasta aktivizāciju.</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portāla rezerves kopija izveidota
+
+Cienītais/-ā $OwnerName,
+
+Ir izveidota rezerves kopija, kas satur jūsu portāla "${__VirtualRootPath}":"${__VirtualRootPath}" datus.
+
+Lai uzzinātu vairāk par rezerves kopēšanu, lūdzu, dodieties uz instrukciju "Datu rezerves kopēšana":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx".
+
+
+Ja radušies kādi jautājumi, sazinieties ar mums uz:
+ "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Ar cieņu,
+ONLYOFFICE™ atbalsta komanda</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1.Paroles maiņas pieprasījums "${__VirtualRootPath}":"${__VirtualRootPath}" portālam
+
+Ir pieprasīta paroles maiņa, kuru izmantojāt, lai ieietu "${__VirtualRootPath}":"${__VirtualRootPath}" portālā.
+
+Lai mainītu paroli, sekojiet šai saitei:
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga tikai 7 dienas. Pabeidziet paroles maiņas procesu šajā laikā. 
+
+Ja nevēlaties mainīt savu paroli vai saņēmāt e-pastu kļūdas pēc, lūdzu, ignorējiet šo ziņu vai sazinieties ar savu  "${__VirtualRootPath}":"${__VirtualRootPath}" portāla administratoru.</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.Mobilā tālruņa maiņas pieprasījums
+
+Jūs pieprasījāt mainīt mobilo tālruni, ko ievadīt portālā ${LetterLogoText}.
+
+Lai to izdarītu, sekojiet saitei:
+
+$GreenButton
+
+Ja nevēlaties mainīt mobilā tālruņa numuru vai saņēmāt šo ziņu kļūdas dēļ, lūdzu, ignorējiet to vai sazinieties ar portāla administratoru, lai uzzinātu sīkāk.</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1.Portāla "${__VirtualRootPath}":"${__VirtualRootPath}" īpašnieka maiņa
+
+Sveicināti, $OwnerName,
+
+Ir saņemts pieprasījums mainīt portāla "${__VirtualRootPath}":"${__VirtualRootPath}" īpašnieku uz $UserName.
+
+Lai apstiprinātu darbību, spiediet zemāk esošo saiti:
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga tikai 7 dienas. Lūdzu, šajā laikā pabeidziet portāla īpašnieka maiņu.</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.Portāla adreses maiņa
+
+Sveicināti, $OwnerName,
+
+Ir saņemts pieprasījums mainīt "${__VirtualRootPath}":"${__VirtualRootPath}" portāla adresi uz "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end.
+
+Lai apstiprinātu operāciju, lūdzu, sekojiet zemāk esošajai saitei:
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga tikai 7 dienas. Lūdzu, pabeidziet portāla adreses maiņu šajā laikā.</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1.Ziņojums no portāla "${__VirtualRootPath}":"${__VirtualRootPath}"
+E-pasts: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1.Uzaicinājums pievienoties "${__VirtualRootPath}":"$InviteLink" portālam
+
+Sveicināti,
+
+Jūs lūdzāt pievienoties "${__VirtualRootPath}":"$InviteLink" portālam ${LetterLogoText} - platformā dokumentu un projektu pārvaldībai. Pievienojieties portālam un uzsāciet sadarbību ar kolēģiem vai draugiem. 
+
+Lai pieņemtu uzaicinājumu, lūdzu, sekojiet šai saitei un ievadiet savu vārdu un uzvārdu:
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga 48 stundas. Lūdzu, šajā laikā pabeidziet šo darbību.</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.Kļūda, pārnesot portālu uz citu apgabalu
+
+Radās kļūda, pārnesot portālu uz apgabalu $RegionName. Lūdzu, mēģiniet vēlāk vēlreiz.
+Jūsu portāls ir pieejams vecajā adresē "$PortalUrl":"$PortalUrl"
+
+Ja jums radušies kādi jautājumi vai ir nepieciešama palīdzība, sazinieties ar mums, rakstot uz "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Ar cieņu
+ONLYOFFICE™ atbalsta komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Jūs saņemat šo e-pastu, jo esat reģistrējies portālā"${__VirtualRootPath}":"${__VirtualRootPath}". Lai mainītu paziņojuma veidu, lūdzu, pārvaldiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.Portāla apgabala maiņas kļūda
+
+Radās kļūda, pārnesot portālu uz citu apgabalu. Lūdzu, mēģiniet vēlāk vēlreiz.
+Jūsu portāls ir pieejams vecajā adresē "$PortalUrl":"$PortalUrl"
+
+Ja jums radušies kādi jautājumi vai nepieciešama palīdzība, sazinieties ar mums "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Ar cieņu,
+ONLYOFFICE™ atbalsta komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Jūs saņemat šo e-pastu, jo esat reģistrēts portāla "${__VirtualRootPath}":"${__VirtualRootPath}" lietotājs. Lai mainītu paziņojumu veidu, labojiet savus "Abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.Uzsākta portāla pārnese uz citu apgabalu
+
+Uzsākta portāla pārnese uz apgabalu $RegionName. Atkarībā no datu apjoma, tas var prasīt noteiktu laika daudzumu.
+
+*Piezīme*: pārneses laikā portāls nebūs pieejams. Pēc pārneses pabeigšanas tiks mainīts URL un visi kopīgotie dokumenti būs nepieejami. 
+
+Ja jums ir radušies kādi jautājumi vai ir nepieciešama palīdzība, sazinieties ar mums, rakstot uz "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Ar cieņu,
+ONLYOFFICE™ atbalsta komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Jūs saņemat šo e-pastu, jo esat reģistrējies portālā "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1.Portāla "${__VirtualRootPath}":"${__VirtualRootPath}" deaktivizācija
+
+Sveicināti, $OwnerName,
+
+Jūs esat pieprasījuši īslaicīgu sava"${__VirtualRootPath}":"${__VirtualRootPath}" portāla deaktivizāciju. Lūdzu, sekojiet saitei, lai apstiprinātu darbību:
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga tikai 7 dienas. Lūdzu, šajā laikā pabeidziet portāla deaktivizāciju.
+
+Jūs varat no jauna aktivizēt savu portālu jebkurā laikā, spiežot uz saites:
+p=. "No jauna aktivizēt portālu":"$ActivateUrl" (šai saitei nav laika ierobežojuma)
+
+Ja jums radušies kādi jautājumi vai ir nepieciešama palīdzība, rakstiet mums uz: "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Ar cieņu
+ONLYOFFICE™ komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portāla dzēšana
+
+Sveicināti, $OwnerName,
+
+Jūs pieprasījāt neatgriezeniski dzēst savu "${__VirtualRootPath}":"${__VirtualRootPath}" portālu.
+
+*Svarīgi! Visi portālā uzglabātie dati, kā arī reģistrācijas dati tiks zaudēti un tos nevarēs atjaunot.*
+
+#if($AutoRenew == "True")
+Pirms portāla dzēšanas pārliecinieties, ka automātiskais rēķins ir izslēgts. Jūs varat pārbaudīt automātiskā rēķina statusu savā "Avangate kontā":"https://secure.avangate.com/myaccount/".
+#end
+
+Ja joprojām vēlaties dzēst savu "${__VirtualRootPath}":"${__VirtualRootPath}" portālu, lūdzu, sekojiet zemāk esošajai saitei, lai apstiprinātu operāciju:
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga tikai 7 dienas. Lūdzu, šajā laikā pabeidziet portāla dzēšanas procesu. 
+
+Ja jums radušies kādi jautājumi vai ir nepieciešama palīdzība, rakstiet mums uz: "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Ar cieņu
+ONLYOFFICE™ komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.Portāla adreses maiņa
+
+Sveicināti, $UserDisplayName,
+
+Jūsu $PortalUrl portāla adrese tika nomainīta uz jauno "${__VirtualRootPath}":"${__VirtualRootPath}" adresi.
+
+*Piezīme*: Visas kopīgotās dokumentu saites šobrīd nav pieejamas, kā arī DNS uzstādījumi un vienreizējās pierakstīšanās iespējas nedarbosies līdz to maiņai. Trešās puses iCal saites, kas ir pievienotas jūsu kalendāram, neatjaunināsies, līdz tos nepārlādēsit.</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.Profila dzēšana no portāla "${__VirtualRootPath}":"${__VirtualRootPath}"
+
+Jūs esat pieprasījuši neatgriezeniski dzēst savu profilu no "${__VirtualRootPath}":"${__VirtualRootPath}" portāla.
+
+Ja vēlaties dzēst savu profilu, lūdzu, sekojiet zemāk esošajai saitei, lai apstiprinātu darbību: 
+
+$GreenButton
+
+*Piezīme*: šī saite ir derīga tikai 7 dienas. Lūdzu, šajā laikā pabeidziet profila dzēšanu.</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.Jūsu"$__VirtualRootPath":"$__VirtualRootPath" profils ir mainīts
+
+Sveicināti, $UserName,
+
+Jūsu lietotāja "$__VirtualRootPath":"$__VirtualRootPath" datus mainīja "$__AuthorName":"$__AuthorUrl".
+
+Lai aplūkotu profilu, sekojiet zemāk esošajai saitei: 
+"$UserName":"$MyStaffLink"
+
+
+^Jūs saņemat šo e-pastu, jo esat reģistrējies portālā "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>Sveicināti, $UserName,
+
+Ir veiksmīga datu pārnese no lietotāja "$FromUserName":"$FromUserLink" lietotājam "$ToUserName":"$ToUserLink".
+
+^Jūs saņemat šo e-pastu, jo esat reģistrējies portālā "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_reassigns_failed" xml:space="preserve">
+    <value>Sveicināti $UserName,
+
+Datu pārneses process no lietotāja "$FromUserName":"$FromUserLink" lietotājam "$ToUserName":"$ToUserLink" neizdevās.
+
+Ziņa par kļūdu: $Message
+
+^Jūs saņemat šo ziņu, jo esat reģistrējies portālā "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_remove_user_data_completed" xml:space="preserve">
+    <value>Sveicināti $UserName,
+
+Datu noņemšana lietotājam "$FromUserName":"$FromUserLink" veiksmīgi pabeigta.
+
+^Jūs saņemat šo ziņu, jo esat reģistrējiet portālā "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_remove_user_data_failed" xml:space="preserve">
+    <value>Sveicināti $UserName,
+
+Datu noņemšana lietotājam "$FromUserName":"$FromUserLink" neizdevās.
+
+Kļūdas ziņojums: $Message
+
+^Jūs saņemat šo ziņu, jo esat reģistrējiet portālā "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.Uzņēmuma licences pieprasījums
+
+h3.Vārds
+$UserName
+
+h3.Lietotājvārds
+$UserLastName
+
+h3.Amats
+$Position
+
+h3.E-pasts
+"$UserEmail":"mailto:$UserEmail"
+
+h3.Tālrunis
+$Phone
+
+h3.Uzņēmuma vietne
+$Website
+
+h3.Uzņēmuma nosaukums
+$CompanyTitle
+
+h3.Uzņēmuma izmērs
+$CompanySize
+
+h3.Pieprasīt saturu
+$Body
+
+h3.Portāla adrese
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.Uzsākta portāla atjaunošana
+
+Portāla atjaunošana ir sākta. Tas varētu prasīt nedaudz laika, atkarībā no datu apjoma.
+
+*Piezīme*: atjaunošanas procesa laikā portāls nebūs pieejams.
+
+Ja jums radušies kādi jautājumi vai ir nepieciešama palīdzība, lūdzu, sazinieties ar mums, rakstot uz "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+Ar cieņu,
+ONLYOFFICE™ komanda
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Jūs saņemat šo ziņu, jo esat reģistrēts lietotājs portālā"${__VirtualRootPath}":"${__VirtualRootPath}". Lai mainītu paziņojuma veidu, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" portāla profila maiņas paziņojums
+
+"$__AuthorName":"$__AuthorUrl" mainīja savu profilu portālā "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^Jūs saņemat šo e-pastu, jo esat reģistrējies portālā "${__VirtualRootPath}":"${__VirtualRootPath}". Ja nevēlaties saņemt paziņojumus par profila atjauninājumiem, lūdzu, labojiet savus "abonēšanas uzstādījumus" ":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1.Katra portāla "${__VirtualRootPath}":"${__VirtualRootPath}" jaunumi datumā $Date
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Author*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^Jūs saņemat šo e-pastu, jo reģistrējāties portālā "${__VirtualRootPath}":"${__VirtualRootPath}". Ja nevēlaties saņemt paziņojumus par jauniem notikumiem "${__VirtualRootPath}":"${__VirtualRootPath}" portālā, lūdzu, pārvaldiet savus "abonēšanas uzstādījumus" :"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP testa ziņa
+
+Šī ziņa tika izveidota automātiski, lai pārbaudītu jūsu SMTP uzstādījumus. Ja jūs to redzat, šie iestatījumi ir pareizi un jūs varat tos izmantot savā portālā.
+
+Ar cieņu,
+ONLYOFFICE komanda</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1.Portālam "${__VirtualRootPath}":"${__VirtualRootPath}" pievienots jauns lietotājs
+"$__AuthorName":"$__AuthorUrl" pievienojās jūsu portālam "${__VirtualRootPath}":"${__VirtualRootPath}".
+
+
+^Jūs saņemat šo e-pastu, jo esat portāla "${__VirtualRootPath}":"${__VirtualRootPath}" administrators. Ja nevēlaties saņemt paziņojumus par jauniem lietotājiem, lūdzu, labojiet savus "abonēšanas uzstādījumus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}. Lūdzu, aktivizējiet savu e-pasta adresi</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText} izveidota portāla ${__VirtualRootPath} rezerves kopija</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText} palīdzība ar paroli</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}. Mobilā tālruņa numura nomaiņas pieprasījums</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portāla īpašnieka maiņa</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}. Portāla adreses maiņa</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>Lietotāja ziņa administratoriem</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>Uzaicinājums pievienoties portālam ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${__VirtualRootPath}. Kļūda, pārnesot portālu uz citu apgabalu</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText}. Portāla pārnese uz citu apgabalu uzsākta</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText}. Portāla pārnese uz citu apgabalu veiksmīgi pabeigta</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>Portāla ${__VirtualRootPath} deaktivizācija</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>${__VirtualRootPath} portāla dzēšana</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}. Portāla adreses maiņa</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>Jūsu profila dzēšana no ${__VirtualRootPath} portāla</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>Tika mainīts jūsu profils portālā ${__VirtualRootPath}</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Lietotāja datu pārnese ir pabeigta</value>
+  </data>
+  <data name="subject_reassigns_failed" xml:space="preserve">
+    <value>${LetterLogoText}. Lietotāju datu pārnese neizdevās</value>
+  </data>
+  <data name="subject_remove_user_data_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Lietotāja datu dzēšana pabeigta</value>
+  </data>
+  <data name="subject_remove_user_data_failed" xml:space="preserve">
+    <value>${LetterLogoText}. Lietotāja datu dzēšana neizdevās</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>Enterprise licences pieprasījums</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>SaaS cenu plāns</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}. Atjaunošana pabeigta</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}. Atjaunošana uzsākta</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath} portāla profila izmaiņu paziņojums</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>Laipni lūgti savā portālā $Date</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP testa ziņojums</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>Jauns lietotājs pievienots portālam ${LetterLogoText}</value>
+  </data>
+</root>

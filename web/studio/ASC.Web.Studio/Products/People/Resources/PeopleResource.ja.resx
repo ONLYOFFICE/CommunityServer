@@ -1,0 +1,385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>ポータルのアクセス権</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>アクション</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>追加する</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>{!group}を追加する</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>メンバーを追加する</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>使用禁止</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>ステータスの変更</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>ユーザーステータスを変更する</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>ユーザーステータスを変更する</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>タイプを変更する</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>ユーザータイプを変更する</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
+    <value>再割り当てが完了したら、プロファイルを削除する</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>ポータルからユーザーの削除</value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>すべての選択を解除</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>無効にする</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>有効にする</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>名前をご入力ください</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>画像サイズが大きすぎます</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>画像ファイルのサイズが大きすぎます</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>ファイル内のフィールド</value>
+  </data>
+  <data name="FieldsOnPortal" xml:space="preserve">
+    <value>ONLYOFFICEポータルのフィールド</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>選択したユーザーリストを非表示にする</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>列</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>二重引用符</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>単一引用符</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>ファイルから</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>ユーザーを輸入する</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>コロン</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>読点</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>セミコロン</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>スペース</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>連絡先の輸入</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>ポータルに追加する</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>コンプライアンスの設定</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>連絡先を編集する</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>ユーザーを招待する</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>メールアドレスを変更</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>パスワードを変更する</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>プロファイルを削除します</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>個人データを削除する</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>もう一度招待状を送信</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>もう一度アクティベーションリンクを送る</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>メールを送信</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>メッセージを送る</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>サブスクリプション</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>使用禁止</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>メンバー</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>あなたのフィルタに一致する人は、このセクションに表示することはできません。このセクションのすべての人々を表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>検索条件に一致する結果が見つかりませんでした</value>
+  </data>
+  <data name="NotImport" xml:space="preserve">
+    <value>輸入しない</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>上に</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>新しいユーザーを追加招待したり、それらをインポートします。ユーザーを管理し、その詳細情報を表示します。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>または{0}非営利の使用法についてご覧ください{1}。</value>
+  </data>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>転送を中止する</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>データ転送が中止されました</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>ドキュメント</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>サーバーエラーのため、データ転送が中断されました</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>データの再割り当て</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ReassignRestartButton" xml:space="preserve">
+    <value>転送を再開する</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>データ転送の詳細</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>サーバーエラーが発生しました</value>
+  </data>
+  <data name="ReassignStatusFinished" xml:space="preserve">
+    <value>すべてのデータが転送されました</value>
+  </data>
+  <data name="ReassignStatusNotStarted" xml:space="preserve">
+    <value>データは転送されませんでした</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>他のポータルユーザーが利用できる「共有文書」および「私の文書」;</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>チャット</value>
+  </data>
+  <data name="RemovingAbortButton" xml:space="preserve">
+    <value>削除を中止する</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>データの削除が中止されました</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>個人データの削除</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>サーバーエラーのため、データの削除が中断されました</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>すべての個人文書；</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>CRMレポートファイル;</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>すべてのメールと添付ファイル；</value>
+  </data>
+  <data name="RemovingListItem4" xml:space="preserve">
+    <value>チャットから添付されたファイル;</value>
+  </data>
+  <data name="RemovingReadMore" xml:space="preserve">
+    <value>個人データの削除についての詳細</value>
+  </data>
+  <data name="RemovingRestartButton" xml:space="preserve">
+    <value>削除を再開する</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>データの一部が削除される可能性があるため、中断されました。</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>すべてのデータが削除されました</value>
+  </data>
+  <data name="RemovingStatusNotStarted" xml:space="preserve">
+    <value>データは削除されませんでした</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>もう一度招待状を送る</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>すべてを選択する</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>ページに表示する</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>ユーザーが正常に削除されました</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>確認を待っています</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>メールを送信する</value>
+  </data>
+</root>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>ახალი დავალების შექმნა</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>დახურული დავალება</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>კონტაქტებთან დაკავშირება</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>პირველი დავალების შექმნა</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>დავალების წაშლა</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>აღწერა</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>დავალების რედაქტირება</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>პასუხისმგებელი</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>დავალების შენახვა</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>დავალება</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>დავალებების კატეგორიები</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>დავალების კატეგორია</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>სატელეფონო ზარი</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>გარიგება</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>დემო</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>ფაქსი</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>შესრულების შემოწმება</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>სადილი</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>შეხვედრა</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>შენიშვნა</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>მიწოდება</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>სოციალური ქსელი</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>მადლიერების გამოხატვა</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>დავალების აღწერა</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>დანიშვნა</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>დავალებები</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>დავალების სტატუსი</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>დახურულია</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>ღია</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>დავალების დასახელება</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 დღე</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>დრო</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>დგეს</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>კვირა</value>
+  </data>
+</root>

@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateBlog" xml:space="preserve">
+    <value>博客创建于</value>
+  </data>
+  <data name="ActionCreateBookmark" xml:space="preserve">
+    <value>书签创建于</value>
+  </data>
+  <data name="ActionCreateCase" xml:space="preserve">
+    <value>CRM案例创建于</value>
+  </data>
+  <data name="ActionCreateComment" xml:space="preserve">
+    <value>评论添加于</value>
+  </data>
+  <data name="ActionCreateContact" xml:space="preserve">
+    <value>CRM联系人创建于</value>
+  </data>
+  <data name="ActionCreateDeal" xml:space="preserve">
+    <value>CRM机会创建于</value>
+  </data>
+  <data name="ActionCreateDiscussion" xml:space="preserve">
+    <value>讨论创建于</value>
+  </data>
+  <data name="ActionCreateEvent" xml:space="preserve">
+    <value>活动创建于</value>
+  </data>
+  <data name="ActionCreateFile" xml:space="preserve">
+    <value>文档创建/上传于</value>
+  </data>
+  <data name="ActionCreateFolder" xml:space="preserve">
+    <value>文件夹创建于</value>
+  </data>
+  <data name="ActionCreateForum" xml:space="preserve">
+    <value>论坛创建于</value>
+  </data>
+  <data name="ActionCreateForumPoll" xml:space="preserve">
+    <value>调查创建于</value>
+  </data>
+  <data name="ActionCreateForumPost" xml:space="preserve">
+    <value>帖子创建于</value>
+  </data>
+  <data name="ActionCreateMilestone" xml:space="preserve">
+    <value>里程碑创建于</value>
+  </data>
+  <data name="ActionCreateProject" xml:space="preserve">
+    <value>项目创建于</value>
+  </data>
+  <data name="ActionCreateTask" xml:space="preserve">
+    <value>聊天创建于</value>
+  </data>
+  <data name="ButtonAccept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="ButtonAccessControlPanel" xml:space="preserve">
+    <value>访问控制面板</value>
+  </data>
+  <data name="ButtonAccessYourPortal" xml:space="preserve">
+    <value>访问您的门户</value>
+  </data>
+  <data name="ButtonAccessYouWebOffice" xml:space="preserve">
+    <value>访问您的在线办公室</value>
+  </data>
+  <data name="ButtonChangePassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="ButtonConfigureRightNow" xml:space="preserve">
+    <value>立即配置</value>
+  </data>
+  <data name="ButtonInviteRightNow" xml:space="preserve">
+    <value>立即邀请</value>
+  </data>
+  <data name="ButtonRequestCallButton" xml:space="preserve">
+    <value>请求呼叫</value>
+  </data>
+  <data name="ButtonSelectPricingPlans" xml:space="preserve">
+    <value>立即选择定价计划</value>
+  </data>
+  <data name="LinkLearnMore" xml:space="preserve">
+    <value>了解更多&gt;&gt;</value>
+  </data>
+  <data name="pattern_activate_email" xml:space="preserve">
+    <value>h1.激活您 "${__VirtualRootPath}":"$InviteLink" 门户的电邮。
+
+你好！
+
+若想开始参与 "${__VirtualRootPath}":"$InviteLink" 门户网站生活，您需要激活您的电子邮件地址。为安全起见。
+
+$GreenButton
+
+此链接仅7天有效。请在此期限内完成您的电子邮件激活。</value>
+  </data>
+  <data name="pattern_backup_created" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" 门户备份已创建
+
+亲爱的$OwnerName,
+
+含有来自您的 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的备份文件已创建。
+
+若想了解关于备份流程的详情，请参考我们的 "数据备份":"http://helpcenter.onlyoffice.com/tipstricks/data-backup-restore.aspx" 用户指南。
+
+
+若您有任何问题或需要帮助，请随时联系我们，网站为 "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+祝好，
+ONLYOFFICE™客服团队
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_change_password" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" 门户密码变更请求
+
+有一个变更您进入 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户所使用密码的请求。
+
+请使用下面的链接，以变更密码:
+
+$GreenButton
+
+*注意*：此链接仅7天有效。请在此期限内完成密码变更过程。
+
+如果您不想更改密码或错误收到此电子邮件，请忽略它或与您 "${__VirtualRootPath}":"${__VirtualRootPath}" 的门户管理员联系，以了解详情。</value>
+  </data>
+  <data name="pattern_change_phone" xml:space="preserve">
+    <value>h1.手机号码修改请求
+
+您已请求更改用于输入${LetterLogoText}门户的手机号码。
+
+请使用以下链接更改您的手机：
+
+$GreenButton
+
+若您不想更改手机或错误地收到此电子邮件，请忽略它，或与门户网站管理员联系以了解详细信息。</value>
+  </data>
+  <data name="pattern_confirm_owner_change" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" 门户所有者变更
+
+亲爱的$OwnerName,
+
+有一个请求将 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的所有者变更为$UserName。
+
+请使用下列链接，确认操作
+
+$GreenButton
+
+*注意*: 此链接仅7天有效。请在此期限内完成您的电子邮件激活。</value>
+  </data>
+  <data name="pattern_dns_change" xml:space="preserve">
+    <value>h1.门户地址变更
+
+亲爱的$OwnerName,
+
+有一个请求将 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户地址变更为 "$PortalAddress":"$PortalAddress" #if($PortalDns != "") ("$PortalDns":"$PortalDns" )#end。
+
+请使用下列链接，确认操作：
+
+$GreenButton
+
+*注意*：此链接仅7天有效。请在此期限内完成门户网站地址更改流程。</value>
+  </data>
+  <data name="pattern_for_admin_notify" xml:space="preserve">
+    <value>h1.来自 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的消息
+
+电邮: $UserEmail
+
+$Body</value>
+  </data>
+  <data name="pattern_join" xml:space="preserve">
+    <value>h1.邀请加入 "${__VirtualRootPath}":"$InviteLink" 门户
+
+您好，
+
+您已请求加入 "${__VirtualRootPath}":"$InviteLink" 的${LetterLogoText}门户。一个文件和项目管理平台。 加入门户，立即开始与您的同事或朋友合作。
+
+若想接受邀请，请使用此链接，并输入您的用户名和密码：
+
+$GreenButton
+
+*注意*：此链接仅在48小时内有效。请在此期限内完成操作。</value>
+  </data>
+  <data name="pattern_migration_error" xml:space="preserve">
+    <value>h1.另一个地区门户迁移错误
+
+迁移到另一个区域时发生错误。请再试一次。
+您的门户网站现已在旧地址 "$PortalUrl":"$PortalUrl" 可用
+
+如果您有任何问题或需要帮助，请随时与我们联系，网址为
+"support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+祝好，
+ONLYOFFICE™ 客服团队
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。若想修改通知类型，请管理您的 "订阅设置":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_migration_server_failure" xml:space="preserve">
+    <value>h1.另一个地区门户迁移错误
+
+迁移到另一个区域时发生错误。请再试一次。
+您的门户网站现已在旧地址 "$PortalUrl":"$PortalUrl" 可用
+
+如果您有任何问题或需要帮助，请随时与我们联系，网址为 "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+祝好，
+ONLYOFFICE™ 客服团队
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。若想修改通知类型，请管理您的 "订阅设置":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_migration_start" xml:space="preserve">
+    <value>h1.另一个地区门户迁移开始
+
+到$RegionName地区的门户迁移已开始。根据您的数据量，这可能需要一些时间。
+
+*备注*：门户网站在迁移过程中将不可用。迁移完成后，门户网址将被更改，所有共享文档链接将无法访问。
+
+如果您有任何问题或需要帮助，请随时与我们联系，网址为 "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+祝好，
+ONLYOFFICE™ 客服团队
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。若想修改通知类型，请管理您的 "订阅设置":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_portal_deactivate" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}"门户停用
+
+亲爱的$OwnerName,
+
+您已请求将 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户临时停用。请使用下列链接，确认操作：
+
+$GreenButton
+
+*注意*：此链接仅7天有效。请在此期限内完成门户停用流程。
+
+您可以随时点击以下链接重新激活门户：
+p=. "重新激活门户":"$ActivateUrl"（此链接无时间限制）
+
+如果您有任何问题或需要帮助，请随时联系 "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+祝好，
+ONLYOFFICE™客服团队
+"www.onlyoffice.com":"http://onlyoffice.com/"</value>
+  </data>
+  <data name="pattern_portal_delete" xml:space="preserve">
+    <value>h1.删除"${__VirtualRootPath}":"${__VirtualRootPath}"门户
+
+亲爱的$OwnerName,
+
+您已请求永久删除您的 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户。
+
+*重要提示！您门户上存储的所有数据以及您的注册信息将丢失，且无法恢复。
+
+#if($AutoRenew == "True")
+在删除门户前，请确保自动计费已关闭。您可以在 "Avangate账户":"https://secure.avangate.com/myaccount/" 中查看自动计费状态.
+#end
+
+如果您仍想删除 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户，请使用下面的链接确认操作。
+
+$GreenButton
+
+*注意*：此链接仅7天有效。请在此期限内完成门户删除过程。
+
+如果您有任何问题或需要帮助，请随时联系 "support@onlyoffice.com":"mailto:support@onlyoffice.com"</value>
+  </data>
+  <data name="pattern_portal_rename" xml:space="preserve">
+    <value>h1.门户地址变更
+
+亲爱的$UserDisplayName,
+
+您的$PortalUrl门户地址已变更为新的 "${__VirtualRootPath}":"${__VirtualRootPath} "地址。
+
+*注意*：在您进行更改前，所有共享文档链接现在均无法访问，DNS设置和单点登录选项停止工作。添加到您的日历的第三方iCal链接也将停止更新，直到您重新加载它们。</value>
+  </data>
+  <data name="pattern_profile_delete" xml:space="preserve">
+    <value>h1.从 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户删除档案
+
+您已请求从 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户永久删除您的档案。
+
+若您仍想删除档案，请使用以下链接确认操作：
+
+$GreenButton
+
+*注意*：此链接仅7天有效。请在此期限间完成档案删除过程。</value>
+  </data>
+  <data name="pattern_profile_updated" xml:space="preserve">
+    <value>h1.您在 "$__VirtualRootPath":"$__VirtualRootPath" 门户的档案已被修改
+
+亲爱的$UserName,
+
+您在 "$__VirtualRootPath":"$__VirtualRootPath" 门户的用户档案已被 "$__AuthorName":"$__AuthorUrl" 修改。
+
+若想查看详情，请使用下面的链接：
+"$UserName":"$MyStaffLink"
+
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。^</value>
+  </data>
+  <data name="pattern_reassigns_completed" xml:space="preserve">
+    <value>亲爱的$UserName，
+
+从用户 "$FromUserName":"$FromUserLink" 向用户 "$ToUserName":"$ToUserLink" 的数据重新分配流程已成功完成。
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。^</value>
+  </data>
+  <data name="pattern_request_license" xml:space="preserve">
+    <value>h1.企业许可证请求
+
+h3.名
+$UserName
+
+h3.姓
+$UserLastName
+
+h3.职位
+$Position
+
+h3.电邮
+"$UserEmail":"mailto:$UserEmail"
+
+h3.电话
+$Phone
+
+h3.公司网站
+$Website
+
+h3.公司名称
+$CompanyTitle
+
+h3.公司规模
+$CompanySize
+
+h3.请求内容
+$Body
+
+h3.门户地址
+"${__VirtualRootPath}":"${__VirtualRootPath}"</value>
+  </data>
+  <data name="pattern_restore_started" xml:space="preserve">
+    <value>h1.门户恢复一开始
+
+门户恢复已开始。根据您的数据量，这可能需要一些时间。
+
+*注意*门户在恢复过程中将不可用。
+
+如果您有任何问题或需要帮助，请随时联系 "support@onlyoffice.com":"mailto:support@onlyoffice.com"
+
+祝好,
+ONLYOFFICE™客服团队
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。若想修改通知类型，请管理 "订阅设置”:"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_self_profile_updated" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}" 门户档案修改通知
+
+"$__AuthorName":"$__AuthorUrl" 已修改了其在 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的档案详情。
+
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的管理员。如果您不想收到关于档案更新的通知，请管理您的 "订阅设置":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_send_whats_new" xml:space="preserve">
+    <value>h1."${__VirtualRootPath}":"${__VirtualRootPath}"门户$Date新闻
+
+#foreach($activity in $Activities)
+
+h2.$activity.Key
+
+#foreach($whatsNewActivity in $activity.Value)
+#foreach($b in $whatsNewActivity.BreadCrumbs) h3.$b
+#end "$whatsNewActivity.Title":"$whatsNewActivity.URL"
+*Author*: "$whatsNewActivity.UserName":"$whatsNewActivity.UserAbsoluteURL", $whatsNewActivity.Action: $whatsNewActivity.Date.ToShortTimeString()
+
+
+#end
+
+#end
+
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的注册用户。如果您不想接受在 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户接收关于新活动的通知，请管理您的 "订阅设置":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="pattern_smtp_test" xml:space="preserve">
+    <value>SMTP测试消息
+
+此消息自动生成，以测试您的SMTP设置。如果您正在查看，这意味着设置无误，且您可以在您的门户上使用它们。
+
+
+祝好，
+ONLYOFFICE团队</value>
+  </data>
+  <data name="pattern_user_has_join" xml:space="preserve">
+    <value>h1.新用户添加至 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户
+
+"$__AuthorName":"$__AuthorUrl" 已加入您位于"${__VirtualRootPath}":"${__VirtualRootPath}" 的门户。
+
+
+^您收到此电邮，因为您是 "${__VirtualRootPath}":"${__VirtualRootPath}" 门户的管理员用户。若想修改通知类型，请管理您的 "订阅设置":"$RecipientSubscriptionConfigURL"。^</value>
+  </data>
+  <data name="subject_activate_email" xml:space="preserve">
+    <value>${LetterLogoText}。请激活您的电邮地址</value>
+  </data>
+  <data name="subject_backup_created" xml:space="preserve">
+    <value>${LetterLogoText}. ${__VirtualRootPath}门户备份已创建</value>
+  </data>
+  <data name="subject_change_password" xml:space="preserve">
+    <value>${LetterLogoText}密码助手</value>
+  </data>
+  <data name="subject_change_phone" xml:space="preserve">
+    <value>${LetterLogoText}。手机号码更改请求</value>
+  </data>
+  <data name="subject_confirm_owner_change" xml:space="preserve">
+    <value>${LetterLogoText}。门户所有者更改</value>
+  </data>
+  <data name="subject_dns_change" xml:space="preserve">
+    <value>${LetterLogoText}。门户地址更改</value>
+  </data>
+  <data name="subject_enterprise_admin_trial_warning_v10" xml:space="preserve">
+    <value>您的企业版试用版今天到期</value>
+  </data>
+  <data name="subject_for_admin_notify" xml:space="preserve">
+    <value>向管理员发送的用户消息</value>
+  </data>
+  <data name="subject_join" xml:space="preserve">
+    <value>加入${__VirtualRootPath}门户的邀请函</value>
+  </data>
+  <data name="subject_migration_error" xml:space="preserve">
+    <value>${LetterLogoText} 。另一个地区门户迁移错误</value>
+  </data>
+  <data name="subject_migration_start" xml:space="preserve">
+    <value>${LetterLogoText} 。另一个地区门户迁移开始</value>
+  </data>
+  <data name="subject_migration_success" xml:space="preserve">
+    <value>${LetterLogoText} 。另一个地区门户迁移成功完成</value>
+  </data>
+  <data name="subject_personal_after_registration14" xml:space="preserve">
+    <value>自由职业者工作的一些贴士</value>
+  </data>
+  <data name="subject_portal_deactivate" xml:space="preserve">
+    <value>禁用${__ VirtualRootPath}门户</value>
+  </data>
+  <data name="subject_portal_delete" xml:space="preserve">
+    <value>删除${__VirtualRootPath}门户</value>
+  </data>
+  <data name="subject_portal_rename" xml:space="preserve">
+    <value>${LetterLogoText}。门户地址更改</value>
+  </data>
+  <data name="subject_profile_delete" xml:space="preserve">
+    <value>从${__VirtualRootPath}门户删除您的档案</value>
+  </data>
+  <data name="subject_profile_updated" xml:space="preserve">
+    <value>您位于${__VirtualRootPath}的档案已被修改</value>
+  </data>
+  <data name="subject_reassigns_completed" xml:space="preserve">
+    <value>${LetterLogoText}。用户数据重新分配已完成</value>
+  </data>
+  <data name="subject_request_license" xml:space="preserve">
+    <value>企业许可证请求</value>
+  </data>
+  <data name="subject_request_tariff" xml:space="preserve">
+    <value>SaaS定价计划请求</value>
+  </data>
+  <data name="subject_restore_completed" xml:space="preserve">
+    <value>${LetterLogoText}。恢复已完成</value>
+  </data>
+  <data name="subject_restore_started" xml:space="preserve">
+    <value>${LetterLogoText}。恢复已开始</value>
+  </data>
+  <data name="subject_self_profile_updated" xml:space="preserve">
+    <value>${__VirtualRootPath}门户档案更改通知</value>
+  </data>
+  <data name="subject_send_whats_new" xml:space="preserve">
+    <value>您的门户在$Date有什么新闻</value>
+  </data>
+  <data name="subject_smtp_test" xml:space="preserve">
+    <value>SMTP测试消息</value>
+  </data>
+  <data name="subject_user_has_join" xml:space="preserve">
+    <value>新用户添加到${LetterLogoText}门户</value>
+  </data>
+</root>

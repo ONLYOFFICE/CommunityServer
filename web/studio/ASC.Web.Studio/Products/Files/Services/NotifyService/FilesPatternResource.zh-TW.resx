@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. 所有簽署人均已完成 $DocumentTitle
+
+這是一封電子郵件通知，通知您所有簽名者均已完成 "$DocumentTitle":"$DocumentURL".
+
+^您收到此電子郵件是因為您是的註冊用戶  "${__VirtualRootPath}":"${__VirtualRootPath}" 門戶網站.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+登錄到您的DocuSign帳戶以獲取更多信息。
+
+^
+您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" 
+門戶網站.^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__AuthorName":"$__AuthorUrl" 在文件評論中提到您
+
+這是一封郵件，通知您已被提及由 "$__AuthorName":"$__AuthorUrl" 在 "$DocumentTitle":"$DocumentURL" 文件中評論:
+
+$Message
+
+^您收到此電子郵件是因為您是註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" 門戶網站.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. 郵寄完成
+
+這是一封電子郵件通知，通知您您已請求郵寄  $MailsCount 訊息，該過程現已完成。 $Message
+
+成功發送的郵件可以在您的 "Sent":"$__VirtualRootPath/addons/mail/#sent" 郵件模塊的文件夾.
+
+^您收到此電子郵件是因為您是該帳戶的註冊用戶 "${__VirtualRootPath}":"${__VirtualRootPath}" 門戶網站.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1.已允許存取文件: $DocumentTitle
+
+$__DateTime user "$__AuthorName":"$__AuthorUrl" 
+
+下列文件 "$DocumentTitle":"$DocumentURL" 已經被授權讓您使用
+
+相關存取權限為: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareEncryptedDocument" xml:space="preserve">
+    <value>h1。授予對加密文檔的存取權限：
+
+h1。 $ Image“ $ DocumentTitle”：“ $ DocumentURL”
+
+此文件已加密，只能通過“ ONLYOFFICE Desktop Editors”：“ https://www.onlyoffice.com/desktop.aspx”打開。有關更多詳細信息，您可以參考“此說明”：“ https://helpcenter.onlyoffice.com/installation/desktop-private-room.aspx”。
+
+$ __ DateTime“ $ __ AuthorName”：“ $ __ AuthorUrl”授予您對具有以下存取權限的“ $ DocumentTitle”：“ $ DocumentURL”文檔的存取權限：“ $ AccessRights”。
+
+$消息</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1.已授權存存取資料匣: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime 使用者 "$__AuthorName":"$__AuthorUrl" 
+
+已經授權你可以存取資料匣: "$DocumentTitle":"$DocumentURL"
+
+相關存取權限: "$AccessRights".
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>文件。所有簽署人均已完成 $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignComplete_tg" xml:space="preserve">
+    <value>文件。所有簽署人均已完成  [$DocumentTitle]($DocumentURL)</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>文件。簽名狀態已更改</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>文件。在文檔中提及</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>文件。郵寄完成。</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>文件。已允許存取: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareDocument_tg" xml:space="preserve">
+    <value>文件。授予文件的訪問權限[$DocumentTitle]($DocumentURL)</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument" xml:space="preserve">
+    <value>文件。授予對加密文檔的存取權限：$ DocumentTitle</value>
+  </data>
+  <data name="subject_ShareEncryptedDocument_tg" xml:space="preserve">
+    <value>文件。授予對加密文檔的存取權限：[$ DocumentTitle]（$ DocumentURL）</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>文件。已允許存取至檔案夾:$DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder_tg" xml:space="preserve">
+    <value>文件。授予文件夾訪問權限：[$DocumentTitle]($DocumentURL)</value>
+  </data>
+</root>

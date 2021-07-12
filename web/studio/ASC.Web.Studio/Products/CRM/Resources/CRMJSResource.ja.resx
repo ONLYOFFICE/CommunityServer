@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>取引の実際の日付</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>機会を追加しています...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>メールアドレスを追加</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>電話機を追加</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>新しいタスクを作成する</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>バッチ</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>1日当たり</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>1時間当たり</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>1カ月当たり</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>1年当たり</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>ケース</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>プライマリとしてマーク</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>都市</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>会社</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>あなたは、このキーを変更してもよろしいですか？</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>注：以前に作成されたすべてのフォームが機能しなくなります</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>あなたは、このタスクを削除してもよろしいですか？</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>入力したすべての情報は失われます。
+あなたは、このまま続行してもよろしいですか？</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>あなたのTwitterアカウントの名前を入力してください。たとえば、teamlabdotcom</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>あなたは、'{0}'のケースを削除してもよろしいですか？</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>ケースを削除しています...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>あなたは、'{0}'の会社を削除してもよろしいですか？</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>注：この操作は取り消すことができません</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>連絡先を削除する...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>あなたは、'{0}'の機会を削除してもよろしいですか？</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>機会を削除しています...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>あなたは、'{0}'人を削除してもよろしいですか？</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>メールを編集</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>変更を保存...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>電話を編集</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>編集«{0}»フィールド</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>タスクを編集する</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0}を選択</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>要素リストは空にすることはできません</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>すべての文字は、ボディを持っている必要があります</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>各タスクは、期日を持っている必要があります</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>各タスクは、1責任を持っている必要があります</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>各タスクは、タイトルを持っている必要があります</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>'ケースタイトル "に対応するフィールドが見つかりませんでした</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>何人も、選択されていない</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>"First Name（名）'に対応するフィールドが、"姓"または"会社名'が見つかりませんでした</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0}の電子メールの受信者の最大</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>ケースのタイトルを入力してください</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>必須項目は重複してはいけません</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>画像フォーマットはサポートされていません</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>ファイル形式はサポートされていません</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>イメージをサーバにアップロードするときにエラーが発生しました</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>"オポチュニティータイトル"に対応するフィールドが、"商談責任'が見つかりませんでした</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>いいえ "タスクのタイトル"に対応する分野、"責任"、 "期日は'が見つかりませんでした</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>"{0}"は型が最後のものである。それを削除することはできません。</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>これが唯一の機会ステージです。それを削除することはできません。</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>"{0}"のカテゴリでは、最後のものである。それを削除することはできません。</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>推定契約期日</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Twitterでアカウントを検索</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>あなたの受信者リストが生成されました。 {0}はあなたの電子メールは電子メールプログラムに引き継がアドレス渡すには、以下のリンクをクリックしてください。</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>設定に移動</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>プロジェクトとのリンク</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>読み込んでいます...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>ケース</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>企業</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>コンタクト</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>人物</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>次に（プレビューへ）</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>症例はありません</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>は近い日付ません</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>ない会社はありません</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>全く接点がありません</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>全く機会がありません</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>イベントはありません</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>ない人はありません</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>件名なし</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>全くタスクはありません</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>ケース</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>会社</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>連絡</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>イベント</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>{0}日の間に</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>{0}時間中</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>{0}ヶ月間</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>{0}週間の間に</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>{0}年の間に</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>ページを再読み込みしてください</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>のための可能なプロファイル{0}</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>プライマリー</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0}の受信者は、電子メールアドレスを持っていませんでした。</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>変更を保存</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>CSVファイルを選択</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>選択したCSVファイル：{0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>送信</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>設定が正常に更新されました</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>詳細を見る</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>コンタクトタイプ</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>正常に閉じ</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>«{0}»タスクが閉じている</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>アトス{0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>コンテナ開始から{0}日{1}時間{2}分</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>前のタスクから{0}日{1}時間{2}分</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>不運に閉店</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>郵便番号</value>
+  </data>
+</root>

@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Tik skaitymui</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Pilna prieiga</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Uždrausti prieigą</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Pridėti paskyrą</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Pridėti Box paskyrą</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Pridėti DropBox paskyrą</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Pridėti Google paskyrą</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Pridėti Nextcloud paskyrą</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Pridėti OneDrive paskyrą</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Kita paskyra</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Atšaukti viską</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Pakeisti savininką</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Pakeisti trečiosios šalies duomenis</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Išvalyti filtrą</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Užverti</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Sukurti kopiją</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopijuoti</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Kopijuoti</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Sukurti</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Aplankas</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Pateiktis</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Skaičiuoklės dokumentas</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokumentas</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Pašalinti</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Pašalinti trečiąją šalį</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Atsisiųsti</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Sukurti failo kopiją</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Įtaisomas dokumentas</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Išvalyti šiukšlinę</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Archyvai</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Aplankai</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Paveikslėliai</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Pateiktys</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Skaičiuoklių dokumentai</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Pereiti į '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Pereiti į "Mano dokumentus"</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Sužinoti daugiau...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Užblokuoti</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Perkelti arba kopijuoti</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Perkelti</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Perrašyti atnaujinant versiją</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Pervardinti</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Atkurti</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Išsaugoti</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Siųsti su DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Siųsti</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Dalinimosi nustatymai</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Rodyti versijų istoriją</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Praleisti</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Atgal į tėvinį aplanką</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Atblokuoti</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Į viršų</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Įkelti</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Versijų istorija</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Finalizuoti versiją</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Atšaukta</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Konvertuoti ir atverti dokumentą</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Kai pakeitimai bus pritaikyti, dabartinis failo/aplanko savininkas gaus prieigos teises priklausomai nuo grupės, kuriai jis/ji priklauso, nustatymų arba priklausomai nuo numatytų aplanko leidimų.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Pakeisti savininką</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Pasirinkite formatą visiems failams, kuriuos norite atsisiųsti</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Bendrieji nustatymai</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Aplanke bus du skirtingi failai.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Perrašymo patvirtinimas</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Failas bus pridėtas prie failo su tokiu pačiu pavadinimu, kaip versija.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Patvirtinimas</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Pastaba: šis veiksmas negali būti atšauktas.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Dėmesio: pašalinimas iš paskyros negalės būti atšauktas.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Failas nebus nukopijuotas. Paskirties aplanke liks pradinis failas.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Taip pat išsaugoti failą ir originaliu formatu</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Atveriamo dokumento failas bus konvertuotas į Office Open XML formatą greitesnei peržiūrai ir redagavimui.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Failo kopija bus sukurta {0}Mano dokumentų{1} aplanke</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Įkelti dokumentus ir originaliame formate</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Perkėlimo patvirtinimas</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Ar tikrai norite pašalinti šiuos elementus iš sąrašo?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Atnaujinti failo su tuo pačiu pavadinimu versiją. {0}Antraip bus sukurta failo kopija.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Prisijungimo URL</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Konvertuoti</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Atsisiųsti kaip</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Konvertuota sėkmingai.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Failas sukurtas aplanke '{0}'</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Konvertavimo klaida</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Vykdomas konvertavimas...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Bendrieji dokumentai</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Jūs ką tik sukūrėte ONLYOFFICE portalą.{0} Įkelkite į portalą savo failus, kad galėtumėte su jais dirbti bendrai neišeinant iš programos.{0}{0} Atidarykite portalą naršyklėje ir rasite dar daugiau funkcijų, tame tarpe  {1}projektus{2}, {1}CRM{2}, {1}Kalendorių{2}, {1}El. paštą{2} ir daug daugiau.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Atverti naršyklėje</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Bet kokias klausimais apie pirkimą, susisiekite su mumis el. pašto adresu {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Jeigu kiltų techninių problemų, kreipkitės į mus adresu {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Sveikiname Jus naujame portale!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Sveikiname</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumentai</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Išsaugoti aplanke:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Pranešimas</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Pridėti pranešimą</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Pašalinti žinutę</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Dokumento pavadinimas</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Pridėti {!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Gavėjų sąrašas</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Atsisiųsti kaip</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Atsisiųsti</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Atsisiųsti</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Dydis</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Autom.</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Aukštis</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Plotis</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Bendrųjų dokumentų skyrius rodo visus dokumentus, kuriuos portalo administratorius bendrino visiems vartotojams. Tik portalo administratorius gali kurti aplankus, bet gavę leidimus, portalo vartotojai taip pat gali čia įkelti failus.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Atitempkite čia failus iš kompiuterio, kad įkeltumėte juos į portalą dar greičiau.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Skyriuje "Pasidalinta su manimi" rodomi failai, prie kurčių Jūsų draugai ar kolegos suteikė teisę Jums prieiti. Jei nematėte paskutinių dokumentų atnaujinimų, jie yra pažymėti žyma "Nauja". Galite pašalinti failus iš šio sąrašo paspaudę atitinkamą mygtuką.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>Skyriuje "mano dokumentai" saugomi dokumentai ir grafiniai failai, kuriuos Jūs {0}sukuriate{1} arba {2}įkeliate{3} į portalą. Galite {4}atidaryti{5} ir {6}redaguoti{7} juos su redaktoriumi ONLYOFFICE™, suteikti prieigą prie jų savo draugams ir kolegoms, sutvarkyti failus į aplankus.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Dokumentai ir paveikslėliai, kuriuos Jūs {2}įkeliate{3} į portalą, saugomi skyriuje "Mano dokumentai". Galite suteikti prieigą prie jų savo draugams ir kolegoms, surūšiuoti failus į aplankus.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>Šiame skyriuje saugomi dokumentai ir paveikslėliai, kuriuos Jūs sukūrėte arba įkėlėte savo projektui. Galite atidaryti ir redaguoti juos redaktoriumi ONLYOFFICE™, surūšiuoti juos į aplankus.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Šiukšlinės skyrius yra vieta, kur patenka visi ištrinti failai. Galite arba atkurti failus, jei jie buvo ištrinti per klaidą, arba pašalinti juos visam laikui. Atminkite, kad pašalinus failus iš šiukšlinės, failų nebeįmanoma atkurti.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Nėra failų, atitinkančių nustatytą filtrą</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Šiame skyriuje nėra failų ar aplankų, atitinkančių nurodytą filtrą. Pasirinkite kitus filtro nustatymus arba išvalykite filtrą, kad peržiūrėtumėte visus skyriaus failus. Jūs taip pat galite ieškoti reikiamo failo kituose skyriuose.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Nėra failų </value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Nėra prijungtų paskyrų</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Klaida</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtras</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Aplankai</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Pradėti dabar</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>per el. paštą</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Pažymėti viską</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Didžiausias failo dydis {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Turite komandą {0}bendram darbui? {0}{1}Sužinokite daugiau{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Dokumentų valdymas</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM iš sąskaitos-faktūros</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Užduočių valdymas ir Gantt diagrama</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>El. pašto agregatorius</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Turite projektą ir komandą bendram darbui?{0}Mes kai ką Jums parengėme.{1} </value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Pakvieskite kolegas ar subrangovus ir pasinaudokite papildomomis galimybėmis:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Sveiki prisijungę prie ONLYOFFICE™ darbui komandoje!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mano dokumentai</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Paslėpti dokumentų sąrašą</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Rodyti dokumentų sąrašą</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Slaptažodis</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projektų dokumentai</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Pažymėti kaip skaitytą</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Pažymėti viską kaip skaitytą</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Pasirinkti aplanką</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Prašome pasirinkti veiksmą:</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Bendrieji nustatymai</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dalintis</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Pasidalinta su manimi</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Prieiga per išorinę nuorodą</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Suteikia prieigą prie nuorodos ir kodo įterpimui</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Rodyti daugiau</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Rodyti šį langą sumažintą</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Nustatymai</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Perjungti kompaktišką rodymą</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Perjungti įprastą rodymą</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Trečiųjų šalių paskyros</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Prijungti paskyrą</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Paskyrų prijungimas</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Prie ONLYOFFICE™ Dokumentų galite prijungti nurodytas paskyras. Dokumentai bus atvaizduoti aplanke "Mano dokumentai", kur juos bus galima redaguoti ir saugoti vienoje vietoje, tiesiai portale.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Paskyros prijungimas</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Užpildykite pakeitimui</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Pašalinti trečiąją šalį</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Įjungti trečiųjų šalių nustatymus vartotojams</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Aplanko pavadinimas</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Pakartotinai prijungti</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Paskyra</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Suteikti prieigą ir įdėti į Bendruosius dokumentus</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive verslui</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Pasirinkti</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Galite kurti dokumentus ({0}), skaičiuoklės dokumentus ({1}) ir pateiktis ({2}) bei atsisiųsti juos populiariausiais formatais.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Galite redaguoti šiuos failus: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Galite atidaryti failus su šiais plėtiniais: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Į Dokumentus galite įkelti bet kokius pageidaujamus failus.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Šiukšlinė</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Pašalinti iš sąrašo</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Perrašyti egzistuojantį failą tuo pačiu vardu</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Naujovinti mokėjimo planą</value>
+  </data>
+</root>

@@ -1,0 +1,668 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Quyền truy cập Cổng thông tin</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Vui lòng kiểm tra tất cả cài đặt tài khoản bạn đã nhập. Nếu bạn chắc chắn cài đặt của mình là chính xác, đăng nhập vào dịch vụ mail mà bạn sử dụng và xác nhận câu hỏi xác minh, nếu có. Sau đó thử lại.</value>
+  </data>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>Tài khoản này không nhận thư.</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>Tài khoản này không gửi thư.</value>
+  </data>
+  <data name="AccountLabel" xml:space="preserve">
+    <value>Tên tài khoản</value>
+  </data>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Tạo hộp thư cho tên miền mặc định và quản lý các tài khoản và điều chỉnh cài đặt của chúng bằng danh sách này.</value>
+  </data>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>Không thể chỉnh sửa cài đặt cho các tài khoản được kết nối bằng OAuth. Bạn chỉ có thể thay đổi tên tài khoản của chúng.</value>
+  </data>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Quản lý tài khoản</value>
+  </data>
+  <data name="ActivateAccountAttention" xml:space="preserve">
+    <value>Sau khi kích hoạt tài khoản, bạn sẽ tiếp tục nhận được thư từ nó</value>
+  </data>
+  <data name="ActivateAccountLabel" xml:space="preserve">
+    <value>Kích hoạt tài khoản</value>
+  </data>
+  <data name="ActivateBtnLabel" xml:space="preserve">
+    <value>Kích hoạt</value>
+  </data>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Thêm bản sao</value>
+  </data>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Thêm địa chỉ email</value>
+  </data>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>Địa chỉ Email</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Thêm tag</value>
+  </data>
+  <data name="AdvancedLinkLabel" xml:space="preserve">
+    <value>Nâng cao</value>
+  </data>
+  <data name="AlwaysDisplayAllImagesSettingsLabel" xml:space="preserve">
+    <value>Luôn hiển thị hình ảnh từ tất cả</value>
+  </data>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Luôn hiển thị ảnh từ</value>
+  </data>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Xóa tất cả</value>
+  </data>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Tải về tất cả</value>
+  </data>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Đính kèm liên kết đến các file</value>
+  </data>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Đính kèm file từ Tài Liệu</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Đính kèm</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Đính kèm vào Liên hệ CRM</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Hình thức Xác Thực</value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Trả lời tự động cho tất cả tin nhắn gửi đến, ví dụ: trong khi bạn vắng mặt. Nếu một số liên hệ gửi cho bạn nhiều tin nhắn, tính năng trả lời tự động sẽ được gửi một lần cho tối đa {0} tin nhắn.</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
+  </data>
+  <data name="BlankModalCreateBtn" xml:space="preserve">
+    <value>Thêm tài khoản mới</value>
+  </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Tạo hộp thư</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Thiết lập tên miền</value>
+  </data>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Hình ảnh bị tắt.</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsHelperBlock" xml:space="preserve">
+    <value>Tải thư chưa đọc từ thư mục Hộp thư đến vào bộ nhớ cache để người dùng mở chúng nhanh hơn.</value>
+  </data>
+  <data name="CacheUnreadMessagesSettingsLabel" xml:space="preserve">
+    <value>Lưu vào bộ nhớ cache các tin nhắn chưa đọc trong Hộp Thư</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>Thời gian hiện tại được hiển thị theo cài đặt lịch của bạn.</value>
+  </data>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Thư mục trống</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Cài đặt chung</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Soạn</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Sao chép vào Tài liệu của tôi</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Sao chép</value>
+  </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Bạn có muốn tạo một liên hệ CRM và liên kết với hội thoại này?</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Tạo và liên kết</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Chỉ cần tạo liên hệ</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Tạo Email tới Người gửi</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Tạo Hộp Thư</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Thêm tài khoản mới</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Tạo tag mới</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>Sau khi dừng hoạt động một tài khoản bạn sẽ không còn nhận được thư từ nó nữa.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Dừng hoạt động</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Dừng hoạt động</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>Nếu bạn xóa tài khoản của bạn tất cả tin nhắn sẽ được xóa khỏi hộp thư này.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Xóa tag</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>Nếu bạn xoá tag này khỏi danh sách, nó cũng sẽ bị xóa khỏi các liên hệ và tin nhắn được đánh dấu bằng nó.</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Hiển thị hình ảnh</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>Tên miền miễn phí mặc định được tạo sẵn đã được cung cấp để bạn tạo hộp thư mới ngay lập tức.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>Tên miền này phổ biến với mọi cổng thông tin, vì thế bạn được khuyến cáo sử dụng tên miền công ty cho trao đổi email công ty. </value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Tải về</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Mở bằng trình soạn thảo văn bản</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Chỉnh sửa liên hệ</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EnableConversationsSettingsLabel" xml:space="preserve">
+    <value>Bật hội thoại</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Đã bật trả lời tự động cho tài khoản này.</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Mật khẩu được mã hóa</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>Địa chỉ này đã tồn tại</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Không được để trống nội dung</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Lưu tất cả vào Tài liệu của tôi</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Vui lòng chọn các mục CRM sẽ được đính kèm với tin nhắn này:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Xuất</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Xuất tới:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Lịch sử gửi thư sẽ khả dụng cho người dùng CRM dựa trên quyền truy cập.</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Xuất tới CRM</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>Bạn có quyền truy cập "Chỉ xem" đối với một số file đính kèm, vì vậy bạn sẽ không thể chia sẻ chúng với những người khác. {0}{0} Những file này có thể được sao chép tới thư mục "Tài liệu của tôi" và sau đó được đính kèm như các liên kết. {0}{0} Một cách khác là bạn có thể yêu cầu các người sở hữu tài liệu cung cấp quyền "Truy cập đầy đủ" vào các file tin mà bạn muốn đính kèm như liên kết và lặp lại tác vụ một lần nữa.</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Một số file không thể được đính kèm dưới dạng liên kết.</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Hủy liên kết thư mục</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="FolderNameDrafts" xml:space="preserve">
+    <value>Bản nháp</value>
+  </data>
+  <data name="FolderNameInbox" xml:space="preserve">
+    <value>Hộp thư đến</value>
+  </data>
+  <data name="FolderNameSent" xml:space="preserve">
+    <value>Đã gửi</value>
+  </data>
+  <data name="FolderNameSpam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="FolderNameTrash" xml:space="preserve">
+    <value>Thùng rác</value>
+  </data>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Chuyển tiếp</value>
+  </data>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Truy cập đầy đủ</value>
+  </data>
+  <data name="FullSize" xml:space="preserve">
+    <value>Kích thước đầy đủ</value>
+  </data>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Nhận cài đặt mặc định</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsHelperBlock" xml:space="preserve">
+    <value>Nếu không trở lại Hộp thư đến.</value>
+  </data>
+  <data name="GoNextAfterMoveSettingsLabel" xml:space="preserve">
+    <value>Chuyển đến tin nhắn kế tiếp sau khi di chuyển/xóa tin nhắn đang được xem</value>
+  </data>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Trước</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Nhóm mail, chỉ được chỉnh sửa trong bảng quản trị</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP Server</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Quan trọng</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Liên kết với CRM</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Chọn mục:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Tình huống</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Cơ hội</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Vui lòng chọn các mục CRM sẽ được đính kèm với hội thoại này:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>Tất cả tin nhắn từ cuộc hội thoại này (bao gồm các tin nhắn tương lai) sẽ được hiển thị trong CRM. Lịch sử gửi thư sẽ khả dụng với người dùng CRM tùy theo quyền truy cập.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Liên kết tới:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Tìm theo tên</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Hủy liên kết tất cả</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Đang tải...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Chỉ nhập tin nhắn trong 30 ngày qua</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Đánh dấu là quan trọng</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Đánh dấu là Không quan trọng</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Đánh dấu đã đọc</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Đánh dấu là chưa đọc</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Đánh dấu tất cả tin nhắn từ</value>
+  </data>
+  <data name="MessageFromWarning" xml:space="preserve">
+    <value>Tài khoản này đã bị dừng hoạt động.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>Tạo tag mới</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>không có địa chỉ</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>Không</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>không có chủ đề</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>hoặc liên kết với:</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Chỉ gửi trả lời tự động cho những người trong danh bạ</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>Lên đầu</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Mở trong tab mới</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>hoặc</value>
+  </data>
+  <data name="OverallConceptAll" xml:space="preserve">
+    <value>tất cả</value>
+  </data>
+  <data name="OverallConceptImportant_Acc" xml:space="preserve">
+    <value>quan trọng</value>
+  </data>
+  <data name="OverallConceptImportant_Gen" xml:space="preserve">
+    <value>quan trọng</value>
+  </data>
+  <data name="OverallConceptRead_Acc" xml:space="preserve">
+    <value>đọc</value>
+  </data>
+  <data name="OverallConceptRead_Gen" xml:space="preserve">
+    <value>đọc</value>
+  </data>
+  <data name="OverallConceptUnread_Acc" xml:space="preserve">
+    <value>chưa đọc</value>
+  </data>
+  <data name="OverallConceptUnread_Gen" xml:space="preserve">
+    <value>chưa đọc</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Acc" xml:space="preserve">
+    <value>có đính kèm</value>
+  </data>
+  <data name="OverallConceptWithAttachments_Gen" xml:space="preserve">
+    <value>có đính kèm</value>
+  </data>
+  <data name="OverallDeselectAll" xml:space="preserve">
+    <value>Bỏ chọn tất cả</value>
+  </data>
+  <data name="OverallSelected" xml:space="preserve">
+    <value>đã chọn</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Điện thoại</value>
+  </data>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Server</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Cổng</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Chỉ đọc</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Nhận thư</value>
+  </data>
+  <data name="ReconnectLabel" xml:space="preserve">
+    <value>Kết nối lại</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Nhận tin nhắn mới</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Trả lời tất cả</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Trả lời</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Xem lại</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Lưu &amp; Gửi tin nhắn</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Lưu vào Lịch</value>
+  </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Lưu vào Tài liệu</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Lưu vào Tài liệu của tôi</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Lưu vào Tài liệu Dự án</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Đã lưu vào</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Chọn</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Thư mục chứa file đính kèm</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Thư mục chứa file đính kèm</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Gửi thư</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Trả lời tự động</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>Các file bạn đã đính kèm dưới dạng liên kết sẽ được chia sẻ cho người nhận email qua liên kết cho những người bên ngoài cổng thông tin. Bạn có thể thay đổi quyền truy cập vào các file này trong mô-đun Tài liệu.</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Thiết lập quyền truy cập cho các file được đính kèm dưới dạng liên kết cho những người nhận email:</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Hiển thị thêm tài khoản</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Hiển thị nhiều tag hơn</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Hiển thị trên trang</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Mật khẩu đơn giản</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>Mở trong tab mới</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Server</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Chỉnh sửa Tag</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Tên tag</value>
+  </data>
+  <data name="TagsCommonInformationText" xml:space="preserve">
+    <value>Bạn có thể đánh dấu tin nhắn và địa chỉ liên hệ bằng cách sử dụng các tag. Điều này giúp dễ dàng tìm kiếm những cái cần thiết bằng cách sử dụng tùy chọn lọc tag trong tương lai.</value>
+  </data>
+  <data name="TagsCommonNotificationText" xml:space="preserve">
+    <value>Bạn chỉ có thể chỉnh sửa và xóa các tag được tạo trong Mail. Các tag được nhập từ module CRM không thể được chỉnh sửa hoặc xóa. Chúng có thể được quản trị viên thay đổi ngay trong mô-đun CRM.</value>
+  </data>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Quản lý tag</value>
+  </data>
+  <data name="TodayLabel" xml:space="preserve">
+    <value>Hôm nay</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Bật trả lời tự động</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>Bạn có thể tắt nó.</value>
+  </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
+    <value>Bạn thực sự muốn bỏ liên kết hội thoại này khỏi CRM?</value>
+  </data>
+  <data name="UnlinkAllInformationMessage" xml:space="preserve">
+    <value>Hủy liên kết cuộc hội thoại này khỏi CRM đồng là bạn sẽ hủy liên kết khỏi tất cả các địa chỉ liên hệ, cơ hội và các trường hợp bạn đã chọn trước đó.
+Tất cả các tin nhắn đã nhận được trước đó sẽ được giữ lại trong lịch sử gửi thư CRM, nhưng tin nhắn trong tương lai từ cuộc hội thoại sẽ không được hiển thị trong CRM.</value>
+  </data>
+  <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
+    <value>Hủy liên kết</value>
+  </data>
+  <data name="UploadFileLabel" xml:space="preserve">
+    <value>Tải file lên</value>
+  </data>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Mã hóa cho IMAP Server</value>
+  </data>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Mã hóa cho POP Server</value>
+  </data>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Mã hóa cho SMTP Server</value>
+  </data>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>Xem</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>Xem hồ sơ liên hệ</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Soạn thư</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Tạo Email mới</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Hôm qua</value>
+  </data>
+</root>

@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewDeal" xml:space="preserve">
+    <value>Lägg till ny möjlighet</value>
+  </data>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Spara och Skapa Ny Möjlighet</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Alla Möjligheter</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Insats</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>fast</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per dag</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per timme</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per månad</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per vecka</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per år</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Betalningsfrekvens</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Skede</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Typ av skede</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Möjlighetskontakt</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Lägga till den första möjligheten</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Skapa ny möjlighet</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Möjlighet vid skede</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Skräddarsydd period</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andra användare</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Möjlighet</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Behörigheterna kommer sättas till möjligheterna som du skapade</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Summa</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Möjlighetskeden</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Försäljaren har en rad frågesessioner för att kunna identifiera prospektens krav</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Behövs bedömning</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>En kontakt med en potentiella köpare behövs för att förstå prognosen för framtida försäljning</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Ursprunglig kontakt</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Ett miss. Möjligheten har slutförts pga bristen på perspektiv</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Stängning misslyckades</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Den potentiella köparen har uttryckt sitt intresse i försäljarens varor eller tjänster</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Kvalificerad prospekt</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Försäljaren försöker identifiera om kontakten kan vara hens potentiella köpare</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Applikation av de ursprungliga kriterier</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Den potentiella köparen har fått ett skriftligt erbjudande från försäljaren</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Förslag</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Den potentiella köparen har identifierats som en person eller enhet med intresse och befogenhet att köpa en produkt eller tjänst</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Lead</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Den potentiella köparen har redan diskuterat ditt erbjudande i detalj</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Förhandling</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Ett kontract. Möjligheten har slutförts med framgång.</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Avslutning/Transaktion</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Typ av skede</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Möjlighetsdeltagare</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Möjlighetsdeltagare</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Möjligheter</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Möjlighetsetikett</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Lista över Möjlighetsetiketter</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Möjlighetsetiketter</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Radera möjlighet</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Radera möjligheter</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Redigera «{0}» möjligheten</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Redigera möjlighet</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Möjligheter låter dig spåra din potentiell försäljning. Fastställa {0}möjlighetskedena{1} enligt din businessprocess, behåll en historik, tilldela uppgifter, beräkna vinsten med varje kund.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>Inga möjligheter som matchar ditt filter kan visas i denna sektion. Vänligen välj andra filtreringsalternativ eller rensa filtret för att se alla möjligheter i denna sektion. Du kan också skapa möjligheten i fall den inte finns med i listan.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Inga möjligheter matchar detta filter</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Möjlighetslistan är tom</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Ange möjlighetenstitel</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Varje möjlighet måste ha en ansvarig</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Deltagarlistan är tom</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Lägg deltagare till din möjlighet från listan över företag eller personer. Efteråt kommer du veta vilka kontakter är kopplade till denna möjligheten och vem du kan arbeta med.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Beräknat/Faktiskt förfallodatum</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Budget</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Kontakt</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Deltagare</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Skede/typ av skede</value>
+  </data>
+  <data name="FindDealByName" xml:space="preserve">
+    <value>Hitta möjlighet via titel</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Importera möjligheter</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>En korrekt formaterad CSV-fil borde väljas på din dators hårddisk. Den måste innehålla fälten eller kolumner åtskiljade av den utvald avgränsningstecken som kommer användas för att importera aktiviteter. Filerna som innehåller mer än {0} rader bör divideras i mindre delar för en korrekt importering. Se till att du har valt portalanvändarna som ska få tillgång till informationen som importeras, annars kommer CSV-filen bli tillgänglig för alla portalanvändare.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Välj en CSV-fil och sätt behörigheter innan du importerar möjligheter</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Matcha kolumner i din fil med de motsvarande ONLYOFFICE™ CRM fälten. Vänligen observera att för att importera möjligheter på rätt sätt måste du ha minst de följande kolumner från din fil matchade med fälten i ONLYOFFICE™ CRM: 'Möjlighetstitel', 'Ansvarig'. De fälten som innehåller datum måste ha det följande formatet: {0}. Valutafältet måste sättas enligt den internationella tre-bokstävers kod (d.v.s USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Vänligen, kontrollera fälten</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Gå till möjlighetslistan</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Importering av möjligheter kan ta upp till flera minuter beroende på antalet data.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Importen har startat</value>
+  </data>
+  <data name="LinkDealsFromExisting" xml:space="preserve">
+    <value>Välj från existerande möjligheter eller lägg till en ny</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Länka eller skapa möjlighet</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Mina möjligheter</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Möjlighetstitel</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budgeten är inte satt</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Andra möjlighetsdeltagare</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Deltagare</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Begränsa tillgången till möjligheten</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Framgång sannolikhet</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Ansvarig för möjligheten</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Gå till profil</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Öppna i en ny flik</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Visa det totala antalet</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Starta importen</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Möjlighetskeden låter dig fastställa de nödvändiga skedena för att sluta ett avtal. De standardmöjlighetskedena är uppsökande, diskussion, bedömning, förhandling, engagemang, framgång, nollpunkt. För att kunna redigera dem krävs det adminbehörighet.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total antalet</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Alla möjligheter</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Total antal sidor</value>
+  </data>
+</root>

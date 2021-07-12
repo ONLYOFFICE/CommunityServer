@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Средният бюджет от възможности</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Средната продължителност на една успешна възможност, дни</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Таксува</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Фактури с фактури </value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Бюджет</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Шаблон за празна документация</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>С бюджета</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>По номер</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Призовава</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Броят на повикванията</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Продължителност на разговора</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Покани за периода</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Затворен</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Затворени задачи</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Контактите на ниво температура</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Контакти по тип</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>С възможности</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Без възможности</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Конверсия</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Създаден</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>За генериране на доклада бюджетът за възможностите трябва да бъде приведен в основната валута. Задайте използваните валутни курсове, за да направите това.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Валутни настройки</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Текущ месец</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Текущо тримесечие</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Текуща седмица</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Текуща година</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Ден</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Бюджет на възможностите</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Възможности по бюджет</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Възможности по брой</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Възможности за етапи</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Възможности по статут</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Брой възможности</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Продължителност</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>През цялото време</value>
+  </data>
+  <data name="ErrorNullReportData" xml:space="preserve">
+    <value>Данните за отчета не можаха да бъдат получени</value>
+  </data>
+  <data name="ErrorNullReportScript" xml:space="preserve">
+    <value>Скриптът на отчетите не можа да се получи</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Генерирани отчети</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Тук се показват всичките ви генерирани отчети. Можете да редактирате, изтривате или изтегляте файловете на отчета. За да създадете отчет, изберете шаблон от списъка вляво, задайте филтрите и кликнете върху бутона 'Генериране'.</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Генериране на отчет</value>
+  </data>
+  <data name="IfAllOpportunitiesWon" xml:space="preserve">
+    <value>Ако всички възможности са спечелени</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>входящ</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Фактури по статут</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Фактури за периода</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Вещ</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Загубен</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Мениджър</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Мениджъри</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>от които {0} са без отговор</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месец</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Ще се затвори в следващите 30 дни</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Нов</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Нови контакти</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Нови контакти със и без възможности</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Нови задачи</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Следващият месец</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Следващото тримесечие</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Следващата седмица</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Следващата година</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Няма данни за доклада. Изберете друг филтър.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Отворен</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Изходящ</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Просрочен</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Просрочени задачи</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Платен</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Предишен месец</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Предишно тримесечие</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Предишната седмица</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Предходната година</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Отхвърлени</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Изграждане на доклада</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Можете да преглеждате, изтегляте, редактирате или изтривате всички генерирани отчети в {0} CRM/Отчети/Генерирани отчети {1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Създаване на отчета ({0}% завършено)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Доклади</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Продажбите през деня, от мениджърите</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Продажби по час, от мениджърите</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Продажби от мениджъри</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Този отчет е предназначен да покаже успешно затворените възможности за избрания {1} Период {2} за всички мениджъри или само за избраните. {0} Когато е избрана седмицата или месецът, отчетът показва резултатите, групирани по дните, тримесечните и годишните периоди ще групират данните по месеци.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Продажби по месеци, от мениджърите</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Прогноза за продажби</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Този доклад има за цел да покаже прогнозата за продажбите за определен период от време, като се отчита вероятността за възможност. Показва броя на възможностите за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. {0} Данните включват общия бюджет за възможностите, чиято крайна дата на приключване попада в избрания период време.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Фуния за продажби по бюджет от възможности</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Фуния на продажбите по брой възможности</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Фуния за продажби</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Този отчет е предназначен за изграждане на фуния за продажби за определен период от време. Показва броя на възможностите за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Основните данни включват броя на възможностите във фунията, средния бюджет за възможности, средната продължителност на успешно затворените възможности, съотношението на отворени към затворени възможности. {0} Данните са сортирани по броя на възможностите и бюджета.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Сцена</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Този отчет е предназначен да покаже обобщените данни за възможностите, контактите, задачите и фактурите до избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Докладът ще покаже възможностите, посочени от състоянието и етапа им, контактите по вид и етап, задачи и фактури по техния статус.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Резюме за момента</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Резюме за периода</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Този отчет има за цел да покаже обобщените данни за възможностите, контактите, задачите и фактурите за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Докладът ще покаже възможностите, определени от бюджета, както и техния брой, контакти по вид, задачи и фактури по време.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Задачи по статус</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Задачи за периода</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Времеви период</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Обща сума</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Общият бюджет на възможностите</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Общият брой възможности</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Общо продажби за периода от мениджърите</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="WithRespectToProbability" xml:space="preserve">
+    <value>По отношение на вероятността</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Спечелени</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Този отчет има за цел да покаже общия брой контакти за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Докладът ще покаже новите контакти, определени по вид и наличието и липсата на възможности. Данните са групирани само по мениджъри.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Контакти от мениджъри</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Този отчет е предназначен да покаже общото натоварване на спечелените и изгубените възможности за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Данните са групирани само по мениджъри.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Възможности на мениджърите</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Този отчет има за цел да покаже общия брой фактури за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Докладът ще покаже общия брой изпратени фактури, както и броя на платени, отхвърлени и просрочени фактури. Данните са групирани само по мениджъри.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Фактури от мениджъри</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Този отчет има за цел да покаже общия брой задачи за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Докладът ще покаже затворените, новите и просрочените задачи, определени по тип. Данните са групирани само по мениджъри.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Задачи от мениджърите</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>Този отчет има за цел да покаже общия брой обаждания за избрания {1} Период на времето {2} за всички мениджъри или само за избраните. Отчетът показва общия брой на входящите, изходящите повиквания и тяхната продължителност. Данните са групирани само по мениджъри.</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Моля, имайте предвид, че този отчет ще бъде достъпен само ако свържете Twilio. За да се свържете, следвайте {0} връзката {1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>VoIP от мениджърите</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+</root>

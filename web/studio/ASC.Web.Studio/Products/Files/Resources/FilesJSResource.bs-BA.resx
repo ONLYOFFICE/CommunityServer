@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentariši</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Ispunjavanje obrasca</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Vlasnik</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Samo za čitanje</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Puni pristup</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Zabrani pristup</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Recenzija</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Varira</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arhiva</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Nema podmapa</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Svi dokumenti</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mape</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Slike</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>Sadržajno</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Mediji</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Prezentacije</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Proračunske tablice</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Prikaži više {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Snimam...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Prikaži više {0} od {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Datum kreiranja</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Posljednji izmjenjeni datum</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Veličina</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Kod je kopiran u međuspremnik</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>Jeste li sigurni da želite ukloniti {0} iz modula 'Dokumenti'? Ovo neće na bilo koji način uticati na vaš {1} račun.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Jeste li sigurni da želite isprazniti kantu za smeće?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Jeste li sigurni da želite napustiti trenutnu stranicu? Preuzimanje datoteka će biti prekinuto.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Izbrisati ćete ovu datoteku? Napominjemo da ako ste to podijelili s nekim, ona će postati nedostupna. Jeste li sigurni da želite nastaviti?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Namjeravate izbrisati ovu mapu? Napominjemo da ako ste to podijelili s nekim, ona će postati nedostupna. Jeste li sigurni da želite nastaviti?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Izbrisati ćete ove elemente? Imajte na umu da, ako dijelite ove datoteke / mape s nekim, one će postati nedostupne. Jeste li sigurni da želite nastaviti?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Uskoro ćete premjestiti elemente iz {1} direktorija. U takvom će slučaju biti izbrisani s vašeg {1} računa i više neće biti dostupni drugim korisnicima, u slučaju da su ti elementi ranije bili dijeljeni. {0} Jeste li sigurni da želite premjestiti elemente?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Zajednički dokumenti</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Prilagođeni format</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Grupe</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Arhiviranje podataka</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Promjena podataka</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Završna verzija</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>Kopiraj</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Kreacija</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>Potpišite putem DocuSign-a</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Učitavanje verzija ...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Označavanje kao pročitano</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Pomjeri</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Brisanje...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Preimenuj</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Ažuriranje verzije</value>
+  </data>
+  <data name="DesktopMessageDownloading" xml:space="preserve">
+    <value>Priprema datoteke za šifriranje</value>
+  </data>
+  <data name="DesktopMessageEncrypting" xml:space="preserve">
+    <value>Šifriranje datoteke</value>
+  </data>
+  <data name="DesktopMessageStoring" xml:space="preserve">
+    <value>Spremanje šifrirane datoteke</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Potpisni dokument ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Odaberite barem jednu mapu / dokument za preuzimanje</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Ubaci komentar</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Ne možete prenijeti fasciklu ili praznu datoteku</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Greška u pretvaranju</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Sva polja su obavezna popuniti</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Prekoračena je maksimalna veličina datoteke</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Morate se prijaviti da biste mogli dodati</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Nažalost, ovaj format datoteke nije podržan</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Unešena lozinka je netačna. Molimo pokušajte ponovo.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Pričekajte da biste dovršili ili otkazali prethodno preuzimanje</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Nemate dovoljno dozvole za obavljanje operacije</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Ne možete izvesti takvu radnju u ovoj mapi</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Naslov ne može sadržavati nijedan od sljedećih znakova: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Prostor za pohranu portala ponestao je slobodnog prostora. Ne možete prenositi datoteke veće od {0}.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>Datoteka s imenom {0} već postoji u mapi {1}.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Konvertovano</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Konvertujem</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} dokumenti istog imena već postoje u mapi {1}.</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Otpremljeno</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Prijenos</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box direktorij</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>DocuSign račun</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox direktorij</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google direktorij</value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint direktorij</value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive direktorij</value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Directory</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Yandex Directory</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Sada je '{0}' vlasnik '{1}'</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>Sada je "{0}" vlasnik {1} predmeta</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' promenjen</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Kopirajte {1} {0} {2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} kopirani elementi</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>Kopirano je '{0}'</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} elemenata</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>Nova datoteka '{0}' je stvorena</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>Nova datoteka '{0}' kreirana je u '{1}'</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>Nova mapa '{0}' je stvorena</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Ne možete kopirati mapu u njenu podmapu</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Ne možete premestiti mapu u njenu podmapu</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Nemate prava pristupa za premještanje nekih datoteka</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>Pomjeranje {1} {0} {2}</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>Elementi {0} su premešteni</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' premješteno</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>Dokument '{0}' je obrisan</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Mapa "{0}" se briše</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>Uspješno je obrisan {0} iz {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Treća strana '{0}' je isključena</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>Dokument '{0}' preimenovan je u '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Mapa '{0}' preimenovana je u '{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' je dodato u '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} dokumenti se uspješno prenose</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Moji dokumenti</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Originalni format</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Ostalo</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Prezentacije</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Prijenos datoteke {0} nije uspio za prikaz</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projektna dokumentacija</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>revizije: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Omogućen vam je pristup dokumentu {0}. Kliknite donju vezu da biste odmah otvorili dokument: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Omogućen vam je pristup dokumentu {0}</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Dodajte korisnike ili grupe i dajte im dozvole {0} za čitanje, pregled ili uređivanje dokumenata.</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Proračunske tablice</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Arhiviranje podataka</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Kopiram</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Brisanje</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Označiti kao pročitano</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} operacije</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Pomjeri</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Promijenite {0} podešavanja veze</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Trenutno se uređuje</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Trenutno je uređuje: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Zaključano</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Zaključao: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Više mogućnosti</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Nova prezentacija</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Nova proračunska tablica</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Novi dokument</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Nova mapa</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Uobičajene postavke</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Pomoć</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Povežite račune</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Kutija</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Yandex.Disk</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Nepoznata greška...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Učitavanje je dovršeno</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Prijenos ...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>Prijenos datoteka {0} ({1}% završeno)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} od {1} se koristi</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Korisnici</value>
+  </data>
+</root>

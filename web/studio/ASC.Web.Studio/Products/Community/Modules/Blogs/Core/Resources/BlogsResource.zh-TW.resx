@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>企業部落格</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>部落格</value>
+  </data>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>作者的全部紀錄</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>部落格</value>
+  </data>
+  <data name="BlogTitleEmptyMessage" xml:space="preserve">
+    <value>文章主題欄位不能空白</value>
+  </data>
+  <data name="BlogTitleLabel" xml:space="preserve">
+    <value>標題</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>增加留言</value>
+  </data>
+  <data name="CommentsTitle" xml:space="preserve">
+    <value>留言</value>
+  </data>
+  <data name="ConfirmRemovePostMessage" xml:space="preserve">
+    <value>您確定要刪除這篇文章嗎？</value>
+  </data>
+  <data name="ContentTitle" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="DeleteBlogLink" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="EditBlogLink" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EditPostTitle" xml:space="preserve">
+    <value>編輯文章</value>
+  </data>
+  <data name="EmptyScreenBlogCaption" xml:space="preserve">
+    <value>尚無部落格被建立</value>
+  </data>
+  <data name="EmptyScreenBlogLink" xml:space="preserve">
+    <value>建立第一個部落格</value>
+  </data>
+  <data name="EmptyScreenBlogText" xml:space="preserve">
+    <value>建立您自己的頁面，和其他人分享有趣的資訊、想法和經驗，表達您的意見，從其他使用者的留言得到反饋。</value>
+  </data>
+  <data name="EmptyScreenBlogTextVisitor" xml:space="preserve">
+    <value>查看包含有趣信息，其他用戶的想法和經歷的頁面，表達您的意見，並從用戶的評論中獲取反饋。</value>
+  </data>
+  <data name="EnterTagsMessage" xml:space="preserve">
+    <value>輸入必要的標籤並使用逗號”,“分隔。</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="NewPost" xml:space="preserve">
+    <value>建立新文章</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>發表</value>
+  </data>
+  <data name="PostedTitle" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="ReadMoreLink" xml:space="preserve">
+    <value>瞭解更多</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>在部落格中搜尋</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>在頁面顯示</value>
+  </data>
+  <data name="SubscribeOnAuthorAction" xml:space="preserve">
+    <value>訂閱所有用戶文章</value>
+  </data>
+  <data name="SubscribeOnAuthorDescription" xml:space="preserve">
+    <value>訂閱允許您追蹤部落格新用使用者文章。</value>
+  </data>
+  <data name="SubscribeOnAuthorTitle" xml:space="preserve">
+    <value>新使用者文章</value>
+  </data>
+  <data name="SubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>訂閱文章留言</value>
+  </data>
+  <data name="SubscribeOnNewCommentsDescription" xml:space="preserve">
+    <value>訂閱允許您追蹤新文章留言</value>
+  </data>
+  <data name="SubscribeOnNewCommentsTitle" xml:space="preserve">
+    <value>發表留言</value>
+  </data>
+  <data name="SubscribeOnNewPostAction" xml:space="preserve">
+    <value>訂閱所有文章</value>
+  </data>
+  <data name="SubscribeOnNewPostDescription" xml:space="preserve">
+    <value>訂閱允許您追蹤部落格新文章</value>
+  </data>
+  <data name="SubscribeOnNewPostTitle" xml:space="preserve">
+    <value>新部落格文章</value>
+  </data>
+  <data name="TagsTitle" xml:space="preserve">
+    <value>標籤</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>使用滑鼠選擇主要的部分並且點選"Text Cut"這樣一來只有文章的短短一部分會顯示在討論清單以及推播頁面。</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>總計</value>
+  </data>
+  <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
+    <value>取消訂閱使用者的文章</value>
+  </data>
+  <data name="UnSubscribeOnNewCommentsAction" xml:space="preserve">
+    <value>取消訂閱文章留言</value>
+  </data>
+  <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
+    <value>取消訂閱所有文章</value>
+  </data>
+</root>

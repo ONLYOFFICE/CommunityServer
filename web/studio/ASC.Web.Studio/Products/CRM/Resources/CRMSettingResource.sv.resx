@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Behörigheter &amp; Etiketter</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Sätta upp behörigeter för användarna tillagda via "Webbsidans Kontaktformulär", annars kommer alla CRM-användare se de nya kontakterna. Skapa etiketter de nya kunder i listan kommer markeras med.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portalrättigheter</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Lägg till växelkurs</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Lägg till ny aktivitetsmall</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Lägg till ny behållare av aktivitetsmall</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Lägg till en Option</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adress</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Lägger etikett</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Visa inte Länka Kontakter dialogen igen</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Lägg till behållare av aktivitetsmall</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Lägger till behållare av aktivitetsmall</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Lägger aktivitetsmall</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Lägg till denna aktivitetsmall</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Lägg till detta behållare av aktivitetsmall</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentisering</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Grundläggande information</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Både Person &amp; Företag</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Ändra färg</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Visa inte Länka Kontakter dialogen igen</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Ändra ikon</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Ändra Logotypen</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Kryssruta</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Kolumner</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Kolumninställningar</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Kontakttyper</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Skapar kategori</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Skapar temperaturnivå</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Skapar kontakttyp</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Skapa användarfält</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Skapar skede</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Skapar fält</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Skapa ny kategori</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Ny Kategori</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Skapa ny kontakttyp</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Ny Kontakttyp</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Skapa nytt skede</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Nytt Skede</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Skapa nytt fält</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Nytt Fält</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Skapa ny temperaturnivå</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Ny Temperaturnivå</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Skapa ny etikett</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Ny Etikett</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Växelkurs</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Valuta Inställningar</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Sätta upp standardvalutan som kommer användas för att beräkna den 'Totala summan' för alla möjligheter som finns i din portals CRM-modul.Växelkurser finns endast tillgängliga för valutor från listan och är tagna från 'TheMoneyConverter.com'-webbsidan.{0}Denna valuta blir valutan för katalogen av dina Produkter &amp; Tjänster som används för faktureringen.</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Användarfält</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Stänger möjligheten med framgång.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Sluter möjligheten med framgång.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Standardvaluta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Radera kategori</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Radera temperaturnivå</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Radera kontakttyp</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Radera fält</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>De valda fältet kommer raderas med all tillhörande data från alla kontakter där det fins. Är du säker på att du vill fortsätta?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Radera skede</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Radera etikett</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Bekräftelse av kategoriradering</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Radera aktivitesmall</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Radera behållare av aktivitetsmall</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Radera oanvända etiketter</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Kontaktens temperaturnivån låter dig beteckna dina potentiella köpare på ett visst sätt. Till exempel, temperaturnivåer kan vara "Kall", "Varm", "Mycket Varm", vilket motsvarar kontaktens villighet att köpa din produkt.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Du kan redigera eller radera en kontakts temperaturnivå endast om det inte finns kontakter på denna nivå.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Kontakttyper låter dig beteckna dina kontakter på ett visst sätt. De standardkontakttyperna är "Kund", "Konkurrent", "Partner", "Leverantör" som klassificerar kontakterna enligt deras roll i förhållande till företaget.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Du kan redigera eller radera en kontakttyp endast om det inte finns kontakter av denna typ.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Möjlighetskeden låter dig fastställa de nödvändiga skedena för att sluta avtalet. Till exempel kan du lägga till möjlighetskeden "Kommersiellt erbjudande", "Förbetalning", "Genomföring". Sätt möjlighetskeden i order genom att dra på dem. </value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Du kan redigera eller radera möjlighetskedet endast om det inte finns någon möjlighet vid detta skede.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Kategorier av historikevenemang gör det möjligt för dig att dela dina historikevenemang i grupper. Standardkategorier för historikevenemang är mejl, not, telefonsamtal, möte. Du måste ha adminbehörighet för att kunna redigera dem.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Du kan redigera eller radera en kategori av historikevenemang endast om det inte finns historikevenemang i denna kategori.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Aktivitetskategorier låter dig dividera dina aktiviteter i grupper beroende på målen du vill uppnå. Till exempel, en aktivitetskategori kan vara "Bokat Tid", "Telefonsamtal" eller "Uttryck av Tacksamhet".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Du kan redigera eller radera ett skede endast om det inte finns någon aktivitet i denna kategori.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Offset i dagar</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Ladda ned all data i ett ZIP-arkiv</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>Generering av ZIP-arkivet startad</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Länk för att ladda ned ZIP-arkivet</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Redigera kategori</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Redigera temperaturnivå</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Redigera kontakttyp</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Redigera fält</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Redigera skede</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Redigera «{0}» aktivitetskategori</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Redigera «{0}» temperaturnivå</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Redigera «{0}» kontakttyp</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Redigera «{0}» möjlighetskedet </value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Redigera «{0}» aktivitetsmall</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Redigera «{0}» behållaren av aktivitetsmall</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Redigera aktivitetsmall</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Redigera behållare av aktivitetsmall</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Användarfältlistan är tom</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Användarfält låter dig fastställa ytterligare information om kunden, möjligheter eller fall. Till exempel, du kan lägga till 'Källa' fältet för att precisera varifrån användaren kommer: reklam, direkt försäljning, mm. Du kan redigera eller radera användarfältet endast om det inte finns kontakter eller möjligheter som använder det.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Etikettlistan är tom</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Etiketterna kan användas för att beskriva och gruppera kontakter (både företag och personer), möjligheter och fall med gemensamma egenskaper. Till exempel kan du använda samma etikett på alla personer från olika företag men från samma sektorn för en bättre sortering. Du kan redigera eller radera etiketten endast om inga kontakter, möjligheter eller fall bär den.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Listan över aktivitetsmallar är tom</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Aktivitetsmallar gör dig möjligt för dig att skapa liknande aktiviteter inuti CRM-modulen. Du kan lägga till aktiviteter till kontakter, möjligheter eller fall med en single klick. Välj behållaren för att skapa ett aktivitet för varje behållare av aktivitetsmall.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Detta fält måste vara korrekt ifyllt</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Varje fält ska ha en titel</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Titel fältet kan inte var tomt</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Aktivera SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportera</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Exportera All Data</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Exportfunktionen genererar ett ZIP-arkiv som innehåller CSV-filer med all din CRM-data (kontakter, möjligheter, fall, historik, mm). Mejl med länken till det skapade arkivet kommer skickas till din mejladress.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Generera lista för externa program</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Fältlista</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Val av fält</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Välj fäljten som kommer visas i formuläret</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Formulärens Källkod</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Använd detta formulär på din webbsida</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Förhandsgranskning</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Så här kommer formuläret på din webbsida se ut</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Formulärens Egenskaper</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Huvudinställningar för Webbsidans Kontaktformulär</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Generera Formulär</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Få standardinställningarna</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Kategorier av Historikevenemang </value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host-Login</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Host-Lösenord</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Intern SMTP({0} maximum antal mottagare)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Endast för företag</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Endast för personer</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Framgång sannolikhet</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Avisera {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Välj de {!users} som kommer få aviseringar när en ny kontakt tillagts via "Webbsidans Kontaktformulär"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Räkna från den tidigare aktiviteten</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Beräkning från behållarensstart</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Logotyp på fakturan</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Andra fält</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Radera option</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Återställ till grundinställningar</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>URL-omdirigering</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Din webbsidas adress där användaren kommer omdirigera efter att formuläret har ifyllts.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Rader</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Sparad</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Kombinationsruta</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Val</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Vänligen välj ett kategoriskede att ersätta med den aktuella kategorin i aktiviteter</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Sändares Skärmnamn</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Sändarens Mejladress</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Skräddarsy användarfält</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Sätta upp ditt företags faktureringsadress som kommer placeras på alla dina fakturor. Välj {0}Landet{1} från listan och fyll i fältena med {0}Adress{1}, {0}Stad{1}, {0}Stat{1} och {0}Postkod{1}.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Ditt företags {0}standardlogotyp{1} kommer visas på dina {0}Fakturor{1}.{3}
+För att ersätta din logotyp klicka den 'Ändra Logotypen' länken och välj bilden sparad på din dator för att ladda det på din portal. Vänligen, tänk på att bilden du laddar upp kan inte vara större än  {0}{4}x{5} pixels{1}, annars kommer dess dimensioner modifieras. Den maximala storleken kan inte överskrida {0}{2}{1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Skicka data</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>En etikett med denna titel finns redan</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Aktivitetsmallar</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Textruta</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Webbformulärnyckel</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>En unik webbformulärnyckel som serverar för autentisering av formuläret används för att skicka data och är nödvändigt för att det ska fungera på rätt sätt. Detta görs av säkerhetskäl för att förhindra spam, bedrägeri och skydda ditt webbformulär från otillåtna användning. När du har genererat en ny nyckel kommer de gamla formulären med den gamla nyckeln sluta fungera.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Webbsidans Kontaktformulär</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Ogiltig key i formuläret</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Använd Webbsidans Kontaktformuläret för att bygga ett formulär som du kan publicera på din webbsida. Det kommer tillåta dig att fånga nya kontakter automatiskt. Definiera formulärets egenskaper, välj de nödvändiga fälten och generera koden för att skapa ditt egen webbformulär.</value>
+  </data>
+</root>

@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>コーポレートフォーラムディスカッション</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>フォーラム</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>新しいフォーラムを作成する</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>新しいフォーラムを作成する</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>あなたは、このアクションを実行してもよろしいですか？</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>作る</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>いいえフォーラムはまだ開始されていません</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>最初のフォーラムを作成</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>独自のフォーラムを作成議論に参加し、あなたのフォーラムをよりインタラクティブに世論調査を整理し、いくつかの興味深い情報を共有します。</value>
+  </data>
+  <data name="EmptyScreenForumTextVisitor" xml:space="preserve">
+    <value>フォーラムや議論で参加し、コメントできます。</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>トピックが見つかりません</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>独自のフォーラムを作成議論に参加し、あなたのフォーラムをよりインタラクティブに世論調査を整理し、いくつかの興味深い情報を共有します。</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>トピックはまだ作成されません。</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>最初のトピックを作成</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>独自のフォーラムを作成議論に参加し、あなたのフォーラムをよりインタラクティブに世論調査を整理し、いくつかの興味深い情報を共有します。</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>この操作を実行するアクセス許可がありません</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>カテゴリ名を入力します</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>不明なエラーカテゴリを作成しているとき</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>カテゴリを編集中にエラーが発生しました</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>名前を入力します</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>退会/サブスクライブしているときにエラーが発生しました</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>フォーラム名を入力してください</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>"{0}"にトピック</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>すべてのフォーラム</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>変更</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>モデレーター</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>名前を入力します</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>新しいアンケートを作成</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>ポストを追加する</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>新しいトピックを作成</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>新しいフォーラムトピック</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>投稿</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>最新のアップデート</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>フォーラムの検索</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>投稿</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>新しいトピックを購読する</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>このフォーラムを購読</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>このトピックを購読する</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>フォーラムが正常に作成されました</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>フォーラム</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>カテゴリ</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>カテゴリー·エディター</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>フォーラムの説明</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>フォーラムエディタ</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>フォーラム名</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>フォーラム</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>トピック</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>トピック</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>新しいトピックを投稿</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>新しいカテゴリを作成する</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>新しいトピックの購読</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>このフォーラムからの退会</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>このトピックからの退会</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>閲覧数</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>表示されるリスト</value>
+  </data>
+</root>

@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Akses</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Portal luar</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Mengisi Formulir</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Baca Saja</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Akses Penuh</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Tolak Akses</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Ulasan</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Untuk mengerjakan file ini, Anda harus memberikan aksesnya</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>LANJUTKAN</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Membuka file ini dengan ONLYOFFICE™ akan menghasilkan sebuah salinan file dalam format Office Open XML di akun Google Drive Anda. File asli tidak akan diubah. Untuk mengubah file ini di ONLYOFFICE™, Anda harus membuka salinan yang baru.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Jangan tampilkan lagi</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Tuliskan Nama File</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Pilih Jenis File</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Penyusun</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Saya</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konversi &amp; Buka</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Simpan Otomatis</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Pemilik telah diganti</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Dikonversi dari {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Tersalin</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Dibuat</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Dibuat oleh DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Diedit</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>Diedit dengan enkripsi</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Dienkripsi</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Disimpan</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Ditimpa</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Dipulihkan dari revisi {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Dipulihkan dari perubahan dokumen {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Diunggah</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Alamat url koneksi</value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>Dokumen dikonversi ke {0} untuk memungkinkan pengeditannya</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Konversi menjadi</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>Layanan Dokumen tidak tersedia. Silakan hubungi dukungan</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Nama Dokumen</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Ditolak</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Ada kesalahan selama operasi pengiriman</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Mengirim dokumen melalui DocuSign telah dibatalkan</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Dokumen terkirim untuk ditandatangani via DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Dibatalkan</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>Beritahu ketika disebut di dokumen</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Tuliskan komentar</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Permintaan gagal.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Anda tidak bisa memilih pengguna ini</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Perubahan membutuhkan terlalu banyak waktu</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Layanan Dokumen Error </value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>File dibuka untuk disunting oleh {0}. Saat ini, fitur penyuntingan bersama tidak didukung untuk format file ini.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>File terbuka untuk diedit di aplikasi seluler paling lambat {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>File kosong</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>File yang diperlukan tidak ditemukan</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>File berukuran lebih dari {0} tidak akan dikonversi</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>File lebih besar dari {0} tidak akan disalin</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>File lebih besar dari {0} tidak akan disunting</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>File lebih besar dari {0} tidak akan dipindahkan</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Anda tidak dapat menyalin folder ke sub-foldernya</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Folder yang diperlukan tidak ditemukan</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Judul tidak sesuai</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>File ini dikunci oleh pengguna lain</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Tidak ada akun yang tesedia untuk mengirim pesan. Buka Mail dan hubungkan kotak surat.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Ada {0} email yang tidak bisa dikirim. Harap lihat modul mail untuk lihat alasan kenapa email tidak terkirim</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Terlalu banyak unduhan.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Maaf, format file tidak didukung</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>Operasi telah dibatalkan</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Penyusun tidak diketahui</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>File rusak saat disimpan</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Gagal menemukan file untuk disimpan</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk menjalankan pengoperasian </value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Tidak dapat melakukan otorisasi provider {0} dengan data yang dimasukkan.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk membuat</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Tidak dapat menghapus file karena file masih diedit</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Tidak dapat menghapus folder karena salah satu file di dalamnya masih diedit</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk menghapus file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk menghapus folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk mengedit file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Anda sedang mengedit dokumen ini di tab yang lain</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>Anda tidak memiliki cukup izin untuk memindahkan file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>Anda tidak memiliki cukup izin untuk memindahkan folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk melihat file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk melihat isi folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk mengubah nama file</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk mengubah nama folder</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Tidak dapat memperbarui file karena file masih diedit</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Anda tidak memiliki ijin untuk melihat isi folder</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Konten folder pihak ketiga tidak tersedia. Coba koneksi ulang akun.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Error saat mulai mengedit file</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Anda tidak dapat mengunggah file yang sedang diedit</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Pengguna tidak ditemukan</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Anda tidak dapat melihat pratinjau elemen di Recycle Bin</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Nama Folder</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Tamu</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Cari berdasarkan isi dokumen</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>baru</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Kembali ke Pengaturan Awal</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>File dibuat di folder "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Kata Sandi</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Lakukan seperti pengguna|Tautkan akun Dropbox, Box dan akun lain pada bagian 'Dokumen Bersama'|Atur hak akses ke dokumen dan folder pada bagian 'Dokumen Bersama'</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Buat, ubah, simpan dan berbagi dokumen. Hubungkan dengan akun Google Drive, Dropbox dan Box Anda, serta kelola dokumen di satu tempat.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Buat, ubah, simpan dan berbagi dokumen. Hubungkan dengan akun Google Drive, Dropbox dan Box Anda, serta kelola dokumen di satu tempat.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Buat, sunting, simpan, dan bagikan dokumen. Hubungkan akun Google Drive, Dropbox, dan Box Anda dan miliki semua dokumen di satu tempat.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Buat dan ubah dokumen Anda sendiri maupun dokumen bersama, dengan hak akses yang sesuai|Berikan akses baca/ubah dokumen dan folder kepada pengguna lain|Tautkan Dropbox, Box dan akun lain pada bagian 'Dokumen Saya'</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} dihapus</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Tandai Telah Dibaca</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Bagikan</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Beritahukan jika ada yang berbagi folder</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Tampilkan Versi</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Ukuran</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Beritahu ketika dokumen telah ditandatangani via DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Beritahu ketika dokumen di DocuSign telah merubah status</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Beritahukan jika ada yang berbagi dokumen</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Beritahu ketika pengiriman surat selesai</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Isi untuk merubah</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Judul Folder</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Koneksi ulang</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Akun</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Bagikan dan simpan dalam folder 'Dokumen Bersama'</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Dibuat</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Dokumen {! Pengguna} {0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Diperbarui</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Dihapus</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Pengaturan Ijin</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Tampilkan Tindakan untuk File</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Tampilkan Tindakan untuk Folder</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Sub-folder</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Diunggah</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Tandai sebagai versi</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Tandai sebagai revisi</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versi dan revisi:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Nama Depan</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Nama Belakang</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>File tidak terkunci</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>新しいタスクを作成する</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>新しいタスクを作成する</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>期日</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>クローズドタスク</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>連絡先とリンク</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>最初のタスクを作成します。</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>タスクを作成する</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>カスタム期間</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>他のユーザー</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>タスクを削除する</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>期日</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>タスクを編集する</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>タスクはどう処理するかのメモを作成する簡単な方法です。たとえば、タスクが予定、または電話を思い出すために使用することができます。あなたは、{0}を異なるカテゴリが{1}、連絡先、商談またはケースにそれらをリンクし、またはあなた自身のためのシンプルなリマインダを作成のタスクを作成することができます。</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>あなたのフィルタに一致するタスクがこのセクションに表示することはできません。このセクションのすべてのタスクを表示するには、他のフィルタオプションまたは[Clear Filter]を選択してください。あなたはまた、連絡先、機会や例のタブに必要なタスクを探すことができます。</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>ここで、このフィルター用に表示すべきタスクがない</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>タスクリストは空です</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>適切に形成されたCSVファイルは、お使いのコンピュータのHDDに選択されるべきである。これは、タスクをインポートするために使用され、選択した区切り文字で区切られたフィールドまたは列を含める必要があります。 {0}行以上を含むファイルは、適切なインポートするための小さな部分に分割する必要があります。</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSVファイルを選択</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>対応ONLYOFFICE™ CRMのフィールドを使用してファイルの列と一致します。 "タスクのタイトル"、 "責任"、 "期日"：を正しくあなたが少なくともあなたのファイルから次の列がONLYOFFICE™ CRMのフィールドと一致している必要がありますタスクをインポートするという事実にご注意くださいますようお願い申し上げます。日付を含むフィールドは、次の形式でなければなりません：{0}。</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>、フィールドを確認してください</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>タスクリストに行く</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>タスクのインポートでは、データの量に応じて数分かかることがあります。</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>始めのインポート</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>インポートタスク</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>私の仕事</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>決して</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>期限を過ぎた</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15分前</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5分前</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>30分前</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>１時間前</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>１日前</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2時間前</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>責任がある</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>タスクを保存する</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>インポートを開始</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>タスクのカテゴリ</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>タスクのカテゴリ</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>電話</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>機会</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>デモ</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>FAXで送信</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>実行制御</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>ランチ</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>任命</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>注意</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>配達</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>ソーシャルネットワーク</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>お礼</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>タスク記述</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>に割り当てる</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>タスク</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>タスクの状態</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>オープン</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>タスクのタイトル</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>今後の</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3日間</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>タスクカテゴリは、あなたが達成したい目標に応じてグループにタスクを分割できます。デフォルトのタスクカテゴリは電話、機会、デモ、電子メール、ファックス、実行制御、ランチ、予定、メモ、配信、ソーシャルネットワーク、感謝の気持ちを表現しています。それらを編集できるようにするには、管理者権限が必要です。</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>すべてのタスク</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>週</value>
+  </data>
+</root>

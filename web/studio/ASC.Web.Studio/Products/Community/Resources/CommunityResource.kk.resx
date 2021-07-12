@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Порталға кіру құқығы</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Хабарландыру</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>Хабарландырулар</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Туған күндер</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Блогтар</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>Бетбелгі</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Бетбелгілер</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Санаттар</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Құрыңыз</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Оқиғалар</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Таңдаулы</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Файлдар</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Форум</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>Форум редакторы</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>Форумдар</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Анықтама</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Индекс</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>ішінде</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>Жаңа беттер</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Жаңалықтар</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Тапсырыс</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Тапсырыстар</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Бет</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>Сауалнама</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>Сауалнамалар</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Хабарлама</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Пайдаланушы сияқты жасаңыз | Кез-келген блог жазбасын, Wiki мақаласын, форум жазбасын және т.б.</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Оқиғалар мен блог жазбаларын жасаңыз. Сауалнамалар өткізу. Бетбелгілерді сақтап, оларды басқа пайдаланушылармен бөлісіңіз.</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>Оқиғалар мен блог жазбаларын жасаңыз. Сауалнамалар өткізу. Бетбелгілерді сақтап, оларды басқа пайдаланушылармен бөлісіңіз.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Қауымдастық</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Блог жазбаларын жасаңыз және өңдеңіз, жаңалықтармен бөлісіңіз және т.б.</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>Жақында өзгертілген</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Параметрлері</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>қол қойылды</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Тақырып</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+</root>

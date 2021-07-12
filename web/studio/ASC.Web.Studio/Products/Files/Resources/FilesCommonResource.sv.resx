@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Tillgång</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Utanför portalen</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Formfyllning</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Läs endast</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Full tillgång</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Neka Tillgång</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Granska</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>För att arbeta med din fil måste du ge tillgång till den</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>FORTSÄTT</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Öppna filen i ONLYOFFICE ™ kommer att skapa en ny kopia av filen i Office Open XML-format i Google Drive. På detta sätt  kommer den ursprungliga filen inte att ändras. För att ytterligare redigera filen i ONLYOFFICE ™ måste du öppna en ny kopia.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Visa inte det här igen</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Ange Filnamn </value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Välj filformat</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Författare</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Mig</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konvertera &amp; Öppna </value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Ladda ner</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>Ta bort från favoriter</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Autosparad</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Bytt ägare</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>konvertera från {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Kopieras</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Skapad </value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Skapad av DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Redigerad</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>Redigerad med kryptering</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Krypterad</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Sparad</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Överskriven</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Återställd från omarbetningen av av {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Återställd från dokumentet byte av {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Uppladdad</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Anslutnings url</value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>Dokumentet konverterades till {0} för att tillåta redigering.</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Konvertera till</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>Dokumentservice ej tillgänglig. Var snäll och kontakta support.</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Namn på dokument</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Avböjde</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Ett fel inträffade när det skickades</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Skicka dokumentet via DocuSign har avbrutits</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Dokumentet skickades för underteckning via DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Upphävd</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>Notifiera när nämnd i dokument</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Skriv en kommentar</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Dålig förfrågan.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Du kan inte välja denna användare</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Konverteringen tar för lång tid.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Ett fel inträffade i Dokumenttjänsten</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Filen har öppnats för redigering av {0}. För tillfället stöds inte samredigeringsfunktionen för detta filformat.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Filen är tillgänglig för redigering i en mobil applikation av {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Tom fil</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Den önskade filen hittades inte</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Fil större än {0} kommer inte att konverteras</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Fil större än {0} kommer inte att kopieras</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Fil större än {0} kommer inte redigeras</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Fil större än {0} kommer inte flyttas</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Du kan inte kopiera mappen till sin underordnade mapp</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Den önskade mappen hittades inte</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Felaktig titel</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Filen är för tillfället låst av en annan användare</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Det finns inga tillgängliga konton för att skicka meddelandet. Gå till post och anslut en brevlåda.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Åtminstone kunde {0} postmeddelanden inte skickas. Besök Mail modulen för att se vad orsaken till felet kan vara.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>För många nedladdningar.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Det här filformatet stöds ej.</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>Åtgärden avbröts</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Författaren som sparade är okänd</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Filen blev skadad när du försökte spara den</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Det gick inte att spara filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att genomföra operationen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Det går inte att godkänna på {0} leverantör med givna referenser.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att skapa</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Det går inte att ta bort filen eftersom den har öppnats för redigering</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Det går inte att ta bort mappen eftersom en av filerna har öppnats för redigering.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att radera filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att radera mappen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att redigera filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Detta dokument redigeras av dig i en annan flik</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>Du har inte tillräckliga rättigheter att flytta filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>Du har inte tillräckliga rättigheter att flytta mappen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att visa filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att visa mappinnehåll</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att byta namn på filen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att byta namn på mappen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Det går inte att uppdatera filen eftersom den är öppnad för redigering </value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Du har inte tillräckliga behörigheter för att visa mappinnehåll</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Innehållet i mappen av tredje part är inte tillgängliga. Försök att återansluta kontot.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Fel vid start av fil redigering</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Du kan inte uppdatera en fil som är öppnad för redigering</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Användaren hittades inte</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Det är inte tillåtet att förhandsgranska elementen i papperskorgen</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fil</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Mapp</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Mappnamn</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonym</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Sök efter innehåll av</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>Ny</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Återställ</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Fil skapad i mappen "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Förhandsvisa</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Lösenord</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Gör samma sak som en användare | Länka Dropbox, Box och andra konton i sektionen "gemensamma dokument" | Ställ in åtkomsträttigheter till dokument och mappar i "gemensamma dokument" sektionen</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Skapa, redigera och dela dokument. Samarbeta med dem i realtid. 100% kompatibilitet med MS Office-format garanteras.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Skapa, redigera och dela dokument. Samarbeta med dem i realtid. 100% kompatibilitet med MS Office-format garanteras.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Skapa, redigera, spara och dela dokument. Anslut till dina Google Drive, Dropbox och Box-konton och spara alla dokument på samma plats.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Skapa och redigera egna dokument samt delade dokument med rätt behörighet | Ge läsning / redigering tillgång till andra användare till dokument och mappar | Länka Dropbox, Box och andra konton i "Mina Dokument" sektionen. </value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} borttagen</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Markera som läst</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Sök</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dela</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Informera när en mapp är delad</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Visa versioner</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Informera när ett dokument undertecknas via DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Informera när ett dokument i DocuSign ändrade status.</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Informera när ett dokument delas</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Informera när utskicket är klart</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Fylla i för att ändra</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mapptitel</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Återansluta</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Gör den delbar och placera den i de "gemensamma dokument" mappen</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Skapad</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>{!user}s dokument {0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Uppdaterad</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Raderad</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Behörighets inställningar</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Visa filhantering</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Visa mapphantering</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Undermappar</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Uppladdad</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Markera som version</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Markera som omarbetad</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versionshistorik:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Efternamn</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Filen är olåst</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

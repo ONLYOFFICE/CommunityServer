@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>גישה</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>לקריאה בלבד</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>גישה מלאה</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>מנהל מערכת</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>מחבר:</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>אני</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>הורד</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>ערוך</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>שם המסמך:</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>שגיאה:</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>בקשה שגויה.</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>הקובץ ריק</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>הקובץ המבוקש לא נמצא</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>לא ניתן להעתיק את התיקייה לתוך תיקיית-בת שלה</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>התיקיה המבוקשת לא נמצאה</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>יותר מדיי בקשות להורדה</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>מצטערים, סוג קובץ זה אינו נתמך</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי לבצע פעולה זו</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי ליצור</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>אין אפשרות למחוק את הקובץ משום שהוא פתוח כעת במצב עריכה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>אין אפשרות למחוק את התיקיה כי אחד הקבצים פתוח כעת במצב עריכה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי למחוק את הקובץ</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי למחוק את התיקיה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>אינך לך הרשאות מתאימות לערוך קובץ זה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות לצפייה בקובץ זה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי לצפות בתוכן של תיקיה זו</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי לערוך את שם הקובץ הזה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי לשנות שם לתיקיה זו</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>אין אפשרות לעדכן את הקובץ משום שהוא פתוח כעת במצב עריכה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי לצפות בתוכן של תיקיה זו</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>אינך יכול לעדכן קובץ שפתוח כרגע במצב עריכה</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>אינך מורשה לצפות במסמכים בתוך סל המיחזור</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>כולם</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>שם תיקיה:</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>אורח</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>חדש</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>שחזר</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>תצוגה מקדימה</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>לבצע אותן פעולות כמו משתמש רגיל| קישור ל-Dropbox. Box וחשבונות אחרים באזור "מסמכים נפוצים"|טיפול בהרשאות גישה למסמכים ולתיקיות שנמצאים באזור "מסמכים נפוצים"</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>צור, ערוך, שמור ושתף מסמכים ישירות בפורטל שלך. ייבא בסיסים למסמכים מאתרים חיצוניים:
+Box, Google Drive, Zoho.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>צור, העלה, ערוך ושמור את המסמכים שלך ישירות בתוך הפורטל שלך. שתף אותם עם משתמשים אחרים בפורטל וגם באופן ציבורי. {0} ייבא מסמכים מ-Google Drive, Zoho, Box{1}</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>יצירת ועריכת מסמכים עצמיים, ומסמכים של אחרים שקיבלו הרשאות גישה מתאימות|שינוי הגדרות הגישה של משתמשים אחרים בגישה לקבצים ותיקיות|קישור ל-Dropbox, Box וחשבונות אחרים באזור 'המסמכים שלי'</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>סמן כנקרא</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>תיקיות</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>הצג גירסאות</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>גודל</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>הודע בעת ביצוע שיתוף</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>עודכן</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>מסמכים</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>נמחק</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>בחר</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>הגדרות שיתוף</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>הצג פעולות בקובץ</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>הצג פעולות שבוצעו בתיקיה</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>תיקיות משנה</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>שהועלו</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>גירסה:</value>
+  </data>
+</root>

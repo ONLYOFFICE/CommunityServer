@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Toteutunut kaupan päivämäärä</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Lisätään mahdollisuus...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Lisää sähköpostiosoite</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Luodaan laskua...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Lisää puhelin</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Luo Uusi tehtävä</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>osoitetta</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>osoitetta</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Osoite</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>Erä</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>päivässä</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>tunnissa</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>kuukaudessa</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>viikossa</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>vuodessa</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Laskutusosoite</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Selaa</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Tapaus</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Suljettu</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Avoin</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Merkitse ensisijaiseksi</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Kaupunki</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Yritys</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Oletko varma, että haluat muuttaa tämän avaimen?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Huomautus: kaikki aikaisemmin luodut lomakkeet eivät enää toimi.</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa tämän tehtävän?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Kaikki syötetyt tiedot menetetään.
+Oletko varma että haluat jatkaa?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Anna Twitter tilisi nimi. </value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Nykyinen kuukausi</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Nykyinen viikko</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Mukautettu kausi</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Mahdollisuus</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa tapauksen '{0}'?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Poistetaan tapausta...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa yrityksen {0}?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Huomautus: tätä toimintoa ei voi kumota</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Poistetaan kontaktia...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa mahdollisuuden {0}?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Poistetaan mahdollisuus...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa henkilön {0}?</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Toimitusosoite</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Muokkaa sähköpostiosoitetta</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Tallennetaan muutoksia...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Tallennetaan muutoksia...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Muokkaa puhelinnumeroa</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Muokkaa kenttää «{0}»</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Muokkaa tehtävää</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} valittu</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Elementtiluettelo ei voi olla tyhjä</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Jokaisessa kirjeessä on oltava viesti</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Jokaisella tehtävällä on oltava määräpäivä</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Jokaisella tehtävällä on oltava vastuuhenkilö</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Jokaisella tehtävällä on oltava otsikko</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Yhtään tapauksen otsikkoa vastaavaa kenttää ei löytynyt</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Yhtään henkilöä ei ole valittu</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Yhtään etunimeä tai yrityksen nimeä vastaavaa kenttää ei löytynyt</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>sähköpostin vastaanottajien enimmäismäärä {0}</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Anna tapaukselle otsikko. </value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Pakollisista kentistä ei voi olla kaksoiskappaleita</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Kuvan tiedostomuotoa ei ole tuettu.</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Tiedostomuotoa ei ole tuettu. </value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Virhe kuvan lataamisessa palvelimelle. </value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Yhtään mahdollisuuden otsikkoa tai mahdollisuuden vastuuhenkilöä vastaavaa kenttää ei löytynyt</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Yhtään tehtävän otsikkoa, vastuuhenkilöä tai määräpäivää vastaavaa kenttää ei löytynyt</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value> "{0}" tyyppi on viimeinen jäljelläoleva, joten sitä ei voida poistaa. </value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>"{0}" on viimeinen jäljelläoleva tyyppi, joten sitä ei voida poistaa. </value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Tämä on viimeinen jäljelläoleva Mahdollisuuden vaihe, joten sitä ei voida poistaa. </value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>"{0}" on viimeinen jäljelläoleva luokka, joten sitä ei voida poistaa. </value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>"{0}" on viimeinen jäljelläoleva luokka, joten sitä ei voida poistaa. </value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Arvioitu sopimuksen määräpäivä</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Etsi Twitter-tili</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Vastaanottajaluettelo on luotu. {0}Klikkaa allaolevia linkkejä siirtääksesi osoitteet sähköpostiohjelmaan.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Siirry asetuksiin</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Linkitä projektiin</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Ladataan...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>tapausta</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>yritystä</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>Kontaktit</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>Mahdollisuudet</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>tapahtumaa</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>henkilöä</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>tehtävää</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Seuraava (esikatselu)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Ei yhtään tapausta</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Ei sulkemispäivää</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Ei yhtään yritystä</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Ei ole kontakteja</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Ei mahdollisuuksia</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Ei ole tapahtumia</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Ei valittua tiedostoa</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Ei henkilöitä</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>ei otsikkoa</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Ei tehtäviä</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>tapaus</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>yritys</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>Mahdollisuus</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>tapahtuma</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>henkilö</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>tehtävä</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>{0} päivän aikana</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>{0} tunnin aikana</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>{0} kuukauden aikana</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>{0} viikon aikana</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>{0} vuoden aikana</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Lataa sivu uudestaan</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Ole hyvä ja odota...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Mahdolliset profiilit</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Edellinen</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Ensisijainen</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} vastaanottajalla ei ole sähköpostiosoitetta.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Valitse CSV-tiedosto</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Valittu CSV-tiedosto: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Asetukset on päivitetty onnistuneesti</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Näytä lisää</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Lämpötilan taso</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Osavaltio</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Sulkeminen onnistui</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>Tehtävä «{0}» on suljettu</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Powered by {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>Säilön alkamisesta {0} päivää {1} tuntia {2} minuuttia</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>Edellisestä tehtävästä {0} päivää {1} tuntia {2} minuuttia</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Sulkeminen epäonnistui</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Agentti</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Vastatut</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Soittaja</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>Kontakti poistettu</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Kustannus</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Päivämäärä</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Kesto</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Vastaamattomat</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Lähtevät</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Postinumero</value>
+  </data>
+</root>

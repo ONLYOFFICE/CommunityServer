@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Azioni</value>
+  </data>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Gestisci iscritti</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Tutti</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Sposta con attività collegate</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Tutti {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Avvia/arresta timer</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Aggiungi</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Reimposta</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Avvio</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>I progetti di ONLYOFFICE™</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Prova l'applicazione mobile</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Cambia colore</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Gli stati sono disponibili solo per l'utente che ha creato l'attività</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Cambia icona</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Nascondi</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Impostazioni generali</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copia</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Crea</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Inizia nuovo progetto</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Imposta l'ordine necessario per gli stati dell'attività. Ogni categoria deve avere almeno uno stato.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Nuovo stato</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Titolo</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>Gerarchia del progetto di design</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>Creare progetti e le tappe.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>Assegnare attività / attività secondarie. Contrassegnare le attività con stati personalizzati.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>Stabilire scadenze e priorità.</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>Gestisci diritti di accesso</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>Crea progetti privati.</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>Limitare l'accesso alle tappe delle attività, documenti, discussioni.</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>Scegli chi può creare nuovi progetti: amministratori o tutti gli utenti.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>Tieni traccia dei tempi e dei progressi</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>Pianifica il tuo progetto con il diagramma di Gantt.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>Tieni traccia del tempo impiegato per attività specifiche.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>Genera automaticamente rapporti sullo stato di avanzamento.</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>Usa più strumenti</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>Crea discussioni e modelli di progetti.</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>Allega documenti, fogli di calcolo e presentazioni.</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>Lavora ai i tuoi progetti su dispositivi iOS.</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Elimina</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrizione</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Documenti</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifica</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Collega o aggiungi contatto</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Seleziona i contatti CRM esistenti dall'elenco per collegarli con il progetto gestito, o aggiungi i contatti nuovi. Modifica le informazioni di contatto personali. L'integrazione con CRM rende più efficiente la gestione del lavoro.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>L'elenco dei contatti è vuoto</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Ogni stato deve avere un titolo</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Nessun progetto</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Segui</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Seleziona questa casella se non sei un responsabile progetto creato ma si desidera tener traccia di tutte le modifiche all'interno di esso. Le informazioni su tutte le milestone create, le attività e le discussioni saranno incluse nella notifica Cosa c'è di nuovo.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>Il {1}Progetto privato{2} è il modo di limitare l'accesso al tuo progetto in modo da concederlo solo ai membri del team.{0} Salvare il tuo progetto come privato ti permette di impostare i diritti di accesso per ogni membro del team all'interno di questo progetto.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>Il {1}Progetto privato{2} è il modo di limitare l'accesso al tuo progetto in modo da concederlo solo ai membri del team.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>La milestone chiave si usa per creare una milestone che consideri più importante che tutte le altre. Tutte le milestone chiave sono segnate da una chiave rossa posizionata accanto al suo titolo.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Ci sono tre stati disponibili:{0}{1}Attivo.{2} Tutti i progetti su quali stai lavorando al presente sono segnati come attivi finché non decidi di sospenderlo o chiuderlo.{0}{1}Sospeso.{2} Se decidi di sospendere il lavoro sul tuo progetto, seleziona lo stato Sospeso. Per riprendere il progetto basta renderlo attivo impostando lo stato corrispondente.{0}{1}Chiuso.{2} Quando il lavoro sul progetto è fatto e tutte le attività sono completate, chiudi il tuo progetto selezionando lo stato Chiuso. Per riprendere il lavoro riattivalo.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Per aggiungere i membri al tuo team subito clicca sul collegamento {1}Gestisci team{2} e seleziona gli utenti da aggiungere dall'elenco.{0} Puoi anche aggiungere/eliminare i membri più tardi aprendo la scheda {1}Team{2} nella pagina {1}Descrizione{2} del progetto e cliccando sul pulsante {1}Gestisci team{2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Di default, ogni membro del team di progetto può visualizzare tutto il contenuto all'interno del progetto selezionato: milestone, attività, documenti e discussioni. Per limitare l'accesso basta selezionare il membro del team per cui desideri impostare i diritti di accesso e cliccare su uno dei collegamenti a destra. In questa maniera puoi impostare i diritti di accesso per ogni membro del team del tuo progetto se non ha i privilegi di amministratore. Gli amministratori di ONLYOFFICE™ hanno l'accesso completo a tutti i dati in tutti i progetti.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Che cosa significa Segui questo progetto?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Che cosa è un progetto privato?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Che cosa significa la milestone chiave?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Quali sono gli status del progetto?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Come gestire il tuo team?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Nascondi</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Nascondi entità nei progetti in pausa</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Questo utente non riceverà le notifiche di questa discussione, perché questo progetto è privato e l'utente non è il membro del team.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Ulteriori informazioni...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Attivo</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Progetti seguiti</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Ultime</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Le mie discussioni</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>I miei progetti</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Contatti</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Progetti</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Sposta attività</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Inviami una notifica quando qualcuno commenta la discussione</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Inviami una notifica quando qualcuno commenta l'attività</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Nessun contatto da collegare</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nessun dato</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>L'attività è collegata con altre attività, se l'elimini, tutti i collegamenti vengono eliminati.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Elimina collegamenti e sposta</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Impostazioni personali</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Nota: questa azione non può essere annullata.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Anteprima</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Effettuare le stesse attività che un responsabile progetto|Nominare responsabile progetto|Creare e modificare, eliminare qualsiasi progetto|Creare/modificare modelli</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Crea il tuo team ed assegna le attività. Pianifica le milestone, segui tutte le attività e genera i rapporti.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Crea il tuo team ed assegna le attività. Pianifica le milestone, segui tutte le attività e genera i rapporti.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Crea il tuo team ed assegna le attività. Pianifica le milestone, segui tutte le attività e genera i rapporti.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Progetti</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Visualizzare progetti e partecipare alle discussioni|Creare e modificare milestone, attività, discussioni, documenti|Tenere traccia del tempo spento, generare rapporti|Creare team di progetto ed impostare i diritti di accesso</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Contatti collegati al progetto</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Titolo progetto</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Ulteriori informazioni</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Rimuovi utente dal team</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Sostituisci</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Cartella report</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Rapporti</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salva</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Salva e crea nuova attività</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Salva modifiche</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Ricerca</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seleziona</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Seleziona dai contatti esistenti o aggiungi un contatto nuovo</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Tutti gli utenti possono creare un progetto</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Visualizza</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Visualizza per pagina</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Tempo spento fatturato</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Tempo trascorso</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Pagina iniziale</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stato</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Iscriviti ai commenti</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Attività aggiunta</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>La data di inizio deve precedere la data di scadenza</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>L'attività che stai spostando è collegata con altre attività. {0}Seleziona una delle azioni:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Stato delle attività</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Elimina collegamenti e aggiorna</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Seleziona il testo da nascondere dalla pagina di discussioni e clicca sul pulsante "Text Cut".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Ora</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Gestione del tempo</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titolo</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Oggi</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totale</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>non seguire</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Scollega progetto dal contatto</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Non seguire i commenti</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Aggiorna scadenza</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>L'attività che desideri aggiornare è collegata con altre attività. {0} Seleziona una delle azioni:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Aggiungi commento</value>
+  </data>
+</root>

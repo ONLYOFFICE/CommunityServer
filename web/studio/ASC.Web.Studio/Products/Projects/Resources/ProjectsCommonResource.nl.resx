@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Abonnees beheren</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Alle {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Verplaatsen met gekoppelde taken</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Alle {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Timer starten/stoppen</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Tijd toevoegen</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauze</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Opnieuw instellen</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Teamlab Projecten</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Mobiele applicatie proberen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Pas de kleur aan</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>Statussen zijn enkel beschikbaar voor de gebruiker die de taak aangemaakt heeft.</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Pas het icoon aan</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Verbergen</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Algemene instellingen</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Maken</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Nieuw project starten</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>Zet de noodzakelijke volgorde voor de statussen van de taken. Elke categorie moet tenminste één status hebben.</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Nieuwe status</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>Ontwerp projecthiërarchie.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>Maak projecten en mijlpalen aan.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>Assigneer taken/subtaken. Markeer taken met aangepaste statussen.</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>Stel deadlines en prioriteiten.</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>Beheer toegangsrechten</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>Maak privé-projecten aan.</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>Beperk toegang tot mijlpalen, taken, documenten, discussies.</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>Kies wie nieuwe projecten kan aanmaken - admins of alle gebruikers.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>Hou tijd en vooruitgang bij</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>Plan uw project met de Gantt grafiek.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>Hou de tijd bij die gespendeerd is aan specifieke taken.</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>Genereer automatisch vooruitgangrapporten.</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>Gebruik meer tools</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>Maak discussies en projectsjablonen aan.</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>Voeg documenten, spreadsheets en presentaties toe.</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>Werk met uw projecten op iOS apparaten.</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Contact koppelen of toevoegen</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Selecteer de bestaande CRM-contacten uit de lijst om hen te koppelen aan het project dat je beheert, of voeg nieuwe contacten toe. Wijzig de persoonlijke gegevens van een contact. Een diepere integratie met CRM zal je helpen om je werk efficiënter te beheren.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>De lijst met contacten is leeg</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>Elke status moet een titel hebben.</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Er zijn geen projecten die voldoen aan dit filter.</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Volgen</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Schakel dit selectievakje in als je niet de manager bent van het project dat je aan het maken bent, maar wel alle wijzigingen in het project wilt kunnen traceren. De informatie over alle gemaakte mijlpalen, taken en discussies wordt opgenomen in een dagelijks bericht dat de wijzigingen toont.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>Je kunt een {1}privéproject{2} gebruiken om de toegang tot je project te beperken, zodat alleen teamleden toegang hebben.{0}Door een project als privé op te slaan, kun je de toegangsrechten van alle teamleden in het project instellen.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>Je kunt een {1}privéproject{2} gebruiken om de toegang tot je project te beperken, zodat alleen de teamleden toegang hebben.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>De belangrijke mijlpaal wordt gebruikt om aan te geven dat de mijlpaal belangrijker is dan de anderen.{0} Alle belangrijke mijlpalen zijn gemarkeerd met een rood pictogram naast de titel.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Je kunt schakelen tussen drie projectstatussen:{0}{1}Actief.{2} Alle gemaakte projecten waar je aan werkt, zijn actief tot je besluit om ze te onderbreken of te voltooien.(0}{1}Gepauzeerd.{2} Als je besluit om het werk aan een project tijdelijk te onderbreken, verander je de status in Gepauzeerd. Om het project te hervatten, zet je de status weer op actief.{0}{1}Afgesloten{2} Als he werk aan het project is afgerond en alle taken zijn gesloten, voltooi je het project door de status op Afgesloten te zetten. Om verder te werken, moet je het project weer actief maken.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Om nu leden aan het team toe te voegen, klik je op de koppeling {1}Team beheren{2} en selecteer je de gebruikers die je wilt toevoegen uit de lijst.{0} Je kunt ook later teamleden toevoegen/verwijderen door naar het tabblad {1}Team{2} van de pagina {1}Overzicht{2} voor het project te gaan en op de knop {1}Team beheren{2} te klikken.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>Standaard kan elk lid van het projectteam alle inhoud van het geselecteerde project bekijken: mijlpalen, taken, documenten en discussies. Om de toegangsrechten te beperken, selecteer je het teamlid waarvan je de toegangsrechten wilt instellen en klik je rechts op een koppeling. Op dezelfde manier stel je de toegangsrechten in voor elk teamlid in het projectteam, tenzij hij/zij geen beheerdersrechten voor de portal heeft. De ONLYOFFICE™-beheerder heeft volledige toegang tot alle inhoud van alle projecten.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Wat betekent een project volgen?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Wat is een privéproject?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Wat betekent een belangrijke mijlpaal?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Welke projectstatussen zijn er?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Uw team beheren</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Verbergen</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Entiteiten in Gepauzeerde Projecten Verbergen</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Deze gebruiker ontvangt geen meldingen voor deze discussie, omdat het project een privéstatus heeft en de gebruiker geen lid is van het projectteam.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Meer informatie...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projecten die ik volg</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Laatste</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Mijn discussies</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Mijn projecten</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Contacten</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projecten</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Taak verplaatsen</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Nieuwe opmerkingen in discussies</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Nieuwe opmerkingen bij taken</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Geen contact voor koppeling</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Geen gegevens</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Deze taak is gekoppeld aan andere taken. Als je deze taak verwijdert, worden alle koppelingen verwijderd.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Koppelingen verwijderen en verplaatsen</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Persoonlijke Instellingen</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Let op: deze actie kan niet ongedaan worden gemaakt.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Hetzelfde doen als projectmanager|Projectmanager aanwijzen|Projecten maken, bewerken en verwijderen|Sjablonen maken/beheren</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Stel teams samen en wijs taken toe. Plan mijlpalen voor het project, traceer projectactiviteiten en genereer rapporten.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Stel teams samen en wijs taken toe. Plan mijlpalen voor het project, traceer projectactiviteiten en genereer rapporten.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Maak teams en assigneer taken. Plan projectmijlpalen, houd project activiteit bij en genereer rapporten.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projecten</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Projecten bekijken en deelnemen aan discussies|Mijlpalen, taken, discussies, documenten maken en bewerken|Tijd registreren voor taken, rapporten genereren|Projectteam samenstellen en toegangsrechten instellen</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Contacten die aan het project gekoppeld worden</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Titel project</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Meer informatie</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Gebruiker verwijderen uit het team</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Vervangen</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Rapportenfolder</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Rapporten</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Opslaan en nieuwe taak maken</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Wijzigingen opslaan</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Bestaande contacten selecterebn of nieuwe toevoegen</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Elke gebruiker kan een project aanmaken</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Tonen</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Tonen op pagina</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Gefactureerde bestede tijd</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Bestede tijd</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Startpagina</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Abonneren op opmerkingen</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Taak toegevoegd</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>De startdatum moet eerder zijn dan de vervaldatum.</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>De taak die je wilt verplaatsen, is gekoppeld met andere taken.{0} Selecteer een van de volgende acties:</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Taak statussen</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Koppelingen verwijderen en bijwerken</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Selecteer de tekst die je wilt verbergen op de feed-pagina's en de pagina met de discussielijst en klik op de knop "Tekst knippen".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Tekst knippen</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tijd</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Tijdregistratie</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Vandaag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Niet meer volgen</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Project loskoppelen van contact</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Abonnement op opmerkingen opzeggen</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Deadline bijwerken</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>De taak die je gaat bijwerken, is gekoppeld aan andere taken.{0} Selecteer een van de volgende acties:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>uu</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Opmerking toevoegen</value>
+  </data>
+</root>

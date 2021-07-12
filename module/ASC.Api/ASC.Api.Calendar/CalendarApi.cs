@@ -3240,6 +3240,10 @@ namespace ASC.Api.Calendar
                                     string[] split = eventUid.Split(new Char[] { '@' });
                                     if (uid == split[0])
                                     {
+                                        if (sharedCalendar == null)
+                                        {
+                                            sharedCalendar = GetCalendarById(calendarId);
+                                        }
                                         if (sharedCalendar != null)
                                             ddayCalendar = getEventIcs(alert, sharedCalendar, evt, calendarId);
                                     }
@@ -3247,28 +3251,21 @@ namespace ASC.Api.Calendar
                                 var serializeIcs = DDayICalParser.SerializeCalendar(ddayCalendar);
                                 var updateEvent = new Thread(() =>
                                 {
-                                    try
+                                    CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
+                                    var user = CoreContext.UserManager.GetUsers(Guid.Parse(responsibleSid));
+                                    if (CheckUserEmail(user))
                                     {
-                                        CoreContext.TenantManager.SetCurrentTenant(currentTenantId);
-                                        var user = CoreContext.UserManager.GetUsers(Guid.Parse(responsibleSid));
-                                        if (CheckUserEmail(user) && sharedCalendar != null)
-                                        {
-                                            updateCaldavEvent(
-                                                serializeIcs,
-                                                uid,
-                                                true,
-                                                calendarId,
-                                                myUri,
-                                                user.Email,
-                                                DateTime.Now,
-                                                ddayCalendar.TimeZones[0],
-                                                sharedCalendar.UserCalendar.TimeZone, false, true
-                                            );
-                                        }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Logger.Error(String.Format("Error: {0}", ex.Message));
+                                        updateCaldavEvent(
+                                            serializeIcs,
+                                            uid,
+                                            true,
+                                            calendarId,
+                                            myUri,
+                                            user.Email,
+                                            DateTime.Now,
+                                            ddayCalendar.TimeZones[0],
+                                            sharedCalendar.UserCalendar.TimeZone, false, true
+                                        );
                                     }
                                 });
                                 updateEvent.Start();

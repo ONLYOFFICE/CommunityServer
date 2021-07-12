@@ -204,11 +204,6 @@ namespace ASC.Core.Caching
 
         public IDictionary<string, UserGroupRef> GetUserGroupRefs(int tenant, DateTime from)
         {
-            if (CoreContext.Configuration.Personal)
-            {
-                return new Dictionary<string, UserGroupRef>();
-            }
-
             GetChangesFromDb();
 
             var key = GetRefCacheKey(tenant);

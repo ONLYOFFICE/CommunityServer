@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Faktiskais darījuma datums </value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Pievieno iespēju ...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Pievienot e-pasta adresi</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Rēķina pievienošana...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Pievieno tālruņa numuru</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Izveidot jaunu uzdevumu</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>adreses</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>adreses</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Adrese</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>partija</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>dienā</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>stundā</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>mēnesī</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>nedēļā</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>gadā</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Rēķina adrese</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Pārlūkošana</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Lieta</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Aizvērts</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Atvērt</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Atzīmēt kā primāro</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Izvēlēties</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Pilsēta</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Uzņēmums</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Vai tiešām vēlaties mainīt šo atslēgu?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Piezīme: visas iepriekš izveidotās formas vairs nedarbojas</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst šo uzdevumu?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Ievadītā informācija būs zaudēta.
+Vai tiešām vēlaties turpināt?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Lūdzu, ievadiet jūsu Twitter konta nosaukumu. Piemēram, teamlabdotcom</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Valsts</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Tekošs mēnesis</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Tekoša nedēļa</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Personalizēts periods</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Iespēja</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst '{0}'  lietu?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Lietu dzēšana...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst "{0}" uzņēmumu?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Piezīme: šo darbību nevar atsaukt</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Kontaktu dzēšana...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst "{0}" iespēju?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Notiek iespējas dzēšana ...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Vai tiešām vēlaties dzēst '{0}' personu?</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Piegādes adrese</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Rediģēt e-pastu</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Saglabā izmaiņas ...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Saglabā izmaiņas ...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Rediģēt tālruņa numuru</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Rediģēt «{0}» lauku</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Rediģēt uzdevumu</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} atlasīts</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Elementu saraksts nevar būt tukšs</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Katrā vēstulē jābūt saturs</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Katram uzdevumam jābūt izpildes datums</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Katram uzdevumam jābūt atbildīga persona</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Katram uzdevumam jābūt nosaukums</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Nav lauku, kas atbilst 'Lietas Nosaukumam'</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Neviena persona nav izvēlēta</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Nav lauku, kas atbilst "Vārds" vai "Uzņēmuma nosaukums" </value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} e-pasta adresātu maksimums</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Ievadiet lietas nosaukumu</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Nedrīkst dublēt obligātus laukus</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Attēla formāts netiek atbalstīts</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Faila formāts nav atbalstīts</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Kļūda augšupielādējot attēlu serverī</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Nav lauku, kas atbilst 'Iespējas Nosaukums'</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Nav lauku, kas atbilst 'Uzdevuma Nosaukums','Atbildīgais','Galatērmiņš'</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>"{0}" tips ir pēdējais. To nevar izdzēst.</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>"{0}" tips ir pēdējais. To nevar izdzēst.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Šī ir vienīgā iespēja posmā. To nevar izdzēst.</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>"{0}" kategorija ir pēdējā. To nevar izdzēst.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>"{0}" kategorija ir pēdēja. To nevar izdzēst.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Paredzams darījuma izpildes datums</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Atrast Twitter kontu</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Jūsu adresātu saraksts ir ģenerēts. {0}Noklikšķiniet uz saites zemāk, lai pāriet jūsu e-pasta adreses e-pasta programmu.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Iet uz Iestatījumi</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Saistīt ar projektu</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Notiek ielāde...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>lietas</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>uzņēmumi</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>kontakti</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>iespējas</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>notikumi</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>Personas</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>Uzdevumi</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Tālāk</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Nākamais (priekšskatīšanai)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Nav lietas</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Nav beigu datuma</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Nav uzņēmumu</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Nav kontaktus</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Nav iespējas</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Nav neviena notikuma</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Fails nav izvēlēts</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Nav personu</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>nav tēmas</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Nav uzdevumus</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>lieta</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>uzņēmums</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>kontakts</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>iespēja</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>notikums</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>persona</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>uzdevums</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>{0} dienu laikā</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>{0} stundu laikā</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>{0} mēnešu laikā</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>{0} nedēļu laikā</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>{0} gadu laikā</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Lūdzu pārlādējiet lapu</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Lūdzu, uzgaidiet...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Iespējamie profili {0}</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Atpakaļ</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Primārs</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} adresātiem nav e-pasta adreses.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Saglabāt izmaiņas</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Izvēlieties CSV failu</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Atlasīts CSV fails: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Nosūtīt</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Iestatījumi tika veiksmīgi  atjaunoti</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Sīkāk</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Temperatūras līmenis</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Pavalsts</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Sekmīgi pabeigts</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>«{0}» Uzdevums ir aizvērts</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Izstrādāts {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>No konteinera sākuma {0} dienās {1} stundas {2} minūtes</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>No iepriekšējā uzdevuma {0} dienās {1} {2} stundas</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Šodien</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Neveiksmīgi pabeigts</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Aģents</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Atbildēts</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Zvanītājs</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>kontakts dzēsts</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Maksa</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Ilgums</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Nokavēts</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Izejošie</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Tips</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Pasta indekss</value>
+  </data>
+</root>

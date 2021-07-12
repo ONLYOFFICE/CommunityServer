@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Semua penandatangan selesai $ DocumentTitle
+
+Ini adalah pemberitahuan email untuk memberi tahu Anda bahwa semua penandatangan telah selesai "$ DocumentTitle": "$ DocumentURL".
+
+^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari portal "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}". ^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $ Pesan: $ DocumentTitle
+
+Masuk ke akun DocuSign Anda untuk informasi lebih lanjut.
+
+^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari portal "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}". ^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$ __ AuthorName": "$ __ AuthorUrl" menyebut Anda dalam komentar dokumen
+
+Ini adalah pesan email untuk memberi tahu bahwa Anda telah disebutkan oleh "$ __ AuthorName": "$ __ AuthorUrl" dalam komentar di dokumen "$ DocumentTitle": "$ DocumentURL":
+
+$ Pesan
+
+^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari portal "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}". ^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Pengiriman surat selesai
+
+Ini adalah pemberitahuan email untuk memberi tahu Anda bahwa Anda telah meminta pengiriman $ MailsCount pesan dan prosesnya telah selesai. $ Pesan
+
+Pesan email yang berhasil terkirim dapat ditemukan di folder "Terkirim": "$ __ VirtualRootPath / addons / mail / # terkirim" dari modul Mail.
+
+^ Anda menerima email ini karena Anda adalah pengguna terdaftar dari portal "$ {__ VirtualRootPath}": "$ {__ VirtualRootPath}". ^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Akses Diberikan ke Dokumen: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" memberikan akses ke dokumen "$DocumentTitle":"$DocumentURL" dengan hak akses berikut ini: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Akses Diberikan untuk Folder: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" memberi Anda akses ke folder "$DocumentTitle":"$DocumentURL" dengan hak akses berikut ini: "$AccessRights
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Dokumen. Semua penandatangan selesai $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Dokumen. Status tanda tangan berubah</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Dokumen. Disebutkan di dokumen</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Dokumen. Mailing selesai.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Dokumen. Akses Disetujui untuk Dokumen: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Dokumen. Akses Disetujui untuk Folder: $DocumentTitle</value>
+  </data>
+</root>

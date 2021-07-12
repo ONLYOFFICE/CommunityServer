@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>새 작업 만들기</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>새 작업 만들기</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>기한</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>종료된 작업</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>연락처와 연결</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>첫 번째 작업 만들기</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>작업 만들기</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>사용자 정의 기간</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>다른 사용자</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>작업 삭제</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>기한</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>작업 수정</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>작업 수행하는 것입니다 무엇 알림을 생성 할 쉬운 방법입니다. 예를 들어, 작업을 약속 또는 전화를 생각 나게하는 데 사용할 수 있습니다. 당신은 {0} 다른 카테고리 {1}, 연락처, 기회 또는 케이스를 연결하거나, 자신에 대한 간단한 알림을 만들 수의 작업을 만들 수 있습니다.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>필터와 일치하는 작업이 섹션에 표시 할 수 없습니다. 이 섹션의 모든 작업을 볼 수있는 다른 필터 옵션이나 필터 삭제를 선택하십시오. 당신은 또한 연락처, 기회 또는 사례 탭에서 필요로하는 작업에 볼 수 있습니다.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>이 필터가 적용되면 작업에 표시되지 않습니다.</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>작업 목록이 비어 있습니다.</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>제대로 형성된 CSV 파일은 컴퓨터 HDD에 선택해야합니다. 이 작업을 가져 오는 데 사용됩니다 선택한 구분 기호로 구분 된 필드 나 열을 포함해야합니다. {0} 행 이상을 포함하는 파일을 적절한 가져 오기위한 작은 부분으로 나누어해야합니다.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>CSV 파일 선택</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>해당 ONLYOFFICE™의 CRM 분야로 파일 항목과 일치합니다. '작업 제목', '책임감', '기한':을 올바르게 적어도 파일에서 다음 열 ONLYOFFICE™ CRM 분야와 일치 할 필요가 작업을 가져올 수 있다는 사실에주의하시기 바랍니다. 날짜를 포함하는 필드는 다음과 같은 형식이 있어야합니다 : {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>필드를 확인 하십시오,</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>작업 목록으로 이동</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>데이터의 양에 따라 가져오기 작업이 몇 분 정도 걸릴 수 있습니다. 작업이 완료 되면 알려 드립니다.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>가져오기 시작</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>작업 가져오기</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>내 작업</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>지연</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15분</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5분</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>30분</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>하루</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2시간</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>책임자</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>작업 저장</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>가져오기를 시작합니다</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>작업</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>작업 범주</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>작업 종류</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>전화 통화</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>영업기회</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>데모</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>팩스</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>실행 제어</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>점심 식사</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>약속</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>참고</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>소셜 네트워크</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>감사의 표현</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>작업 설명</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>위임</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>업무</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>작업 상태</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>작업 제목</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>다가오는</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 일</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>작업 카테고리 당신이 달성하고자하는 목표에 따라 그룹으로 작업을 나누어 보자. 기본 작업 카테고리 전화, 기회, 데모, 이메일, 팩스, 실행 제어, 점심 식사, 약속 사항, 배송, 소셜 네트워크, 감사의 표현입니다. 을 편집 할 수하려면 관리자 권한이 필요합니다.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>모든 작업들</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>주</value>
+  </data>
+</root>

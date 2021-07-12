@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>アクセス権＆タグ</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>"ウェブサイトのお問い合わせフォーム"を介して追加されたユーザーのアクセス権を設定し、そうでなければ、すべてのCRMユーザーが新しい連絡先が表示されます。タグのリストに新しいクライアントを作成するにはマークが表示されます。</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>ポータルのアクセス権</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>新しいタスク·テンプレートを追加</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>新しいタスク·テンプレート·コンテナを追加</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>オプションを追加</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>タグの追加</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>タスク·テンプレート·コンテナを追加</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>タスク·テンプレートのコンテナーの追加</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>タスク·テンプレートの追加</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>保存する</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>このタスク·テンプレートを追加</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>このタスク·テンプレート·コンテナを追加</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>人と会社の両方</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>色を変更する</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>アイコンを変更</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>チェックボックス</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>コラム</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>共通設定</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>カテゴリの作成</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>型を作成</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>ユーザーフィールドを作成します</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>ステージを作成する</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>フィールドを作成する</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>新しいカテゴリを作成する</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>新規カテゴリ</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>新しいステージを作成</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>新たなステージ</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>新しいフィールドを作成</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>新しいフィールド</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>新しい型を作成</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>新タイプ</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>新しいタグを作成</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>新規タグ</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>通貨設定</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>ユーザー·フィールド</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>失敗した機会を閉じます。</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>首尾よく機会を閉じます。</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>デフォルトの通貨</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>カテゴリを削除する</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>タイプを削除</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>フィールドを削除</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>ステージを削除</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>タグを削除</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>タスク·テンプレートを削除します。</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>タスク·テンプレートのコンテナを削除</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>使用されていないタグを削除</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>お問い合わせの種類によっては、特定の方法であなたの潜在的な買い手を特徴付けることができます。たとえば、連絡先のタイプがあなたの製品を購入するための連絡先の意欲を意味される、"暖かい"、"ホット"、 "コールド"することができます。</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>編集または削除する接触型の場合にのみ、このタイプのコンタクトはありませんすることができます。</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>商談の段階では取引を完了するために必要な手順を決定させる。例えば、あなたはチャンスステージの"商業申し出"、 "前払い"、"実行"を追加することができます。ドラッグする機会ステージのために必要な順序を設定します。</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>編集または削除する機会ステージを場合にのみ、このステージでは、機会があることはできません。</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>履歴イベントのカテゴリを使用すると、グループにあなたの履歴イベントを分割することができます。標準ヒストリー·イベントのカテゴリは、メール、メモ、電話、会議です。あなたがそれらを編集できるようにするために管理者権限を持っている必要があります。</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>編集または削除する履歴イベントのカテゴリを場合にのみ、このカテゴリには、履歴イベントはありませんすることができます。</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>タスクカテゴリは、あなたが達成したい目標に応じてグループにタスクを分割できます。たとえば、タスクのカテゴリは "電話、"アポイントメント"することができます
+
+呼び出し"や"感謝の表現 "。</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>編集または削除するタスクのカテゴリステージを場合にのみ、このカテゴリとのタスクが存在しないことができます。</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>日中のオフセット</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>1 ZIPアーカイブ内のすべてのデータをダウンロード</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIPアーカイブ世代</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>ZIPアーカイブをダウンロードするためのリンク</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>カテゴリを編集する</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>タイプを編集する</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>フィールドを編集します</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>ステージを編集</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>編集«{0}»タスクのカテゴリ</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>編集«{0}»接触型</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>編集«{0}»機会ステージ</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>«{0}»タスク·テンプレートを編集します。</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>«{0}»タスク·テンプレート·コンテナを編集</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>タスク·テンプレートの編集</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>タスク·テンプレート·コンテナを編集</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>ユーザーフィールドリストは空です</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>ユーザーフィールドは、クライアント、機会やケースについての追加情報を決定できます。場合にのみ、このフィールドの値との接点や機会が存在しない広告、直接販売等あなたはユーザーフィールドを編集したり削除したりすることができますたとえば、ユーザーがどこから来たのかを指定する"ソース"フィールドを追加することができます。</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>タグリストは空です</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>タグを記述するために使用され、グループの連絡先（両社と名）、その中に同じような何かを持っている機会と例。することができます例えば、あなたは別の会社からではなく、より良いソートのための共通のタグとのビジネスの同じ球からすべての人にタグを付けることができます。このタグではありません担当者、商談や例が存在する場合、あなただけのタグを編集したり削除したりできます。</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>タスク·テンプレートのリストは空です</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>タスク·テンプレートを使用すると、CRMモジュール内部に同様のタスクを作成することができます。あなたは、マウスのシングルクリックで連絡先、機会や例にタスクを追加することができます。すべてのコンテナー、タスク·テンプレートのタスクを作成するコンテナを選択します。</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>このフィールドは正確に記入する必要があります</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>すべてのフィールドにタイトルを持っている必要があります</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>フィールドのタイトルは空にすることはできません</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSLを有効に</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>エクスポート</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>すべてのデータのエクスポート</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>エクスポート機能で作成したアーカイブへのリンクを記載したメールがあなたのメールアドレスに送信されますすべてのあなたのCRMデータ（連絡先、商談、ケース、履歴など）を使ってCSVファイルを含むZIPアーカイブを生成します。</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>外部プログラムのリストを生成する</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>フィールドリスト</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>フィールドの選択</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>フォーム上に表示されるフィールドを選択してください</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>フォームのソースコード</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>あなたのサイトで、このフォームを使用します</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>これは、サイト上のフォームは次のようになります方法です</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>フォームのプロパティ</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>ウェブサイトのお問い合わせは、主な設定フォーム</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>フォームの生成</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>履歴イベントのカテゴリ</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>ホスト</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>ログインを開催</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>ホスト·パスワード</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>内部SMTP（{0}の電子メールの受信者の最大値）</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>ちょうど会社に</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>ただ人のために</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>成功確率</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>通知{!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>新しい連絡先は、 "ウェブサイトのお問い合わせフォーム"を介して追加されたときに通知を受け取る{!users}を選択してください
+フォーム上に表示されるフィールドを選択してください</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>前のタスクからカウント</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>コンテナの開始からカウント</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>その他のフィールド</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>ポート</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>削除オプション</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>リダイレクトURL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>ユーザーがフォームの後にリダイレクトされるWebサイトのアドレスが満たされている。</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>ラインズ</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>保存されました！</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>ボックスを選択します</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>選択肢</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>送信者の表示名</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>送信者の電子メールアドレス</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>ユーザーフィールドをカスタマイズする</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>サイズ</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>送信データ</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>タスク·テンプレート</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>テキスト領域</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>テキスト</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Webフォームのキー</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>フォームの認証のために役立つユニークなウェブフォームのキーはフォーム正しい仕事のために必要なデータとを送信するために使用される。これは、スパム、詐欺を防止し、不正使用からWebフォームを保護するために、セキュリティ上の理由のために行われます。新しいキーを生成するときに、古いキーで既存のフォームは動作を停止します。</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>ウェブサイトのお問い合わせフォーム</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>無効なフォームの鍵</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>あなたのサイトで公開できるフォームを作成するウェブサイトのお問い合わせフォーム機能を使用します。それはあなたが自動的に新しい連絡先をキャプチャすることができます。フォームのプロパティを定義し、必要なフィールドを選択し、自分のWebフォームを作成するためのコードを生成します。</value>
+  </data>
+</root>

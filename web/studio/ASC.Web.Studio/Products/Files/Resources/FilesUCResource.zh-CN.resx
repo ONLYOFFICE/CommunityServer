@@ -1,0 +1,776 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>表单填报</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>只读</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>可查看、创建和修改文档</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>拒绝访问</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>审阅</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>添加帐户</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Box帐户</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Dropbox帐户</value>
+  </data>
+  <data name="ButtonAddFavorite" xml:space="preserve">
+    <value>标记为收藏夹</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>谷歌帐户</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>添加Nextcloud账户</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>增加OneDrive帐号</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>另一个账户</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>全部取消</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>更改所有者</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>更改第三方信息</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>清空筛选条件</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>复</value>
+  </data>
+  <data name="ButtonCopyExternalLink" xml:space="preserve">
+    <value>复制外部链接</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>创建文档</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>演示幻灯片</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>创建演示文稿</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>电子表格</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>创建电子表格</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>新建文档</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>删除第三方账户</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>创建文档副本</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>嵌入文档</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>清空回收站</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>档案室</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>所有文件</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>图片</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>媒体</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>幻灯片</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>表格</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>转到“{0}”</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>回到“我的文档”</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>了解更多…</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>文本块</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>移动或复制</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>移动到</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>打开 开启</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>用版本更新覆盖</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>从收藏夹中删除</value>
+  </data>
+  <data name="ButtonRemoveFavoriteShort" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>重命名</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>用DocuSign签名</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>发送</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>通过电邮发送</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>共享设置</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
+    <value>共享设置</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>显示历史版本</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>跳过</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>回到父资料夹</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>
+释</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>顶部</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>上传</value>
+  </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>取消上载并关闭</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>上载文件</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>上载文件夹</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>
+最大化对话框</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>
+最小化对话框</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>版本历史</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>表格版本</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>文件受密码保护。输入转换密码。</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>转档并开启文件</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>文档保存</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>文档上载</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>一旦应用更改，当前文件/文件夹所有者根据所属小组的访问权设置或默认文件夹权限来获取访问权限。</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>更改所有者</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>选择每个要下载档案的格式</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>通用设置</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>将元素移动到回收站时显示通知</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>
+不要再次显示此消息</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>该文件夹中将有两个不同文件。</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>覆盖确认</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>该文件将被添加到与其名称相同的文件中。</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>注意：此操作无法被撤销</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>注意：您帐号内的移除无法被还原。</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>将不复制任何文件。 原始文件将保留在目标文件夹中。</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>一并以原格式储存档案副本</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>您打开文档文件，将被转换成便于查看和编辑的Office Open XML格式。</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>该文件的副本将在文件夹中创建{0}我的文档{1}</value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>您上载的所有文档都将转换为相应的Office Open XML格式（docx、xlsx或pptx），以便更快地进行编辑。</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>一并上传文件原先格式</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>移动确认</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>您确认要删除这些内容吗？</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>更新文件的版本，以具有相同名称的现有文件。 {0}否则，该文件的副本将被创建。{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>URL地址连接</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>转换</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>转换成功。</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>该文件夹中创建“{0}”</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>啭档错误</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>转档中...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>公用文档</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>您刚创建了自己的ONLYOFFICE门户。{0}将您的离线文件上传至门户网站展开协作，无需离开应用。{0} {0}在浏览器中打开您的门户，查找更多功能，包括{1}项目{2}, {1}客户关系管理系统（CRM）{2}, {1}日历{2}, {1}邮件{2}等。</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>若有任何购买疑问，请发送电邮至{0}。</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>若您有任何技术问题，请通过{0}与我们联系。</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>欢迎来到您的门户！</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>恭喜您</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>文档</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>保存到文件夹：</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>添加消息</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>删除消息</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>添加{!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>签署者收件人列表</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>下载文档</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>下载文件夹</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>汽车</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>高低</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>幅</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>"公用文档"区存放的是由工作站管理员设置的、可供全体成员访问的文档。只有管理员才能在此区内创建文件夹。拥有相应上传权限的用户也可以在此区内上传文件。</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>您可以将文档直接拖放到此处进行上传。</value>
+  </data>
+  <data name="EmptyScreenDescrFavorites" xml:space="preserve">
+    <value>你还没有最喜欢的。若要将文件标记为收藏夹或从此列表中删除它们，请使用关联菜单。</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>"与我共享的文档"区显示的是其他用户与您共享的文档。如果文档旁有一个小标识“新”，表示该文档最近有更新，而您还没有查看这些更新。您可以点击“响应”按钮，将文件从此列表中移除。</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>您所{0}创建{1}或{2}上传{3}的文档和图片文件储存在"我的文档"区中。您可以通过ONLYOFFICE™工作站提供的编辑器来{4}查看{5}或{6}编辑{7}这些文档。您可以像平常使用电脑的习惯一样，用文件夹来整理文档，还可以与朋友、同事们共享这些文档。</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>您上传的文档和图像{2}{3}到门户都存储在“我的文档”。你可以给他们访问的朋友和同事，组织文件到文件夹中。</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>您在项目中创建/上传的文档和图片文件将会保存到此区域中。您可以使用ONLYOFFICE™工作站提供的编辑器来查阅和修改文档，还可以通过文件夹来整理文档。</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>为项目上传的文档和图像文件保存在本节中。您可以使用ONLYOFFICE门户编辑器查看它们。</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>"回收站"存放的是被删除的文档。您可以选择“还原”或“永久删除”回收站中的文件。请注意：被永久删除的文档将无法再恢复。</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>暂无符合筛选条件的文档</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>本区内暂无符合该筛选条件的文件/文件夹。请您重新定义筛选条件，或选择“清除”筛选条件以查看本区内的所有文件。您也可以尝试到别的区域/文件夹中继续查找。</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>此文件夹中没有文件</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>本区内暂无文档</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>没有已连结帐号</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误:</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>收藏夹</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>选择{0}格式的文件</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>选择类型为{0}的文件</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>筛选条件</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>现在就开始吧</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>变短</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>使用电子邮件</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>若要成功连接，请在{0}此页{1}输入必要的数据。</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>最大文件大小 - {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>你有一个团队{0}一起工作？ {0}{1}了解详情{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>文档管理</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM和计费</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>组织和甘特图</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>邮政聚合</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>你有一个项目和一个团队一起工作？{0}我们已经准备东西给你。{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>邀请你的同事或分包商，并使用附加功能：</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>欢迎ONLYOFFICE™工作作为一个团队！</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>我的文档</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>开放位置</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>隐藏文档列表</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>显示文档列表</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>项目文档</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>标记为已读</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>标记为已读</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>标记为已读</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>在新选项卡中打开保存的文档</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>选择文件夹</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>请选择操作：</value>
+  </data>
+  <data name="SettingFavorite" xml:space="preserve">
+    <value>显示收藏夹</value>
+  </data>
+  <data name="SettingForcesave" xml:space="preserve">
+    <value>编辑时保留中间版本</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>保留所有保存的中间版本</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>通用设置</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>存储文件版本</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>共享</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>与我共享的文档</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>外部链接访问</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>提供访问链接与嵌入代码</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>显示更多</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>显示最小化的窗口</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>转到紧凑视图</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>转到常规视图</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>第三方账户</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>连结帐号</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>连接帐户</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>您可以将以下帐户添加到文档模块ONLYOFFICE™。他们将显示在“我的文档”，您可以编辑和直接保存到门户网站，都在一个地方。</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>若要成功连接，请在{0}此页{1}输入必要的数据</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>帐号连接中</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>填充以修改</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>删除第三方账户</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>使用者允许第三方设定</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>文件夹名称</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google云端硬碟</value>
+  </data>
+  <data name="ThirdPartykDrive" xml:space="preserve">
+    <value>kDrive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>重新连接</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>分享并放到公用文件</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>的SharePoint/ OneDrive业务</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>搜索在</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>和{0}所有子文件夹{1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>单击此处不搜索子文件夹</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>您可以创建文档（ {0}）、电子表格（ {1}）、演示幻灯片（ {2}）文件。稍后，您还可以从系统提供多种通用的文档格式中选择您需要的格式进行下载。</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>您可以修改以下文档： {0}</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>您可以通过以下工具/插件来查看文档：{0}</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>您可以上传任何文件到“文档”区中。</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>回收站</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>从列表中删除</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>覆盖具有相同名称的现有文件</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>增加关税计划</value>
+  </data>
+</root>

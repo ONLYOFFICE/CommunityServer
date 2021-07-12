@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>pentru citire</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acţiuni</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adaugă</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Adăugați {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Informații suplimentare</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Adaugă contul de email</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Adaugă etichetă</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Adaugă participant</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Adaugă eveniment</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Se adaugă o notă</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Adaugă {!user}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alertă</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Atașamente</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Înapoi</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Aflați mai multe...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Modifică</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Închideți această fereastră</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Închidere fereastră</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmare</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Ești sigur că vrei să</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Conținut</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Creează</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Creează</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Crează Proiect</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Adaugă o etichetă nouă</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>Depășire cu {0} zile</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Oportunități</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Șterge utilizatorul</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselectați tot</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Înregistrări duplicate</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Introduceți cantitatea</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Eroare</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Termen limită</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Responsabil</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>De la</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Ascunde</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Istoric</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Apel telefonic</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Întâlnire</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Notă</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>a fost primit</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>a fost trimis</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Suprascrie</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informația a fost trimisă</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Facturi</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Ultima lună</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Aflați mai multe...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Corpul scrisorii</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Corpul email-ului</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>De la</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Subiectul email-ului</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Către</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Calculator</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Evenimentele mele</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Nespecificat</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Notifică</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Nespecificat</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>De acord</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Altele</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Alte setări</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Disponibil pentru {!users}</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Drepturi de acces</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Valoare</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Salvează modificările</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Se salvează modificările</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Selectează tot</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Notifică utilizatorii</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Trimite Email</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Setări</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subiect</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Evenimente noi</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Contacte noi</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Acces acordat</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Sarcini</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Email-ul</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Luna curentă</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Către</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Companie/Persoană</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Atașează fișiser</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Apeluri</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Numere</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>Setări VoIP</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Ieri</value>
+  </data>
+</root>

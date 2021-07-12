@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Kaikki allekirjoittajat viimeistelivät: $DocumentTitle
+
+Tämä on tiedonanto, jossa ilmoitamme että kaikki allekirjoittajat viimeistelivät: "$DocumentTitle":"$DocumentURL".
+
+^Saat tämän sähköpostin koska olet rekisteröity käyttäjä: "${__VirtualRootPath}":"${__VirtualRootPath}" portaaliin.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Kirjaudu sisään DocuSign tilillesi lisätietoa varten.
+
+^Saat tämän sähköpostin koska olet rekisteröity käyttäjä: "${__VirtualRootPath}":"${__VirtualRootPath}" portaaliin.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Sähköpostilähetys valmis
+
+Tämä on sähköposti tiedonanto, jossa ilmoitamme että olet pyytänyt $MailsCount viestin lähetystä ja käsittely on nyt valmis. $Message
+
+Voit löytää onnistuneesti lähetetyt viestit "Lähetetty":"$__VirtualRootPath/addons/mail/#sent" kansiosta sähköposti moduulissa.
+
+^Saat tämän sähköpostin koska olet rekisteröity käyttäjä "${__VirtualRootPath}":"${__VirtualRootPath}" portaaliin.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Pääsy myönnetty asiakirjaan: "$DocumentTitle":"$DocumentURL" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on myöntänyt sinulle pääsyn asiakirjaan "$DocumentTitle":"$DocumentURL" seuraavin oikeuksin: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Pääsyoikeus myönnetty kansioon: "$DocumentTitle":"$DocumentURL" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" on myöntänyt sinulle pääsyn kansioon "$DocumentTitle":"$DocumentURL" seuraavin oikeuksin: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Asiakirjat. Kaikki allekirjoittajat viimeistelivät $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Asiakirjoja. Allekirjoituksen tila vaihtui</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Asiakirjoja. Sähköpostilähetys on valmis.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Asiakirjat. Pääsy tiedostoon $DocumentTitle myönnetty.</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Asiakirjat. Pääsy kansioon $DocumentTitle myönnetty.</value>
+  </data>
+</root>

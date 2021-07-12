@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Yalnız oxumaq üçün</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Tam giriş</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Müəllif</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Mən</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Ləğv</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Çevir və aç</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Endir</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Redaktə et</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Buna çevir</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Sənəd adı</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Xəta</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Pis sorğu.</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Boş qovluq</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Tələb olunan fayl tapılmadı</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Qovluğu öz alt qovluğuna köçürə bilməzsiniz</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Tələb olunan qovluq tapılmadı</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Həddən çox endirmə var</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Üzr istəyirik, amma bu format dəstəklənmir</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Əməliyyatı gerçəkləşdirməyə yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Yaratmağa yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Fayl silinə bilməz, çünki fayl redaktə olunmaq üçün açıqdır</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Qovluq silinə bilməz, çünki qovluqdakı fayllardan biri redaktə olunmaq üçün açıqdır</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Faylı silməyə yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Qovluğu silməyə yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Faylı redaktə etməyə yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Bu sənəd Sizin tərəfinizdən başqa bir nişanda redaktə olunur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Fayla baxmağa yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Qovluğun içinə baxmağa yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Faylı yenidən adlandırmağa yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Qovluğu yenidən adlandırmağa yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Fayl yenilənə bilməz, çünki redaktə olunmaq üçün açıqdır</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Qovluğun içinə baxmağa yetərincə icazəniz yoxdur</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Redaktə üçün açıq olan faylı güncəlləyə bilməzsiniz</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Səbətdə elementlərə baxmağa icazəniz yoxdur</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Hər kəs</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fayl</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Qovluq</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Qovluq adı</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Qonaq</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>yeni</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Bərpa et</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parol</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>İstifadəçinin etdiyini etmək|Hesabları Dropbox'a, Box'a və 'Ümumi sənədlər' bölməsində digər hesablara birləşdirmək|Sənədlərə və qovluqlara 'Ümumi sənədlər' bölməsində giriş hüquqları tənzimlə</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Portaldakı sənədlərinizi yaradın, redaktə edin, yaddaşda saxlayın və paylaşın. Google Drive, Zoho, Box'dən sənədlərinizi import edin.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Portaldakı sənədlərinizi yaradın, redaktə edin, yaddaşda saxlayın və paylaşın. Google Drive, Zoho, Box'dən sənədlərinizi import edin.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Öz sənədlərini və giriş icazəsi verilmiş sənədləri yaratmat və redaktə etmək|Sənədlərə digər istifadəçilərə oxumaq və redaktə etmək hüquqları vermək|Hesabları Dropbox'a, Box'a və 'Sənədlərim' bölməsində digər hesablara birləşdirmək</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} silindi</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Oxunmuş kimi işarələ</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Paylaş</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Qovluq paylaşılan zaman bildir</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Versiyaları göstər</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Ölçü</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Paylaşılan zaman bildir</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Qovluq başlığı</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Açıq etmək və 'Ümumi sənədlər' qovluğuna yerləşdirmək</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Yaradıldı</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Güncəlləndi</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Sənədlər</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Silindi</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Paylaşma ayarları</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Fayl əyləmlərini göstər</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Qovluq əyləmlərini göstər</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Alt qovluqlar</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Yükləndi</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>versiya</value>
+  </data>
+</root>

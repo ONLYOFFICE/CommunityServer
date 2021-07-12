@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>Pengguna aktif adalah anggota portal dengan pengecualian guest dan pengguna dengan status  "dinonaktifkan "</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>Tambahkan pilihan polling</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Tambahkan {!Users}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>Tambahkan Profil Jejaring Sosial Baru</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>Tambahkan pesan</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>Total jumlah perolehan suara</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>Pilihan Polling</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Lampirkan File</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>Lampirkan file dari Dokumen</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>Lampirkan file dari dokumen proyek</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Persingkat tautan undangan portal dan tautan berbagi dokumen dengan Bitly</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>Masuk ke Portal menggunakan akun sosial Anda dan cari kontak</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>Hubungkan layanan penyimpanan cloud favorit Anda dan simpan semua file Anda di satu tempat</value>
+  </data>
+  <data name="BannerTwilio2" xml:space="preserve">
+    <value>Hubungi pelanggan Anda langsung dari CRM berkat{0}integrasi ONLYOFFICE Twilio{1}</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Buat Presentasi</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Buat Spreadsheet</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Buat Dokumen</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Pelajari selengkapnya...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>Ukuran Perusahaan</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>Unggah dokumen dalam format aslinya</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>Semua dokumen yang diunggah akan dikonversi menjadi format Open Office XML agar lebih mudah diedit.</value>
+  </data>
+  <data name="ContactSupportBtn" xml:space="preserve">
+    <value>Hubungi dukungan</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>Hapus File</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Unduh File</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>Edit File</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}Buat{1} file langsung di portal Anda atau {2}unggah{3} di sini agar dapat {4}dibuka{5} dan {6}diedit{7} menggunakan editor portal ONLYOFFICE™.</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>{2}Unggah{3}file ada di portal Anda.</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>Daftar dokumen kosong</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>Masukkan pertanyaan polling Anda</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>Pilih pilihan polling</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Judul tidak boleh terdiri dari karakter berikut ini:</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Semua orang</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>Tambahkan posting</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>Tambah bookmark</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>Buka Dokumen</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>Membuat perusahaan baru</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>Membuat pengguna baru</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>Membuat proyek baru</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>Apa pun yang ditambahkan ke modul Komunitas akan ditampilkan di sini. Pengguna dapat berbagi informasi, pemikiran, dan pengalaman menarik dengan pengguna lain, mengungkapkan pendapat, mendapatkan umpan balik dari komentar pengguna lain.</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>Belum ada acara yang ditambahkan</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>Event untuk modul CRM yang tersedia untuk Anda akan ditampilkan di sini. Perusahaan baru dan pengguna yang ditambahkan atau yang tersedia, kasus baru, peluang dan tugas yang ada - segala sesuatu tentang CRM ada di tab ini.</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>Tidak ada CRM event yang telah ditambahkan</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>Perubahan dalam modul proyek yang tersedia untuk Anda akan ditampilkan di sini. Proyek yang dimaksud adalah pengguna atau pengikut dari proyek tersebut, tugas baru Anda atau perubahan yang dilakukan akan membantu Anda untuk menerima perubahan terbaru.</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>Tidak ada proyek yang sudah ditambahkan</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Perubahan pada portal dokumen yang tersedia untuk Anda akan ditampilkan di sini. Dokumen baru yang berbagi dengan Anda, perubahan pada dokumen yang Anda dapat akses, dokumen umum untuk semua pengguna portal akan ditampilkan di sini.</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>Tambahkan acara</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>Feed</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>Berikan berbagai pilihan untuk pertanyaan polling ini</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>Tidak ada berita yang sesuai dengan filter ini</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>Tidak ada berita yang sesuai dengan filter Anda di bagian ini.</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>Tidak ada panggilan yang sesuai dengan filter ini</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>Tidak ada panggilan yang sesuai dengan filter Anda di bagian ini.</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>Tautan ke Portal Pengguna</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>Jika Anda ingin membayar lisensi portal ONLYOFFICE, klik tombol Beli Sekarang.</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Silahkan bayar sesuai versi ONLYOFFICE dan dapatkan:</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>masukkan pertanyaan Anda</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Dari</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>Urutkan berdasar</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>Kepada</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>Dengan mencentang kotak ini Anda menerima ketentuan dari{0}Perjanjian Lisensi{1}</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>Lisensi kedaluwarsa atau kuota pengguna tidak cocok dengan lisensi</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>File Aktivasi Lisensi</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>Lisensi key salah</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>Modul dan Alat ONLYOFFICE:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Editor Dokumen Online{1}{0}Manajemen Dokumen{1}{0}Mail{1}​​{0}Proyek{1}{0}CRM{1}{0}Kalender{1}{0}Komunitas{1}</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1} pengguna aktif</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+ pengguna aktif</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="MediaViewerActualSize" xml:space="preserve">
+    <value>Ukuran Sebenarnya</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="MediaViewerFullscreen" xml:space="preserve">
+    <value>Layar penuh</value>
+  </data>
+  <data name="MediaViewerMute" xml:space="preserve">
+    <value>Mute</value>
+  </data>
+  <data name="MediaViewerNext" xml:space="preserve">
+    <value>Berikutnya</value>
+  </data>
+  <data name="MediaViewerPlay" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="MediaViewerPrevious" xml:space="preserve">
+    <value>Sebelumnya</value>
+  </data>
+  <data name="MediaViewerRotateLeft" xml:space="preserve">
+    <value>Putar Kiri</value>
+  </data>
+  <data name="MediaViewerRotateRight" xml:space="preserve">
+    <value>Putar ke Kanan</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>Masukkan nomor</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>Sebuah SMS berisi kode akses portal telah dikirim ke {0}{1}{2} nomor telepon seluler Anda.{5}Silakan masukkan kode tersebut dan klik tombol "{3}". Jika tidak ada pesan yang diterima setelah 3 menit, klik tombol "{4}".</value>
+  </data>
+  <data name="MobileCurrentNumber" xml:space="preserve">
+    <value>Nomor telepon seluler Anda saat ini adalah: {0}</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>Masukkan nomor telepon seluler</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>Otentikasi dua faktor diaktifkan untuk memberikan keamanan tambahan bagi portal. Masukkan nomor telepon seluer Anda untuk melanjutkan bekerja di portal. Nomor telepon seluler harus dituliskan menggunakan format internasional, diawali dengan kode negara.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Lainnya</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>Dokumen Baru</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>File baru</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>Tidak ada yang dapat ditampilkan</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>Semua aktivitas portal ditampilkan pada bagian ini. Saat ini tidak ada acara di portal untuk ditampilkan. Mulai gunakan portal Anda, isi dengan konten dan semua berita akan ditampilkan di halaman ini.</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Berikutnya</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Tidak ada komentar</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>Catatan: tindakan ini tidak dapat dibatalkan.</value>
+  </data>
+  <data name="NotSupportedBrowser" xml:space="preserve">
+    <value>Untuk bisa memutar media Anda memerlukan perambana/browser yang mutakhir</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>Berikan satu pilihan saja untuk pertanyaan polling ini</value>
+  </data>
+  <data name="PersonalStorageLimitExceededBody" xml:space="preserve">
+    <value>File tidak dapat ditambahkan karena telah melebihi kuota penyimpanan. Silakan hapus file kadaluarsa atau hubungi tim dukungan kami untuk informasi selengkapnya.</value>
+  </data>
+  <data name="PersonalStorageLimitExceededHeader" xml:space="preserve">
+    <value>Melebihi kuota</value>
+  </data>
+  <data name="PersonalStorageLimitExceededSubHeader" xml:space="preserve">
+    <value>Melebihi kuota penyimpanan</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>Pertanyaan Polling</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>Tipe Polling</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Sebelumnya</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>Anda yakin ingin menghapus file ini?</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>Baca tentang penggunaan nirlaba</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>Hapus dari daftar ini</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>Hapus pesan</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>Atur ulang filter</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>cari</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>Cari di modul</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Pilih semua</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>Kirim pemberitahuan</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Tambahkan pengguna atau grup dan beri mereka wewenang.</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>Pengaturan Berbagi</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>Tampilkan berita selanjutnya</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Kode sumber tersedia di {0}Github{1}</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>Harga umum</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>Lihat Avangate untuk daftar lengkap mata uang</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>Ukuran file besar</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Gratis</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>Buka daftar harga</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>Apakah Anda ingin memilih paket harga baru?</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>Penawaran terbatas</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>Ya, upgrade paket harga</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}1 Bulan{2}{1} Berlangganan</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}1 Tahun{2}{1} Berlangganan</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}3 Tahun{1} Berlangganan</value>
+  </data>
+  <data name="TariffNonProfit" xml:space="preserve">
+    <value>Anda sedang menggunakan paket harga untuk organisasi nirlaba.</value>
+  </data>
+  <data name="TariffOverdueDesktop" xml:space="preserve">
+    <value>{0}Pembayaran portal sudah terlambat.{1}{2}Untuk terus menggunakan fitur kolaborasi ONLYOFFICE,{2}memperpanjang rencana harga yang sudah ada atau memilih yang lain.</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>bulan</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>tahun</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>3 tahun</value>
+  </data>
+  <data name="TariffPerYearOnly" xml:space="preserve">
+    <value>Hanya per tahun</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>Langganan Paling Populer</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Menambahkan portal baru akan melebihi jumlah maksimum portal yang diizinkan oleh paket Anda saat ini.</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>Simpan {0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0} per pengguna/bln</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>Kirim permintaan Anda</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>Isi permintaan</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>Harap jelaskan rincian permintaan Anda di sini</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>Harap masukkan pesan Anda disini</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>Telah melewati kapasitas penyimpanan portal</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>Silakan hapus konten lama dari portal atau ubah paket harga Anda untuk mendapatkan kapasitas penyimpanan yang lebih besar.</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>Kapasitas penyimpanan tidak mencukupi</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>Pilih jumlah rekan satu tim Anda</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>Berapa banyak pengguna yang Anda butuhkan?</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>Edisi yang sesuai dengan tim Anda adalah {0}{2} - {3}pengguna aktif{7} + {4}{1} Penyimpanan</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>Tidak dapat menambahkan pengguna baru</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>Menambah pengguna baru akan melebihi jumlah maksimal anggota portal yang diijinkan untuk paket harga yang Anda miliki saat ini.</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>Menambahkan pengguna baru</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>Paket Harga dengan lebih dari {0} pengguna aktif{1} hanya tersedia atas permintaan saja.</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>Baca Selengkapnya</value>
+  </data>
+  <data name="TfaAppAuthDescription" xml:space="preserve">
+    <value>Masukkan kode yang dihasilkan 6 digit dari aplikasi Anda. Jika Anda tidak memiliki akses ke telepon Anda, Anda dapat menggunakan kode cadangan Anda.</value>
+  </data>
+  <data name="TfaAppCaption" xml:space="preserve">
+    <value>Konfigurasikan aplikasi autentikator Anda</value>
+  </data>
+  <data name="TfaAppConnctButton" xml:space="preserve">
+    <value>Hubungkan aplikasi</value>
+  </data>
+  <data name="TfaAppDescription" xml:space="preserve">
+    <value>Autentikasi dua faktor diaktifkan untuk memberikan keamanan portal tambahan. Konfigurasikan aplikasi authentikator Anda untuk terus bekerja pada portal. Misalnya Anda dapat menggunakan {0} untuk {1} dan {2} atau {3} untuk {4}.</value>
+  </data>
+  <data name="TfaAppHowTo" xml:space="preserve">
+    <value>Untuk terhubung ke aplikasi harap scan kode QR atau masukkan kode 6 digit Anda secara manual dibawah ini.</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Anda dapat membuat dokumen ({0}), spreadsheet ({1}), presentasi ({2}) dan mengunduhnya dalam format yang paling banyak dipakai.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Anda dapat mengedit file berikut ini: ({0}).</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Anda dapat membuka file dengan ekstensi berikut ini: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Anda dapat mengunggah file apapun yang Anda inginkan ke Dokumen.</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Nama Depan</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Nama Belakang</value>
+  </data>
+  <data name="UpgradeButton" xml:space="preserve">
+    <value>Perbarui paket harga</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Unggah file</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>Pilihan</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>Tidak ada yang dapat ditampilkan</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>Tidak ada yang dapat ditampilkan</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>Berikan Suara</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>Berita Terbaru</value>
+  </data>
+</root>

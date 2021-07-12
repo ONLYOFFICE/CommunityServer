@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsForReading" xml:space="preserve">
+    <value>för läsning</value>
+  </data>
+  <data name="AccessRightsForReadWriting" xml:space="preserve">
+    <value>för läsning/skrivning</value>
+  </data>
+  <data name="AccessRightsLimit" xml:space="preserve">
+    <value>Behörigheterna kommer definieras endast för kontakter som du har skapat.</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Händelser</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Lägg till {!group}</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Ytterligare information</value>
+  </data>
+  <data name="AddMailAccount" xml:space="preserve">
+    <value>Lägg till mejlkonto</value>
+  </data>
+  <data name="AddNewTag" xml:space="preserve">
+    <value>Lägg till Etikett</value>
+  </data>
+  <data name="AddParticipant" xml:space="preserve">
+    <value>Lägg till deltagare</value>
+  </data>
+  <data name="AddThisNote" xml:space="preserve">
+    <value>Lägg till Evenemang</value>
+  </data>
+  <data name="AddThisNoteProggress" xml:space="preserve">
+    <value>Lägger till noten...</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Lägg till {!user}</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Använd {0}?{1} och {0}*{1} symbolerna för att genomföra en singel/multipel-karaktär sökning. Till exampel, för att söka alla ord som börjar med {0}O{1}, använd {0}O*{1} förfrågan. Det rekommenderas att använda dessa symboler vid början av förfrågan. För att söka efter den exakta meningen, använd citattecken.{2}Lär dig mer...{3}</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="AssignedField" xml:space="preserve">
+    <value>Motsvarande ONLYOFFICE™ CRM fält</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Bilagor</value>
+  </data>
+  <data name="AttachThisNoteToContact" xml:space="preserve">
+    <value>Länka med kontakt</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Författare</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Tillbaka</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lär dig mer...</value>
+  </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryta</value>
+  </data>
+  <data name="CasesModuleName" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Ändra</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Nollställ filter</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stänga</value>
+  </data>
+  <data name="CloseThisWindow" xml:space="preserve">
+    <value>Stäng detta fönster</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Stäng fönstret</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>Kolon</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Kolumn i filen</value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value>Komma</value>
+  </data>
+  <data name="ComposeMailDescription" xml:space="preserve">
+    <value>Skriv ett brev som ska skickas till alla märkta kunder i kontaktlistan. Du kan kontrollera antal utvalda kunder i 'Till' fältet, skriv ett gemensamt 'Ämne' och använd de 'Personliga etiketter' för att inkludera all nödvändig information i ditt brev. Detta är en beta version för dem som vill testa de nya funktionaliteter i ONLYOFFICE™ CRM.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Bekräftelse</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelHeader" xml:space="preserve">
+    <value>Bekräftelse av förändringar</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText1" xml:space="preserve">
+    <value>Du raderade dig själv från kontaktmanagers.</value>
+  </data>
+  <data name="ConfirmationAccessRightsPanelText2" xml:space="preserve">
+    <value>Du kommer tappa läs- och skrivrättigheter till kontakten om de lämpliga behörigheterna är ej tillåtna för alla CRM användare.</value>
+  </data>
+  <data name="ConfirmationDeleteText" xml:space="preserve">
+    <value>Är du säker på att du vill radera dessa element?</value>
+  </data>
+  <data name="ContactCategoriesHelpInfo" xml:space="preserve">
+    <value>För att ändra listan över temperaturnivåer för en kontakt, besök CRM {0}Inställningar{1} sektionen</value>
+  </data>
+  <data name="ContactSettings" xml:space="preserve">
+    <value>Kontaktinställningar</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Innehåll</value>
+  </data>
+  <data name="ConversionDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="ConversionRate" xml:space="preserve">
+    <value>Växelkurs</value>
+  </data>
+  <data name="ConversionRates" xml:space="preserve">
+    <value>Valutaomvandlare</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Skapandedatum</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="CreateNewContact" xml:space="preserve">
+    <value>Skapa Ny Kontakt</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Skapa projekt</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Lägg till ny etikett</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Skapandedatum</value>
+  </data>
+  <data name="CRMProductIsDisabled" xml:space="preserve">
+    <value>CRM-modulen är inte aktiv.</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="Currency_Basic" xml:space="preserve">
+    <value>Basvalutor</value>
+  </data>
+  <data name="Currency_Other" xml:space="preserve">
+    <value>Andra valutor</value>
+  </data>
+  <data name="CurrentUser" xml:space="preserve">
+    <value>Aktuell {!user}</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Skräddarsydd</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Skräddarsydd period</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Andra användare</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateDueInDays" xml:space="preserve">
+    <value>Förfaller om {0} dag(ar)</value>
+  </data>
+  <data name="DateOverueByDays" xml:space="preserve">
+    <value>{0} dag(ar) försenad(e)</value>
+  </data>
+  <data name="DealModuleName" xml:space="preserve">
+    <value>Möjligheter</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeleteHistoryEvent" xml:space="preserve">
+    <value>Ta bort evenemang</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Ta bort deltagare</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Radera etikett</value>
+  </data>
+  <data name="DeleteUser" xml:space="preserve">
+    <value>Radera användare</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Avmarkera allt</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="DontAskAnymore" xml:space="preserve">
+    <value>Göra detsamma för alla framtida förekomster</value>
+  </data>
+  <data name="DoubleQuote" xml:space="preserve">
+    <value>Dubbla citationstecken</value>
+  </data>
+  <data name="DuplicateRecords" xml:space="preserve">
+    <value>Duplikat register</value>
+  </data>
+  <data name="EmptyFileErrorMsg" xml:space="preserve">
+    <value>Tom fil</value>
+  </data>
+  <data name="EmptyHistoryDescription" xml:space="preserve">
+    <value>Inga register som matchar ditt filter kan visas i denna sektion. Vänligen välj andra filtreringsalternativ eller rensa filtrer för att se alla dokument i denna sektion. Du kan också söka efter registret du behöver i en annan kontaktshistorik.</value>
+  </data>
+  <data name="EmptyHistoryHeader" xml:space="preserve">
+    <value>Inga register som matchar detta filter hittades här</value>
+  </data>
+  <data name="EnterAmount" xml:space="preserve">
+    <value>Ange summa</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="ErrorMessage_UploadFileSize" xml:space="preserve">
+    <value>Filstorleken överskrider {1}{0}{2}</value>
+  </data>
+  <data name="ExportCurrentListToCsvFile" xml:space="preserve">
+    <value>Exportera den aktuella listan till en CSV-fil</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Exportera data</value>
+  </data>
+  <data name="ExportDataInfo" xml:space="preserve">
+    <value>Du kan alltid se, ladda ner, ändra, eller radera alla exporterade filer i {0}Documents/My Documents{1}</value>
+  </data>
+  <data name="ExportDataProgress" xml:space="preserve">
+    <value>Export av data ({0}% utförd)</value>
+  </data>
+  <data name="FileSizeErrorMsg" xml:space="preserve">
+    <value>Den maximala filstorleken har överskridits</value>
+  </data>
+  <data name="FilterByCreationDate" xml:space="preserve">
+    <value>Skapandedatum</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="FilterByResponsible" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="FilterWithTag" xml:space="preserve">
+    <value>Med etikett</value>
+  </data>
+  <data name="FindContactByName" xml:space="preserve">
+    <value>Hitta ett företag eller en person vid namn...</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Gömma</value>
+  </data>
+  <data name="HideAttachPanel" xml:space="preserve">
+    <value>Gömma bilagapanelen</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historik</value>
+  </data>
+  <data name="HistoryCategoriesHelpInfo" xml:space="preserve">
+    <value>Du kan ändra listan över evenemangskategorier för historiken {0}här{1}</value>
+  </data>
+  <data name="HistoryCategory_Call" xml:space="preserve">
+    <value>Telefonsamtal</value>
+  </data>
+  <data name="HistoryCategory_Email" xml:space="preserve">
+    <value>E-post</value>
+  </data>
+  <data name="HistoryCategory_Meeting" xml:space="preserve">
+    <value>Bokat tid</value>
+  </data>
+  <data name="HistoryCategory_Note" xml:space="preserve">
+    <value>Not</value>
+  </data>
+  <data name="HistoryEventInboxMail" xml:space="preserve">
+    <value>har mottagits</value>
+  </data>
+  <data name="HistoryEventOutboxMail" xml:space="preserve">
+    <value>har skickats</value>
+  </data>
+  <data name="HistoryLongDataMsg" xml:space="preserve">
+    <value>Max. antal karaktärer överskridet: {0}</value>
+  </data>
+  <data name="IgnoreFirstRow" xml:space="preserve">
+    <value>Ignorera första raden under importen</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Clone" xml:space="preserve">
+    <value>Duplicera</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_CloneDescription" xml:space="preserve">
+    <value>Använd denna option för att importera kontakter och duplicera de sammanfallna kontakter. Till exempel säger vi att det finns två register - 'A' och 'B' i ditt ONLYOFFICE™ CRM. Du vill importera 'B' och 'C' registren. Om du väljer 'Duplicera' optionen, en duplikat av 'B' kommer skapas under importeringen.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Description" xml:space="preserve">
+    <value>En kontroll på dupliceringar kommer köras baserad på Mejl fältet.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Overwrite" xml:space="preserve">
+    <value>Skriva över</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_OverwriteDescription" xml:space="preserve">
+    <value>Använd denna option för att importera kontakter och skriva över de befintliga kontakterna. Till exempel säger vi att du har två register - 'A' och 'B' - i ditt ONLYOFFICE™ CRM. Du vill importera 'B' och 'C' registren. Om du väljer 'Skriva över' optionen, den befintliga 'B' kommer överskrivas av den importerade under importeringen.</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_Skip" xml:space="preserve">
+    <value>Hoppa över</value>
+  </data>
+  <data name="ImportFromCSV_DublicateBehavior_SkipDescription" xml:space="preserve">
+    <value>Använd denna option för att importera kontakter och behålla de befintliga kontakterna. Till exempel säger vi att det finns två register - 'A' och 'B' - i ditt ONLYOFFICE™ CRM. Du vill importera 'B' och 'C' registren. Om du väljer 'Hoppa över' optionen kommer den befintliga 'B' bevaras under importeringen.</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_DelimiterCharacter" xml:space="preserve">
+    <value>Avgränsare</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Encoding" xml:space="preserve">
+    <value>Kodning</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_Header" xml:space="preserve">
+    <value>CSV-Fil Inställningar</value>
+  </data>
+  <data name="ImportFromCSV_ReadFileSettings_QuoteCharacter" xml:space="preserve">
+    <value>Textavgränsare</value>
+  </data>
+  <data name="ImportFromCSVStepOneProgressLable" xml:space="preserve">
+    <value>Skannar filen...</value>
+  </data>
+  <data name="ImportFromCSVStepTwoProgressLable" xml:space="preserve">
+    <value>Börja importera data</value>
+  </data>
+  <data name="InformationProvidedBy" xml:space="preserve">
+    <value>Informationen skickades</value>
+  </data>
+  <data name="InvoiceModuleName" xml:space="preserve">
+    <value>Fakturor</value>
+  </data>
+  <data name="InvoiceSettings" xml:space="preserve">
+    <value>Fakturinställningar</value>
+  </data>
+  <data name="InvoiceTaxes" xml:space="preserve">
+    <value>Skatter</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Förra månaden</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Lär dig mer...</value>
+  </data>
+  <data name="LetterBody" xml:space="preserve">
+    <value>Brevtext</value>
+  </data>
+  <data name="LinkTo" xml:space="preserve">
+    <value>Länka med</value>
+  </data>
+  <data name="LoadingWait" xml:space="preserve">
+    <value>Vänligen vänta...</value>
+  </data>
+  <data name="MailBody" xml:space="preserve">
+    <value>Mejltext</value>
+  </data>
+  <data name="MailCopyTo" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="MailFrom" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="MailHistoryEventTemplate" xml:space="preserve">
+    <value>ONLYOFFICE™ Mass-sändning funktion: "{0}"</value>
+  </data>
+  <data name="MailSender_FailedDeliverException" xml:space="preserve">
+    <value>Meddelandeleverans till {0} misslyckades</value>
+  </data>
+  <data name="MailSender_InvalidEmail" xml:space="preserve">
+    <value>Ogiltig mejladress: {0}</value>
+  </data>
+  <data name="MailSender_MailboxBusyException" xml:space="preserve">
+    <value>Leveransen misslyckades - ny försök om {0} sekunder.</value>
+  </data>
+  <data name="MailSubject" xml:space="preserve">
+    <value>Mejlämne</value>
+  </data>
+  <data name="MailTo" xml:space="preserve">
+    <value>Till</value>
+  </data>
+  <data name="MoneyCalculator" xml:space="preserve">
+    <value>Kalkylator</value>
+  </data>
+  <data name="My" xml:space="preserve">
+    <value>Mina</value>
+  </data>
+  <data name="MyEventsFilter" xml:space="preserve">
+    <value>Mina evenemang</value>
+  </data>
+  <data name="NextSample" xml:space="preserve">
+    <value>Nästa register</value>
+  </data>
+  <data name="NoLoadedMessages" xml:space="preserve">
+    <value>Inga register</value>
+  </data>
+  <data name="NoMailAccountsAvailableError" xml:space="preserve">
+    <value>Inga mejlkonto tillgängliga</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Inga matchningar</value>
+  </data>
+  <data name="NoSet" xml:space="preserve">
+    <value>Ospecifierat</value>
+  </data>
+  <data name="Notify" xml:space="preserve">
+    <value>Avisera</value>
+  </data>
+  <data name="NotSpecified" xml:space="preserve">
+    <value>Ospecifierat</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Överst</value>
+  </data>
+  <data name="OrganisationProfile" xml:space="preserve">
+    <value>Företagsprofil</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Annat</value>
+  </data>
+  <data name="OtherSettings" xml:space="preserve">
+    <value>Andra inställningar</value>
+  </data>
+  <data name="PreviewMailDescription" xml:space="preserve">
+    <value>Här kan du se brevet du skriver. Använd 'Tillbaka' knappen för att göra ändringar eller 'Skicka' knappen, om du gillar resultatet.</value>
+  </data>
+  <data name="PrevSample" xml:space="preserve">
+    <value>Föregående register</value>
+  </data>
+  <data name="PrevStep" xml:space="preserve">
+    <value>Tidigare Skede</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>privat</value>
+  </data>
+  <data name="PrivatePanelAccessListLable" xml:space="preserve">
+    <value>Tillgänglig för {!users}</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Begränsa tillgång</value>
+  </data>
+  <data name="PrivatePanelDescription" xml:space="preserve">
+    <value>Som standard beviljats tillgången till alla portal{!users}. För att begränsa tillgången, kryssa i rutan nedan.</value>
+  </data>
+  <data name="PrivatePanelHeader" xml:space="preserve">
+    <value>Behörighet</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Göra samma sak som CRM användare|Importera, exportera data|Skicka mejl till CRM kontakter|Hantera inställningar|Hantera kontakter, uppgifter, fall, möjligheter</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Hantera dina kundrelationer, identifiera prioritetskontakter, spåra kommunikationshistorik och säljprestanda.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Hantera dina kundrelationer, identifiera prioritetskontakter, spåra kommunikationshistorik och säljprestanda.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produkter &amp; Tjänster</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Skapa en kontakt, uppgift, fall, möjlighet med eventuell begränsad tillgång|Redigera en kontakt, en uppgift, ett fall, en möjlighet med behörigheter.</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="RelativeTo" xml:space="preserve">
+    <value>Länkad med</value>
+  </data>
+  <data name="ReportsModuleName" xml:space="preserve">
+    <value>Rapporter</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="SampleValues" xml:space="preserve">
+    <value>Värde</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Spara ändringar</value>
+  </data>
+  <data name="SaveChangesProggress" xml:space="preserve">
+    <value>Sparar ändringar...</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Markera allt</value>
+  </data>
+  <data name="SelectUsersToNotify" xml:space="preserve">
+    <value>Avisera användare</value>
+  </data>
+  <data name="Semicolon" xml:space="preserve">
+    <value>Semikolon</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Skicka Mejl</value>
+  </data>
+  <data name="SetPermissions" xml:space="preserve">
+    <value>Definiera Behörigheter</value>
+  </data>
+  <data name="SettingModuleName" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="ShowAttachPanel" xml:space="preserve">
+    <value>Visa bilagapanelen</value>
+  </data>
+  <data name="ShowInformation" xml:space="preserve">
+    <value>Visa information</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Visa på sidan</value>
+  </data>
+  <data name="SingleQuote" xml:space="preserve">
+    <value>Singel citationstecken</value>
+  </data>
+  <data name="Space" xml:space="preserve">
+    <value>Mellanslag</value>
+  </data>
+  <data name="StoreThisLetterInHistory" xml:space="preserve">
+    <value>Spara detta meddelande i Historiken</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Ämne</value>
+  </data>
+  <data name="SubscriptionType_AddRelationshipEvent" xml:space="preserve">
+    <value>Nya evenemang</value>
+  </data>
+  <data name="SubscriptionType_CreateNewContact" xml:space="preserve">
+    <value>Nya kontakter</value>
+  </data>
+  <data name="SubscriptionType_ExportCompleted" xml:space="preserve">
+    <value>Exportering klar</value>
+  </data>
+  <data name="SubscriptionType_ImportCompleted" xml:space="preserve">
+    <value>Import klar</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForOpportunity" xml:space="preserve">
+    <value>Ansvarig för möjligheten</value>
+  </data>
+  <data name="SubscriptionType_ResponsibleForTask" xml:space="preserve">
+    <value>Uppgifter dig tilldelade</value>
+  </data>
+  <data name="SubscriptionType_SetAccess" xml:space="preserve">
+    <value>Tillgång beviljats</value>
+  </data>
+  <data name="SummaryTable" xml:space="preserve">
+    <value>Översiktstabell</value>
+  </data>
+  <data name="Tabulation" xml:space="preserve">
+    <value>Tabulering</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketter</value>
+  </data>
+  <data name="TaskModuleName" xml:space="preserve">
+    <value>Uppgifter</value>
+  </data>
+  <data name="TheEmail" xml:space="preserve">
+    <value>Mejlet</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Denna månad</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Till</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Idag</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="TypeCompanyOrPerson" xml:space="preserve">
+    <value>Företag/Person</value>
+  </data>
+  <data name="UnlinkContact" xml:space="preserve">
+    <value>Avlänka kontakt</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Upp</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>Bifoga fil</value>
+  </data>
+  <data name="ViewFiles" xml:space="preserve">
+    <value>Visa filer</value>
+  </data>
+  <data name="ViewMailingHistoryWithParticipant" xml:space="preserve">
+    <value>Se denna deltagares mejlhistorik</value>
+  </data>
+  <data name="VoIPCallsSettings" xml:space="preserve">
+    <value>Samtal</value>
+  </data>
+  <data name="VoIPCommonSettings" xml:space="preserve">
+    <value>Gemensam</value>
+  </data>
+  <data name="VoIPNumbersSettings" xml:space="preserve">
+    <value>Nummer</value>
+  </data>
+  <data name="VoIPSettings" xml:space="preserve">
+    <value>VoIP-Inställningar</value>
+  </data>
+  <data name="WholeCRMModule" xml:space="preserve">
+    <value>Hela CRM-modulen</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Igår</value>
+  </data>
+</root>

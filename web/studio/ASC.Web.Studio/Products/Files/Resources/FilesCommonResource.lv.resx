@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Piekļuve</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Āra portāls</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Tikai lasīšana</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Pilna piekļuve</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Liegt Piekļuvi</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Apskats</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Lai strādātu ar failu, jums ir piešķirt piekļuvi tam</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>TURPINĀT</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Atverot šo failu ar ONLYOFFICE™, tiks izveidota jauna šī faila kopija Office Open XML formātā jūsu Google Drive. Tādējādi netiks veiktas izmaiņas oriģinālajā failā. Lai veiktu tālākas izmaiņas ONLYOFFICE™ failā, jums būs jāatver jauna kopija.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Nerādīt vēlreiz</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Ievadiet faila nosaukumu</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Izvēlieties File Type</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autors</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Es</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konvertēt &amp; Atvērt</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Lejuplādēt</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Saglabāt</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentārs</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Mainīts īpašnieks</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Konvertēts no {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Nokopēts</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Izveidots</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Izveidots ar DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Rediģēts</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Pārrakstīts</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Atjaunots no {0} revīzijas</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Atjaunots no dokumenta izmaiņām {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Augšupielādēts</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>savienojums url</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Konvertēt informāciju</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Dokumenta nosaukums</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Noraidīts</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Sūtīšanas laikā radās kļūda</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Dokumenta nosūtīšana ar DocuSign ir atcelta</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Dokuments tika nosūtīts parakstīšanai ar DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Anulēts</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Ievadiet komentāru</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Kļūda</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Slikts pieprāsījums</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Jūs nevarat izvēlēties šo lietotāju</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Konvertēšana aizņem pārāk daudz laika.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Kļūda attiecībā uz dokumentu izsniegšanu</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Fails ir atvērts rediģēšanai lietotāji {0}. Šobrīd šis faila formāts neatbalsta kopējās rediģēšanas iespēju.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Fails ir atvērts rediģēšanai mobilajā lietotnē lietotājiem {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Tukšs dokuments</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Pieprasīts fails netika atrasts</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Fails, kas lielāks par {0} netiks konvertēts</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Faili, kas pārsniedz {0} netiks nokopēti</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Faili, kas pārsniedz {0}, netiks rediģēti</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Faili, kas pārsniedz {0}, netiks pārvietoti</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Direktoriju nevar kopēt viņa zem-direktorijā</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Pieprasīta mape nebija atrasta</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Nepareizs nosaukums</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Fails patreiz izmantot cits lietotājs</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Nav pieejamu kontu, lai nosūtītu ziņu. Dodieties uz Pastu un pieslēdzieties pastkastei.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Neizdevās nosūtīt vismaz {0} ziņas. Lūdzu, dodieties uz moduli "Pasts", lai redzētu, kas varēja būt kļūdas iemesls.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Pārāk daudz downloads.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Atvainojiet, bet šis faila formats nav atbalstīts</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Saglabāšanas autors nav zināms</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Fails saglabāšanas laikā tika bojāts</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Neizdevās iegūt saglabājamo failu</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Nepietiek tiesību operācijas veikšanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Nevar atļaut pie {0} sniedzējam dotas pilnvaras.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Jums nav pietiekami daudz atļauju, lai izveidotu</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Nav iespējams izdzēst failu, jo fails ir atvērts rediģēšanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Nav iespējams izdzēst mapi, jo viens no failiem ir atvērts rediģēšanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Nepietiek tiesību faila dzešanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Nepietiek tiesību mapes dzešanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Jums nav pietiekami daudz atļauju, lai rediģētu failu</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Jūs jau rediģējat šo dokumentu citā cilnē</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Nepietiek tiesību faila pārlūkošanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Nepietiek tiesību mapes pārlūkošanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Nepietiek tiesību faila pārdevēšanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Nepietiek tiesību mapes pārdevēšanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Nav iespējams atjaunot failu, jo tas ir atvērts rediģēšanai</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Nepietiek tiesību mapes pārlūkošanai</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Trešās puses mapes saturs nav pieejams. Mēģiniet atkārtoti pieslēgties kontam.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Faila rediģēšanas uzsākšanas kļūda</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Nevar atjaunot failu, kas ir atvērts rediģēšanai</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Lietotājs nav atrasts</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Aizliegts pārlūkot atkritnes elemenuts</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Visi</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Fails</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Mape</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Mapes nosaukums</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonīms lietotājs</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>jauns</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Atjaunot</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Izveidots fails mapē "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Parole</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Dariet to pašu ka lietotājs|Saistīt Dropbox, Box un citus kontus ar 'Kopējiem dokumentiem'|Iestatīt piekļuves tiesības, dokumentiem un mapem sadaļā "Kopēji dokumenti"</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Izveidojiet, rediģējiet un kopīgojiet dokumentus. Strādājiet pie tiem kopā reāllaikā. 100% savietojamība ar MS Office formātiem garantēta.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Izveidojiet un rediģējiet, kā arī kopīgojiet dokumentus. Strādājiet pie tiem kopā reāllaikā. 100% savietojamība ar MS Office formātiem garantēta.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Izveidot un rediģēt savus dokumentus, kā arī Koplietotie dokumenti ar pienācīgam piekļuves tiesībam|Sniegt lasīšanas/rediģēšanas tiesības citiem lietotājiem|Saistīt Dropbox, Box un citus kontus ar sadaļu "Mani dokumenti"</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} noņemts</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Atzīmēt ka izlasīto</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Meklēt</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dalīties</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Paziņot, kad mape tiek koplietota</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Paradīt versijas</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Izmērs</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Paziņot, kad dokuments ir parakstīts ar DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Paziņot, kad DocuSign dokumentam ir mainīts statuss</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Paziņot, kad koplietots</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Paziņot, kad ir nosūtīts</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Aizpildiet, lai veiktu izmaiņas</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mapes nosaukums</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Atkārtoti savienot</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Konts</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Padarīt kopējo un saglabāt 'Kopēji Dokumenti' mapē</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Izdveidots</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Lietotāja {!user} {0} dokumenti</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumentu</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Atjaunots</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Dzēsts</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Iezīmēt</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Atļaujas Iestatījumi</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Rādīt failu darbības</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Rādīt mapes darbības</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Zem-mapes</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Augšuplādēts</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Zīme versija</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Zīme pārskatīšana</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versijas un revīzijas:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Vārds</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Uzvārds</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>The file is unlocked</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

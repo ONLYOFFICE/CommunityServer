@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Alla tecknare färdigställde $DocumentTitle
+
+Detta är en epostavisering för att informera dig att alla tecknare färdigställde "$DocumentTitle":"$DocumentURL".
+
+^Du får detta mejl för att du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+Logga in på ditt DocuSign konto för mer information.
+
+^Du får detta mejl för att du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen.^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__AuthorName":"$__AuthorUrl" nämnde dig i detta dokumentets kommentarer
+
+Detta meddelandet informerar dig om att du nämnts av "$__AuthorName":"$__AuthorUrl" i kommentarerna till detta "$DocumentTitle":"$DocumentURL" dokumentet:
+
+$Message
+
+^Du får detta meddelandet för att du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. Utskick färdigställt
+
+Detta är en epostavisering för att informera dig att du har begärt ett utskick av $MailsCount meddelanden och processen är nu färdig. $Message
+
+Det skickade meddelandet kan du se i din "Sent":"$__VirtualRootPath/addons/mail/#sent" mapp i Mejl modulen.
+
+^Du får detta mejl för att du är en registrerad användare av "${__VirtualRootPath}":"${__VirtualRootPath}" portalen.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Åtkomst beviljad till dokument: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" beviljade dig åtkomst till "$DocumentTitle":"$DocumentURL" dokumentet med dessa rättigheter: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Åtkomst beviljad till mapp: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" beviljade dig åtkomst till "$DocumentTitle":"$DocumentURL" mappen med dessa rättigheter: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Dokument. Alla tecknare färdiga $DocumentTitle</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Dokument. Teckenstatus ändrad</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Dokument. Nämnda i dokument</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Dokument. Utskick är färdigt.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Dokument. Tillgång beviljad till dokument: $DocumentTitle</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Dokument. Tillgång beviljad till mapp: $DocumentTitle</value>
+  </data>
+</root>

@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Tanggal aktual dari kesepakatan</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Menambah kesempatan...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Tambahkan email</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Menambahkan invoice...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Tambahkan telepon</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Buat Tugas Baru</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>Alamat</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>Alamat</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Alamat</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>sejumlah</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per hari</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per jam</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per bulan</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per minggu</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per tahun</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Mencari</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Kasus</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Ditutup</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Sunting</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Tandai sebagai penting</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Kota</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Anda yakin ingin mengubah kunci ini ?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Catatan: semua bentuk yang dibuat sebelumnya tidak akan bekerja lagi</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Anda yakin ingin menghapus tugas ini?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Semua informasi yang dimasukkan akan hilang. Apakah Anda yakin ingin melanjutkan?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Silakan masukkan nama akun Twitter Anda. Sebagai contoh, teamlabdotcom</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Anda yakin ingin menghapus kasus '{0}' ?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Menghapus kasus...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Anda yakin ingin menghapus perusahaan '{0}' ?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Catatan: tindakan ini tidak dapat dibatalkan</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Menghapus kontak...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Anda yakin ingin menghapus kesempatan '{0}' ?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Menghapus kesempatan...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Anda yakin ingin menghapus orang '{0}' ?</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Sunting email</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Menyimpan perubahan...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Menyimpan perubahan...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Sunting telepon</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Sunting «{0}» bidang</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Sunting tugas</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} dipilih</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Daftar elemen tidak boleh kosong</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Setiap surat harus memiliki tubuh</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Setiap tugas harus memiliki tanggal jatuh tempo</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Setiap tugas harus memiliki penanggung jawab</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Setiap tugas harus memiliki judul</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Tidak ada bidang yang sesuai dengan 'Judul Kasus' dapat ditemukan</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Tidak ada orang yang dipilih</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Tidak ada bidang yang sesuai dengan 'Name Awal' atau 'Nama Perusahaan' dapat ditemukan</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} email penerima maksimum</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Masukkan judul kasus</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Bidang wajib tidak boleh digandakan</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Format gambar tidak didukung</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Format file tidak didukung</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Error saat mengunggah gambar ke server</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Tidak ada bidang yang sesuai dengan 'Judul Kesempatan', 'Penanggung Jawab Kesempatan' dapat ditemukan</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Tidak ada bidang yang sesuai dengan 'Judul Tugas', 'Bertanggung Jawab', 'Tanggal Jatuh Tempo' dapat ditemukan</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>Jenis "{0}" adalah yang terakhir. Tidak dapat dihapus.</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>Jenis "{0}" adalah yang terakhir. Tidak dapat dihapus.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Ini adalah satu-satunya tahap kesempatan. Tidak bisa dihapus</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>Kategori "{0}" adalah yang terakhir. Tidak dapat dihapus.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>Kategori "{0}" adalah yang terakhir. Tidak dapat dihapus.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Perkiraan kesepakatan tanggal jatuh tempo</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Temukan akun di Twitter</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Daftar penerima Anda telah dihasilkan. {0} Klik tautan di bawah untuk melewati alamat email Anda ke program email.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Pergi ke Pengaturan</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Tautkan dengan proyek</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Memuat...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>Kasus</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>Kontak</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>Acara</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>orang</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>Tugas</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Berikutnya</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Berikutnya (untuk preview)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Tidak ada kasus</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Tidak ada tanggal tutup</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Tidak ada perusahaan</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Tidak ada kontak</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Tidak ada kesempatan</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Tidak ada acara</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Tidak ada file yang dipilih</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Tidak ada orang</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>Tidak ada subyek</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Tidak ada tugas</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>Kasus</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>Perusahaan</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>kontak</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>Kesempatan</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>acara</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>orang</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>Tugas</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>selama {0} hari</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>selama {0} jam</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>selama {0} bulan</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>selama {0} minggu</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>selama {0} tahun</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Muat ulang laman</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Silakan tunggu...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Kemungkinan profil untuk {0}</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Sebelumnya</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Utama</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} penerima tidak memiliki alamat email.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Simpan Perubahan</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Pilih file CSV</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>File CSV terpilih : {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Kirim</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Pengaturan telah berhasil diperbarui</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Tampilkan selengkapnya</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Level Suhu</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Negara
+</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Berhasil ditutup</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>Tugas «{0}»  ditutup</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Didukung oleh {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>{0} hari {1} jam {2} menit dari awal kontainer</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>Dari tugas sebelumnya {0} hari {1} jam {2} menit</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Tidak berhasil ditutup</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Kode pos</value>
+  </data>
+</root>

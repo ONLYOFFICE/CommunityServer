@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Редактиран е коментар за дискусията: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" редактира коментар по дискусията: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData
+
+"Read more":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"${__VirtualRootPath}" портала. За да промените типа на уведомлението, моля, променете "Настройки за абонамент":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Comment, редактиран за задача: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" е редактирал коментар към "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" задача: 
+
+$AdditionalData 
+
+"Прочетете повече":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"
+
+^Получавате този имейл, защото сте регистриран потребител на портал "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.Projects. Импортиране на данните от Basecamp Новите данни са успешно внесени. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>Вие сте добавени към екипа на проекта: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName":"$__AuthorUrl" ви добави в екипът на проекта: ["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}" ":" ${__VirtualRootPath} "портал. За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Overdue уведомяване за етап: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" "$EntityTitle":"${__VirtualRootPath}/продукти/projects/milestones.aspx? prjID = $ProjectID "крайъгълен камък на проекта" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID "е просрочен. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Discussion изтрит: "$EntityTitle" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" изтри дискусията "$EntityTitle" в 
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" проект. 
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Milestone затворен: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" $__DateTime "$__AuthorName":"$__AuthorUrl" е затворил "$EntityTitle" ":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed "крайъгълен камък в" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID "проект. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Milestone създаден: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е добавил нов етап: " $EntityTitle ":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending "към" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx? prjID = $ProjectID "проект. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1. Известие за дължината на варовика: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" Остава по-малко от 48 часа до датата на "$EntityTitle" ":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true "крайъгълен камък в" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID "проект. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Milestone изтрит: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" е изтрил етапа "$EntityTitle" в "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID = $ProjectID "проект: $AdditionalData ^ Получавате този имейл, защото сте регистриран потребител на портала" ${__VirtualRootPath} ":" ${__VirtualRootPath} ". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Milestone редактиран: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" $__DateTime "$__AuthorName":"$__AuthorUrl" е редактирал "$EntityTitle" ":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true "крайъгълен камък в" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID "проект. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Milestone възобновено: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName":"$__AuthorUrl" възобновява етапа "$EntityTitle":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID "в проекта" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID ": $AdditionalData ^ You получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Нов коментар към дискусията: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е добавил нов коментар към дискусията: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $AdditionalData "Прочетете повече":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"^ Получавате този имейл, защото сте регистриран потребител на портала" ${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Нов коментар към задачата: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е добавил нов коментар "Задачата на $EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID: $AdditionalData"Прочетете повече":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID"^ Получавате този имейл, защото сте регистриран потребител на портала" ${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Нов файл за дискусия: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е добавил нов файл на "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" дискусия: $AdditionalData ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath" } ":" ${__VirtualRootPath} "портал. Ако не искате да получавате известия за тази дискусия, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.New файл за задача: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е добавил нов файл към задачата "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Проектът е изтрит: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" е изтрил проекта "$EntityTitle" ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"$$Портал {__VirtualRootPath}. За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Добавени сте към екипа на проекта</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Дискусията бе изтрита: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Завършен етап: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Създаден е етап: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Изтрит етап: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Milestone възобновено: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Нова дискусия: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Проекти. Проектът е изтрит: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Важен етап: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Ти беше назначен за ръководител на проекта</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задача, възложена на вас: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задача, която ви е възложена: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Затворена подзадача: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Създадена подзадача: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Изтрита подзадача: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Подзадача е възобновена: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е затворена: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Създадена е задача: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е изтрита: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е възобновена: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Напомняне за задачата: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" ви напомня за задачата : "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item ("TaskDescription") ^ Получавате този имейл, защото сте регистриран потребител на Портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Напомняне за задачата: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" Днес е крайният срок за задачата: "$EntityTitle":"${ __VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID ": $AdditionalData.get_item (" TaskDescription ") ^ Получавате този имейл, защото сте регистриран потребител на" ${__VirtualRootPath} ":" ${__VirtualRootPath} "портал. За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Вие сте премахнати от екипа на проекта: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName": екипа на проекта: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"${__VirtualRootPath}" портал. За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Task вече не ви е присвоен: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime вече не сте отговорни за задачата: "$EntityTitle ":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID "в" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID " project: $AdditionalData.get_item ("TaskDescription") ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Milestone Ви е присвоено: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime"$__AuthorName": за крайъгълен камък: 
+"$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true"
+"$ProjectTitle":"${__VirtualRootPath}/Products/Projects/project.aspx?prjID=$ProjectID" проект. 
+
+^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>Вие сте назначени за мениджър на проекта: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" $__DateTime "$__AuthorName":"$__AuthorUrl" ви е назначил мениджър на проекта "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": $AdditionalData ^ Получавате този имейл, защото сте регистриран потребител на "${__VirtualRootPath}":"${ Портал __VirtualRootPath}. За да промените типа на известието, моля, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Subtask, възложена на вас: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ви е определило отговорно за подзадача: 
+"$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" се добавя към "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" задача. 
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Задача, която ви е възложена: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" ви е определило отговорно за задачата: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" в "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID" проект. 
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Subtask затворен: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" затвори подзадачата, добавена към "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" задача. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Subtask created: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е добавил нова подзадача: " $SubEntityTitle ":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID "към" $EntityTitle ":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID &amp; ID = $EntityID "задача. Подзадачата е присвоена на "$Responsible". ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/продукти/проекти/задачи.</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Subtask deleted: "$SubEntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" е изтрил подзадача: "$SubEntityTitle" на "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx? prjID = $ProjectID &amp; ID = $EntityID "задача. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Subtask редактиран: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е редактирал "$SubEntityTitle" : "Подпрограма ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID на" $EntityTitle ":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID= $EntityID "задача. Подзадачата е присвоена на "$Responsible". ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/продукти/проекти/задачи.</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Subtask възобновено: "$SubEntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" възобнови подзадачата: "$SubEntityTitle" на "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx? prjID = $ProjectID &amp; ID = $EntityID "задача. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Task затворен: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID "в" $ProjectTitle ": project: $AdditionalData ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Task created: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" добави нова задача: " $EntityTitle ":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID "към" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID "проект: $AdditionalData.get_item (" TaskDescription ") Задачата е присвоена на" $Responsible "^ Получавате този имейл, защото сте регистриран потребител на портал" ${__VirtualRootPath} ":" ${__VirtualRootPath} ". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Task delete: "$EntityTitle" $__DateTime "$__AuthorName":"$__AuthorUrl" е изтрил задачата "$EntityTitle" в "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID = $ProjectID "проект: $AdditionalData ^ Получавате този имейл, защото сте регистриран потребител на портала" ${__VirtualRootPath} ":" ${__VirtualRootPath} ". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Task редактиран: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е редактирал "$EntityTitle" : "Задача ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID в" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID " проект. ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомяването, управлявайте "настройките за абонамента":"$RecipientSubscriptionConfigURL". ^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Преместване на задача: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е премахнало "$EntityTitle" : "Задача ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID от" $SubEntityTitle ":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID# my = true "проект в проекта" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID ". Задачата "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID сега не е част от някакъв важен момент. ^ Получавате този имейл, защото сте регистриран потребител на</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>Преместване на задача: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":"$__AuthorUrl" е преместило "$EntityTitle" : "Задача на ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID към" $SubEntityTitle ":" ${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID# my = true "проект в проекта" $ProjectTitle ":" ${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID ". ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". За да промените типа на уведомлението, моля, управлявайте "настройките за абонамента":"</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Task е възобновено: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" $__DateTime "$__AuthorName":":" ${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID "в" $ProjectTitle ": project: $AdditionalData ^ Получавате този имейл, защото сте регистриран потребител на портала "${__VirtualRootPath}":"${__VirtualRootPath}". Ако не искате да получавате известия за тази задача, моля, "отпишете се":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". ^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Редактиран коментар към дискусията: $EntityTitle</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Редактиран коментар към задачата: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Редактирана дискусия: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Проекти. Внос на данни от Basecamp</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Добавени сте към екипа на проекта</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Известие за просрочен етап: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Дискусията бе изтрита: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Завършен етап: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Създаден е етап: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Уведомяване за датата на определеното време: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Изтрит етап: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Променен етап: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Milestone възобновено: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Нов коментар към дискусията: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Нов коментар към задачата: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Нов файл за обсъждане: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Нов файл към задача: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Нова дискусия: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Проекти. Проектът е изтрит: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Добавени сте към екипа на проекта</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Обсъждането е</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Основният етап е затворен</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Създаден е нов етап</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Основният етап е изтрит</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Промените са възобновени</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Ново обсъждане е</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Проекти. Проектът е изтрит</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Назначен е важен етап</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Ти беше назначен за ръководител на проекта</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Задача ви е възложена</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Задачата ви е възложена</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Подзадача е затворена</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Създадена е нова подзадача</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Подзадача е изтрита</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Подзадача е възобновена</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Задачата е затворена</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Създадена е нова задача</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Задачата е изтрита</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Задачата е възобновена</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Напомняне за задача: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Напомняне за задача: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Премахнати сте от екипа на проекта</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата вече не е зададена на вас: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Важен етап: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Ти беше назначен за ръководител на проекта</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задача, възложена на вас: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задача, която ви е възложена: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Затворена подзадача: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Създадена подзадача: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Изтрита подзадача: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Редактирана е подзадача: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Подзадача е възобновена: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е затворена: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Създадена е задача: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е изтрита: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Редактирана задача: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е премахната: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Преместена задача: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Проекти [$ProjectTitle]. Задачата е възобновена: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Никой</value>
+  </data>
+</root>

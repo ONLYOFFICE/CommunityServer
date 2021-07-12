@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Дискусии за корпоративен форум</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Форуми</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Създайте нов форум</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>Създайте нов форум</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Всички</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да извършите това действие?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Създавам</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>Все още не са започнали форуми</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Създайте първия форум</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Създайте свои собствени форуми, участвайте в дискусиите, споделете интересна информация, организирайте анкети, като направите форумите си по-интерактивни.</value>
+  </data>
+  <data name="EmptyScreenForumTextVisitor" xml:space="preserve">
+    <value>Посетете форуми, участвайте в дискусиите, коментирайте с полезна информация.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Темите не бяха намерени</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Създайте своите собствени форуми, посетете дискусиите, споделете интересна информация, организирайте анкети, които създават форуми за по-интерактивни.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>Още не са създадени теми</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Създайте първата тема</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Създавайте свои собствени теми, участвайте в дискусиите, споделяйте интересна информация, организирайте анкети, правейки форумите по-интерактивни.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Няма разрешения за извършване на това действие</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Въведете името на категорията</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Неизвестна грешка при създаване на категория</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>При редактирането на категорията възникна грешка</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Въведете име</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>Възникна грешка при отписването/абонирането</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Въведете името на форума</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Тема във форума "{0}"</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>Всички форуми</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Промяна</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Модератори</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Въведете име</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Създайте нова анкета</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Добавяне на нова публикация</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Създайте нова тема</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Нови теми на форума </value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Публикации</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Последна актуализация</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Търсене на форум</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Публикации</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Абонирайте се за нови теми</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Абонирайте се за този форум</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Абонирайте се за тази тема</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>Форумът бе създаден успешно</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Форум</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Редактор на категория</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Заглавие </value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>Описание на форума</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Редактор на форуми</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>Име на форума</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Форуми</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>Теми</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Нови публикации в темата</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Създайте нова категория</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Отпишете се от нови теми</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Отпишете се от този форум</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Отпишете се от тази тема</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Прегледи</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>Видимият списък</value>
+  </data>
+</root>

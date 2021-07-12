@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Sarbidea</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Kudeatzailea</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>JARRAITU</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Egilea</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Utzi</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Konbertsioa egin eta Ireki</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Iruzkina</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Jabea aldatu da</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>{0}-tik bihurtuta</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Kopiatuta</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>konexiorako URL-a</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Bihurtu hona</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Eskaera okerra</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Konbertsioak denbora gehiegi ematen du.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Gutxienez {0} mezu ezin izan dira bidali. Mesedez "Posta" modulora joan errorearen zergatia ikusteko.</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Gordetako bertsioaren egilea ezezaguna da</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>{0} hornitzailea ezin da konektatu emandako kredentzialekin.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Fitxategia ezin da ezabatu editatzeko irekita dagoelako</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Karpeta ezin da ezabatu fitxategietako bat editatzeko irekita dagoelako</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Ezin izan da fitxategia eguneratu editatzeko irekita dagoelako</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anonimoa</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} ezabatua</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Kontua</value>
+  </data>
+</root>

@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddButton" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddMailboxLabel" xml:space="preserve">
+    <value>Dodaj nov poštni predal</value>
+  </data>
+  <data name="AddMailgroupLabel" xml:space="preserve">
+    <value>Dodaj novo mail skupino</value>
+  </data>
+  <data name="AddNewDomainButton" xml:space="preserve">
+    <value>Dodaj svojo lastno domeno</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>Vzdevek</value>
+  </data>
+  <data name="CreateMailboxHeaderInfo" xml:space="preserve">
+    <value>Ustvari nov poštni predal</value>
+  </data>
+  <data name="CreateMailboxPopupHeader" xml:space="preserve">
+    <value>Vnesti morate naslov poštnega predala in izbrati uporabnika, za katerega želite ustvariti poštni predal.</value>
+  </data>
+  <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
+    <value>Ustvari novo mail skupino</value>
+  </data>
+  <data name="CreateMailgroupPopupHeader" xml:space="preserve">
+    <value>Morate vnesti e-mail naslov skupine in izbrati poštne predale, ki bodo dodani v to poštno skupino.</value>
+  </data>
+  <data name="DeleteDomain" xml:space="preserve">
+    <value>Izbriši domeno</value>
+  </data>
+  <data name="DeleteDomainAttention" xml:space="preserve">
+    <value>Če izbrišete svojo domeno, bodo vsi poštni predali in skupine s to domeno prav tako odstranjene.</value>
+  </data>
+  <data name="DeleteGroupAttention" xml:space="preserve">
+    <value>Izbris mail skupine ne bo na kakršen koli način vplival na poštne predale </value>
+  </data>
+  <data name="DeleteGroupLabel" xml:space="preserve">
+    <value>Izbriši mail skupino</value>
+  </data>
+  <data name="DeleteMailboxAttention" xml:space="preserve">
+    <value>Če boste izbrisali poštni predal strežnika, boda vsa pisma poštnega predala izbrisana.</value>
+  </data>
+  <data name="DeleteMailboxLabel" xml:space="preserve">
+    <value>Izbriši poštni predal</value>
+  </data>
+  <data name="DeleteShureText" xml:space="preserve">
+    <value>Želite izbrisati %1?</value>
+  </data>
+  <data name="DNSSettingsLabel" xml:space="preserve">
+    <value>DNS nastavitve</value>
+  </data>
+  <data name="DomainAddedPopupHeader" xml:space="preserve">
+    <value>Domena je bila dodana</value>
+  </data>
+  <data name="DomainDnsSettingsPopupHeader" xml:space="preserve">
+    <value>%1 nastavitve domene</value>
+  </data>
+  <data name="DomainWizardAddRecord" xml:space="preserve">
+    <value>Zdaj morate dodati %1-zapisek v nadzorni plošči lastne domene.</value>
+  </data>
+  <data name="DomainWizardCompleteBtn" xml:space="preserve">
+    <value>Končano</value>
+  </data>
+  <data name="DomainWizardCopyInfo" xml:space="preserve">
+    <value>Le odprite nadzorno ploščo svoje domene v drugem zavihku brskalnika in kopirajte krepko besedilo v ustrezna polja ali izberite najbolj primerno različico izmed tistih, ki so na voljo:</value>
+  </data>
+  <data name="DomainWizardDKIMRecord" xml:space="preserve">
+    <value>DKIM (DomainKeys Identificiran Mail) zapis</value>
+  </data>
+  <data name="DomainWizardDomainAlreadyExists" xml:space="preserve">
+    <value>Domena "{0}" je že v uporabi.</value>
+  </data>
+  <data name="DomainWizardDomainNameSymbolInfo" xml:space="preserve">
+    <value>V nekaterih primerih DNS služba za opravljanje ne dovoljuje uporabo '@' kot ime domene/poddomene. Svoje ime domene uporabite z '.' na koncu, npr.: '%1.'</value>
+  </data>
+  <data name="DomainWizardDomainNotVerified" xml:space="preserve">
+    <value>Domena "{0}" ni potrjena.</value>
+  </data>
+  <data name="DomainWizardGoNextStep" xml:space="preserve">
+    <value>Če ste to že storili, nadaljujte na naslednji korak.</value>
+  </data>
+  <data name="DomainWizardMXRecord" xml:space="preserve">
+    <value>MX (Izmenjava Mailov) zapis</value>
+  </data>
+  <data name="DomainWizardName" xml:space="preserve">
+    <value>Ime:</value>
+  </data>
+  <data name="DomainWizardNextBtn" xml:space="preserve">
+    <value>Naslednji</value>
+  </data>
+  <data name="DomainWizardOwnershpCheckRecord" xml:space="preserve">
+    <value>Vaša evidenca lastništva domene</value>
+  </data>
+  <data name="DomainWizardPopupHeader" xml:space="preserve">
+    <value>Dodaj domeno</value>
+  </data>
+  <data name="DomainWizardPrevBtn" xml:space="preserve">
+    <value>Prejšnji</value>
+  </data>
+  <data name="DomainWizardPriority" xml:space="preserve">
+    <value>Prioriteta:</value>
+  </data>
+  <data name="DomainWizardProveDomainOwnershipInfo" xml:space="preserve">
+    <value>Preden lahko začnete ustvarjati svoje poslovne e-naslove, morate dodati TXT zapis v nadzorno ploščo lastne domene, da dokažete svoje lastništvo domene.</value>
+  </data>
+  <data name="DomainWizardSPFRecord" xml:space="preserve">
+    <value>SPF (Okvirna politika pošiljatelja) zapis</value>
+  </data>
+  <data name="DomainWizardStep" xml:space="preserve">
+    <value>korak %1 od %2</value>
+  </data>
+  <data name="DomainWizardTextOrValue" xml:space="preserve">
+    <value>Besedilo/Vrednost:</value>
+  </data>
+  <data name="DomainWizardToFAQ" xml:space="preserve">
+    <value>Prav tako lahko preberete {0}FAQ{1} za navodila po korakih o najpopularnejših storitvah gostovanja.</value>
+  </data>
+  <data name="DomainWizardType" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="DomainWizardWaitDNSrefrashInfo" xml:space="preserve">
+    <value>Prosim vedite: posodobitev DNS zapisa lahko traja od nekaj minut do nekaj ur. Prosimo nekoliko počakajte, če ste nedavno spremenili zapis.</value>
+  </data>
+  <data name="DomainWizardWriteDomainName" xml:space="preserve">
+    <value>Ime vaše domene podjetja napišite v spodnje polje:</value>
+  </data>
+  <data name="EditGroupAddressesLabel" xml:space="preserve">
+    <value>Uredi naslove mail skupine</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="MailboxAddressLabel" xml:space="preserve">
+    <value>Naslov poštnega predala</value>
+  </data>
+  <data name="MailboxAliasLabel" xml:space="preserve">
+    <value>Vzdevki poštnega predala</value>
+  </data>
+  <data name="MailboxUserLabel" xml:space="preserve">
+    <value>Uporabnik poštnega predala</value>
+  </data>
+  <data name="MailgroupAddressLabel" xml:space="preserve">
+    <value>Mail naslov skupine</value>
+  </data>
+  <data name="MailgroupMailboxesLabel" xml:space="preserve">
+    <value>Poštni predali mail skupine</value>
+  </data>
+  <data name="NoDomainSetUpButton" xml:space="preserve">
+    <value>Ustvari prvo domeno</value>
+  </data>
+  <data name="NoDomainSetUpDescription" xml:space="preserve">
+    <value>Dodaj lastno domeno za ustvarjanje in urejanje poslovnih poštnih predalov kot username@yourcompany.com. Lahko ustvarjate poštne predale za svoje zaposlene, ki jih bodo videli v svojih ONLYOFFICE poštnih odjemalcih.</value>
+  </data>
+  <data name="NoDomainSetUpHeader" xml:space="preserve">
+    <value>Nobena domena še ni vzpostavljena</value>
+  </data>
+  <data name="NotInGroupLabel" xml:space="preserve">
+    <value>ni v skupini</value>
+  </data>
+  <data name="UnverifiedDomainAddedPopupBody" xml:space="preserve">
+    <value>Zdaj lahko ustvarite poštne predale kot {0}.</value>
+  </data>
+  <data name="UnverifiedDomainAddedPopupHeader" xml:space="preserve">
+    <value>Vaša domena je bila uspešno dodana.</value>
+  </data>
+  <data name="UnverifiedDomainRecordExplain" xml:space="preserve">
+    <value>Prosim preverite</value>
+  </data>
+  <data name="UnverifiedDomainRecordWarning" xml:space="preserve">
+    <value>Nastavitve enega ali večih DNS zapiskov vaše domene so nepravilne. Prosim pojdite v svojo ploščo nastavitev domente in tam preverite prisotnost spodnjih zapiskov.</value>
+  </data>
+  <data name="VerifiedDomainAddedPopupBody" xml:space="preserve">
+    <value>Vašo domeno smo dodali na poštni seznam domen, a trenutno je ne morete uporabljati za ustvarjanje svojih poštnih predalov. Razlog je lahko, da potreben čas še ni pretekel. Prosim nekoliko počakajte - pri nekaterih strežnikih lahko traja do 24 ur za posodobitev DNS informacij.</value>
+  </data>
+  <data name="VerifiedDomainAddedPopupFooter" xml:space="preserve">
+    <value>E poštno sporočilo bomo poslali na vaš {0} naslov, ko je vaša domena pripravljena za uporabo.</value>
+  </data>
+  <data name="VerifiedDomainAddedPopupHeader" xml:space="preserve">
+    <value>Vaša domena je bila uspešno dodana, a uporabljali jo boste lahko kasneje.</value>
+  </data>
+  <data name="VerifyButton" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="WebDomainLabel" xml:space="preserve">
+    <value>Domena</value>
+  </data>
+</root>

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portalo prieigos teisės</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>Pranešimas</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>Pranešimai</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Gimtadieniai</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>Dienoraščiai</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>Adresyno įrašas</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Adresyno įrašai</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorijos</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Sukurti</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>Įvykiai</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Mėgstamiausi</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Failai</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>Forumas</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>Forumo redaktorius</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>Forumai</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Pagalba</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>Turinys</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>Nauji puslapiai</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Naujienos</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Įsakymas</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Įsakymai</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Puslapis</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>Apklausa</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>Apklausos</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>Įrašas</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Kurkite įvykius ir dienoraščių įrašus. Organizuokite apklausas. Kurkite adresyno įrašus ir dalinkitės jais su kitais portalo vartotojais.</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>Kurkite įvykius ir dienoraščių įrašus. Organizuokite apklausas. Kurkite adresyno įrašus ir dalinkitės jais su kitais portalo vartotojais.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Bendruomenė</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Kurkite ir taisykite savo įrašus dienoraščiuose, dalinkitės naujienomis ir t.t.</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>Neseniai redaguota</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nustatymai</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>užprenumeruota</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+</root>

@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Dostop</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Le preberi</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Poln dostop</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Zavrni dostop</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Za upravljanje dokumenta morate postaviti dostop do njega</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>NADALJUJ</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Odpiranje datoteke v ONLYOFFICE™ bo ustvarilo novo kopijo te datoteke v formatu Office Open XML v vašem Google Drivu. Na ta način prvotna datoteka ne bo spremenjena. Za nadaljno urejanje datoteke v ONLYOFFICE™ boste mogli odpreti novo kopijo.
+
+</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Tega ne kaži več</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Vnesi ime datoteke</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Izberi vrsto datoteke</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Avtor</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Jaz</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Pretvori &amp; Odpri</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Prenesi</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>url povezave</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Pretvori v</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Ime dokumenta</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Vnesi komentar</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Napaka</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Slaba zahteva.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Zgodila se je napaka v storitvi dokumenta</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Prazna datoteka</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Potrebne datoteke ni bilo mogoče najti</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Datoteka večja od {0} ne bo pretvorjena</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Te mape ne morete kopirati v podmapo</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Potrebne mape ni bilo mogoče najti</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Nepravilen naslov</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Datoteko je trenutno zaklenil drug uporabnik</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Preveč prenosov.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Oprostite, ta format datoteke ni podprt</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Avtor shranitve je neznan</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Datoteka je bila poškodovana, ko ste jo poskusili shraniti</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Neuspešno sem shranil datoteko</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za izvajanje operacije</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Ne morem dovoliti {0} ponudniku z danimi poverilnicami. </value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za ustvarjanje</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Ne morem izbrisati datoteke, saj je odprta za urejanje</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Ne morem zbrisati mape, saj je ena izmed njenih detotek odprta za urejanje</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za izbrisanje datoteke</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za izbrisanje mape</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Nimate dovolj dovoljenj za urejanje datoteke</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Ta dokument urejate vi v drugem zavihku</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za ogled datoteke</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za ogled vsebine mape</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za preimenovanje datoteke</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za preimenovanje mape</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Ne morem posodobiti datoteke, saj se odprta za urejanje</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Nimate dovolj dovoljenja za ogled vsebine mape</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Napaka pri začenjanju urejanja datoteke</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Ne morete posodobiti datoteke, ki je odprta za urejanje</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Ni dovoljeno, da si elemente predogledate v košu</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>vsi</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Datoteka</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Ime mape</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Gost</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Vpis</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Obnovi</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Geslo</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Stori enako kot uporabnik|Poveži Dropbox, Box in druge račune v oddelku 'pogosti dokument'|Ustvarite pravice dostopa za dokumente in mape v oddelku 'pogosti dokumenti'</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Ustvari, uredi, shrani in deli dokumente. Poveži svoje Google Drive, Dropbox in Box račune in imej vse dokumente na enem mestu.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Ustvari, uredi, shrani in deli dokumente. Poveži svoje Google Drive, Dropbox in Box račune in imej vse dokumente na enem mestu.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Svoje dokumente ustvarjajte in urejajte ter deljene dokumente s ustreznimi pravicami dostopa|Drugim uporabnikom dajte pravice branja/urejanja za dokumente in mape|Povežite Dropbox, Box in druge račune v oddelku 'Moji Dokumenti'</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} odstranjen</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Označi kot prebrano</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Iskanje</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Deli</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Obvesti, ko je mapa deljena</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Pokaži verzije</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Velikost</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Obvesti, ko je dokument deljen</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Naslov mape</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Naredi deljeno in daj v mapo 'pogosti dokumenti'</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Ustvarjeno</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Posodobljeno</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Izbrisano</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Nastavitve dovoljenj</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Pokaži akcije datoteke</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Pokaži akcije mape</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Podmape</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Naloženo</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Označi kot različico</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Označi kot revizijo</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Zgodovina različice:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Priimek</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Datoteka je odklenjena</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

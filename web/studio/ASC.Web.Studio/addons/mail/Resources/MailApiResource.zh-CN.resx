@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>一些输入参数无效。</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>文档访问权限被拒。</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>所选存储中找不到或文档不存在。</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>不支持空文件。</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>消息找不到。</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>所有附件的总大小超过限制。</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>发生了一些意外错误。请稍后重试。</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>此邮件由邮件发送软件自动创建。</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>修改您的消息</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>若错误仍存在，请阅读{url_begin}常问问题部分{url_end}，以了解关于此问题的更多信息。</value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>{date}主题为“{subject}”的邮件传送失败。</value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>邮件无法传送给收件人</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>请检查您的邮件收件人地址和邮件格式。若您确信信息无误，请查看所有{account_name}账户设置。若一切正确，请登录您使用的邮件服务，并确认任何验证问题，以防出现任何问题。之后再试一次。</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>消息传送失败</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>该栏不得为空</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>%1字段中的电邮地址有误</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>标签%1已存在</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>标签名称不得为空</value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>密送</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>抄送</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>从</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>IMAP服务器连接超时。</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>IMAP响应：</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>POP3服务器连接超时。</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>POP3响应：</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>SMTP服务器连接超时。</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>SMTP响应：</value>
+  </data>
+  <data name="ZippingAttachmentsHeader" xml:space="preserve">
+    <value>拉链附件</value>
+  </data>
+</root>

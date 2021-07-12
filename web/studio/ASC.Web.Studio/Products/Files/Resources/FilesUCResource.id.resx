@@ -1,0 +1,748 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Mengisi Formulir</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Baca Saja</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Akses Penuh</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Tolak Akses</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Ulasan</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Tambahkan akun</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Tambahkan akun Box</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Tambahkan akun Dropbox</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Tambahkan akun Google</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Tambah akun Nextcloud</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Tambahkan akun OneDrive</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Akun lain</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Batalkan semua</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Ubah pemilik</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Ubah pengaturan koneksi</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Hapus Filter</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Buat salinan</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Salin</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Membuat</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Membuat Dokumen</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Presentasi</value>
+  </data>
+  <data name="ButtonCreatePresentation2" xml:space="preserve">
+    <value>Membuat Presentasi</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Spreadsheet</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet2" xml:space="preserve">
+    <value>Membuat Spreadsheet</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Putuskan koneksi pihak ketiga</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Membuat salinan file</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Menyematkan dokumen</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Kosongkan Recycle Bin</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arsip</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Semua file</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Gambar</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Presentasi</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Spreadsheet</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Buka '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Buka Dokumen Saya</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Pelajari selengkapnya...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Blokir / Check-out</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Pindah atau Salin</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Pindahkan ke</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Timpa dengan pembaruan versi</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Ganti nama</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Pemulihan</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Semua</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Kirim dengan DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Kirim</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Kirim melalui surel</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Pengaturan Berbagi</value>
+  </data>
+  <data name="ButtonShareAccessShort" xml:space="preserve">
+    <value>Pengaturan Berbagi</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Tampilkan riwayat versi</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Lewati</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Kembali ke folder asal</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Buka blokir / Check-in</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Di atas</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Unggah</value>
+  </data>
+  <data name="ButtonUploadCancelAndClose" xml:space="preserve">
+    <value>Batalkan pengunggahan dan tutup</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Unggah file</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Unggah folder</value>
+  </data>
+  <data name="ButtonUploadMaximize" xml:space="preserve">
+    <value>Maksimalkan dialog</value>
+  </data>
+  <data name="ButtonUploadMinimize" xml:space="preserve">
+    <value>Minimalkan dialog</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Riwayat versi</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Menyelesaikan versi</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Dibatalkan</value>
+  </data>
+  <data name="CaptionConvertPassword" xml:space="preserve">
+    <value>File dilindungi kata sandi. Masukkan kata sandi untuk konversi.</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Konversi dan buka dokumen</value>
+  </data>
+  <data name="CaptionCopyConvertOpen2" xml:space="preserve">
+    <value>Menyimpan dokumen</value>
+  </data>
+  <data name="CaptionCopyConvertSave" xml:space="preserve">
+    <value>Mengunggah dokumen</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Setelah perubahan diterapkan, pemilik file / folder saat ini mendapatkan hak akses sesuai dengan pengaturan akses grup yang dimilikinya atau sesuai dengan izin standar folder.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Ubah pemilik</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Pilih format masing-masing file yang akan diunduh</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Pengaturan Umum</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Tampilkan pemberitahuan saat memindahkan elemen ke tempat sampah</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>Jangan tampilkan pesan ini lagi</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Akan ada dua file berbeda di folder.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Konfirmasi untuk menimpa</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>File yang akan ditambahkan ke file dengan nama yang sama akan menjadi versi terbaru.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Konfirmasi</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Catatan: tindakan ini tidak dapat dibatalkan</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Catatan: penghapusan dari akun Anda tidak dapat dibatalkan</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Tidak ada file yang tersalin. File asli akan disimpan di folder tujuan.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Simpan salinanfile dengan format aslinya</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>File dokumen yang Anda buka akan dikonversi menjadi format Office Open XML agar lebih mudah ditampilkan dan diedit.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Salinan file akan dibuat di dalam folder {0}Dokumen Saya{1}</value>
+  </data>
+  <data name="ConfirmStoreOriginalSaveTitle" xml:space="preserve">
+    <value>Semua dokumen yang Anda unggah akan dikonversi ke format Office Open XML yang sesuai (docx, xlsx atau pptx) untuk menyunting lebih cepat.</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Simpan salinan file dalam format asli juga</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Pindahkan konfirmasi</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Anda yakin ingin menghapus elemen tersebut dari daftar?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Perbarui versi file ini dengan nama yang sama. {0}Atau, akan dibuat salinan file tersebut.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>URL Koneksi</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Konversi</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Unduh sebagai</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Konversi berhasil.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>File telah dibuat di dalam folder '{0}'</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Konversi Error</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Sedang mengkonversi ...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Dokumen Umum</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Anda baru saja membuat portal ONLYOFFICE Anda. {0} Unggah file offline Anda ke portal untuk berkolaborasi tanpa meninggalkan aplikasi. {0} {0} Buka portal Anda di browser untuk menemukan lebih banyak fitur, termasuk {1} Proyek {2 }, {1} CRM {2}, {1} Kalender {2}, {1} Mail {2} dan banyak lagi.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Buka di peramban</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Untuk pertanyaan pembelian, kirim surel kepada kami di {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Jika Anda memiliki masalah teknis, hubungi kami di {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Selamat datang di portal Anda!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Selamat</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumen</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Simpan ke folder:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Pesan</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Tambahkan pesan</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Hapus pesan</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Nama Dokumen</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Tambah {!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Daftar penerima penanda tangan</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Unduh sebagai</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Ukuran</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Otomatis</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Ketinggian</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Lebar</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>Bagian 'Dokumen Umum' menampilkan semua dokumen yang dibagikan oleh administrator portal untuk akses umum. Hanya administrator potal yang dapat membuat folder pada bagian ini, namun pengguna portal dapat menggunakan aksesnya untuk mengunggah file.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Geser dan pindahkan file dari komputer Anda untuk mengunggahnya ke portal Anda dengan lebih mudah.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Bagian 'Bagikan dengan Saya' digunakan untuk menampilkan file dengan akses yang Anda dapatkan dari teman atau rekan Anda. Jika Anda tidak melihat perubahan pada dokumen tersebut, maka dokumen tersebut akan diberi tanda 'baru'. Anda dapat memindahkan file tersebut dari daftar, dengan klik pada tombol yang sesuai.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>File dokumen dan gambar yang Anda {0}buat{1} atau {2}unggah{3} ke portal akan disimpan di bagian 'Dokumen Saya'. Anda dapat {4}membuka{5} dan {6}mengedit{7} menggunakan editor portal ONLYOFFICE™, berbagi dengan teman atau rekan, dan mengelolanya ke dalam folder.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Dokumen dan file gambar yang Anda {2}unggah{3} ke portal akan disimpan di bagian 'Dokumen Saya'. Anda dapat berbagi file tersebut dengan teman atau kolega, serta mengelolanya ke dalam folder.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>File dokumen dan gambar yang Anda buat atau unggah untuk proyek akan disimpan di bagian ini. Anda dapat membuka dan mengeditnya menggunakan editor portal ONLYOFFICE™, dan mengelolanya ke dalam folder.</value>
+  </data>
+  <data name="EmptyScreenDescrProjectVisitor" xml:space="preserve">
+    <value>Dokumen dan file gambar yang diunggah untuk proyek disimpan di bagian ini. Anda dapat melihatnya menggunakan editor portal ONLYOFFICE.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>Bagian 'Recycle Bin' adalah tempat menampung semua file yang telah dihapus. Anda dapat mengembalikan file tersebut jika file tersebut tidak sengaja terhapus, atau menghapusnya secara permanen. Mohon diingat bahwa saat Anda menghapus file dari 'Recycle Bin', file tersebut tidak dapat dikembalikan lagi.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Tidak ada file untuk filter ini</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Tidak ada file atau folder yang sesuai dengan filter Anda di bagian ini. Silakan pilih filter lain atau hapus filter untuk melihat semua file di bagian ini. Anda juga dapat mencari file yang diperlukan di bagian lain.</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>Tidak ada file di folder ini</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Tidak ada file untuk ditampilkan di bagian ini</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Tidak ada akun yang terhubung</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>Pilih file dalam format {0}</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>Pilih tipe file: {0}</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Mulai Sekarang</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>Mempersingkat</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>lewat email</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>Jika Anda memilih untuk mengonversi file ke format yang berbeda dari aslinya, beberapa data mungkin hilang.</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Pilih semua</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Ukuran file maksimal adalah {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Punya tim {0} untuk berkolaborasi? {0} {1} Pelajari selanjutnya{2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Manajemen dokumen</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM dan invoice</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Manajemen tugas dan Bagan Gantt</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Agregator Email</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Anda memiliki proyek dan tim untuk bekerja sama?{0}Kami telah menyiapkan sesuatu untuk Anda.{1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Undang rekan-rekan atau sub-kontraktor dan nikmati manfaat fitur tambahan gratis:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Selamat Datang di ONLYOFFICE™ untuk tim!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Dokumen Saya</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Pratinjau</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Buka lokasi</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Sembunyikan daftar dokumen</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Tampilkan daftar dokumen</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Kata Sandi</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Dokumen Proyek</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Tandai Telah Dibaca</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Tandai semua telah dibaca</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Tandai sudah Dibaca</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>Nama file</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>Buka dokumen tersimpan di tab baru</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Pilih folder</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Silakan pilih tindakan:</value>
+  </data>
+  <data name="SettingForcesave" xml:space="preserve">
+    <value>Pertahankan versi perantara saat menyunting</value>
+  </data>
+  <data name="SettingStoreForcesave" xml:space="preserve">
+    <value>Simpan semua versi perantara yang disimpan</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Pengaturan umum</value>
+  </data>
+  <data name="SettingVersions" xml:space="preserve">
+    <value>Menyimpan versi file</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Bagikan</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Bagikan dengan Saya</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Akses tautan eksternal</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Memberikan akses ke tautan dan kode penyematan</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Tampilkan selengkapnya</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Tampilkan halaman yang diminimalkan</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Ganti ke tampilan ringkas</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Ganti ke tampilan biasa</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Akun pihak ketiga</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Hubungkan akun</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Hubungkan Akun</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Anda dapat menghubungkan layanan berikut ke akun ONLYOFFICE™ Anda. Mereka akan ditampilkan di folder 'Dokumen Saya' dan Anda akan dapat menyunting dan menyimpan semua dokumen Anda dalam satu ruang kerja.</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>Agar koneksi berhasil, masukkan data yang diperlukan di {0} halaman ini {1}.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Menghubungkan akun</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Isi untuk berubah</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Hapus Pihak Ketiga</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Ijinkan pengaturan pihak ketiga bagi pengguna</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Judul Folder</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Koneksi ulang</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Akun</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Bagikan dan masukkan dalam Dokumen Umum</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint/OneDrive untuk Bisnis</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Cari di</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>dan {0} semua subfolder {1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>Klik untuk mencari tanpa subfolder</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Pilih</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Anda dapat membuat dokumen ({0}), spreadsheet ({1}), presentasi ({2}) dan mengunduhnya dalam format yang paling banyak dipakai.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Anda dapat mengedit file berikut ini: ({0}).</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Anda dapat membuka file dengan ekstensi berikut ini: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Anda dapat mengunggah file apapun ke Dokumen.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Recycle Bin</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Hapus dari Daftar</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Timpa nama file dengan nama yang sama</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Tingkatkan paket Anda</value>
+  </data>
+</root>

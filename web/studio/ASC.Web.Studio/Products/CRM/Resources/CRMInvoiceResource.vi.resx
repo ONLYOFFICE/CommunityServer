@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Thêm và Tạo hóa đơn mới</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Thêm địa chỉ thanh toán</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Thêm địa chỉ giao hàng</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Thêm dòng</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Địa chỉ đã được cập nhật thành công</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Tạo thuế mới</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Đang tạo thuế</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Lưu và Tạo mục mới</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Thêm hóa đơn này</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Tất cả hóa đơn</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Đính kèm tài liệu</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>được tạo tự động</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Gửi hóa đơn cho</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Đồng tiền</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Ngày đến hạn</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Thay đổi định dạng</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Tất cả hoá đơn trong tương lai sẽ có định dạng tiền tố/số sử dụng các trường bên dưới. Đánh dấu vào hộp thích hợp để tạo số tự động.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Thay đổi trạng thái</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Ghi chú khách hàng</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Sẽ được hiển thị trên hóa đơn và trong nội dung thư nếu bạn gửi hoá đơn cho mỗi ONLYOFFICE™ Mail.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>trùng với khách hàng</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Tạo hóa đơn đầu tiên</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Tạo mục đầu tiên</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Tạo thuế đầu tiên</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Tạo mục</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Đang tạo mục hoá đơn</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Tạo thuế</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Tạo hóa đơn mới</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Tạo mục mới</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Tạo thuế mới</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Đồng tiền</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Mỗi hoá đơn phải có đơn vị tiền tệ</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} ngày</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Các điều khoản mặc định này sẽ được sử dụng trên các hoá đơn tương lai.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa hóa đơn '{0}'?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Xóa hoá đơn...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Đang xóa mục...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa mặt hàng «{0}?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa thuế «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Đang xóa thuế...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Xóa hóa đơn này</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Xóa hoá đơn</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Chiết khấu</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Tải về</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Ngày đến hạn</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Vui lòng đặt ngày Đến hạn tuỳ chỉnh hoặc chọn một trong các ngày được đặt trước ở bên phải để liên kết ngày này với Ngày phát hành.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Ngày phát hành sau ngày đáo hạn</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Đến hạn trên biên lai</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Mỗi hoá đơn phải có ngày đến hạn</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Sao chép và Tạo hóa đơn mới</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Sao chép hóa đơn</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Sao chép hóa đơn</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Sao chép hóa đơn «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Chỉnh sửa địa chỉ thanh toán</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Chỉnh sửa địa chỉ giao hàng</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Chỉnh sửa hóa đơn</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Chỉnh sửa hoá đơn «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Chỉnh sửa thuế</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Phần này cho phép bạn thiết lập danh sách các mục có thể được bao gồm trong hoá đơn. Sau khi tạo danh sách, bạn có thể chọn mục cần thiết từ nó để thêm vào tài liệu thanh toán của bạn. Bạn cũng có thể thêm các mục mới bất cứ khi nào cần thiết.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>Không thể hiển thị mục hoá đơn phù hợp với tiêu chí lọc của bạn trong phần này. Vui lòng chọn tùy chọn lọc khác hoặc xóa bộ lọc để xem tất cả các mục hoá đơn trong phần này. Hoặc bạn có thể tạo mục hóa đơn nếu nó không có trong danh sách.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Không có mục hoá đơn để hiển thị cho tiêu chí lọc này</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Danh sách Sản phẩm &amp; Dịch vụ trống</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Phần 'Hóa đơn' cho phép bạn tạo các tài liệu thanh toán mà bạn có thể cung cấp cho khách hàng. Sau khi các hóa đơn được thêm, danh sách những hóa đơn sẵn có sẽ được hiển thị ở đây.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>Không thể hiển thị hóa đơn phù hợp với tiêu chí lọc của bạn trong phần này. Vui lòng chọn tùy chọn lọc khác hoặc xóa bộ lọc để xem toàn bộ hóa đơn trong phần này. Hoặc bạn có thể tạo hoá đơn nếu nó không có trong danh sách.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Không có hoá đơn để hiển thị cho tiêu chí lọc này</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Danh sách hóa đơn trống</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Thuế hoá đơn cho phép bạn tạo các khoản thuế bổ sung cụ thể cho các quốc gia hoặc khu vực mà bạn hoặc khách hàng của bạn sống. Bạn có thể thêm tên thuế, lãi suất và mô tả. Bạn cũng có thể thêm thuế mới bất cứ khi nào cần thiết.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Danh sách thuế hoá đơn trống</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Không tìm thấy cơ hội</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Chọn mặt hàng</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Không được để trống trường tên thuế</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Trường tỷ lệ không được để trống</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>không</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Giá còn trống</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Giá không chính xác</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Số lượng không chính xác</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>giá trị tỷ lệ không đúng</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Tỷ giá</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Bạn phải điền vào trường này</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>Tên thuế đã tồn tại</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Hàng tồn kho</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Tên mục</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Số lượng tồn kho</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Thuế</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Tìm theo tiêu đề, SKU hoặc mô tả</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Hóa đơn</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Mỗi hoá đơn phải có một khách hàng</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Người nhận hàng</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Đồng tiền CRM mặc định của bạn được sử dụng để đặt giá trong Danh mục Sản phẩm &amp; Dịch vụ.&lt;br/&gt;Để thay đổi, vui lòng đi tới &lt;a href="settings.aspx?type=common" target="_blank"&gt;Cài đặt Chung&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Lưu trữ</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Một hoặc nhiều mặt hàng trong hoá đơn có số lượng tồn kho âm</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Có hàng tồn kho</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Không có hàng tồn kho</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Ngôn ngữ hóa đơn</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Mỗi hóa đơn phải có một ngôn ngữ</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Số hóa đơn</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Số hoá đơn đã được sử dụng</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Hóa đơn</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Tên thuế 1</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Tỷ lệ thuế 1</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Tên thuế 2</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Tỷ lệ thuế 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Thuế có tên như vậy đã được đăng ký</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Danh mục thuế cho phép bạn tạo các khoản thuế bổ sung cụ thể cho các quốc gia hoặc khu vực mà bạn hoặc khách hàng của bạn sống. Bạn có thể thêm tên thuế, lãi suất và mô tả.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Bạn chỉ có thể xóa mục thuế trong trường hợp nó không được sử dụng trong phần Sản phẩm &amp; Dịch vụ.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Tên thuế</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Tỷ lệ</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Ngày lập hoá đơn</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Mỗi hóa đơn phải có một ngày</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Hàng hóa</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Đồng tiền CRM mặc định của bạn.&lt;br/&gt;Để thay đổi nó, đi tới &lt;a href="?type=common" target="_blank"&gt;Cài đặt chung&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Thêm số lượng mặt hàng bạn đang có trong kho. Con số này sẽ giảm mỗi khi mặt hàng được thêm vào một hóa đơn. Khi bạn nhận được nhiều hàng tồn kho hơn, chỉ cần thêm nó vào hàng tồn kho hiện tại của bạn ở đây.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Liên kết với cơ hội</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Lập hoá đơn</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Đánh dấu là bản nháp</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Đánh dấu là đã thanh toán</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Đánh dấu là bị từ chối</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Đánh dấu là đã lập hóa đơn</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Số</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Định dạng không chính xác hoặc hóa đơn có cùng số đã tồn tại</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Số bắt đầu trống</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Mỗi hoá đơn phải có một số</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Quá hạn</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Đơn hàng số</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Tiền tố</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Giá</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>In</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Sản phẩm &amp; Dịch vụ</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Chọn sản phẩm hoặc dịch vụ từ danh sách hoặc thêm mới</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Mỗi hoá đơn phải có mặt hàng</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Đang lưu thiết lập số...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Đang lưu thiết lập điều khoản...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Đã xảy ra lỗi "{0}" trong khi lưu hóa đơn. Vui lòng thử lại sau.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Người bán</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Gửi bằng email</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Đặt mặc định</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Đặt các điều khoản mặc định</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Đặt trống</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Vận chuyển đến</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Hiển thị hồ sơ hóa đơn</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Mở trong tab mới</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Số bắt đầu</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Đơn vị lưu kho (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Tổng số phụ</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Thuế</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Điều khoản</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Mỗi hoá đơn phải có các điều khoản</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng số hóa đơn</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Tổng số hoá đơn</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Theo dõi hàng tồn kho</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Cập nhật mục «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Cập nhật thuế «{0}»</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Đang lưu thay đổi...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Cảnh báo</value>
+  </data>
+</root>

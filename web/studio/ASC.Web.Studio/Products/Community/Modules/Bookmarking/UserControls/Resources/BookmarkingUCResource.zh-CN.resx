@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>创建书签</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>将书签添加到收藏夹</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>添加到收藏夹</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>正在创建书签……</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>说明</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>书签的详细描述</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>书签创建者：</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>在书签中搜索</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>将此书签添加到收藏夹的人数</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>书签</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>标签之间用半角逗号“,”分隔。</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>网址</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>检查网址</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>正在检查网址……</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>转到书签评论</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>创建书签</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>修改书签</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>修改书签</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>请填写要添加的书签网址（URL）</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>暂无书签</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>创建第一个书签</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>暂无书签</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>创建书签，与您的同事分享有用的信息。</value>
+  </data>
+  <data name="EmptyScreenTextVisitor" xml:space="preserve">
+    <value>查看直接在门户上存储有用信息的书签。保存到web资源的链接允许用户轻松返回到他们最喜欢的位置。</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>收藏夹</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>最新的</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>最受欢迎的</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>从收藏架中删除书签</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>您确定想删除该书签吗？</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>您确定要从收藏夹中删除书签"{0}"吗？</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>删除书签</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>正在删除书签……</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>查看方式:</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>在页面上显示</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>订阅评论</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>本日热门</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>总计</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>退订评论</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>年</value>
+  </data>
+</root>

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_1" xml:space="preserve">
+    <value>h1.Nueva pagina Wiki añadida: "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" ha creado nueva pagina Wiki:"$PageName":"$URL"
+
+$PagePreview
+
+"Leer más":"$URL"
+
+^Usted recibe este email como un usuario registrado del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no desea recibir las notificaciones sobre las páginas Wiki creadas, por favor maneje sus "ajustes de suscripción":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_2" xml:space="preserve">
+    <value>h1.Pagina Wiki editada: "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" ha editado la página Wiki:"$PageName":"$URL"
+
+$PagePreview
+
+"Leer más":"$URL"
+
+
+^Usted recibe este email como un usuario registrado del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no desea recibir las notificaciones sobre los cambios de esta página Wiki, por favor maneje sus "ajustes de suscripción":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="pattern_3" xml:space="preserve">
+    <value>h1.Nuevo comentario a página wiki "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" ha añadido nuevo comentario a la página wiki "$PageName":"$URL":
+
+$CommentBody
+
+"Leer más":"$URL"
+
+^Usted recibe este email como un usuario registrado del portal "${__VirtualRootPath}":"${__VirtualRootPath}". Si no desea recibir las notificaciones sobre los nuevos comentarios añadidos a la página Wiki, por favor maneje sus "ajustes de suscripción":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="subject_1" xml:space="preserve">
+    <value>Página "$PageName" añadida a Wiki</value>
+  </data>
+  <data name="subject_1_tg" xml:space="preserve">
+    <value>Comunidad. Nueva página Wiki añadida: [$PageName]($URL)</value>
+  </data>
+  <data name="subject_2" xml:space="preserve">
+    <value>Página "$PageName" en la wiki editada</value>
+  </data>
+  <data name="subject_2_tg" xml:space="preserve">
+    <value>Comunidad. Página Wiki editada: [$PageName]($URL)</value>
+  </data>
+  <data name="subject_3" xml:space="preserve">
+    <value>Nuevo comentario para la página $PageName</value>
+  </data>
+  <data name="subject_3_tg" xml:space="preserve">
+    <value>Comunidad. Nuevo comentario para la página Wiki: [$PageName]($URL)</value>
+  </data>
+</root>

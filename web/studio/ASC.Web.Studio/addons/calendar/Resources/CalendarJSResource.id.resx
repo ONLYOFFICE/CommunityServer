@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Acara</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Buat acara baru</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Buat</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>sepanjang hari</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Hari</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>Bulan</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Minggu</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Buat kalender baru</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Warna:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Edit kalender</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Warna teks:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Zona Waktu:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Tambahkan</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Kalender Saya</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Kalender Lain</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Kelola</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Buat acara baru</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 menit</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 jam</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>setengah jam</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 menit</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>sehari</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>standar</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>satu jam</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Peringatan:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>tidak pernah</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>Ini adalah acara yang berjalan sepanjang hari.</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Acara sepanjang hari</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Kalender:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Deskripsi:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Dari:</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Acara ini tidak berjalan sepanjang hari</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Pemilik:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>khusus</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>setiap hari</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Ulangi:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>setiap bulan</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>tidak pernah</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>setiap minggu</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>setiap tahun</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Acara ini tidak dibagikan.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Untuk:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Berhenti berlangganan</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Tidak ada acara untuk ditampilkan</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Sembunyikan kalender mini</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Tampilkan kalender mini</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d acara</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Tambahkan pengguna untuk berbagi</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Tampilkan %d pengguna lain</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Bagikan dengan:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Edit kalender</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Pemilik:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Sembunyikan dari daftar</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Pencarian cepat</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Kelola kalender lain</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Hari ini</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Tampilan kalender</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Tampilan daftar</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Semua acara dalam rangkaian</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Terapkan</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Acara ini dan semua yang mengikuti</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Hapus acara yang terulang</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Acara ini saja</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Pilih file</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Tutup</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Ekspor acara dari kalender ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>tidak ada file yang dipilih</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>file dipilih</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Impor/Ekspor</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Impor acara ke kalender ONLYOFFICE™</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Format file iCal salah</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Masukkan tautan umpan iCal</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Kalender dari umpan iCal</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>Tautan umpan iCal:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>mulai dengan</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>setelah</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>setiap</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Batalkan</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>setiap</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>pertama</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Pengaturan pengulangan</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>bulan</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>minggu</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>tahun</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>terakhir</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>hari</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>oleh</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>bulan</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>minggu</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>tahun</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>berapa kali</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>tanggal</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>tidak pernah</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>sebelum yang terakhir</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>kedua</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>ketiga</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>waktu</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>akhiri</value>
+  </data>
+</root>

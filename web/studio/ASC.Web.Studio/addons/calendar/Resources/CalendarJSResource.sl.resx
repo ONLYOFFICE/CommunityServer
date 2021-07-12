@@ -1,0 +1,403 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="calendar_newCalendarTitle" xml:space="preserve">
+    <value>Koledar</value>
+  </data>
+  <data name="calendar_newEventTitle" xml:space="preserve">
+    <value>Dogodek</value>
+  </data>
+  <data name="calendarAddNewEventLabel" xml:space="preserve">
+    <value>Ustvari nov dogodek</value>
+  </data>
+  <data name="calendarAddNewLabel" xml:space="preserve">
+    <value>Ustvari</value>
+  </data>
+  <data name="calendarAllDayText" xml:space="preserve">
+    <value>cel-dan</value>
+  </data>
+  <data name="calendarButtonText_day" xml:space="preserve">
+    <value>Dan</value>
+  </data>
+  <data name="calendarButtonText_list" xml:space="preserve">
+    <value>Obdobje</value>
+  </data>
+  <data name="calendarButtonText_month" xml:space="preserve">
+    <value>mesec</value>
+  </data>
+  <data name="calendarButtonText_today" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="calendarButtonText_week" xml:space="preserve">
+    <value>Teden</value>
+  </data>
+  <data name="calendarCategoriesDialog_addHeader" xml:space="preserve">
+    <value>Ustvari nov koledar</value>
+  </data>
+  <data name="calendarCategoriesDialog_cancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="calendarCategoriesDialog_colorLabel" xml:space="preserve">
+    <value>Barva:</value>
+  </data>
+  <data name="calendarCategoriesDialog_deleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="calendarCategoriesDialog_editHeader" xml:space="preserve">
+    <value>Uredi koledar</value>
+  </data>
+  <data name="calendarCategoriesDialog_saveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="calendarCategoriesDialog_textColorLabel" xml:space="preserve">
+    <value>Barva besedila:</value>
+  </data>
+  <data name="calendarCategoriesDialog_timezoneLabel" xml:space="preserve">
+    <value>Časovni pas:</value>
+  </data>
+  <data name="calendarCategoriesList_addNewCategoryLabel" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="calendarCategoriesList_calendarsHeader" xml:space="preserve">
+    <value>Moji koledarji</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsHeader" xml:space="preserve">
+    <value>Drugi koledarji</value>
+  </data>
+  <data name="calendarCategoriesList_subscriptionsManageLabel" xml:space="preserve">
+    <value>Upravljaj</value>
+  </data>
+  <data name="calendarEventEditor_addHeader" xml:space="preserve">
+    <value>Ustvari nov dogodek</value>
+  </data>
+  <data name="calendarEventEditor_alert15Minutes" xml:space="preserve">
+    <value>15 minut</value>
+  </data>
+  <data name="calendarEventEditor_alert2Hours" xml:space="preserve">
+    <value>2 uri</value>
+  </data>
+  <data name="calendarEventEditor_alert30Minutes" xml:space="preserve">
+    <value>pol ure</value>
+  </data>
+  <data name="calendarEventEditor_alert5Minutes" xml:space="preserve">
+    <value>5 minut</value>
+  </data>
+  <data name="calendarEventEditor_alertDay" xml:space="preserve">
+    <value>dan</value>
+  </data>
+  <data name="calendarEventEditor_alertDefault" xml:space="preserve">
+    <value>Privzeto</value>
+  </data>
+  <data name="calendarEventEditor_alertHour" xml:space="preserve">
+    <value>ura</value>
+  </data>
+  <data name="calendarEventEditor_alertLabel" xml:space="preserve">
+    <value>Opozorilo:</value>
+  </data>
+  <data name="calendarEventEditor_alertNever" xml:space="preserve">
+    <value>nikoli</value>
+  </data>
+  <data name="calendarEventEditor_allDayEvent" xml:space="preserve">
+    <value>To je celo-dneven dogodek</value>
+  </data>
+  <data name="calendarEventEditor_allDayLabel" xml:space="preserve">
+    <value>Celo-dnevni dogodek</value>
+  </data>
+  <data name="calendarEventEditor_calendarLabel" xml:space="preserve">
+    <value>Koledar:</value>
+  </data>
+  <data name="calendarEventEditor_cancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="calendarEventEditor_closeButton" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="calendarEventEditor_deleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="calendarEventEditor_descriptionLabel" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="calendarEventEditor_editButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="calendarEventEditor_fromLabel" xml:space="preserve">
+    <value>Od:</value>
+  </data>
+  <data name="calendarEventEditor_notAllDayEvent" xml:space="preserve">
+    <value>Dogodek ni celodneven.</value>
+  </data>
+  <data name="calendarEventEditor_ownerLabel" xml:space="preserve">
+    <value>Lastnik:</value>
+  </data>
+  <data name="calendarEventEditor_repeatCustom" xml:space="preserve">
+    <value>Po meri</value>
+  </data>
+  <data name="calendarEventEditor_repeatDaily" xml:space="preserve">
+    <value>Vsak dan</value>
+  </data>
+  <data name="calendarEventEditor_repeatLabel" xml:space="preserve">
+    <value>Ponovi:</value>
+  </data>
+  <data name="calendarEventEditor_repeatMonthly" xml:space="preserve">
+    <value>Vsak mesec</value>
+  </data>
+  <data name="calendarEventEditor_repeatNever" xml:space="preserve">
+    <value>nikoli</value>
+  </data>
+  <data name="calendarEventEditor_repeatWeekly" xml:space="preserve">
+    <value>Vsak teden</value>
+  </data>
+  <data name="calendarEventEditor_repeatYearly" xml:space="preserve">
+    <value>Vsako leto</value>
+  </data>
+  <data name="calendarEventEditor_saveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="calendarEventEditor_sharingNoLabel" xml:space="preserve">
+    <value>Dogodek ni deljen.</value>
+  </data>
+  <data name="calendarEventEditor_toLabel" xml:space="preserve">
+    <value>Do:</value>
+  </data>
+  <data name="calendarEventEditor_unsubscribeButton" xml:space="preserve">
+    <value>Odjavi</value>
+  </data>
+  <data name="calendarListView_noEventsMessage" xml:space="preserve">
+    <value>Ni dogodkov za prikaz.</value>
+  </data>
+  <data name="calendarMiniCalendar_hideLabel" xml:space="preserve">
+    <value>Skrij mini koledar</value>
+  </data>
+  <data name="calendarMiniCalendar_showLabel" xml:space="preserve">
+    <value>Pokaži mini koledar</value>
+  </data>
+  <data name="calendarMoreEventsLabel" xml:space="preserve">
+    <value>+%d dogodki</value>
+  </data>
+  <data name="calendarSharedList_addLink" xml:space="preserve">
+    <value>Dodaj uporabnike za deljenje</value>
+  </data>
+  <data name="calendarSharedList_moreLink" xml:space="preserve">
+    <value>Prikaži %d več uporabnikov</value>
+  </data>
+  <data name="calendarSharedList_title" xml:space="preserve">
+    <value>Deljeno z:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_header" xml:space="preserve">
+    <value>Uredi koledar</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_ownerLabel" xml:space="preserve">
+    <value>Lastnik:</value>
+  </data>
+  <data name="calendarSubscriptionsDialog_unsubscribeButton" xml:space="preserve">
+    <value>Skrij s seznama</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_cancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_qSearchText" xml:space="preserve">
+    <value>Hitro iskanje</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_saveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="calendarSubscriptionsManageDialog_title" xml:space="preserve">
+    <value>Upravljaj druge koledarje</value>
+  </data>
+  <data name="calendarTodayLabel" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="calendarViewLabelText_calendar" xml:space="preserve">
+    <value>Pogled koledarja</value>
+  </data>
+  <data name="calendarViewLabelText_list" xml:space="preserve">
+    <value>Pogled seznama</value>
+  </data>
+  <data name="deleteSettings_allLabel" xml:space="preserve">
+    <value>Vsi dogodki v seriji</value>
+  </data>
+  <data name="deleteSettings_applyBtn" xml:space="preserve">
+    <value>Uporabi</value>
+  </data>
+  <data name="deleteSettings_cancelBtn" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="deleteSettings_followingLabel" xml:space="preserve">
+    <value>Ta dogodek in vsi, ki jim sledim</value>
+  </data>
+  <data name="deleteSettings_header" xml:space="preserve">
+    <value>Izbriši ponavljajoč dogodek</value>
+  </data>
+  <data name="deleteSettings_thisLabel" xml:space="preserve">
+    <value>Le ta dogodek</value>
+  </data>
+  <data name="icalStream_browseBtn" xml:space="preserve">
+    <value>Izberi datoteko</value>
+  </data>
+  <data name="icalStream_closeBtn" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="icalStream_exportLink" xml:space="preserve">
+    <value>Izvozi dogodke iz ONLYOFFICE™ koledarja</value>
+  </data>
+  <data name="icalStream_fileNotSelected" xml:space="preserve">
+    <value>ni izbrane datoteke</value>
+  </data>
+  <data name="icalStream_fileSelected" xml:space="preserve">
+    <value>datoteka je izbrana</value>
+  </data>
+  <data name="icalStream_importExport" xml:space="preserve">
+    <value>Uvozi/Izvozi</value>
+  </data>
+  <data name="icalStream_importtLink" xml:space="preserve">
+    <value>Uvozi dogodke v ONLYOFFICE™ koledar</value>
+  </data>
+  <data name="icalStream_incorrectFormat" xml:space="preserve">
+    <value>Napačen format iCal datoteke</value>
+  </data>
+  <data name="icalStream_inputLabel" xml:space="preserve">
+    <value>Vnesi povezavo iCal vira</value>
+  </data>
+  <data name="icalStream_newLabel" xml:space="preserve">
+    <value>Koledar iz iCal vira</value>
+  </data>
+  <data name="icalStream_savedLinkLabel" xml:space="preserve">
+    <value>iCal povezava virov:</value>
+  </data>
+  <data name="repeatSetting_fromLabel" xml:space="preserve">
+    <value>začetek z</value>
+  </data>
+  <data name="repeatSettings_afterLabel" xml:space="preserve">
+    <value>po</value>
+  </data>
+  <data name="repeatSettings_aliasLabel" xml:space="preserve">
+    <value>vsak</value>
+  </data>
+  <data name="repeatSettings_cancelBtn" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="repeatSettings_eachLabel" xml:space="preserve">
+    <value>vsak</value>
+  </data>
+  <data name="repeatSettings_firstLabel" xml:space="preserve">
+    <value>prvi</value>
+  </data>
+  <data name="repeatSettings_header" xml:space="preserve">
+    <value>Ponavljajoče nastavitve</value>
+  </data>
+  <data name="repeatSettings_intervalDay" xml:space="preserve">
+    <value>dan</value>
+  </data>
+  <data name="repeatSettings_intervalMonth" xml:space="preserve">
+    <value>mesec</value>
+  </data>
+  <data name="repeatSettings_intervalWeek" xml:space="preserve">
+    <value>Teden</value>
+  </data>
+  <data name="repeatSettings_intervalYear" xml:space="preserve">
+    <value>leto</value>
+  </data>
+  <data name="repeatSettings_lastLabel" xml:space="preserve">
+    <value>zadnji</value>
+  </data>
+  <data name="repeatSettings_onDays" xml:space="preserve">
+    <value>Dnevi</value>
+  </data>
+  <data name="repeatSettings_onLabel" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="repeatSettings_onMonths" xml:space="preserve">
+    <value>mesecev</value>
+  </data>
+  <data name="repeatSettings_onWeeks" xml:space="preserve">
+    <value>Tedni</value>
+  </data>
+  <data name="repeatSettings_onYears" xml:space="preserve">
+    <value>leta</value>
+  </data>
+  <data name="repeatSettings_optionCount" xml:space="preserve">
+    <value>število časov</value>
+  </data>
+  <data name="repeatSettings_optionDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="repeatSettings_optionNever" xml:space="preserve">
+    <value>nikoli</value>
+  </data>
+  <data name="repeatSettings_penultimateLabel" xml:space="preserve">
+    <value>predzadnji</value>
+  </data>
+  <data name="repeatSettings_saveBtn" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="repeatSettings_secondLabel" xml:space="preserve">
+    <value>drug</value>
+  </data>
+  <data name="repeatSettings_thirdLabel" xml:space="preserve">
+    <value>tretji</value>
+  </data>
+  <data name="repeatSettings_timesLabel" xml:space="preserve">
+    <value>čas</value>
+  </data>
+  <data name="repeatSettings_toLabel" xml:space="preserve">
+    <value>končaj</value>
+  </data>
+</root>

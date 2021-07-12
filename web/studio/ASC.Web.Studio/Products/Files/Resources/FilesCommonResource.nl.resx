@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Toegang</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Buiten portal</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Commentaar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Formulier invullen</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Alleen-lezen</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Volledige toegang</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Weiger Toegang</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Beoordelen</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Beheer</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Om te werken met dit bestand moet je toegangsrechten geven</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>GA VERDER</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Met het openen van dit bestand in ONLYOFFICE™ wordt er een nieuwe kopie van dit bestand in Office Open XML-formaat op uw Google Drive aangemaakt. Zodoende zal het oorspronkelijke bestand niet worden gewijzigd. Om het bestand in ONLYOFFICE™ verder te kunnen bewerken dient u een nieuwe kopie te openen.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Laat dit niet meer zien</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Vul bestandsnaam in</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Selecteer bestandstype</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Mij</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Converteer &amp; Open</value>
+  </data>
+  <data name="ButtonCreateByTemplate" xml:space="preserve">
+    <value>Aanmaken met sjabloon</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Downloaden</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="ButtonRemoveFavorite" xml:space="preserve">
+    <value>Verwijder uit favorieten</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Opmerking</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>Automatisch bewaard</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Andere eigenaar</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Omgezet van {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Gekopieerd</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Aangemaakt</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Gemaakt door DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Bewerkt</value>
+  </data>
+  <data name="CommentEditEncrypt" xml:space="preserve">
+    <value>Geëditeerd met encryptie</value>
+  </data>
+  <data name="CommentEncrypted" xml:space="preserve">
+    <value>Geëncrypteerd</value>
+  </data>
+  <data name="CommentForcesave" xml:space="preserve">
+    <value>Bewaard</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Overschreven</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Hersteld van versie van {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Hersteld van de</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Geupload</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Connectie url</value>
+  </data>
+  <data name="ConvertForEdit" xml:space="preserve">
+    <value>Het document is geconverteerd naar {0} om editeren toe te staan.</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Converteer naar</value>
+  </data>
+  <data name="DashboardGoToMyDocuments" xml:space="preserve">
+    <value>Ga naar Mijn documenten</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfy" xml:space="preserve">
+    <value>Maak co-editeren comfortabel</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyFirstLine" xml:space="preserve">
+    <value>Wissel tussen twee co-editeermodussen</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfySecondLine" xml:space="preserve">
+    <value>Kies snelle modus om te zien wat anderen typen in real-time</value>
+  </data>
+  <data name="DashboardMakeCoEditingComfyThirdLine" xml:space="preserve">
+    <value>Activeer Stricte modus om paragraaf te locken en meer privé te werken.</value>
+  </data>
+  <data name="DashboardShareFiles" xml:space="preserve">
+    <value>Deel bestanden</value>
+  </data>
+  <data name="DashboardShareFilesFirstLine" xml:space="preserve">
+    <value>Deel bestanden met uw team of publiek. Integereer documenten in websites.</value>
+  </data>
+  <data name="DashboardShareFilesSecondLine" xml:space="preserve">
+    <value>Geef toegang voor het bekijken, editeren, reviewen, becommentariëre, en invullen van formulieren.</value>
+  </data>
+  <data name="DashboardShareFilesThirdLine" xml:space="preserve">
+    <value>Verzend documenten voor electronische handtekening.</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationTools" xml:space="preserve">
+    <value>Gebruik meer samenwerkingstools</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsFirstLine" xml:space="preserve">
+    <value>Review documenten en suggereer wijzigingen met Track Changes</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsSecondLine" xml:space="preserve">
+    <value>Voeg commentaar toe, richt ze tot een bepaalde persoon</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsThirdLine" xml:space="preserve">
+    <value>Bekijk versiegeschiedenis en herstel vorige versies.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocs" xml:space="preserve">
+    <value>Werk met office documenten</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsFirstLine" xml:space="preserve">
+    <value>Bewaar en editeer documenten, spreadsheets en presentaties</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsSecondLine" xml:space="preserve">
+    <value>Geniet van de hoogste compatibiliteit met docx, xlsx en pptx.</value>
+  </data>
+  <data name="DashboardWorkWithOfficeDocsThirdLine" xml:space="preserve">
+    <value>Verbind 3rd party storages, zoals Google Drive, Dropbox, Box, OneDrive</value>
+  </data>
+  <data name="DocsAPIundefined" xml:space="preserve">
+    <value>Document Service is niet beschikbaar. Contacteer support aub.</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Documentnaam</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Afgewezen</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Er is een fout opgetreden gedurende</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Versturen van het document via</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Document verstuurd ter ondertekening</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Niet geldig</value>
+  </data>
+  <data name="EditorMentions" xml:space="preserve">
+    <value>Verwittig wanneer vermeld in document</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Schrijf commentaar</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Onjuiste aanvraag</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>U kunt deze gebruiker niet selecteren</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Conversie kost teveel tijd.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Er is een fout opgetreden in de Documenten Service</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Het bestand is geopend voor bewerking</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Het bestand is geopend voor bewerken in een mobiele applicatie door {0}.</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Leeg bestand</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Het vereiste bestand is niet gevonden</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Bestand groter dan {0} zullen niet worden geconverteerd</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Bestand groter dan {0} wordt niet gekopieerd</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Bestand groter dan {0} kan niet worden bewerkt</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Bestand groter dan {0} wordt niet verplaatst</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>U kunt de map niet kopiëren naar de submap</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>De vereiste map is niet gevonden</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Onjuiste titel</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Het bestand is momenteel vergrendeld door een andere gebruiker</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Er zijn geen accounts beschikbaar om het bericht te versturen. Ga naar Mail en stel een mailbox in.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Ten minste {0} mail berichten</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Te veel downloads.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Sorry, deze bestandsindeling wordt niet ondersteund</value>
+  </data>
+  <data name="ErrorMassage_OperationCanceledException" xml:space="preserve">
+    <value>De bewerking is geannuleerd.</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Auteur van het bestand is onbekend</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Het bestand werd beschadigd toen je het probeerde op te slaan</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Het opslaan van het bestand is mislukt</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>U heeft onvoldoende rechten om deze bewerking uit te voeren</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Met de verstrekte logingegevens werd geen toegang verleend tot {0}</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>U heeft geen voldoende aanmaak rechten</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Kan het bestand niet verwijderen omdat deze geopend is om te bewerken</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Kan de map niet verwijderen omdat een van de bestanden geopend is om te bewerken</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>U heeft onvoldoende machtigingen om een bestand te verwijderen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>U heeft onvoldoende rechten om een map te verwijderen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>U heeft niet voldoende rechten om het bestand te bewerken</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Dit document wordt al bewerkt door jou in een ander tabblad</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFile" xml:space="preserve">
+    <value>U heeft onvoldoende machtiging om het bestand te verplaatsen.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_MoveFolder" xml:space="preserve">
+    <value>U heeft onvoldoende machtiging om de map te verplaatsen.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>U heeft onvoldoende rechten om het bestand te bekijken</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>U heeft onvoldoende rechten om de inhoud te bekijken</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>U heeft niet voldoende rechten om een bestand te hernoemen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>U heeft onvoldoende rechten om de map te hernoemen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Kan het bestand niet updaten omdat deze is geopend om te bewerken</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>U heeft onvoldoende rechten om de inhoud te bekijken</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>De inhoud van de externe map is niet beschikbaar. Probeer het account opnieuw te verbinden.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Fout bij bewerken van het bestand</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>U kunt een bestand welke geopend is voor bewerking niet bijwerken</value>
+  </data>
+  <data name="ErrorMassage_UserNotFound" xml:space="preserve">
+    <value>Gebruiker kon niet gevonden worden</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Het is niet toegestaan om elementen in de prullenbak te bekijken</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Iedereen</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Mapnaam</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Anoniem</value>
+  </data>
+  <data name="IndexTitle" xml:space="preserve">
+    <value>Doorzoek inhoud van documenten</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>nieuw</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Herstellen</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Bestand gecreeerd in map "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Voorbeeld</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Doe hetzelfde als een gebruiker|Koppel Dropbox, Box en andere accounts in de 'Algemene Documenten' sectie|Stel de machtigingen in voor documenten en folders in de 'Algemene Documenten' sectie</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Documenten maken, bewerken en delen. Werk samen aan documenten in real-time. 100% compatibiliteit met MS Office-formaten gegarandeerd.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Documenten maken, bewerken en delen. Werk samen aan documenten in real-time. 100% compatibiliteit met MS Office-formaten gegarandeerd.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Creëer, editeer, bewaar en deel documenten. Verbind uw Google Drive, Dropbox en Box accounts en bekijk al uw documenten op één plaats.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Maak en wijzig eigen documenten evenals gedeelde documenten met de juiste machtigingen|Geef lees/schrijf machtiging voor documenten en folders aan andere gebruikers|Koppel Dropbox, Box en andere accounts in de 'Mijn documenten'-sectie</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} verwijderd</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Markeren als gelezen</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Zoek</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Deel</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Geef aan wanneer een map gedeeld is</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Versies weergeven</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Grootte</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Informeer mij als het document</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Informeer mij als het document in</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Waarschuwen bij deling</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Informeer mij als mailing is</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Invullen om te wijzigen</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mapnaam</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Opnieuw  verbinden</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Deel en maak beschikbaar in de "Gedeelde Documenten"-map</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Gemaakt</value>
+  </data>
+  <data name="TitleDeletedUserFolder" xml:space="preserve">
+    <value>Documenten van {!user} {0}</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Bijgewerkt</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Documenten</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Verwijderd</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Selecteer</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Instellingen voor delen</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Bestand acties tonen</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Toon folder acties</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Submappen</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Geüpload</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Markeer als versie</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Markeer als herzien</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versies en revisies:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Het bestand is ontgrendeld</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

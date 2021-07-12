@@ -1,0 +1,1096 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Anslutningsfel till kontot.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Om felet kvarstår, vänligen läs {0}FAQ sektionen{1} för att lära dig mer om problemet.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Anslutningsfel till kontot</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Kontoinställningar</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Google-kontot har avslutats</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Kontot är anslutet med OAuth, redigering är begränsad.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Konton</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Händelser</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Vill du aktivera %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Lägg till konto</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Vill du lägga till ditt första mejlkonto nu?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>Du har inget mejlkonto anslutet till ONLYOFFICE™ Mejl. Vänligen lägg till ditt mejlkonto för att böra motta och skicka mejl.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Lägg till ett nytt konto med ONLYOFFICE™ Mejl.</value>
+  </data>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>Lägg till villkor</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Mejlserver</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Alias)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>%mailbox_address% mejlalias, redigerat endast i administrationspanelen.</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>och</value>
+  </data>
+  <data name="ApplyMultiConditionsAllLabel" xml:space="preserve">
+    <value>matchar alla villkoren</value>
+  </data>
+  <data name="ApplyToLabel" xml:space="preserve">
+    <value>Tillämpa på</value>
+  </data>
+  <data name="ApplyToMessagesFromLabel" xml:space="preserve">
+    <value>Tillämpa på meddelanden från</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Vissa input parametrar är ogiltiga.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Tillgång till dokumentet nekas.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Dokumentet hittades ej eller fins ej på den valda lagringsplatsen.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Tomma filer stöds inte.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>exekverbara filer kan vara ej tillåtna av vissa tjänster (t.ex Gmail)</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Not: filstorleken får ej överskrida %1 MB. Den totala storleken av alla filerna får ej vara mer än %2 MB.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Meddelandet hittades ej.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Den totala storleken av alla bilagor överskrider gränsen.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Ett oförutsägbart fel har inträffats. Vänligen försök igen senare.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0} mejlkontot kunde inte anslutas för en lång tid och måste avaktiveras.{1} Vänligen, kontrollera alla kontoinställningar du har angett eller logga in till mejltjänsten du använder och kontrollera säkerhetsinställningar. När du är säker på att alla problemen med kontoanslutning har löst kan du alltid aktivera det i din lista på ansluta konton.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Mejlkontot har avaktiverats pga av anslutningsfel.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Mejlkonto inaktiverat</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>Det finns problem med 'skicka' och 'mottaga' operationer för {0} mejlkontot.{1} Anledningen till detta kan vara att du bytt ditt kontos lösenord. Vänligen, kontrollera alla kontoinställningar du har angett eller logga in till mejltjänsten du använder och kontrollera dina säkerhetsinställningar.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Ett fel inträffade under kontoanslutningen.</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>Inga senare evenemang</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>Inga tidigare evenemang</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Hela dagen</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Föregående dag</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>karta</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>Inget ställe</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organisatör</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Deltagare</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Repetition</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Svara</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Kanske</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>När</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Var</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Vem</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Redigera kontoinställningar</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Välj tag</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Gömma alla</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Vanliga Inställningar</value>
+  </data>
+  <data name="ContainsLabel" xml:space="preserve">
+    <value>Innehåller</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>Denna konversation innehåller kollapsade meddelanden som kan inkludera gömda bilder. Vill du skriva ut den?</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>Denna konversation innehåller bilder som kan inte visas just nu. Vill du skriva ut den?</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Ett fel inträffade under filkopiering</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Kopierar till "Mina Dokument" mappen</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Skapa en kontakt</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Skapa e-postläda</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>Vi erbjuder dig en standard gratis domän så att du kan skapa din ny e-postlåda med en gång.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>Denna domän är gemensam för alla portaler, så det rekommenderas att din företagsdomän används för ditt företags mejlkorrespondens.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Skapa E-postläda</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Skapa nya kontakter</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Skapa nytt CRM företag</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Skapa ny CRM person</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Skapa personlig kontakt</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Företag</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM-Kontakter</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Vill du avaktivera %1?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>Vissa av dina konton mottar inte mejl.</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>Detta konto används som standard för att skicka mejl.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Vill du radera %1?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Är du säker på att du vill radera %1 etiketten?</value>
+  </data>
+  <data name="DeleteUserFolderShure" xml:space="preserve">
+    <value>Vill du radera mappen "{0}"?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Raderar meddelanden</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Vänligen kontrollera dina mottagares adresser samt formatet av meddelandet. Om du är säker på att ditt meddelande är korrekt, kontrollera alla {account_name} kontoinställningar, och, om allting är korrekt, logga in till mejltjänsten du använder och bekräfta alla eventuella kontrollfrågor. Försök igen efter detta.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>Om felet kvarstår, vänligen läs {faq_link_open_tag}FAQ sektionen{faq_link_close_tag} för att lära dig mer om problemet.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Leverans misslyckades för meddelandet "{subject}".</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Meddelandeleverans misslyckades.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Mejlkonton har inaktiverats.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Mejlkonton har inaktiverats</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Din portal har inte används för ett tag, så dina mejlkonto anslutna till ONLYOFFICE™ Mejl har avaktiverats. Om du fortfarande använder dem gå till din kontosida och aktivera dem igen.</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Klart</value>
+  </data>
+  <data name="DoNotSave" xml:space="preserve">
+    <value>Spara inte</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Redigera kontakt</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Uppladdning av bilagor till den valda mappen misslyckades.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Fel i bilagor</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Den vald Bilagormappen kunde inte nås och avlänkades från ditt {account} mejlkonto. Vänligen kontrollera om du har behörigheten för denna mapp och länka om den.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Den vald Bilagormappen kunde inte nås och avlänkades från ditt {account} mejlkonto. Vänligen kontrollera om den valda mappen finns och länka om den.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Skriva det första utkastet</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Utkast sektionen gör dig möjligt för dig att skapa och sortera meddelanden som du senare kan skicka till olika personer. Här kan du markera de viktigaste meddelanden eller radera de onödvändiga.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>Inga meddelande att visa i denna mapp</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Skriva ett nytt meddelande</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Inkorg sektionen gör det möjligt för dig att hantera meddelanden du har mottagit. Här kan du se korrespondenshistoriken, markera de viktigaste meddelanden, gruppera mejl per kategori via etiketter eller radera de som är onödvändiga.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Inga meddelanden mottagna</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Konfigurera det första kontot</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Konfigurera ett konto för att skicka, motta och håll dina meddelanden organiserade direkt på portalen. Få tillgång till meddelandehistorik, kontakter och filer via alla webbläsare när och var som helst. Sortera meddelanden med dina egna etiketter. Skapa e-postlådor för den gratis standarddomänen.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Inget konto har konfigurerats än</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Gå till CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Denna kontaktlista kommer innehålla alla dina kunder från CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Kontaktlistan är tom</value>
+  </data>
+  <data name="EmptyScrFiltersButton" xml:space="preserve">
+    <value>Skapa filter</value>
+  </data>
+  <data name="EmptyScrFiltersDescription" xml:space="preserve">
+    <value>Du måste först skapa ett filter och sedan använda det</value>
+  </data>
+  <data name="EmptyScrFiltersHeader" xml:space="preserve">
+    <value>Inga filter skapade</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>Denna kontaktlista kommer visa alla dina personliga kontakter från adressboken. Du har inte skapat kontakter där än.</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Skapa Ny Mejl Tag</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Du måste först skapa en etikett för att kunna använda den</value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Inga etiketter har skapats</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>Skapa mapp</value>
+  </data>
+  <data name="EmptyScrUserFoldersDescription" xml:space="preserve">
+    <value>Du måste först skapa en mapp och därefter använda den</value>
+  </data>
+  <data name="EmptyScrUserFoldersHeader" xml:space="preserve">
+    <value>Inga mappar skapade</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Skriva ett nytt meddelande</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Den Skickade sektionen gör det möjligt för dig att hantera de meddelandena du skickar. Här kan du markera de viktigaste meddelandena, gruppera mejl i kategorier med etiketter eller radera dem som är onödvändiga.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Inga meddelanden har skickats än</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Spam sektionen innehåller meddelanden du har markerat som skräppost. Här kan du radera dessa mejl, markera dem som 'inte skräppost' eller rensa hela sektionen.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>Inga meddelande att visa i denna mapp</value>
+  </data>
+  <data name="EmptyTemplatesButton" xml:space="preserve">
+    <value>Skapa den första mallen</value>
+  </data>
+  <data name="EmptyTemplatesDescription" xml:space="preserve">
+    <value>Sektionen Mallar låter dig skapa och sortera meddelanden som du kan skicka till olika personer senare. Här kan du markera de viktigaste meddelandena eller ta bort de onödiga.</value>
+  </data>
+  <data name="EmptyTemplatesHeader" xml:space="preserve">
+    <value>Inga mallar visas i den här mappen</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Papperskorgen innehåller meddelanden som raderades. Här kan du restaurera vissa mejl eller radera dem permanent.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>Inga meddelande att visa i denna mapp</value>
+  </data>
+  <data name="EmptyUserFolderDescription" xml:space="preserve">
+    <value>Denna sektion låter dig hantera meddelandena du flyttar. Här kan du se korrespondenshistoriken, kryssa för de viktigaste meddelandena, gruppera e-postmeddelanden efter kategorier med etiketter eller ta bort onödiga.</value>
+  </data>
+  <data name="EmptyUserFolderHeader" xml:space="preserve">
+    <value>Inga meddelanden visas i den här mappen</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Mejl autosvar är aktivt</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Detta konto finns redan</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Kalendern kan inte nås</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Tomt fält</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Tomt 'Till' fält</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Inkorrekt adress</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Inkorrekt adress</value>
+  </data>
+  <data name="ErrorLostInternetConnection" xml:space="preserve">
+    <value>Förlorade internetanslutningen</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>Ingen e-postlåda märkt</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Ett okänt fel har inträffats</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>Ingen användare har valts</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Ett fel inträffade under öppningen av detta meddelande.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Vänligen uppdatera sidan och försök igen att öppna detta meddelande. Om problemet kvarstår, vänligen {0}kontakta vårt support team.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Vi ber om ursäkt för besväret men laddning av meddelandet i ONLYOFFICE™ Mail misslyckades. Använd kopian på det ursprungliga meddelandet tillagt som bilaga för att öppna det via en e-postklient eller {0}kontakta vårt support team.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>Detta telefonnummer finns redan</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>%1 etiketten finns redan</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Filformatet stöds inte</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Om du vill återansluta ditt konto, vänligen ta först det bort från listan av dina avslutade konton på 'Inställningar &gt; Kontohantering'-sidan.</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Befintligt konto</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Expandera alla</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Exportera meddelande till CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Fel under Mejl Exportering</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Ett fel inträffade under exponering av meddelandet.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Meddelandet du försöker exportera är redan länkat till det märkta CRM elementet.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Meddelande har exporterats till CRM kontaktshistorik </value>
+  </data>
+  <data name="FilterActionDeleteLabel" xml:space="preserve">
+    <value>Radera för evigt</value>
+  </data>
+  <data name="FilterActionMarkAsImportantLabel" xml:space="preserve">
+    <value>Markera viktiga</value>
+  </data>
+  <data name="FilterActionMarkAsReadLabel" xml:space="preserve">
+    <value>Markera som läst</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>Lägg till etikett</value>
+  </data>
+  <data name="FilterActionMoveToLabel" xml:space="preserve">
+    <value>Flytta till mapp</value>
+  </data>
+  <data name="FilterActionMoveToTarshLabel" xml:space="preserve">
+    <value>Flytta till papperskorg</value>
+  </data>
+  <data name="FilterAdvancedInfo" xml:space="preserve">
+    <value>Avancerade alternativ</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Annan</value>
+  </data>
+  <data name="FilterApplyToAllMailboxes" xml:space="preserve">
+    <value>Tillämpa på alla brevlådor</value>
+  </data>
+  <data name="FilterApplyToAttachemnts" xml:space="preserve">
+    <value>Tillämpa om bilagor är det</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>Temperatursnivå</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Skräddarsydd period</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Företag</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>Temperatursnivå</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Ospecifierat</value>
+  </data>
+  <data name="FilterErrorAllAccountsRemoved" xml:space="preserve">
+    <value>Alla de valda kontona har raderats</value>
+  </data>
+  <data name="FilterErrorEmptyCondition" xml:space="preserve">
+    <value>Inget värde på villkor</value>
+  </data>
+  <data name="FilterErrorEmptyMoveToFolderValue" xml:space="preserve">
+    <value>Ingen mapp vald</value>
+  </data>
+  <data name="FilterErrorEmptyTagValue" xml:space="preserve">
+    <value>Ingen etikett vald</value>
+  </data>
+  <data name="FilterErrorNoActionSelected" xml:space="preserve">
+    <value>Ingen åtgärd vald</value>
+  </data>
+  <data name="FilterErrorNoApplyToFolderSelected" xml:space="preserve">
+    <value>Ingen mapp vald att tillämpa filter på</value>
+  </data>
+  <data name="FilterErrorNoApplyToMailboxSelected" xml:space="preserve">
+    <value>Ingen brevlåda vald att tillämpa filter på</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Från sändare</value>
+  </data>
+  <data name="FilterIgnoreOther" xml:space="preserve">
+    <value>Ignorera andra filter</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Viktig</value>
+  </data>
+  <data name="FilterName" xml:space="preserve">
+    <value>Filternamn</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Skräddarsydd period</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Per period</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>senaste veckan</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Igår</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Personer</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Läst(a)</value>
+  </data>
+  <data name="FilterSelectFolderLabel" xml:space="preserve">
+    <value>välj mapp</value>
+  </data>
+  <data name="FilterSelectTagLabel" xml:space="preserve">
+    <value>välj etikett</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Till mejladress</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Oläst(a)</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>Med bilagor</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>Med kalender</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>Med möjligheter</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Med etikett</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Vidarebefordrat meddelande</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>Du kan {0} eller ändra det till {1}</value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>Gå till {0} för att aktivera dem.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Gå till Kalender</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Gå till Evenemang</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Gruppen kan inte anges som standardbrevlåda</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Hjälp</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Gömma alltid bilder från</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Göm</value>
+  </data>
+  <data name="IfLabel" xml:space="preserve">
+    <value>Om</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Kontot är anslutet.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Alla mejl på de 30 sista dagarna kommer importeras.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Importerar meddelanden. Det kan ta en viss tid. Du kan stänga detta fönster och fortsätta att använda Mejlet eller även stänga webbläsaren. Importen kommer fortsätta i bakgrunden.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Viktig</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Vissa meddelanden som har mottagits via andra tjänster tidigare har kanske inte importerats. Vänligen läs {0}FAQ sektionen{1} för mer detaljer.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Om ett fel uppstår när du importerar mejlet, vänligen läs {0}FAQ sektionen{1} för mer detaljer.</value>
+  </data>
+  <data name="InfoMoveFolder" xml:space="preserve">
+    <value>Mappen '{0}' är flyttad inuti '{1}'</value>
+  </data>
+  <data name="InfoMoveFolderToRoot" xml:space="preserve">
+    <value>Mappen '{0}' är flyttad till rot-mappen</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>Mappen '{0}' är raderad</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>Mappen '{0}' döptes om till '{1}'</value>
+  </data>
+  <data name="InfoSelectConversation" xml:space="preserve">
+    <value>konversation</value>
+  </data>
+  <data name="InfoSelectConversations" xml:space="preserve">
+    <value>konversationer: {0}</value>
+  </data>
+  <data name="InfoSelectMessage" xml:space="preserve">
+    <value>meddelande</value>
+  </data>
+  <data name="InfoSelectMessages" xml:space="preserve">
+    <value>meddelanden: {0}</value>
+  </data>
+  <data name="InfoSelectMove" xml:space="preserve">
+    <value>Flytta {0}</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Insatt via länk</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Länka konversation med CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Konversations har länkats till CRM kontakthistorik</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Fel i att Länka Konversation</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Ett fel inträffade när länken mellan konversationen och CRM skapades.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Det valda CRM elementet kan inte längre nås, eller anslutningen har tappats. Vänligen, bekräfta elementets läge och kontrollera din nätverksanslutning. Om felet kvarstår, vänligen kontakta din portaladministratör.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>laddar bilagor...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Mejl Autosvar</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>Till</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Skapar e-postlåda...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Uppdaterar e-postlådan...</value>
+  </data>
+  <data name="MailDraftsReassigned" xml:space="preserve">
+    <value>Utkast omtilldelade</value>
+  </data>
+  <data name="MailFilters" xml:space="preserve">
+    <value>Meddelandefiltrering</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Hantera konton</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Hantera utskrift</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Markera alla mottagarnas mejl  </value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Markera alla sändares mejl</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>Markera som viktigt</value>
+  </data>
+  <data name="MarkNotImportantLabel" xml:space="preserve">
+    <value>Markera som oviktigt</value>
+  </data>
+  <data name="MatchesLabel" xml:space="preserve">
+    <value>matchar</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>Detta meddelande innehåller bilder som inte kan visas just nu. Vill du fortsätta?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Fortsätt utan bilder</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>Detta meddelande innehåller bilder som inte kan visas just nu. Vill du skriva ut det?</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Bekräfta utskrivning utan bilder</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Meddelandet har inte skickats. Är du säker på att du vill radera det?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 mer</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>fler detaljer</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>flyttar meddelanden</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Lägg till mejlkonto</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Nytt Meddelande</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Ingen vidare aktion behövs.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>Inga meddelanden som matchar ditt filter kan visas i denna mapp. Välj andra filtreringsalternativ eller rensa filtret för att visa alla meddelanden i denna mapp.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Inga meddelande att visa för detta filter</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>Inget ämne</value>
+  </data>
+  <data name="NotContainsLabel" xml:space="preserve">
+    <value>innehåller inte</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Ej viktigt</value>
+  </data>
+  <data name="NotMatchesLabel" xml:space="preserve">
+    <value>matchar inte</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Inte Spam</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Får standarddomäninställningar...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OrLabel" xml:space="preserve">
+    <value>eller</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Utkast</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Vidarebefordra</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Svara</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>Mall</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Personliga kontakter</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Skriva ut alla</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Skriva ut</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Den tillgängliga disklagring har överskridits på din portal. Alla meddelanden kan inte laddas och inga nya meddelanden kan skickas. Vänligen, radera några meddelanden från Inkorgen eller radera några filer from Dokument modulen. Du kan också ändra din prisplan för att få mer disklagring.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Den tillgängliga disklagringen har överskridits.</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Citerad text gömd]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Markera som läst</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Vill du radera alla meddelande från Spam-mappen?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Vill du radera alla meddelanden från Papperskorgen?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Sv</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Bilagormappens återställning misslyckades.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Bilagormappen har återställts.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Inga CRM kontakter som matchar ditt filter kan visas på denna sida. Vänligen välj andra filtreringsalternativ eller rensa filtret för att se alla CRM kontakter.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>Inga CRM kontakter kan visas för detta filter här</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Nollställ filter</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>Inga kontakter matchade det valda filtret. Vänligen välj ett annat filter eller rensa detta för att se alla kontakter.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>inga kontakter matchar detta filter</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Inga portalkontakter matchar ditt filter kan visas på denna sida. Vänligen välj andra filtreringsalternativ eller rensa filtret för att visa alla portalkontakter.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Inga kontakter att visa för detta filter</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Återställa</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Restaurerar meddelanden</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>%real_count% från %count% har sparats i Mina Dokument.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Sparning lyckades.</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%' har sparats i Kalendern.</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' har sparats i '%folder_name%'.</value>
+  </data>
+  <data name="SaveDraft" xml:space="preserve">
+    <value>Spara utkast</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Spara mall</value>
+  </data>
+  <data name="SaveTemplateChanges" xml:space="preserve">
+    <value>Spara mallförändringarna?</value>
+  </data>
+  <data name="SaveTemplateText" xml:space="preserve">
+    <value>Du har ändrat mallen men har inte sparat den. Om du stänger sidan kommer alla ändringar att gå förlorade. Spara ändringar?</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Spara meddelandet</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Välj</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Detta konto har avaktiverats. Vänligen, aktivera detta konto eller välj ett annat konto.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Skickar meddelande</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Server e-postlåda, redigeras endast i administrationspanelen</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Bilagormappen har konfigurerats.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Bilagormappen har konfigurerats.</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Definiera som standard och använda för att skicka mejl</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Delar inställningar för filer</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Denna utskriften kommer läggas till på slutet av alla brev från ditt konto. Du kan skriva ditt namn, dina kontakter eller dina slogans.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Ämne</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Sparar etiketten...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Importerat från CRM. Du kan inte redigera eller ta bort den här etiketten.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketter</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Portalkontakter</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Till</value>
+  </data>
+  <data name="ToOrCcLabel" xml:space="preserve">
+    <value>To eller Cc</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Total antal kontakter:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Försök igen</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Avlänka från CRM</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Markera som oläst</value>
+  </data>
+  <data name="UserFolderNoSelected" xml:space="preserve">
+    <value>ej vald</value>
+  </data>
+  <data name="UserFolders" xml:space="preserve">
+    <value>Mappar</value>
+  </data>
+  <data name="UserFolderSelectorLabel" xml:space="preserve">
+    <value>Föräldramapp:</value>
+  </data>
+  <data name="UserFolderSelectorLink" xml:space="preserve">
+    <value>Välj föräldramappen</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Använd utskrift</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varning</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>Med bilagor</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Utan etiketter</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Med etiketter</value>
+  </data>
+</root>

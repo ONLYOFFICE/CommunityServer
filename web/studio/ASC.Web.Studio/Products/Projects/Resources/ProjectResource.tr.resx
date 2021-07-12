@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Portal Erişim Hakları</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Aşama ekleyin</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Proje yöneticisi ekle</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Görev ekleyin</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Proje Yöneticisinin yapabilecekleri</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>proje ekibine kullanıcı ekleme veya silme</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>şunun için erişim haklarını düzenle:</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>yönet (yarat,düzenle,sil)</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>Yonet ( Olustur, Degistir, Sil ) Onemli Noktalar, Konular, Tartismalar, Dokumanlar</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Talk ile İletişime Geç</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>E-posta Gönder</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Projeyi kapat</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>İlk projeyi oluştur</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Yeni bir proje oluştur</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Projeyi Sil</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Bu projeyi silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Projeleri sil</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Bu projeleri silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Bu bölümde filtrenizle eşleşen proje yok </value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Projeyi düzenle</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Proje oluştur ve verimli çalış</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Projeler listesi boş</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Bu projeyi izle</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Kilometre taşına görev ekle</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Tüm Sorumlu Kullanıcılar</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Sorumlu kullanıcı ata</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Tam Ekran Modu</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Sol panel modu</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Bağlantı oluştur</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Bağlantı yaratılıyor</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Sol paneldeki başlığa çift tıkla</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Sol panelde sorumlu kullanıcıya sağ tıklayın</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Başlığı düzenle</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Gantt Tablosuna bakma için tabloları kullanarak görselleştirmek istediğiniz en az bir proje seçmelisiniz.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Proje seçilmedi.</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Gantt Tablosu</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Yüksek öncelikli</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Gösterge</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Kapatıldı</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Tablo objeleri duruma göre farklı gözükebilir:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Gecikmiş</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>H anahtarını kullanarak ana hareket listeli paneli açabilirsiniz.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Geçersiz bağlantı</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Aşağıdaki semboller mouse cursoru tablo objelerinin üstüne geldiğinde gösterilir.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Grafik Göstergesi</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Görevleri bağlantıla</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Görevin üstüne gelin, beyaz yuvarlağa tıklayın, cursorı başka bir göreve sürükleyin ve gözüken beyaz yuvarlağın içine bırakın</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Bağlantı tipi</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Şunla bağlantıla:</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Sadece kilometre taşlarını ve görevleri aç</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Bugün</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Yazdır</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Tekrar yap</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Tekrar aç</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Görevi(kilometre taşını) sağ tıkla</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Açılır menüyü aç</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Boşluğa sağ tıkla</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Yeni görev oluştur</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Boşluğa sağ tıkla ve sağa sürükle</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Bitiş tarihli yeni görev oluştur</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Daha fazlası</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Ekrana sığdır</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Bitiş tarihi olmayan görev</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Gün</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Ay</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Tarih cetveli</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Hafta</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Tarih cetvelini değiştirmek için mouse tekerleğini kullanın</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Herhangi bir yerden çabucak günün aktivitelerine dönün</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Geri Al</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Geri alma listesi de temizlenecek ve geçmiş hareketlerinizi geri alamayacaksınız.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Sola Taşı</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Sağa taşı</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Özel Proje</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Projeyi özel olarak kaydet</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Ekibi Yönet</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Manuel Süre Girişi</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Etkin aşaması olan projeleri kapatamazsın</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Etkin görevleri olan projeleri kapatamazsın.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Proje yöneticisine e-posta ile bildirim gönder</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Proje</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Projeyi Sil</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Açıklama</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Proje Yöneticisi</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projeler</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Proje durumu</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Ekip</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Proje şablonu</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Proje şablonları</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Başlık</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Tabloyu yenile</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Projeyi Kaydet</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Proje şablonu seç</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Seç</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etiketler</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Kapatılan görevler. Güncel kilometre taşının tüm listesini açmak için tıklayın.</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Görevleri aç. Güncel kilometre taşının tüm listesini açmak için tıklayın.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Kilometre taşı sorumlusu kullanıcı. Bu kullanıcı tarafından yönetilen tüm kilometre taşlarını görmek için tıklayın.</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Proje yöneticisi. Güncel kullanıcı tarafından yönetilen tüm projelere bakma için tıklayın.</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Görevleri aç. Güncel projenin tüm listesini açmak için tıklayın.</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Ekip. Tüm proje ekibi üyelerinin listesini açmak için tıklayın.</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Altgörevleri aç. Güncel görevde tüm listeyi açmak için tıklayın.</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Görevden sorumlu kullanıcı. Güncel kullanıcıya atanan tüm görevleri görmek için tıklayın.</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Görevden sorumlu kullanıcı. Görevden sorumlu tüm kullanıcıları görmek için tıklayın.</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Aktif aşamaları göster</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Aktif görevleri görüntüle</value>
+  </data>
+</root>

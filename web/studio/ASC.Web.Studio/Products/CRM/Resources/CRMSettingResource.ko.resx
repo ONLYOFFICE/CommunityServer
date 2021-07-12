@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>액세스 권한 및 태그</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>"웹 사이트 문의 양식"을 통해 추가 된 사용자에 대한 액세스 권한을 설정합니다, 그렇지 않으면 모든 CRM 사용자가 새 연락처를 볼 수 있습니다. 태그를 목록에서 새로운 고객을 만들기가 함께 표시됩니다.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>포털 액세스 권한</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>새 작업 서식 추가</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>새 작업 템플릿 컨테이너 추가</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>옵션 추가</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>태그를 추가</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>작업 서식 컨테이너 추가</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>작업 템플릿 컨테이너를 추가</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>작업 템플릿을 추가</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>이 작업 서식 추가</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>이 작업 서식 컨테이너 추가</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>인증</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>담당자 및 회사 모두</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>색상을 변경</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>아이콘 변경</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>확인란</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>열</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>일반 설정</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>카테고리 만들기</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>유형을 만들기</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>사용자 필드를 만들기</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>무대를 만들기</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>필드를 만들기</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>새로운 카테고리를 만들기</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>새 카테고리</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>새로운 단계를 만듭니다</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>새로운 스테이지</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>새 필드를 만듭니다</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>새로운 필드</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>새로운 유형을 생성</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>새로운 유형</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>새 태그를 만듭니다</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>새 태그</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>통화 설정</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>사용자 필드</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>실패 기회를 닫습니다.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>성공적으로 기회를 닫습니다.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>기본 통화</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>카테고리 삭제</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>유형을 삭제</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>필드를 삭제</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>무대를 삭제</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>태그 삭제</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>작업 템플릿 삭제</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>작업 템플릿 컨테이너를 삭제</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>사용하지 않는 태그를 삭제</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>연락처 유형은 특정 방법으로 잠재적 인 구매자를 특징 보자. 예를 들어, 연락처 유형은 제품을 구입 할 수있는 연락처의 의지를 의미한다하는 "따뜻한", "핫", "감기"가 될 수 있습니다.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>수정하거나 삭제할 연락처 유형을 경우에만이 유형의 주소록이 없습니다 수 있습니다.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>기회 단계는 거래를 완료하는 데 필요한 단계를 결정하게. 예를 들어, 기회 단계는 "상업 제안", "선불", "실행"을 추가 할 수 있습니다. 드래그 수있는 기회 단계에 필요한 순서를 설정합니다.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>수정하거나 삭제할 수있는 기회 단계를 경우에만이 단계에서 더 기회가 없습니다 수 있습니다.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>역사 이벤트 카테고리는 그룹으로 기록 이벤트를 분할 할 수 있습니다. 표준 기록 이벤트 카테고리 메일, 메모, 전화 통화, 회의입니다. 당신이 그들을 편집 할 수 있도록 관리자 권한이 필요합니다.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>수정하거나 삭제할 역사 이벤트 범주 만 경우에이 카테고리에 기록 이벤트가 없습니다 수 있습니다.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>작업 카테고리 당신이 달성하고자하는 목표에 따라 그룹으로 작업을 나누어 보자. 예를 들어, 작업 범주는 "예약", "전화 통화"또는 "감사의 표현"가 될 수 있습니다.</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>수정 또는 삭제 작업 범주 단계를 경우에만이 카테고리에 더 작업이 없습니다 수 있습니다.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>일 오프셋</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>한 ZIP 아카이브에있는 모든 데이터를 다운로드</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZIP 아카이브 생성 시작됨</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>ZIP 아카이브를 다운로드 할 링크</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>카테고리를 수정합니다</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>유형을 편집</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>필드를 편집</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>단계를 편집</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>수정«{0}»작업 카테고리</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>수정«{0}»연락처 유형</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>수정«{0}»기회 단계</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>«{0}»작업 템플릿을 수정</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>«{0}»작업 템플릿 컨테이너를 수정합니다</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>작업 템플릿을 수정</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>작업 템플릿 컨테이너를 수정합니다</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>사용자 필드 목록이 비어 있습니다</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>사용자 필드는 클라이언트, 기회 또는 사건에 대한 추가 정보를 확인할 보자. 경우에만이 필드 값을 가진 연락처 또는 기회가없는 광고, 직접 판매 등 당신은 사용자가 필드를 수정하거나 삭제할 수 있습니다 : 예를 들어, 사용자가 어디에서 왔는지를 지정 할 수있는 '소스'필드를 추가 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>태그 목록이 비어 있습니다</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>태그 설명하는 데 사용되는 및 그룹 주소록 (두 회사 및 명), 그들 비슷한이 기회와 가지 경우. 할 수 있습니다 예를 들어, 다른 회사의하지만 더 나은 분류를위한 공통의 태그 사업의 동일한 영역의 모든 사람들을 태그를 추가 할 수 있습니다. 이 태그가 포함 된 주소록, 기회 또는 경우가 경우에 당신은 단지 태그를 수정하거나 삭제할 수 있습니다.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>작업 템플릿 목록은 비어 있습니다</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>작업 템플릿은 CRM 모듈 내부에 유사한 작업을 만들 수 있습니다. 당신은 하나의 마우스 클릭으로 연락처, 기회 또는 사건에 작업을 추가 할 수 있습니다. 모든 컨테이너 작업 템플릿에 대한 작업을 만들 수있는 컨테이너를 선택합니다.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>이 필드는 올바르게 기입해야합니다</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>모든 필드는 제목이 있어야합니다</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>필드 제목은 비워 둘 수 없습니다</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL을 사용하도록 설정</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>수출</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>모든 데이터 내보내기</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>수출 함수는 생성 된 아카이브 링크가있는 이메일 귀하의 이메일 주소로 발송됩니다 모든 CRM 데이터 (연락처, 기회, 케이스, 역사, 등) CSV 파일이 포함 된 ZIP - 아카이브를 생성합니다.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>외부 프로그램의 목록을 생성</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>필드 목록</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>필드 선택</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>폼에 표시 될 필드를 선택</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>양식 소스 코드</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>귀하의 사이트에이 양식을 사용하여</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>이 사이트에서 양식처럼 보일 수 방법입니다</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>양식 등록</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>웹 사이트 담당자 주요 설정을 폼</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>양식을 생성</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>역사 이벤트 카테고리</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>주인</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>로그인 개최</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>호스트 비밀번호</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>내부 SMTP ({0} 이메일 수신자 최대)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>그냥 회사</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>그냥 사람에 대한</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>성공 확률</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>통보 사용자</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>새 연락처가 "웹 사이트 문의 양식 '을 통해 추가 될 때 알림을 받게됩니다 사용자를 선택</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>이전 작업을 기준으로</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>컨테이너 처음부터 카운트</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>기타 분야</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>포트</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>옵션을 삭제</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>리디렉션 URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>사용자가 양식을 한 후 이동합니다 귀하의 웹 사이트의 주소가 가득 차 있습니다.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>선</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>저장!</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>상자를 선택</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>발신자 표시 이름</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>보내는 사람 이메일 주소</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>사용자 필드 사용자 지정</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>데이터를 전송</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>작업 템플릿</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>텍스트 영역</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>본문</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>타이프</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Web Form의 키</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>양식의 인증을 위해 제공하는 고유 한 웹 양식 키의 형식은 올바른 일에 데이터와 필요한을 보내는 데 사용. 이것은 스팸, 사기를 방지하고 무단 사용에서 웹 양식을 보호하기 위해 보안상의 이유로 수행됩니다. 당신이 새로운 키를 생성 할 때 기존의 키와 기존 형태의 작동이 중단됩니다.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>웹 사이트 문의 양식</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>잘못된 형식 키</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>귀하의 사이트에 게시 할 수있는 양식을 구축 할 웹 사이트 문의 양식 기능을 사용합니다. 당신이 자동으로 새 연락처를 캡처 할 수 있습니다. 양식 속성을 정의하여 필요한 필드를 선택하여 자신의 웹 양식을 만들 수있는 코드를 생성합니다.</value>
+  </data>
+</root>

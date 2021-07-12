@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>行動</value>
+  </data>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>サブスクライバの管理</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>すべて</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>すべての {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>リンク付きタスクと移動する</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>All {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>タイマーをスタート/ストップ</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>時間を追加</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>休止</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>リセット</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>スタート</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>チームラボのプロジェクト
+
+Teamlabのプロジェクト</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>携帯アプリを試してください</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>色を変更する</value>
+  </data>
+  <data name="ChangeCustomStatusAvailable" xml:space="preserve">
+    <value>ステータスはタスクを作成したユーザーのみに利用可能です</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>アイコンを変更する</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>隠す</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>共通設定</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>コピー</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>新規作成</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>新規プロジェクトを開始</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>カテゴリー</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>説明書</value>
+  </data>
+  <data name="CustomStatusDescriptionBox" xml:space="preserve">
+    <value>タスクステータスに順番を設定してください。各カテゴリには少なくとも一つのステータスが必要です。</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>新規の状態</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchy" xml:space="preserve">
+    <value>プロジェクト階層をデザインします。</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyFirstLine" xml:space="preserve">
+    <value>プロジェクトとマイルストーンを作成します。</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchySecondLine" xml:space="preserve">
+    <value>タスクとサブタスクを参割り当てる。タスクにカスタムステータスをマークします。</value>
+  </data>
+  <data name="DashboardDesignProjectHierarchyThirdLine" xml:space="preserve">
+    <value>期限と優先順位を設定します。</value>
+  </data>
+  <data name="DashboardManageAccessRights" xml:space="preserve">
+    <value>アクセス権を管理します。</value>
+  </data>
+  <data name="DashboardManageAccessRightsFirstLine" xml:space="preserve">
+    <value>民間プロジェクトを作成します。</value>
+  </data>
+  <data name="DashboardManageAccessRightsSecondLine" xml:space="preserve">
+    <value>マイルストーン、タスク、文書、議論にアクセスを制限します。</value>
+  </data>
+  <data name="DashboardManageAccessRightsThirdLine" xml:space="preserve">
+    <value>新しいプロジェクトを作成できるユーザーを選択します（管理者またはすべてのユーザー）。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgress" xml:space="preserve">
+    <value>進捗と費やされる時間を追跡します。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressFirstLine" xml:space="preserve">
+    <value>ガントチャートでプロジェクト作業のスケジュールの作成します。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressSecondLine" xml:space="preserve">
+    <value>特定のタスクに費やされる時間を追跡します。</value>
+  </data>
+  <data name="DashboardTrackTimeAndProgressThirdLine" xml:space="preserve">
+    <value>進捗レポートを自動的に生成します。</value>
+  </data>
+  <data name="DashboardUseMoreTools" xml:space="preserve">
+    <value>追加ツールを使用して下さい</value>
+  </data>
+  <data name="DashboardUseMoreToolsFirstLine" xml:space="preserve">
+    <value>議論やプロジェクトテンプレートを作成します。</value>
+  </data>
+  <data name="DashboardUseMoreToolsSecondLine" xml:space="preserve">
+    <value>ドキュメント、スプレッドシート、プレゼンテーションを添付します。</value>
+  </data>
+  <data name="DashboardUseMoreToolsThirdLine" xml:space="preserve">
+    <value>iOSデバイスでプロジェクトを管理します。</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>説明</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>ドキュメント</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>連絡先をリンクしたり追加</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>あなたが管理するプロジェクトでそれらをリンクしたり、新しい連絡先を追加するには、リストから既存のCRMの連絡先を選択します。連絡先個人情報を編集します。 CRMとのより深い統合により、より効率的に作業を管理するのに役立ちます。</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>連絡先リストは空です</value>
+  </data>
+  <data name="EmptyStatusTitle" xml:space="preserve">
+    <value>各の状態はタイトルがあることが必要です</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>このフィルタと一致するプロジェクトがありません</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>あなたが作成しているプロジェクトのマネージャーではありませんが、その中のすべての変更を追跡したい場合は、このチェックボックスをオンにします。新しく作成されたすべてのマイルストーン、タスク、および議論についての情報は、新しい通知を散策毎日に含まれます。</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}民間事業{2}はあなたのチームのメンバーがそれにアクセスすることができましたように、プロジェクトへのアクセスを制限するための方法です。{0}はプライベートとしてプロジェクトを保存すると、また、この内の各チームメイトのために、アクセス権を設定することができますプロジェクト。</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}民間事業{2}はあなたのチームのメンバーがそれにアクセスすることができましたように、プロジェクトへのアクセスを制限するための方法です。</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>主なマイルストーンは、あなたが他の人よりも重要であると考えているマイルストーンを作成するために使用されます{0}のすべての主要なマイルストーンは、そのタイトルの近くに配置し、赤い鍵アイコンが表示されます。</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>あなたは、次の3つのプロジェクトの進捗状況を切り替えることができます。{0}は{1}アクティブ、一時停止することを決定したり、それらを完了していないまで、{2}は、現在作業しているすべての作成されたプロジェクトがアクティブとしてマークされている{0} {1}が一時停止あなたは一時的にあなたのプロジェクトの作業を中断することを決定した場合。{2}、一時停止して状態を変更します。プロジェクトを再開するには、該当の対応するステータスを設定して、アクティブにしてください。{0} {1}は休館。{2}プロジェクトの作業が完了し、すべてのタスクが閉じているときは、あなたのプロジェクトを閉じたために、そのステータスを変更完了。今後の作業のために、あなたはそれを再度アクティブにする必要があります。</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>あなたのチームにメンバーを追加するには、右クリックし、[今すぐ{1}チーム{2}のリンクを管理し、リストから追加したいユーザーを選択します。{0}また、{1}チームへの切り替え後にチームメイトを追加/削除することができますあなたのプロジェクトに{2}タブ{1}{2}概要ページと{1}チームのマネジメント{2}ボタンをクリックします。</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>デフォルトでは、各プロジェクトチームのメンバーには、選択したプロジェクト内のすべてのコンテンツを表示することができますマイルストーン、タスク、ドキュメントや議論を。アクセスを制限するには、ちょうどあなたがアクセス権を設定したいチームメイトを選択して、右へのリンクのいずれかをクリックします。彼/彼女は、ポータル管理者権限を持っていない限り、あなたはプロジェクトチームの各メンバーのアクセス権を設定するのと同じ方法。 ONLYOFFICE™管理者は、すべてのプロジェクトですべてのコンテンツへのフルアクセス権を持ちます。</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>このプロジェクトはどのような意味に従ってくださいますか？</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>民間プロジェクトとは何ですか？
+</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>重要なマイルストーンとはどういう意味ですか？</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>どのようなプロジェクトのステータスが存在するのか？</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>あなたのチームを管理するには？</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>隠す</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>一時停止したプロジェクトの実体を隠す</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>プロジェクトは民間のステータスを持っており、ユーザーは、プロジェクトチームのメンバーでないため、このユーザーは、この議論のための通知を受信しません。</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>詳細はこちら...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>活動中</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>私は従っプロジェクト</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>最新の</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>マイディスカッション</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>マイプロジェクト</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>コンタクト</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>タスクを移動する</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>議論の新しいコメント</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>タスク内の新しいコメント</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>リンクのための接触禁止</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>データはありません</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>このタスクは別のタスクとリンク付かれています。タスクを削除すると、すべてのリンクも削除されるようになります。</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>リンクを削除して、移動する</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>個人設定</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>注：このアクションは元に戻すことはできません。
+</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>プロジェクトマネージャを任命| |作成および編集し、任意のプロジェクトを削除|編集/作成テンプレートプロジェクトマネージャと同じ操作を行います</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>チームを構築し、タスクを割り当てる。プロジェクト活動を追跡し、レポートを生成し、プロジェクトのマイルストーンをスケジュールします。</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>チームを構築し、タスクを割り当てる。プロジェクト活動を追跡し、レポートを生成し、プロジェクトのマイルストーンをスケジュールします。</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>チームを構築し、タスクを割り当てる。プロジェクト活動を追跡し、レポートを生成し、プロジェクトのマイルストーンをスケジュールします。</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>プロジェクト</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>ビュープロジェクトや議論に参加する|マイルストーン、タスク、ディスカッション、ドキュメントの作成と編集|タスクの追跡時間を、レポートを生成する|フォームのプロジェクトチームと設定されたアクセス権</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>プロジェクトにリンクされますコンタクト</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>プロジェクトタイトル</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>続きを読む</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>チームからユーザーを削除</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>置き換え</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>レポートフォルダー</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>新しいタスクを保存して作成します。</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>変更を保存</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>既存の連絡先から選択するか、新しいものを追加</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>任意のユーザーがプロジェクトを作成する事が可能です</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>\を表示</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>ページに表示</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>請求な時間</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>に費やされた時間</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>スタートペ ージ</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>ステータス</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>コメントを購読</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>タスクが追加された</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>開始日を期日よりも早くしてください</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>移動したいタスクは別のタスクとリンク付かれています。{0}　以下アクションから一つを選択してください：</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>タスクの状態</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>リンクを削除して、アップデートする</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>あなたはフィードページは、ディスカッションの一覧ページとクリック"Text Cut"上では非表示にしたいテキストを選択します。</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>タイムトラッキング</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>タイトル</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今日</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>連絡先からのリンクを解除プロジェクト</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>コメントからの退会</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>期日の更新</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>更新したいタスクは別のタスクとリンク付かれています。 {0}　以下アクションから一つを選択してください：</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>コメントを追加</value>
+  </data>
+</root>

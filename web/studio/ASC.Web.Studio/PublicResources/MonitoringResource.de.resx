@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Cache löschen</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Alle Skripte, die für die korrekte Arbeit des Portals genutzt werden, werden für die maximale Leistungsfähigkeit von ONLYOFFICE™ zwischengespeichert. Manchmal (hauptsächlich nach dem größeren Update oder bei der Unrichtigkeit im Verhalten des Portals) müssen Sie den Cache löschen. Nutzen Sie den Button &lt;b&gt;Cache löschen&lt;/b&gt;, um die Skripte aus dem Server zu löschen und sie neu zu laden. Keine Portaldaten werden dabei verloren. </value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Nutzen Sie diese Option, wenn Sie Probleme während des Verhaltens des Portals bemerkt haben</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Falls Sie Fragen haben, besuchen Sie unsere {0}FAQ-Seite{1} oder kontaktieren Sie uns unter {2}support.onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Wenn Sie noch Fragen haben, kontaktieren Sie uns unter:{0}support.onlyoffice.com{1}</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Kontaktieren Sie uns</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>Die Sektion &lt;b&gt;Protokolle&lt;/b&gt; ermöglicht es Ihnen alle Logs des Portals für einen gewählten Zeitraum in einem ZIP-Archiv herunterzuladen. Wählen Sie die Start- und Endzeit der Periode und klicken Sie auf &lt;b&gt;Herunterladen&lt;/b&gt;, um die Protokolle zu erhalten.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Alle Protokolle herunterladen</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Protokolle</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>Die Sektion &lt;b&gt;Ports&lt;/b&gt; enthält die Liste der Ports, die für angemessene Arbeit des Portals notwendig sind, und ihre Status (offen oder abgeschlossen). Damit Ihre ONLYOFFICE™ Server-Version ordnungsgemäß funktioniert, müssen die Ports den Status  &lt;b&gt;Offen&lt;/b&gt; haben. Bitte beachten Sie, dass einige Ports entweder eingehende oder ausgehende Verbindungen, die anderen - Verbindungen der beiden Typen verlangen.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Alle folgenden Ports müssen geöffnet werden</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Ports</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>Die Sektion &lt;b&gt;Services&lt;/b&gt; zeigt die Liste der verfügbaren ONLYOFFICE™-Services und ihren Status (ausgeführt oder beendet). Sie können mithilfe des entsprechenden interaktiven Buttons rechts vom Status des Service die ausgeführten Services neu starten oder die beendeten starten.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>ONLYOFFICE™-Dienstleistungen und ihr aktueller Status</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Services</value>
+  </data>
+</root>

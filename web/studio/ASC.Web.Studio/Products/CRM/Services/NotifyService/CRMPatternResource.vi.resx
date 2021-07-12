@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1. Sự kiện mới được thêm vào "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"            
+$__DateTime "$__AuthorName":"$__AuthorUrl" đã thêm một sự kiện mới vào "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}":                                                               
+          $AdditionalData.get_item("EventContent")
+
+          #foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+          #beforeall
+
+          ----------------------------------------
+
+          #each
+
+          "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+          #end
+
+          ^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về sự kiện mới được thêm trong mô-đun CRM, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1. CRM. Liên hệ mới được tạo bằng 'Biểu mẫu Liên hệ Website' "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+$__DateTime Một liên hệ mới đã được tạo ra bằng 'Biểu mẫu Liên hệ Website' "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+Thông tin liên hệ:
+
+#foreach($contactInfo in $AdditionalData.Keys)
+#each
+
+$contactInfo: $AdditionalData.get_item($contactInfo)
+
+#end
+
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Xuất dữ liệu thành công
+
+Vui lòng truy cập liên kết này để tải về file nén: "exportdata.zip":"${EntityRelativeURL}"
+
+*Lưu ý*: liên kết này chỉ có hiệu lực trong 24 giờ.
+
+Nếu bạn có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1. CRM. Nhập dữ liệu thành công
+
+Truy cập danh sách "Liên hệ":"$__VirtualRootPath/Products/CRM/".
+
+Nếu bạn có thắc mắc hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi tại  "support.onlyoffice.com":"http://support.onlyoffice.com"
+
+Trân trọng,
+ONLYOFFICE™ Support Team
+"www.onlyoffice.com":"http://onlyoffice.com/"
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1.Bạn được giao phụ trách cơ hội: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" đã giao cho bạn phụ trách cơ hội: $EntityTitle .
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Mô tả cơ hội:
+$AdditionalData.get_item("OpportunityDescription")
+#end
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Nhiệm vụ được giao cho bạn: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" đã giao cho bạn phụ trách nhiệm vụ: $EntityTitle.
+#if($AdditionalData.get_item("TaskCategory"))
+
+Danh mục nhiệm vụ:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Liên kết với liên hệ: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Liên kết với trường hợp: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Liên kết với cơ hội: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Mô tả nhiệm vụ:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Ngày đến hạn: $AdditionalData.get_item("DueDate")
+
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+----------------------------------------
+
+#each
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)"
+
+#end
+
+Đi tới "Nhiệm vụ":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Để thay đổi hình thức thông báo, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Quyền truy cập được cấp cho "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" đã cấp cho bạn quyền truy cập vào "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
+
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}". Nếu bạn không muốn nhận thông báo về quyền truy cập được trao cho các mục trong CRM, vui lòng điều chỉnh "thiết lập đăng ký":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Nhắc nhở nhiệm vụ: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+
+Loại nhiệm vụ: $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Liên kết với địa chỉ liên hệ: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Liên kết với trường hợp: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Liên kết với cơ hội: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Mô tả nhiệm vụ:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Ngày đến hạn: $AdditionalData.get_item("DueDate")
+
+Đi tới danh sách "Nhiệm vụ":"${__VirtualRootPath}/Products/CRM/Tasks.aspx".
+
+^Bạn nhận được email này vì bạn là người dùng đã đăng ký của cổng "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. Sự kiện mới được thêm vào $EntityTitle</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. Liên hệ mới được tạo bằng cách sử dụng 'Biểu mẫu Liên hệ Website'</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. Xuất dữ liệu thành công.</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. Nhập dữ liệu thành công</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. Bạn đã được chỉ định làm người phụ trách cơ hội: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. Nhiệm vụ được giao cho bạn: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. Truy cập cấp cho $EntityTitle</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>CRM. Nhắc nhở nhiệm vụ: $EntityTitle</value>
+  </data>
+</root>

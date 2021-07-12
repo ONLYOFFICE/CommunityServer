@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>בעלים</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>לקריאה בלבד</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>גישה מלאה</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>חסום גישה</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>{הצג יותר: {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>מבצע העלאה...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>הצג יותר {0} מתוך {1}</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק גישת הצד שלישי {0}מהקובץ{1}?</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>האם אתה בטוח כי ברצונך לרוקן את סל המיחזור?</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את המסמך?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק את התיקיה?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק רכיבים אלה?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>מסמכים נפוצים</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>שמירת נתונים בארכיון</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>שינוי נתונים</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>העתק</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>היצירה</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>טוען גרסאות...</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>העברה</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>מוחק...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>שנה שם</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>מעדכן גירסה</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>בחר לפחות מסמך אחד או תיקיה אחת להורדה</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>לא ניתן להעלות קובץ ריק או תיקיה ריקה</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>חובה למלא את כל השדות ב</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>אנא המתן לסיום ההורדה הקודמת או בטל אותה</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>אין לך הרשאות מתאימות כדי לבצע פעולה זו</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>הכותרת אינה יכולה לכלול את הסימנים הבאים: {0}</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>כבר קיים קובץ בשם {0} בתוך התיקיה {1}.</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} מסמך עם אותו שם כבר קיים בתיקיה זו '{1}'. האם לדרוס את הקובץ הישן?</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>מעלה קובץ</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box directory</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox directory</value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google directory</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' בוצע שינוי</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>{0} רכיבים הועתקו</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' הועתק</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>קובץ חדש בשם '{0}' נוצר בהצלחה</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>תיקיה חדשה בשם '{0}' נוצרה בהצלחה</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>לא ניתן להעתיק את התיקייה לתוך תיקיית-בת שלה</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>לא ניתן להעביר את התיקיה לתוך תיקית-הבת שלה</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>רכיבים הועברו</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' הועבר</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>המסמך '{0}' נמחק</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>התיקיה '{0}' נמחקה</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>המחיקה הצליחה {0} מתוך {1}</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>צד שלישי '{0}' נמחק</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>שמו של המסמך '{0}' השתנה ל '{1}'</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>שם התיקיה '{0}' השתנה ל-'{1}'</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}'נוספו אל '{1}'</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>{0} מסמכים הועלו בהצלחה</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>המסמכים שלי</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>מסמכים של הפרוייקט</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>שמירת נתונים בארכיון</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>מעתיק...</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>מחיקה</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>פעולות</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>העבר</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>שינוי {0} הגדרות התקשרות:</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>צור</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>נמצא כרגע במצב עריכה</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>נמצא כרגע במצב עריכה על-ידי: {0}</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>מצגת חדשה</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>גיליון אלקטרוני חדש</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>מסמך חדש</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>תיקיה חדשה</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>העלאה</value>
+  </data>
+</root>

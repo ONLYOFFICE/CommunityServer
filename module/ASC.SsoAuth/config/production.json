@@ -1,0 +1,32 @@
+﻿{
+  "app": {
+    "name": "Onlyoffice Single Sign-On handler",
+    "port": 9834,
+    "machinekey": "Vskoproizvolny Salt par Chivreski",
+    "logDir": "/var/log/onlyoffice/",
+    "logName": "web.sso.%DATE%.log",
+    "logSamlData": false,
+    "portal": {
+      "ssoUrl": "/ssologin.ashx",
+      "authUrl": "/Auth.aspx"
+    } 
+  },
+  "routes": {
+    "login": "/sso/login",
+    "login_callback": "/sso/acs",
+    "logout": "/sso/slo",
+    "logout_callback": "/sso/slo/callback",
+    "metadata": "/sso/metadata"
+  },
+  "logger": {
+    "file": {
+      "level": "debug",
+      "handleExceptions": true,
+      "json": false,
+      "datePattern": "MM-DD",
+      "zippedArchive": true,
+      "maxSize": "50m",
+      "maxFiles": "30d"
+    }
+  }
+}

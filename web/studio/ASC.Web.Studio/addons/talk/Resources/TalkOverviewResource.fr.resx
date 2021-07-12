@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>La liste des contacts est actualisée automatiquement, dès que les personnes sont ajoutées/supprimées depuis la liste des employés; alors vous n'avez pas besoin de la vérifier manuellement.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Notification dans un navigateur</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Salon de chat</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Onglets de conversation</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Liste de contacts avec paramètres</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Par défaut, toutes les notifications seront envoyées à votre adresse e-mail et dans Talk. Vous pouvez les configurer au</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Supprimer les fichiers envoyés</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Liste des contacts qui se joignent à des groupes</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>ici</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Masquer les contacts hors connexion</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Courrier électronique</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Plus d'informations sur les notifications sont disponibles {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Configuration des notifications</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Le Chat est un système de la messagerie instantanée d'entreprise pour l'échange de messages instantanés parmi les employés en temps réel.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Le Chat offre toutes les fonctionnalités traditionnelles du système de la messagerie instantanée - choix du statut, archivage de l'historique, transfert de fichiers, support de conversations multi-utilisateurs, et plus encore.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Vue d'ensemble de Chat</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Lancez notre client Web pour utiliser le Chat tout de suite sans réglages préalables.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Page de profil</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Envoyer des messages avec Ctrl+Entrée</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Les paramètres du champ de saisie</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Lancer client Web</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Aucun réglage supplémentaire ! Cliquez pour lancer le client Web et commencer la conversation.</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Section d'abonnement du {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Voix des événements</value>
+  </data>
+</root>

@@ -1,0 +1,1481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>Cím</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>A program névjegye</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Változat</value>
+  </data>
+  <data name="AboutCopyright" xml:space="preserve">
+    <value>Copyright © {0} {1}. Minden jog fenntartva.</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Hozzáférési jogok</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>A(z) {0} modulhoz való hozzáférés biztosítva a következő felhasználónak </value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>{!group} hozzáadása</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>{!user} hozzáadása</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Összes {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Portáltulajdonos megváltoztatása</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>A változtatások csak e-mailes megerősítés után lépnek életbe.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>A(z) {0} modul le van tiltva és nem látható a portálon. Az engedélyezéséhez keresse fel a  Modulok és Eszközök mezőt a Portálbeállításokban</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Teljes hozzáférés</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Ugyanolyan jogai vannak, mint a portáltulajdonosnak, kivéve a portáltulajdonos megváltoztatása| portál deaktiválása, vagy törlése jogokat.</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Tegye azt, amit a moduladminisztrátorok|Nevezzen ki moduladminisztrátorokat|Állítsa be a modulok hozzáférési jogait|Kezelje a portálbeállításokat|Kezelje a felhasználói fiókokat|Változtasson portálfelhasználót|Készítsen biztonsági mentést a portáladatokról|Inaktiváljon, vagy töröljön portált</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} adminisztrátorok tudnak</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!users} tud</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users} van eltérő joga</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>{!Users} a listáról</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Mielőtt törli a portált, kérjük győződjön meg arról, hogy van kikapcsolva az automata számlázás. Ellenőrizheti ennek állapotát az {0}Avangate fiókjában{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>A művelet megerősítésére szolgáló linket elküldtük a következő címre :email (a portáltulajdonos címére). </value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>A művelet megerősítésére szolgáló linket elküldtük a következő címre :email (a portáltulajdonos címére). </value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Adja meg a kódot</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Aktiválja az emailt újból.</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Az érvényesítési kód mező nem lehet üres.</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Adja meg a mobiltelefon-számot</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>Az érvényesítési kód mező nem lehet üres.</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Új {!group} létrehozása</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Csoport hozzáadása</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Engedélyezett IP-cím hozzáadása</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Megjegyzés hozzáadása</value>
+  </data>
+  <data name="AddToPortalBtn" xml:space="preserve">
+    <value>Hozzáadás a portálhoz</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Megbízható tartomány hozzáadása</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Hozzáadás {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Felhasználók hozzáadása</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Adminisztrátor</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Adminisztrátor Figyelmeztetései</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Email cím, amelyen Ön elérhető</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Vegye fel a kapcsolatot a portál-adminisztrációval</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Engedélyez</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Adminisztrátor Üzeneteinek Beállításai</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Ha Ön egy létező {!user} és problémái vannak e portál elérésével, vagy szeretne regisztrálni, mint új portál{!user}, kérjük lépjen kapcsolatba az adminisztrátorral az alábbi űrlap kitöltésével.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Adminisztrátorok</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Felvételi Állapot</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Bármely tartomány</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Minden jog fenntartva</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Minden jog fenntartva.</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Válasz</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Terjessze ki webirodája funkcionalitását harmadik fél szolgáltatásaival történő integrációval. Keresse fel portáladminisztrátorát a további szükséges szolgáltatások engedélyezéséért.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>További információkat a {0}Súgóközpontban{1} talál.</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Kapcsolódás</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Kapcsolódva</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Kapcsolat bontása</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>nál</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Azonosítás</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Engedély</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Engedélyez</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Az Azonosítási kulcsok segítségével csatlakoztathatja ONLYOFFICE™ portálját harmadik fél által üzemeltetett szolgáltatásokhoz, ilyen például a Twitter, a Facebook, a DropBox, stb. Csatlakoztassa portálját az előbbiek valamelyikéhez, ha nem akarja megadni a portál-hozzáférési adatokat minden belépéskor. Csatlakoztasson szolgáltatásokat, mint például DropBox, vagy OneDrive, stb., hogy az ott tárolt dokumentumokat az ONLYOFFICE™ Dokumentum moduljába illessze. </value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Tilt</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Engedélyez</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Automata biztonsági mentés</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Ugrás a címlapra</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Biztonsági mentés</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Biztonsági mentés letöltése</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>A biztonsági mentés a Mail-t is érintse</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>{!group} hozzáadása</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Születési Dátum</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Böngésző</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Új kapcsolat hozzáadása</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>Tilt</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>SMS-ben</value>
+  </data>
+  <data name="ButtonTfaAppEnable" xml:space="preserve">
+    <value>Az azonosító alkalmazás által</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Hívás</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>A hívás befejeződött</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Kapcsolódás</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Hívás folyamatban</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Bejövő</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Minden bevitt adat el fog veszni. Biztosan folytatja?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Logó cseréje</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>A művelet megerősítésére szolgáló linket elküldtük a következő címre :email (a portáltulajdonos címére). </value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Válassza</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Válassza ki a tulajdonost</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Válasszon {!user}</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Szűrő törlése</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Bezár</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Világoskék</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Sötétzöld</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Sötétkék</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Színtémák</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Hozzászólások</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>hozzászólás törölve</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Kapcsolat bontása</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Megerősítés</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Biztos, hogy megváltoztatja a portálcímet erre {0}?</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Sikeresen megerősítette regisztrációját. Hozzon létre egy jelszót, majd lásson munkához!</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Biztos, hogy törli hozzászólását?</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Gatulálunk</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Kapcsolódás</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kapcsolódási információk</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Folytatás</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Vezérlőpult</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Vezérlőpult</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>A {0}Session élettartam{1} percekben kifejezett idő megadására kínál lehetőséget, aminek letelte után a felhasználóknak újra meg kell adniuk bejelentkezési adataikat a további hozzáférés érdekében. {2}A mentés miden felhasználót kijelentkeztet a portálról.</value>
+  </data>
+  <data name="CopyEmailAndPassword" xml:space="preserve">
+    <value>Email és jelszó másolása.</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Link másolása</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Céges felhasználás</value>
+  </data>
+  <data name="CreateEmailOnDomain" xml:space="preserve">
+    <value>Hozzon létre emailt a tartományon</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Új Profil Létrehozása</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>biztonsági másolat készítése</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Egyéni doménnév</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Személyre szabás</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Elem hozzáadása</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Elem hozzáadása</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>Kép cseréje</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>Beállítások</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}Egyéni Navigáció{1} - egy beállítási lehetőség a navigáció menü megváltoztatásához.{2}Adja hozzá saját elemeit a hatékonyabb portálhasználat érdekében. Ne feledje, ha az oldala HTTPS-t használ, a linkek szintén HTTPS-t használó oldalakra kell mutassanak, ellenkező esetben figyelmeztetés jelenik majd meg a böngészőkben.</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>Címke</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>Egyéni Navigáció</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Biztonsági Adatmentés</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>Az {0}Adatmentés{1} opció arra használható, hogy lementse vele a portál adatait, így azokat később a saját helyi szerverére vissza tudja állítani. Válasszon tárat az adatoknak (ne felejtse el megadni az ön által használt, harmadik fél által biztosított adattárak paramétereit, hogy hozzáférhessen az ottani adatokhoz is).{2}
+Ha a mentést a levelezéssel együtt készíti el, csak az utolsó 30 nap levelezése kerül majd bele. {2}
+{0}Fontos:{1} csatlakoztatnia kell a harmadik félhez tartozó hozzáférését (DropBox, Box.com, OneDrive or Google Drive) az ONLYOFFICE Közös Dokumentumok mappához, ha a mentését az előbbiek valamelyikére szeretné elkészíteni.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Adatmenedzsment</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>nap</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>napok</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>napok</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Inaktivál</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Inaktivál</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Alapértelmezett Kezdőoldal</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Alapértelmezett Beállítások</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Töröl</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Töröl</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>Saját fiók törlése</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Saját profil törlése</value>
+  </data>
+  <data name="DeleteProfileConfirmation" xml:space="preserve">
+    <value>Figyelem! A felhasználói fiókját készül törölni.</value>
+  </data>
+  <data name="DeleteProfileConfirmationInfo" xml:space="preserve">
+    <value>A "Fiókom törlése" gombra kattintva elfogadja az {0}Adatvédelmi irányelv{1}einket.</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Profil párbeszédablak törlése</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Profil törlése</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} törölve lesz.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>{!group} szerkesztése</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Letiltott</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Tilt</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>A művelet megerősítésére szolgáló linket elküldtük a következő címre :email (a portáltulajdonos címére)</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS Beállítások</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Dokumentumszolgáltatás</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>A dokumentumszolgáltatás helye meghatározza annak a szervernek a címét, amire a dokumentumszolgáltatásokat telepítették. Változtassa meg a(z) '&amp;lt;editors-dns-name&amp;gt;-t a szerver címének megfelelően az alábbi sorokon, a többi sort nem változtatva.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Dokumentumszolgáltatás helye</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Dokumentumszerkesztés-szolgáltatás címe</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Példa: {0}</value>
+  </data>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>A {1}Dokumentum-szolgáltatás{2} egy olyan kiszolgálói szolgáltatás, ami lehetővé teszi az irat szerkesztését, valamint a dokumentumfájlok konverzióját a megfelelő OfficeOpen XML formátumba.</value>
+  </data>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>Dokumentumszolgáltatás címe a Community Server-től érkező kérések számára</value>
+  </data>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>Közösségi szerver címe a Dokumentum-szolgáltatástól származó kérések számára</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Letöltés</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} korábban</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} nap</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} napok</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} napok</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} óra</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} óra</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} óra</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} perc</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} perc</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} percek</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} hónap</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} hónapok</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} hónapok</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} év</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} évek</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} évek</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Tegnap</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Ma</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Holnap</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Tegnap</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Szerkesztés</value>
+  </data>
+  <data name="EditPhoto" xml:space="preserve">
+    <value>Fotó szerkesztése</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Profil szerkesztése</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Kérjük aktiválja a regisztrációkor megadott emailcímet a portál összes funkciójának eléréséhez.</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Az aktiváló levelet elküldtük az emailcímére. Kövesse az üzenetben található linket a hozzáférése aktiválásához.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Email aktiválás</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Jelszó megerősítése</value>
+  </data>
+  <data name="EmailAndPasswordCopiedToClipboard" xml:space="preserve">
+    <value>Email és jelszó a vágólapra másolva</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectAmiId" xml:space="preserve">
+    <value>Helytelen példányazonosító.</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Helytelen emailcím</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Helytelen promókód</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Van Promókódja? Tegye ida</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Változtassa meg</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>E-mail megváltoztazása</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Emailváltoztatás</value>
+  </data>
+  <data name="EmailIsAvailable" xml:space="preserve">
+    <value>Email elérhető</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Email nincs aktiválva</value>
+  </data>
+  <data name="EmailOnDomainIsNotCreated" xml:space="preserve">
+    <value>Email a doménen nem jött létre.</value>
+  </data>
+  <data name="EmailPopupHelper" xml:space="preserve">
+    <value>{0}Az elsődleges emailcím szükséges a hozzáférés visszaszerzéséhez, ha a jelszó elveszett és emiatt üzenetet kell küldeni.{1}Létrehozhat elsődleges emailcímet a tartományban. Ebben az esetben egyszer használatos jelszót kell beállítani, amivel a felhasználó először be tud lépni.{2}Az elsődleges emailcím használható falhasználónévként a portálra bejelentkezéskor.{3}</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Összes {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>LDAP-azonosítás engedélyezése</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL engedélyezése</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Engedélyez</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Adjon meg egy új emailcímet</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Error 403 - Forbidden</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Rossz kulcsok</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Hibás kérés</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Érvénytelen email, vagy lejárt link</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} ezzel az e-mail címmel már létezik</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Emailok regisztrációs célra ebből a domainból nem megengedettek</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Email mező üres</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Adja meg emailcímét</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Adja meg keresztnevét</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Adja meg családnevét</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>A kép mérete túl nagy</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Képfájl mérete túl nagy</value>
+  </data>
+  <data name="ErrorIncorrectUserName" xml:space="preserve">
+    <value>Helytelen családnév, vagy keresztnév</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Érvénytelen aktivációs link</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Érvénytelen dátumformátum</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Helytelen email</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Érvénytelen domainnév</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>Karakterek {0} tól/től {1} ig</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>számjegyek</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>Nagybetűk</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>EU (Írország) Régió</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Minden nap</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Minden hónap</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Minden hét</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Visszajelzés &amp;amp; támogatás</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Hölgy</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bájtok,KB,MB,GB,TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>egy ideig</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>tól</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Keresztnév</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Elfelejtette jelszavát?</value>
+  </data>
+  <data name="ForMobile" xml:space="preserve">
+    <value>Mobilra</value>
+  </data>
+  <data name="ForYourPC" xml:space="preserve">
+    <value>Az Ön gépéért</value>
+  </data>
+  <data name="FreeOfficeDesktopDndMobileApps" xml:space="preserve">
+    <value>Ingyenes ONLYOFFICE asztali- és mobilalkalmazások</value>
+  </data>
+  <data name="FreeSms" xml:space="preserve">
+    <value>Ingyenes SMS</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>tól</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>A teljes szöveg kereső szolgáltatás nem működik</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>A teljes szöveg kereső szolgáltatás működik</value>
+  </data>
+  <data name="GeneralSubscriptionName" xml:space="preserve">
+    <value>Általános</value>
+  </data>
+  <data name="GetItNow" xml:space="preserve">
+    <value>Szerezze meg most</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Szerezzen rövidített linket</value>
+  </data>
+  <data name="GoToContactListBtn" xml:space="preserve">
+    <value>Ugrás a névjegyzékhez</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Üdvözlőoldal beállításai</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Csoport</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Csoportvezető</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Csoportok</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Vendég</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Vendégek</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Ha szeretné {1}deaktiválni{2} a portált, zároljuk portálját és az ahhoz tartozó információkat, így az érintett periódusban senki nem fér majd hozzá. Ennek elvégzéséhez kattintson a {1}Deaktiválás{2} gombra. A művelet megerősítésére szolgáló linket tartalmazó emailt elküldjük a portáltulajdonos emailcímére. Abban az esetben, ha vissza kíván térni az ONLYOFFICE™ portálra és újból használatba venné azt, a megerősítő emailban található második linket kell használnia. Ezért kérjük, gondosan őrizze meg azt az emailt. Ha úgy dönt, hogy többé nem kívánja az ONLYOFFICE™ portált használni, és szeretné visszavonhatatlanul {1}törölni{2} azt, a {1}Törlés{2} gombbal nyújtsa be kérelmét. Kérjük tartsa szem előtt, hogy újraaktiválni portálját, vagy az ahhoz valaha tartozott bármely információt visszaállítani nem lesz lehetséges többé.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>Az {1}Üzenetküldés az Adminisztrátornak{2} egy lehetőség kapcsolatba lépni a portál-adminisztrátorral.{0}Engedélyezze ezt az opciót, hogy az üzenetküldő űrlap megjelenjen a {1}Bejelentkezés{2}  oldalon, és ezáltal az emberek kapcsolatba léphessenek az adminisztrátorral, ha nehézségük támad a portál elérése során.{0}A beállítások érvényesítéséhez kattintson a{1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>A {1}Színsémák{2} lehetővé teszik, hogy a céges kinézetnek megfelelően testreszabja a portál felületét.{0} válasszon egyet a bal oldalon található színsémák közül.{0} a választott színséma használatához kattintson a {1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>Az {0}Alapértelmezett Kezdőoldal{1} lehetővé teszi annak a modulnak a kiválasztását, ami megjelenik a minden bejelentkezés, vagy ha már korábban bejelentkezett, akkor az ONLYOFFICE™ logóra történő kattintás után. A beállítások véglegesítéséhez a szekció alján található {0}Mentés{1} gombra kattintson.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>A {1}Névszerver Beállítások{2} egy lehetőség, hogy alternatív webcímet állítson be ONLYOFFICE™ portálja számára.{0}Pipálja ki az {1}Egyedi doménnév{2} dobozt és az alábbi mezőbe írja be az ONLYOFFICE™ portál számára létrehozott saját doménnevet.{0} A változtatások életbelépése érdekében kattintson a {1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>Az {1}Üdvözlőoldal Beállításai{2} segítségével megváltoztathatja a portálja {1}Üdvözlőoldal{2}án megjelenő alapértelmezett portálnevet. Ez a név jelenik meg a portálja által küldött értesítő emailok {1}Feladó[2] mezőjében is.{0}Írja be a kívánt nevet a{1}Cím{2} mezőbe.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>A {1}Nyelv és Időzóna Beállításai{2} egy lehetőség az egész portál nyelvének minden portálfelhasználót érintő megváltoztatására, valamint az időzóna beállítására, így minden esemény az ONLYOFFICE™ portálon helyes időben látszik majd.{0}A változtatások életbelépéséhez kattintson a {1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>A {1}Logóbeállítások{2} segítségével lecserélheti a porálja {1}Üdvözlőoldalán{2} megjelenő logót.{0} A portállogó csréjéhez kattintson a  {1}Logó Cseréje{2} linkre a jobb oldalon és válasszon egyet a a számítógépén tárolt képekből, hogy feltöltse azt a portálra.{0}Kérjük vegye figyelembe, hogy  feltöltendő kép nem lehet nagyobb {1}250x100 pixelnél{2}, ellenkező esetben a rendszer átméretezi azt. A fájlméret nem haladhatja meg az {1}1 MB{2}-t.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>A {1}Megbízható Levéltartomány Beállításai{2} segítségével meghatározható az a levélszerver, ami segítségével a felhasználók az önregisztrációt végzik.{0}Választása szerint bejelölheti a {1}Saját Tartományok {2} opciót és megadhat egy megbízható levelezőszervert az alábbi mezőben - ezzel azok a felhasználók, akiknek van fiókjuk azon a szerveren regisztrálhatják magukat a {1}Rgisztráció{2} oldalon a Csatlakozás linkre kattintva. Ez az opció le is tilható.{0}A változások életbelépéséhez kattintson a{1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>A {1}Jelszó Erősségének Beállítása{2} lehetőség arra, hogy meghatározzuk mennyire legyen ellenálló a jelszó a találgatással, illetve a brute-force támadással szemben.{0}Használja a {1}Minimális Jelszóhossz{2} csúszkát, hogy meghatározza hány karakterből kell a jelszónak állnia. Pipálja ki a megfelelő checkboxokat aszerint, hogy milyen karakterkészlet használatát írja elő a jelszó számára.{0}A beállítások életbeléptetéséhez kattintson a {1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>A{1}Nyilvános Portál{2} lehetőség arra, hogy bárki megtekinthesse az Ön publikus tartalmait anélkül, hogy regisztrálnia kellene. Ilyenkor a magánprojektek, illetve a CRM modul nem elérhető.{0}A nyilvános portálra regisztráló felhasználók száma nincs korlátozva, új felhasználók a portáladminisztrátor kérésére lesznek tagok. Használja az  {1}Új Felhasználó Regisztrálása Azonnal{2} opciót, hogy eltávolítson minden regisztráció-megerősítési kötelességet.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Itt tudja megváltoztatni portálja címét. Adja meg azt a részt, ami az onlyoffice.com/onlyoffice.eu portálcím mellett jelenik majd meg.{0}
+{1}Vegye figyelembe{2}: a régi portálcíme elérhetővé válik az új ONLYOFFICE felhasználóknak, amint a {1}Mentés{2} gombra kattint.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>A{1}Portálverzió{2} lehetőség arra, hogy váltson az elérhető ONLYOFFICE™ portálverziók között.{0}Használhatja a portál új változatát, ugyanakkor a régire is visszaválthat.{0}A beállítások életbeléptetéséhez kattintson a {1}Mentés{2} gombra a szekció alján.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>A {1}Csapatsablon{2} egy testre szabható módszer arra, hogy elnevezzük az egységet (vagy csoportot), annak tagjait és tevékenységeit a .{0}Nyissa le a {1}Sablon{2} listát és válasszon egyet az abban található gyári elemek közül. vagy adjon meg saját elnevezést az {1}Egyéni{2} elemet választva a listából.{0}A választott sablon használatához használja a {1}Mentés{2} gombot a szekció alján.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Súgóközpont</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Elrejt</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Adja meg AIM-fiókját</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Adja meg a Blogger profilját</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Adja meg emailcímét</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Adja meg Facebook-profilját</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Adja meg fiókja bejelentkezési nevét, vagy ID-jét</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Adja meg GoogleTalk-fiókját</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Adja meg GoogleBuzz-profilját</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Adja meg Google-fiókját</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Adja meg ICQ-fiókját</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Adja meg Jabber-fiókját</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Adja meg LiveJournal-profilját</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Adja meg mobiltelefon-számát</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Adja meg MSN-fiókját</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Adja meg MySpace-profilját</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Adja meg telefonszámát</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Adja meg Skype-fiókját</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Adja meg Twitter-profilját</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Adja meg Yahoo-fiókját</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Hoszt login</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Hoszt</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Hoszt jelszó</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} már létezik</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Mégsem</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ImportContactsEmptyEmail" xml:space="preserve">
+    <value>Adja meg a felhasználó emailcímét</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Adja meg a felhasználó keresztnevét</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Adja meg a felhasználó családnevét</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Adja meg emailcímét</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Adja meg keresztnevét</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Importálási hiba</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Adja meg családnevét</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Keresztnév</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Fájlból</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>{!users} felhasználók portálhoz adása</value>
+  </data>
+  <data name="ImportDelimiter" xml:space="preserve">
+    <value>Elválasztó</value>
+  </data>
+  <data name="ImportEncoding" xml:space="preserve">
+    <value>Kódolás</value>
+  </data>
+  <data name="ImportFileName" xml:space="preserve">
+    <value>Fájlnév</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>importálás a Google-ról</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Importálás a Yahoo-ról</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Felhasználók hozzáadása</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>-ben/-ban</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>A portál használatának elkezdéséhez kérjük ellenőrizze, hogy {0}keresztneve{1} és {0}családneve{1} helyesen szerepel-e a jobboldali űrlapon, majd állítson be egy {0}személyes jelszót{1}, hogy be tudjon lépni.</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Felhasználók hozzáadása mint {!guests}</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Felhasználók meghívása</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Tilt</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Engedélyez</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>Az {0}IP Biztonság{1} használatával korlátozható a belépés a megadott IP-címeken kívül minden egyéb IP-címről. Az engedélyezett IP-címeket megadhatja egzakt IPv4 formátumú címekkel (#.#.#.#, ahol a # egy 0 és 255 közötti értéket jelöl), vagy megadhat tartományt is (#.#.#.#-#.#.#.# formátumban). Az IP biztonság a portál tulajdonosaira nem vonatkozik, ők továbbra is bárhonnan beléphetnek.</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Először meg kell adnia jelenlegi IP-címét, vagy azt az IP-tartományt, amelybe a jelenlegi IP-címe tartozik, ellenkező esetben a beállítások mentése után azonnal megszűnik a portál-hozzáférése. A portáltulajdonos továbbra is bármilyen IP-címről hozzáfér a portálhoz. </value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Legyen Partnerünk.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Nyelv</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Engedélyezze ezt az opciót, ha a jelenlegi Windows felhasználónak nincs joga olvasni a LDAP, vagy Active Directory szervert és egy másik olyan felhasználó adatait adja meg, amely jogosult a hozzáféréshez.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Kapcsolódási hiba</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Üres mező</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Engedélyezze ezt az opciót, ha szeretne automatikusan csoportokat hozzáadni az  ONLYOFFICE™-hez LDAP-szerverről, vagy Active Directory-ból. A hozzáadott felhasználók a saját LDAP, vagy Active Directory szervereiken tárolt bejelentkezési adataikkal fognak tudni belépni, az ONLYOFFICE™ ez esetben nem tárolja helyileg ezeket az adatokat, bejelentkezéskor elküldi azokat a LDAP/Active Directory szervernek.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Helytelen login vagy jelszó</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Ismeretlen hiba.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Egy vagy több csoport Csoporttulajdonsága nem elérhető.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Helytelen csoportfilter</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Egy vagy több csoport Csoportnév-tulajdonsága nem elérhető.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Egy vagy több felhasználó Bejelentkezési Tulajdonságai nem elérhető.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Egy vagy több felhasználó Felhasználói Tulajdonsága nem hozzáférhető.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Csoportattribútum</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Adja meg a csoportobjektum-attribútumot, amely leírja hogy mely felhasználók tartoznak ebbe a csoportba.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Group DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Írja be a megkülönböztetett nevet (DN) a hozzáadni kívánt csoportokat tartalmazó könyvtárba.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Csoportszűrő</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Csoporttagság</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Engedélyezze ezt az opciót, ha szeretne csoportokat hozzáadni az  ONLYOFFICE™-hez LDAP-szerverről, vagy Active Directory-ból. Vegye figyelembe, hogy csak az ezen csoportokhoz tartozó felhasználók lesznek hozzáadva.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Csoportnév-attribútum</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Adja meg felhasználói belépésnek megfelelő objektumattribútumot.</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Adja meg az LDAP vagy Active Directory szerveren olvasási joggal rendelkező felhasználó jelszavát.</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Adja meg az LDAP/Active Directory szerverének portszámát.</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Szerver</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Adja meg az LDAP szerver URL-jét portszám nélkül pl.: LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>felhasználó hozzáadása</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Tanúsítvány ellenőrzése</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Ellenőrizze az LDAP-támogatás beállításait.</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Elavult felhasználói profilok letiltása, amelyek korábban LDAP-on keresztül töltődtek be.</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Biztonságosabb azonosítási módszer szükséges. Kérjük, használjon titkosított kapcsolatot, vagy engedélyezze az egyszerű azonosítást a szerveren.</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Adja meg a felhasználó objektumattribútumát, amely  meghatározza, hogy a felhasználó tagja-e a csoportoknak.</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Írja be a megkülönböztetett nevet (DN) a hozzáadni kívánt felhasználókat tartalmazó könyvtárba.</value>
+  </data>
+  <data name="LoginSettingsDescription" xml:space="preserve">
+    <value>{0}Kétfaktoros azonosítás{1} a felhő-adminisztrátor által engedélyezett kódgeneráló alkalmazással.</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Nem található harmadik félhez társult fiók. Először fel kell vennie közösségiháló-hozzáférését a profilbeállítások oldalon.</value>
+  </data>
+  <data name="LoginWithBruteForce" xml:space="preserve">
+    <value>Az azonosítás átmenetileg zárolva van.</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Mikor</value>
+  </data>
+  <data name="MailServiceCouldNotGetHostnameErrorMsg" xml:space="preserve">
+    <value>Hiba: a hosztnév nem hozzáférhető</value>
+  </data>
+  <data name="MailServiceCouldNotGetTokenErrorMsg" xml:space="preserve">
+    <value>Hiba: Az azonosítási token nem elérhető</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Példa: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Állítsa be Levelezőszerverét</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Haladó beállítások elrejtése</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>Hiba a hoszt pingelésekor: {0}:{1}</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Közös</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integráció</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Építse fel CRM adatbázisát</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Ellenőrizze a feladatokat és kövesse a teljesítést Gantt-diagramon.</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Következzen néhány lépés a kezdéshez:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Üdvözöljük az ONLYOFFICE-ban, {0}!</value>
+  </data>
+  <data name="MigrationPortalText" xml:space="preserve">
+    <value>Amint befejeződik az adatok migrálása az új tárhelyre, a portál újra használható.</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Telefonszám megváltoztatása</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Ugrás az oldalszámra a telefonszám megváltoztatásához.</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Mobiltelefon megváltoztatása</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Abban az esetben, ha nem találja saját nyelvét az elérhető nyelvek listáján, írjon nekünk a {0}documentation@onlyoffice.com{1} címre, hogy részt vehessen a fordításban, és egy évnyi ingyenes használati jogot szerezzen.</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Letiltott</value>
+  </data>
+  <data name="OnlyofficeApps" xml:space="preserve">
+    <value>Alkalmazások</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Jelszó módosítása</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>karakterek</value>
+  </data>
+  <data name="PersonalFreeSpaceException" xml:space="preserve">
+    <value>Lemez helykvóta meghaladva</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>Az {0}Árazási Oldal Beállításai{1} lehetővé teszi a portál-adminisztrátor számára, hogy láthatóvá tegye, ill. eltüntesse az árazási oldalt a felhasználók számára láthatóvá téve azt az adminisztrátoroknak.</value>
+  </data>
+  <data name="ProfileTypePopupHelper" xml:space="preserve">
+    <value>A vendégeknek korlátozottan férnek csak hozzá néhány portálfunkcióhoz és modulhoz.</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Az adat újrakiosztási folyamat {0} számára nem teljes.</value>
+  </data>
+  <data name="RecaptchaInvalid" xml:space="preserve">
+    <value>Érvénytelen Recaptcha</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>Személyes adatok törlése</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Szeretné a meghívást elküldeni még egyszer?</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>
+Biztonsági mentési lista</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Ha a listáról letörli valamelyik elemet, akkor a megfelelő fájlok is törlődnek. A művelet nem vonható vissza. Az összes fájl törléséhez használja ezt a linket: {0}Lista törlése{1}.</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Számítógépfájl</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>Az {0}Adat-visszaállítás{1} opcióval visszaállíthatja az előzőleg mentett portáltartalmat(helyi szerverről, vagy SaaS portálról). Válassza ki a mentést tartalmazó tárhelyet, adja meg az adatait és jelölje be az {0}Értesítés küldése a portál felhasználóinak{1} lehetőséget, hogy figyelmeztesse őket a mentési/visszaállítási műveletekre.</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Adatvisszaállítás</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Válasszon</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>kattintson ide a csatlakozáshoz</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>Jelszó beállítása</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Érvénytelen portálverzió</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Neme</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Ázsia (Szingapúr)</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Engedélyezi/tiltja az eszköztippeket</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Őrült</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Sír</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Tánc</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Iszik</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Bosszús</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Zöld</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Széles mosoly</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Vigyor</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Sajnáljuk</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Védőszemüveg</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hurrá!</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>A{0}kétfaktoros azonosítás{1} egy biztonságosabb belépési lehetőség a felhasználóknak. Miután a belépési adatokat beírták, a felhasználóknak meg kell adniuk az első belépéskor rögzített mobilszámra érkezett SMS-ben található kódot, vagy azt a kódot, amit egy azonosítási alkalmazás generált.{2}Engedélyezze ezt sz opciót a nagyobb biztonság érdekében. {2}A változtatások érvényesítéséhez kattintson a {0}Mentés{1} gombra a szekció alján.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Helytelen kód</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Kód: {0}</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Figyelem{1}: SMS üzenet csak akkor küldhető, ha az egyenlege pozitív. Az SMS szolgáltatónál ezt bármikor ellenőrizheti. Ne felejtse egyenlegét időben feltölteni.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Figyelem{1}: Mielőtt a kétfaktoros SMS azonosítást használni kezdené, választania kell legalább egy SMS-szolgáltatót és be kell azt konfigurálnia a {3}{0}Harmadik Fél Szolgáltatásai{1}{4} oldalon.</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Figyelem{1}: Az SMS-sel végzett kétfaktoros azonosítás csak az előfizetéses portálok számára elérhető.</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} számla</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Egyéni beállítások</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Ha Gmail-fiókot használ SMTP-szervernek, nem küldhet levelet, amíg a következőket végig nem csinálja: Lépjen be a Gmail-fiókjába annak sztenderd webfelületén, és erősítsen meg minden ellenőrző kérdést az ONLYOFFICE™ fiók-hozzáférési kísérleteit illetően, ha vannak ilyenek.{0}Javasoljuk az 587-es vagy a 25-ös port használatát, mert egyéb portok beállítása zavart okozhat az egyszerű levéltovábbító protokoll működésében.</value>
+  </data>
+  <data name="SpamSubscriptionDescription" xml:space="preserve">
+    <value>Email értesítések termékfrissítésekkel és speciális ajánlatokkal</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Ezzel az azonosítási tokennel a felhasználó nem hozható létre.</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>A beállítások nem menthetők</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Azonosító token nem található</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Érvénytelen kötés: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Érvénytelen entitásazonosító</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Érvénytelen mezőleképezés</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Érvénytelen azonosítótoken</value>
+  </data>
+  <data name="StorageText" xml:space="preserve">
+    <value>Ezen az oldalon csatlakozhat külső tárhelyhez és megkezdheti a migrációt a választott tárhelyre. Amint a migrációs folyamat elindul, a portál elérhetetlenné válik.</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Események és értesítések a portáltulajdonosnak, vagy az adminisztrátornak</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>Az összestől</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Üdvözlőoldal beállításai sikeresen mentve</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>A profil törlésére vonatkozó útmutatást a(z) {0} emailcímre elküldtük</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Különleges ajánlatokért keressen minket</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Vegye meg most</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Válassza ki a megfelelő tervet. Az alább kijelöltet ajánljuk.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Kattintson ide{1} a portáljához való licencfájl feltöltéshez.</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>Az Ön kényelme érdekében az orosz rubelben teljesített kifizetéseket az alábbi, rögzített árfolyamon számoljuk el: 1 amerikai dollár = {0} orosz rubel.</value>
+  </data>
+  <data name="TfaAppAuthMessageError" xml:space="preserve">
+    <value>Helytelen kód</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>(hátralévő: {0})</value>
+  </data>
+  <data name="TfaAppResetAppDescription" xml:space="preserve">
+    <value>Az azonosító alkalmazás konfigurációja resetelve lesz.</value>
+  </data>
+  <data name="TfaAppShowBackupCodesDescription" xml:space="preserve">
+    <value>A tartalék kódokkal akkor is meg tudja erősíteni belépését, amikor telefonja nincs kéznél.{0}Jelenleg csak {1} kódja van, mindegyiket csak egyszer használhatja. Nyomtassa ki és használja, amikor szükséges.</value>
+  </data>
+  <data name="TfaAppShowBackupCodesTitle" xml:space="preserve">
+    <value>Tartalék kódok</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionDescription" xml:space="preserve">
+    <value>Email értesítés, benne tippek és trükkök</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Szerverrégió megváltoztatása</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Arra készül, hogy megkezdje a portál költöztetését egy másik régióba. A portál elérhetetlen lesz a migráció folyamán. Miután a költözés befejeződött, emailban értesítést kap.{1}{0}Levelezési tartományokat, postafiókokokat (kivéve a harmadik félnél lévőket), valamit az ezek által tartalmazott leveleket a költözés során nem visszük át.{1}{0}Biztos, hogy folytatja?{1}</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Szerverrégió megváltoztatása</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Az ingyenes próbaidőszak véget ért</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Kattintson ide{1} a portálja számára legmegfelelőbb előfizetési csomag kiválasztásához</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Egyéni domének</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Ismeretlen hiba következett be.</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Feltöltés</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Felhasználó</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Típus</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>találatok</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>hosztok</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Egy másik ablakban a kapcsolat már létrejött.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Figyelem!</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Üdvözöljük az ONLYOFFICE™ portálján</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Újdonságok</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+</root>

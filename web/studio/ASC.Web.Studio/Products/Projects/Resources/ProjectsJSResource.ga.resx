@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Cruthaigh garsprioc nua</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Cuir i bhfeidhm é</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Roghnaigh an Duine Freagrach As</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Teagmhálaithe</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Ainm na Cuideachta</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Céad Ainm</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Sloinne</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>lá</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>lá</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Níorbh fhéidir a plé a aimsiú</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Pléití</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Cáipéisí</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Cuir an Gharsprioc in eagar</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>cuir leis</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Dáta Tosaithe</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>dúnta</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>Dáta Críochnaithe</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>ard</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>oscail</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Tosaíocht</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Freagrach</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Stádas</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>garspriocanna</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Garsprioc Nua</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Mionsonraí</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>seachtain</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>bliain</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>roghnaithe</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Baineadh an Gharsprioc</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Garspriocanna</value>
+  </data>
+  <data name="MilestonesRemoved" xml:space="preserve">
+    <value>Baineadh na Garspriocanna</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Bog</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Ar aghaidh</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Gan gharsprioc</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>Forléargas</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Roimhe</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Tionscadail</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Níorbh fhéidir an tionscadal a aimsiú</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Tionscadail</value>
+  </data>
+  <data name="ProjectsRemoved" xml:space="preserve">
+    <value>Baineadh na Tionscadail</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Dúnta</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Dúnta</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Oscail</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Oscail</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Curtha ar sos</value>
+  </data>
+  <data name="TagsSelectorAddText" xml:space="preserve">
+    <value>Cruthaigh clib nua</value>
+  </data>
+  <data name="TagsSelectorNoResult" xml:space="preserve">
+    <value>Ní ann don chlib sin</value>
+  </data>
+  <data name="TagsSelectorTitle" xml:space="preserve">
+    <value>Teideal</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Foireann</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>Baineadh an tAm</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Gan Sonraí</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>Nuashonraíodh an tAm</value>
+  </data>
+</root>

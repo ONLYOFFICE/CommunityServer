@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Тапсырманы қабылдау</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>қабылдау</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>қосу</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Бірінші тапсырманы қосыңыз</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Жаңа тапсырма қосу</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Жаңа тапсырма қосу</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>қосымша міндетті қосыңыз</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Жаңа тапсырма қосу</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Барлық тапсырмалар</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Тағайындалды</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>Ең жақсы жол-тапсырысмаларды қолмен қайтару және жабу, содан кейін тапсырманы жабу үшін әрекетті қайталау.</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>Ең жақсы әдіс-тапсырыстарды қолмен қайтару және жабу, содан кейін тапсырмаларды жабу әрекетін қайталау.</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>жауапкершілік</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Мәртебені өзгерту</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Сілтеме түрін таңдаңыз</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Жобаны таңдаңыз</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Тапсырманы таңдаңыз</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Жабық</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Жабық</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Жабылу күні</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Тапсырмаларды Жабу</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Тапсырманы жабу</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Бұл тапсырманың түсініктемесі табылмады.</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Пікірлер табылмады</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Тапсырманы көшіру</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Құрылды</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Жаңа сілтемені жасау</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Құрылған күні</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>төлеу мерзімі</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Бұл бөлімде сүзгіге сәйкес келетін тапсырмаларды көрсетуге болмайды.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Сипаттама</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Әрбір тапсырманың тақырыбы болуы керек</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>редакциялау</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Тапсырманы өзгерту</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Барлық қосымша тапсырыстарды жабыңыз, содан кейін тапсырманы жабыңыз</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Барлық қосымша тапсырыстарды жабыңыз, содан кейін тапсырмаларды жабыңыз</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>төлеу мерзімі</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Жаңа сілтеме жасау кезінде қате пайда болды</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Тапсырманы орында</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Тапсырмаға өту</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Жоғары</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Жауапты тұлғаларды хабарландыру</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Хабарлама сәтті жіберілді</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>кезең</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Тапсырмаларды басқа кезеңге жылжыту</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Кезеңге өту</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Тапсырманы басқа кезеңге жылжыту</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Кезеңге өту</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Ешкім</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Ешкім</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Осы сүзгіге сәйкес тапсырмалар жоқ</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Міндеттер әлі құрылған жоқ</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Ашық</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>басымдық</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Жоба</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Қате сілтеме. Бастау және аяқталу күні дұрыс көрсетілгеніне көз жеткізіңіз. </value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Байланысты міндеттер</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Екі тапсырманың басталу күні мен аяқталу күні арасындағы Интервал</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Осы міндетке байланысты басқа міндеттер жоқ.</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Қатысты тапсырмалар табылмады</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Тапсырманы өшіру</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Сіз бұл тапсырманы жойғыңыз келе ме?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Тапсырмаларды өшіру</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Осы тапсырмаларды жойғыңыз келе ме?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Жауапты пайдаланушылар</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Жауапты емес тапсырмаларды көрсету</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>қосалқы бөлімдер</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>қосалқы бөлімдер</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Бұл міндет үшін ешқандай қосымша тапсырма жасалған жоқ.</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Қосымшалар табылмады</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Міндет</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Сипаттама</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Құрылды</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Тағайындалды</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Міндеттер</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Тапсырмалар саны</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Тапсырмалар менеджерге барлық жұмысты жоба қатысушылары арасында біркелкі таратуға, жобаның әртүрлі бөліктеріне жауапты адамдарды анықтауға көмектеседі. Тапсырмаларды қосуды бастаңыз, оларды аяқтаңыз, кімнің жауап беретінін анықтаңыз және топ жұмысын басқарыңыз.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Басталу күні</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>атау</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Трек уақыты</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>Сіз ашық қосымша тапсырыспен тапсырманы жабуға тырысып жатсыз</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Сіз ашық қосымша тапсырыспен тапсырманы жабуға тырысып жатсыз</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Тапсырмадан бас тарту</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Сұрыпталмаған міндеттер</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Кезеңдерге ауыстырылады</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Ешкім</value>
+  </data>
+</root>

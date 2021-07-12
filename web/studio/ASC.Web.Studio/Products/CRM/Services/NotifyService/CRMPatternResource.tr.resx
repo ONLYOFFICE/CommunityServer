@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_AddRelationshipEvent" xml:space="preserve">
+    <value>h1."$EntityTitle"'a Yeni Etkinlik Eklendi: "${__VirtualRootPath}/${EntityRelativeURL}" 
+$__DateTime "$__AuthorName":"$__AuthorUrl" "$EntityTitle"'a yeni etkinlik ekledi:
+
+$AdditionalData.get_item("EventContent") #foreach($fileInfo in $AdditionalData.get_item("Files").Keys) #beforeall ---------------------------------------- #each "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" #end
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_CreateNewContact" xml:space="preserve">
+    <value>h1.CRM. 'İnternet Sitesi Kişi Formu' kullanılarak Yeni Kişi Oluşturuldu "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+$__DateTime 'İnternet Sitesi Kişi Formu' kullanılarak Yeni Kişi Oluşturuldu
+"$EntityTitle":"${__VirtualRootPath}/Products/CRM/Default.aspx?ID=$EntityID"
+
+Kişi Bilgisi:
+
+#foreach($contactInfo in $AdditionalData.Keys) 
+#each 
+
+$contactInfo: $AdditionalData.get_item($contactInfo) #end
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ExportCompleted" xml:space="preserve">
+    <value>h1. CRM. Veri dışa aktarma işlemi başarıyla tamamlandı lütfen
+
+Arşiv indirmek için bu bağlantıyı izleyin: "exportdata.zip":"$EntityRelativeURL".
+
+*Not*: Bu bağlantı sadece 24 saat boyunca geçerlidir. Lütfen bu süre içinde işlemi tamamlayın. 
+
+Herhangi bir sorunuz ya da yardım için "support.onlyoffice.com":"http://support.onlyoffice.com"  
+
+ONLYOFFICE™ destek ekibi 
+"www.onlyoffice.com":"http://onlyoffice.com/"  
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı":"$RecipientSubscriptionConfigURL" değiştiriniz.^</value>
+  </data>
+  <data name="pattern_ImportCompleted" xml:space="preserve">
+    <value>h1.CRM.Veri Aktarma Başarıyla Tamamlandı
+
+"Kişilere":"$__VirtualRootPath/Products/CRM/" gidin
+
+Herhangi bir sorunuz ya da yardım için "support.onlyoffice.com":"http://support.onlyoffice.com"  
+
+ONLYOFFICE™ destek ekibi 
+"www.onlyoffice.com":"http://onlyoffice.com/"  
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForOpportunity" xml:space="preserve">
+    <value>h1. Şu fırsat için sorumlu kılındınız: "$EntityTitle":"${__VirtualRootPath}/Products/CRM/Deals.aspx?id=$EntityID"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" sizi şu fırsattan sorumlu kıldı: $EntityTitle . 
+
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
+Fırsat açıklaması:
+$AdditionalData.get_item("OpportunityDescription") #end
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Size atanan görev: $EntityTitle
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" sizi şu görev için sorumlu kıldı:$EntityTitle. #if($AdditionalData.get_item("TaskCategory"))
+
+Görev Kategorisi:$AdditionalData.get_item("TaskCategory")
+#end #if($AdditionalData.get_item("ContactRelativeUrl")) 
+
+Kişiyle bağlantıla:"$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Görev açıklaması:
+$AdditionalData.get_item("TaskDescription") #end
+
+Bitiş tarihi: $AdditionalData.get_item("DueDate")
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) #beforeall ---------------------------------------- #each "$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" #end
+
+"Görevlere" Git: "${__VirtualRootPath}/Products/CRM/Tasks.aspx"
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SetAccess" xml:space="preserve">
+    <value>h1.Erişim izni verildi "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" verilen, erişim: "$EntityTitle":"${__VirtualRootPath}/${EntityRelativeURL}".
+
+
+^Bu epostayı aldınız çünkü "${__VirtualRootPath}":"${__VirtualRootPath}"  portalının kayıtlı kullanıcısısınız. Bildirim tipini değiştirmek için, lütfen "abonelik ayalarınızı" değiştiriniz:"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskReminder" xml:space="preserve">
+    <value>h1. Reminder about the task: $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
+
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
+
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
+$AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+Go to the "Tasks":"${__VirtualRootPath}/Products/CRM/Tasks.aspx" list.
+
+^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal.^</value>
+  </data>
+  <data name="subject_AddRelationshipEvent" xml:space="preserve">
+    <value>CRM. $EntityTitle için yeni olay eklendi</value>
+  </data>
+  <data name="subject_CreateNewContact" xml:space="preserve">
+    <value>CRM. 'Web iletişim formu' kullanılarak yeni ilgili kişi oluşturuldu.</value>
+  </data>
+  <data name="subject_ExportCompleted" xml:space="preserve">
+    <value>CRM. Veri dışa aktarma işlemi başarıyla tamamlandı</value>
+  </data>
+  <data name="subject_ImportCompleted" xml:space="preserve">
+    <value>CRM. Veri Aktarımı Başarıyla Tamamlandı</value>
+  </data>
+  <data name="subject_ResponsibleForOpportunity" xml:space="preserve">
+    <value>CRM. Fırsat için Sorumlu Kişi olarak atandınız: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>CRM. Size atanmış görev: $EntityTitle</value>
+  </data>
+  <data name="subject_SetAccess" xml:space="preserve">
+    <value>CRM. $EntityTitle için erişim verildi</value>
+  </data>
+  <data name="subject_TaskReminder" xml:space="preserve">
+    <value>CRM. Görev hakkında hatırlatıcı: $EntityTitle</value>
+  </data>
+</root>

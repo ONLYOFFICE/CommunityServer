@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>섹션 편집 : {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>파일 이름</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>본문</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>페이지 제목</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>파일 업로드</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>업로드 파일 이름</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>확대</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>당신이 전에 어떤 마크 업 언어를 사용하지 않은 경우에도 위키 페이지를 만드는 것은 매우 간단합니다. 당신이 알아야 할 모든 아래에 나열된 몇 가지 간단한 규칙입니다. 우리는 당신이 그들에게 유익 할 것입니다.
+
+@ @ TOC @ @
+
+== 제, 단락, 목록, 라인 ==
+
+새 섹션을 시작하려면, 단락의 시작 부분에있는 = 기호를 사용
+
+&lt;nowiki&gt;
+&lt;P&gt;
+= 제 = &lt;BR&gt;
+== 하위 섹션 == &lt;BR&gt;
+=== 하위 하위 섹션 === &lt;BR&gt;
+
+&lt;P&gt;
+삽입 @ @ @ @ TOC 페이지에서 내용의 테이블에서 모든 페이지 섹션 및 하위 섹션을 결합합니다.
+&lt;/ P&gt;
+
+위키 마크 업이 줄 바꿈을 무시합니다. 당신은 단락에서 문장을 분리하도록 사용할 수 있습니다.
+
+&lt;P&gt;
+새 단락을 시작하지 않고 라인을 깨«BR»태그를 사용합니다.
+&lt;/ P&gt;
+
+새 단락을 시작하려면, 당신은 텍스트 편집기에서 수행했던 데로 두 번 Enter 키를 누릅니다.
+&lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+글 머리 기호 목록을 만드는 것은 간단합니다 :
+
+&lt;nowiki&gt;
+&lt;P&gt;
+&lt;BR&gt;, * 별표로 각 목록 지점을 시작
+**가 더 별표는, &lt;BR&gt;
+** 깊은 목록 수준입니다. &lt;br&gt;에
+&lt;/ P&gt;
+
+&lt;P&gt;
+# 번호 목록도 나쁘지 않아 : &lt;BR&gt;
+# # 사람들은 잘 구조화 된 볼, &lt;BR&gt;
+# # 읽기 쉽습니다. &lt;BR&gt;
+&lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+ 줄의 시작 부분에 공간이있는 경우,
+ 그런 다음 라인이 입력 된 것과 동일한 방법으로 포맷됩니다;
+ 같은 글꼴, 줄 바꿈이없는, [[노 링크]].
+
+필요한 경우 당신은 줄의 시작 부분에 공간을 사용할 수 있습니다 :
+
+* 일부 이전 형식의 텍스트를 붙여 넣습니다;
+* 소스 코드를 표시,
+* (텍스트 기호를 사용하여 이미지를 생성) ASCII 아트를 붙여 넣기 / 만들 수 있습니다.
+
+수평선은 네 대시로 표시됩니다 :
+&lt;nowiki&gt;
+&lt;P&gt;
+----
+&lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+== 삽입 링크 ==
+
+&lt;nowiki&gt;
+&lt;P&gt;
+다른 위키 페이지에 대한 링크를 삽입하려면 두 번 대괄호 페이지 제목을 넣어 : &lt;BR&gt; [[도움말]] &lt;/ P&gt;
+
+&lt;P&gt;
+당신은 페이지에 표시 할 링크와 제목이 다른 경우에, 후 링크 제목을 입력 | 기호 : &lt;BR&gt; [[위키 마크 업 도움말 페이지 | 도움말 페이지]] &lt;/ P&gt;
+
+&lt;P&gt;
+외부 링크는 다음과 같이 바로 텍스트에 삽입됩니다 &lt;BR&gt; http://example.com &lt;/ P&gt;
+
+&lt;P&gt;
+당신은 외부 링크 제목을 변경해야 할 경우, 공간을 한 후 하나의 대괄호에 넣어, 그리고 제목을 입력 &lt;BR&gt; [http://example.com example] &lt;/ P&gt;
+
+&lt;P&gt;
+전자 메일 주소를 삽입하려면 하나의 대괄호를 사용 &lt;BR&gt; [이메일 : mail@example.com] &lt;/ P&gt;
+
+&lt;P&gt;
+페이지 카테고리에 추가하려면, 원하는 카테고리에 대한 링크를 추가 [[카테고리 : 원하는 카테고리]] 페이지의 하단에있는.
+&lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+== 서식있는 텍스트 ==
+
+텍스트를 포맷하려면 다음 팁을 사용하여
+
+'기울임 꼴'
+
+&lt;nowiki&gt;
+&lt;P&gt;
+'기울임 꼴 텍스트는 여기에'
+ &lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+'' '굵은 글씨 '''
+
+&lt;nowiki&gt;
+&lt;P&gt;
+'' '당신의 굵은 텍스트는 여기에 '''
+ &lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+''''굵게 기울임 꼴 '' '' '
+&lt;nowiki&gt;
+&lt;P&gt;
+''''굵은 글씨 기울임 꼴 텍스트는 여기에 ''''
+ &lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+__Underline__
+
+&lt;nowiki&gt;
+&lt;P&gt;
+__your 텍스트가갑니다 밑줄 here__
+ &lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+- 스트라이크 -
+
+&lt;nowiki&gt;
+
+&lt;P&gt;
+- 당신이 삼진해야 할 텍스트는 여기에 -
+ &lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+색인 : &lt;sup&gt; 어깨 &lt;/ 저녁을 먹다&gt;와 &lt;sub&gt; 첨자 &lt;/ 서브&gt;
+
+&lt;nowiki&gt;
+
+&lt;P&gt;
+&lt;sub&gt; 귀하의 첨자 지수 &lt;/ 서브&gt; &lt;BR&gt;
+&lt;sup&gt; 당신의 어깨 색인 &lt;/ 저녁을 먹다&gt;
+&lt;/ P&gt;
+
+
+&lt;P&gt;
+당신은 또한 &lt;small&gt; 작은 텍스트를 사용할 수 있습니다 &lt;/ 소규모&gt; 논평위한 &lt;code의 lang="language"&gt; 프로그램 코드 &lt;/ code&gt;를 조각과 &lt;tt&gt; 기술 용어 &lt;/ 용 고정 피치 텍스트를 표시하는 특별한 형식으로 TT&gt;.
+&lt;/ P&gt;
+
+&lt;/ nowiki&gt;
+
+== 삽입 이미지 ==
+
+당신이 이전에 위키에 업로드해야합니다 위키 페이지 수 삽입 이미지가 될 수 있습니다.
+
+이미지의 다양한 종류를 삽입하려면 다음 링크를 사용하십시오 :
+
+&lt;nowiki&gt;
+&lt;P&gt;
+이미지 = [[이미지 : 이미지 제목]] &lt;/ P&gt;
+&lt;P&gt;
+&lt;/ P&gt; | : 고정 폭 = [Width_px] 이미지 제목 [이미지]와 이미지
+&lt;P&gt;
+&lt;/ P&gt; | : 설명 = [설명] 이미지 제목 [이미지]와 이미지
+&lt;P&gt;
+미리보기 이미지 = [[이미지 : 이미지 제목 | 엄지]] - 이미지 압축 및 오른쪽으로 정렬됩니다.
+&lt;/ P&gt;
+&lt;/ nowiki&gt;
+
+위키 전송에 == HTML ==
+
+당신은 이곳에 전송하고자하는 HTML 형식의 텍스트가있는 경우, 당신은 신속하고 쉽게 할 수 있습니다. '' '작업 '''패널에 '' '새 페이지를 만들기 '''를 클릭합니다. 다음 위의 서식 패널의 위키 아이콘을 클릭하여 편집기 창 위키 마크 업 디스플레이로 전환에 텍스트를 붙여 넣습니다. HTML 태그는 위키 마크 업으로 변경됩니다. 모든하고 Enter 키를 누릅니다 '' '게시 '''경우, 올바른 사소한 오류를 결과를 확인합니다. 페이지가 준비가되어 있습니다.</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>도움</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'' 'ONLYOFFICE™ 위키에 오신 것을 환영합니다! '''
+
+자, 페이지를 작성 연결기하여 웹 브라우저를 통해 카테고리로 그들을 통합 할 수 있습니다. 위키에는 다음과 같은 기능을 특징으로 프로젝트 관련 문서를 보관하는 편리한 도구입니다 :
+
+* 여러 저자. 각 '' 'ONLYOFFICE™ '''회원 페이지의 내용을 편집 할 수 있습니다.
+* 빠른 편집. 모든 페이지에서 즐길 수 '' '편집 '''링크를 클릭하고 바로 브라우저에서 편집 시작합니다.
+HTML에서 위키를 * 쉽게 전송됩니다. 자세히 알아보기 [[내부를 : 위키 전송에 # HTML 도움말 | 방법]]
+* 페이지 버전을 지원합니다. 이전 버전의 페이지를 되 돌리는에 의해 편집 된 것을 확인합니다.
+
+@ @ TOC @ @
+
+== 위키 탐색 및 구조 ==
+
+당신은 '을 통해 위키를 탐색 할 수 있습니다'탐색 패널 '' '항상 사용할 수 당신은 '''ONLYOFFICE™ '' '위키 내부에있는 동안.
+
+=== 페이지 ===
+
+. 페이지 &lt;BR&gt; | : 당신이 만드는 [인덱스] 인덱스 [내부]에 사전 순으로 정렬되어있는 모든 위키 페이지
+. 페이지 &lt;BR&gt; | : 모든 새로 생성 된 페이지는 [새 페이지] NewPages [내부]의 순으로 표시됩니다
+가장 최근에 수정 된 페이지의 목록에 자리 잡고 있습니다 [[내부 : 최근 | 최근 수정 됨]] 페이지입니다.
+
+=== 카테고리 ===
+
+당신은 카테고리에 여러 관련 페이지를 통합 할 수 있습니다. 해당 페이지의 모든 카테고리가 표시되는 [[내부 : 카테고리 | 카테고리]] 페이지입니다. 당신은 이미 존재하는 카테고리에 페이지를 추가하거나, 자신 만의 커뮤니티를 만들 수 있습니다. 클릭하여 [[내부 : 도움말 | 여기]] 카테고리에 페이지를 할당하는 방법에 대한 자세한 내용은.에게
+
+=== 파일 ===
+
+당신은 위키에 대한 어떠한 크기 및 형식의 파일뿐만 아니라 위키 페이지를 만들 때 업로드 사진에 대한 링크를 제공을 업로드 할 수 있습니다. 그것에 대해 자세히 알아보기 [[내부를 : 도움말 # 이미지를 삽입 | 여기]].
+
+=== 도움 ===
+
+'' 'ONLYOFFICE™ '''위키를위한 페이지를 생성하는 것은 간단합니다. 당신이 알아야 할 모든 몇 가지 간단한 규칙입니다. 방문 [[내부를 : 도움말 | 위키 마크 업 팁]] 위키 마크 업 규칙을 읽어 할 수 있습니다.
+
+
+== 귀하의 위키 만들기 ==
+
+자신의 위키를 만들려면 '를 클릭하여 새 페이지를 만드는 시작 '''작업 '' '패널에서 링크'새 페이지 '만들기'를 클릭합니다. 다음은 텍스트 편집기 공간에 텍스트를 입력합니다. 사용 [[내부를 : 도움말 | 위키 마크 업 팁]] 페이지에 올바르게 표시 할 텍스트.
+
+이 귀하의 특정 요구에 따라 모든 구성 할 수 있습니다 귀하의 개인 공간을 기억하십시오. 이 페이지의조차 내용은 수정할 수 있습니다. 예를 들어, 여기에 서면 무슨 삭제할 수 있습니다 귀하의 편의를 위해 프로젝트에 링크를 붙여 넣습니다. &lt;BR&gt; 행운을 빌어 요!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>페이지가 존재하지 않습니다. 를 생성하고 편집 할 수 {여기}을 (를) 클릭하십시오.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>닻</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>볼드체</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>시각적으로 타사 코드를 강조 표시하려면</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML 코드 예</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>외부 링크</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>로컬 파일 링크</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (평가와 함께 사용)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>횡선</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>이미지</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>기울임 꼴</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>새 행</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NoBR tag</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>위키 언어로 해석 될 수 없습니다</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>페이지 링크</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>특별 태그</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>치다</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>첨자</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>위에 쓴</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>특수 기호</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>밑줄</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>블록</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>업로드 된 파일의 최대 크기는 초과</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>파일을 다운로드</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>범주</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>최대 업로드 파일 크기는 {0}입니다</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Section: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=The page has been moved=
+Page name changed to [[{0}|{0}]].
+You can find latest version [[{0}|here]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>차례</value>
+  </data>
+</root>

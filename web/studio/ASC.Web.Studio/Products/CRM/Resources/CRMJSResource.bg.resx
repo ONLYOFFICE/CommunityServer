@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Действителна дата на сделката</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Добавя се възможност ...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Добавете имейл</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Фактурата се добавя ...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Добавете телефон</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Създаване на нова задача</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>адреси</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>адреси</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>партида</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>на ден</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>на час</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>на месец</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>на седмица</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>на година</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Адрес на плащане</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Паса</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Случай</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Затворен</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Отворено</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Маркирайте като основно</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Избирам</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Град</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Търговско дружество</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Наистина ли искате да промените този ключ?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Забележка: всички предишни форми вече няма да работят</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Наистина ли искате да изтриете тази задача?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Всички въведени данни ще бъдат загубени. Наистина ли искате да продължите?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Моля, въведете името на профила си в Twitter. Например, teamlabdotcom</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Държава</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Текущ месец</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Текуща седмица</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Потребителски период</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Удобен</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете случая с '{0}'?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Делото се изтрива ...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете фирмата '{0}'?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>Забележка: това действие не може да бъде отменено</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Контактът се изтрива ...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете възможността '{0}'?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Възможност за изтриване ...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете човека '{0}'?</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Адрес за доставка</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Редактирайте имейла</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Промените се запазват ...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Промените се запазват ...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Редактиране на телефона</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Редактирайте полето «{0}»</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Редактиране на задача</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>Избран е {0}</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Списъкът с елементи не може да бъде празен</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Всяко писмо трябва да има тяло</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Всяка задача трябва да има срок</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Всяка задача трябва да има отговорна задача</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Всяка задача трябва да има заглавие</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Не могат да бъдат намерени полета, съответстващи на 'Заглавие на делото'</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Не е избран човек</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Не могат да бъдат намерени полета, съответстващи на 'Име' или 'Име на фирма'</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>Максимален брой получатели на имейли: {0}</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Въведете заглавието на делото</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>Задължителните полета не трябва да се дублират</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Форматът на изображението не се поддържа</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Форматът на файла не се поддържа</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Възникна грешка при качването на изображението на сървъра</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Не могат да бъдат намерени полета, съответстващи на 'Заглавие за възможност', 'Отговорност за възможности'</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Не могат да бъдат намерени полета, съответстващи на 'Заглавие на задачата', 'Отговорна', 'Дата на изпълнение'</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>Типът "{0}" е последният. Не може да се изтрие.</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>Типът "{0}" е последният. Не може да се изтрие.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Това е единственият възможен етап. Не може да се изтрие.</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>Категорията "{0}" е последната. Не може да се изтрие.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>Категорията "{0}" е последната. Не може да се изтрие.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Приблизителна дата на сделката</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Намерете профил в Twitter</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Списъкът с получатели е генериран. {0} Кликнете върху връзките по-долу, за да препратите имейл адресите си към програмата за електронна поща.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Отидете в Настройки</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Връзка с проекта</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Зареждане...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>случаи</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>компании</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>контакти</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>възможности</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>събития</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>лица</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>задачи</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Следващия</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Следващ (за предварителен преглед)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Няма случаи</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Няма дата на затваряне</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Няма фирми</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Няма контакти</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Няма възможности</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Няма събития</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Не е избран файл</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Няма лица</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>без тема</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Няма задачи</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>случай</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>компания</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>контакт</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>възможност</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>събитие</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>човек</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>задача</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>в продължение на {0} дни</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>по време на {0} часа</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>през {0} месеца</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>през {0} седмици</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>през {0} години</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Моля, презаредете страницата</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Моля Изчакай...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Възможни профили за {0}</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Предишен</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Първичен</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} получателите не са имали имейл адреси.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Запазите промените</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Изберете CSV файл</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Избран CSV файл: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Изпращам</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Настройките са актуализирани успешно</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Покажи повече</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Температурно ниво</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Състояние</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Успешно затворен</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>Задачата «{0}» е затворена</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Осъществено от {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>{0} дни {1} часа {2} минути от началото на контейнера</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>От предишната задача {0} дни {1} часа {2} минути</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Неуспешно затворен</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Агент</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Отговорено</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Посетител</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>контактът е премахнат</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Продължителност</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Пропуснати</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Изходящ</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Пощенски код</value>
+  </data>
+</root>

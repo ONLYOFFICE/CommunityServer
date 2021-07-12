@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Xóa cache</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Tất cả script được sử dụng để sửa cổng thông tin được lưu trữ trong bộ nhớ truy cập nhanh để giúp tối đa hóa hiệu suất của ONLYOFFICE™. Đôi khi (thường là sau bản cập nhật lớn hoặc khi phát hiện thấy có sai khác trong hành vi của hệ thống) bạn cần xoá bộ nhớ cache. Sử dụng nút &lt;b&gt;Xóa Cache&lt;/b&gt; để xóa các script này khỏi server và tải lại chúng về. Dữ liệu hệ thống sẽ không bị mất khi thực hiện thao tác này.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Sử dụng tùy chọn này nếu bạn phát hiện có sai khác trong hành vi của cổng</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Cache</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Xem {0}trang FAQ{1} nếu bạn có câu hỏi hoặc liên hệ với chúng tôi tại {2}support@onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Mọi thắc mắc cần được giải đáp, vui lòng liên hệ với chúng tôi tại {0}support.onlyoffice.com{1}
+</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Liên hệ</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Giai đoạn</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>Phần &lt;b&gt;Nhật ký&lt;/b&gt; cho phép bạn tải về tất cả nhật ký cổng thông tin trong khoảng thời gian đã chọn, được lưu thành file .zip. Chọn thời gian bắt đầu và kết thúc và bấm vào nút &lt;b&gt;Tải về&lt;/b&gt; để lấy nhật ký.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Tải về tất cả nhật ký</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Nhật ký</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>Phần &lt;b&gt;Cổng&lt;/b&gt; chứa danh sách tất cả các cổng cần thiết cho công việc sửa chữa cổng ONLYOFFICE™ và trạng thái của chúng (mở hoặc đóng). Để server ONLYOFFICE™ của bạn vận hành đúng, các cổng này phải có trạng thái &lt;b&gt;Mở&lt;/b&gt;. Lưu ý rằng một số cổng sẽ chỉ yêu cầu cho phép kết nối đến hoặc đi, trong khi các cổng khác cần cả hai loại kết nối.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Tất cả các cổng sau phải được mở</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Cổng</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>Phần &lt;b&gt;Dịch vụ&lt;/b&gt; hiển thị danh sách tất cả các dịch vụ ONLYOFFICE™ khả dụng và trạng thái của chúng (đang hoạt động hay đã ngừng). Bạn có thể sử dụng nút hành động thích hợp ở bên phải của trạng thái dịch vụ để khởi động lại các dịch vụ đang hoạt động hoặc bắt đầu các chương trình đã ngừng.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>Dịch vụ ONLYOFFICE™ và trạng thái hiện tại</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Dịch vụ</value>
+  </data>
+</root>

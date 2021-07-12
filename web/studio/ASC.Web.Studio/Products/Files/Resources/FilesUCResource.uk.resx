@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Лише читання</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Повний доступ</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Заборонити доступ</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Перевірити</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Додати аакаунт</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Додати обліковий запис Box</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Додати обліковий запис Dropbox</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Додати обліковий запис Google</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Додайте обліковий запис NextCloud</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Додати обліковий запис OneDrive</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Інший акаунт</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Скасувати усі зміни</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Змінити власника</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Змінити інформацію про стороннього постачальника</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Очистити фільтр</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Створити копію</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Копіювати</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Створити</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Презентація</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Документ</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>Видалити стороннього постачальника</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Скачати</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Створити копію файлу</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Вбудовування документа</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Очистити кошик</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Архіви</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Папки</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Картинки</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Презентації</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Таблиці</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Перейти до '{0}' </value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Перейти в Мої документи</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Дізнатися більше...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Заблокувати</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Перемістити або скопювати</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Перемістити до</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>Перезаписати з оновленням версії</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Перейменувати</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Відновити</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Всі</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Надіслати за допомогою DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Надіслати</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>Налаштувати доступ</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Показати версії</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Пропустити</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Повернутися до батьківської папки</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Розблокувати</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Вверх</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Завантажити</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Історія версій</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Завершити версію</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Скасовано</value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Перетворити та відкрити документ</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Коли будуть виконані зміни, власник поточного файла / папки отримує права доступу відповідно до налаштувань доступу до групи, до якої він належить, або відповідно до дозволів для типової папки.</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Змінити власника</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Вибрати формат для кожного файлу, який потрібно завантажити</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Загальні параметри</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>У папці буде два різних файли.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Підтвердження перезапису</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Файл буде додано до файлу з таким самим ім'ям, як версія.</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Підтвердження видалення</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Зауваження: Ця дія не може бути скасованою.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Примітка. Видалення з облікового запису неможливо скасувати.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Жоден файл не буде скопійовано. Оригінальний файл буде збережений у папці призначення.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Зберегти копію файлу у вихідному форматі</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Для швидшого перегляду та редагування файл документа, який ви відкриваєте, буде перетворено у формат Office Open XML.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Копію файлу буде створено у папці {0}Мої документи{1}</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Завантажити документи у вихідному форматі</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Перемістити підтвердження</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Ви дійсно хочете видалити ці елементи із списку?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Оновіть версію файлу для наявного файлу з таким самим іменем. {0}Інакше буде створено копію файлу.{1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Url з'єднання</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Зконвертувати</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Завантажити як</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Перетворення пройшло успішно. </value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>Файл створено у папці '{0}'</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Помилка перетворення</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Триває перетворення...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Загальні документи</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Ви щрйно створили свій портал ONLYOFFICE. {0} Завантажте свої офлайнові файли на портал, щоб співпрацювати над ними, не виходячи з програми. {0} {0} Відкрийте свій портал у веб-переглядачі, щоб знайти більше функцій, зокрема {1} Проекти {2 }, {1} CRM {2}, {1} Календар {2}, {1} Пошта {2} та інше.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Відкрити в браузері</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>Для будь-яких запитань щодо покупки напишіть нам на {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Якщо у вас виникли технічні проблеми, зв'яжіться з нами за {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Ласкаво просимо на ваш портал!</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Вітання</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Зберегти в папку:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Повідомлення</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Додати повідомлення</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Видалити повідомлення</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Назва документу</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Додати {!user}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Список одержувачів підписів</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Завантажити як</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Завантажити</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Завантажити</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Розмір</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Висота</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Ширина</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>У розділі 'загальні документи' показані всі документи, до яких адміністратор порталу відкрив загальний доступ. Тільки адміністратор порталу може створювати папки в цьому розділі, але користувачі порталу, яким надані права доступу, можуть завантажувати сюди файли.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Перетягніть сюди файли з комп'ютера, щоб завантажити їх на портал ще простішим способом.</value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>Розділ 'Доступно для мене' використовується для показу файлів, до яких ваші друзі або колеги надали вам доступ. Якщо ви ще не бачили останніх змін у цих документах, вони позначаються значком 'нове'. Ви можете видалити файли зі списку, натиснувши відповідну кнопку.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>У розділі 'Мої документи' зберігаються документи та графічні файли, які ви {0}створили{1} або {2}завантажили{3} на портал. Ви можете {4}відкривати{5} і {6}редагувати{7} їх за допомогою редактора ONLYOFFICE™, надати до них доступ друзям чи колегам, організувати по папках.</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>Документи та файли зображень, які ви {2} завантажуєте {3} на портал, зберігаються у розділі «Мої документи». Ви можете поділитися ними з друзями або колегами, помістити їх у папки.</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>У цьому розділі зберігаються документи та графічні файли, які ви створили або завантажили для вашого проекту. Ви можете відкривати та редагувати їх за допомогою редактора ONLYOFFICE™, організувати їх по папках.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value>У розділі 'Кошик' розміщуються всі видалені файли. Ви можете або відновити їх, якщо вони віддалені помилково, або видалити їх остаточно. Будь ласка, зверніть увагу, що при видаленні файлів з 'Кошика' їх вже не можна буде відновити.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Тут немає файлів, що відповідають цьому фільтру</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>У цьому розділі немає файлів або папок, які відповідають вашому фільтру. Будь ласка, виберіть інші опції фільтру або очистіть фільтр, щоб показати всі файли в цьому розділі. Ви можете також пошукати потрібний файл в інших розділах.</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>У цьому розділі немає файлів для відображення</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Підключені облікові записи відсутні</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фільтр</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Папки</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Розпочати зараз</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>по електронній пошті</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Виділити все</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>Максимальний розмір {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Маєте команду {0} з якою співпрацюєте? {0} {1} Дізнайтесь більше {2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Управління документами</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM та виставлення рахунків</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Управління завданнями та графік Ганта
+</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Агрегатор поштової скриньки</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Маєте проект і команду, з якою ви співпрацюєте? {0} Ми дещо підготували для вас. {1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Запросіть своїх колег або субпідрядників та скористайтеся додатковими функціями:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Ласкаво просимо в ONLYOFFICE ™ для команд!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Мої документи</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Сховати список документів</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Показати список документів</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Документи проекту</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Відзначити як прочитане</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Позначити все як прочитане</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Вибрати папку</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Будь ласка, виберіть дію:</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Завантаження файлів</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Доступ</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Доступно для мене</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Встановити право доступа для посилання</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Надано доступ до посилання та вбудованого коду</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Показати більше</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Відображати це вікно згорнутим.</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Переключитися на компактний вигляд</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Переключитися на звичайний вигляд</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Облікові записи третіх сторін</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Підключити обліковий запис</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Підключити облікові записи</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Ці облікові записи можна підключити до документів ONLYOFFICE™. Вони відображатимуться в папці "Мої документи" і їх можна буде редагувати та зберігати безпосередньо на порталі в одному місці.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Підключення облікового запису</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Заповніть, щоб змінити</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Видалити стороннього постачальника</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Активувати настройки стороннього постачальника для користувачів</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Назва папки</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Повторно підключити</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Аккаунт</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Надати спільний доступ і перемістити в розділ "Загальні документи" </value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>Поділитись думкою</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive для бізнесу</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Яндекс</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Виділити</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Ви можете створювати документи ({0}), таблиці ({1}), презентації ({2}) і завантажувати їх в найпоширеніших форматах.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Ви можете редагувати наступні файли: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Ви можете відкрити файли з наступними розширеннями: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Ви можете завантажувати в Документи будь-які файли, які захочете.</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Кошик</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Видалити зі списку</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Перезаписати наявний файл з таким самим іменем </value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Оновіть тарифний план</value>
+  </data>
+</root>

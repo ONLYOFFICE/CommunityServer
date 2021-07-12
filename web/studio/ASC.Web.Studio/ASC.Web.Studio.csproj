@@ -1061,6 +1061,7 @@
       <DependentUpon>Wizard.aspx</DependentUpon>
     </Compile>
     <Content Include="AppInstall.aspx" />
+    <Content Include="collaboration.png" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
@@ -1127,6 +1128,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="desktop%402x.png" />
+    <Content Include="desktop.png" />
+    <Content Include="document.png" />
     <Content Include="js\asc\core\headscript.js" />
     <Content Include="js\asc\plugins\svg4everybody.js" />
     <None Include="js\third-party\purify.min.js.map" />
@@ -1141,7 +1145,12 @@
     <Content Include="js\third-party\sjcl.js" />
     <Content Include="js\third-party\xregexp.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="mobile%402x.png" />
+    <Content Include="mobile.png" />
+    <Content Include="online%402x.png" />
+    <Content Include="online.png" />
     <Content Include="PortalEncryption.aspx" />
+    <Content Include="presentation.png" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -1362,6 +1371,7 @@
     <Content Include="skins\pure-orange\img\up.svg" />
     <Content Include="skins\wild-pink\img\rotate.svg" />
     <Content Include="skins\wild-pink\img\up.svg" />
+    <Content Include="spreadsheet.png" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\arrow_right_black.svg" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\buttons_icons\cs\app_store.svg" />
     <Content Include="UserControls\Common\AuthorizeDocs\css\images\buttons_icons\cs\google_play.svg" />

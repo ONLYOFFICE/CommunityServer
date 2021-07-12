@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneTitle" xml:space="preserve">
+    <value>Ajouter le titre du jalon</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Ajouter une tâche</value>
+  </data>
+  <data name="AddTaskTitle" xml:space="preserve">
+    <value>Ajouter le titre de la tâche</value>
+  </data>
+  <data name="AllProjectTmpl" xml:space="preserve">
+    <value>Tous les modèles de projet</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Choisir le responsable</value>
+  </data>
+  <data name="CreateProject" xml:space="preserve">
+    <value>Créer un projet</value>
+  </data>
+  <data name="CreateProjTmpl" xml:space="preserve">
+    <value>Créer un nouveau modèle de projet</value>
+  </data>
+  <data name="DefaultProjTitle" xml:space="preserve">
+    <value>Créer à partir du modèle - {0}</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+  <data name="EditProjStructure" xml:space="preserve">
+    <value>Modifier la structure du projet</value>
+  </data>
+  <data name="EditProjTmpl" xml:space="preserve">
+    <value>Modifier le modèle de projet</value>
+  </data>
+  <data name="EmptyListTemplateButton" xml:space="preserve">
+    <value>Créer le premier modèle</value>
+  </data>
+  <data name="EmptyListTemplateDescr" xml:space="preserve">
+    <value>Les Modèles de projet vous aide à créer des projets similaires avec toutes les choses nécessaires, telles que l'organisation d'une équipe de projet, la création des jalons, des tâches et des discussions en économisant le temps passé sur le remplissage des données répétitives.</value>
+  </data>
+  <data name="EmptyListTemplateHeader" xml:space="preserve">
+    <value>Il n'y a aucun modèle de projet</value>
+  </data>
+  <data name="MilestoneError" xml:space="preserve">
+    <value>Chaque jalon doit avoir un titre</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>jalons</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Sans responsable</value>
+  </data>
+  <data name="NotifyResponsibles" xml:space="preserve">
+    <value>Notifier les Responsables</value>
+  </data>
+  <data name="RemoveQuestion" xml:space="preserve">
+    <value>Voulez-vous vraiment supprimer ce modèle ?</value>
+  </data>
+  <data name="RemoveTemplateTitlePopup" xml:space="preserve">
+    <value>Supprimer le modèle</value>
+  </data>
+  <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
+    <value>Enregistrer et créer un projet à partir du modèle</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Enregistrer changements</value>
+  </data>
+  <data name="SaveTemplate" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tâche</value>
+  </data>
+  <data name="TaskError" xml:space="preserve">
+    <value>Chaque tâche doit avoir un titre</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>tâches</value>
+  </data>
+  <data name="TasksWithoutMilestone" xml:space="preserve">
+    <value>Tâches sans jalon</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Titre</value>
+  </data>
+  <data name="TitleErrorTemplate" xml:space="preserve">
+    <value>Chaque modèle doit avoir un titre</value>
+  </data>
+</root>

@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>거래의 실제 날짜</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>기회를 추가하는 중 ...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>이메일 추가</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>전화 번호 추가</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>새 작업 만들기</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>주소</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>주소</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>주소</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>일괄</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>하루에</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>시간당</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>월당</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>주당</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>연 당</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>케이스</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>완료</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>기본으로 표시</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>도시</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>회사</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>당신은이 키를 변경 하시겠습니까?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>참고 : 이전에 만든 양식이 더 이상 작동하지 않습니다</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>당신은이 작업을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>모든 입력 된 정보가 손실됩니다. 당신은 어쨌든 계속 하시겠습니까?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>귀하의 트위터 계정의 이름을 입력하십시오. 예를 들어, teamlabdotcom</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>영업기회</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>당신이  {0} 케이스를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>케이스를 삭제하는 중 ...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>당신이  {0} 회사를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>참고 :이 작업은 취소 할 수 없습니다</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>연락처를 삭제하는 중 ...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>당신이  {0} 기회를 삭제 하시겠습니까?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>기회를 삭제하는 중 ...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>당신이  {0} 사람을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>이메일을 수정</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>변경 내용을 저장...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>전화를 편집</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>수정«{0}»현장</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>작업 수정</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0}을 선택</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>요소 목록은 비워 둘 수 없습니다</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>모든 편지는 몸이 있어야합니다</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>모든 작업은 기한이 있어야합니다</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>모든 작업은 책임을해야합니다</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>모든 작업은 제목이 있어야합니다</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>사례 제목 에 해당하는 번호 필드를 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>어떤 사람이 선택되지 않습니다</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>이름 에 해당 없음 필드,  성 또는  회사 명 는 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>이메일 수신자가 최대 {0}명</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>사건 제목을 입력</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>의무 필드는 중복되어서는 안됩니다</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>이미지 형식은 지원되지 않습니다</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>파일 형식은 지원되지 않습니다</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>서버에 이미지를 업로드하는 도중 오류가 발생했습니다</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>기회 제목 에 해당 없음 필드,  기회 책임감 를 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>아니오  작업 제목 에 해당하는 필드,  책임감 ,  기한 는 발견</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>"{0}" 유형의 마지막입니다. 그것은 삭제할 수 없습니다.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>이 유일한 기회 무대입니다. 그것은 삭제할 수 없습니다.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>"{0}" 카테고리는 마지막 하나입니다. 그것은 삭제할 수 없습니다.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>예상 거래 기한</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>트위터에 계정을 찾기</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>받는 사람 목록이 생성되었습니다. {0} 이메일 이메일 프로그램으로 주소를 전달하려면 아래의 링크를 클릭하십시오.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>설정으로 이동</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>프로젝트 링크</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>로딩중...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>케이스</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>회사</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>연락처</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>영업기회</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>이벤트</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>명</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>업무들</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>다음 (미리보기)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>더 경우가 없습니다</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>더 가까운 날짜 없음</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>더 기업이 없습니다</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>연락처가 없습니다</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>더 기회가 없습니다</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>이벤트가 없습니다</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>더 사람이 없습니다</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>제목 없음</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>더 작업이 없습니다</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>케이스</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>회사</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>연락처</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>영업기회</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>이벤트</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>사람</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>업무</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>{0} 일 동안</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>{0} 시간 동안</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>{0} 개월 동안</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>{0} 주 동안</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>{0} 년 동안</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>페이지를 새로 고침하세요</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>에 대한 가능성이 프로필 {0}</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>예비 선거</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} 수신자 이메일 주소가 없습니다.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>변경 사항 저장</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>CSV 파일 선택</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>선택한 CSV 파일 : {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>보내기</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>설정이 성공적으로 업데이트되었습니다</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>더 보기</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>연락처 유형</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>성공적으로 종료</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>«{0}»작업은 문을 닫습니다</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>에 의해 구동 {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>컨테이너 시작부터 {0} 일 {1} 시간 {2} 분</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>이전 작업에서 {0} 일 {1} 시간 {2} 분</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>종료 실패</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>우편 번호</value>
+  </data>
+</root>

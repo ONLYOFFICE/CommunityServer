@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddContactSuccess" xml:space="preserve">
+    <value>Nuovo contatto aggiunto con successo.</value>
+  </data>
+  <data name="AddMailboxSuccess" xml:space="preserve">
+    <value>La cassetta postale "{0}" è stata aggiunta con successo.</value>
+  </data>
+  <data name="AddMailGroupSuccess" xml:space="preserve">
+    <value>Il gruppo di posta "{0}" è stato aggiunto con successo.</value>
+  </data>
+  <data name="clearFolder" xml:space="preserve">
+    <value>La cartella %folder% è stata svuotata.</value>
+  </data>
+  <data name="deleteFilteredConversations" xml:space="preserve">
+    <value>Tutti i thread di conversazione selezionati sono stati eliminati.</value>
+  </data>
+  <data name="deleteFilteredMessages" xml:space="preserve">
+    <value>Tutti i messaggi selezionati sono stati eliminati.</value>
+  </data>
+  <data name="DeleteManyContacts" xml:space="preserve">
+    <value>%count% contatti sono stati eliminati.</value>
+  </data>
+  <data name="deleteManyConversations" xml:space="preserve">
+    <value>%count% thread di conversazione sono stati eliminati.</value>
+  </data>
+  <data name="deleteManyMessages" xml:space="preserve">
+    <value>%count% messaggi sono stati eliminati.</value>
+  </data>
+  <data name="DeleteOneContact" xml:space="preserve">
+    <value>Contatto eliminato</value>
+  </data>
+  <data name="deleteOneConversation" xml:space="preserve">
+    <value>Il thread di conversazione è stato eliminato.</value>
+  </data>
+  <data name="deleteOneMessage" xml:space="preserve">
+    <value>Il messaggio è stato eliminato.</value>
+  </data>
+  <data name="EditContactSuccess" xml:space="preserve">
+    <value>Contatto cambiato con successo</value>
+  </data>
+  <data name="moveFilteredConversationsTo" xml:space="preserve">
+    <value>Tutti i thread di conversazione selezionati sono stati spostati in %folder%. </value>
+  </data>
+  <data name="moveFilteredMessagesTo" xml:space="preserve">
+    <value>Tutti i messaggi selezionati sono stati spostati in %folder%.</value>
+  </data>
+  <data name="moveManyConversationsTo" xml:space="preserve">
+    <value>%count% thread di conversazione sono stati spostati in %folder%.</value>
+  </data>
+  <data name="moveManyMessagesTo" xml:space="preserve">
+    <value>%count% messaggi sono stati spostati in %folder%.</value>
+  </data>
+  <data name="moveOneConversationTo" xml:space="preserve">
+    <value>Il thread di conversazione è stato spostato in %folder%.</value>
+  </data>
+  <data name="moveOneMessageTo" xml:space="preserve">
+    <value>Il messaggio è stato spostato in %folder%.</value>
+  </data>
+  <data name="RemoveDomainSuccess" xml:space="preserve">
+    <value>Il dominio "{0}" è stato eliminato con successo.</value>
+  </data>
+  <data name="RemoveMailboxSuccess" xml:space="preserve">
+    <value>La cassetta postale "{0}" è stata eliminata con successo.</value>
+  </data>
+  <data name="RemoveMailGroupSuccess" xml:space="preserve">
+    <value>Il gruppo di posta "{0}" è stato eliminato con successo.</value>
+  </data>
+  <data name="restoreFilteredConversations" xml:space="preserve">
+    <value>Tutti i thread di conversazione selezionati sono stati ripristinati.</value>
+  </data>
+  <data name="restoreFilteredMessages" xml:space="preserve">
+    <value>Tutti i messaggi selezionati sono stati ripristinati.</value>
+  </data>
+  <data name="restoreManyConversations" xml:space="preserve">
+    <value>%count% thread di conversazione sono stati ripristinati.</value>
+  </data>
+  <data name="restoreManyMessages" xml:space="preserve">
+    <value>%count% messaggi sono stati ripristinati.</value>
+  </data>
+  <data name="restoreOneConversationTo" xml:space="preserve">
+    <value>Il thread di conversazione è stato ripristinato in %folder%.</value>
+  </data>
+  <data name="restoreOneMessageTo" xml:space="preserve">
+    <value>Il messaggio è stato ripristinato in %folder%.</value>
+  </data>
+  <data name="updateMailboxSuccess" xml:space="preserve">
+    <value>Indirizzo "{0}" aggiornato con successo</value>
+  </data>
+  <data name="updateMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroup di gruppo "{0}" aggiornata con successo</value>
+  </data>
+</root>

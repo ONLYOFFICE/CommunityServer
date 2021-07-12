@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisAndCreateDealButton" xml:space="preserve">
+    <value>Зберегти і Створити нову угоду</value>
+  </data>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Всі угоди</value>
+  </data>
+  <data name="BidType" xml:space="preserve">
+    <value>Ставка</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>фіксований</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>в день</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>в годину</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>в місяць</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>в тиждень</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>в рік</value>
+  </data>
+  <data name="BidTypePeriod" xml:space="preserve">
+    <value>Періодичність платежу</value>
+  </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>Етап</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>Тип стадії</value>
+  </data>
+  <data name="ClientDeal" xml:space="preserve">
+    <value>Контакт угоди</value>
+  </data>
+  <data name="CreateFirstDeal" xml:space="preserve">
+    <value>Додати першу операцію</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Створити нову угоду</value>
+  </data>
+  <data name="CurrentDealMilestone" xml:space="preserve">
+    <value>Угода на стадії</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Користувальницькій період</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Інші користувачі</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Угода</value>
+  </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Дозволи будуть встановлені на ті угоди, де ви є автором</value>
+  </data>
+  <data name="DealAmount" xml:space="preserve">
+    <value>Сума</value>
+  </data>
+  <data name="DealMilestone" xml:space="preserve">
+    <value>Стадії угоди</value>
+  </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>Продавець проводить серію сесій із запитаннями та відповідями для визначення вимог перспективи</value>
+  </data>
+  <data name="DealMilestone_Champion_Title" xml:space="preserve">
+    <value>Обговорення</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>Потрібні контакти потенційного покупця, щоб зрозуміти перспективу майбутнього продажу</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Початковий контакт</value>
+  </data>
+  <data name="DealMilestone_Lost_Description" xml:space="preserve">
+    <value>Початок або невдача. До угоди ще не приступили або вже закрили через відсутність перспективи</value>
+  </data>
+  <data name="DealMilestone_Lost_Title" xml:space="preserve">
+    <value>Нульова точка</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Description" xml:space="preserve">
+    <value>Потенційний покупець погодився зустрітися і/або оцінити Вашу пропозицію</value>
+  </data>
+  <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
+    <value>Оцінка</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Продавець намагається визначити, чи може клієнт бути його потенційним покупцем</value>
+  </data>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Застосування критеріїв початкової відповідності</value>
+  </data>
+  <data name="DealMilestone_Prospect_Description" xml:space="preserve">
+    <value>Потенційний покупець уже обговорив Вашу пропозицію в деталях</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Переговори</value>
+  </data>
+  <data name="DealMilestone_Suspect_Description" xml:space="preserve">
+    <value>Потенційний покупець визначається як особа або організація, яка має інтерес та повноваження придбати товар або послугу</value>
+  </data>
+  <data name="DealMilestone_Suspect_Title" xml:space="preserve">
+    <value>Початок</value>
+  </data>
+  <data name="DealMilestone_Verbal_Description" xml:space="preserve">
+    <value>Потенційний покупець усно погодився вести з Вами справи</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Усна домовленість</value>
+  </data>
+  <data name="DealMilestone_Won_Description" xml:space="preserve">
+    <value>Угода що відбулася. Закрита через успішне завершення</value>
+  </data>
+  <data name="DealMilestone_Won_Title" xml:space="preserve">
+    <value>Успіх</value>
+  </data>
+  <data name="DealMilestoneType" xml:space="preserve">
+    <value>Тип стадії</value>
+  </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Учасник угоди</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Учасники угоди</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Угоди</value>
+  </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>Тег угоди</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Тег списку угод</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Теги угод</value>
+  </data>
+  <data name="DeleteDeal" xml:space="preserve">
+    <value>Видалити угоду</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Видалення угоди</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Опис угоди</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Відредагувати угоду «{0}»</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Відредагувати угоду</value>
+  </data>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Угоди дозволяють Вам відслідковувати потенційні продажі з вашими клієнтами. Визначайте {0}стадії угод{1} відповідно до Вашого бізнес-процесу, ведіть історію, ставте завдання, завантажуйте документи, підраховуйте прибуток з кожного клієнта.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>У цьому розділі не відображаються угоди, що відповідають вашому фільтру. Будь ласка, виберіть інші параметри фільтра або очистіть фільтр, щоб переглянути всі можливості цього розділу. Або ви можете створити можливість, якщо вона відсутня у списку.</value>
+  </data>
+  <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
+    <value>Угоди не можуть відображатись для цього фільтра</value>
+  </data>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>Список угод порожній</value>
+  </data>
+  <data name="EmptyDealName" xml:space="preserve">
+    <value>Введіть назву угоди</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>У кожної угоди повинен бути відповідальний</value>
+  </data>
+  <data name="EmptyPeopleInDealContent" xml:space="preserve">
+    <value>Список учасників порожній</value>
+  </data>
+  <data name="EmptyPeopleInDealDescript" xml:space="preserve">
+    <value>Додайте учасників за вашою угодою зі списку компаній чи осіб. Після того, як це буде зроблено, ви будете знати, які контакти пов'язані з цією угодою, і з ким ви можете мати справу.</value>
+  </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Орієнтовна / фактична дата виконання</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Бюджет</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Контакт</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Учасник</value>
+  </data>
+  <data name="FilterByStageOrStageType" xml:space="preserve">
+    <value>Етап/ тип етапу</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Імпорт угод</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>На жорсткому диску комп'ютера слід вибрати правильно сформований файл CSV. Він повинен містити поля або стовпці, розділені вибраним роздільником, які будуть використовуватися для імпорту можливостей. Файли, що містять більше {0} рядків, повинні бути розділені на менші частини для правильного імпортування. Переконайтеся, що ви вибрали користувачів порталу, яким потрібно отримати доступ до інформації для імпорту, інакше дані з файлу CSV будуть доступні для всіх користувачів порталу.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Виберіть файл CSV та встановіть права доступу, перш ніж імпортувати угоди</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Збіставьте стовпці файлів з відповідними полями ONLYOFFICE ™ CRM. Будь ласка, зверніть увагу на те, що для правильного імпортування стовпці вашого файлу повинні відповідати полям ONLYOFFICE ™ CRM: "Назва угоди", "Відповідна угода". Поля, що містять дати, повинні мати такий формат: {0}. Поле валюти має бути встановлене відповідно до міжнародного трьохлітерного коду (наприклад, USD, JPY, AUD).</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Будь ласка, перевірте поля</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Перейти до списку угод</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Імпорт угоди може тривати кілька хвилин залежно від обсягу ваших даних</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Імпорт почато</value>
+  </data>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Посилання або створення угоди</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Мої угоди</value>
+  </data>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Назва угоди</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Бюджет не заданий</value>
+  </data>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Інші учасники угоди</value>
+  </data>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Учасники</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Обмежити доступ до угоди</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Ймовірність успіху</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Відповідальний за угоду</value>
+  </data>
+  <data name="ShowDealProfile" xml:space="preserve">
+    <value>Перейти до профілю
+</value>
+  </data>
+  <data name="ShowDealProfileNewTab" xml:space="preserve">
+    <value>Відкрийте нову вкладку</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Показати загальну суму</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Розпочати імпортування</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Етапи угоди дозволяють визначити кроки, необхідні для завершення угоди. Стандартні угоди - це підхід, обговорення, оцінка, переговори, зобов'язання, успіх, нульова точка. Щоб мати можливість редагувати їх, потрібні права адміністратора порталу.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Загальна кількість</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Всі угоди</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Разом на сторінці</value>
+  </data>
+</root>

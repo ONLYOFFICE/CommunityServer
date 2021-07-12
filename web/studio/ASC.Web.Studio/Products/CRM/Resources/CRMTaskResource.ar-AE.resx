@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>إنشاء مهمة جديدة</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>الموعد النهائي</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء الأمر</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>مهمة مغلقة</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>اربط مع جهة اتصال</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>انشاء المهمة الأولى</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>انشاء مهمة</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>فترة مخصصة</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>مستخدمين اخرين</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>مهام محذوفة</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>الموعد النهائي</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>تحرير المهمه</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>المهام هي الطريقة السهلة لإنشاء مذكرات خاصه بك لأعمل تود ان تقوم بمتابعتها وانجازها ضمن فترة زمنية محددة على سبيل المثال المهام تستطيع استخدامها لتذكيرك بإجراء اتصال لعميل او زياره عميل محدد تستطيع انشاء مهام صمن {0}فئات مختلفة{1}, ثم ربطها مع جهات اتصال او فرص او مشكلة او حتى مهام خاصه بك لتذكير نفسك</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>لا توجد مهام تطابق عامل التصفيه الخاص بك في هذا القسم. الرجاء اختيار خيارات اخرى او امسح الخيارات لكي تظهر كل المهام في هذا القسم. تستطيع ايضا البحث عن المهام التي تريد في قسم الفرص او المشاكل او جهات الاتصال.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>لا توجد مهام لعرضها لعامل التصفيه هذا</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>قائمة المهام فارغة</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>يلزمك اختيار ملف CSV من جهازك. يجب ان يحتوي على على الحقول او الاعمده المناسبه والتي يتم فصلها باستخدام عامل الفصل المحدد. الملفات التي تحتوي على اكثر من  {0} يجب ان تقسم الى اقسام اصغر لكي يتم استيرادها بشكل صحيح</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>اختر ملف CSV</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>طابق الحقول الموجوده في الملف مع الحقول الموجوده في نظام اداره علاقات العملاء في برنامج تيم لاب. لكي يتم الاستيراد بشكل صحيح  الراجاء التأكد من ان الحقول الموجوده في الملف المراد استيراده مطابق للحقول في نظام اداره علاقات العملاء: 'Task Title', 'Responsible', 'Due Date'. الحثول التي تحتوي على التاريخ يجب ان تكون مثل هذه الصيغه: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>الرجاء التأكد من الحقول</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>اذهب الى قائمة المهام</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>قد يستغرق استيراد المهام الخاصه بك عده دقائق اعتمادا على كميه المهمام المراد استيرادها. سيتم ابلاغك عندما يتم الانتهاء من الاستيراد</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>بداء الاستيراد</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>استيراد مهام</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>مهامي</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>مغلق</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>متأخر</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>مسؤول</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>حفظ مهمة</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>بدء الاستيراد</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>مهمة</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>المهام بالفئة</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>فئة المهمة</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>اتصال</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>فرصه</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>ديمو</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>فاكس</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>ادارة التنفيذ</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>غداء</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>موعد</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>ملاحظة</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>توصيل</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>مواقع التواصل الاجتماعي</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>خطاب شكر</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>وصف المهمة</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>مسند الى</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>مهام</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>حالة المهمة</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>مغلق</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>فتح</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>عنوان المهمة</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>قريبا</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 ايام</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>الوقت</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>فئات المهمه تمكنك من تقسيم مهامك الى مجموعات بناء على هدفك من كل مهمه. الفئات الافتراضيه للمهام هي اتصال, فرصه,ديمو,بريدالكتروني,فاكس,تحكم تنفيذي,غداء,موعد,ملاحظه,توصيل,تواصل اجتماعي,خطاب شكر.لكي تستطيع تعديل هذه الاقسام يلزمك الحصول على صلاحيات المشرف</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>اسبوع</value>
+  </data>
+</root>

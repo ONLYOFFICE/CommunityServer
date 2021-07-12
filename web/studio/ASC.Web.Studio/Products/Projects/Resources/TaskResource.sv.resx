@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Acceptera aktivitet</value>
+  </data>
+  <data name="AcceptSubtask" xml:space="preserve">
+    <value>Acceptera</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
+  <data name="AddFirstTask" xml:space="preserve">
+    <value>Lägg till första aktiviteten</value>
+  </data>
+  <data name="AddNewSubtask" xml:space="preserve">
+    <value>Lägg till ny delaktivitet</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Lägg till ny aktivitet</value>
+  </data>
+  <data name="AddSubtask" xml:space="preserve">
+    <value>Lägg till delaktivitet</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Lägg till ny aktivitet</value>
+  </data>
+  <data name="AllTasks" xml:space="preserve">
+    <value>Alla aktiviteter</value>
+  </data>
+  <data name="AssignedTo" xml:space="preserve">
+    <value>Tilldelad till</value>
+  </data>
+  <data name="BetterToReturn" xml:space="preserve">
+    <value>Det bästa sättet är att gå tillbaka och stänga delaktiviteter manuellt sedan ett nytt försök att stänga aktiviteten</value>
+  </data>
+  <data name="BetterToReturnTasks" xml:space="preserve">
+    <value>Det bästa sättet är att gå tillbaka och manuellt stänga delaktiviteterna, och försöka stänga aktiviterna därpå</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Ansvarig</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Ändra status</value>
+  </data>
+  <data name="ChooseLinkType" xml:space="preserve">
+    <value>Välj länktyp</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Välj projekt</value>
+  </data>
+  <data name="ChooseTaskForLink" xml:space="preserve">
+    <value>Välj aktivitet</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Stängd</value>
+  </data>
+  <data name="ClosedBy" xml:space="preserve">
+    <value>Stängd av</value>
+  </data>
+  <data name="ClosingDate" xml:space="preserve">
+    <value>Datum den stängdes</value>
+  </data>
+  <data name="ClosingTasks" xml:space="preserve">
+    <value>Aktiviteter stängas</value>
+  </data>
+  <data name="ClosingTheTask" xml:space="preserve">
+    <value>Stänger aktiviteten</value>
+  </data>
+  <data name="CommentsEmptyScreen_Describe" xml:space="preserve">
+    <value>Inga kommentarer för denna aktivitet kunde hittas</value>
+  </data>
+  <data name="CommentsEmptyScreen_Header" xml:space="preserve">
+    <value>Inga kommentarer hittade</value>
+  </data>
+  <data name="CopyTaskHeader" xml:space="preserve">
+    <value>Kopiera aktiviteten</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Skapad av</value>
+  </data>
+  <data name="CreateNewLink" xml:space="preserve">
+    <value>Skapa ny länk</value>
+  </data>
+  <data name="CreatingDate" xml:space="preserve">
+    <value>Skapandedatum</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="DescrEmptyListTaskFilter" xml:space="preserve">
+    <value>Inga aktiviteter som matchade filtret kan visas för den här sektionen.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="EachTaskMustHaveTitle" xml:space="preserve">
+    <value>Varje aktivitet måste ha en titel</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Redigera aktivitet</value>
+  </data>
+  <data name="EndAllSubtasksCloseTask" xml:space="preserve">
+    <value>Stäng alla delaktiviteter sen kan aktiviteten stängas</value>
+  </data>
+  <data name="EndAllSubtasksCloseTasks" xml:space="preserve">
+    <value>Stäng alla deluppgifter, sedan stäng uppgifterna</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Förfallodatum</value>
+  </data>
+  <data name="ErrorCreateNewLink" xml:space="preserve">
+    <value>Misslyckades att skapa en ny länk</value>
+  </data>
+  <data name="FollowTask" xml:space="preserve">
+    <value>Följ aktiviteten</value>
+  </data>
+  <data name="GoToTheTask" xml:space="preserve">
+    <value>Gå till aktiviteten</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Hög</value>
+  </data>
+  <data name="MessageResponsible" xml:space="preserve">
+    <value>Meddela ansvarig</value>
+  </data>
+  <data name="MessageSend" xml:space="preserve">
+    <value>Meddelandet har skickats</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milstolpe</value>
+  </data>
+  <data name="MoveTasksToAnotherMilestone" xml:space="preserve">
+    <value>Flytta aktiviteter till en annan Milstolpe</value>
+  </data>
+  <data name="MoveTasksToMilestone" xml:space="preserve">
+    <value>Flytta till milstolpe</value>
+  </data>
+  <data name="MoveTaskToAnotherMilestone" xml:space="preserve">
+    <value>Flytta aktivitet till annan milstolpe</value>
+  </data>
+  <data name="MoveToMilestone" xml:space="preserve">
+    <value>Flytta till milstolpe</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>ingen</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Det finns inga aktiviteter som matchar filtrering</value>
+  </data>
+  <data name="NoTasksCreated" xml:space="preserve">
+    <value>Inga aktiviteter har skapats</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Öppen</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="RelatedLinkInvalid" xml:space="preserve">
+    <value>Felaktig länk. Kontrollera så startdatum och slutdatum är korrekta.</value>
+  </data>
+  <data name="RelatedTask" xml:space="preserve">
+    <value>Relaterade aktiviteter</value>
+  </data>
+  <data name="RelatedTaskIntervalDesc" xml:space="preserve">
+    <value>Intervall mellan startdatum och slutdatum för två aktiviteter</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Det finns inga aktiviteter kopplade till denna aktivitet</value>
+  </data>
+  <data name="RelatedTasksEmptyScreen_Header" xml:space="preserve">
+    <value>Inga länkade aktiviteter hittades</value>
+  </data>
+  <data name="RemoveTask" xml:space="preserve">
+    <value>Radera aktivitet</value>
+  </data>
+  <data name="RemoveTaskPopup" xml:space="preserve">
+    <value>Är du säker att du vill radera denna aktivitet?</value>
+  </data>
+  <data name="RemoveTasks" xml:space="preserve">
+    <value>Radera aktiviteter</value>
+  </data>
+  <data name="RemoveTasksPopup" xml:space="preserve">
+    <value>Är du säker på att du vill radera denna uppgift?</value>
+  </data>
+  <data name="Responsibles" xml:space="preserve">
+    <value>Ansvarig användare</value>
+  </data>
+  <data name="ShowTasksWithoutResponsible" xml:space="preserve">
+    <value>Visa aktiviteter utan ansvarig</value>
+  </data>
+  <data name="Subtask" xml:space="preserve">
+    <value>Delaktivitet</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Delaktivitet</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Describe" xml:space="preserve">
+    <value>Inga delaktiviteter har skapats för denna aktivitet</value>
+  </data>
+  <data name="SubtasksEmptyScreen_Header" xml:space="preserve">
+    <value>Inga delaktiviteter hittade</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Aktivitet</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="TaskProducer" xml:space="preserve">
+    <value>Skapad av</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Tilldelad till</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Aktiviteter</value>
+  </data>
+  <data name="TasksCount" xml:space="preserve">
+    <value>Antal aktiviteter</value>
+  </data>
+  <data name="TasksHelpTheManage" xml:space="preserve">
+    <value>Uppgifter hjälpa chefen fördela allt arbete jämnt mellan projektdeltagarna, en ansvarsfull dem för olika delar av projektet. Börja lägga uppgifter, få dem gjort, uppsättning som är ansvarig, hantera lagarbete.
+</value>
+  </data>
+  <data name="TasksHelpTheManageVisitor" xml:space="preserve">
+    <value>Aktiviteter hjälper ansvarig att fördela arbetet jämnt över projektets medlemmar samt sätta ansvariga för de olika delarna av projektet.</value>
+  </data>
+  <data name="TaskStartDate" xml:space="preserve">
+    <value>Startdatum</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="TrackTime" xml:space="preserve">
+    <value>Spåra tiden.</value>
+  </data>
+  <data name="TryingToCloseTasks" xml:space="preserve">
+    <value>Du försöker stänga aktiviteter som har öppna delaktiviteter</value>
+  </data>
+  <data name="TryingToCloseTheTask" xml:space="preserve">
+    <value>Du försöker stänga en aktivitet med öppna delaktiviteter</value>
+  </data>
+  <data name="UnfollowTask" xml:space="preserve">
+    <value>Sluta följ aktiviteten</value>
+  </data>
+  <data name="UnsortedTask" xml:space="preserve">
+    <value>Osorterade aktiviteter</value>
+  </data>
+  <data name="WillBeMovedToMilestone" xml:space="preserve">
+    <value>Flyttas till milstolpe</value>
+  </data>
+  <data name="WithoutResponsible" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+</root>

@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_EditedCommentForMessage" xml:space="preserve">
+    <value>h1.Pakeistas komentaras diskusijoje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime пользователем "$__AuthorName":"$__AuthorUrl" pakeitė komentarą diskusijoje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Skaityti toliau":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_EditedCommentForTask" xml:space="preserve">
+    <value>h1.Pakeistas komentaras užduotyje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pakeitė komentarč užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Skaityti toliau":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_EditMessage" xml:space="preserve">
+    <value>h1.Pakeista diskusija: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pakeitė diskusiją: "${EntityTitle}":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys) 
+
+#beforeall 
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Skaityti toliau":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID"
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ImportData" xml:space="preserve">
+    <value>h1.projektai. Duomenų iš Basecamp importas
+
+Nauji duomenys sėkmingai importuoti.
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_InviteToProject" xml:space="preserve">
+    <value>h1.Jūs įtrauktas į komandą projekte: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" įtraukė Jus į komandą projekte:["$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"] 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_LateMilestone" xml:space="preserve">
+    <value>h1.Pranešimas apie pradelstą etapą: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=deadline&amp;sortOrder=ascending" 
+
+Pradelstas etapas "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MessageDeleted" xml:space="preserve">
+    <value>h1.Panaikinta diskusija: "$EntityTitle" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" panaikino diskusiją "$EntityTitle" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneClosed" xml:space="preserve">
+    <value>h1.Baigtas etapas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" uždarė etapą "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#status=closed" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+ ^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneCreated" xml:space="preserve">
+    <value>h1.Sukurtas etapas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" sukūrė naują etapą: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#sortBy=create_on&amp;sortOrder=descending" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeadline" xml:space="preserve">
+    <value>h1.Pranešimas apie etapo pabaigą: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+Liko mažiau nei 48 valandos pabaigti etapui "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneDeleted" xml:space="preserve">
+    <value>h1.Pažalintas etapas: "$EntityTitle" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pašalino etapą "$EntityTitle" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneEdited" xml:space="preserve">
+    <value>h1.Pakeistas etapas: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pakeitė etapą "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_MilestoneResumed" xml:space="preserve">
+    <value>h1.Aktyvuotas etapas:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" aktyvavo etapą "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForMessage" xml:space="preserve">
+    <value>h1.Naujas komentaras diskusijoje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pridėjo naują komentarą diskusijoje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$AdditionalData 
+
+"Skaityti toliau":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_NewCommentForTask" xml:space="preserve">
+    <value>h1.Naujas komentaras užduotyje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pridėjo naują komentarą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+"Skaityti toliau":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID#comment_$CommentID" 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForDiscussion" xml:space="preserve">
+    <value>h1.Naujas failas diskusijoje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" Įkėlė naują failą diskusijoje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią diskusiją, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewFileForTask" xml:space="preserve">
+    <value>h1.Naujas failas užduotyje: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" įkėlė naują failą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_NewMessage" xml:space="preserve">
+    <value>h1.Sukurta nauja diskusija: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" sukūrė naują diskusiją: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID": 
+
+$AdditionalData.get_item("MessagePreview") 
+
+#foreach($fileInfo in $AdditionalData.get_item("Files").Keys)
+
+#beforeall
+
+---------------------------------------- 
+
+#each 
+
+"$fileInfo":"$AdditionalData.get_item("Files").get_item($fileInfo)" 
+
+#end
+
+"Skaityti toliau":"${__VirtualRootPath}/Products/Projects/Messages.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ProjectDeleted" xml:space="preserve">
+    <value>h1.Pašalintas projektas: "$EntityTitle" 
+
+$__DateTime vatotojas "$__AuthorName":"$__AuthorUrl" pašalino projektą "$EntityTitle" 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_push_InviteToProject" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs įtrauktas į projekto komandą</value>
+  </data>
+  <data name="pattern_push_MessageDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Diskusija ištrinta: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneClosed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Užbaigtas etapas: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneCreated" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Sukurtas etapas: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalintas etapas: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_MilestoneResumed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Aktyvuotas etapas: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_NewMessage" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Nauja diskusija: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ProjectDeleted" xml:space="preserve">
+    <value>Projektai. Pašalintas projektas: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas atsakingu už etapą: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForProject" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas projekto vadovu</value>
+  </data>
+  <data name="pattern_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas atsakingu už antrinę užduotį: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_ResponsibleForTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas atsakingu už užduotį: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskClosed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Baigta antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskCreated" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Sukurta antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalinta antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_SubTaskResumed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Aktyvuota antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskClosed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Baigta užduotis: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskCreated" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Sukurta užduotis: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalinta užduotis: $EntityTitle</value>
+  </data>
+  <data name="pattern_push_TaskResumed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Aktyvuota užduotis: $EntityTitle</value>
+  </data>
+  <data name="pattern_ReminderAboutTask" xml:space="preserve">
+    <value>h1.Priminimas apie užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" primena Jums apie užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>h1.Priminimas apie užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+Šiandien yra galutinis terminas atlikti užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID": $AdditionalData.get_item("TaskDescription") 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveFromProject" xml:space="preserve">
+    <value>h1.Jūs išbrauktas iš projekto komandos: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+ $__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" išbraukė Jus iš komandos projekte: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID"
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_RemoveResponsibleForTask" xml:space="preserve">
+    <value>h1.Jūs nebeatsakingas už užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime Jūs nebeatsakingas už užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData.get_item("TaskDescription")
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForMilestone" xml:space="preserve">
+    <value>h1.Jūs paskirtas atsakingu už etapą: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" paskyrė Jus atsakingu už etapą: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForProject" xml:space="preserve">
+    <value>h1.Jūs paskirtas vadovu projekte: "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" paskyrė Jus vadovu projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_ResponsibleForSubTask" xml:space="preserve">
+    <value>h1.Jūs paskirtas atsakingu už antrinę užduotį: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" paskyrį Jus atsakingu už antrinę užduotį: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID", sukurtą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_ResponsibleForTask" xml:space="preserve">
+    <value>h1.Jūs paskirtas atsakingu už užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" paskyrė Jus atsakingu už užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID&amp;ID=$EntityID".
+
+$AdditionalData.get_item("TaskDescription") 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_SubTaskClosed" xml:space="preserve">
+    <value>h1.Baigta antrinė užduotis: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" uždarė antrinę užduotį, sukurtą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskCreated" xml:space="preserve">
+    <value>h1.Sukurta antrinė užduotis: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" sukūrė naują antrinę užduotį: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Atsakingu už užduoti paskirtasvartotojas "$Responsible". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskDeleted" xml:space="preserve">
+    <value>h1.Pašalinta antrinė užduotis: "$SubEntityTitle"
+
+ $__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pašalino antrinę užduotį: "$SubEntityTitle", sukurtą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskEdited" xml:space="preserve">
+    <value>h1.Pakeista antrinė užduotis: "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pakeitė antrinę užduotį "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID", sukurtą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+Atsakingas už antrinę užduotį - "$Responsible". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_SubTaskResumed" xml:space="preserve">
+    <value>h1.Aktyvuota antrinė užduotis: "$SubEntityTitle" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" aktyvavo antrinę užduotį: "$SubEntityTitle", sukurtą užduotyje "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskClosed" xml:space="preserve">
+    <value>h1.Uždaryta užduotis: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" uždarė užduotį "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^ </value>
+  </data>
+  <data name="pattern_TaskCreated" xml:space="preserve">
+    <value>h1.Sukurta užduotis: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" sukūrė naują užduotį: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+ $AdditionalData.get_item("TaskDescription") 
+
+Atsakingas už užduotį vartotojas "$Responsible"
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="pattern_TaskDeleted" xml:space="preserve">
+    <value>h1.Pašalinta užduotis: "$EntityTitle" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pašalino užduotį "$EntityTitle" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID":
+
+$AdditionalData 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskEdited" xml:space="preserve">
+    <value>h1.Pakeista užduotis: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pakeitė užduotį "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedFromMilestone" xml:space="preserve">
+    <value>h1.Perkelta užduotis: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID"  
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" pašalino užduotį "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" iš etapo "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID".
+
+Užduotis "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" daugiau nebepriklauso nei vienam etapui.
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskMovedToMilestone" xml:space="preserve">
+    <value>h1.Perkelta užduotis: "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" perkėlė užduotį "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" į etapą "$SubEntityTitle":"${__VirtualRootPath}/Products/Projects/Milestones.aspx?prjID=$ProjectID#my=true" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID". 
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Norėdami keisti pranešimų pobūdį, keiskite pranešimų prenumeratos nustatymus":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_TaskResumed" xml:space="preserve">
+    <value>h1.Aktyvuota užduotis:  "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" 
+
+$__DateTime vartotojas "$__AuthorName":"$__AuthorUrl" aktyvavo užduotį "$EntityTitle":"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID" projekte "$ProjectTitle":"${__VirtualRootPath}/Products/Projects/Projects.aspx?prjID=$ProjectID": 
+
+$AdditionalData
+
+^Jūs gavote šį pranešimą, nes esate registruotas vartotojas portale "${__VirtualRootPath}":"${__VirtualRootPath}". Jeigu nebenorite gauti pranešimų apie šią užduotį, prašome atsisakyti prenumeratos:"${__VirtualRootPath}/Products/Projects/Tasks.aspx?prjID=$ProjectID&amp;ID=$EntityID".^</value>
+  </data>
+  <data name="subject_EditedCommentForMessage" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Diskusijos $EntityTitle komentaras redaguotas</value>
+  </data>
+  <data name="subject_EditedCommentForTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pakeistas komentaras užduotyje: $EntityTitle</value>
+  </data>
+  <data name="subject_EditMessage" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Diskusija redaguota: $EntityTitle</value>
+  </data>
+  <data name="subject_ImportData" xml:space="preserve">
+    <value>Projektai. Duomenų iš Basecamp importavimas</value>
+  </data>
+  <data name="subject_InviteToProject" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs įtrauktas į projekto komandą</value>
+  </data>
+  <data name="subject_LateMilestone" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pranešimas apie pradelstą etapą: $EntityTitle</value>
+  </data>
+  <data name="subject_MessageDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Diskusija ištrinta: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneClosed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Užbaigtas etapas: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneCreated" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Sukurtas etapas: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeadline" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pranešimas apie artėjančią etapo pabaigą: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalintas etapas: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneEdited" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pakeistas etapas: $EntityTitle</value>
+  </data>
+  <data name="subject_MilestoneResumed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Aktyvuotas etapas: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForMessage" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Naujas komentaras diskusijoje: $EntityTitle</value>
+  </data>
+  <data name="subject_NewCommentForTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Naujas komentaras užduotyje: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForDiscussion" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Naujas failas diskusijoje: $EntityTitle</value>
+  </data>
+  <data name="subject_NewFileForTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Naujas failas užduotyje: $EntityTitle</value>
+  </data>
+  <data name="subject_NewMessage" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Nauja diskusija: $EntityTitle</value>
+  </data>
+  <data name="subject_ProjectDeleted" xml:space="preserve">
+    <value>Projektai. Pašalintas projektas: $EntityTitle</value>
+  </data>
+  <data name="subject_push_InviteToProject" xml:space="preserve">
+    <value>Jūs įtrauktas į projekto komandą</value>
+  </data>
+  <data name="subject_push_MessageDeleted" xml:space="preserve">
+    <value>Diskusija ištrinta</value>
+  </data>
+  <data name="subject_push_MilestoneClosed" xml:space="preserve">
+    <value>Žingsnis baigtas</value>
+  </data>
+  <data name="subject_push_MilestoneCreated" xml:space="preserve">
+    <value>Sukurtas naujas žingsnis</value>
+  </data>
+  <data name="subject_push_MilestoneDeleted" xml:space="preserve">
+    <value>Žingsnis ištrintas</value>
+  </data>
+  <data name="subject_push_MilestoneResumed" xml:space="preserve">
+    <value>Žingsnis atnaujintas</value>
+  </data>
+  <data name="subject_push_NewMessage" xml:space="preserve">
+    <value>Sukurta nauja diskusija</value>
+  </data>
+  <data name="subject_push_ProjectDeleted" xml:space="preserve">
+    <value>Projektai. Projektas pašalintas</value>
+  </data>
+  <data name="subject_push_ResponsibleForMilestone" xml:space="preserve">
+    <value>Žingsnis priskirtas Jums</value>
+  </data>
+  <data name="subject_push_ResponsibleForProject" xml:space="preserve">
+    <value>Jūs paskirtas projekto vadovu</value>
+  </data>
+  <data name="subject_push_ResponsibleForSubTask" xml:space="preserve">
+    <value>Jūs paskirtas atsakingu už antrinę užduotį</value>
+  </data>
+  <data name="subject_push_ResponsibleForTask" xml:space="preserve">
+    <value>Jūs paskirtas atsakingu už užduotį</value>
+  </data>
+  <data name="subject_push_SubTaskClosed" xml:space="preserve">
+    <value>Antrinė užduotis baigta</value>
+  </data>
+  <data name="subject_push_SubTaskCreated" xml:space="preserve">
+    <value>Nauja antrinė užduotis sukurta</value>
+  </data>
+  <data name="subject_push_SubTaskDeleted" xml:space="preserve">
+    <value>Antrinė užduotis pašalinta</value>
+  </data>
+  <data name="subject_push_SubTaskResumed" xml:space="preserve">
+    <value>Antrinė užduotis aktyvuota</value>
+  </data>
+  <data name="subject_push_TaskClosed" xml:space="preserve">
+    <value>Užduotis baigta</value>
+  </data>
+  <data name="subject_push_TaskCreated" xml:space="preserve">
+    <value>Sukurta nauja užduotis</value>
+  </data>
+  <data name="subject_push_TaskDeleted" xml:space="preserve">
+    <value>Užduotis pašalinta</value>
+  </data>
+  <data name="subject_push_TaskResumed" xml:space="preserve">
+    <value>Užduotis aktyvuota</value>
+  </data>
+  <data name="subject_ReminderAboutTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Priminimas apie užduotį: $EntityTitle</value>
+  </data>
+  <data name="subject_ReminderAboutTaskDeadline" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Priminimas apie užduotį: $EntityTitle</value>
+  </data>
+  <data name="subject_RemoveFromProject" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs išbrauktas iš projekto komandos</value>
+  </data>
+  <data name="subject_RemoveResponsibleForTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs nebeatsakingas už užduotį: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForMilestone" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas atsakingu už etapą: $EntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForProject" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas projekto vadovu</value>
+  </data>
+  <data name="subject_ResponsibleForSubTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas atsakingu už antrinę užduotį: $SubEntityTitle</value>
+  </data>
+  <data name="subject_ResponsibleForTask" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Jūs paskirtas atsakingu už užduotį: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskClosed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Baigta antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskCreated" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Sukurta antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalinta antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="subject_SubTaskEdited" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pakeista antrinė užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_SubTaskResumed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Aktyvuota antrinė užduotis: $SubEntityTitle</value>
+  </data>
+  <data name="subject_TaskClosed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Baigta užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskCreated" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Sukurta užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskDeleted" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalinta užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskEdited" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pakeista užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedFromMilestone" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Pašalinta užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskMovedToMilestone" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Perkelta užduotis: $EntityTitle</value>
+  </data>
+  <data name="subject_TaskResumed" xml:space="preserve">
+    <value>Projektai [$ProjectTitle]. Aktyvuota užduotis: $EntityTitle</value>
+  </data>
+  <data name="subtaskWithoutResponsible" xml:space="preserve">
+    <value>Nėra atsakingo asmens</value>
+  </data>
+</root>

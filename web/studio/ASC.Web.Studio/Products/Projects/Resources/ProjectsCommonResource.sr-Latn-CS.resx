@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Ažuriraj pratioce</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Sve</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Sve {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Svi {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Pokreni/Zaustavi meraš vremena</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Dodaj vreme</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauza</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Resetuj</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Pokreni</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Sakrij</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Kreiraj</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Pokreni novi projekat</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumenta</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Izmeni</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Nema projekata koji odgovaraju pretrazi</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Prati</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Šta "Prati ovaj projekat" znači?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Šta je privatni projekat?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Šta "Ključna prekretnica" znači?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Koji statusi projekta postoje?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Kako da uredite Vaš tim?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Sakrij</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Nauči više...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktivno</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projekti koje pratim</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Poslednji</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Moje diskusije</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Moji projekti</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projketi</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Premesti zadatak</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Novi komentari u diskusijama</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Novi komentari u zadacima</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Nema kontakta za link</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nema podataka</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Ukkloni linkove i premesti</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Obaveštenje: ova akcija ne može biti vraćena.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Napravi tim i dodeli zadatke. Planiraj prekretnice projkeata, prati aktivnost i kreiraj izveštaje.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Napravi tim i dodeli zadatke. Planiraj prekretnice projkeata, prati aktivnost i kreiraj izveštaje.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projketi</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Ime projekta</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Opširnije</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Ukloni korisnika iz tima</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Izveštaji</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Sačuvaj i dodaj</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Sačuvaj izmene</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Pretraga</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Odaberi</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Izaberi od postojećih kontakata ili dodaj novi</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Prikaži</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Prikaži na strani</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Potrošeno vreme</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Prati komentare</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Zadaci dodati</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Ukloni linkove i ažuriraj</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vreme</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Praćenje vremena</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Danas</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Ukupno</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Prekini sa praćenjem</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Preknini sa praćenjem komentara</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>čas</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Dodaj komentar</value>
+  </data>
+</root>

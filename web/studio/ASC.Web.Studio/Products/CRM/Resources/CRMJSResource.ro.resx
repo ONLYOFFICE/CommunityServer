@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Adaugă email</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Adaugă telefon</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>adrese</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>adrese</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Adresă</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>pe zi</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>pe săptămână</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>pe an</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Închis</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Editează</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Oraș</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Companie</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Oportunitate</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>Contacte</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>Persoane</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Următorul</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>Persoană</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Apelant</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Ratat</value>
+  </data>
+</root>

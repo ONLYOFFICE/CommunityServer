@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddThisDealButton" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="AllDeals" xml:space="preserve">
+    <value>Toate oportunitățile</value>
+  </data>
+  <data name="BidType_FixedBid" xml:space="preserve">
+    <value>repară</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>pe zi</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>pe oră</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>pe săptămână</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>pe an</value>
+  </data>
+  <data name="CreateNewDeal" xml:space="preserve">
+    <value>Crează o nouă oportunitate</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Alți utilizatori</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Oportunitate</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Contact initial</value>
+  </data>
+  <data name="DealMilestone_Prospect_Title" xml:space="preserve">
+    <value>Propunere</value>
+  </data>
+  <data name="DealMilestone_Verbal_Title" xml:space="preserve">
+    <value>Negocieri</value>
+  </data>
+  <data name="Deals" xml:space="preserve">
+    <value>Oportunități</value>
+  </data>
+  <data name="DescriptionDeal" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="EditDealLabel" xml:space="preserve">
+    <value>Editează oprtunitatea «{0}»</value>
+  </data>
+  <data name="EditThisDealButton" xml:space="preserve">
+    <value>Editează oportunitatea</value>
+  </data>
+  <data name="EmptyDealResponsible" xml:space="preserve">
+    <value>Fiecare oportunitate trebuie să aibă un responsabil</value>
+  </data>
+  <data name="ExpectedValue" xml:space="preserve">
+    <value>Buget</value>
+  </data>
+  <data name="FilterByContact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="FilterByParticipant" xml:space="preserve">
+    <value>Participant</value>
+  </data>
+  <data name="ImportDeals" xml:space="preserve">
+    <value>Importă oportunitățile</value>
+  </data>
+  <data name="MyDeals" xml:space="preserve">
+    <value>Oportunitățile mele</value>
+  </data>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Bugetul nu a fost stabilit</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Toate oportunitățile</value>
+  </data>
+</root>

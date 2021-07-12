@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoreplyServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Automaattinen vastaus</value>
+  </data>
+  <data name="BackupServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE turvavarmenne</value>
+  </data>
+  <data name="CoAuthoringServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE editorilla muokkaus yhteistyössä</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Palvelupakettisi ei tue tätä vaihtoehtoa</value>
+  </data>
+  <data name="FileConverterServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE editorin tiedoston muuntaja</value>
+  </data>
+  <data name="IndexServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Indeksi</value>
+  </data>
+  <data name="MailAggregatorServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Sähköpostien yhdistäjä</value>
+  </data>
+  <data name="MailWatchdogServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Sähköpostin vahtikoira</value>
+  </data>
+  <data name="MiniChatServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE Mini-pikaviesti toiminto</value>
+  </data>
+  <data name="MonoServeRestartError" xml:space="preserve">
+    <value>Palvelun monoserve toiminnon uudelleenkäynnistyksen virhe: {0}</value>
+  </data>
+  <data name="NotifyServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE tiedotus</value>
+  </data>
+  <data name="SignalRServiceTitle" xml:space="preserve">
+    <value>ONLYOFFICE SignalR</value>
+  </data>
+</root>

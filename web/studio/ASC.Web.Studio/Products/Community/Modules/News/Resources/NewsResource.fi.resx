@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action_Add_Name" xml:space="preserve">
+    <value>Lisää uusi tiedote</value>
+  </data>
+  <data name="Action_Comment_Name" xml:space="preserve">
+    <value>Uutiskommentti</value>
+  </data>
+  <data name="Action_Edit_Name" xml:space="preserve">
+    <value>Muokkaa uutista</value>
+  </data>
+  <data name="AddonDescriptionResourceKey" xml:space="preserve">
+    <value>Viimeisimmät uutiset, ilmoitukset ja kyselyt</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Tiedotteet</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ConfirmRemoveMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa tämän tiedotteen?</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EmptyScreenAdvertLink" xml:space="preserve">
+    <value>Luo ensimmäinen ilmoitus</value>
+  </data>
+  <data name="EmptyScreenAdvertsCaption" xml:space="preserve">
+    <value>Ei ilmoituksia</value>
+  </data>
+  <data name="EmptyScreenEventLink" xml:space="preserve">
+    <value>Luo ensimmäinen tiedote</value>
+  </data>
+  <data name="EmptyScreenEventsCaption" xml:space="preserve">
+    <value>Ei tiedotteita</value>
+  </data>
+  <data name="EmptyScreenNewsCaption" xml:space="preserve">
+    <value>Ei uutisia</value>
+  </data>
+  <data name="EmptyScreenNewsLink" xml:space="preserve">
+    <value>Luo ensimmäinen uutinen</value>
+  </data>
+  <data name="EmptyScreenOrderLink" xml:space="preserve">
+    <value>Luo ensimmäinen ohje</value>
+  </data>
+  <data name="EmptyScreenOrdersCaption" xml:space="preserve">
+    <value>Ei ohjeita</value>
+  </data>
+  <data name="EmptyScreenPollLink" xml:space="preserve">
+    <value>Luo ensimmäinen kysely</value>
+  </data>
+  <data name="EmptyScreenPollsCaption" xml:space="preserve">
+    <value>Ei lisättyjä kyselyitä</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Luo tiedotteita, laadi tärkeitä ilmoituksia, jaa uusimpia uutisia ja lisää kyselyitä kerätäksesi muiden käyttäjien mielipiteitä.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Käyttö estetty. </value>
+  </data>
+  <data name="ErrorEmptyQuestion" xml:space="preserve">
+    <value>Kirjoita kysymys. Ei siitä muuten kyselyä tule :)</value>
+  </data>
+  <data name="ErrorPollVariantCount" xml:space="preserve">
+    <value>Anna vähintään kaksi vastausvaihtoehtoa. Jotta olis jotenkin niinkuin vaihtoehtoja.</value>
+  </data>
+  <data name="FeedDeleted" xml:space="preserve">
+    <value>Tiedote on poistettu</value>
+  </data>
+  <data name="FeedPrevCaption" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="FeedTypeNews" xml:space="preserve">
+    <value>Uutiset</value>
+  </data>
+  <data name="FeedTypePoll" xml:space="preserve">
+    <value>Kyselyt</value>
+  </data>
+  <data name="HideButton" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="NewsAddBreadCrumbsNews" xml:space="preserve">
+    <value>Uusi tiedote</value>
+  </data>
+  <data name="NewsAddBreadCrumbsPoll" xml:space="preserve">
+    <value>Uusi kysely</value>
+  </data>
+  <data name="NewsAnnouncementsTypeName" xml:space="preserve">
+    <value>Ilmoitukset</value>
+  </data>
+  <data name="NewsBody" xml:space="preserve">
+    <value>Teksti</value>
+  </data>
+  <data name="NewsBreadCrumbs" xml:space="preserve">
+    <value>Kaikki tiedotteet</value>
+  </data>
+  <data name="NewsCaption" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="NewsEditBreadCrumbsNews" xml:space="preserve">
+    <value>Muokkaa tiedotetta</value>
+  </data>
+  <data name="NewsEditBreadCrumbsPoll" xml:space="preserve">
+    <value>Muokkaa kyselyä</value>
+  </data>
+  <data name="NewsOrdersTypeName" xml:space="preserve">
+    <value>Ohjeet</value>
+  </data>
+  <data name="NewsType" xml:space="preserve">
+    <value>Tiedotteen tyyppi</value>
+  </data>
+  <data name="NotificationOnNewComments" xml:space="preserve">
+    <value>Tiedotteen kommentit</value>
+  </data>
+  <data name="NotifyOnNewFeed" xml:space="preserve">
+    <value>Uudet tiedotteet</value>
+  </data>
+  <data name="PostButton" xml:space="preserve">
+    <value>Julkaise</value>
+  </data>
+  <data name="PostedBy" xml:space="preserve">
+    <value>Julkaisija</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="RequaredFieldValidatorCaption" xml:space="preserve">
+    <value>Otsikko on pakollinen</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Etsi tiedotteista</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Näytä sivulla</value>
+  </data>
+  <data name="SubscribeOnNewComments" xml:space="preserve">
+    <value>Tilaa uudet kommentit</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Yhteensä</value>
+  </data>
+  <data name="UnsubscribeFromNewComments" xml:space="preserve">
+    <value>Lopeta kommenttien tilaus</value>
+  </data>
+</root>

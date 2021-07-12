@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Prava pristupa i oznake</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Postavite prava pristupa za korisnike dodane putem "Obrasca za kontakt s web lokacijama", inače će svi CRM korisnici vidjeti nove kontakte. Kreirajte oznake s kojima će novi klijenti na listi biti označeni.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Prava pristupa portalu</value>
+  </data>
+  <data name="AddCurrencyRate" xml:space="preserve">
+    <value>Dodajte cijenu</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Dodajte novi predložak zadatka</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Dodajte novi spremnik predloška zadatka</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Dodajte opciju</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Dodavanje oznake</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Ne prikazujte ponovo dijalog za povezivanje kontakata</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Dodajte spremnik predloška zadatka</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Dodavanje spremnika predloška zadatka</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Dodavanje predloška zadatka</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Sačuvaj</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Dodajte ovaj predložak zadatka</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Dodajte ovaj spremnik predloška zadatka</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentifikacija</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Osnovne informacije</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>I Osoba i kompanija</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Promijeni boju</value>
+  </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Ne prikazujte ponovo dijalog za povezivanje kontakata</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Zamjeni ikonu</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Promijenite logotip</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Kvačica</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Stupci</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Uobičajene postavke</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Vrste kontakata</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Stvaranje kategorije</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Stvaranje nivoa temperature</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Izrada vrste kontakta</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Kreirajte korisničko polje</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Stvaranje faze</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Stvaranje polja</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Kreirajte novu kategoriju</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Nova kategorija</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Kreirajte novu vrstu kontakta</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Nova vrsta kontakta</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Stvorite novu fazu</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Nova faza</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Kreirajte novo polje</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Novo polje</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Kreirajte novi nivo temperature</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Novi nivo temperature</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Kreiraj novu oznaku</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Nova oznaka</value>
+  </data>
+  <data name="CurrencyRate" xml:space="preserve">
+    <value>Valutni kurs</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Postavke valute</value>
+  </data>
+  <data name="CurrencySettingsHelp" xml:space="preserve">
+    <value>Postavite zadanu valutu koja će se koristiti za izračunavanje 'zbroja ukupno' za sve mogućnosti prisutne u CRM modulu vašeg portala. Tečajevi pretvorbe dostupni su samo za valute s popisa i preuzimaju se s web stranice "Money Converter.com". {0} Ova valuta će biti valuta za vaš katalog Proizvodi i usluge koji se koriste za fakturiranje.</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>Korisnička polja</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Prilika se neuspješno zatvara.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Prilika se uspešno zatvara.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Zadana valuta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Izbriši kategoriju</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Izbrišite razinu temperature</value>
+  </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Izbrišite vrstu kontakta</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Izbriši polje</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Odabrano polje sa svim podacima izbrisat će se iz svih kontakata u kojima postoje. Jeste li sigurni da želite nastaviti?</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Brisanje faze</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Izbriši oznaku</value>
+  </data>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Potvrda brisanja kategorije</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Izbriši predložak zadatka</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Brisanje spremnika predloška zadatka</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>Izbrišite neiskorištene oznake</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Nivoi kontaktne temperature omogućuju vam da na određeni način karakterizirate svoje potencijalne kupce. Na primjer, temperature mogu biti "hladne", "tople", "tople", što će značiti spremnost kontakta da kupi vaš proizvod.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Možete da uredite ili obrišete nivoe temperature kontakta samo u slučaju da nema kontakta ovog nivoa</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Vrste kontakata omogućavaju vam da na određeni način karakterizirate svoje kontakte. Zadane vrste kontakata su "Klijent", "Konkurent", "Partner", "Dobavljač" koji kontakte klasificiraju na osnovu njihove uloge u odnosu na organizaciju.</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Tip kontakta možete uređivati ili brisati samo u slučaju da nema takvih kontakata.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Faze prilika omogućuju vam određivanje koraka neophodnih za dovršavanje posla. Na primjer, možete dodati faze prilika „Komercijalna ponuda“, „Predplata“, „Izvršavanje“. Postavite potrebni redoslijed povlačenja faza.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Fazu prilika možete urediti ili izbrisati samo u slučaju da u ovoj fazi nema mogućnosti.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Kategorije istorijskih događaja omogućuju vam da podijelite svoje događaje iz povijesti u grupe. Standardne kategorije događaja iz povijesti su pošta, bilješka, telefonski poziv, sastanak. Morate imati prava administratora da biste ih mogli uređivati.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Kategorija događaja u istoriji možete uređivati ili brisati samo u slučaju ako u ovoj kategoriji nema događaja iz povijesti.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Kategorije zadataka omogućuju vam da svoje zadatke podijelite u grupe ovisno o ciljevima koje namjeravate postići. Na primjer, kategorija zadatka može biti "sastanak", "telefonski poziv" ili "izražavanje zahvalnosti".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Fazu kategorije zadataka možete urediti ili izbrisati samo u slučaju da nema zadataka s ovom kategorijom.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Poravnanje u danima</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Preuzmite sve podatke u jednu ZIP arhivu</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>Započela je generacija ZIP arhive</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Link za preuzimanje ZIP arhive</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Uredi kategoriju</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Uređivanje nivoa temperature</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Uređivanje vrste kontakta</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Polje za uređivanje</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Uredi fazu</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>Uredite kategoriju zadataka «{0}»</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>Uredite temperaturu «{0}»</value>
+  </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Uredite vrstu kontakta "{0}"</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>Uredite «{0}» fazu prilika</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Uredite predložak «{0}» zadatka</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Uredite spremnik predloška predloška «{0}»</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Uređivanje predloška zadatka</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Uređivanje spremnika predloška zadatka</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>Lista korisničkih polja je prazna</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>Korisnička polja omogućavaju vam određivanje dodatnih informacija o klijentu, prilici ili slučaju. Na primjer, možete dodati polje 'Izvor' da biste odredili odakle je korisnik došao: oglas, direktna prodaja itd. Korisničko polje možete uređivati ili brisati samo u slučaju da nema kontakata ili mogućnosti s ovom vrijednošću polja.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Lista oznaka je prazna</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Oznake se mogu koristiti za opisivanje i grupisanje kontakata (kako kompanija, tako i osoba), prilika i slučajeva koji u sebi imaju nešto slično. Na primjer, možete označiti sve osobe iz različitih kompanija, ali iz iste sfere poslovanja, zajedničkom oznakom za bolje sortiranje. Oznaku možete urediti ili izbrisati samo u slučaju da s ovom oznakom nema kontakata, prilika ili slučajeva.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Lista predložaka zadataka je prazna</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Predlošci zadataka omogućavaju vam stvaranje sličnih zadataka unutar CRM modula. Zadatke možete dodati kontaktima, prilikama ili slučajevima jednim klikom miša. Odaberite spremnik da biste stvorili zadatak za svaki predložak zadatka spremnika.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Ovo polje mora biti ispravno ispunjeno</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Svako polje mora imati naslov</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Naziv polja ne može biti prazan</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Omogući SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Izvoz</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Izvoz svih podataka</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Izvozna funkcija generira ZIP-arhivu koja sadrži CSV datoteke sa svim vašim CRM podacima (kontakti, prilike, slučajevi, povijest itd.) E-pošta s vezom do stvorene arhive bit će poslana na vašu adresu e-pošte.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Generiranje liste za eksterni program</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Lista polja</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Izbor polja</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Odaberite polja koja će biti prikazana na obrascu</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Izvorni kod obrasca</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Upotrijebite ovaj obrazac na svojoj web stranici</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Pregled</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Ovako će izgledati obrazac na vašoj web lokaciji</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Svojstva oblika</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Glavne postavke kontakt obrasca za web mjesto</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Generirajte obrazac</value>
+  </data>
+  <data name="GetDefaultSettings" xml:space="preserve">
+    <value>Nabavite zadana podešavanja</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Istorija Kategorije događaja</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host prijava</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Šifra hosta</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Interni SMTP (maksimum {0} primatelja e-pošte)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Samo za kompaniju</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Samo za osobu</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Vjerovatnoća uspeha</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Obavesti {{users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Odaberite {!Users} koji će primati obavijest kada se doda novi kontakt putem "Obrazaca za kontakt s web lokacijama"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Odbrojite od prethodnog zadatka</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Broj od početka kontejnera</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Logo fakture</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Ostala polja</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Izbriši opciju</value>
+  </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Vrati na zadano</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>URL za preusmeravanje</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Adresa vaše web stranice na koju će korisnik biti preusmjeren nakon ispunjavanja obrasca.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Linije</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Sačuvano</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Izaberite okvir</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Izbori</value>
+  </data>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Odaberite fazu kategorije koja će se zamijeniti s trenutnom kategorijom u zadacima</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Prikaži ime pošiljatelja</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Adresa pošiljatelja e-pošte</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>Prilagodite polja korisnika</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Podesite adresu za naplatu svoje organizacije koja će biti postavljena na svim fakturama. Izaberite {0} Država {1} sa liste i ispunite polja sa {0} Adresa {1}, {0} Grad {1}, {0} Država {1} i {0} Poštanski broj {1 }.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>Zadani {0} logo {1} vaše organizacije biće prikazan na {0} fakture {1}. {3}
+Da biste zamijenili logotip, kliknite vezu "Promijeni logotip" i odaberite sliku pohranjenu na vašem računalu kako biste je učitali na svoj portal. Imajte na umu da možete otpremiti sliku koja nije veća od {0} {4} x {5} piksela {1}, u suprotnom će doći do promjene veličine. Maksimalna veličina slike ne može biti veća od {0} {2} {1}.</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Veličina</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Pošaljite podatke</value>
+  </data>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Oznaka s ovim naslovom već postoji</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Predlošci zadataka</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Područje teksta</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Ključ web obrasca</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Jedinstveni ključ web obrasca koji služi za provjeru autentičnosti obrasca koji se koristi za slanje podataka i potrebnog za ispravan rad obrasca. To se radi iz sigurnosnih razloga kako bi se spriječila neželjena pošta, prijevara i zaštita vašeg web obrasca od neovlaštene uporabe. Kada generirate novi ključ, postojeći obrasci starim ključem prestat će raditi.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Kontakt obrazac za web stranicu</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Nevažeći ključ forme</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Koristite funkcionalnost obrasca za kontakt s web lokacijama da biste izradili obrazac koji možete objaviti na svojoj web lokaciji. Omogućit će vam automatsko snimanje novih kontakata. Definirajte svojstva obrasca, odaberite potrebna polja i generirajte kôd za stvaranje vlastitog web obrasca.</value>
+  </data>
+</root>

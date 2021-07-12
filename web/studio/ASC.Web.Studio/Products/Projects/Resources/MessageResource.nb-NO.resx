@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Arkivér</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Arkivér</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Forfatter</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentarer</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Oprett ny diskusjon</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Start diskusjon</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Opprett oppgave i tråden</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Er du sikker på at du vil slette denne diskusjonen?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Slett diskusjon</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Ingen diskusjoner som samsvarer med filteret kan vises i denne delen.</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Diskusjoner brukes til å finne den beste løsningen, sammen med prosjektgruppen, på utfordringer som kan oppstå når prosjektet er i gang. Diskuter alle utfordringer med kolleger, invitere brukere fra andre prosjekter til å delta i diskusjonen.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Ingen diskusjoner er startet ennå</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Abonnenter</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Endre diskusjonen</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Meldingen må inneholde noe tekst</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Ingen diskusjoner samsvarer med dette filteret</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Diskusjon</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Diskusjoner</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Tittel</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Les mer</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Velg prosjekt</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Start den første diskusjonen</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Folkene du velger ut vil bli informert om beskjeden og kommentarene til den.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Varsle</value>
+  </data>
+</root>

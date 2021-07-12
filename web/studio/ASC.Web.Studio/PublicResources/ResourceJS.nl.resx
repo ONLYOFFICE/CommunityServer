@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Veld met validatiecode mag niet leeg zijn</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Mobiel telefoonnummer invoeren</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="AdvansedFilterInfoText" xml:space="preserve">
+    <value>Gebruik de symbolen {0}?{1} en {0}*{1} om te zoeken naar één of meerdere karakters. Om bijvoorbeeld alle woorden die beginnen met {0}O{1} te zoeken, gebruik de zoekterm {0}O*{1}. Om een exacte zin te zoeken, gebruik aanhalingstekens. {2}Meer informatie...{3}</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>De back-up kopie is succesvol aangemaakt.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Bezet</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Succesvolle aankoop van nummer</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>Inkomende oproep</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>Gemiste oproep</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Veranderingen zijn toegepast</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Veranderingen zijn succesvol toegepast.</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Afsluiten</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Er is een fout opgetreden. Neem contact op met de beheerder.</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Wilt u doorgaan?</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>Nieuw contact maken</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>Geen contacten in deze lijst</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>De bedrijfsnaam invoeren</value>
+  </data>
+  <data name="ContactSelectorNoItems" xml:space="preserve">
+    <value>Er zijn geen contacten</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>Contact bestaat niet</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>Een dergelijk bedrijf bestaat niet</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Aanmaken</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Fout bij het genereren van het rapport</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Opmerking mag niet leeg zijn</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>De e-mail invoeren</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Vul alstublieft dit veld in</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>De groepstitel invoeren</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>De voornaam invoeren</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>De achternaam invoeren</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>Een dergelijke groep bestaat niet</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>Er is geen dergelijk persoon</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>Maximaal 64 tekens</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Registratiedatum moet na geboortedatum liggen</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>Kan hetzelfde account en contact niet tweemaal toevoegen</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>U kunt maar 64 karakters in dit veld invoeren.</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Onjuiste e-mail</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Portaalnaam bestaat al</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Niet toegestane karakters in portaalnaam</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Portaalnaam is te kort</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Portaalnaam is niet veranderd</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>De gebruikers zijn succesvol toegevoegd.</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>Groep {0} is succesvol aangemaakt.</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>Nieuwe groep maken</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>Geen groepen in deze lijst</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>Groep bestaat niet</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Onjuist IP-adres formaat</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>Uitnodigen</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Instellingen zijn met succes bijgewerkt</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Leeg veld</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>Onjuist poortnummer</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>U moet de Licentieovereenkomst lezen en ermee instemmen</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>Licentie is niet correct</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>Link is gekopieerd naar het klembord</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>Een ogenblik geduld...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>Laden, wacht alstublieft.</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Aan het laden...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>hele dag</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Gebeurtenis is geannuleerd.</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Geannuleerd: {0}</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Gebeurtenis is voltooid.</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} voorwaardelijk uitnodiging geaccepteerd voor </value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} heeft de uitnodiging gewijgerd voor</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Beantwoorden: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} heeft de uitnodiging geaccepteerd om</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} nodigt je uit om</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Uitnodiging: {0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>ongeveer</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>op</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>dag</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>dagen</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>elke</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>voor</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>uur</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>uren</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>laatste</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>maand</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>maanden</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+    <value>op</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>op de</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>onbekend formaat</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value>de</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>tijd</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>tijden</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>tot</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>weekdag</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>weekdagen</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>weken</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>jaar</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>jaren</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Gebeurtenis is gewijzigd.</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Update: {0}</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>U heeft voorlopig de uitnodiging geaccepteerd voor</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>U heeft de uitnodiging afgewezen om</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>U heeft de uitnodiging geaccepteerd om</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>U heeft de uitnodiging verstuurd aan</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>Er is een probleem ontstaan bij het versturen van dit bericht.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Notificatie van annulering van gebeurtenis is verzonden naar aanwezigen.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Uw verzoek is verzonden naar de aanwezigen.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Uw antwoord is verzonden naar de organisator. </value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Bericht is verzonden.</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>Mij</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>Geen mijlpaal in dit project</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>Mijlpaal bestaat niet</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Altijd Verbergen</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Fout bij het uitvoeren van de actie.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Actie is succesvol uitgevoerd.</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}U staat op het punt om uw portaal een andere naam te geven.{1}{0}Weet u zeker dat u wilt doorgaan?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Bevestiging portaal hernoemen</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>Nieuw project maken</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>Geen projecten in deze lijst</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>Elk project moet een manager hebben</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>Elk project moet een titel hebben</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>Geen projecten in deze groep</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>Project bestaat niet</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>Persoon bestaat niet</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Zelfde beperkingen</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>De instellingen zijn succesvol opgeslagen</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Bestand selecteren</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Map selecteren</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>Bedrijf</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>Bedrijfsnaam</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>Contacttype</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>Voornaam</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>Groep</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>Leidinggevende</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>Achternaam</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>Persoon</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>geselecteerd</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>Titel</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>Gast</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>Ik heb mijn eigen web-kantoor aangemaakt. Doe hier met me mee: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Volgende Tonen</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0} gebruiker(s) zijn succesvol toegevoegd aan het portaal</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Instellingen zijn met succes bijgewerkt</value>
+  </data>
+  <data name="UnsubscribeProductMessage" xml:space="preserve">
+    <value>U staat op het punt om u af te melden voor alle notificaties van de "{0}" module. Weet u zeker dat u door wilt gaan?</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Leeg bestand</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>Fout bij het uploaden van het bestand</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>Ondersteund bestandsformaat: mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>Bestandgrootte mag 5MB niet overschrijden</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>Het profiel voor {0} is succesvol aangemaakt</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Nieuw profiel maken</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>Geen gebruikers in deze lijst</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Overschrijdt het aantal maximale actieve gebruikers</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>Er zijn nog geen groepen op het portaal aangemaakt. Ga naar de Personen-module om gebruikers te groeperen.</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>Geen gebruikers in deze groep</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>Gebruiker bestaat niet</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>Als u nu weggaat zal alle ingevoerde of niet opgeslagen data verloren gaan.</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}Dit betekent dat u het volgende kunt: {1}portaal-inhoud inzien die voor iedereen beschikbaar is, {2}commentaar leveren en {3}bestanden downloaden en als bijlage toevoegen.{4} </value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>Als u extra rechten nodig heeft, neem dan alstublieft contact op met uw portaalbeheerder.</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Welkom bij ONLYOFFICE</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>De portaalbeheerder heeft u uitgenodigd als gastgebruiker op het portaal.</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Start met werken</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Welkom bij ONLYOFFICE!</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>U heeft geen wachtwoord ingesteld. U kunt dit later doen door de link 'Wachtwoord vergeten?' te gebruiken op de inlogpagina van het portaal. Weet u zeker dat u door wilt gaan?</value>
+  </data>
+</root>

@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}.版權所有。</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Personal是一個免費的在線編輯套件，用於帶有單獨的雲端存儲的文本文檔，電子表格和演示文稿。</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>在線編輯單詞，在線單詞編輯器，在線單詞免費，在線單詞辦公室</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>或使用</value>
+  </data>
+  <data name="BrowserAndDesktopTextCustomMode" xml:space="preserve">
+    <value>在瀏覽器中或通過ONLYOFFICE桌面應用程序工作</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>
+開始輸入您的個人，CRM聯繫人或
+門戶用戶或使用任何其他電子郵件邀請人們參加您的活動。</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>檢查您的電子郵件以確認帳戶。</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>方便的共同編輯和審閱</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>文件協作</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>100％兼容MS Office格式</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>連接說明</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>創建一個帳戶</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>創建雲端</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>文件討論</value>
+  </data>
+  <data name="DiscussionDocumentDescriptionCustomMode" xml:space="preserve">
+    <value>使用評論和聊天來討論在不離開編輯器的情況下處理文檔的情況。</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE 文件編輯器</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>它可以幫助您輕鬆創建和編輯格式複雜程度不同的文本文檔。</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>電子郵件</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>輸入你的電子郵箱地址</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>或使用</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>忘記密碼？</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>您可以在此處更改您的門戶地址。輸入將顯示在onlyoffice.com/onlyoffice.eu門戶地址旁邊的部分。{0}
+{1}請注意{2}：點ㄒ遠{1}保存{2}按鈕後，您的舊門戶地址將對新的ONLYOFFICE用戶可用。</value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>要激活ONLYOFFICE Enterprise Edition，您需要購買許可證密鑰。</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>
+{0}在線文檔編輯器{1} {0}文檔管理{1} {0}郵件{1} {0}項目{1} {0} CRM {1} {0}日曆{1} {0}社區{ 1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>帳號登錄</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>連接到雲端</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>隨時隨地ONLYOFFICE</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>還沒有註冊？</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE 桌面</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>將您的ONLYOFFICE副本連接到雲以一起處理文檔，而無需離開應用程序。</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE在線</value>
+  </data>
+  <data name="OfficeOnlineDescriptionCustomMode" xml:space="preserve">
+    <value>您只需要一個瀏覽器就可以在任何地方工作。可靠的託管將確保您數據的安全。</value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE在線版本</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>尊敬的$ UserName，
+
+您的用戶配置文件已成功添加到門戶中的“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”。立即開始吧！
+
+h3。開始使用文檔：
+
+＃創建和編輯文本文檔，電子表格和演示文稿。
+＃連接用於為所有文檔創建單個工作區的雲端存儲。
+＃與您的團隊成員共享文檔。
+＃探索共同處理文檔的不同方式：兩種實時共同編輯模式，審閱，評論和聊天。
+
+h3。嘗試其他$ {LetterLogoText}工具：
+
+＃將您的電子郵件帳戶添加到“ $ {LetterLogoText}郵件”：“ $ {__ VirtualRootPath} / addons / mail /”。
+＃創建“項目”：“ $ {__ VirtualRootPath} / products / projects /”，並通過添加里程碑和任務來管理您的工作流程。
+＃使用“ CRM”：“ $ {__ VirtualRootPath} / products / crm /”管理您的客戶關係。
+＃使用“社區”：“ $ {__ VirtualRootPath} / products / community /”啟動博客，論壇，添加事件，共享書籤。
+＃使用內置的“日曆”：“ $ {__ VirtualRootPath} / addons / calendar /”來組織工作計劃。
+＃開始“交談”：“ $ {__ VirtualRootPath} / addons / talk /”以與您的隊友在線聊天。
+
+$ GreenButton
+
+
+$ {LetterLogoText}團隊</value>
+  </data>
+  <data name="pattern_ExportCompletedCustomMode" xml:space="preserve">
+    <value>
+h1。客戶關係管理。數據導出成功完成
+
+請點選以下連結下載檔案：“ $ {EntityTitle}”：“ $ {EntityRelativeURL}”
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_ImportCompletedCustomMode" xml:space="preserve">
+    <value>h1。客戶關係管理。數據導入成功完成
+
+轉到“ $ {Tag_EntityListTitle}”：“ $ __ VirtualRootPath / $ {Tag_EntityListRelativeURL}”列表。
+
+^您收到此電子郵件的原因是您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。要更改通知類型，請管理您的“訂閱設置”：“ $ RecipientSubscriptionConfigURL”。^</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1。歡迎使用ONLYOFFICE Personal
+
+您剛剛在雲端中創建了個人辦公室。
+
+h3。這是一個虛擬的工作區，您可以在其中編輯和存儲文檔，並可以從任何地方使用它們來訪問您的朋友或同事。
+
+ONLYOFFICE與Microsoft Office™文檔格式兼容，並保證不損失格式或所創建對象的質量。我們承諾將減輕您對保真度的困擾，並提供完整的專業編輯工具集。
+
+h3。為了快速入門，您可以在ONLYOFFICE中進行以下操作：
+
+-從您的計算機上傳文件或創建新文件；
+
+-使用所有流行的文件格式；
+
+-編輯自動形狀，圖表，表格，方程式和其他對象；
+
+-使用各種插件進行擴展的編輯功能；
+
+-通過“ Chrome擴展程序”輕鬆存取您的個人雲端：“ https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=zh-CN”。
+
+您也可以使用我們的免費“桌面編輯器”：“ https://www.onlyoffice.com/download-desktop.aspx”脫機編輯文檔，也可以使用“移動編輯套件”：“ https://www.onlyoffice.com” /mobile.aspx”（適用於iOS或Android設備）。
+
+
+ONLYOFFICE團隊</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration8" xml:space="preserve">
+    <value>
+$ PersonalHeaderStart將您喜歡的雲存儲連接到ONLYOFFICE $ PersonalHeaderEnd
+
+自您創建雲辦公室以來已經過去了一周，所以我們認為是時候揭開您可能錯過的一些有益功能了。
+
+將* Dropbox *，* Google Drive *，* Box *，* OneDrive *，* Nextcloud *，* ownCloud *，* kDrive *或* Yandex.Disk *連接到ONLYOFFICE，並為所有文檔創建一個文檔管理空間。您將能夠在ONLYOFFICE中編輯外部文件並將其保存到保存文檔的存儲中。在“此處”中閱讀有關將文件存儲連接到ONLYOFFICE的詳細信息：“ $ {__ He​​lpLink} /tipstricks/add-resource.aspx”。
+
+您還可以使用我們的“連接器應用”：“ https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn”將ONLYOFFICE編輯器集成到Google雲端硬盤中。
+
+需要更多文件管理嗎？
+
+h3。嘗試“在雲中”進行業務的ONLYOFFICE：“ https://www.onlyoffice.com/cloud-office.aspx”或“在您的服務器上”：“ https://www.onlyoffice.com/server-solutions .aspx”免費使用30天，並查看擴展的文檔管理機會以及一個業務工具集：
+
+-管理項目中的團隊文檔；
+
+-將文檔與CRM和電子郵件集成；
+
+-將文件共享給用戶組；
+
+-使用團隊溝通工具優化您的工作流程。
+
+有興趣嗎了解有關“ ONLYOFFICE for business”的更多信息：“ http://www.onlyoffice.com/document-management.aspx”。
+
+
+ONLYFOFFICE團隊</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
+    <value>
+有人要求更改用於輸入“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的密碼。
+
+請點擊以下連結更改密碼：
+
+$ GreenButton
+
+*注意*：此連結僅有效7天。請在此期間完成密碼更改過程。
+
+如果您不想更改密碼或誤收到此電子郵件，請忽略它。
+
+
+ONLYOFFICE 團隊</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>你好，
+
+您剛剛在ONLYOFFICE解決方案中註冊了一個帳戶供個人使用。點選“此處”：“ $ InviteLink”以確認註冊並創建密碼。
+
+如果您無法打開連結，請複制以下“ $ InviteLink”：“ $ InviteLink”並將其粘貼到瀏覽器地址欄中。
+
+ONLYOFFICE 團隊</value>
+  </data>
+  <data name="pattern_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>您已要求終止在personal.onlyoffice.com上的帳戶。按照連結完成請求（該連結有效期為7天）：
+
+$ GreenButton
+
+*注意*：刪除後，您的帳戶及其所有相關數據將根據我們的“隱私聲明”被永久刪除：“ https://help.onlyoffice.com/products/files/doceditor.aspx?fileid= 5048502＆amp; doc = SXhWMEVzSEYxNlVVaXJJeUVtS0kyYk14YWdXTEFUQmRWL250NllHNUFGbz0_IjUwNDg1MDIi0”。
+
+如果您不想繼續，請忽略此電子郵件。
+
+如有任何疑問，請通過“ support@onlyoffice.com”與我們聯繫：“ mailto：support@onlyoffice.com”
+
+
+ONLYOFFICE 團隊</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>尊敬的$ UserName，
+
+從用戶“ $ FromUserName”：“ $ FromUserLink”刪除數據的過程已成功完成。
+
+刪除個人數據可以免費：
+
+＃文件-$ DocsSpace
+＃郵件-$ MailSpace
+＃Talk-$ TalkSpace
+
+^您收到此電子郵件是因為您是“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”門戶的註冊用戶。^</value>
+  </data>
+  <data name="pattern_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>h3。新門戶已註冊
+
+＃門戶網址：“ $ {__ VirtualRootPath}”：“ $ {__ VirtualRootPath}”
+＃名字：$ UserName
+＃姓氏：$ UserLastName
+＃電子郵件：$ UserEmail
+＃電話：$ Phone
+＃創建日期：$ Date</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE演示文稿編輯器</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>它將為您提供所有工具，以創建令人印象深刻的演示文稿並向聽眾展示任何想法。</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>就像一般使用者一樣|在"公用文件"連結 Dropbox、Box和其它帳號|在"公用文件"設定文件和資料夾的存取權限</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>建立和編輯自己的文件，也可以透過適當的存取權限控制來分享文件|授與其他使用者讀取/編輯的檔案和資料夾的權限|在”我的文件“連結Dropbox、Box和其它帳號。</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>立即建立</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>我想訂閱ONLYOFFICE通訊</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>我同意ONLYOFFICE {0}條款和條件{1}</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>記得</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>打開審閱模式可以建議對文檔進行編輯而不更改。</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>激活電子郵件已發送至</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>註冊</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>註冊到雲端</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>
+{0}雙重身份驗證{1}是用戶進入門戶的一種更安全的方式。輸入憑據後，用戶將必須從連接的身份驗證器應用程序中輸入代碼。{2}啟用此選項可使所有門戶網站用戶更安全地存取門戶網站。 {2}要應用所做的更改，請點選本部分下方的{0}保存{1}按鈕。{2}</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE電子表格編輯器</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>提供電子表格的專業工作，有助於進行複雜的計算並組織數據。</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>歡迎來到ONLYOFFICE Personal</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>將您喜歡的雲存儲連接到ONLYOFFICE</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>ONLYOFFICE個人密碼幫助</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE個人。請激活您的電子郵件地址</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>ONLYOFFICE個人帳戶終止</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>
+$ {LetterLogoText}。刪除用戶數據完成</value>
+  </data>
+  <data name="subject_saas_custom_mode_reg_data" xml:space="preserve">
+    <value>新門戶已註冊</value>
+  </data>
+  <data name="TariffNotPaidStandaloneCustomMode" xml:space="preserve">
+    <value>您正在使用ONLYOFFICE企業版。 {0}您的許可證不再支持和更新{1}。</value>
+  </data>
+  <data name="TariffOverdueStandaloneCustomMode" xml:space="preserve">
+    <value>您正在使用ONLYOFFICE企業版。自{2} {1}起，您的許可證不再支持{0}支持和更新。</value>
+  </data>
+  <data name="TariffPaidStandaloneCustomMode" xml:space="preserve">
+    <value>您正在使用ONLYOFFICE企業版。</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>使用條款</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>感謝您註冊</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>協作雲端</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>個人在線辦公室</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>變更追蹤</value>
+  </data>
+  <data name="TrackingChangesDescriptionCustomMode" xml:space="preserve">
+    <value>打開所做更改的顯示。如果您接受或拒絕這些編輯，則不同的查看模式將有助於檢查文檔的外觀。</value>
+  </data>
+  <data name="TwoEditingModesCustomMode" xml:space="preserve">
+    <value>兩種共同編輯模式</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>在快速模式下，您會看到您的協作者在鍵入什麼，而他也會看到您在鍵入什麼。在“嚴格”中，您可以私下編輯文檔的某些部分，更改將在保存後顯示。</value>
+  </data>
+</root>

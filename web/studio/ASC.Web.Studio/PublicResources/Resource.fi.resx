@@ -1,0 +1,2682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>osoite</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>sähköposti</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>puh.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>Tietoja tuotteesta</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Käyttöoikeudet</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Pääsyoikeus {0} moduuliin on annettu </value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Lisää {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Lisää {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Kaikki käyttäjät</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Muuta sivuston omistajaa</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Muutokset otetaan käyttöön sähköpostivahvistuksen jälkeen.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Vaihtaaksesi sivuston omistajaa, valitse uusi omistaja allaolevasta luettelosta.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} moduuli on poistettu käytöstä eikä se näy enää portaalissa. Voit ottaa sen uudelleen käyttöön portaalin 'Asetukset' osiossa 'Moduulit ja työkalut' .</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>Käyttäjäluettelo on tyhjä</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Täydet oikeudet</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Omaavat samat oikeudet kuin sivuston omistajalla, mutta eivät voi|Muuttaa sivuston omistajaa|Poistaa sivustoa tilapäisesti tai pysyvästi käytöstä</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Sivuston omistaja voi</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Toimi kuten moduulin pääkäyttäjät|Nimitä moduulin pääkäyttäjiä|Aseta moduulien pääsyoikeuksia|Hallitse  portaalin määrityksiä|Hallitse käyttäjätilejä|Vaihda portaalin omistaja|Tee varmuustallenne portaalin tiedoista|Poista portaali käytöstä</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} pääkäyttäjät voivat</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!users} voivat</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users}, joilla on erilaiset käyttöoikeudet, voivat</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Käyttäjät luettelosta</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Tilisi on lähes aktiivinen nyt</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Vahvistus</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Sivuston poistaminen tilapäisesti</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Ennenkuin poistat portaalin, ole hyvä ja varmista että automaattinen laskutus on kytketty pois. Voit tarkistaa automaattisen laskutuksen tilan täällä: {0}Avangate tili{1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Vahvistuslinkki on lähetetty sivuston omistajan sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Sivuston poistaminen pysyvästi</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Vahvistuslinkki on lähetetty sivuston omistajan sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Lähetä koodi uudelleen</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Kirjoita koodi</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Aktivoi sähköposti uudelleen</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Vahvistuskoodi-kenttä ei voi olla tyhjä</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Kirjoita matkapuhelimen numero</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Lisää uusi {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Lisää ryhmiä</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Lisää sallittu IP-osoite</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Lisää kommentti</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Lisää luotettu verkkotunnus</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Lisää käyttäjiä</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Asetukset</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Ylläpitäjä</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Järjestelmänvalvojan ilmoitukset</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Lähetä viesti</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Etkö pääse sivustolle?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Sähköpostiosoite, jonka avulla sinuun voidaan ottaa yhteyttä</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Ota yhteyttä järjestelmänvalvojiin</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Viestisi lähetettiin onnistuneesti. Sivuston omistaja ottaa sinuun yhteyttä mahdollisimman pian.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Kirjautumissivun yhteydenottolomake</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Ongelman kuvaus</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Jos sinulla on ongelmia sisäänkirjautumisessa tai sivuston käyttöä koskevissa asioissa, voit ottaa yhteyttä sivuston omistajaan allaolevalla lomakkeella.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Järjestelmänvalvojat</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Kumppanuusohjelma</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Kaikki verkkotunnukset</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Kaikki oikeudet pidätetään</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Kaikki oikeudet pidätetään.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Vastaus</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Vastaa</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Yhdistä</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Yhdistetty</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Katkaise yhteys</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Ei yhdistetty</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>kello</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Tunnistus</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Valtuutus</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Valtuutuksen avaimet</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Valtuutusavaimien avulla voit kytkeä sivustosi palveluihin kuten Twitter, Facebook tai Dropbox. Yhdistä portaalisi Facebookiin, Twitteriin DropBoxiin jne, niin sinun ei tarvitse aina syöttää sivustosi käyttäjätunnusta ja salasanaa kun kirjaudut sisään. Linkitä palveluihin kuten Dropbox, OneDrive, Zohoon tms, niin voit siirtää asiakirjoja Asiakirjat moduuliin.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Palvelun Käyttöehdot</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Käytä tätä vaihtoehtoa portaalin tietojen automaattiseen varmuuskopiointiin</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Automaattinen varmuuskopiointi</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>{0}Automaattisen varmuuskopioinnin{1} vaihtoehtoa käytetään tallentamaan portaalin tietoja automaattisesti, jotta ne voidaan palauttaa myöhemmin paikalliseen palvelimeen. Valitse talletustapa, automaattisen varmuuskopioinnin jakso ja maksimimäärä tallennettuja kopioita.{2}{0}Huom:{1} ennenkuin voit tallentaa varmuuskopion kolmannen osapuolen tilille (DropBox, Box.com, OneDrive tai Google Drive), tulee sinun yhdistää tämä tili ONLYOFFICEN  Yleisten asiakirjojen kansioon.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Siirry otsikkosivulle</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Varmuuskopiointi</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Säilytettävien varmuuskopioiden enimmäismäärä</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE asiakirjat</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Drive...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Lataa varmuuskopio</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Varmuuskopioi</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Sisällytä sähköpostit varmuuskopioon</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Yhtään kolmannen osapuolen tallennuspalvelua ei ole käytössä.{0}Voit ottaa niitä käyttöön "Asiakirjat" moduulissa.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Voit ladata varmuuskopion paikalliselle levylle käyttämällä allaolevaa linkkiä. Linkki on aktiivinen 24 tuntia.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Tallennustila</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Tilapäistiedosto</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Käytä tätä, jos haluat tallettaa sivuston kaiken sisällön tiedostoon.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Sinun tulee yhdistää kolmannen osapuolen tili ((DropBox, Box.com, OneDrive tai Google Drive)  ONLYOFFICEN Yhteiset asiakirjat kansioon, ennenkuin voit tallentaa turvatallenteesi sinne.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Lisää {!group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Syntymäaika</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Selain</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Lisää uusi kontakti</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Soita</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Puhelu lopetettu</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Yhdistetään</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Puhelu käynnissä</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Tuleva</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Kaikki antamasi tiedot menetetään. Oletko varma, että haluat jatkaa?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Sähköposti on onnistuneesti vaihdettu</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Muuta logo</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Vahvistuslinkki on lähetetty sivuston omistajan sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Tammikuu, helmikuu, maaliskuu, huhtikuu, toukokuu, kesäkuu, heinäkuu, elokuu, syyskuu, lokakuu, marraskuu, joulukuu</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Valitse omistaja</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Valitse käyttäjä</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Poista suodatin</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Kirkas sininen</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Tumma vihreä</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Syvä sininen</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Oletus</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Puhdas oranssi</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Väriteemat</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Villi pinkki</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentit</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>kommentti poistettu</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Katkaise yhteys</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Vahvistus</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Vahvistus</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Vahvista, että haluat tilapäisesti poistaa sivustosi käytöstä</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Vahvista, että haluat poistaa sivustosi pysyvästi</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Oletko varma, että haluat muuttaa sivuston osoitteeksi {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Sivuston omistaja on muutettu.{0} Sinut ohjataan 10 sekunnin kuluessa {1}tänne{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Vahvista, että haluat muuttaa sivuston omistajaksi {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Liity</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Olet onnistuneesti vahvistanut rekisteröitymisesi. Määritä salasana ja aloita sivuston käyttö!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Vahvista, että haluat aktivoida tilisi uudelleen</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa kommentin?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Poista kommentti</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Onnittele</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Yhdistä</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>sisäänkirjautuminen</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>API avain</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Yhdistä Bitly palveluun, jotta voit lyhentää portaalin kutsun linkkejä ja jaettuja linkkejä asiakirjojen moduulissa.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>sisäänkirjautuminen</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>API avain</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>Laatikon tunnus</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Laatikon avain</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Yhdistä sovellus jotta voi hallita Laatikon tiedostoja ja kansioita.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Laatikon tunnus</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Laatikon avain</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>DocuSign Avain</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSign Salainen tunnus</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Yhdistä sovellus, jotta voit lisätä sähköisen DocuSign allekirjoituksen asiakirjoihin.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>DocuSign valtuutuksen päätepiste</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>DocuSign Avain</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>DocuSign valtuutuksen päätepiste</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSign Salainen tunnus</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>Dropbox avain</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Yhdistä sovellus jotta voit hallita Dropbox tiedostoja ja kansioita.</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>Dropbox avain</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook avain</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook Asiakkuudenhallinnan avaimessa</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>Sovelluksen merkkijono</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Yhdistä sovellus jotta voit kirjautua portaaliin Facebook tilin kautta ja etsiä kontakteja.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Jos lisäät Facebookin palvelun sovelluksen, niin voit yhdistää Facebook tilisi profiilisi sivulle, jotta voit kirjautua sisään ONLYOFFICEN portaaliin sitä käyttämällä. Voit myös löytää kontaktisi Facebook tilin Asiakkuudenhallinnan moduulissa ja linkittää sen 'Muokkaa henkilöä/yritystä' sivulla.</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook avain</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>Sovelluksen merkkijono</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google avain</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Yhdistä projekti, jotta voi kirjautua sisään käyttämällä Google tiliä ja hallinnoida Google Drive tiedostoja ja kansioita.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Jos lisäät Google palvelun projektin, niin voit ottaa yhteyttä Google tiliisi profiilisivulla, ja voit kirjautua sisään ONLYOFFICE portaaliin samalla kun otat yhteyttä Google Drive tiliin Asiakirjojen moduulissa. Tämä antaa mahdollisuuden ladata ja luoda uusia tiedostoja Google Drivessa, muokata nykyisiä, kopioida ja poistaa niitä, jakaa tiedostoja ja kansioita ONLYOFFICE portaalin käyttäjille.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google avain</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>Yhdistä sovellus jotta voit kirjautua sisään käyttämällä LinkedIn tiliä.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>Jos lisää LinkedIn palvelun sovelluksen, niin voit yhdistää LinkedIn tilisi profiilisivullesi, jotta voit kirjautua ONLYOFFICE portaaliin sitä käyttämällä.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin avain</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive avain</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>Yhdistä sovellus jotta voit hallita OneDrive tiedostoja ja kansioita.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>Jos lisäät OneDrive palvelun sovelluksen, niin voit yhdistää OneDrive tilisi Asiakirjojen moduuliin. Tämä antaa mahdollisuuden ladata ja luoda uusia tiedostoja OneDrivessa, muokata nykyisiä, kopioida ja poistaa niitä, jakaa tiedostoja ja kansioita ONLYOFFICE portaalin käyttäjille.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive avain</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Tilin Sid arvo</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Valtuutuksen merkkijono</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Yhdistä Twilio ja voit soittaa Asiakkuudenhallinnan kontakteja suoraan selaimessa.</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>Lisäämällä Twilion toiminnon voit soittaa mihin tahansa Asiakkuudenhallinnan kontaktiin suoraan selaimesta.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Tilin Sid arvo</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Valtuutuksen merkkijono</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Pääsyn merkkijono</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Pääsyn merkkijonon salainen tunnus</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter Asiakkuudenhallinnan avaimessa</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter avain</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Yhdistä sovellus jotta voit kirjautua sisään käyttämällä Twitter tiliä ja etsiä kontakteja.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Jos lisää Twitter palvelun sovelluksen, niin voit yhdistää Twitter tilisi profiilisivullesi, jotta voit kirjautua sisään ONLYOFFICE  portaaliin sitä käyttämällä. Voit myös löytää henkilön Twitter tilin Asiakkuudenhallinnan moduulissa ja linkittää sen  'Muokkaa henkilöä/yritystä' sivulla ja sitten selailla Twitterin uutisten syötteitä.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Pääsyn merkkijono</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter avain</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Pääsyn merkkijonon salainen tunnus</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Kontaktin tiedot</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Hallintapaneeli</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Hallintapaneeli</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Evästeen Asetukset{1} mahdollistaa asettaa evästeen eliniän minuuteissa.{2}Talletuksen jälkeen kaikki käyttäjät kirjautuvat ulos portaalista.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Elinikäinen</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Evästeen asetukset</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopioi linkki</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Yrityskäyttö</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Luo uusi käyttäjä</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>varmuuskopion luominen</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Mukautettu verkkotunnuksen nimi</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Mukauttaminen</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Mukautettu</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Tietojen varmuuskopiointi</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Varmuuskopiointi{1} mahdollistaa kaiken portaalin tiedon varmuuskopioinnin sen palauttamiseksi myöhemmin paikalliseen palvelimeen. Valitse tallennuspaikka tiedolle.{2}Jos valitset sähköpostivaihtoehdon, niin vain viestit viimeiseltä 30 päivän ajalta tallennetaan. {2}{0}Huom:{1} sinun tulee yhdistää ulkopuolinen tallennuspalvelusi (Dropbox, Box.com, OneDrive tai Google Drive) ONLYOFFICE Asiakirjat moduuliin ennen kuin voit varmuuskopioida sinne.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Tiedon hallinta</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>päivä</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>päivää</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>päivää</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Poista tilapäisesti</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Poista tilapäisesti</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Sivustosi on poistettu käytöstä tilapäisesti.{0} Sinut ohjataan 10 sekunnissa {1}tänne{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Sivuston poisto tilapäisesti/pysyvästi</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Tämän asetuksen avulla voit poistaa sivuston tilapäisesti käytöstä.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Moduulin valinta</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Aloitussivu</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Oletusasetukset</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Tätä toimintoa ei voi kumota. Haluatko varmasti, että  {!group} '{0}' poistetaan?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Poista pysyvästi</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Sivustosi on poistettu pysyvästi.{0} Sinut ohjataan 10 sekunnissa {1}tänne{2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Poista oma profiili</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Lähetä profiilin poistamisohjeet sähköpostiosoitteeseen</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Poista profiilivalintaikkuna</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Poista pysyvästi</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Tämän vaihtoehdon avulla voit poistaa sivustosi pysyvästi.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Poistettu</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!User} ei enää näy Nykyiset {!users} -luettelossa</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Vahvistuslinkki on lähetetty sivuston omistajan sähköpostiosoitteeseen {0}.</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Asiakirja palvelu</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Asiakirjan palvelun sijainti määrittelee palvelimen osoitteen, mihin asiakirjan palvelu on asennettu. Ole hyvä ja korvaa '&amp;lt;editors-dns-name&amp;gt;' palvelimen osoitteeksi allaolevilla riveillä, jättäen rivin loppuosan täsmälleen nykyisen kaltaiseksi.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Asiakirja palvelun sijainti</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Asiakirjan muokkauspalvelun osoite</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Esimerkki: {0}</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} sitten</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} päivä</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} päivää</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} päivää</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>hetki sitten</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} tunti</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} tuntia</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} tuntia</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minuutti</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minuuttia</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minuuttia</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} kuukausi</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} kuukautta</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} kuukautta</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} vuosi</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} vuotta</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} vuotta</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Toissapäivä</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Tänään</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Huomenna</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Eilen</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Muokkaa profiilia</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Aktivointiohjeet lähetetään annettuun sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Klikkaa aktivointiviestissä ollutta linkkiä. Etkö ole saanut aktivointiviestiä?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Aktivoi rekisteröinnin yhteydessä antamasi sähköpostiosoite, niin saat käyttöön kaikki sivuston ominaisuudet.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Lähetä aktivointiviesti uudelleen</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Aktivointiviesti on lähetetty sähköpostiosoitteeseesi. Klikkaa siinä olevaa linkkiä tilisi aktivoimiseksi.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Sähköpostiaktivointi</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Vahvista salasana</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Sivusto on rekisteröity seuraavalle verkkotunnukselle:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Väärä salasana</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Virheellinen sähköpostiosoite</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Väärä promokoodi</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Onko sinulla promokoodi? Kirjoita se tähän</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Sivustosi on rekisteröity seuraavasta sähköpostiosoitteesta:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Nämä asetukset on tallennettu onnistuneesti</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Muuta</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Kirjoita salasana</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Salasana ja sen vahvistus eivät vastaa</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Muuta sähköpostiosoite</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Aktivointiohjeet lähetetään annettuun sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Sähköpostin muuttaminen</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Sähköposti ei ole aktivoitu</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Kaikki {!Groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Etsi käyttäjistä</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Tilaa vievää tietoa ei ole</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Ota LDAP tunnistus käyttöön</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Ota käyttöön SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user} näytetään jälleen aktiivisena</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Uusi sähköpostiosoite</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Sinulla ei ole oikeuksia tämän sivun tarkastelemiseen</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Virhe 403 - kielletty. Mikä lie kielletty, varmaankin kaikki mahdollinen.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Ei käyttöoikeuksia tämän toiminnon suorittamiseen. </value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Portaaliin pääsy on rajoitettu.</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Virheelliset avaimet</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Virheellinen pyyntö</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Virheellinen sähköpostiosoite tai vanhentunut linkki</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Käyttäjätunnuksesi on poistettu käytöstä.</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>Antamasi sähköpostiosoite on jo toisen käyttäjän käytössä. Pelottavaa!</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Sähköposteja tästä verkkotunnuksesta ei ole sallittu rekisteröintiin</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Sähköpostiosoite on tyhjä. </value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Nykyinen sähköposti ja uusi sähköposti ovat sama. Nyt ei jokin tässä täsmää...</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Täytä kaikki kentät. Please!</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Lisättyä tiedostoa ei löytynyt. Ei sitten millään.</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Sähköpostiosoite</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Kirjoita etunimi. Se tarvittaisiin.</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Kirjoita sukunimi. Semmoinen tarvitaan, ihan tod.</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Linkki on vanhentunut</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Kuvan koko on liian suuri. Aivan liian suuri.</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Kuvatiedoston koko on liian suuri. Ei pysty.</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Virheellinen aktivointilinkki</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Portaaliin pääsy on rajoitettu</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Rekisteröintipäivä on oltava syntymäpäivän jälkeen.</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Tähän kenttään voi kirjoittaa enintään 255 merkkiä.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Tähän kenttään voi kirjoittaa enintään 64 merkkiä.</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Selaimesi ei tue JavaScript toimintoa!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Sinun hintavaihtoehtosi ei tue tätä mahdollisuutta</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Virheellinen päivämäärän muoto</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Sähköpostiosoite ei kelpaa. Jokin siinä mättää.</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Virheellinen verkkotunnuksen nimi</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Salasana on tyhjä. Tyhjä.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>{0} - {1} merkkiä</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Uusi salasana on virheellinen. Sen on sisällettävä</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Sen on sisällettävä</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>numerot</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>erikoismerkit</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>isot kirjaimet</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Tuntematon kuvan tiedostomuoto. Ihan outo.</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Käyttäjää ei löytynyt. Minne lie kadonnut.</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Käyttäjä, jonka sähköposti on {0} ei löytynyt. Outoa.</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>EU (Irlanti)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Joka päivä</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Kuukausittain</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Joka viikko</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Palaute ja tuki (englanniksi)</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Nainen</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Tiedoston enimmäiskoko ylitetty</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Huomautus: tiedostokoko ei voi ylittää {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>tavua, kt, Mt, Gt, Tt</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>jakso</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>alkaen</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>asti</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>viimeiset 3 kuukautta</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>viime kuukausi</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>viime viikko</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Tilin vahvistamiseen tarvittava linkki on lähetetty annettuun sähköpostiosoitteeseen</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Etunimi</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Unohditko salasanasi?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Kirjautuaksesi käytä tätä {0}linkkiä{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>alkaen</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Täyden tekstin hakupalvelu ei ole käynnissä</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Täyden tekstin hakupalvelu on käynnissä</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Testi</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Hanki lyhennetty linkki</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Tervehdysasetukset</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Otsikko</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Ryhmä</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Päällikkö</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Ryhmät</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Vierailija</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Vieraat</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Jos haluat {1}poistaa sivuston käytöstä tilapäisesti{2}, sivusto ja kaikki siihen liittyvä tieto estetään siten, että kenelläkään ei ole tietoon pääsyä tiettyyn ajanjaksoon. Tehdäksesi tämän, Klikkaa {1}Poista käytöstä tilapäiesti{2} -painiketta. Toiminnon varmentava linkki lähetetään sivuston omistajalle.{0} Jos haluat palata ONLYOFFICE™-sivustolle ja jatkaa käyttöä, sinun tulee käyttää toista linkkiä varmennesähköpostista. Pidä tämä sähköposti turvallisessa paikassa.{0} Jos haluat {1}poistaa sivuston käytöstä pysyvästi{2}, lähetä pyyntö käyttämällä {1}Poista käytöstä pysyvästi{2}-painiketta. Muista, että sivustoa tai mitään siihen liittyviä tietoja ei voida palauttaa.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Kirjautumissivun yhteydenottolomakkeen{2} avulla käyttäjät voivat ottaa yhteyttä sivuston jäjestelmänvalvojiin.{0}Ottamalla tämän ominaisuuden käyttöön käyttäjät näkevät yhteydenottolomakkeen {1}kirjautumissivulla{2} ja voivat lähettää viestin järjestelmänvalvojille, jos heillä on vaikeuksia sivustolle pääsemisessä.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Väriteemat{2} mahdollistavat sivuston ulkoasun muokkaamisen yrityksesi ilmeen mukaiseksi.{0} Valitse haluamasi väriteema.{0} Klikkaa {1}Tallenna{2} ottaaksesi teeman käyttöön.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Aloitussivun{1} avulla voit määritellä sen moduulin, joka avautuu kun kirjaudut sisään portaaliisi tai klikkaat ONLYOFFICE™ logoa, kun olet sisäänkirjautuneena. Kun olet tehnyt haluamasi määritykset, klikkaa {0}Tallenna{1} painiketta osion lopussa.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}DNS-asetuksilla{2} voidaan määrittää vaihtoehtoinen URL-osoite ONLYOFFICE™-sivustollesi.{0} Voit joko syöttää halutun aliaksen {1}sivuston osoite{2} -kenttään tai valita {1}oman verkkotunnuksen{2} ONLYOFFICE™-sivustolle.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Tervehdysasetuksilla{2} voidaan vaihtaa sivuston otsikko ja logo, jotka näytetään sivustosi {1}tervehdyksenä{2}. {0}Syötä haluamasi nimi {1}Otsikko{2}-kenttään. Vaihtaaksesi sivuston logoa klikkaa {1}Vaihda logo{2} ja valitse haluamasi kuva tietokoneelta. {0}Muista, että kuvan maksimimitat ovat {1}250x100 kuvapistettä{2}, sitä suuremmat kuvat muokataan automaattisesti oikeaan kokoon. Kuvan maksimikoko on {1}1 Mt{2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Kutsulinkkiä käytetään uusien käyttäjien kutsumiseen sivustollesi.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Kielen ja aikavyöhykkeen asetuksilla{2} voidaan vaihtaa koko sivuston kieli kaikille käyttäjille ja määrittää aikavyöhyke siten, että kaikki ONLYOFFICE™ tapahtumat näytetään oikealla päivämäärällä ja ajalla.{0} Avaa alasvetovalikko määrittääksesi tarpeelliset parametrit.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Logoasetukset{2} mahdollistavat haluamasi logon näkymisen {1}Tervetuloa-sivulla{2}. {0}Muuttaaksesi logoa, klikkaa {1}Muuta logoa{2} linkkiä ja valitse haluamasi kuvatiedosto tietokoneeltasi. {0}Logo voi olla kooltaan enintään {1}250x100 kuvapistettä{2}, isommat kuvat muunnetaan automaattisesti oikeaan kokoon. Kuvatiedoston koko voi olla enintään {1}1 Mt{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Luotetut sähköpostin verkkotunnukset{2} asetuksilla voidaan määrittää sähköpostipalvelimet, joiden käyttäjät voivat omatoimisesti rekisteröityä sivuston käyttäjiksi.{0}Voit ottaa ominaisuuden käyttöön ja lisätä yhden tai useamman luotetun sähköpostipalvelimen tiedot.{0}Nyt kuka tahansa, jolla on tili luotetulla sähköpostipalvelimella, voi rekisteröidä itsensä valitsemalla kirjautumissivulla {1}Klikkaa tästä liittyäksesi mukaan{2} ja syöttämällä sähköpostiosoitteensa.{0}Voit ottaa tämän toiminnon pois päältä {1}Ei käytössä{2} valinnalla.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Salasanan vahvuusasetuksilla{2} voidaan määrittää salasanan luotettavuus väärinkäyttöä ja tietomurtoja vastaan.{0}Käytä {1}Salasanan vähimmäispituus{2} palkkia määrittääksesi kuinka pitkä salasanan täytyy olla, jotta se voidaan hyväksyä luotettavana. Voit määrittää myös salasanassa käytettävän merkistön palkin alapuolella olevilla valinnoilla.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Julkinen portaali{2} on ilmainen vaihtoehto, joka mahdollistaa kenen tahansa selata julkista tietoasi ilman rekisteröintiä. Yksityisiä projekteja ei ole saatavilla ja Asiakkuudenhallinnan moduuli on poistettu käytöstä.{0}Rekisteröityneiden käyttäjien määrää ei ole rajoitettu ja portaalin ylläpitäjä voi hyväksyä rekisteröinnin pyynnöt. Käytä {1}Hyväksy uudet käyttäjät välittömästi{2} poistaaksesi kaikki rajoitukset sivustosi rekisteröinnin vahvistukseen.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Tässä voit vaihtaa portaalisi osoitteen. Syötä osa joka ilimaantuu onlyoffice.com/onlyoffice.eu portaalin osoitteen oheen.{0}
+{1}Huom{2}: portaalisi osoite tulee saataville uusille ONLYOFFICE käyttäjille sen jälkeen kun klikkaat {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Sivuston version{2} avulla voit valita haluamasi version ONLYOFFICE™ palvelusta.{0}Voit valita uusimman version ja vaihtaa myöhemmin takaisin vanhempaan versioon.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Organisaatiomalli{2} on mukautettavissa oleva tapa nimetä organisaatio (tai ryhmä), sen jäsenet ja heidän roolinsa.{0}Valitse jokin valmiista malleista alasvetovalikosta tai valitse {1}Mukautettu{2} ja luo oma organisaatiomallisi.{0}Ota tekemäsi asetukset käyttöön klikkaamalla {1}Tallenna{2} painiketta.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Sivuston siirtäminen käyttäjiä lähinnä olevalle palvelimelle tekee siitä nopeamman käyttää.{0}Aloittaaksesi siirron klikkaa painiketta {1}Muuta palvelimien sijaintia{2}{0}{1}Huom:{2} kun siirto on aloitettu, sitä ei voi enää peruuttaa.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Ohjekeskus (englanniksi)</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Ohjelman tarkoituksena on mainostaa ONLYOFFICE™ palvelua. Saat palkkion jokaisesta tilauksesta, joka saa alkunsa lähettämästäsi suosituksesta.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Piilota</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>AIM-tili</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Blogger-profiili</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Sähköpostiosoite</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Facebook-profiili</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Syötä tilisi käyttäjätunnus</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>GoogleTalk-tili</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz-profiili</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Google-tili</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>ICQ-tili</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Jabber-tunnus</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>LiveJournal-profiili</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Matkapuhelimen numero</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>MSN-tili</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>MySpace-profiili</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Puhelinnumero</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Skype-tili</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Twitter-profiili</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Yahoo-tili</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Palvelin</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>Käyttäjä on jo olemassa</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Yhtään kontaktia ei vastaanotettu.{0}Voit myös tuoda kontakteja muista profiileista.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Käyttäjän etunimi</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Käyttäjän sukunimi</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Anna sähköpostiosoite. Pliide!</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Kirjoita etunimi. Se tarvittaisiin.</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Tuontivirhe</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Kirjoita sukunimi. Semmoinen tarvitaan, ihan tod.</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Kirjoita sivustoon lisättävän käyttäjän etunimi, sukunimi ja sähköposti. Klikkaa 'Lisää' painiketta liittääksesi käyttäjän listaan.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Etunimi</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Tiedostosta</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Tuontiin valitun tiedoston muoto on väärä.{0} Valitse toinen tiedosto ja toista tuontiprosessi.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Lisää käyttäjiä sivustoon</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Varmista, että käyttäjän tiedot, mukaanlukien etunimi, sukunimi ja sähköpostiosoite on täytetty oikein</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Sukunimi</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Nykyinen tilauksesi sallii sinun lisäävän {0} käyttäjää.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Listan loput käyttäjät lisätään vieraina. Voit muuttaa heidän tyyppiään myöhemmin 'Käyttäjät' moduulissa.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Käyttäjien lisääminen</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Nykyinen tilauksesi ei salli sinun lisäävän enempää käyttäjiä.</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>,</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Virheellinen käyttäjänimi tai salasana.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Aloittaaksesi työt sivustolla varmista ensin, että {0}etunimi{1} ja {0}sukunimi{1} ovat oikein ja olet asettanut {0}henkilökohtaisen salasanan{1} kirjautumista varten.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Kutsulinkki</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Vastaanotit linkin tälle sivustolle ystävältä, tuttavalta tai kollegalta</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Sinut on lisätty tälle sivustolle ystävän, tuttavan tai kollegan toimesta</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Sinut on kutsuttu tälle sivustolle!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Lisää käyttäjät vieraina</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Kutsu käyttäjiä portaaliin</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Poista käytöstä</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Ota käyttöön</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP-suodatusta{1} käytetään rajoittamaan pääsy sivustolle muista kuin sallituista osoitteista. Voit antaa listan sallituista yksittäisistä osoitteista muodossa (#.#.#.#) tai IP-osoitevälin muodossa (#.#.#.#-#.#.#.#).</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP-suodatus</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Ensin sinun tulee määritellä nykyinen IP-osoitteesi tai IP-osoitteen alue, johon nykyinen IP-osoitteesi kuuluu, muussa tapaukessa portaaliisi pääsy voidaan estää heti asetusten talletuksen jälkeen. Portaalin omistajalla on pääsy portaaliin mistä tahansa IP-osoitteesta.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Siirrä myös ONLYOFFICE™ sähköposti (ei suositella)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Liity ohjelmaan</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Voit jatkaa käyttäjien lisäämistä vieraina tai vaihtoehtoisesti päivittää tilauksesi suurempaan käyttäjämäärään.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Sukunimi</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP asetukset</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Käyttäjän todentaminen</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Ota käyttöön tämä vaihtoehto, jos nykyisellä Windows käyttäjällä ei ole oikeuksia lukea LDAP palvelimelta/Active Directory hakemistosta, ja syötä toisen käyttäjän tunnukset jolla on lukuoikeus.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Yhteysvirhe</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Tyhjä kenttä</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Käyttäjiä ei voitu luoda, vastaanotettu tieto on virheellinen.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Palvelin ei kyennyt saamaan asetuksia.</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Palvelin ei kyennyt tallentamaan asetuksia.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Virheellinen tunnus tai salasana.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Ei löydy ryhmiä.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Virheellinen käyttäjän suodattimen arvo</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Tuntematon virhe.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Ei löydy mitään käyttäjää</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Ei voitu saada Ryhmän attribuutin arvoa yhdelle tai useammalle ryhmälle.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Ryhmän suodatin ei ole oikein.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Ei saatu Ryhmän nimen attribuutin arvoa yhdelle tai usealle ryhmälle.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Ei saatu sisäänkirjautumisen attribuutin arvoa yhdelle tai usealle käyttäjälle.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Ei saatu käyttäjän attribuutin arvo yhdelle tai usealle käyttäjälle.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Ryhmän attribuutti</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Syötä ryhmän objektin attribuutti, mikä määrittelee ryhmän sisältämät käyttäjät.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Ryhmän DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Syötä ainutlaatuinen nimi hakemistolle, sisältäen ryhmät, jotka haluat lisätä.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Ryhmän suodatin</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Ryhmän jäsenyys</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Ota tämä vaihtoehto käyttöön jos haluat lisätä ryhmiä LDAP palvelimelta/Active Directory hakemistosta ONLYOFFICE™ palveluun. Huomaa, että vain käyttäjät, jotka kuuluvat näihin ryhmiin, tullaan lisäämään.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Ryhmän nimen attribuutti</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Ole hyvä ja määrittele objektin attribuutti, mikä vastaa ryhmän nimeä.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Palvelimen virhe.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Sisäänkirjautumisen attribuutti</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Syötä objektin attribuutti, mikä vastaa käyttäjän sisäänkirjautumista.</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Sisäänkirjautumisen DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Portin numero</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Oletusasetukset</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Palauta oletus asetukset</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Tallenna asetukset</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Palvelin</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Sertifikaatin varmennus</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Tarkistetaan LDAP asetuksia</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Tallennetaan ryhmiä</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Tallennetaan asetuksia</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Tallennetaan käyttäjiä</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Turvallisempi valtuutuksen tyyppi tarvitaan. Ole hyvä ja käytä suojattua yhteyttä tai aktivoi tavallinen autentikointi palvelimella.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Talletus on tehty onnistuneesti </value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Synkronisoi käyttäjät</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Käyttäjän attribuutti</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Syötä käyttäjän objektin attributti jotta voidaan määritellä onko tämä käyttäjä ryhmien jäsenenä.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>Käyttäjän DN</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Syötä ainutlaatuinen nimi hakemistolle, sisältäen käyttäjät, jotka haluat lisätä.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Käyttäjän suodatin</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Lue lisää...</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Ladattu onnistuneesti</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Ladataan, odota...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Päivitetään...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Sijainti</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Kirjaudu sisään</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Portaaliin pääsy on rajoitettu. Ole hyvä ja ota yhteyttä portaalin pääkäyttäjään.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Liity</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Kirjaudu sisään sosiaalisen median palveluilla</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>tai kirjaudu sisään palvelulla:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Kolmannen osapuolen tiliä ei löydy. Sinun täytyy ensin kytkeytyä sosiaalisen median tiliisi profiilisivulla.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Logo Asetukset</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Tämä sähköposti luodaan automaattisesti ja sinun ei tarvitse vastata siihen.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>kartta</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Ei paikkatietoa</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organisoija</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Toistuvuus</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Milloin</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Missä</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Kuka</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Ei ole lukemattomia viestejä. Ole hyvä ja siirry Sähköpostiin lukemaan kaikki viestisi.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Sähköpostipalvelin</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Onnistunut yhteys</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Esimerkki: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Asenna sähköpostipalvelin</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Piilota Laajennetut asetukset</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Sähköpostipalvelimen tietokannan salasana</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Palvelu on onnistuneesti yhdistetty</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>Sähköpostipalvelimen IP-osoite</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Näytä laajennetut asetukset</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Siinä vaiheessa kun yhdistetty, {0}Sähköpostipalvelin{1} on{2}saatavilla{3} {0}Sähköposti{1} moduulissa, ja voit luoda postilaatikoita portaalin käyttäjille käyttämällä omaa sähköpostin verkkotunnustasi.</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Sähköpostipalvelimen yhteysasetukset</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Sähköpostipalvelimen tietokannan käyttäjätunnus</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Mies</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Yleiset</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integrointi</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Turvallisuus</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Tilastot</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Rakenna asiakastietorekisterisi</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Hallinnoi asiakkaita, seuraa myyntiä ja huolehdi laskutuksesta</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Työskentele netissä erilaisten asiakirjojen avulla, kuten esim. .docx, .xlsx ja .pptx</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Selaile ja muokkaa asiakaskirjoja suoraan portaalissa</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Selaile tiimisi jäseniä</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Lisää käyttäjiä sähköpostitse tai tuo heitä muista palveluista</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Osallistu projekteihin</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Hallitse tehtäviä ja niiden edistymistä Gantt-kaavioilla</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Tässä on muutamia vaiheita aloitukseen:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Tervetuloa ONLYOFFICE-palveluun, {0}</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Merkitse kaikki katsotuiksi</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Ole hyvä ja vahvista liittymisesi sivuston käyttäjäksi</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Sähköpostin aktivointiohjeet on lähetetty {0} sähköpostiosoitteeseen</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Sähköpostin muutosohjeet on lähetetty {0} sähköpostiosoitteeseen</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Sähköpostisi aktivoitiin onnistuneesti</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Lähetä kutsuohjeet {0} sähköpostiosoitteeseen</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Lähetä sähköpostin aktivointiohjeet {0} sähköpostiosoitteeseen</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Lähetä sähköpostin muuttamisohjeet {0} sähköpostiosoitteeseen</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Lähetä salasanan muuttamiseen tarvittavat ohjeet sähköpostiosoitteeseen {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Kirjoita sähköpostiosoite, jota käytit rekisteröitymiseen sivustolle. Salasanan palautusohjeet lähetetään tähän osoitteeseen.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ on nettitoimisto, mikä antaa sinulle mahdollisuuden hallinnoida asiakirjoja, projekteja, tiimin jäseniä ja asiakkuuksia, kaikki yhdessä paikassa.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>Asiakirja editori, Projektinhallinnan työkalu, Liiketoiminnan työkalut, Asiakkuudenhallinnan järjestelmä, Gantt kasvio, Yhteistyö verkossa, Pilvitoimisto, Nettitoimisto, Tekstinkäsittely internetissä, Asiakirjojen hallinta, Taulukkolaskenta internetissä, Yhteismuokkaus, Online toimistosovellus, Online asiakirjat</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Palvelimien siirto</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>{0}Sivuston palvelimen siirto{1} ei ole käytettävissä kokeilujaksolla eikä maksuttomille sivustoille.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>{0}Portaalin alueen migraation{1} ominaisuus on saatavilla vain portaalin omistajille.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Uusi matkapuhelinnumero</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Ensisijainen matkapuhelinnumero</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Muuta puhelinnumeroa</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Ohje matkapuhelinnumeron muuttamiseksi on lähetetty sähköpostiisi</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Puhelinnumeron vaihtamiseksi, käytä tekstiviesti koodia, mikä on lähetetty uuteen numeroosi.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Lähetetty</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Muuta matkapuhelinnumeroa</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Käyttäjän puhelinnumero poistetaan ja hänelle lähetetään sähköpostitse ohjeet matkapuhelinnumeron muuttamiseksi.</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Numeron vaihtamiseksi, sinun tulee poistaa nykyinen puhelinnumerosi</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Valvotaan</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Lisää toimintoja</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Profiilini</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Malli</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Organisaatiomalli</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Älä näytä enää</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Uusi portaalin nimi</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>Et ole vielä lisännyt mitään verkkotunnusta. Seuraa {0}linkkiä{1}, jotta voit lisätä ensimmäisen verkkotunnuksen.</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Ei hukattuja puheluita</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Muita operaattoreita ei ole saatavilla, ole hyvä ja vastaa.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Roolit käyttäjille, jotka ovat lisätty Vieraina voidaan muuttaa myöhemmin {0}Käyttäjät{1} moduulissa.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Niitä ei sisällytetä kokonaiskäyttäjien määrään portaalin hinnoittelussa.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>Jos et löydä omaa kieltäsi tuettujen kielten listalta, voit ottaa meihin yhteyttä osoitteessa {0}documentation@onlyoffice.com{1} osallistuaksesi käännöstyöhön ja saadaksesi jopa yhden vuoden ilmaisen tilausjakson.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Ilmoitustapa:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>Sähköposti &amp; Chat</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Ilmoita käyttäjille siirrosta</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Ei käytössä</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>tai</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Omistaja</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Muuta salasana</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Salasanan muuttaminen</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Salasanan vähimmäispituus</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Salasanan palauttaminen</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>merkkiä</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Sisällettävä numeroita</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Sisällettävä erikoismerkkejä</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Sisällettävä isoja kirjaimia</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Luo uusi salasana</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Maksu tarvitaan</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Maksuhistoria</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>Odottaa</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Käyttäjät</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Ole hyvä ja odota...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Portti</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Julkinen sivusto</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Yksityinen portaali</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Tilarajoitus ylitetty ({0} Mt levytilaa)</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Portaaliin pääsyn asetukset</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Käyttäjäraja ylitetty ({0} aktiivista käyttäjää)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Sivuston nimi</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Sivuston omistaja</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Portaalin uudelleennimeäminen</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Portaalin käyttöoikeus</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Hinnoittelusivu on saatavilla vain pääkäyttäjille</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Hinnoittelusivun Asetukset{1} antaa mahdollisuuden portaalin pääkäyttäjän näyttää tai poistaa näkyvistä hinnoittelusivun näkyvyyden kaikille käyttäjille siten että pääkäyttäjät vain näkevät sen.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Hinnoittelusivun asetukset</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Moduulit ja työkalut</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Valitse tarvitsemasi ONLYOFFICE™ moduulit ja työkalut. Käytöstä poistetut moduulit ja työkalut piilotetaan kaikilta sivustosi käyttäjiltä. Käyttöön otetut moduulit ja työkalut näkyvät kaikille sivuston käyttäjille. Voit rajoittaa käyttöoikeuksia 'Asetukset' osion 'Käyttöoikeudet' sivulla.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Työkalut</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Moduulit</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profiili</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profiili on poistettu</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Julkaise</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Aktivoi uudelleen</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Tilisi on otettu onnistuneesti käyttöön.{0} Sinut ohjataan 10 sekunnissa {1}tänne{2}</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Uudelleenohjaa</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Rekisteröintipäivä</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Rekisteröi uusia käyttäjiä välittömästi</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Rekisteröintisähköpostisi</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Sisäänkirjautuminen</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Hylkää</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Muista</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Kutsu lähetetään annettuun sähköpostiosoitteeseen</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Lähetä uudelleen</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Haluatko lähettää kutsut uudelleen?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Lähetä kutsu uudelleen</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Varmuuskopiolista</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Jos poistat mitä tahansa nimikkeitä luettelosta, niiden vastaavat tiedostot poistetaan myös. Tätä toimintoa ei voida  peruuttaa. Kaikkien tiedostojen poistamiseksi käytä linkkiä: {0}
+Puhdista lista{1}.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Tietokoneen tiedosto</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Palauta oletusasetukset</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Käytä tätä, jos haluat palauttaa sivuston sisällön aiemmin tehdyltä varmuuskopiolta.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Ei varmuuskopioita. Luo yksi tai useampi varmuuskopio ja ne näkyvät tässä listassa.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Tietojen palautus{1} on käytössäsi, kun haluat palauttaa sivuston tiedot aiemmin tehdyltä varmuuskopiolta. Valitse varmuuskopion sijainti, syötä tarvittavat yksityiskohdat ja valitse {0}Lähetä ilmoitus sivuston käyttäjille{1} ilmoittaaksesi heille tietojen palauttamisesta.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Siinä vaiheessa kun palautuksen prosessi on ohi, sinut siirretään automaattisesti portaaliisi.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Portaalin palautus on käynnissä.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Lähetä ilmoitus sivuston käyttäjille</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Näytä varmuuskopiolista</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Tiedon Palautus</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Portaali ei ole saatavilla palautuksen aikana. Siinä vaiheessa kun palautus on valmis, kaikki tehdyt muutokset, jotka ovat tehty halutun palautuspisteen jälkeen, ovat menetettyjä.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Varmista, että kaikki sanat on kirjoitettu oikein. Kokeile eri avainsanoja.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Mitään ei löytynyt.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Etsinnän tulokset</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Näe kaikki</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Katso kaikki videot</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Lähetä</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Lähettäjän sähköpostiosoite</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Lähettäjän nimi</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Lähetä kutsu uudelleen</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Lähetä kutsu</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Klikkaa tästä liittyäksesi mukaan</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Haluatko tämän sivuston käyttäjäksi?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Kirjoita sähköpostiosoite johon kutsu lähetetään:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Lähetä testiviesti</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Palvelimen ohjelmisto kohtasi virheen käsiteltäessä pyyntöä. Odota hetki ja yritä uudelleen. Jos virhe toistuu, ota yhteyttä sivuston ylläpitäjään. Liekö osaa auttaa...</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Palvelinvirhe. Jokin on nyt rikki.</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Palvelimien sijainti</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Tämä on jo uusin versio</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Portaalin versio ei kelpaa</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Sukupuoli</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Aasia (Singapore)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Näytä kaikki</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Näytä kaikki tulokset</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Ota käyttöön/pois käytöstä työkaluvinkit</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Seuraava</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Rekisteröinti on mahdollista käyttäjille, joilla on sähköpostitili millä tahansa verkkotunnuksella. Rekisteröityäksesi anna sähköpostiosoitteesi ja klikkaa 'Lähetä kutsu'. ONLYOFFICE™-tilin aktivointiin tarvittava linkki lähetetään annettuun sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Kertakirjautuminen (SSO)</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Yllätys</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Pommi</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Hullu</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Cry</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Tanssi</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Juo</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Vihainen</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Silmänisku</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Vihreä</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywood-hymy</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Surullinen</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Musiikki</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Hymy</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Virne</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Anteeksi</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>SOS</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Suojalasit</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Kieli</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Hurraa</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Kaksivaiheinen tunnistus{1} on turvallisempi tapa varmistaa, että vain sallitut käyttäjät voivat kirjautua sivustolle: Käyttäjätunnuksen ja salasanan syöttämisen jälkeen käyttäjän on vielä annettava tekstiviestissä saamansa kertakäyttöinen koodi päästäkseen sivustolle.{2} Valitse tämä vaihtoehto, jos tarvitset turvallisemman kirjautumisen sivustollesi.{2} Ottaaksesi valinnan käyttöön napsuta {0}Tallenna{1} painiketta.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Virheellinen koodi</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Koodi, jolla voit kirjautua sivustolle: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Koodin käyttöaika on erääntynyt. Ole hyvä ja pyydä uusi tekstiviesti.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Kaksivaiheinen tunnistus</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>SMS asetukset eivät ole saatavilla</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Olet lähettänyt liian monta tekstiviestiä. Yritä myöhemmin uudelleen.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Kustomoidut asetukset</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Sähköpostipalvelimen asetukset</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP-asetukset</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Jos käytät Gmailin SMTP palvelinta, et voi lähettää sähköpostia ennen kuin teet seuraavaa: kirjaudu selaimellasi Gmailiin ja vastaa mahdollisiin kysymyksiin joilla sallit ONLYOFFICE™in käyttää tiliäsi. {0}Suosittelemme porttien 587 ja 25 käyttämistä lähteville sähköposteille.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>SMTP asetuksia tarvitaan, jotta voit perustaa sähköpostin viestien lähettämiseen portaalista käyttämällä omaa SMTP palvelintasi, sen sijaan mitä ONLYOFFICE™ käyttää. Ole hyvä ja täytä kaikki kentät ja klikkaa Tallenna painiketta. Voit käyttää Lähetä testiviesti painiketta jotta voit tarkistaa että kaikki syöttämäsi asetukset ovat oikein ja toimivat kuten pitää.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Sosiaaliset profiilit</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Lähde</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Käyttäjää ei voitu luoda tällä tunnistautumistunnisteella</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Ei voitu tallentaa asetuksia</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Kertakirjautuminen on poistettu käytöstä</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Kirjautumistunnistetta ei löytynyt</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Tunniste ei kelpaa</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Tämä käyttäjä ei ole aktivoitu</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Tilastot</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Luotetut sähköpostiverkkotunnukset</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Salasanan vahvuus</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Kieli ja aikavyöhyke</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Sivuston versio</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Tilaa</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Tapahtumat ja tiedotteet sivuston omistajalle ja järjestelmänvalvojalle</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Sivuston päivittäinen uutiskirje</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Projektin nimi</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>kaikista</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Ilmoitustapa</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Tilaukset</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Portaali on nimetty uudelleen onnistuneesti</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Tervehdysasetukset on tallennettu onnistuneesti</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Asetukset on päivitetty onnistuneesti</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Profiilin poistoon liittyviä ohjeita on lähetetty sähköpostiosoitteeseesi</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Kutsut on onnistuneesti lähetetty uudelleen</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Lähetä sähköposti</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Ota yhteyttä saadaksesi tietää erikoistarjouksistamme</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Vähennä tarvittavaa arvoa tai valitse uusi hintavaihtoehto.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Osta</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Jatka tilausta</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Voit jatkaa nykyistä tilaustasi tai valita uuden hintavaihtoehdon allaolevasta taulukosta.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Valitse vaihtoehto, joka sopii parhaiten tarpeisiisi. Suositeltu vaihtoehto on esivalittu valmiiksi.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Tämä hintavaihtoehto ei ole käytettävissä</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Sivuston käytettävissä oleva levytila: {0}. Levytilaa käytetty: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Sivuston käyttäjien enimmäismäärä: {0}. Nykyinen käyttäjämäärä: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Et voi valita tätä hintavaihtoehtoa. Nykyinen levytilasi tai käyttäjämääräsi ylittää valitsemasi hintavaihtoehdon rajat:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Automaattinen uudelleentilaus on aktivoitu</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Levytilasi on kohta täyttymässä: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Voit poistaa tarpeettomia asiakirjoja sivustoltasi tai {0}klikata tästä{1} löytääksesi paremman hintavaihtoehdon sivustollesi.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Se loppuu {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Käytät ilmaista versiota.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Klikkaa tätä{1} ja voit ladata lisenssitiedoston portaaliisi.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Tilauksesi on erääntynyt.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>ONLYOFFICE™ portaalisi epäaktivoidaan pian {2}. Ole hyvä ja {0}klikkaa tätä{1} jotta voit jatkaa olemassaolevaa palvelua tai muuta se sopivaan.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Luomasi portaalien määrä: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Hintavaihtoehto ei ole käytettävissä ennen maksetun vuoden päättymistä.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Jatkaaksesi tilausta automaattisesti varmista, että olet valinnut toistuvan maksun Avangate-tililläsi.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Kirjaudu Avangate-tilillesi peruuttaaksesi toistuvan maksun.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Tarjous on voimassa {0} asti.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Hintavaihtoehdot</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Maksut</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Sivuston aktiivinen käyttäjämäärä: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Levytilaa käytetty: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Käytät ilmaista kokeilujaksoa.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Kiitos, kun olet kokeillut ONLYOFFICE™ palvelua!{2}{0}Ilmainen koekäyttöjaksosi on nyt päättynyt.{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Luotu</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Käytetty tallennustila</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Käyttäjiä yhteensä</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Kolmannen osapuolen valtuutus</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Aikavyöhyke</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Matkapuhelin</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Puhelinnumero</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Top 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Löytyi yhteensä</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>asti</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Muuta palvelimien sijaintia</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Olet aloittamassa sivustosi siirron toiselle palvelimelle. Sivusto ei ole käytettävissä siirron aikana. Siirron valmistuttua saat siitä tiedon sähköpostiisi.{1}{0}Haluatko varmasti jatkaa?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>Siinä vaiheessa kun migraatioprosessi on valmis, siirryt automaattisesti portaalisi uuteen verkko-osoitteeseen.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Portaalin migraatio{0} toiseen alueeseen on käynnissä.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Palvelimien sijainti</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Muutetaan palvelimien sijaintia</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Sivusto ei ole käytettävissä siirron aikana. Siirron valmistuttua sivuston osoite on muuttunut ja aiemmin jaettujen asiakirjojen linkit eivät enää toimi.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Kokeilujakso: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Kokeilujakso on päättynyt</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Klikkaa tästä{1} valitaksesi sopivimman hinnoittelumallin sivustollesi.</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Käytössä</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Rekisteröinti on mahdollista käyttäjille, joilla on sähköpostitili osoitteissa {0}. Rekisteröityäksesi anna sähköpostiosoitteesi ja klikkaa 'Lähetä kutsu'. Tilin aktivointiin tarvittava linkki lähetetään annettuun sähköpostiosoitteeseen.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Tuntematon virhe. Ihan outo. Toiselta planeetalta.</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Peru tilaukset</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Päivitä hintavaihtoehto</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Käyttäjä</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Käyttäjäfoorumi</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Käyttäjät</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Työ/titteli</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Tyyppi</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>US (Oregon)</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Ohjevideot</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Näytä video, jota ei ole nähty</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Näytä hinnasto</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>osumia</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>isännät</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Käyttökaavio</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Vierailut</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Palvelu ei ole juuri nyt käytettävissä. Yritä myöhemmin uudelleen.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varoitus!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Kiitos, että valitsitte ONLYOFFICE™in! Tietoturvan vuoksi salasanan asennus on suoritettava.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Tervetuloa ONLYOFFICE™-sivustollesi</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Uutta</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Oma brändäys</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Kieli ja aikavyöhyke</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Sivuston asennus - Käy läpi nämä helpot kohdat aloittaaksesi</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Rekisteröinnin asetukset</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Päätit liittyä tähän sivustoon.</value>
+  </data>
+</root>

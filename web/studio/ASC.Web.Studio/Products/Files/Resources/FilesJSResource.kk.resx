@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Түсініктеме</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Нысандарды толтыру</value>
+  </data>
+  <data name="AceStatusEnum_Owner" xml:space="preserve">
+    <value>Иесі</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Тек оқу</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Толық қол жетімділік</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Кіруге тыйым салу</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Сараптама</value>
+  </data>
+  <data name="AceStatusEnum_Varies" xml:space="preserve">
+    <value>Айырмашылықтар</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Мұрағаттар</value>
+  </data>
+  <data name="ButtonFilterAuthor" xml:space="preserve">
+    <value>автор</value>
+  </data>
+  <data name="ButtonFilterCurrentFolderOnly" xml:space="preserve">
+    <value>Ішкі қалталар жоқ</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>құжаттар</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Барлық файлдар</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Қалталар</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Суреттер</value>
+  </data>
+  <data name="ButtonFilterInContent" xml:space="preserve">
+    <value>Мазмұны бойынша</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Мультимедиа</value>
+  </data>
+  <data name="ButtonFilterOther" xml:space="preserve">
+    <value>Іздеу</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Презентациялар</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Кестелер</value>
+  </data>
+  <data name="ButtonFilterType" xml:space="preserve">
+    <value>Түрі</value>
+  </data>
+  <data name="ButtonShowMore" xml:space="preserve">
+    <value>Тағы көрсету {0}</value>
+  </data>
+  <data name="ButtonShowMoreLoad" xml:space="preserve">
+    <value>Жүктелуде ...</value>
+  </data>
+  <data name="ButtonShowMoreOf" xml:space="preserve">
+    <value>Тағы көрсету {0}-ден {1}</value>
+  </data>
+  <data name="ButtonSortAuthor" xml:space="preserve">
+    <value>автор</value>
+  </data>
+  <data name="ButtonSortCreated" xml:space="preserve">
+    <value>Құрылған күні</value>
+  </data>
+  <data name="ButtonSortModifiedNew" xml:space="preserve">
+    <value>Өзгерту күні</value>
+  </data>
+  <data name="ButtonSortName" xml:space="preserve">
+    <value>Атау</value>
+  </data>
+  <data name="ButtonSortSize" xml:space="preserve">
+    <value>Мөлшері</value>
+  </data>
+  <data name="ButtonSortType" xml:space="preserve">
+    <value>Түрі</value>
+  </data>
+  <data name="CodeCopySuccess" xml:space="preserve">
+    <value>Код алмасу буферіне көшірілді</value>
+  </data>
+  <data name="ConfirmDeleteThirdParty" xml:space="preserve">
+    <value>'Құжаттар' модулінен {0} жою керек пе? Бұл сіздің {1} шотына әсер етпейді.</value>
+  </data>
+  <data name="ConfirmEmptyTrash" xml:space="preserve">
+    <value>Себетті босатқыңыз келе ме?</value>
+  </data>
+  <data name="ConfirmLeavePage" xml:space="preserve">
+    <value>Сіз осы беттен шығыңыз келе ме? Файлды жүктеу үзіледі.</value>
+  </data>
+  <data name="ConfirmRemoveFile" xml:space="preserve">
+    <value>Сіз бұл файлды жойғыңыз келе ме? Егер сіз біреуге кіруге рұқсат берсеңіз, ол қол жетімсіз болатынына назар аударыңыз. Жалғастырғыңыз келе ме?</value>
+  </data>
+  <data name="ConfirmRemoveFolder" xml:space="preserve">
+    <value>Сіз бұл қалтаны жойғыңыз келе ме? Егер сіз біреуге кіруге рұқсат берсеңіз, ол қол жетімсіз болатынына назар аударыңыз. Жалғастырғыңыз келе ме?</value>
+  </data>
+  <data name="ConfirmRemoveList" xml:space="preserve">
+    <value>Осы элементтерді жойғыңыз келе ме? Егер сіз біреуге осы файлдарға / қалталарға кіруге рұқсат берсеңіз, олар қол жетімсіз болатынына назар аударыңыз. Жалғастырғыңыз келе ме?</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>Сіз элементтерді {1} каталогынан жылжытпақсыз. Бұл жағдайда, олар {1} есептік жазбаңыздан жойылады және басқа элементтерге, егер бұл элементтерге бұрын қол жеткізілсе, қол жетімді болмайды. {0} элементтерді жылжытқыңыз келе ме?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Жалпы құжаттар</value>
+  </data>
+  <data name="CustomFormat" xml:space="preserve">
+    <value>Пайдаланушының форматы</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>топтар</value>
+  </data>
+  <data name="DescriptBulkdownload" xml:space="preserve">
+    <value>Деректерді мұрағаттау</value>
+  </data>
+  <data name="DescriptChangeInfo" xml:space="preserve">
+    <value>Деректерді өзгерту</value>
+  </data>
+  <data name="DescriptCompleteVersion" xml:space="preserve">
+    <value>Нұсқаны қалыптастыру</value>
+  </data>
+  <data name="DescriptCopy" xml:space="preserve">
+    <value>көшірме</value>
+  </data>
+  <data name="DescriptCreate" xml:space="preserve">
+    <value>Жасалу</value>
+  </data>
+  <data name="DescriptDocuSign" xml:space="preserve">
+    <value>DocuSign көмегімен қол қою</value>
+  </data>
+  <data name="DescriptLoadVersion" xml:space="preserve">
+    <value>Нұсқалар жүктелуде ...</value>
+  </data>
+  <data name="DescriptMarkAsRead" xml:space="preserve">
+    <value>Оқылған деп белгіленеді</value>
+  </data>
+  <data name="DescriptMove" xml:space="preserve">
+    <value>Көшу</value>
+  </data>
+  <data name="DescriptRemove" xml:space="preserve">
+    <value>Алып тастау...</value>
+  </data>
+  <data name="DescriptRename" xml:space="preserve">
+    <value>Атын өзгерту</value>
+  </data>
+  <data name="DescriptSetVersion" xml:space="preserve">
+    <value>Нұсқаны жаңарту</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>құжаттар</value>
+  </data>
+  <data name="DocuSignDialogHeader" xml:space="preserve">
+    <value>Құжатқа қол қою ({0})</value>
+  </data>
+  <data name="EmptyListSelectedForDownload" xml:space="preserve">
+    <value>Жүктеу үшін кем дегенде бір қалта / құжатты таңдаңыз</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Пікір қалдыру</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Қалтаны немесе бос файлды жүктеу мүмкін емес</value>
+  </data>
+  <data name="ErrorMassage_ErrorConvert" xml:space="preserve">
+    <value>Айырбастау қатесі</value>
+  </data>
+  <data name="ErrorMassage_FieldsIsEmpty" xml:space="preserve">
+    <value>Барлық жолдар толтыру үшін міндетті</value>
+  </data>
+  <data name="ErrorMassage_FileSize" xml:space="preserve">
+    <value>Файлдың ең үлкен мөлшерінен асып кетті</value>
+  </data>
+  <data name="ErrorMassage_MustLogin" xml:space="preserve">
+    <value>Қосу үшін, сіз жүйеге кіруіңіз керек</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Кешіріңіз, бұл файл пішімі қолданылмайды.</value>
+  </data>
+  <data name="ErrorMassage_PasswordFile" xml:space="preserve">
+    <value>Сіз енгізген пароль дұрыс емес. Тағы да қайталап көріңіз.</value>
+  </data>
+  <data name="ErrorMassage_SecondDownload" xml:space="preserve">
+    <value>Алдыңғы жүктеу аяқталғанша күтіңіз немесе оны болдырмаңыз</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Операцияны аяқтау үшін құқығыңыз жеткіліксіз</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_PrivateRoot" xml:space="preserve">
+    <value>Бұл әрекетті осы қаплтада орындауға болмайды</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>Атауы келесі таңбаларды қамтымауы тиіс: {0}</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>Порталда бос орын жеткіліксіз. {0} өлшемінен үлкен файлдарды жүктеу мүмкін емес.</value>
+  </data>
+  <data name="FileAlreadyExist" xml:space="preserve">
+    <value>{0} аты бар Файл {1} қалтасында бар.</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Айырбасталды</value>
+  </data>
+  <data name="FileConverting" xml:space="preserve">
+    <value>Айырбастау</value>
+  </data>
+  <data name="FilesAlreadyExist" xml:space="preserve">
+    <value>{0} бірдей атаумен құжаттар '{1}' папкасында бұрыннан бар. Файлдарды қайта жазасыз ба?</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Жүктелген</value>
+  </data>
+  <data name="FileUploading" xml:space="preserve">
+    <value>Жүктелуде</value>
+  </data>
+  <data name="FolderTitleBoxNet" xml:space="preserve">
+    <value>Box Каталогы</value>
+  </data>
+  <data name="FolderTitleDocuSign" xml:space="preserve">
+    <value>Аккаунт DocuSign</value>
+  </data>
+  <data name="FolderTitleDropBox" xml:space="preserve">
+    <value>Dropbox Каталогы </value>
+  </data>
+  <data name="FolderTitleGoogle" xml:space="preserve">
+    <value>Google Каталогы </value>
+  </data>
+  <data name="FolderTitleSharePoint" xml:space="preserve">
+    <value>SharePoint Каталогы </value>
+  </data>
+  <data name="FolderTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive Каталогы </value>
+  </data>
+  <data name="FolderTitleWebDav" xml:space="preserve">
+    <value>WebDAV Каталогы</value>
+  </data>
+  <data name="FolderTitleYandex" xml:space="preserve">
+    <value>Яндекса Каталогы</value>
+  </data>
+  <data name="InfoChangeOwner" xml:space="preserve">
+    <value>Енді'{0}' '{1}' иесі болып табылады</value>
+  </data>
+  <data name="InfoChangeOwnerArray" xml:space="preserve">
+    <value>'{0}' енді {1} элементтердің иесі болып табылады</value>
+  </data>
+  <data name="InfoChangeThirdParty" xml:space="preserve">
+    <value>'{0}' өзгертілді</value>
+  </data>
+  <data name="InfoCopyDescribe" xml:space="preserve">
+    <value>Көшіру {1} ​​{0} {2}</value>
+  </data>
+  <data name="InfoCopyGroup" xml:space="preserve">
+    <value>Көшірілген элементтер: {0}</value>
+  </data>
+  <data name="InfoCopyItem" xml:space="preserve">
+    <value>'{0}' элементі көшірілді</value>
+  </data>
+  <data name="InfoCountDescribe" xml:space="preserve">
+    <value>{0} элемент</value>
+  </data>
+  <data name="InfoCrateFile" xml:space="preserve">
+    <value>'{0}' жаңа файлы жасалды</value>
+  </data>
+  <data name="InfoCrateFileIn" xml:space="preserve">
+    <value>'{0}' жаңа файл '{1}' ішінде жасалды</value>
+  </data>
+  <data name="InfoCrateFolder" xml:space="preserve">
+    <value>'{0}' жаңа қалта жасалды</value>
+  </data>
+  <data name="InfoFolderCopyError" xml:space="preserve">
+    <value>Қалтаны өз қалтасына көшіруге болмайды</value>
+  </data>
+  <data name="InfoFolderMoveError" xml:space="preserve">
+    <value>Қалтаны еншілес қалтаға ауыстыруға болмайды</value>
+  </data>
+  <data name="InfoMoveAccessError" xml:space="preserve">
+    <value>Файлды (файлдарды) жылжыту үшін рұқсатыңыз жоқ</value>
+  </data>
+  <data name="InfoMoveDescribe" xml:space="preserve">
+    <value>{1} {0} {2} жылжыту</value>
+  </data>
+  <data name="InfoMoveGroup" xml:space="preserve">
+    <value>Элементтер жылжытылды: {0}</value>
+  </data>
+  <data name="InfoMoveItem" xml:space="preserve">
+    <value>'{0}' элементі жылжытылды</value>
+  </data>
+  <data name="InfoRemoveFile" xml:space="preserve">
+    <value>'{0}' құжаты жойылды</value>
+  </data>
+  <data name="InfoRemoveFolder" xml:space="preserve">
+    <value>'{0}' қалтасы жойылды</value>
+  </data>
+  <data name="InfoRemoveGroup" xml:space="preserve">
+    <value>{1} ішінен {0} сәтті жойылды</value>
+  </data>
+  <data name="InfoRemoveThirdParty" xml:space="preserve">
+    <value>Үшінші тарап ресурсы '{0}' өшірілген</value>
+  </data>
+  <data name="InfoRenameFile" xml:space="preserve">
+    <value>'{0}' құжаты '{1}'деп өзгертілді</value>
+  </data>
+  <data name="InfoRenameFolder" xml:space="preserve">
+    <value>'{0}' қалтасы '{1}' болып өзгертілді</value>
+  </data>
+  <data name="InfoSaveThirdParty" xml:space="preserve">
+    <value>'{0}' '{1}' тізіміне қосылды</value>
+  </data>
+  <data name="InfoUploadedSuccess" xml:space="preserve">
+    <value>Жүктелген құжаттар: {0}</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Менің құжаттарым</value>
+  </data>
+  <data name="OriginalFormat" xml:space="preserve">
+    <value>Бастапқы формат</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Басқа</value>
+  </data>
+  <data name="Presentations" xml:space="preserve">
+    <value>Презентациялар</value>
+  </data>
+  <data name="PreviewError" xml:space="preserve">
+    <value>Көрсету үшін {0} файлын жүктеу сәтсіз аяқталды</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Жобалар құжаттары</value>
+  </data>
+  <data name="RevisionCount" xml:space="preserve">
+    <value>түзетулер: {0}</value>
+  </data>
+  <data name="shareLinkMailBody" xml:space="preserve">
+    <value>Сізге {0} құжатына кіру рұқсаты берілген. Құжатты қазір ашу үшін төмендегі сілтемені нұқыңыз: {1}</value>
+  </data>
+  <data name="shareLinkMailSubject" xml:space="preserve">
+    <value>Сізге {0} құжатына кіру рұқсаты берілген</value>
+  </data>
+  <data name="SharingSettingsCount" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>Пайдаланушыларды немесе топтарды қосып, оларға құжаттарды оқу, рецензиялау немесе редакциялау құқықтарын беріңіз.</value>
+  </data>
+  <data name="Spreedsheets" xml:space="preserve">
+    <value>Кестелер</value>
+  </data>
+  <data name="TasksOperationBulkdownload" xml:space="preserve">
+    <value>Деректерді мұрағаттау</value>
+  </data>
+  <data name="TasksOperationCopy" xml:space="preserve">
+    <value>Көшіру</value>
+  </data>
+  <data name="TasksOperationDelete" xml:space="preserve">
+    <value>Жою</value>
+  </data>
+  <data name="TasksOperationMarkAsRead" xml:space="preserve">
+    <value>Оқылған деп белгіленеді</value>
+  </data>
+  <data name="TasksOperationMixed" xml:space="preserve">
+    <value>{0} операциялар</value>
+  </data>
+  <data name="TasksOperationMove" xml:space="preserve">
+    <value>Көшу</value>
+  </data>
+  <data name="ThirdPartyEditorCaption" xml:space="preserve">
+    <value>Байланыс параметрлерін өзгерту {0}</value>
+  </data>
+  <data name="TitleCancel" xml:space="preserve">
+    <value>болдырмау</value>
+  </data>
+  <data name="TitleCreate" xml:space="preserve">
+    <value>Сақтау</value>
+  </data>
+  <data name="TitleEditingFile" xml:space="preserve">
+    <value>Қазіргі уақытта өңделуде</value>
+  </data>
+  <data name="TitleEditingFileBy" xml:space="preserve">
+    <value>Пайдаланушымен өңделуде: {0}</value>
+  </data>
+  <data name="TitleLockedFile" xml:space="preserve">
+    <value>Бұғатталған</value>
+  </data>
+  <data name="TitleLockedFileBy" xml:space="preserve">
+    <value>Пайдаланушымен бұғатталған: {0}</value>
+  </data>
+  <data name="TitleMoreFeaturs" xml:space="preserve">
+    <value>Қосымша мүмкіндіктер</value>
+  </data>
+  <data name="TitleNewFilePresentation" xml:space="preserve">
+    <value>Жаңа презентация</value>
+  </data>
+  <data name="TitleNewFileSpreadsheet" xml:space="preserve">
+    <value>Жаңа кесте</value>
+  </data>
+  <data name="TitleNewFileText" xml:space="preserve">
+    <value>Жаңа құжат</value>
+  </data>
+  <data name="TitleNewFolder" xml:space="preserve">
+    <value>Жаңа папка</value>
+  </data>
+  <data name="TitleSettingsCommon" xml:space="preserve">
+    <value>Жалпы параметрлер</value>
+  </data>
+  <data name="TitleSettingsHelp" xml:space="preserve">
+    <value>Көмектесіңіз</value>
+  </data>
+  <data name="TitleSettingsThirdParty" xml:space="preserve">
+    <value>Аккаунттарды қосу</value>
+  </data>
+  <data name="TypeTitleBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="TypeTitleDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="TypeTitleDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="TypeTitleGoogle" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="TypeTitleSharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="TypeTitleSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="TypeTitleWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="TypeTitleYandex" xml:space="preserve">
+    <value>Яндекс.Диск</value>
+  </data>
+  <data name="UnknownErrorText" xml:space="preserve">
+    <value>Белгісіз қате ...</value>
+  </data>
+  <data name="UploadComplete" xml:space="preserve">
+    <value>Жүктеу аяқталды</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Жүктелуде ...</value>
+  </data>
+  <data name="UploadingProgress" xml:space="preserve">
+    <value>{0} файлды жүктеу ({1}% аяқталды)</value>
+  </data>
+  <data name="UsedSize" xml:space="preserve">
+    <value>{0} {1} пайдаланылды</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пайдаланушылар</value>
+  </data>
+</root>

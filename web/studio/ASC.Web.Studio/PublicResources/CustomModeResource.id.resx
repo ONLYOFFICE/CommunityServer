@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllRightsReservedCustomMode" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. All rights reserved.</value>
+  </data>
+  <data name="AuthDocsMetaDescriptionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Personal adalah layanan kantor online gratis yang kompatibel dengan format Microsoft(R). Layanan ini adalah sebuah alternatif untuk MS Office, di mana Anda dapat mengedit dokumen word, spreadsheet dan presentasi secara online dan gratis.</value>
+  </data>
+  <data name="AuthDocsMetaKeywordsCustomMode" xml:space="preserve">
+    <value>sunting word online, word editor online, word online gratis, word office online</value>
+  </data>
+  <data name="AuthDocsOrCustomMode" xml:space="preserve">
+    <value>Atau masuk dengan</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfoCustomMode" xml:space="preserve">
+    <value>Mulai mengetik alamat email atau nama kontak dari pribadi Anda, kontak CRM atau
+pengguna portal atau menggunakan email untuk mengundang pengguna lain ke event Anda.</value>
+  </data>
+  <data name="CheckEmailCustomMode" xml:space="preserve">
+    <value>Cek surel Anda untuk konfirmasi akun</value>
+  </data>
+  <data name="CollaborativeEditingTextCustomMode" xml:space="preserve">
+    <value>Menyunting dan meninjau bersama dengan leluasa</value>
+  </data>
+  <data name="CollaborativeWorkCustomMode" xml:space="preserve">
+    <value>Kolaborasi Dokumen</value>
+  </data>
+  <data name="CompatibleTextCustomMode" xml:space="preserve">
+    <value>100% cocok dengan format MS Office</value>
+  </data>
+  <data name="ConnectionInstructionsCustomMode" xml:space="preserve">
+    <value>Petunjuk Koneksi</value>
+  </data>
+  <data name="CreateAccountCustomMode" xml:space="preserve">
+    <value>Membuat akun baru</value>
+  </data>
+  <data name="CreateOfficeCustomMode" xml:space="preserve">
+    <value>Membuat cloud</value>
+  </data>
+  <data name="DiscussionDocumentCustomMode" xml:space="preserve">
+    <value>Diskusi Dokumen</value>
+  </data>
+  <data name="DocumentEditorCustomMode" xml:space="preserve">
+    <value>Editor Dokumen ONLYOFFICE</value>
+  </data>
+  <data name="DocumentEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Mempermudah buat dan sunting dokumen teks dengan format tingkat kompleksitas apa pun.</value>
+  </data>
+  <data name="EmailCustomMode" xml:space="preserve">
+    <value>Surel</value>
+  </data>
+  <data name="EmailHintCustomMode" xml:space="preserve">
+    <value>Masukkan alamat email Anda</value>
+  </data>
+  <data name="EnterViaSocialCustomMode" xml:space="preserve">
+    <value>Atau masuk dengan</value>
+  </data>
+  <data name="ForgotPswdCustomMode" xml:space="preserve">
+    <value>Lupa kata sandi?</value>
+  </data>
+  <data name="HelpAnswerPortalRenameCustomMode" xml:space="preserve">
+    <value>Di sini Anda dapat mengubah alamat portal Anda. Masukkan bagian yang akan muncul di sebelah alamat portal onlyoffice.com/onlyoffice.eu.{0}
+{1}Harap dicatat{2}: Alamat portal lama Anda akan tersedia untuk pengguna ONLYOFFICE baru setelah Anda mengklik tombol{1}Save{2}.</value>
+  </data>
+  <data name="LicenseActivateDescrCustomMode" xml:space="preserve">
+    <value>Untuk mengaktifkan ONLYOFFICE Enterprise Anda perlu membeli lisensi.</value>
+  </data>
+  <data name="LicenseModulesListCustomMode" xml:space="preserve">
+    <value>{0}Editor Dokumen Online{1}{0}Manajemen Dokumen{1}{0}Mail{1}​​{0}Proyek{1}{0}CRM{1}{0}Kalender{1}{0}Komunitas{1}</value>
+  </data>
+  <data name="LoginAccountCustomMode" xml:space="preserve">
+    <value>Akun Masuk</value>
+  </data>
+  <data name="LoginAccountDesktopCustomMode" xml:space="preserve">
+    <value>Hubungkan ke cloud</value>
+  </data>
+  <data name="LoginCustomMode" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="NearAtHandCustomMode" xml:space="preserve">
+    <value>Kemudahan akses ONLYOFFICE</value>
+  </data>
+  <data name="NotRegisteredCustomMode" xml:space="preserve">
+    <value>Belum terdaftar?</value>
+  </data>
+  <data name="OfficeDesktopCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE desktop</value>
+  </data>
+  <data name="OfficeDesktopDescriptionCustomMode" xml:space="preserve">
+    <value>Hubungkan ONLYOFFICE Anda ke cloud untuk mengerjakan dokumen bersama tanpa meninggalkan aplikasi.</value>
+  </data>
+  <data name="OfficeOnlineCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE online</value>
+  </data>
+  <data name="OnlineVersionCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE versi online</value>
+  </data>
+  <data name="PasswordCustomMode" xml:space="preserve">
+    <value>Kata Sandi</value>
+  </data>
+  <data name="pattern_enterprise_whitelabel_user_welcome_custom_mode" xml:space="preserve">
+    <value>Dear $UserName,
+
+Profil pengguna Anda telah berhasil ditambahkan ke portal di "${__VirtualRootPath}":"${__VirtualRootPath}". Mulailah menggunakan hari ini!
+
+h3.Mulai bekerja dengan Dokumen:
+
+# Buat dan sunting dokumen teks, spreadsheet, dan presentasi.
+# Hubungkan penyimpanan cloud yang Anda gunakan untuk membuat ruang kerja tunggal untuk semua dokumen Anda.
+# Bagikan dokumen dengan anggota tim Anda.
+# Jelajahi berbagai cara bekerja bersama dalam dokumen: dua mode penyuntingan bersama-sama dalam waktu nyata, ulasan, komentar, obrolan.
+
+h3.Cobalah alat ${LetterLogoText} tambahan:
+
+# Tambahkan akun email Anda ke "${LetterLogoText}Mail":"${__VirtualRootPath}/addons/mail/".
+# Buat "Projetcs":"${__VirtualRootPath}/produk/proyek/" dan kelola alur kerja Anda dengan menambahkan tahap pekerjaan dan tugas.
+# Kelola hubungan pelanggan Anda menggunakan "CRM":"${__VirtualRootPath}/products/crm/".
+# Gunakan "Community":"$ {__ VirtualRootPath}/products/community/" untuk memulai blog, forum, tambahkan acara, bagikan bookmark.
+# Atur jadwal kerja Anda dengan "Calendar":"${__VirtualRootPath}/addons/calendar/".
+# Mulai "Talk":"${__VirtualRootPath}/addons/talk/" untuk mengobrol dengan rekan satu tim Anda secara online.
+
+$GreenButton
+
+Salam hangat,
+Tim ${LetterLogoText}</value>
+  </data>
+  <data name="pattern_personal_custom_mode_after_registration1" xml:space="preserve">
+    <value>h1.Selamat datang di ONLYOFFICE Personal
+
+Anda baru saja membuat kantor pribadi Anda.
+
+h3.Ini adalah ruang kerja virtual tempat Anda dapat menyunting dan menyimpan dokumen, bekerja dengan mereka dari mana saja yang menyediakan akses ke teman atau kolega Anda.
+
+ONLYOFFICE kompatibel dengan Microsoft Office™ dokumen format dan menjamin tidak ada kehilangan format atau kualitas objek yang dibuat. Aplikasi kami mudah dalam pengoperasiaanya dan toolset yang profesional untuk menyunting dokumen Anda.
+
+h3.Untuk permulaan, inilah yang dapat Anda lakukan di ONLYOFFICE:
+
+-Upload file dari komputer Anda atau membuat baru;
+
+-Bekerja dengan semua format file yang populer;
+
+-Menyunting autoshapes, bagan, tabel, persamaan dan objek lainnya;
+
+-Gunakan berbagai addons untuk menambah fitur editing;
+
+-Mudah mengakses portal pribadi Anda melalui  "Chrome extension":"https://chrome.google.com/webstore/detail/onlyoffice-personal/ohdlcmpahmacjddiaokoogleflddlahc?hl=en-US".
+
+Anda juga dapat mengedit dokumen offline dengan gratis kami  "desktop editors":"https://www.onlyoffice.com/download-desktop.aspx" or get a "mobile editing suite":"https://www.onlyoffice.com/mobile.aspx" untuk perangkat iOS atau Android Anda.
+
+Salam Hangat,
+Tim ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_custom_mode_change_password" xml:space="preserve">
+    <value>Ada permintaan untuk mengubah sandi yang digunakan untuk "$ {__VirtualRootPath} ":"$ {__VirtualRootPath}" portal.
+
+Silakan klik link di bawah ini untuk mengubah password Anda:
+
+$GreenButton
+
+* Catatan *: link ini hanya berlaku selama 7 hari. Silakan lengkapi proses perubahan password dalam jangka waktu tersebut.
+
+Jika Anda tidak ingin mengubah password Anda atau menerima email ini karena kesalahan, harap diabaikan.
+
+Dengan Hormat,
+Tim ONLYOFFICE</value>
+  </data>
+  <data name="pattern_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>Halo
+
+Anda baru saja mendaftarkan akun di ONLYOFFICE untuk penggunaan pribadi. Klik  "di sini":"$InviteLink" untuk mengkonfirmasi pendaftaran dan membuat password.
+
+Jika Anda tidak dapat membuka link, silahkan salin link berikut  "$InviteLink":"$InviteLink" dan tempel ke address bar browser Anda.
+
+Dengan Hormat,
+Tim ONLYOFFICE</value>
+  </data>
+  <data name="pattern_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>Dear $UserName,
+
+Proses menghapus data dari pengguna "$FromUserName":"$FromUserLink" telah berhasil diselesaikan.
+
+Penghapusan data pribadi diizinkan untuk gratis:
+
+# Dokumen - $DocsSpace
+# Mail - $MailSpace
+# Talk - $TalkSpace
+
+^Anda menerima email ini karena Anda adalah pengguna terdaftar dari portal "${__ VirtualRootPath}":"${__ VirtualRootPath}". ^</value>
+  </data>
+  <data name="PresentationEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Presentation Editor</value>
+  </data>
+  <data name="PresentationEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Menyediakan semua alat untuk membuat presentasi yang mengesankan dan menyajikan ide segar kepada penonton.</value>
+  </data>
+  <data name="ProductAdminOpportunitiesCustomMode" xml:space="preserve">
+    <value>Lakukan hal yang sama dengan pengguna|Tautkan Dropbox, Box dan akun lain di bagian 'Dokumen Umum'|Siapkan hak akses ke dokumen dan folder di bagian 'Dokumen Umum'</value>
+  </data>
+  <data name="ProductUserOpportunitiesCustomMode" xml:space="preserve">
+    <value>Buat dan sunting dokumen sendiri serta dokumen bersama dengan hak akses yang tepat|Berikan hak akses baca/sunting ke pengguna lain untuk dokumen dan folder|Tautkan Dropbox, Box, dan akun lain di bagian 'Dokumen saya'</value>
+  </data>
+  <data name="RegistryButtonCreateNowCustomMode" xml:space="preserve">
+    <value>Membuat sekarang</value>
+  </data>
+  <data name="RegistrySettingSpamCustomMode" xml:space="preserve">
+    <value>Saya ingin berlangganan newsletter ONLYOFFICE</value>
+  </data>
+  <data name="RegistrySettingTermsCustomMode" xml:space="preserve">
+    <value>Saya setuju dengan ONLYOFFICE{0}Syarat dan Ketentuan{1}</value>
+  </data>
+  <data name="RememberCustomMode" xml:space="preserve">
+    <value>Ingat</value>
+  </data>
+  <data name="ReviewingCustomMode" xml:space="preserve">
+    <value>Ulasan</value>
+  </data>
+  <data name="ReviewingDescriptionCustomMode" xml:space="preserve">
+    <value>Aktifkan mode ulasan untuk menyarankan sunting dokumen tanpa merubahnya.</value>
+  </data>
+  <data name="SendActivationEmailCustomMode" xml:space="preserve">
+    <value>Aktivasi surel telah di kirim ke</value>
+  </data>
+  <data name="SignUpCustomMode" xml:space="preserve">
+    <value>Daftar</value>
+  </data>
+  <data name="SignUpDesktopCustomMode" xml:space="preserve">
+    <value>Daftar ke cloud</value>
+  </data>
+  <data name="SmsAuthDescriptionCustomMode" xml:space="preserve">
+    <value>{0}Otentikasi dua faktor{1}adalah cara yang lebih aman bagi pengguna untuk memasuki portal.Setelah kredensial dimasukkan, pengguna harus memasukkan kode dari aplikasi autentikator yang terhubung.{2}Aktifkan opsi ini untuk akses portal yang lebih aman oleh semua pengguna portal.{2}Untuk menerapkan perubahan yang Anda buat klik tombol{0}Simpan{1}di bawah bagian ini.{2}</value>
+  </data>
+  <data name="SpreadsheetEditorCustomMode" xml:space="preserve">
+    <value>ONLYOFFICE Spreadsheet Editor</value>
+  </data>
+  <data name="SpreadsheetEditorDescriptionCustomMode" xml:space="preserve">
+    <value>Menyediakan pekerjaan profesional dengan spreadsheet, membantu untuk melakukan perhitungan yang rumit dan mengatur data Anda.</value>
+  </data>
+  <data name="subject_personal_custom_mode_after_registration7" xml:space="preserve">
+    <value>Hubungkan penyimpanan cloud favorit Anda ke ONLYOFFICE</value>
+  </data>
+  <data name="subject_personal_custom_mode_change_password" xml:space="preserve">
+    <value>Bantuan password ONLYOFFICE pribadi</value>
+  </data>
+  <data name="subject_personal_custom_mode_confirmation" xml:space="preserve">
+    <value>ONLYOFFICE Personal. Silahkan aktivasi alamat email Anda</value>
+  </data>
+  <data name="subject_personal_custom_mode_profile_delete" xml:space="preserve">
+    <value>Terminasi akun pribadi ONLYOFFICE</value>
+  </data>
+  <data name="subject_remove_user_data_completed_custom_mode" xml:space="preserve">
+    <value>$ {LetterLogoText}. Hapus data pengguna selesai</value>
+  </data>
+  <data name="TermsServiceCustomMode" xml:space="preserve">
+    <value>Ketentuan Penggunaan</value>
+  </data>
+  <data name="ThanksRegistrationCustomMode" xml:space="preserve">
+    <value>Terima kasih sudah mendaftar</value>
+  </data>
+  <data name="TitleCustomMode" xml:space="preserve">
+    <value>Cloud kolaborasi</value>
+  </data>
+  <data name="TitlePageNewCustomMode" xml:space="preserve">
+    <value>Online office personal</value>
+  </data>
+  <data name="TrackingChangesCustomMode" xml:space="preserve">
+    <value>Ubah pelacakan</value>
+  </data>
+  <data name="TwoEditingModesDescriptionCustomMode" xml:space="preserve">
+    <value>Dalam mode Quick, Anda melihat apa yang kolaborator Anda ketikkan, dan dia melihat apa yang Anda ketikkan. Dalam mode Strict Anda menyunting dokumen secara privat, dan perubahan akan ditampilkan setelah menyimpan dokumen tersebut.</value>
+  </data>
+</root>

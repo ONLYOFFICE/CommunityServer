@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_DocuSignComplete" xml:space="preserve">
+    <value>h1. Minden érintett aálírta a(z) $DocumentTitle -t
+
+Ez egy e-mail értesítés, amely tájékoztatja Önt arról, hogy minden aláíró aláírta a "$DocumentTitle":"$DocumentURL" 
+ -t.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója.^</value>
+  </data>
+  <data name="pattern_DocuSignStatus" xml:space="preserve">
+    <value>h1. $Message: $DocumentTitle
+
+További információért jelentkezzen be a DocuSign-fiókjába.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója.^</value>
+  </data>
+  <data name="pattern_EditorMentions" xml:space="preserve">
+    <value>h1. "$__AuthorName":"$__AuthorUrl" megemlítette Önet egy dokumentum-hozzászólásban
+
+Ez az üzenet arról értesíti, hogy "$__AuthorName":"$__AuthorUrl" megemlítette az Ön nevét a(z) "$DocumentTitle":"$DocumentURL" dokumentumhoz fűzött megjegyzésében:
+
+$Message
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója.^</value>
+  </data>
+  <data name="pattern_MailMergeEnd" xml:space="preserve">
+    <value>h1. A levelezés befejeződött
+
+Ez egy e-mail értesítés, amely tájékoztatja Önt arról, hogy kérte a $MailsCount üzenetek küldését, és a folyamat most befejeződött. $Message
+
+A sikeresen elküldött e-mail üzenetek a Mail modul "Elküldött":"$ __VirtualRootPath/addons/mail/#sent" mappájában találhatók.
+
+^Azért kapta ezt az emailt mert Ön a(z)  "${__VirtualRootPath}":"${__VirtualRootPath}" portál regisztrált felhasználója.^</value>
+  </data>
+  <data name="pattern_ShareDocument" xml:space="preserve">
+    <value>h1. Hozzáférés engedélyezve dokumentumhoz: "$DocumentTitle":"$ DocumentURL" 
+
+$__DateTime "$__AuthorName": "$__AuthorUrl" megadta a(z) "$DocumentTitle":"$DocumentURL" dokumentumhoz való hozzáférést   "$AccessRights" hozzáférései jogosultsággal.
+
+$Message</value>
+  </data>
+  <data name="pattern_ShareFolder" xml:space="preserve">
+    <value>h1. Hozzáférés biztosítása a mappához: "$DocumentTitle":"$DocumentURL"
+
+$__DateTime "$__AuthorName":"$__AuthorUrl" megadta a hozzáférést a(z) "$DocumentTitle":"$DocumentURL" mappához a következő jogosultságokkal: "$AccessRights". 
+
+$Message</value>
+  </data>
+  <data name="subject_DocuSignComplete" xml:space="preserve">
+    <value>Dokumentumok. Minden aláíró befejezte a(z) $ DocumentTitle-t</value>
+  </data>
+  <data name="subject_DocuSignStatus" xml:space="preserve">
+    <value>Dokumentumok. Aláírási státusz változott</value>
+  </data>
+  <data name="subject_EditorMentions" xml:space="preserve">
+    <value>Dokumentumok. Megemlítve a dokumentumban</value>
+  </data>
+  <data name="subject_MailMergeEnd" xml:space="preserve">
+    <value>Dokumentumok. A levelezés teljesítve.</value>
+  </data>
+  <data name="subject_ShareDocument" xml:space="preserve">
+    <value>Dokumentumok. Hozzáférés biztosítva a(z) $DocumentTitle dokumentumhoz</value>
+  </data>
+  <data name="subject_ShareFolder" xml:space="preserve">
+    <value>Dokumentumok. Hozzáférés biztosítva a(z) $DocumentTitle mappához</value>
+  </data>
+</root>

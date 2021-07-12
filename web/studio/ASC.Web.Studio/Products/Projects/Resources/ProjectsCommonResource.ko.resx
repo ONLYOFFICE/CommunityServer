@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>가입자 관리</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>모든 {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>전체 {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>타이머를 시작 / 중지</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>시간 추가</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>중지중</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>재설정</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>시작</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>숨기기</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>복사</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>만들기</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>새 프로젝트 시작</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>세부 설명</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>연락처를 연결 또는 추가하기</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>당신이 관리하는 프로젝트를 연결하거나, 새 연락처를 추가 할 수있는 목록에서 기존 CRM 연락처를 선택하세요. 연락처 나 개인 정보를 수정하세요. CRM과 더 깊은 통합과 효율적으로 작업을 관리하는 데 도움이됩니다.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>연락처 목록이 비어 있습니다</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>이 필터와 일치하는 프로젝트는 없습니다</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>구독하기</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>여러분이 작성중인 프로젝트의 관리자가 아니지만 내의 모든 변경 사항을 추적하고자하는 경우엔 확인란을 선택하세요. 모든 새로운 이정표, 작업 및 토론에 대한 정보는 알림 매일에 포함됩니다.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1} 개인 ​​프로젝트 {2}에만 팀 구성원이 액세스 할 수 있도록 프로젝트에 대한 액세스를 제한하는 방법입니다. {0} 비공개로 프로젝트를 저장하면 또한 내부의 각 팀원에 액세스 권한을 설정할 수 있습니다.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1} 개인 ​​프로젝트 {2}에만 팀 구성원이 액세스 할 수 있도록 프로젝트에 대한 액세스를 제한하는 방법입니다.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>주요 이정표는 다른 이정표보다 더 중요하다고 생각하는 이정표를 생성하는 데 사용됩니다. {0} 모든 키 이정표는 제목 근처에 빨간색 키 아이콘으로 표시됩니다.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>세 프로젝트 상태 사이를 전환 할 수 있습니다: {0} {1}진행중 {2} 현재 작업중인 모든 생성 된 프로젝트가 완료될때까지 활성 상태로 표시됩니다. {0} {1}일시 중지{2}일시적으로 프로젝트에 작업을 중단하기로 결정하시면 일시 중지상태가 됩니다.  프로젝트를 재개하려면 해당 상태를 설정 하세요. {0} {1}왼료{2} 프로젝트에 작업이 완료되고 모든 작업이 종료되면 프로젝트가 완료 상태로 변경됩니다. 더 일을하려면 다시 활성화해야합니다.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>팀에 구성원을 추가하려면 지금 {1} 팀 {2} 링크를 클릭하고 목록에서 추가 할 사용자를 선택합니다.{0} 또한  프로젝트 팀으로 전환 후 팀원을 추가/제거 할 수 있습니다 {1}팀{2} 탭에서 {1}개요{2} 페이지가서 {1} 팀 관리 {2} 버튼을 클릭하세요.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>기본적으로 각 프로젝트 팀 구성원이 선택한 프로젝트 내부에 모든 콘텐츠를 볼 수 있습니다: 이정표, 작업, 문서 및 토론. 액세스를 제한하려면 액세스 권한을 설정하고자하는 팀원을 선택하고 오른쪽에있는 링크 중 하나를 클릭하세요. 그는 / 그녀는 포털 관리자 권한이없는 경우를 제외하면 프로젝트 팀의 각 멤버에 대한 액세스 권한을 설정할 수 있습니다. ONLYOFFICE™ 관리자는 모든 프로젝트에 걸쳐 모든 컨텐츠에 대한 전체 액세스 권한이 있습니다.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>"이 프로젝트를 구독한다"가 무슨 뜻입니까?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>개인 프로젝트는 무엇입니까?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>주요 이정표는 무엇을 의미합니까?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>존재 하는 프로젝트 상태들</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>팀을 관리하는 방법?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>숨기기</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>프로젝트가 개인 상태를 가지고 있으며 사용자가 프로젝트 팀의 일원이되지 않기 때문에 사용자는이 토론에 대한 알림을받지 않습니다.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>자세히...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>진행중</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>내가 구독하는 프로젝트들</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>최근</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>참여한 토론들</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>내 프로젝트</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>연락처</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>프로젝트</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>토론의 신규 코멘트</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>업무에 신규 커맨트 생성</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>링크에 대한 연락처가 없습니다.</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>데이터 없음</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>참고: 이 작업은 실행후 취소 할 수 없습니다.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>프로젝트 매니저와 같은 작업을 수행|프로젝트 관리자를 임명|프로젝트를 작성, 편집, 및 삭제|양식 반들기/수정</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>팀을 구축하고 작업을 할당합니다. 프로젝트 활동을 추적하고 보고서를 생성, 프로젝트 이정표를 예약합니다.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>팀을 구축하고 작업을 할당합니다. 프로젝트 활동을 추적하고 보고서를 생성, 프로젝트 이정표를 예약합니다.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>프로젝트</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>프로젝트 보기 및 토론에 참여함|이정표, 작업, 토론, 문서 작성 및 편집|작업에 시간을 추적하고 보고서를 생성|프로젝트 팀을 구성하고 액세스 권한을 세트하기</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>프로젝트에 연결될 연락처들</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>프로젝트 제목</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>자세히보기</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>팀에서 사용자를 제거하기</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>보고서</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>저장후 새 작업을 만들기</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>변경 사항 저장</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>검색</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>기존 연락처에서 선택하거나 새 추가</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>보기</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>페이지에 표시</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>소모된 시간</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>댓글에 신청하기</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>작업이 추가되었습니다</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>당신이 피드 페이지와 토론 목록 페이지에서 숨길 텍스트를 선택한 후 "Text Cut"를 클릭하세요.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Text Cut</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>시간</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>시간 계산</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>오늘</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>합계</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>탈퇴</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>프로젝트를 연락처의서 연결 해제라기</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>탈퇴</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>메모 추가</value>
+  </data>
+</root>

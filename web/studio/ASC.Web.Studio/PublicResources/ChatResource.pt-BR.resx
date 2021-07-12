@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ChatRoomInvite" xml:space="preserve">
+    <value>Convite para sala de chat</value>
+  </data>
+  <data name="ClearText" xml:space="preserve">
+    <value>Limpar</value>
+  </data>
+  <data name="CloseAllWindows" xml:space="preserve">
+    <value>Feche todas as janelas do minichat</value>
+  </data>
+  <data name="CloseItem" xml:space="preserve">
+    <value>Fechar item</value>
+  </data>
+  <data name="CloseMessageWindowAltTitle" xml:space="preserve">
+    <value>Fechar janela</value>
+  </data>
+  <data name="ExtendChatAltTitle" xml:space="preserve">
+    <value>Estender minichat</value>
+  </data>
+  <data name="GoTalk" xml:space="preserve">
+    <value>Alterne para Falar.</value>
+  </data>
+  <data name="HintCtrlEnterSender" xml:space="preserve">
+    <value>Usar Ctrl+Enter para enviar mensagens</value>
+  </data>
+  <data name="HintSounds" xml:space="preserve">
+    <value>Habilitar sons</value>
+  </data>
+  <data name="InputNotificationMessage" xml:space="preserve">
+    <value>Inserir sua mensagem...</value>
+  </data>
+  <data name="MinimizeAllWindows" xml:space="preserve">
+    <value>Minimizar todas as janelas do minichat</value>
+  </data>
+  <data name="MinimizeAllWindowsIfLoseFocus" xml:space="preserve">
+    <value>Minimizar todas as janelas quando fora de foco</value>
+  </data>
+  <data name="MinimizeMessageWindowAltTitle" xml:space="preserve">
+    <value>Minimizar janela</value>
+  </data>
+  <data name="NewMessageLabel" xml:space="preserve">
+    <value>Nova mensagem</value>
+  </data>
+  <data name="RestoreAllWindows" xml:space="preserve">
+    <value>Expandir todas as janelas do minichat</value>
+  </data>
+  <data name="RestoreMessageWindowAltTitle" xml:space="preserve">
+    <value>Expandir janela</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Erro interno do servidor.</value>
+  </data>
+  <data name="ShowHideChatAltTitle" xml:space="preserve">
+    <value>Exibir/Ocultar minichat</value>
+  </data>
+  <data name="ShowInvisibleWindows" xml:space="preserve">
+    <value>Exibir janelas de diálogo invisíveis</value>
+  </data>
+  <data name="SmallChatOptionsAltTitle" xml:space="preserve">
+    <value>Opções</value>
+  </data>
+  <data name="SmileysAltTitle" xml:space="preserve">
+    <value>Smileys</value>
+  </data>
+  <data name="StatusAway" xml:space="preserve">
+    <value>Ausente</value>
+  </data>
+  <data name="StatusNA" xml:space="preserve">
+    <value>Não disponível</value>
+  </data>
+  <data name="StatusOffline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="StatusOnline" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="TypingMessage" xml:space="preserve">
+    <value>digitando a mensagem...</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Nenhum contato correspondente aos seus critérios de pesquisa encontrado na lista</value>
+  </data>
+</root>

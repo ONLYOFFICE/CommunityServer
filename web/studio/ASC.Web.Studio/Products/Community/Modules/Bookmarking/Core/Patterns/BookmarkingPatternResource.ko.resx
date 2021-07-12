@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_BookmarkCommentCreatedID" xml:space="preserve">
+    <value>h1.즐겨 찾기에 추가 할 수있는 새로운 코멘트: "$BookmarkTitle":"$BookmarkUrl"
+
+$Date "$__AuthorName":"$__AuthorUrl" 즐겨 찾기에 댓글을 추가했습니다:"$BookmarkTitle":"$BookmarkUrl"
+
+$CommentBody
+
+"Read More":"$BookmarkUrl"
+
+^당신이 포털의 등록 된 사용자이기 때문에이 이메일을 수신 "${__VirtualRootPath}":"${__VirtualRootPath}". 당신이 추가 된 새 북마크에 대한 알림을받지 않으려면, 귀하의 가입 설정을 관리하시기 바랍니다 "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_BookmarkCreatedID" xml:space="preserve">
+    <value>h1.새 즐겨 찾기가 추가되었습니다: "$BookmarkTitle":"$BookmarkUrl"
+
+$Date "$__AuthorName":"$__AuthorUrl" 새 북마크를 추가했습니다:"$BookmarkTitle":"$BookmarkUrl"
+
+$BookmarkDescription
+
+^당신이 포털의 등록 된 사용자이기 때문에이 이메일을 수신 "${__VirtualRootPath}":"${__VirtualRootPath}". 당신이 추가 된 새 북마크에 대한 알림을받지 않으려면, 귀하의 가입 설정을 관리하시기 바랍니다 "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="subject_BookmarkCommentCreatedID" xml:space="preserve">
+    <value>커뮤니티. 즐겨 찾기에 추가 할 수있는 새로운 코멘트 : $BookmarkTitle</value>
+  </data>
+  <data name="subject_BookmarkCreatedID" xml:space="preserve">
+    <value>커뮤니티. 새 즐겨 찾기가 추가되었습니다 : 은 $BookmarkTitle</value>
+  </data>
+</root>

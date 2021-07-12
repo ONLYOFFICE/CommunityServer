@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>El presupuesto promedio de oportunidades</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>La duración promedio de una oportunidad exitosas, días</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Facturado</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Facturas generadas</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Presupuesto</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Plantilla vacía para el Generador de Documentos</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Por presupuesto</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Por número</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Llamadas</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Cuenta de llamadas</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Duración de llamadas</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Llamadas durante el periodo</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Cerradas</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Tareas cerradas</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Contactos por nivel de temperatura</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Contactos por tipo</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>Con oportunidades</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Sin oportunidades</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Conversión</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Creado</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Para generar el reporte, el presupuesto de oportunidades debe cambiarse a la moneda base.  Configura las tasas de cambio de moneda utilizadas para cambiarlo.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Configuración de moneda</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Mes actual</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Trimestre actual</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Semana actual</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Año actual</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Presupuesto de oportunidades</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Oportunidades por presupuesto</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Oportunidades por número</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Oportunidades por etapa</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Oportunidades por estado</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Número de oportunidades</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Duración todo el tiempo</value>
+  </data>
+  <data name="ErrorNullReportData" xml:space="preserve">
+    <value>No pudo obtener datos del reporte</value>
+  </data>
+  <data name="ErrorNullReportScript" xml:space="preserve">
+    <value>No pudo obtener guión del reporte</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Reportes generados</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Todos sus reportes generados se presentarán aquí. Puede editar, eliminar o descargar los archivos de reportes. Para crear un reporte, elija la plantilla de la lista a la izquierda, establezca los filtros y pulse sobre el botón "Generar".</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generar informe</value>
+  </data>
+  <data name="IfAllOpportunitiesWon" xml:space="preserve">
+    <value>Si todas las oportunidades ganan</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>Entrando</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Facturas por estado</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Facturas por periodo</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Elemento</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Perdido</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Gerente</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Gerentes</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>de las cuales {0} no se han respondido</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Cerrará en los próximos 30 días</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Nuevos contactos</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Nuevos contactos con o sin oportunidades</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Nuevas tareas</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Mes siguiente</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Trimestre siguiente</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Semana siguiente</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Año siguiente</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>No hay datos para el reporte. Elila otro filtro.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Abierto</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Saliente</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Vencido</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Tareas caducadas</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Pagada</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Trimestre anterior</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Semana anterior</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Año anterior</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Rechazado</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Construyendo el reporte</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Puede ver, descargar, editar o eliminar todos los reportes generados en {0}CRM/Reportes/Reportes generados{1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Construyendo el reporte ({0}% completado)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Sales by the day, by the managers</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Sales by the hour, by the managers</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Sales by managers</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Este reporte busca mostrar las oportunidades exitosas cerradas en el {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos.{0} Cuando se elige un periodo en semanas o meses, el reporte presenta los resultados agrupoas por días; los periodos en trimestres o años agruparán los datos por meses.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Sales by the month, by the managers</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Pronóstico de ventas</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Este reporte busca mostrar el pronóstico de ventas en un periodo de tiempo particular, teniendo en cuenta la probabilidad de oportunidad. Muestra el número de oportunidades en {1}El periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos.
+{0} Los datos incluyen el presupuestos total de oportunidades, que se estiman en caso de que las fecha de cierre caigan en el periodo de tiempo.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Embudo de ventas por presupuesta de oportunidades</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Embudo de ventas por número de oportunidades</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Embudo de ventas</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Este reporte busca construir un embudo de ventas para un periodo de tiempo particular. Presenta el número de oportunidades para el {1}Periodo de tiempo elegido{2} para todos los administradores o sólo los elegidos.
+{0} Los datos principales incluyen el número de oportunidades en el embudo, promedio de presupuestos de oportunidades, promedio de duración de oportunidades exitosas cerradas, tasa de oportunidades abiertas sobre cerradas.
+{0} Los datos se ordenan por número de oportunidades y presupuesto.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Escenario</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Este reporte busca presentar el resumen de datos de oportunidades, contactos, tareas y facturas para el 
+ {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. El reporte presentará las oportunidades especificadas por el estado y por su etapa, contactos por tipo y etapa, tareas y facturas por su estado.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Resumen por momento</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Resumen por periodo</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Este reporte busca presentar el resumen de datos de oportunidades, contactos, tareas y facturas para el 
+ {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. El reporte presentará las oportunidades especificadas por preusupuesto y por su número, contactos por tipo, tareas y facturas en el periodo de tiempo.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Tareas por estado</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Tareas por periodo</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Periodo de tiempo</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>El presupuesto total de oportunidades</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>El número total de oportunidades</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Ventas totales en el periodo por</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="WithRespectToProbability" xml:space="preserve">
+    <value>Con respecto a la probabilidad</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Ganados</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Este reporte busca presentar el número total de contactos en el {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. El reporte presentará los nuevos contactos especificados por tipo y por la presencia o ausencia de oportunidades. Los datos se agrupan por gerentes unicamente.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Contactos por gerentes</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Este reporte busca presentar la fuerza labora en oportunidades ganadas y perdidas en el {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. Los datos se agrupan por gerentes únicamente.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Oportunidades por gerente</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Este reporte busca presentar el número total de facturas en el {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. El reporte presentará el número de facturas enviadas así como el número de las pagadas, rechazadas y vencidas. Los datos se agrupan por gerentes únicamente.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Facturas por gerentes</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Este reporte busca presentar el número total de tareas en el {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. El reporte presentará las tareas cerradas, nuevas y atrasadas por el tipo especificado. Los datos se agrupan por gerentes únicamente.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Tareas por gerentes</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>Este reporte busca presentar el número total de llamadas en el {1}Periodo de tiempo elegido{2} para todos los gerentes o sólo los elegidos. El reporte presentará el número total de llamadas entrantes, salientes y su duración.  Los datos se agrupa por gerentes únicamente.</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Por favor note que este reporte sólo estará disponible si se conecta a Twilio. Para conectarse, sige el {0}enlace{1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>VoIP por gerentes</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Ayer</value>
+  </data>
+</root>

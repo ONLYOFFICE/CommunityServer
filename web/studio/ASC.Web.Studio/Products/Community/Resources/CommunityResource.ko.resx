@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>포털 액세스 권한</value>
+  </data>
+  <data name="Announcement" xml:space="preserve">
+    <value>발표</value>
+  </data>
+  <data name="Announcements" xml:space="preserve">
+    <value>공지 사항</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>생일</value>
+  </data>
+  <data name="Blogs" xml:space="preserve">
+    <value>블로그</value>
+  </data>
+  <data name="Bookmark" xml:space="preserve">
+    <value>즐겨 찾기</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>즐겨 찾기</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>범주</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>만들기</value>
+  </data>
+  <data name="Events" xml:space="preserve">
+    <value>이벤트</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>즐겨찾기</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="Forum" xml:space="preserve">
+    <value>포럼</value>
+  </data>
+  <data name="ForumEditor" xml:space="preserve">
+    <value>포럼 편집기</value>
+  </data>
+  <data name="Forums" xml:space="preserve">
+    <value>포럼</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>도움</value>
+  </data>
+  <data name="Index" xml:space="preserve">
+    <value>색인</value>
+  </data>
+  <data name="InForParentPage" xml:space="preserve">
+    <value>에</value>
+  </data>
+  <data name="NewPages" xml:space="preserve">
+    <value>새 페이지</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>뉴스</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>순서</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>명령</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>페이지</value>
+  </data>
+  <data name="Poll" xml:space="preserve">
+    <value>설문 조사</value>
+  </data>
+  <data name="Polls" xml:space="preserve">
+    <value>설문 조사</value>
+  </data>
+  <data name="Post" xml:space="preserve">
+    <value>게시</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>사용자와 동일한 작업을 수행 | 블로그, 위키, 포럼 메시지 등의 게시물을 수정</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>사용자 정보 보기, 블로그와 포럼에 게시물 작성. 사진공유 및 즐겨첮기 설정, 위키 작성</value>
+  </data>
+  <data name="ProductDescriptionExt" xml:space="preserve">
+    <value>사용자 정보 보기, 블로그와 포럼에 게시물 작성. 사진공유 및 즐겨첮기 설정, 위키 작성</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>커뮤니티</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>자신만의 블로그, 위키, 포럼 메시지 등을 생성 및 수정</value>
+  </data>
+  <data name="RecentlyEdited" xml:space="preserve">
+    <value>최근 편집</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="Subscribed" xml:space="preserve">
+    <value>구독</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>주제</value>
+  </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+</root>

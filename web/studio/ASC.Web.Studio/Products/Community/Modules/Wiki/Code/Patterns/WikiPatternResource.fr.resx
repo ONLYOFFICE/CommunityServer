@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="pattern_1" xml:space="preserve">
+    <value>h1.Nouvelle page Wiki ajoutée: "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" a créé une nouvelle page Wiki: "$PageName":"$URL"
+
+$PagePreview
+
+"Lire la suite":"$URL"
+
+^Vous recevez ce message parce que vous êtes un utilisateur enregistré du portail "${__VirtualRootPath}":"${__VirtualRootPath}". Si vous ne voulez plus recevoir des notifications sur les nouvelles pages Wiki créées, veuillez gérer vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_2" xml:space="preserve">
+    <value>h1.Page Wiki modifiée: "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" a modifié la page Wiki: "$PageName":"$URL"
+
+$PagePreview
+
+"Lire la suite":"$URL"
+
+^Vous recevez ce message parce que vous êtes un utilisateur enregistré du portail "${__VirtualRootPath}":"${__VirtualRootPath}". Si vous ne voulez plus recevoir des notifications des changements de cette page Wiki, veuillez gérer vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="pattern_3" xml:space="preserve">
+    <value>h1.Nouveau commentaire à la page Wiki "$PageName":"$URL"
+
+$Date "$UserName":"$UserURL" a ajouté un nouveau commentaire à la page Wiki "$PageName":"$URL":
+
+$CommentBody
+
+"Lire la suite":"$URL"
+
+^Vous recevez ce message parce que vous êtes un utilisateur enregistré du portail "${__VirtualRootPath}":"${__VirtualRootPath}". Si vous ne voulez plus recevoir des notifications sur les nouveaux commentaires ajoutés à cette page Wiki, veuillez gérer vos "paramètres d'abonnement":"$RecipientSubscriptionConfigURL".^ </value>
+  </data>
+  <data name="subject_1" xml:space="preserve">
+    <value>Page "$PageName" ajoutée à Wiki</value>
+  </data>
+  <data name="subject_1_tg" xml:space="preserve">
+    <value>Communauté. Nouvelle page Wiki ajoutée : [$PageName]($URL)</value>
+  </data>
+  <data name="subject_2" xml:space="preserve">
+    <value>Page "$PageName" modifiée à Wiki</value>
+  </data>
+  <data name="subject_2_tg" xml:space="preserve">
+    <value>Communauté. Page Wiki modifiée : [$PageName]($URL)</value>
+  </data>
+  <data name="subject_3" xml:space="preserve">
+    <value>Nouveau commentaire à la page $PageName</value>
+  </data>
+  <data name="subject_3_tg" xml:space="preserve">
+    <value>Communauté. Nouveau commentaire sur la page Wiki : [$PageName]($URL)</value>
+  </data>
+</root>

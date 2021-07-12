@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>아카이브</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>아카이브</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>새 토론을 만듭니다</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>토론을 시작합니다</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>토론 작업 생성</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>이 토론을 삭제 하시겠습니까?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>토론을 삭제합니다</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>필터와 일치하는 토론이 섹션에 표시 할 수 없습니다.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>프로젝트가 진행되면서 발생할수있는 문제의 해결책을 찾기 위해 프로젝트 팀과 토론을 사용됩니다. 동료와의 모든 문제를 토론하여 토론에 참여하기 위해 다른 프로젝트에서 사용자를 초대하세요.</value>
+  </data>
+  <data name="DiscussionNotFound_DescribeVisitor" xml:space="preserve">
+    <value>토론은 프로젝트가 진행되면 발생할 수 있는 모든 종류의 문제에 대해 프로젝트 팀과 함께 올바른 해결책을 찾기 위해 사용된다. 동료들과 모든 문제에 대해 논의하십시오.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>논의가 아직 시작되지 않았습니다</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>가입자</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>토론 편집</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>각 메시지에는 일부 텍스트가 포함되어야 함</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>이 필터와 일치하는 토론이 없습니다</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>토론</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>본문</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>토론</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>진행중</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>자세히보기</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>이 프로젝트를 선택하기</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>토론 시작하기</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>당신이 선택한 사람들은 </value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>알림</value>
+  </data>
+</root>

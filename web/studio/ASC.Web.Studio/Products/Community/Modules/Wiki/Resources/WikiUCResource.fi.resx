@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>Muokkaa osaa: {0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>Tiedosto</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>Tiedostonimi</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>Teksti</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>Sivun otsikko</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>Lisää tiedosto</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>Lisätyn tiedoston nimi</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>Lähennä</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>Wiki-sivujen luominen on helppoa, vaikka et olisi aiemmin työskennellyt HTML-kielen parissa. Kaikki tarvitsemasi tieto on lueteltu alla. Toivomme, että näistä on hyötyä.
+
+@@TOC@@
+
+==Osiot, kappaleet, luettelot, rivit==
+
+Aloittaaksesi uuden osion, käytä = -symbolia kappaleen alussa:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Osio=&lt;br&gt;
+==Alaosio==&lt;br&gt;
+===Alaosion alaosio===&lt;br&gt;
+
+&lt;p&gt;
+@@TOC@@ -symboli sivulla yhdistää kaikki sivuosiot ja alaosiot sisällysluetteloon.
+&lt;/p&gt;
+
+Wiki-koodi jättää rivinvaihdot huomiotta. Voit käyttää niitä erottaaksesi lauseita kappaleen sisällä.
+
+&lt;p&gt;
+Käytä «br» -tagia tehdäksesi rivinvaihdon aloittamatta uutta kappaletta.  
+&lt;/p&gt;
+
+Aloittaaksesi uuden kappaleen, paina Enteriä kaksi kertaa aivan kuten missä tahansa tekstinkäsittelyohjelmassa. 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+Luettelon laatiminen on helppoa:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* aloita jokainen listan kohta tähdellä;&lt;br&gt;
+** mitä enemmän tähtiä käytät;&lt;br&gt;
+** sitä syvempi luettelon taso on.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# Numeroidut luettelot ovat myös käteviä:&lt;br&gt;
+## ne näyttävät hyvin järjestetyiltä;&lt;br&gt;
+## ja niitä on helppo lukea.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+JOS rivin alussa on välilyönti,
+SITTEN rivi alustetaan samoin kuin se olisi kirjoitettu;
+samalla fontilla; ilman rivinvaihtoja;[[ei koske linkkejä]].
+
+Voit käyttää välilyöntiä rivin alussa jos haluat:
+
+*liittää aiemmin alustettua tekstiä;
+*näyttää lähdekoodia;
+*luoda/liittää ascii-kuvia (kuvien luominen tekstisymboleilla).
+
+Horisontaalinen rivi merkitään neljällä viivalla:
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==Linkkien lisääminen==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Lisätäksesi linkin toiselle Wiki-sivulle, laita sivun otsikko tuplahakasulkuihin: &lt;br&gt; [[Apua]]&lt;/p&gt;
+
+&lt;p&gt;
+Jos linkki ja näytettäväksi tarkoitettu otsikko ovat erilaisia, kirjoita linkin otsikko | -symbolin jälkeen: &lt;br&gt; [[Wiki-ohjesivu|Ohjeet]]&lt;/p&gt;
+
+&lt;p&gt;
+Ulkopuoliset linkit sijoitetaan suoraan tekstiin näin: &lt;br&gt; http://example.com&lt;/p&gt; </value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>Apua</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''Tervetuloa ONLYOFFICE™ Wikiin!'''
+
+Täällä voit luoda sivuja ja liittää niitä sopiviin luokkiin selaimesi kautta. Wiki on kätevä työkalu projektien dokumentaatiossa ja sitä voidaan kuvata seuraavin ominaisuuksin:
+
+*useat tekijät. Jokainen '''Sivuston''' käyttäjä voi muokata minkä tahansa sivun sisältöä.
+*nopea muokkaus. Klikkaa kaikilta sivuilta löytyvää '''Muokkaa'''-linkkiä aloittaaksesi muokkaamisen selaimessa.
+*helppo siirtäminen HTML:stä Wikiin. Lue [[Internal:Help#HTML to Wiki Transfer|kuinka]]
+*sivun versio -tuki. Katso, mitä sivulla on muokattu palauttamalla se aiempaan versioonsa.
+
+@@TOC@@
+
+==Wiki-navigaatio ja rakenne==
+
+Voit liikkua Wikissä aina käytettävissä olevalla '''Navigaatio'''paneelilla ollessasi '''ONLYOFFICE™'''-wikiosiossa.
+
+===Sivut===
+
+Kaikki luomasi Wiki-sivut järjestetään aakkosjärjestykseen [[Internal:Index|Hakemisto]] -sivulle.&lt;br&gt; Kaikki uudet luodut sivut näytetään aikajärjestyksessä [[Internal:NewPages|Uudet sivut]] -sivulla.&lt;br&gt;
+Luettelo viimeksi muokatuista sivuista on nähtävissä [[Internal:Recently|Viimeksi muokatut]] -sivulla.
+
+===Luokat===
+
+Voit yhdistää useita toisiinsa liittyviä sivuja luokaksi. Kaikki luokat vastaavine sivuineen näytetään [[Internal:Categories|Luokat]] -sivulla. Voit liittää sivun olemassa olevaan luokkaan tai luoda uuden. Klikkaa [[Internal:Help|tästä]] saadaksesi lisätietoa.
+
+===Tiedostot===
+
+Voit ladata Wikiin minkä kokoisia tai muotoisia tiedostoja tahansa, sekä antaa linkkejä ladattuihin kuviin luodessasi Wiki-sivuja. Lue lisää aiheesta [[Internal:Help#Inserting Images|täältä]].
+
+===Apua===
+
+Sivujen luominen '''ONLYOFFICE™'''-Wikiin on helppoa. Sinun tulee tietää vain muutama yksinkertainen muotoilusääntö. Tutustu [[Internal:Help|Wiki-koodivihjeisiin]].
+
+===Oman Wikin luominen===
+
+Luodaksesi oman Wikisi, aloita luomalla uusi sivu klikkaamalla ""Luo uusi sivu"" -linkkiä ""Toiminnot""-paneelista. Seuraavaksi kirjoita sisältösi tekstinmuokkaustilaan. Käytä  [[Internal:Help|Wiki-koodivihjeitä]] saadaksesi tekstin näkymään oikein.
+
+Muista, että tämä on henkilökohtainen tilasi, jossa voit järjestellä kaiken tiettyjen tarpeidesi mukaan. Jopa tämän sivun sisältö on muokattavissa. Voit esimerkiksi poistaa kaiken tänne kirjoitetun tekstin ja liittää linkkejä omiin projekteihisi.&lt;br&gt; Onnea matkaan!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>Sivua ei ole olemassa. Klikkaamalla {tätä} voit luoda sivun ja muokata sitä.</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>Ankkuri</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>Lihavointi</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>Preblock</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>Korostaaksesi visuaalisesti kolmannen osapuolen koodia</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>Kommentti</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML-esimerkki</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>Ulkoinen linkki</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>Paikallisen tiedoston linkki</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (Käytä kohtuudella)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>Vaakasuora viiva</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>Kuva</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>Kursivointi</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>Uusi viiva</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>No break -tunniste</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Ei voida tulkita Wiki-kielellä</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>Sivun linkki</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>Erikoistunnisteet</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>Yliviivaus</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>Alaindeksi</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>Yläindeksi</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>Erikoismerkit</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>Alleviivaus</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>Estä</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>Lisättävän tiedoston suurin sallittu koko on ylittynyt</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>Lataa tiedosto</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>Luokat</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>Lisättävän tiedoston enimmäiskoko on {0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, osa: {0}</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=Sivu on siirretty=
+Sivun nimi vaihdettu muotoon [[{0}|{0}]].
+Löydät uusimman version [[{0}|täältä]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>Sisällysluettelo</value>
+  </data>
+</root>

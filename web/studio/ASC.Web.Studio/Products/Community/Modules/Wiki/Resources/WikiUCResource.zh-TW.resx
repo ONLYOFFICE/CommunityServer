@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>編輯部分：{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>檔案名稱</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>文字</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>頁面標題</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>預覽</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>上傳檔案</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>已上傳文件名</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>放大</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>即使您以前從未使用過任何標記語言，創建Wiki頁面也非常簡單。您需要知道的是下面列出的一些簡單規則。我們希望您會發現它們有用。
+
+@@ TOC @@
+
+==部分，段落，列表，行==
+
+要開始新的部分，請在段落開頭使用=符號：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=部分= &lt;br&gt;
+==小節== &lt;br&gt;
+===小節=== &lt;br&gt;
+
+&lt;p&gt;
+在頁面中插入@@ TOC @@將目錄中的所有頁面部分和子部分組合在一起。
+&lt;/ p&gt;
+
+Wiki標記忽略換行符。您可以使用它們來分隔段落中的句子。
+
+&lt;p&gt;
+使用«br»標記可以在不開始新段落的情況下換行。
+&lt;/ p&gt;
+
+要開始新段落，請按兩次Enter鍵，就像在任何文本編輯器中一樣。
+&lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+製作項目符號列表很簡單：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+*每個列表點以星號開頭； &lt;br&gt;
+**星號更多； &lt;br&gt;
+**列表級別越深。&lt;br&gt;
+&lt;/ p&gt;
+
+&lt;p&gt;
+＃編號列表也不錯：&lt;br&gt;
+##它們看起來結構良好； &lt;br&gt;
+##且易於閱讀。&lt;br&gt;
+&lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+ 如果一行的開頭有空格，
+ 然後，將以與鍵入相同的方式來編寫該行；
+ 以相同的字體；沒有換行符； [[沒有連結]]。
+
+如果需要，您可以在行首使用空格：
+
+*粘貼一些以前格式化的文本；
+*顯示源代碼；
+*創建/粘貼ascii藝術（通過使用文字符號創建圖像）。
+
+水平線由四個破折號表示：
+&lt;nowiki&gt;
+&lt;p&gt;
+----
+&lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+==插入連結==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+要插入到另一個Wiki頁面的連結，請將頁面標題放在雙方括號中：&lt;br&gt; [[Help]] &lt;/ p&gt;
+
+&lt;p&gt;
+如果要在頁面上顯示的鏈接和標題不同，請在|後面輸入鏈接標題。符號：&lt;br&gt; [[Wiki標記幫助頁面|幫助頁面]] &lt;/ p&gt;
+
+&lt;p&gt;
+外部連結會直接插入文本中，如下所示：&lt;br&gt; http://example.com &lt;/ p&gt;
+
+&lt;p&gt;
+如果需要更改外部連結標題，請將其放在單個方括號中，然後在空格後輸入標題：&lt;br&gt; [http://example.com YourTitle] &lt;/ p&gt;
+
+&lt;p&gt;
+要插入電子郵件地址，請使用單個方括號：&lt;br&gt; [mailto：mail@example.com] &lt;/ p&gt;
+
+&lt;p&gt;
+要將頁面添加到類別，請在頁面底部將連結添加到所需類別[[類別：所需類別]]。
+&lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+
+==格式化文本==
+
+使用以下技巧來格式化文本：
+
+斜體
+
+&lt;nowiki&gt;
+&lt;p&gt;
+``您的斜體文字在這裡''
+ &lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+'''膽大'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''您的粗體字出現在這裡'''
+ &lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+'''''粗體斜體'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''您的粗體斜體文本在此處'''''
+ &lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+__強調__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__帶下劃線的文字在這裡__
+ &lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+ - 罷工 - 
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+-您需要刪除的文字在這裡-
+ &lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+索引：&lt;sup&gt;上標&lt;/ sup&gt;和&lt;sub&gt;下標&lt;/ sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+＆lt; sub＆gt;您的下標索引＆lt; / sub＆gt &lt;br&gt;
+＆lt; sup＆gt;您的上標索引＆lt; / sup＆gt
+&lt;/ p&gt;
+
+
+&lt;p&gt;
+您也可以使用＆lt; small＆gt;小文本＆lt; / small＆gt;進行註釋，以及特殊格式，以顯示＆lt; code lang =“ language”＆gt;程序代碼＆lt; / code＆gt; ＆lt; tt＆gt;技術術語＆lt; / tt＆gt;的片段和固定音高文本。
+&lt;/ p&gt;
+
+&lt;/ nowiki&gt;
+
+==插入圖像==
+
+為了能夠將圖像插入Wiki頁面，您需要事先將其上傳到Wiki。
+
+使用以下鏈接插入各種類型的圖像：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+圖片= [[圖片：圖片標題]] &lt;/ p&gt;
+&lt;p&gt;
+固定寬度的圖片= [[圖片：圖片標題| Width_px]] &lt;/ p&gt;
+&lt;p&gt;
+具有說明的圖片= [[圖片：圖片標題|說明]] &lt;/ p&gt;
+&lt;p&gt;
+縮圖圖片= [[圖片：圖片標題|拇指]] –圖像將被壓縮並向右對齊。
+&lt;/ p&gt;
+&lt;/ nowiki&gt;
+
+== HTML到Wiki的傳輸==
+
+如果您要在此處傳輸html格式的文本，則可以快速輕鬆地進行操作。單擊“動作”面板上的“創建新頁面”。接下來，單擊上方格式面板上的Wiki圖標，將文本粘貼到編輯器窗口中，並切換到Wiki標記顯示。 html標記將更改為Wiki標記。檢查結果，更正小錯誤（如果有），然後按“發布”。您的頁面已準備就緒。</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>輔助說明</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>
+'''歡迎使用Wiki！'''
+
+在這裡，您可以創建頁面，通過Web瀏覽器將它們鏈接在一起並將其分類。 Wiki是一種方便的工具，可用於維護與項目相關的文檔，這些文檔具有以下功能：
+
+*多位作者。每個門戶網站成​​員可以編輯任何頁面的內容。
+*快速編輯。單擊每個頁面上的“''編輯”連結，然後直接在瀏覽器中開始編輯。
+*易於從HTML轉移到WIKI。了解[[內部：幫助#HTML到Wiki的轉移|方式]]
+*頁面版本支持。通過將頁面還原到以前的版本來檢查所做的編輯。
+
+@@ TOC @@
+
+== Wiki導航和結構==
+
+當您位於Wiki內時，可以通過始終可用的“導航面板”導航Wiki。
+
+===頁面===
+
+您創建的所有Wiki頁面均在[[Internal：Index | Index]]頁面上按字母順序排序。&lt;br&gt;
+所有新創建的頁面均按時間順序顯示在[[Internal：NewPages | New Pages]]頁面上。&lt;br&gt;
+[[Internal：Recently | Recently Edited]]頁面上有最新編輯頁面的列表。
+
+===類別===
+
+您可以將幾個相關頁面組合到一個類別中。所有類別及其相應的頁面都顯示在[[Internal：Categories | Categories]]頁面上。您可以將頁面添加到現有類別中，也可以創建自己的頁面。單擊[[Internal：Help |此處]]，以獲取有關如何將頁面分配給類別的更多信息。
+
+===文件===
+
+您可以將任何大小和格式的文件上傳到Wiki，以及在創建Wiki頁面時提供到上傳圖片的連結。在[[Internal：Help＃Inserting Images |這裡]]中了解更多信息。
+
+===幫助===
+
+為您的Wiki創建頁面很容易。您需要知道的只是一些簡單的規則。訪問[[Internal：Help | wiki標記技巧]]以閱讀Wiki標記規則。
+
+
+==創建您的Wiki ==
+
+要創建自己的Wiki，請先通過單擊“操作”面板上的“創建新頁面”連結來創建新頁面。接下來，在文本編輯器空間中輸入文本。使用[[Internal：Help | wiki標記提示]]將文本正確顯示在頁面上。
+
+請記住，這是您的個人空間，您可以在其中根據自己的特定需求組織所有工作。即使此頁面的內容也是可編輯的。例如，為了方便起見，您可以刪除此處寫的內容並粘貼指向項目的連結。 &lt;br&gt;祝你好運！</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>該頁面不存在。點擊{here}進行創建和編輯。</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>錨點</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>粗體</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>預塊</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>突出顯示第三方代碼</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>評論</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTML代碼示例</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>外部連結</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>本區文件連結</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4（適度使用）</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>水平線</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>圖像</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>斜體字</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>新的線條</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>沒有BR標籤</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>Wiki語言無法解釋</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>頁面連結</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>特殊標籤</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>打擊</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>下標</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>上標</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>特殊符號</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>強調</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>封鎖</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>超出了上傳文件的最大大小</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>下載文件</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>分類</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>上載的最大文件大小為{0}</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>，部分：“ {0}”</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=頁面已移動=
+頁面名稱已更改為[[{{0} | {0}]]。
+您可以在[[{{0} |此處]]找到最新版本。</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>目錄</value>
+  </data>
+</root>

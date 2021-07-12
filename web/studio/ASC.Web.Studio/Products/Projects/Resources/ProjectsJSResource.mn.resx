@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Хэрэгжүүлэх</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Хариуцлагатай сонгоно уу</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Холбоо барих мэдээлэл</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Компанийн нэр</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>нэр</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>овог</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>өдөр</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>өдрүүд</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>бичиг баримт</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>идэвхтэй даалгаварууд</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>нэмэх</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>хаагдсан</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>дуусах хугацаа</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>өндөр</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>нээх</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>даалгаврууд</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>долооо хоног</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>жил</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>сонгогдсон</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Дараагийн</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>өмнөх</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>төслүүд</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>төслүүд</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Хаагдсан</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Хаагдсан</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>нээх</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>нээх</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>зогссон</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>даалгаврууд</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Баг</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>өгөгдөл байхгүй</value>
+  </data>
+</root>

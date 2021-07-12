@@ -1,0 +1,2326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>naslov</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Avtorske pravice</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>tel.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>O tem programu</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Različica</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Uporabniške pravice</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Dostop do {0} modula je dan</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Dodaj {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Dodaj {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Vsi uporabniki</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Spremeni lastnika portala</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Spremembe bodo uporabljene po potrditvi preko e-naslova.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>Za spremembo lastnika portala prosim izberite ime novega lastnika spodaj.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>{0} modul je onemogočen in ni prikazan na portalu. Če ga želite onemogočiti, glejte oddelek Moduli &amp; orodja na nastavitvah portala.</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>Seznam uporabnikov je prazen</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Poln dostop</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Imejte enake pravice dostopa kot lastnik portala, razen pravica|Spremeni lastnika portala|Deaktiviraj ali izbriši portal</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Lastnik portala lahko</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Naredi enako kot administratorji modul|Določi administratorje modul|Določi pravice dostopa modula|Vodi spremembe portala|Vodi uporabniške račune|Spremeni lastnika portala|Varnostno kopiraj podatke portala|Deaktiviraj ali izbriši portal</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} administratorji lahko</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} uporabniki lahko</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} uporabniki z različnimi pravicami dostopa lahko</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>Uporabniki iz seznama</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Vaš račun je zdaj skoraj aktiven</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Deaktivacija portala</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Povezava za potrditev operacije je bila poslana na :e-naslov (e-naslov lastnika portala).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Brisanje portala</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Povezava za potrditev operacije je bila poslana na :e-naslov (e-naslov lastnika portala).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Ponovno pošlji kodo</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Vnesi kodo</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Spet aktiviraj e-pošto</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Polje potrditvene kode ne more biti prazno</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Vnesi telefonsko številko</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Nadaljuj</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Ustvari novo {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Dodaj skupine</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Dodaj dovoljen IP naslov</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Dodaj komentar</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Dodaj zaupanja vredno domeno</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Dodaj uporabnike</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Dodaj uporabnike</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Nastavitve</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Obvestila administratorja</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Pošlji sporočilo</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Ni dostopa na portal?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>e-naslov, ki je lahko uporabljen za kontaktiranje</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Kontaktiraj administratorja portala</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Vaše sporočilo je bilo uspešno poslano. Kontaktiral vas bo administrator portala.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Omogoči</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Nastavitve sporočila administratorja</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Prosim opišite svojo težavo</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Če ste obstuječ uporabnik in imate težave z dostopanjem portala, ali se želite registrirati kot nov uporabnik portala, prosim kontaktirajte administratorja portala z uporabo spodnjega obrazca.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Administratorji</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Partnerski status</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Kakršna koli domena</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Vse pravice so pridržane</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Odgovori</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Odgovor</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Poveži</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Povezano</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Prekini</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Ni povezan</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>na</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Preverjanje pristnosti</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Avtorizacija</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Ključi za avtorizacijo</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Avtorizacijski ključi so možnost, ki dovoljuje, da svoj ONLYOFFICE™ portal povežete z tujimi storitvami, kot je Twitter, Facebook, Dropbox itd. Če svojih poverilnic ob vsakem vstopu ne želite vnašati, svoj portal povežite s Facebook-om, Twitter-jom, ali Linkedin-om. Storitve, kot je Dropbox, OneDrive, Zoho itd. povežite za prenos dokumentov na ONLYOFFICE™ modul dokumentov.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Pogoji uporabe</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Pojdi na naslovno stran</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Varnostno kopiraj</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Maksimalno število varnostnih kopij za shranjevanje</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE dokumenti</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Prenesi varnostno kopijo</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Naredi kopijo</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>V varnostno kopiranje vključi Mail</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Tuje storitve niso povezane.{0}Pojdite na modul "dokumenti" za povezavo.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>S spodnjo povezavo lahko varnostno kopijo prenesete na lokalni disk. Povezava 
+                   bo aktivna 24 ur po času, ko je bila zahtevana.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Shramba</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Začasen</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>To možnost uporabite, če želite, da so vsi podatki na portalu zadržani kot datoteka.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Preden lahko varnostno kopiranje shranite na tuj račun, (Dropbox, Box.com, OneDrive ali Google Drive) ga morate najprej povezati z ONLYOFFICE dokumenti.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Dodaj {!group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Datum rojstva</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Brskalnik</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Dodaj nov stik</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Pokliči</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Klic končan</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Povezujem</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Klic v teku</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Dohodna</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Vsi podatki, ki ste jih vnesli bodo izgubljeni. Ali ste prepričani, da želite nadaljevati?</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Spremeni logotip</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Povezava za potrditev operacije je bila poslana na :e-naslov (e-naslov lastnika portala).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%b %d</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Jan, Feb, Mar, Apr, Maj, Jun, Jul, Aug, Sep, Oct, Nov, Dec</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Izberite lastnika</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Izberi uporabnika</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Počisti filter</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Zapri</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Svetlo modra</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Temno zelen</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Globoka modra</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>original</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Čista oranžna</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Barvne teme</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Divja roza</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarji</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>komentar je bil izbrisan</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Prekini</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Potrdi</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Prosim potrdite, da želite deaktivirati svoj portal</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Prosim potrdite, da želite izbrisati svoj portal</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Ali ste prepričani, da želite naslov portala spemeniti v {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Lastnik portala je bil uspešno spremenjen. {0}V 10 sekundah boste preusmerjeni {1}sem{2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Prosim potrdite, da želite lastnika portala spremeniti v {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Pridruži se</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Uspešno ste potrdili svojo registracijo. Ustvarite geslo in začnite svoje delo!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Prosim potrdite, da želite ponovno aktivirati svoj portal</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Ali ste prepričani, da želite izbrisati svoj komentar?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Odstrani komentar</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Čestitaj</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>Dropbox ključ</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>Dropbox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>Dropbox ključ</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Facebook Ključ</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook Ključ</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Google Key</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google Key</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin Ključ</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>OneDrive Ključ</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>OneDrive Ključ</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter ključ</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Informacija kontakta</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Nadaljuj</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopiraj povezavo</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>korporativna uporaba</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Ustvari nov profil</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>ustvarjanje varnostnega kopiranja</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Ime domene po meri</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Po meri</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Varnostno kopiranje podatkov</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>{0}Varnostno kopiranje podatkov{1} možnost je uporabljena za kasnejšnje obnavljanje podatkov na lokalni strežnik. Izberite shrambo podatkov (ne pozabite vnesti svojih Amazon podatkov, ki bodo omogočali dostop).{2} {0}Opomba:{1} Svoj tuj račun morate povezati (Dropbox, Box.com, OneDrive ali Google Drive) z ONLYOFFICE dokumenti, preden boste tam lahko shranili svoje varnostno kopiranje.
+</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Urejanje podatkov</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>dan</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>Dnevi</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>Dnevi</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Deaktiviraj</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Deaktiviraj</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Vaš račun je bil uspešno deaktiviran.{0}V 10 sekundah boste preusmerjeni {1}sem{2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Deaktivacija/brisanje portala</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>To možnost uporabite za začasno deaktivacijo portala.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>izbira modula</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Privzeta začetna stran</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Privzete nastavitve</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Tega dejanja ni mogoče razveljaviti.
+Ste prepričani, da želite izbrisati {0} {!group}?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Izbriši</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Vaš portal je bil uspešno izbrisan. {0}V 10 sekundah boste preusmerjeni {1}sem{2}</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Izbriši moj profil</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Navodila za brisanje profila pošlji na e-naslov</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Izbriši dialog profila</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Izbriši profil</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>To možnost uporabite za dokončno brisanje svojega portala.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Uredi {!group}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Onemogočeno</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Onemogoči</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!user} ne bo predstavljen na seznamu aktivnih {!users}</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Povezava za potrditev operacije je bila poslana na {0} (e-naslov lastnika portala).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>DNS nastavitve</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Prenesi</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} nazaj</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} dan</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} dni</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} dni</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>le</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} ura</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} ur</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} ur</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} minuta</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} minut</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} minut</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} mesec</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} mesecev</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} mesecev</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} leto</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} let</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} let</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Predvčerajšnjem</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Danes</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Jutri</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Včeraj</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Uredi profil</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Navodila aktivacije bodo poslana na vnešen e-naslov</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Uporabi povezavo, ki je na voljo v aktivacijski e-pošti. Niste prejeli e-pošte z aktivacijsko povezavo?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Аktivirajte svojo e-pošto, da dobite dostop do vseh zmožnosti portala.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Zopet zahtevaj aktivacijo</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Aktivicijsko e-sporočilo je bilo poslano na vaš e-naslov. Prosim sledite povezavi do sporočila za aktivacijo svojega računa.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>aktivacija e-pošte</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Potrdi geslo</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Vaš portal je registriran na sledečo domeno:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Napačno geslo</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Nepravilen e-naslov</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Nepravilna promocijska koda</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Imate promocijsko kodo? Vnesite jo tu</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Vaš portal je registriran s sledečo e-pošto:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Te nastavitve so bile uspešno shranjene</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Spremeni ga</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>tip gesla</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Geslo in njegova potrditev se ne ujemata</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Spremeni e-naslov</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Navodila aktivacije bodo poslana na vnešen e-naslov</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Sprememba e-naslova</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>e-pošta ni aktivirana</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Vse {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Iskanje osebja</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Ni podatkov, ki zavzemajo prostor za shranjevanje</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Omogoči LDAP avtentikacijo</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Omogoči SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Omogoči</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!user} bo spet prikazan kot aktiven</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Vnesi nov e-naslov</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Nimate dovoljenja za ogled te strani</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Napaka 403 - Forbidden</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Ni dovoljenj za izvajanje tega dejanja</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Dostop do portala je omejen.</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Nepravilen e-naslov ali pretečena povezava</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Vaš profil je onemogočen</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} s to e-pošto je že registriran</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Okno e-pošte je prazno</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Trenuten in nov e-naslov sta enaka</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Prosim izpolnite vsa polja</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Naložene datoteke ni bilo mogoče najti</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Vnesi svoj e-naslov</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Vnesi svoje ime</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Vnesi svoj priimek</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Povezava je potekla</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Velikost slike je prevelika</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Velikost datoteke slike je prevelika</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Nepravilna aktivacijska povezava</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Dostop do portala je omejen</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Datum registracije mora biti po rojstnem datumu</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>V polje lahko vnesete le do 255 znakov.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>V to polje lahko vnesete le 64 znakov.</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Vaš cenovni načrt ne podpira te možnosti</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Nepravilen format datuma</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Nepravilen e-naslov</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Nepravilno ime domene</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Geslo je prazno.</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Novo geslo je nepravilno. Vsebovati mora</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Mora vsebovati</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>številke</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>Posebni znaki</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>Veliko tiskane črke</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Neznana vrsta slikovne datoteke</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Uporabnika ni bilo mogoče najti</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Uporabnika z "{0}" e-naslovom ni bilo mogoče najti</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>Območje EU (Irska)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Vsak dan</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Vsak mesec</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Vsak teden</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Povratne informacije &amp;amp; pomoč</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Ženski</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Maksimalna velikost datoteke je presežena</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Opozorilo: velikost datoteke ne more preseči {1}{0}{2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>bajtov,KB,MB,GB,TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>za obdobje</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>k</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>zadnji 3 meseci</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>prejšnji mesec</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>prejšnji teden</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Povezava za potrditev vašega računa je bila uspešno poslana na določen e-naslov</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Ste pozabili svoje geslo?</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>Za vpis prosim sledite {0}povezavi{1}</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Nastavitve pozdrava</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Skupina</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Skupina vodi</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Skupine</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Gost</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Gosti</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Če želite {1}deaktivirati{2} portal, bo portal - in vse z njim povezane informacije - blokiran. Dostop ne bo možen za določeno časovno obdobje. Če želite to storiti, pritisnite gumb {1}Deaktiviraj{2}. Povezava za potrditev operacije bo poslana na e-naslov lastnika portala {0}Če se želite vrniti na ONLYOFFICE™ portal in nadaljevati z delom, uporabite drugo povezavo v potrditveni e-pošti. Zaradi tega e-pošto prosim ohranite na varnem mestu.{0}Če menite, da ONLYOFFICE™ portala ne boste več uporabljali in ga želite popolnoma {1}izbrisati{2},pošljite svojo zahtevo z uporabo gumba{1}Izbriši{2}. Prosim vedite, da portala ne boste zmožni ponovno aktivirati ali obnoviti z njim povezanih informacij. 
+</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Nastavitve sporočil administratorja{2} je način, kako kontaktirati administratorja portala.{0}To možnost omogočite za prikaz kontaktnega obrazca na strani{1}Vpiši se{2}, da ljudje administratorju portala lahko pošljejo sporočilo v primeru, da imajo težave z dostopanjem portala.{0}Za delovanje parametrov, ki ste jih nastavili, pritisnite gumb{1}shrani{2} na dnu tega oddelka.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Barvne teme{2} dovolijo, da uredite svojo nadzorno ploščo portala v skladu z znamko svojega podjetja.{0}Izberite eno izmed barvnih tem na levem seznamu.{0} Za potrditev izvrane teme pritisnite gumb {1}Shrani{2} na dnu tega oddelka.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Privzeta začetna stran{1} je način izbiranja pravega modula, do katerega greste takoj po vpisu na portal ali, ko pritisnete ONLYOFFICE™ logo, ko ste že vpisani. Če želite, da vsi izbrani parametri delujejo, pritisnite gumb {0}Shrani{1} na dnu tega oddelka.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}DNS nastavitve{2} je način za nastavitev alternativnega URL-ja za svoj ONLYOFFICE™ portal.{0}Preverite
+{1}Ime domene po meri{2}in v spodnje polje navedite lastno ime domene za ONLYOFFICE™ portal.{0} Za pričetek delovanja izbranih parametrov pritisnite gumb{1}Shrani{2} na spodnjem delu oddelka.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Nastavitve pozdrava{2} je način, kako spremeniti privzet naslov in logo za prikaz na  {1}Privzeti Začetni Strani{2} svojega portala.{0}Ime, ki vam je všeč, vnesite v {1}Naslov{2} polje. Če želite zamenjati logo portala, pritisnite povezavo {1}Spremeni Logo{2} in izberite sliko shranjeno na svojem računalniku za nalaganje na svoj portal. {0}Prosim ne pozabite, da lahko naložite sliko do {1}250x100 pikslov{2}, drugače bo prišlo do spreminjanja velikosti. Največja velikost slike ne sme presegati {1}1 MB{2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Posredujte povezavo da sodelavce povabite v svoj portal.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Nastavitve jezika in časovnega pasu{2} je način, kako jezik celotnega portala spremeniti za vse uporabnike in za spreminjanje časovnega pasu tako, da so vsi dogodki na  ONLYOFFICE™ portalu prikazani s pravilnim datumom in časom.{0}Za pričetek delovanja izbranih parametrov pritisnite gumb {1}Shrani{2} na dnu oddelka.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Nastavitve zaupanja vredne poštne domene{2} je način, kako opredeliti poštne strežnike za uporabniško samo-registracijo.{0}Možnost lahko omogočite {1}Domene po-meri{2}in v spodnje polje vnesete zaupanja vreden poštni strežnik, da se bo oseba, ki ima račun, lahko registrirala s pritiskom na pridružitveno povezavo na
+{1}Prijava{2} strani, ali pa to možnost onemogočite{0}Da bodo izbrani parametri začeli delovati, prosim pritisnite gumb{1}Shrani{2} na dnu oddelka.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Nastavitve moči gesla{2}je način, kako določiti učinkovitost gesla, ki se je zmožen upirati sklepanju in napadom.{0}Uporabite palico za {1}Minimalno dolžino gesla{2} in z njo določite, kako dolgo mora geslo biti. Obkljukajte ustrezne prostote spodaj in določite znake, ki morajo v geslu biti uporabljeni. {0}Za začetek delovanja izbranih parametrov pritisnite gumb {1}Shrani{2} na dnu tega oddelka.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Javni portal{2} je brezplačna možnost, ki komur koli dovoljuje ogled javne vsebine, brez predhodne registracije. Na voljo niso zasebni projekti, CRM modul pa je na takih portalih onemogočen.{0}Registracija na javni portal ni omejena s številom uporabnikov; novi uporabniki so dodani po zahtevi administratorja portala. Uporabite možnost {1}Takoj registriraj nove uporabnike{2} in tako odstranite kakršno koli nujo potrditve registracije.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Različica portala{2} je način, kako preklaplati med različicami portala ONLYOFFICE™ , ki so na voljo. {0}Lahko uporabljate novo različico, ali pa preklopite na staro različico portala.{0}Za začetek delovanja izbranih parametrov pritisnite gumb{1}Shrani{2} na dnu tega oddelka.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Predloga ekipe{2} je prilagoditveni način za ime organizacije (ali skupine), njenih članov in njihovih dejavnosti. {0}Spustite seznam {1}Predlog{2} in si izberite eno izmed prednastavitev, ki so na voljo ali sami vnesite ime z izbiro možnosti{1}Po meri{2} na seznamu.{0}Za izbiro izbrane predloge pritisnite gumb {1}Shrani{2} na dnu oddelka.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Migriranje portala na strežnike najbližje območju vaše geografske lokacije bo odzivanje portala naredilo hitrejše. Bližje, kot so vaše stranke in uporabniki območju strežnika, hitrejša bo hitrost portala.{0}Za začetek procesa migracije pritisnite na gumb {1}Spremeni območje strežnika{2} na dnu oddelka.{0}{1}Opozorilo:{2} Ko je proces začet, ga ni mogoče prekiniti. Prav tako vedite, da bobo zaradi tehničnih omejitev prenesena le sporočila zadnjih 30 dni.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Center pomoči</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Namen programa je pravno oglaševanje ONLYOFFICE™ za prejemanje provizije od naročnin, ki jih kupijo posamezniki.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skrij</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Vnesi svoj AIM račun</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Vnesi svoj Blogger profil</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Vnesi svoj e-naslov</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Vnesi svoj facebook profil</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Vnesi uporabniško ime ali ID svojega računa</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Vnesi svoj GoogleTalk račun</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Vnesi svoj GoogleBuzz profil</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Vnesi svoj Google račun</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Vnesi svoj ICQ račun</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Vnesi svoj Jabber račun</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Vnesi svoj LiveJournal profil</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Vnesi svojo telefonsko številko</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Vnesi svoj MSN račun</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Vnesi svoj MySpace profil</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Vnesi svojo telefonsko številko</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Vnesi svoj Skype račun</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Vnesi svoj Twitter profil</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Vnesi svoj Yahoo račun</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Vpis gostitelja</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Gostitelj</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Geslo gostitelja</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>Uporabnik že obstaja</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Kontakti niso bili prejeti.{0}Prav tako lahko uvozite kontakte z drugih profilov.</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Vnesi ime uporabnika</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Vnesi priimek uporabnika</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Vnesi svoj e-naslov</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Vnesi svoje ime</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Napaka uvoza</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Vnesi svoj priimek</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>V zgornja polja prosim vnesite ime, priimek in e-naslov uporabnika, ki bo dodan na portal. Za dodajanje uporabnika na seznam pritisnite gumb "Dodaj".</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>Iz datoteke</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Datoteka izbrana za uvoz ima napačen format.{0}Prosim izberite drugo datoteko in ponovite proces uvažanja.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Na portal dodaj uporabnike</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Prepričajte se, da so vsa uporabniška polja vključno z imenom, priimkom in e-pošto ustrezno izpolnjena</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Priimek</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Vaš trenuten cenovni načrt dovoljuje, da dodate {0} uporabnikov.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Ponastavi svoj plačilni načrt, ali dodaj več uporabnikov kot goste s pravicami ogleda. Njihove vloge boste kasneje lahko spremenili v modulu 'Ljudje'.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Dodajanje uporabnikov</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Nadgradite svoj načrt ali dodajte več uporabnikov kot goste z dovoljenjem ogleda. Njihove vloge boste kasneje lahko spremenili v modulu 'Ljudje' ali {0}Preberi o neprofitni porabi{1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Vaš cenovni načrt ne dovoljuje, da dodajate več uporabnikov</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>v</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Nepravilno uporabniško ime ali geslo</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>Za začetek dela na portalu najprej preverite, če sta vaše {0}ime{1} in {0}priimek{1} pravilna v desnem obrazcu in nastavite {0}osebno geslo{1} za možnost vpisa.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Povezava povabila</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Geslo</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Povezavo do portala ste prejeli od prijatelja, znanca ali kolega</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Na portal vas je dodal prijatelj, znanec ali koleg</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Prejeli ste povabilo za registracijo na tem portalu!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Uporabnike dodaj kot goste</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Povabi uporabnike na portal</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Onemogoči</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Omogoči</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP Varnost{1} je uporabljena za omejevanje vpisa na portal z vseh IP naslovov razen določenih. Dovoljene IP naslove lahko nastavite z uporabo točnega IP naslova v IPc4 formatu (#.#.#.#, kjer # je numerična vrednost od 0 do 255) ali IP območjem (v #.#.#.#-#.#.#.# formatu).</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP varnost</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Migriraj tudi ONLYOFFICE™ Mail (ni priporočeno)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Postanite naš partner</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Uporabnike lahko še vedno dodajate kot goste, ali pa cenovni načrt spremenite na takega z večjim številom uporabnikov. </value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Priimek</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>LDAP nastavitve</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Potrditev uporabnika</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Omogoči to možnost, če trenuten uporabnik Windowsa nima pravic za branje LDAP strežnika/aktivne direktorije in vnesi poverilnice drugega uporabnika z pravicami branja.</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Prazno polje</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Omogočite to možnost, če želite samodejno dodati uporabnike iz LDAP strežnika/aktivne direktorije v ONLYOFFICE™. Dodani uporabniki ne bodo mogli avtorizirati svojih Windows poverilnic. ONLYOFFICE™ lokalno ne shranjuje uporabniških gesel in bo avtenticiral uporabnike s pošiljanjem njihovega uporabniškega imena in gesla na LDAP strežnik/aktivno direktorijo.
+
+</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Ne morem ustvariti uporabnikov, prejeti podatki so morda nepravilni</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Strežnik je neuspešno obnovil nastavitve</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Strežnik je neuspešno shranil nastavitve</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Nepravilen vpis ali informacija gesla.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Ni mogoče najti skupin.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Nepravilna vrednost filtra uporabnika</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Neznana napaka.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Ni mogoče najti nobenega uporabnika</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Nepravilna vrednost atributa skupine.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Neveljavna lstnostna vrednost prijave.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Ne morem se povezati s strežnikom LDAP. Prosim preverite, če sta naslov strežnika in številka porta enaka.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Nepravilna vrednost uporabnikovega atributa</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Atribut skupine</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Vnesi atribut skupinskega objekta, ki določa, katere uporabnika te skupina vsebuje.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Skupina DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Razločevalno ime vnesi v direktorijo, ki vsebuje skupine, ki jih želite dodati.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Članstvo skupine</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Omogočite to možnost, če želite dodati skupine iz LDAP strežnika/aktivne direktorije v ONLYOFFICE™. Prosim vedite, da bodo dodani le uporabniki, ki pripadajo tej skupini.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Notranja napaka strežnika.</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Atribut vpisa</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Vnesi predmetni atribut, ki ustreza uporabniški prijavi.</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Geslo</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Vnesi geslo za uporabnika s pravicami dostopa za branje podatkov z LDAP strežnika/Aktivne direktorije.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Številka porta</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Vnesi številko porta za svoj LDAP strežnik/aktivno direktorijo.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Privzete nastavitve</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Obnovi na privzete nastavitve</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Shrani nastavitve</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Strežnik</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Vnesi LDAP URL strežnika brez številke porta, e.g. LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Preverjanje LDAP nastavitev za pomoč</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>Pridobivanje seznama skupin iz LDAP strežnika</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>Pridobivanje uporabniškega seznama z LDAP strežnika</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Shranjevanje skupin</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Shranjevanje nastavitev</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Shranjevanje uporabnikov</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Shranjevanje je bilo uspešno končano</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Dosežena je bila trenutna cenovna meja uporabniškega načrta</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Atribut uporabnika</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Vnesite atribut objekta uporabnika za določanje, če je uporabnik član skupin.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>DN uporabnika</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Razločevalno ime vnesi v direktorijo, ki vsebuje uporabnike, ki jih želite dodati.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Filter uporabnika</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Če morate dodati le določene uporabnike iz direktorije, so lahko filtrirani z uporabo iskalnege LDAP filtra.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Vnesi uporabniško ime za uporabnika s pravicami dostopa za branje podatkov iz LDAP strežnika/aktivne direktorije.</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Več o tem...</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Nalaganje, prosim počakajte</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Nalaganje...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Lokacija</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Vpis</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Vpiši se</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Dostop portala je omejen. Prosim kontaktirajte administratorja.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Pridruži se</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Vpis preko družbenih omrežij</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>ali se vpiši z:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Ne morem najti povezanega tujega računa. Najprej morate na strani urejanja profila z računom povezati svoje socialne račune.</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Ni neprebranih sporočil. Prosim pojdite na e-naslov in preberite vsa svoja sporočila.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Moški</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Pogosto</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Integracija</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Varnost</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Statistika</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Zgradi svojo CRM bazo podatkov</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Upravljaj stranke, sledi prodajam in izdajaj račune</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Z .docx, .xlsx in .pptx delajte na spletu</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Svoje dokumente so-uredite s člani skupine</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Povabi svoje člane skupine</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Dodaj uporabnike preko e-pošte, ali jih uvozi z drugih storitev</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Začni svoj projekt</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Z Ganttovim grafikonom nadzirajte naloge in sledite zmogljivosti</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Tukaj je nekaj korakov za začetek:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Dobrodošli na ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Označi kot prebrano</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Prosim prijavite se</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Navodila za aktivacijo e-naslova so bila poslana na {0} e-naslov</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Navodila za spremembo e-naslova so bila uspešno poslana</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Vaš e-naslov je bil uspešno aktiviran.</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Navodila za vabila pošlji na {0} e-naslov</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Pošlji email navodila aktivacije na {0} e-naslov</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Pošlji email navodila za spremembe na {0} e-naslov</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Navodila za spremembo pravil pošlji na {0} e-naslov</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Prosim vnesite e-naslov, s katerim ste registrirani na portal. Navodila za obnovitev gesla bodo poslana na ta e-naslov.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ je cloud pisarna, ki omogoča, da na enem mestu vodite dokumente, projekte, ekipo in odnose s strankami.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>spletni urejevalnik dokumentov, orodje za vodenje projektov, podjetno orodje, crm sistem, granttov grafikon, spletno sodelovanje, cloud pisarna, spletni word, upravljanje dokumentov, spletne preglednice, spletne pisarne, sodelovalno urejanje, spletne pisarniške aplikacije, spletni dokumenti</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Migracija</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>Možnost {0}Migracija območja portala{1} je na voljo le lastnikom s plačljivimi portali.</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Nov mobilni telefon</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Primarni mobilni telefon</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Spremeni mobilno številko</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Pojdi na številko strani spremeni telefonsko številko.</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>Za spremembo mobilne številke uporabite besedno sporočilo s kodo, ki je bila poslana na vaš nov telefon.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Poslano</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Spremeni mobilno številko</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Navodila, kako spremeniti mobilno številko, bodo poslana na uporabnikov e-naslov</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>Za spremembo številke morate izbrisati svojo trenutno telefonsko številko</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Nadzorovanje</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Več dejanj</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Moj Profil</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Predloga</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Predloga ekipe</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Nikoli ne prikaži</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Ni zgrešenih klicov</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Drugih operaterjev ni na voljo, prosim odgovorite.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>V primeru, da na seznamu jezikov, ki so na voljo ne najdete svojega, nam pišite na {0}documentation@onlyoffice.com{1} in postanite del prevajalcev, ter prejmite do 1 leta brezplačne uporabe.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Obvesti z:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>e-naslov &amp; pogovor</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Pogovor</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Uporabnike obvesti o migraciji portala</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Onemogočeno</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>ali</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Lastnik</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Geslo</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Spremeni geslo</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Sprememba gesla</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Minimalna dolžina gesla</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Obnovitev gesla</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>znaki</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Uporabi številke</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Uporabi posebne znake</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Uporabi veliko začetnico</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Zdaj lahko ustvarite novo geslo.</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>Zgodovina plačila</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>v teku</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Osebe</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Prosim počakajte...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Javni portal</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Zasebni portal</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Limit presežen ({0} Mb prostora na disku)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Ta funkcija omogočena le na prosti tarifi</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Nastavitve dostopa portala</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Limit presežen ({0} aktivnih uporabnikov)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Ime portala</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Lastnik portala</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Dostop portala</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Poganja</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Predogled</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Moduli &amp; orodja</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Izberite ONLYOFFICE™ module in orodja, ki jih potrebujete. Onemogočeni moduli in orodja bodo skriti pred uporabniki portala. Vedite, da bodo orodja in moduli, ko jih boste ponovno omogočili, na voljo za vse uporabnike portala. Za omejitev dostopa se obrnite na oddelek Pravice dostopa nastavitev portala.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Orodja</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Moduli</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Profil je bil odstranjen</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Objavi</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Reaktiviraj</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Vaš račun je bil uspešno ponovno aktiviran. {0}V 10 sekundah boste preusmerjeni {1}sem{2}</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Preusmeri</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Datum registracije</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Takoj registriraj nove uporabnike</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Vaš registracijski e-naslov</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Zavrni</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Zapomni si</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Vabila bodo poslana na vnešen e-naslov</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Še enkrat pošlji</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Ali želite ponovno izbrati povabila?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Ponovno pošlji vabilo</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Obnovi</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Seznam varnostnih kopij</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Obnovi</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Računalniška datoteka</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Obnovi na privzeto</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>To možnost uporabite za obnovitev svojega portala iz zadnjega shranjenega varnostnega kopiranja.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Varnostno kopiranje še ni bilo ustvarjeno. Ustvarite eno ali več varnostnih kopiranj, če želite, da se prikažejo na seznamu.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>{0}Obnavljanje podatkov{1} možnost je uporabljena za predhodno shranjene podatke portala (z lokalnega strežnika ali SaaS portala). Izberite prostor, kjer so podatki shranjeni, vnesite potrebne podatke in preverite {0}Pošlji obvestilo uporabnikom portala{1}da svoje uporabnike portala obvestite o obnavljanju operacij.
+
+</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>Ko bo postopek obnavljanja končan, boste samodejno preusmerjeni na svoj portal.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Obnavljanje portala je v teku.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>uporabnikom pošlji obvestilo o obnovitvi portala</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Pokaži seznam varnostnega kopiranja</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Obnovitev podatkov</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Portal bo med postopkom obnavljanja postal nedostopen. Po končani obnovi bodo vse spremembe, storjene po izbranem datumu obnove, izgubljene.</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Shrani</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Iskanje</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Prepričaj se, da so vse besede pravilno napisane. Poskusi uporabiti druge ključne besede.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Nič ni bilo najdeno.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Išči rezultate</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Poglej vse</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Poglej vse videe</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Izberi</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Pošlji</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Pošiljateljev e-naslov</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Pošiljateljevo prikazno ime</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Ponovno pošlji povabilo</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Pošlji povabilo</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Ustvarite račun</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Želite postati uporabnik portala?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Prosim vnesite e-naslov, kamor bo povabilo poslano:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Pošlji poskusno e-pošto</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Strežniška programska oprema je naletela na napako med obdelavo vaše zahteve. Prosimo počakajte in ponovno poskusite kasneje. Če se napaka ponavlja, boste verjetno morali kontaktirati administratorja strani.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Napaka strežnika</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Območje strežnika</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>To je že trenutna različica</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Nepravilna različica portala</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Spol</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Azija Pacifik (Singapur)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Pokaži</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Pokaži vse</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Pokaži vse rezultate</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Omogoče/onemogoči namige</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Pokaži naslednjega</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Registracija je na voljo vsem uporabnikom z emai računom na kateri koli domeni.
+Za registracijo vnesite e-naslov in pritisnite na Pošlji vabilo. E-sporočilo s povezavo do aktivacije ONLYOFFICE™ računa bo poslana na naveden e-naslov.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Preprost vpis</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Presenečenje</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Bomba</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Nor</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Jok</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Ples</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Pij</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Jezen</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Pomežik</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Zelena</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Hollywoodski nasmeh</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Žalosten</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Glasba</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Nasmeh</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Nasmešek</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Oprosti</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>očala</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>hura</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Dvo-faktorska avtentikacija{1} je varnejši način uporabniškega dostopa do portala. Po vnosu poverilnic bo uporabnik preko SMS-a na telefonu prejel kodo s številko, ki je določena ob prvem vpisu na portal preko dvo-faktorske avtentikavije.{2}Za varnejšo uporabo portala vseh uporabnikov to možnost omogočite. {2}za potrditev sprememb pritisnite na spodnji gumb {0}Shrani{1}.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Nepravilna koda</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Koda: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Čas za uporabo kode se je iztekel. Prosim zahtevajte novo besedilno sporočilo.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Dvo-faktorska avtentifikacija</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>SMS nastavitve niso na voljo</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Poslali ste preveč besednih sporočil. Prosim poskusite kasneje.</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>SMTP nastavitve</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Če uporabljate Gmail račun za SMTP strežnik, ne boste zmožni pošiljati sporočil, dokler ne storite sledečega: v gmail račun se vpišite preko standardnega spletnega vmesnika in potrdite kakršna koli potrditvena vprašanja o poskusih dostopanja ONLYOFFICE™ do računa.{0}Priporočamo uporabo portov 587 ali 25 za poslana e-sporočila, saj druge vrednosti lahko SMTP preprečijo normalno delovanje.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>SMTP nastavitve so potrebne za nastavitev email računa, ki bo uporabljen za pošiljanje obvestil s portala z uporabo SMTP strežnika namesto ene  ONLYOFFICE™ uporabe. Prosim izpolnite vsa polja in pritisnite gumb "Shrani". Gumb 'Pošli testno sporočilo' lahko uporabite za preverjanje, če vse vnesene nastavitve delujejo pravilno.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Socialni profili</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Vir</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>S tem žetonom za preverjanje pristnosti ne morem ustvariti uporabnika</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Ne morem shraniti nastavitev</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Enkratna prijava je onemogočena</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Žetona za preverjanje pristnosti ni bilo mogoče najti</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Nepravilen avtentikacijski žeton</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Ta uporabnik je onemogočen</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Pogosto</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Nastavitve zaupanja vrednih domen maila</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Nastavitve moči gesla</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Nastavitve jezika in časovnega pasu</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Različica portala</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Naroči</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Dogodki in obvestila za lastnika ali administratorja portala</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Prebava dnevnih novic in dogodkov portala</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Ime projekta</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>od vseh</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Obvesti preko</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Naročila</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Nastavitve pozdrava so bile uspešno shranjene</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Nastavitve so bile uspešno posodobljene</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Navodila za brisanje svojega profila so bile poslana na {0} e-naslov</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Povabila so bila uspešno ponovno poslana</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Pošlji e-sporočilo</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Kontaktirajte nas, če želite odkriti posebne ponudbe</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Zmanjšaj zahtevan parameter ali izberi drug cenovni načrt.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Kupi zdaj</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Podaljšaj</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Trenutni načrt lahko podaljšate, ali pa ga spremenite z uporabo spodnje razpredelnice.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Izberite račun, ki je najbolj primeren za vaše potrebe. Priporočen načrt je označen spodaj.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Tega načrta ni mogoče izbrati</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Dovoljena količina shrambe: {0}. Trenutna količina shrambe: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Dovoljeno število uporabnikov portala: {0}. Trenutno število uporabnikov: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Tega načrta ne morete izbrati, saj količina skladišča ali število uporabnikov presega limite izbranega cenovnega načrta:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>ponavljajoča plačila so na</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Količina shrambe bo presežena: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Lahko odstranite nepotrebne datoteke ali {0}pritisnite tu{1} za iskanje boljšega cenovnega načrta za svoj portal.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Bo poteklo na {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Uporabljate brezplačen načrt.</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Cenovni načrt ni na voljo do izteka plačanega leta.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>Za samodejno podaljšanje obdobja se prosim prepričajte, da je prostor za samodejno plačilo na vašem Avangate računu prižgan.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>Za preklič samodejnega plačila prosim pojdite na svoj Avangate račun.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Ponudba je veljavna do {0}.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Plačilni načrti</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Plačila</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Število aktivnih uporabnikov, ki ste jih dodali: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Porabljena količina prostora: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Uporabljate načrt brezplačne predstavitve.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Hvala, ker ste si ogledali ONLYOFFICE™!{2}{0}Brezplačna predstavitvena različica se je iztekla.{1}</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Ustvarjeno</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Porabljena količina prostora</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Skupno število uporabnikov</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Avtorizacija tretje skupine</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Časovni pas</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>e-naslov</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>GoogleTalk</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>mobilni telefon</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>MySpace</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Telefonska številka</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo!!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Vrhnjih 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Skupno najdeno</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>so</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Spremeni območje serverja</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}Začeli boste migracijo portala na drugo območje. Portal med postopkom migracije ne bo na voljo. Ko bo končano, vam po na e-naslov poslano obvestilo.{1}{0}Ste prepričani, da želite nadaljevati?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>ko bo migracija končana, boste samodejno preusmerjeni na nov URL svojega portala.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>Migracija portala{0} na drugo območje je v teku.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Regija portala</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Spreminjanje območja serverja</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Portal med postopkom migracije ne bo na voljo. Ko je migracija končana, bo URL portala spremenjen, vse povezave dejenih dokomentov pa bodo nedostopne.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Poskusno obdobje: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Brezplačno predstavitveno obdobje se je izteklo</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Izberite to{1} za najprimernejši cenovni načrt za svoj portal.</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>domene po meri</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Registracija je na voljo uporabnikom z e-poštnim naslovom na {0}. 
+Za registracijo vnesite svojo e-pošto in izberite Pošlji povabilo. E-pošta s povezavo za aktivacijo ONLYOFFICE™ računa bo poslana na navedeno e-pošto.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Prišlo je do neznane napake</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Odjavi</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Posodobi cenovni načrt</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Naloži</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Uporabnik</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Forum uporabnika</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Uporabniki</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Delo/Naslov</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>US Zahodna (Oregonska) Regija</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Video vodniki</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Pokaži neogledan video</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Poglej cenovne načrte</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>kliki</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>gostitelji</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Graf porabe</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Obiski</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>Na žalost storitev trenutno ni na voljo. Prosim poskusite kasneje.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Opozorilo!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Hvala, ker ste izbrali ONLYOFFICE™! Zaradi varnostnih razlogov mora biti izveden postopek za nastavitev gesla.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Dobrodošli na svoj ONLYOFFICE™ Portal</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Kaj je novega</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Nastavitve jezika in časovnega pasu</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Namestitev portala - Sledite tem lahkim korakom za enostaven začetek svoje spletne pisarne</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Nastavitve registracije</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Odločili ste se pridružiti portalu.</value>
+  </data>
+</root>

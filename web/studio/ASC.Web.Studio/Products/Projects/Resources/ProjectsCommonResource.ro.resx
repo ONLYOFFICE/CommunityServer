@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Gestionare abonați</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Toate</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Toate {!groups}</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Toți {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Start/Stop cronometru</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Adaugă timp</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauză</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Resetează</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Încearcă aplicația mobilă</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
+  <data name="ChangeColorCustomStatus" xml:space="preserve">
+    <value>Modifică culoarea</value>
+  </data>
+  <data name="ChangeIconCustomStatus" xml:space="preserve">
+    <value>Modifică iconița</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Ascunde</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Setări comune</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Creează</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Începe proiect nou</value>
+  </data>
+  <data name="CustomStatusCategory" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="CustomStatusDescription" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="CustomStatusNew" xml:space="preserve">
+    <value>Stare noua</value>
+  </data>
+  <data name="CustomStatusTitle" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dată</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descriere</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Documente</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editare</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Selectați contactele CRM existente din listă pentru a le lega de proiectul pe care îl gestionați sau adăugați noi contacte. Editați informațiile personale ale persoanelor de contact. O integrare mai profundă cu CRM vă va ajuta să vă gestionați munca mai eficient.</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Urmărire</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>În mod implicit, fiecare membru al echipei de proiect poate vizualiza întregul conținut din proiectul selectat: repere, sarcini, documente și discuții. Pentru a restricționa accesul, doar selectați coechipierul pentru care doriți să setați drepturile de acces și faceți clic pe unul dintre linkurile din dreapta. În același mod, puteți seta drepturile de acces pentru fiecare membru al echipei de proiect, cu excepția cazului în care acesta nu are privilegii de administrator de portal. Administratorul ONLYOFFICE ™ are acces complet la întregul conținut din toate proiectele.</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Ce este un proiect privat?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Ce stări ale proiectului există?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Cum să gestionați echipa?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Ascunde</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Acest utilizator nu primește înștiintări pentru această discuție pentru că proiectul are starea privat și utilizatorul nu este un membru din echipa proiectului.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Aflați mai multe...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Activ</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Proiecte|Urmărire</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Cele mai recente</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Discuțiile mele</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Proiectele mele</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Contacte</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Mută sarcina</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Comentarii noi în</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Comentarii noi în sarcini</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Fără date</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Setări personale</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Previzualizare</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Construiți echipe și atribuiți sarcini. Planificați etapele proiectului, urmăriți activitatea proiectului și generați rapoarte.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Construiți echipe și atribuiți sarcini. Planificați etapele proiectului, urmăriți activitatea proiectului și generați rapoarte.</value>
+  </data>
+  <data name="ProductDescriptionShort" xml:space="preserve">
+    <value>Construiți echipe și atribuiți sarcini. Planificați etapele proiectului, urmăriți activitatea proiectului și generați rapoarte.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Proiecte</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Titlu proiect</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Citiți mai multe</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Înlocuiește</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Director Rapoarte</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Rapoarte</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvează</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Salvează modificările</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Căutare</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selectați</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Selectați dintre contactele existente sau adăugați unul nou</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configurări</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Orice utilizator poate crea un proiect</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Afișează</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Arată în pagină</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Timp utilizat</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Pagină de start</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Abonați-vă la comentarii</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Sarcină adăugată</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Data de început trebuie să fie anterioară datei scadente</value>
+  </data>
+  <data name="TaskStatusesSettings" xml:space="preserve">
+    <value>Stările sarcinilor</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Oră</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Urmărire timp</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titlu</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Nu mai urmări</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Dezabonare de la comentarii</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Actualizare termen limită</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>oo</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Adaugă comentariu</value>
+  </data>
+</root>

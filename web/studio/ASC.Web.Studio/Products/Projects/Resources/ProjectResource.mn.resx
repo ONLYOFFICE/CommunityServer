@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Анхны хугацааг нэмэх</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Энэ төслийг нэмэх</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Төслийн менежерийг нэмэх</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Даалгавар нэмэх</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>Хэрэглэгчдийг төслийн баг руу/багаас нэмэх болон хасах</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>Анхны цаг хугацаа, даалгавар, хэлэлцүүлгийг төлөвлөж, тийшээ орох хатуу хандалттай.</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Яриагаар холбогдох</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Төслийг хаах</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Анхны төслийг үүсгэх</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Шинэ төсөл үүсгэх</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Төслийг устгах</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Та энэ төслийг устгахдаа итгэлтэй байна уу?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>Энэ хэсэгт таны шүүлтүүрт таарах ямар ч төсөл алга</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Төслийг засварлах</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Төслүүдийг бий болгоод үр ашигтай ажиллах</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Төслийг дагах</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Даалгаврыг зорилтот цэгт нэмэх</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Бүх хариуцах хэрэглэгчид</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Хариуцах хэрэглэгчдийг томилох</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Бүтэн дэлгэцийн горим</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Зүүн самбарын горим</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Хаах</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Холбоос үүсгэх</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Холбоос үүсгэгдэж байна</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Зүүн талын самбар дээрх гарчиг дээр хоёр дарна уу</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Гарчигийг засварлах</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Ганттын хүснэгт</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Ач холбогдол өндөр</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Идэвхитэй</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Хаагдсан</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Хүчингүй холбоос</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Даалгавруудыг холбох</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Холбоосын төрөл</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>-тэй холбох</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Шинэ даалгавар үүсгэх</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Тогтоосон хугацаатай шинэ даалгавар үүсгэх</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Нэмж судлах</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Дэлгэцэнд тааруулах</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Өдрүүд</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Сар</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Зүүн хөдөлгөх</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Баруун хөдөлгөх</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Хувийн Төсөл</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Энэ төслийн хувийн болгон хадгалах</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Багийг зохион байгуулах</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Гар ажиллагаатай цагийн оролт</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Төслийн зохицуулагчид имейлээр мэдэгдэх</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Тийм</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>төсөл</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Төслийг устгах</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Танилцуулга</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Төслийн Менежер</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>төслүүд</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Төслийн статус</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Төслийн темплейт</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Төслийн темплейтүүд</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>төслийг хадгалах</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Төслийн темплейтийг сонгох</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Хаагдсан даалгаврууд. Одоогийн зорилтот цэгийн бүтэн жагсаалтыг дарж нээнэ үү.</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Зорилтот цэгийг хариуцах хэрэглэгч. Одоогийн хэрэглэгчийн зохицуулж байгаа зорилтот цэгүүдийн харахын тулд энд дарна уу.</value>
+  </data>
+</root>

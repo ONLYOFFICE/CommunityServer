@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Pridėti ir sukurti naują</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Pridėti mokėjimo adresą</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Pridėti pristatymo adresą</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Pridėti naują eilutę</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Adresas buvo</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Kurti naują mokestį</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Mokesčio kūrimas</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Išsaugoti ir kurti naują elementą</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Pridėti sąskaitą - faktūrą</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Visos sąskaitos - faktūros</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Kiekis</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Pridėti dokumentą</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>Automatiškai sugeneruotas</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Mokėtojas</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Valiuta</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Terminas</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Keisti formatą</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Visos būsimos sąskaitos - faktūros </value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Keisti būseną</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Užrašai apie klientą</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Bus rodoma sąskaitoje-faktūroje ir laiške, jei sąskaitą išsiųsite ONLYOFFICE el. pašto pagalba.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>Sutampa su klientu</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Sukurti pirmą sąskaitą - faktūrą</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Sukurti pirmą punktą</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Sukurti pirmą mokestį</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Sukurti elementą</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Kurti sąskaitos - faktūros elementą</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Sukurti mokestį</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Kurti naują sąskaitą - faktūrą</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Kurti naują elementą</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Kurti naują mokestį</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valiuta</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Kiekviena sąskaita - faktūra turi turėti valiutą</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} dienų</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Numatytos taisyklės bus taikomos ateities sąskaitoms</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Ar jūs tikrai norite</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Sąskaita - faktūra šalinama</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Šalinamas elementas</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Ar jūs tikrai norite</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Ar jūs tikrai norite</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Šalinamas mokestis</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Ištrinti šią sąskaitą - faktūrą</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Sąskaitos - faktūros šalinamos</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Nuolaida</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Atsisiųsti</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Terminas</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Nurodykite apmokėjimo datą arba pasirinkite vieną iš numatytųjų apmokėjimo terminų, skaičiuojamų nuo sąskaitos išrašymo dienos.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Išrašymo data vėlesnė nei apmokėjimo</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Gavus</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>kiekviena sąskaita - faktūra turi turėti mokėjimo datą</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Dubliuoti ir kurti naują</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Dubliuoti sąskaitą - faktūrą</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Dubliuoti sąskaitą - faktūrą</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Dubliuoti sąskaitą - faktūrą</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Redaguoti mokėtojo adresą</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Redaguoti pristatymo adresą</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Redaguoti sąskaitą - faktūrą</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Keisti sąskaitą - faktūrą</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Redaguoti</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Redaguoti mokestį</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Šis skyrius leidžia nustatyti prekes ir paslaugas, kurias galima įtraukti į sąskaitas-faktūras. Kai sukursite sąrašą, bet kurį sąrašo elementą galėsite įtraukti į sąskaitą ir pateikti klientui. Taip pat, prireikus, bet kada galėsite sukurti naujų prekių ir paslaugų.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>Nėra jokių Jūsų filtrą atitinkančių sąskaitų, kurias galėtume čia parodyti. Prašytume pakeisti filtro nustatymus arba išvalyti filtrą, kad peržiūrėtumėte visas sąskaitas. Arba galite sukurti sąskaitą, jei jos sąraše nėra.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Nėra sąskaitos elementų naudojant šį filtrą</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Prekių ir paslaugų sąrašas tuščias</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Sąskaitų-faktūrų skyriuje galite kurti ir klientams pateikti sąskaitas-faktūras. Čia matysite sukurtų sąskaitų-faktūrų sąrašą.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>Nėra jokių Jūsų filtrą atitinkančių sąskaitų, kurias galėtume čia parodyti. Prašytume pakeisti filtro nustatymus arba išvalyti filtrą, kad peržiūrėtumėte visas sąskaitas. Arba galite sukurti sąskaitą, jei jos sąraše nėra.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Nėra sąskaitų, vaizduojamų naudojant šį filtrą</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Sąskaitų sąrašas tuščias</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Sąskaitos - faktūros mokestis leidžia kurti papildomus mokesčius, priklausomai nuo jūsų klientų šalies ar teritorijos. Jūs galite pridėti mokesčio pavadinimą, poreikį ir aprašymą. Galite taip pat pridėti naujus mokesčius, kai to reikės</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Sąskaitų mokesčių sąrašas tuščias</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Nerasta galimybių</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Pasirinktas elementas</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Mokesčio pavadinimo laukas negali būti tuščias</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Reitingo laukas negali būti tuščias</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Nieko</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Kainos laukelis tuščias</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Kaina nurodyta neteisingai</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Kiekis nurodytas neteisingai</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>nekorektiškas dydis</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Keitimo kursas</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Privalote užpildyti šį laukelį</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Inventoriaus kiekis</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Elemento pavadinimas</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Kaina</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Išteklių kiekis</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Mokesčiai</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Rasti pagal pavadinimą, SKU arba aprašymą</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Sąskaita - faktūra</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Klientas</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Kiekviena sąskaita - faktūra turi turėti mokėtoją</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Gavėjas</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>CRM valiuta pagal nutylėjimą naudojama nustatant kainas Prekių ir paslaugų kataloge.&lt;br/&gt; Norėdami pakeisti valiutą, pereikite prie&lt;a href="settings.aspx?type=common" target="_blank"&gt;Bendrųjų nustatymų&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Aktyvus</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Archyvuotas</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Vardas</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Vienas ar keli sąskaitos elementai turi neigiamą išteklių kiekį</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Kaina</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Su inventoriaus kiekiu</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Be inventoriaus kiekio</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Sąskaitos - faktūros kalba</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>kiekviena sąskaita - faktūra turi turėti kalbą</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Sąskaitos - faktūros numeris</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Sąskaitos-faktūros numeris jau naudojamas</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Sąskaita - faktūra</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Pirmo mokesčio pavadinimas</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Pirmo mokesčio reitingas</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Antro mokesčio pavadinimas</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Antro mokesčio reitingas</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Mokestis tokiu pavadinimu jau yra užregistruotas.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Mokesčių kategorijos leidžia sukurti mokesčius, priklausomai nuo šalies, kurioje gyvena Jūsų klientai. Galite nurodyti mokesčio pavadinimą, procentinį dydį ir aprašymą.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Mokesčių kategoriją galite pašalinti tik jei ji nėra naudojama Prekių ir paslaugų skyriuje.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Mokesčio pavadinimas</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Kursas</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Saskaitos - faktūros išdavimo data</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>kiekviena sąskaita - faktūra turi turėti datą</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Elementas</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Jūsų numatytoji CRM valiuta.&lt;br/&gt;TNorėdami pakeisti ją, pereikite prie &lt;a href="?type=common" target="_blank"&gt;Bendrųjų nustatymų&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Pridėti elementų kiekį</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Susieti su galimybe</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Pateikti sąskaitą</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Žymėti kaip ruošinį</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Pažymėti kaip apmokėtą</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Žymėti kaip atmestą</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Žymėti kaip išsiųstą</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Skaičius</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Formatas neteisingas arba sąskaitos - faktūros numeris jau egzistuoja</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Pradėti nuo tuščio kiekio</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>kiekviena sąskaita - faktūra turi turėti savo numerį</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Vėluojantis</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Užsakymo numeris</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Priedėlis</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Kaina</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Spausdinti</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Prekės ir paslaugos</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Pasirinkite prekę ar paslaugą</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>kiekviena sąskaita - faktūra turi turėti elementus</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Kiekis</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Kiekis</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Išsaugomi kiekio nustatymai</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Išsaugomi taisyklių nustatymai</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Išsaugant sąskaitą-faktūrą įvyko „{0}“ klaida. Pabandykite dar kartą vėliau.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Pardavėjas</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Siųsti el. paštu</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Nustatyti numatytą</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Nustatyti numatytąsias sąlygas</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Nustatyti tuščią</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Gavėjas</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Rodyti sąskaitos profilį</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Atverti naujoje kortelėje</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Pradinis kiekis</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Būsena</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Mato vnt. (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Tarpinė suma</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Mokestis</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Sąlygos</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>kiekviena sąskaita - faktūra turi turėti sąlygas</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Suma iš viso</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Visos sąskaitos</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Sekti inventorių</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Atnaujinti elementą «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Atnaujinti mokestį</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Pakeitimai išsaugomi...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Įspėjimas</value>
+  </data>
+</root>

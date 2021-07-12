@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Įrašyti</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Archyvuoti</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Archyvinė</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Autorius</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarai</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Sukurti naują diskusiją</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Pradėti diskusiją</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Sukurti užduotį iš diskusijos</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Ar tikrai norite pašalinti diskusiją?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Pašalinti diskusiją</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Neradome diskusijų, kurios atitiktų nustatytą filtrą.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Aprašymas</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Diskusijas naudoja projektų komandos tinkamų sprendimų paieškai, kai vykdant projektą iškyla kokios nors problemos. Diskutuokite su savo kolegomis, kvieskite vartotojus ir kitų projektų prisijungti prie diskusijos.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Kol kas nėra jokių diskusijų</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Prenumeratoriai</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Redaguoti diskusiją</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Kiekvienoje žinutė turėtų būti teksto</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Nėra filtrą atitinkančių diskusijų</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Diskusija</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Tekstas</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Diskusijos</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Antraštė</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Atidaryti</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Skaityti toliau</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Pasirinkite projektą</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Pradėkite pirmąją diskusiją</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Žmonės, kuriuos pasirinksite, gaus pranešimą apie žinutę ir komentarus.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Informuoti</value>
+  </data>
+</root>

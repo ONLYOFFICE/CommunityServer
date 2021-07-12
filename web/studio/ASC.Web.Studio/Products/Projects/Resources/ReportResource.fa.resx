@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>وظایف فعال</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>نام کاربری</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>هر روز</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>هر ماه</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>هر هفته</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>تولید گزارش</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>ماه قبلی</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>هفته قبلی</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>سال قبلی</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>اعضا</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} بدون هیچ وظیفه فعال</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>گزارش «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>لیست پروژه ها</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>پروژه های بدون وظایف فعال</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>گزارشها</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>وظایف پروژه</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>عملکرد کاربران</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>نمایش وظایف</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>الگوها</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>عنوان الگو</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>ماه جاری</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>هفته جاری</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>سال جاری</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>امروز</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>کاربر</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>مشاهده بر اساس {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>مشاهده بر اساس پروژه</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>مشاهده توسط کاربر</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>هفته</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>هفته</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>دیروز</value>
+  </data>
+</root>

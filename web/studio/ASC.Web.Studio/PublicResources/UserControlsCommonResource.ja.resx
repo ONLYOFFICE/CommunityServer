@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveUserDescr" xml:space="preserve">
+    <value>有効なユーザーは「お客様」と「無効」ステータスを持っているユーザー以外の全てのポータル参加者です。</value>
+  </data>
+  <data name="AddAnswerVariantButton" xml:space="preserve">
+    <value>世論調査の答えを追加する</value>
+  </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>加える{!Users}</value>
+  </data>
+  <data name="AddNewSocialProfile" xml:space="preserve">
+    <value>ソーシャルプロフィルを追加する。</value>
+  </data>
+  <data name="AddShareMessage" xml:space="preserve">
+    <value>メッセージを追加</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="AllVoting" xml:space="preserve">
+    <value>投票総数</value>
+  </data>
+  <data name="AnswerVariants" xml:space="preserve">
+    <value>世論調査の答え</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>ファイルを添付</value>
+  </data>
+  <data name="AttachFromDocuments" xml:space="preserve">
+    <value>ドキュメントからファイルを添付する</value>
+  </data>
+  <data name="AttachOfProjectDocuments" xml:space="preserve">
+    <value>プロジェクトドキュメントからファイルを添付する</value>
+  </data>
+  <data name="BannerBitly" xml:space="preserve">
+    <value>Bitlyを使用してポータルの招待リンクと文書モジュール共有リンクをを短くにします。</value>
+  </data>
+  <data name="BannerSocial" xml:space="preserve">
+    <value>ソーシャルアカウントを使用してポータルにログインし、連絡先を検索します</value>
+  </data>
+  <data name="BannerStorage" xml:space="preserve">
+    <value>お気に入りのクラウドストレージサービスを接続し、ファイルを1か所にまとめます。</value>
+  </data>
+  <data name="BannerTwilio2" xml:space="preserve">
+    <value>{0}ONLYOFFICE Twilio{1}統合により、顧客にCRMから直接に電話できます。</value>
+  </data>
+  <data name="BtnHiddenFilter" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>プレゼンテーションを作成</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>スプレッドシートを作成</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>文書を作成します</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>詳細はこちら...</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="CompanySizeTitle" xml:space="preserve">
+    <value>企業規模</value>
+  </data>
+  <data name="CompanyTitle" xml:space="preserve">
+    <value>企業</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelTextAC" xml:space="preserve">
+    <value>元の形式でファイルのコピーも保存します</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadTitleAC" xml:space="preserve">
+    <value>あなたのアップロードが速い編集のために{0} Office Open XML内部形式{1}に変換されたすべての文書。</value>
+  </data>
+  <data name="ContactSupportBtn" xml:space="preserve">
+    <value>サポートを連絡する</value>
+  </data>
+  <data name="DeleteFile" xml:space="preserve">
+    <value>ファイルの削除</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>ファイルをダウンロード</value>
+  </data>
+  <data name="EditFile" xml:space="preserve">
+    <value>ファイルの編集</value>
+  </data>
+  <data name="EmptyListDocumentsDescr" xml:space="preserve">
+    <value>{0}は右ポータルまたは{2}アップロードは{3}彼らがここまでできるようにするのCreate{1}ファイル{4}開いて{5}と{6}編集{7}彼らはONLYOFFICE™ポータルエディタを使用して。</value>
+  </data>
+  <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
+    <value>ファイルをポータルに{2}アップロード{3}する。</value>
+  </data>
+  <data name="EmptyListDocumentsHead" xml:space="preserve">
+    <value>文書のリストは空です</value>
+  </data>
+  <data name="EmptyQuestion" xml:space="preserve">
+    <value>世論調査の質問を入力してください</value>
+  </data>
+  <data name="EmptySelect" xml:space="preserve">
+    <value>世論調査の答えを選択してください</value>
+  </data>
+  <data name="ErrorMassage_SpecCharacter" xml:space="preserve">
+    <value>題名は、次の文字は使用できません：</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>皆</value>
+  </data>
+  <data name="FeedBlogsModuleLink" xml:space="preserve">
+    <value>記事を追加する</value>
+  </data>
+  <data name="FeedBookmarkModuleLink" xml:space="preserve">
+    <value>ブックマークを追加する</value>
+  </data>
+  <data name="FeedButtonGotoDocuments" xml:space="preserve">
+    <value>文書へ移動します</value>
+  </data>
+  <data name="FeedCorporateFiles" xml:space="preserve">
+    <value>文書</value>
+  </data>
+  <data name="FeedCreateFirstCompany" xml:space="preserve">
+    <value>企業を作成する</value>
+  </data>
+  <data name="FeedCreateFirstPerson" xml:space="preserve">
+    <value>個人を作成する</value>
+  </data>
+  <data name="FeedCreateFirstProject" xml:space="preserve">
+    <value>プロジェクトを作成する</value>
+  </data>
+  <data name="FeedEmptyCommunityDescription" xml:space="preserve">
+    <value>コミュニティで公にされたものがそこで表示されることです。ユーザーは面白い情報や考え事や経験を分け合ったり、意見を言ったり、他のユーザーからフィードバックを受けたりする可能があります。</value>
+  </data>
+  <data name="FeedEmptyCommunityHeader" xml:space="preserve">
+    <value>イベントはまだ追加されていません</value>
+  </data>
+  <data name="FeedEmptyContactListDescription" xml:space="preserve">
+    <value>ＣＲＭモジュールで利用可能なイベントはこちらに表示されます。追加または編集された企業と人の情報、作成されたエベント、機会及びタスク ― ＣＲＭに関する全てはこのタブに表示されます。</value>
+  </data>
+  <data name="FeedEmptyContactListHeader" xml:space="preserve">
+    <value>CRMイベントはまだ追加されていません</value>
+  </data>
+  <data name="FeedEmptyListProjDescribe" xml:space="preserve">
+    <value>お客様が利用できる「プロジェクト」モジュールの変化はこちらで表示されます。お客様が管理者または参加者であるプロジェクト、新しいタスクまたは変化はこちらで表示され、何も逃さないのを助けます。</value>
+  </data>
+  <data name="FeedEmptyListProjHeader" xml:space="preserve">
+    <value>プロジェクトはまだ追加されません</value>
+  </data>
+  <data name="FeedEmptyScreenDescrCorporate" xml:space="preserve">
+    <value>お客様が利用できる「文書」モジュールの変化はこちらで表示されます。お客様と共有された新しい文書、お客様がアクセスがある文書の変化、すべてのポータルユーザに利用可能な文書がこちらで表示されます。</value>
+  </data>
+  <data name="FeedEventsModuleLink" xml:space="preserve">
+    <value>イベントを追加する</value>
+  </data>
+  <data name="FeedTitle" xml:space="preserve">
+    <value>フィード</value>
+  </data>
+  <data name="FewAnswerVariant" xml:space="preserve">
+    <value>世論調査の質問に答えを複数選択する可能です</value>
+  </data>
+  <data name="FilterNoNews" xml:space="preserve">
+    <value>このフィルタに一致するニュースはありません</value>
+  </data>
+  <data name="FilterNoNewsDescription" xml:space="preserve">
+    <value>あなたのフィルタに一致するニュースは、このセクションに表示することはできません。</value>
+  </data>
+  <data name="FilterNoVoipCalls" xml:space="preserve">
+    <value>このフィルタに一致する通話が見つかりません</value>
+  </data>
+  <data name="FilterNoVoipCallsDescription" xml:space="preserve">
+    <value>このセクションでフィルタに一致する通話が表示されません</value>
+  </data>
+  <data name="GetPortalLink" xml:space="preserve">
+    <value>ポータルユーザーのためのリンク</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>ONLYOFFICEポータルを支払いしたい場合は、「購入」ボタンを押してください。</value>
+  </data>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>ONLYOFFICEを購入して、それを得てください：</value>
+  </data>
+  <data name="LblFilter" xml:space="preserve">
+    <value>フィルタ：</value>
+  </data>
+  <data name="LblFilterPlaceholder" xml:space="preserve">
+    <value>あなたのクエリを入力します</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="LblSelect" xml:space="preserve">
+    <value>選択する</value>
+  </data>
+  <data name="LblSort" xml:space="preserve">
+    <value>並べ替え</value>
+  </data>
+  <data name="LblTo" xml:space="preserve">
+    <value>へ</value>
+  </data>
+  <data name="LicenseActivateAndGetV11" xml:space="preserve">
+    <value>契約を更新して、それを得てください：</value>
+  </data>
+  <data name="LicenseActivateButtonV11" xml:space="preserve">
+    <value>活性化する</value>
+  </data>
+  <data name="LicenseActivateDescrV11" xml:space="preserve">
+    <value>アップデートを購入した場合は、ライセンスをアップロードし、「活性化する」をクリックしてください。</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>このボックスにチェックマークを付けると、{0}使用許諾契約書{1}に同意いただいたものと致します。</value>
+  </data>
+  <data name="LicenseException" xml:space="preserve">
+    <value>ライセンスが期限切れた、またはユーザ数がライセンスと一致していません</value>
+  </data>
+  <data name="LicenseKeyBuyDescrV11" xml:space="preserve">
+    <value>更新を購入してください。あなたがAvangateページに転送されることにご注意ください。</value>
+  </data>
+  <data name="LicenseKeyBuyLabelV11" xml:space="preserve">
+    <value>ライセンスを購入</value>
+  </data>
+  <data name="LicenseKeyHeader" xml:space="preserve">
+    <value>ライセンス登録ファイル</value>
+  </data>
+  <data name="LicenseKeyNotCorrect" xml:space="preserve">
+    <value>ライセンスキーが間違っているようです</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICEのモジュールとツール:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}オンライン文書エヂター{1}{0}文書管理{1}{0}メール{1}{0}プロジェクト{1}{0}CRM{1}{0}カレンダー{1}{0}コミュニティー{1}</value>
+  </data>
+  <data name="LicenseModulesMobileV11" xml:space="preserve">
+    <value>モバイル・ウェブ・エディタ、</value>
+  </data>
+  <data name="LicenseModulesPrivateV11" xml:space="preserve">
+    <value>プライベートルームで暗号化に共同編集して、</value>
+  </data>
+  <data name="LicenseModulesProV11" xml:space="preserve">
+    <value>プロな機能があるONLYOFFICEエディター</value>
+  </data>
+  <data name="LicenseModulesSupportV11" xml:space="preserve">
+    <value>1年の専門的な技術サポート・サービス</value>
+  </data>
+  <data name="LicenseModulesUpdatesV11" xml:space="preserve">
+    <value>1年中に規則的な機能と安全更新、</value>
+  </data>
+  <data name="LicenseRequestQuota" xml:space="preserve">
+    <value>{0} - {1}有効なユーザー</value>
+  </data>
+  <data name="LicenseRequestQuotaMore" xml:space="preserve">
+    <value>{0}+　の有効なユーザー</value>
+  </data>
+  <data name="LogoutButton" xml:space="preserve">
+    <value>サインアウト</value>
+  </data>
+  <data name="MediaViewerActualSize" xml:space="preserve">
+    <value>実際のサイズ</value>
+  </data>
+  <data name="MediaViewerClose" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="MediaViewerFullscreen" xml:space="preserve">
+    <value>全画面表示</value>
+  </data>
+  <data name="MediaViewerMute" xml:space="preserve">
+    <value>ミュート</value>
+  </data>
+  <data name="MediaViewerNext" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="MediaViewerPlay" xml:space="preserve">
+    <value>再生</value>
+  </data>
+  <data name="MediaViewerPrevious" xml:space="preserve">
+    <value>前に</value>
+  </data>
+  <data name="MediaViewerRotateLeft" xml:space="preserve">
+    <value>左に回転する</value>
+  </data>
+  <data name="MediaViewerRotateRight" xml:space="preserve">
+    <value>右に回転する</value>
+  </data>
+  <data name="MediaViewerZoomIn" xml:space="preserve">
+    <value>拡大</value>
+  </data>
+  <data name="MediaViewerZoomOut" xml:space="preserve">
+    <value>縮小</value>
+  </data>
+  <data name="MobileChangeButton" xml:space="preserve">
+    <value>番号を入力してください</value>
+  </data>
+  <data name="MobileCodeDescription" xml:space="preserve">
+    <value>ポータルアクセスコードがあるSMSは{0}{1}{2}電話番号に送信されました。{5}コードを入力して「{3}」ボタンを押してください。３分以上にメッセージがない場合は、「{4}」ボタンを押してください。</value>
+  </data>
+  <data name="MobilePhoneCaption" xml:space="preserve">
+    <value>携帯電話番号を入力してください</value>
+  </data>
+  <data name="MobilePhoneDescription" xml:space="preserve">
+    <value>二要素認証は追加のポータル・セキュリティを提供するように有効されています。ポータルで作業を続行するために、携帯電話番号を入力します。電話番号は国際形式で、国コードを指定して、入力される必要です。</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>もっと</value>
+  </data>
+  <data name="NewDocument" xml:space="preserve">
+    <value>新しいドキュメント</value>
+  </data>
+  <data name="NewFile" xml:space="preserve">
+    <value>新規ファイル</value>
+  </data>
+  <data name="NewsNotFound" xml:space="preserve">
+    <value>ここに表示されるべきものは何もありません</value>
+  </data>
+  <data name="NewsNotFoundDescription" xml:space="preserve">
+    <value>すべてのポータルの活動については、このセクションで、ここに表示されます。今すぐに表示されるポータル上のイベントはありません。ポータルを使用して起動し、コンテンツとそれを記入し、すべてのニュースはこのページに表示されます。</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>次に</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>コメントはありません</value>
+  </data>
+  <data name="NotBeUndone" xml:space="preserve">
+    <value>注：このアクションは元に戻すことはできません。
+</value>
+  </data>
+  <data name="OneAnswerVariant" xml:space="preserve">
+    <value>世論調査の質問に答えを一つ選択する可能です</value>
+  </data>
+  <data name="PersonalStorageLimitExceededBody" xml:space="preserve">
+    <value>ストレージ·スペースの量が超過しているために、ファイルがアップロードできません。古いファイルを削除し、または詳細情報について弊社のサポートチームを連絡してください。</value>
+  </data>
+  <data name="PersonalStorageLimitExceededHeader" xml:space="preserve">
+    <value>クォータを超過しています</value>
+  </data>
+  <data name="PersonalStorageLimitExceededSubHeader" xml:space="preserve">
+    <value>記憶領域クォータは超過です</value>
+  </data>
+  <data name="PollQuestion" xml:space="preserve">
+    <value>世論調査の質問</value>
+  </data>
+  <data name="PollType" xml:space="preserve">
+    <value>世論調査のタイプ</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>前に</value>
+  </data>
+  <data name="QuestionDeleteFile" xml:space="preserve">
+    <value>あなたがこのファイルを削除してもよろしいですか？</value>
+  </data>
+  <data name="QuickLinksDeleteLink" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ReadAboutNonProfitUsage" xml:space="preserve">
+    <value>非営利使用方法をご覧下さい</value>
+  </data>
+  <data name="RemoveFromList" xml:space="preserve">
+    <value>このリストから削除</value>
+  </data>
+  <data name="RemoveShareMessage" xml:space="preserve">
+    <value>メッセージを削除する</value>
+  </data>
+  <data name="ResetFilter" xml:space="preserve">
+    <value>フィルタリセット</value>
+  </data>
+  <data name="SalesQuestionsV11" xml:space="preserve">
+    <value>購入質問のコンサル：{0}</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="SearchHld" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="SeeInModulesHdr" xml:space="preserve">
+    <value>モジュールで検索する</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>すべてを選択する</value>
+  </data>
+  <data name="SendShareNotify" xml:space="preserve">
+    <value>通知書を送る</value>
+  </data>
+  <data name="SharingSettingsEmpty" xml:space="preserve">
+    <value>ユーザーとグループを追加して、アクセス権を与えます。</value>
+  </data>
+  <data name="SharingSettingsTitle" xml:space="preserve">
+    <value>共有設定</value>
+  </data>
+  <data name="ShowNextNews" xml:space="preserve">
+    <value>次のニュースを表示</value>
+  </data>
+  <data name="SiteTitle" xml:space="preserve">
+    <value>ウェブサイト</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>ソースコードは{0}GitHub{1}で利用可能です。</value>
+  </data>
+  <data name="SubscribeSite" xml:space="preserve">
+    <value>ONLYOFFICEニュースレターの申し込みます</value>
+  </data>
+  <data name="SupportQuestionsV11" xml:space="preserve">
+    <value>技術質問のサポート：{0}</value>
+  </data>
+  <data name="TariffBasicPrice" xml:space="preserve">
+    <value>基本価格</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>通貨の全リストについては、Avangateをご覧ください</value>
+  </data>
+  <data name="TariffFileSizeLimitTitle" xml:space="preserve">
+    <value>大規模ファイル</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>無料</value>
+  </data>
+  <data name="TariffFullPrice" xml:space="preserve">
+    <value>フル価格リストを表示する</value>
+  </data>
+  <data name="TariffLimitDecision" xml:space="preserve">
+    <value>あなたは、新しい料金プランを選択しますか？</value>
+  </data>
+  <data name="TariffLimitedPrice" xml:space="preserve">
+    <value>期間限定</value>
+  </data>
+  <data name="TariffLimitOkButton" xml:space="preserve">
+    <value>はい、プランをアップグレード</value>
+  </data>
+  <data name="TariffNameSMonth" xml:space="preserve">
+    <value>{0}１月{2}{1}サブスクリプション</value>
+  </data>
+  <data name="TariffNameSYear" xml:space="preserve">
+    <value>{0}１年{2}{1}サブスクリプション</value>
+  </data>
+  <data name="TariffNameSYear3" xml:space="preserve">
+    <value>{0}３年{1}サブスクリプション</value>
+  </data>
+  <data name="TariffOverdueDesktop" xml:space="preserve">
+    <value>{0} ポータル支払は期限切れです。{1}{2}ONLYOFFICEの共同作業機能を使い続けるように、{2}既存の料金プランを延長し、または別の料金プランを選択してください。</value>
+  </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>ポータルでの支払いは期限切れです</value>
+  </data>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>「{0} - {1}有効なユーザー」プランを使用しています。{2}支払が遅滞されています。{3} ONLYOFFICE を使い続けるように、現在のプランを継続して、または以下のテーブルを使用してそれを変更してください。</value>
+  </data>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>{0} - {1}有効なユーザーのプランを使用しています。</value>
+  </data>
+  <data name="TariffPerMonth" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="TariffPerYear" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="TariffPerYear3" xml:space="preserve">
+    <value>三年</value>
+  </data>
+  <data name="TariffPop" xml:space="preserve">
+    <value>一番人気が高いサブスクリプション</value>
+  </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>新しいポータル追加のは既存の料金プランで許可されているポータル最大数を超えるようになります。</value>
+  </data>
+  <data name="TariffPriceOffer" xml:space="preserve">
+    <value>保存{0}</value>
+  </data>
+  <data name="TariffPricePer" xml:space="preserve">
+    <value>{0}ユーザー／月あたり</value>
+  </data>
+  <data name="TariffRequestBtn" xml:space="preserve">
+    <value>要求送信</value>
+  </data>
+  <data name="TariffRequestContent" xml:space="preserve">
+    <value>要求内容</value>
+  </data>
+  <data name="TariffRequestContentHolder" xml:space="preserve">
+    <value>要求詳細をこちらで入力してください</value>
+  </data>
+  <data name="TariffRequestHeader" xml:space="preserve">
+    <value>メッセージをこちらで入力ください</value>
+  </data>
+  <data name="TariffStorageLimitHeader" xml:space="preserve">
+    <value>ポータル収納スペースを超えている</value>
+  </data>
+  <data name="TariffStorageLimitReason" xml:space="preserve">
+    <value>ポータルからすべての古くなったコンテンツを削除したり、大きな収納スペースを持つものに現在の料金プランを変更してください。</value>
+  </data>
+  <data name="TariffStorageLimitTitle" xml:space="preserve">
+    <value>十分な空きストレージスペース</value>
+  </data>
+  <data name="TariffUserChoose" xml:space="preserve">
+    <value>チームメイト人数を選択してください</value>
+  </data>
+  <data name="TariffUserChooseQuestion" xml:space="preserve">
+    <value>必要なユーザー数はいくつですか？</value>
+  </data>
+  <data name="TariffUserDescr" xml:space="preserve">
+    <value>ニーズに合ったプランは{0}{2} - {3} アクティブなユーザー ＋　{4}{1} ディスク・ストレージ</value>
+  </data>
+  <data name="TariffUserLimitHeader" xml:space="preserve">
+    <value>新しいユーザーを追加することはできません</value>
+  </data>
+  <data name="TariffUserLimitReason" xml:space="preserve">
+    <value>新しいユーザーを追加すると、現在の価格プランが許可ポータルメンバーの最大数を超えてしまいます。</value>
+  </data>
+  <data name="TariffUserLimitTitle" xml:space="preserve">
+    <value>新しいユーザーの追加</value>
+  </data>
+  <data name="TariffUserRequestDescr" xml:space="preserve">
+    <value>{0} アクティブなユーザー{1} 数を超えている価格プランは要請に応じてのみ利用できます。</value>
+  </data>
+  <data name="TariffUserWarnRead" xml:space="preserve">
+    <value>詳細について</value>
+  </data>
+  <data name="TfaAppAuthDescription" xml:space="preserve">
+    <value>アプリで生成された6桁のコードを入力してください。携帯にアクセスできない場合は、バックアップコードを使用してください。</value>
+  </data>
+  <data name="TfaAppCaption" xml:space="preserve">
+    <value>認証アプリを構成する</value>
+  </data>
+  <data name="TfaAppConnctButton" xml:space="preserve">
+    <value>アプリを接続する</value>
+  </data>
+  <data name="TfaAppDescription" xml:space="preserve">
+    <value>二要素認証は追加のポータル・セキュリティを提供するように有効されています。ポータルで作業を続行するために、認証アプリを構成します。例えば、｛０｝を｛１｝のため、｛２｝または｛３｝を｛４｝のために使用できます。</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>あなたは、ドキュメント（ {0}）を作成したスプレッドシート（ {1}）、プレゼンテーション（ {2}）と最も一般的なフォーマットにそれらをダウンロードすることができます。
+</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>あなたは、次のファイルを編集することができます：{0}。</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>あなたは、次のextentionsでファイルを開くことができます：{0}。</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>あなたは、ドキュメントにしたい任意のファイルをアップロードすることができます。</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="UploadFile" xml:space="preserve">
+    <value>ファイルをアップロード</value>
+  </data>
+  <data name="Variant" xml:space="preserve">
+    <value>選択肢</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+  <data name="VoipCallsNotFound" xml:space="preserve">
+    <value>こちらで表示されるものはありません</value>
+  </data>
+  <data name="VoipCallsNotFoundDescription" xml:space="preserve">
+    <value>こちらで表示されるものはありません</value>
+  </data>
+  <data name="VoteButton" xml:space="preserve">
+    <value>投票する</value>
+  </data>
+  <data name="WhatsNew" xml:space="preserve">
+    <value>新着情報</value>
+  </data>
+</root>

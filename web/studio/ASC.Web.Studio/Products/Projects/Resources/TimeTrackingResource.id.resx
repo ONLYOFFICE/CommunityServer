@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Ditutup</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tanggal</value>
+  </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>Hapus penggunaan waktu</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>Anda yakin ingin menghapus penggunaan waktu ini?</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>Tidak ada pencatat waktu yang sesuai dengan filter Anda di bagian ini.</value>
+  </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>Batalkan semua pilihan</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>Di atas</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>Pilih semua</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>jam</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>Tidak ada tugas yang tersedia untuk Anda. Silakan buat tugas terlebih dahulu, kemudian jalankan pencatat waktu.</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>menit</value>
+  </data>
+  <data name="NoTimersFilter" xml:space="preserve">
+    <value>Tidak ada pencatat waktu</value>
+  </data>
+  <data name="NoTimersNote" xml:space="preserve">
+    <value>Catatlah penggunaan waktu untuk setiap tugas dalam proyek Anda agar manajemen waktu lebih efektif. Jalankan pencatat waktu saat tugas mulai dikerjakan dan hentikan saat tugas diselesaikan. Tambahkan hitungan waktu itu pada tugas tersebut.</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>Tidak ada pencatat waktu yang dijalankan</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>Buka</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Sudah Ditagih</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Belum Ditagih</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Tidak Dikenakan Biaya</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>j</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>m</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>Mulai Pencatat Waktu</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>Total penggunaan waktu untuk tugas:</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>yang sudah ditagih:</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>umum: </value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>Total penggunaan waktu untuk aktivitas yang sesuai dengan filter:</value>
+  </data>
+</root>

@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Toevoegen en Nieuwe Factuur Aanmaken</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Factuuradres toevoegen</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Bezorgadres toevoegen</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Regel Toevoegen</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Adres is succesvol geüpdatet </value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Nieuwe belasting aanmaken</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Een belasting aanmaken</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Opslaan en Nieuw Item Aanmaken</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Deze Factuur Toevoegen</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Alle facturen</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Hoeveelheid</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Document toevoegen</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>automatisch gegenereerd</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Factureren Aan</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Formaat veranderen</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Alle toekomstige facturen zullen het voorvoegsel-/nummerformaat krijgen dat is ingesteld met de onderstaande velden. Vink het betreffende vakje aan om nummers automatisch te genereren.</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Status wijzigen</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Klantnotities</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Wordt op de factuur en in het hoofdtekst van de brief weergegeven als u de factuur per ONLYOFFICE™ Mail verzendt.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>correspondeert met de klant</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Eerste factuur aanmaken</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Eerste item aanmaken</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Eerste belasting aanmaken</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Item aanmaken</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Factuuritem aanmaken</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Belasting aanmaken</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Nieuwe factuur aanmaken</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Nieuw item aanmaken</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Nieuwe belasting aanmaken</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet een valuta hebben</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} dagen</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Deze standaardvoorwaarden zullen worden gebruikt op toekomstige facturen.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u de '{0}' factuur wilt verwijderen?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Factuur verwijderen...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Item verwijderen...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u het «{0}» item wilt verwijderen?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Weet u zeker dat u de «{0}» belasting wilt verwijderen?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Belasting verwijderen...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Deze factuur verwijderen</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Facturen verwijderen</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Beschrijving</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Korting</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Downloaden</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Vervaldatum</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Stel alstublieft de aangepaste Vervaldatum in of kies een van de voorinstellingen aan de rechterkant om deze datum te koppelen met de Datum van uitgifte.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Uitgiftedatum ligt na vervaldatum</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Vervaldatum op bon</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet een vervaldatum hebben</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Dupliceren en Nieuwe Factuur Aanmaken</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Factuur dupliceren</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Factuur Dupliceren</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Factuur dupliceren «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Factuuradres bewerken</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Bezorgadres bewerken</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Factuur bewerken</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Factuur bewerken «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Bewerken</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Belasting bewerken</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>In dit gedeelte kunt u de lijst met items instellen die in facturen kunnen worden opgenomen. Nadat de lijst is aangemaakt, kunt u het benodigde item selecteren om in uw betaaldocument toe te voegen. U kunt ook nieuwe items toevoegen, indien nodig.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>Geen factuuritems die overeenkomen met uw filter kunnen in dit onderdeel worden weergegeven. Selecteer alstublieft andere filteropties of verwijder het filter om alle factuuritems in dit onderdeel weer te geven. Of u kunt het factuuritem aanmaken als deze afwezig is in de lijst.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Geen factuuritems om weer te geven hier voor deze filter</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Lijst met Producten &amp; Diensten is leeg</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Met het onderdeel 'Facturen' kunt u betaaldocumenten aanmaken die u aan u klanten kunt geven. Nadat de facturen zijn toegevoegd wordt de lijst van beschikbare facturen hier weergegeven.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>Geen facturen die overeenkomen met uw filter kunnen in dit onderdeel worden weergegeven. Selecteer alstublieft andere filteropties of verwijder het filter om alle facturen in dit onderdeel weer te geven. Of u kunt de factuur aanmaken als deze afwezig is in de lijst.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Geen facturen om weer te geven hier voor deze filter</value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>De facturenlijst is leeg</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Met Factuurbelastingen kunt u extra belastingen aanmaken die specifiek zijn voor de landen of gebieden waar u of uw klanten wonen. U kunt de belastingnaam, rente en beschrijving toevoegen. U kunt ook nieuwe belastingen toevoegen indien nodig.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>De factuurbelastinglijst is leeg</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Geen kansen gevonden</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Item Selecteren</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Het veld met de belastingnaam mag niet leeg zijn</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Het koersveld mag niet leeg zijn</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Prijs is leeg</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Prijs is onjuist</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Kwantiteit is onjuist</value>
+  </data>
+  <data name="ErrorIncorrectRate" xml:space="preserve">
+    <value>de koerswaarde klopt niet</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Wisselkoers</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>U moet dit veld invullen</value>
+  </data>
+  <data name="ExistTaxNameError" xml:space="preserve">
+    <value>De belastingnaam bestaat al</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Inventaris voorraad</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Itemnaam</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Prijs</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Voorraadhoeveelheid</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Belastingen</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Vinden met titel, SKU of beschrijving</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Factuur</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet een cliënt hebben</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Ontvanger</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Uw standaard CRM-valuta wordt gebruikt om prijzen in Producten &amp; Diensten Catalogus vast te stellen. &lt;br/&gt; Ga om deze te veranderen alstublieft naar &lt;a href="settings.aspx?type=common" target="_blank"&gt; Algemene instellingen&lt;/a&gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Gearchiveerd</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Een of meer factuuritems hebben negatieve voorraadhoeveelheden</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Prijs</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Met inventaris voorraad</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Zonder inventaris voorraad</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Taal factuur</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Elke factuur moet een taal hebben</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Factuurnummer</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Het factuurnummer is al bezet</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Factuur</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Belasting 1 naam</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Belasting 1 tarief</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Belasting 2 naam</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Belasting 2 tarief</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Belasting met die naam is al geregistreerd</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Met Belastingcategorieën kunt u extra belastingen aanmaken die specifiek zijn voor de landen waar u of uw klanten wonen. U kunt de belastingnaam, rente en beschrijving toevoegen.</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>U kunt de belastingcategorie alleen verwijderen als deze niet wordt gebruikt in het onderdeel Producten &amp; Diensten.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Belastingnaam</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Koers</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Factuurdatum</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet een datum hebben</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Uw standaard CRM-valuta..&lt;br/&gt;Ga om deze te veranderen alstublieft naar &lt;a href="?type=common" target="_blank"&gt;Algemene Instellingen&lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Voeg de hoeveelheid artikelen toe die u momenteel op voorraad heeft. Dit nummer zal steeds afnemen wanneer het item aan een factuur wordt toegevoegd. Wanneer u meer voorraad ontvangt, voegt u het hier bij uw huidige inventaris toe.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Link met kans</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Een factuur opmaken</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Markeren als concept</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Markeren als betaald</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Markeren als afgewezen</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Markeren als gefactureerd</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Aantal</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Formaat is onjuist of factuur met hetzelfde nummer bestaat al</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Startnummer is leeg</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet een nummer hebben</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Te laat</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>PO Nummer</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Voorvoegsel</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Prijs</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Afdrukken</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Producten &amp; Diensten </value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Product of dienst selecteren van lijst of nieuw toevoegen</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet items hebben</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Kwantiteit </value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Kwantiteit </value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Nummerstellingen opslaan...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Instellingen voorwaarden opslaan...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Er is een fout "{0}" opgetreden tijdens het opslaan van de factuur. Probeer het later nogmaals.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Verkoper</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Verzenden via e-mail</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Standaard instellen</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Standaardvoorwaarden instellen</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Leeg instellen</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Verzenden Naar</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Toon factuurprofiel</value>
+  </data>
+  <data name="ShowInvoiceProfileNewTab" xml:space="preserve">
+    <value>Open in een nieuw tabblad</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Startnummer</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Stock keeping unit (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotaal</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Belasting</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Voorwaarden</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Elke factuur moet voorwaarden hebben</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totaal Factuur</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Totaal facuren</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Inventaris volgen</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>«{0}» item updaten</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>«{0}» belasting updaten</value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Wijzigingen opslaan...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Waarschuwing</value>
+  </data>
+</root>

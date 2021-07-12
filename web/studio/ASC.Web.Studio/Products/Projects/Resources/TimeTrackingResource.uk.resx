@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Закриті</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DeleteTimers" xml:space="preserve">
+    <value>Видалити витрати часу</value>
+  </data>
+  <data name="DeleteTimersQuestion" xml:space="preserve">
+    <value>Ви дійсно бажаєте видалити всі ці витрати часу?</value>
+  </data>
+  <data name="DescrEmptyListTimersFilter" xml:space="preserve">
+    <value>В цьому розділі немає таймерів, відповідаючих фмльтру</value>
+  </data>
+  <data name="GroupMenuDeselectAll" xml:space="preserve">
+    <value>Відмінити вибір</value>
+  </data>
+  <data name="GroupMenuOnTop" xml:space="preserve">
+    <value>Вгору</value>
+  </data>
+  <data name="GroupMenuSelectAll" xml:space="preserve">
+    <value>Вибрати все</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>годин</value>
+  </data>
+  <data name="MessageForNoTaskForTrack" xml:space="preserve">
+    <value>Немає доступних для Вас завдань. Будь ласка, спочатку створіть завдання, а потім запустіть таймер.</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>хвилин</value>
+  </data>
+  <data name="NoTimersFilter" xml:space="preserve">
+    <value>Немає ні одного таймеру</value>
+  </data>
+  <data name="NoTimersNote" xml:space="preserve">
+    <value>Запишіть час, який Ви затратили на виконання завдання в проекті для ще більш ефективного керування часом. Ввімкніть таймер на початку роботи над завданням і зупиніть його після завершення завдання. Додайте обрахований час до обранного завдання.</value>
+  </data>
+  <data name="NoTtimers" xml:space="preserve">
+    <value>Таймери ще не запускалися</value>
+  </data>
+  <data name="OpenTasks" xml:space="preserve">
+    <value>Відкриті</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Оплачено</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>Не оплачено</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Не тарифікується</value>
+  </data>
+  <data name="ShortHours" xml:space="preserve">
+    <value>г</value>
+  </data>
+  <data name="ShortMinutes" xml:space="preserve">
+    <value>хв</value>
+  </data>
+  <data name="StartTimer" xml:space="preserve">
+    <value>Ввімкнути таймер</value>
+  </data>
+  <data name="TimeSpentForTask" xml:space="preserve">
+    <value>Загальний час, затрачений на завдання</value>
+  </data>
+  <data name="TotalTimeBilled" xml:space="preserve">
+    <value>оплачене:</value>
+  </data>
+  <data name="TotalTimeCommon" xml:space="preserve">
+    <value>загальне:</value>
+  </data>
+  <data name="TotalTimeNote" xml:space="preserve">
+    <value>Загальний час, затрвчений на діяльність, відповідаючу фільтру</value>
+  </data>
+</root>

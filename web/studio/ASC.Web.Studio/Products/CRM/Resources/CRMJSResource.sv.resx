@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>Aktuella datum för avtalet</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>Tillägger en möjlighet...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Lägg till mejl</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Tillägger en faktura...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Lägg till telefonnummer</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Skapa Ny Aktivitet</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>adresser</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>adresser</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>Adress</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>batch</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per dag</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per timme</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per månad</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per vecka</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per år</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Faktureringsadress</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Webbläsare</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Fall</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Stängd</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Öppen</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>Markera som huvudsaklig</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Välja</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>Stad</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Företag</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Är du säker på att du vill ändra denna nyckel?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Not: alla tidigare skapade formulären kommer inte längre fungera</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>Är du säker att du vill radera denna aktivitet?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>All angett data kommer förloras.
+Är du säker på att du vill fortsätta ändå?</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>Vänligen ange namen på ditt TWitter-konto. Till exempel, teamlabdotcom</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Innevarande månad</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Innevarande vecka</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Skräddarsydd period</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Möjlighet</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera '{0}' fallet?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Raderar fall...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera '{0}' företaget?</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>NOt: denna aktion är oåterkallelig</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Raderar kontakt...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera '{0}' möjligheten?</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>Raderar möjlighet...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>Är du säker på att du vill radera '{0}' personen?</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Leveransadress</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Redigera mejl</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>Sparar ändringar...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Sparar ändringar...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Redigera telefonnummer</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>Redigera «{0}» fältet</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Redigera aktivitet</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} markerad(e)</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>Elementlistan kan inte vara tom</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Varje brev ska ha ett innehåll</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>Varje aktivitet ska ha ett förfallodatum</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>Varje aktivitet ska ha en ansvarig</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>Varje aktivitet ska ha en titel</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Inga fält som matchar 'Falltitel' hittades.</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>Ingen person har valts</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>Inga fält som matchar 'Förnamn' eller 'Företagsnamn' hittades</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} maximum antal mottagare</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>Ange falltitel</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>De obligatoriska fälten måste inte duppliceras</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>Bildformatet stöds inte</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>Filformatet stöds inte</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>Ett fel inträffade under uppladdning av bildet till servern</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Inga fält som matchar 'Möjlighetstitel', 'Möjlighetsansvarig' hittades</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Inga fält som matchar 'Aktivitetstitel', 'Ansvarig', 'Förfallodatum' hittades</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>"{0}" typen är den sista. Den kan inte raderas.</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>"{0}" typen är den sista. Den kan inte raderas.</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>Detta är det enda möjlighetsskede. Det kan inte raderas.</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>"{0}" kategorin är den sista. Den kan inte raderas.</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>"{0}" kategorin är den sista. Den kan inte raderas.</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>Beräknad förfallodatum för avtalet</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>Hitta konto på Twitter</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Din mottagareslista har genereras. {0} Klicka länkarna nedan för att skicka dina mejladresser över till mejlprogrammet.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Gå till Inställningar</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Länka med projekt</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Laddar...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>fall</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>företag</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>kontakter</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>möjligheter</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>evenemang</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>personer</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>aktiviteter</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Näst (till förhandsgranskning)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>Det finns inga fall</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>Inget slutdatum</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>Det finns inga företag</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>Det finns inga kontakter</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>Det finns inga möjligheter</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>Det finns inga evenemang</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>Ingen fil har valts</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>Det finns inga personer</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>inget ämne</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>Det finns inga aktiviteter</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>fall</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>företag</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>kontakt</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>möjlighet</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>evenemang</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>person</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>Aktivitet</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>under {0} dagar</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>under {0} timmar</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>under {0} månader</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>under {0} veckor</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>under {0} år</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>Vänligen ladda om sidan</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Vänligen vänta...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>Möjliga profiler för {0}</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Föregående</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>Huvudsaklig</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} mottagare hade inga mejladresser.</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Spara ändringar</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>Välj en CSV-fil</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>Vald CSV-fil: {0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Inställningarna har uppdaterats</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Visa mer</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Temperaturnivå</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>Stat</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Stängd</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>"{0}" aktiviteten är stängd</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>Driven av {0}</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>{0} dagar {1} timmar {2} minuter från behållarensstart</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>Från den förra aktiviteten {0} dagar {1} timmar {2} minuter</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Idag</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Stängning misslyckades</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Besvarad</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>Besökare</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>Kontakt raderat</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>Kostnad</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>Varaktighet</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Missad</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Avgående</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Postkod</value>
+  </data>
+</root>

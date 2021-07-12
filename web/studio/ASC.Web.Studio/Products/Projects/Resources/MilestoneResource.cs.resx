@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Ulož</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Vyber projekt</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Vyber zodpovědnou osobu</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Uzavřít milník</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>Měsíc</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Dva měsíce</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Týden</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Smaž milník</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Jste si jistý, že chcete smazat milník?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Smazat milníky</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Opravdu chcete smazat milníky?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Žádný milník v této sekci neodpovídá Vašemu filtru</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Nejsou zde žádné milníky odpovídající tomuto filtru</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Milník</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Do data</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Žádný milník dosud nebyl zadán</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Milníky</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Milníky označují hlavní časové značky v procesu plánování projektu. Když je milník vytvořen, můžete ho vyplnit úkoly pro všechny účastníky na projektu. Naplánujte milník a nastavte datum, aby jste se ujistili, že úkoly budou splněny včas.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>Milníky představují klíčové body v procesu plánování projektů. Po vytvoření lze v rámci milníků vytvářet úkoly pro všechny, kdo se projektu účastní.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Nadcházející</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Nelze uzavřít milník pokud máte otevřené úkoly</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Oznámit</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Každý milník musí obsahovat</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Po termínu</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Naplánujte první milník</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Upozorni mě 48 hodin před termínem splnění</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Zodpovědný</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Klíčový milník</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Titul</value>
+  </data>
+</root>

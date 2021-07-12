@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDiscussion" xml:space="preserve">
+    <value>Gorde</value>
+  </data>
+  <data name="ArchiveDiscussion" xml:space="preserve">
+    <value>Artxibatu</value>
+  </data>
+  <data name="ArchiveDiscussionStatus" xml:space="preserve">
+    <value>Artxibatuta</value>
+  </data>
+  <data name="AuthorTitle" xml:space="preserve">
+    <value>Egilea</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Iruzkina</value>
+  </data>
+  <data name="CreateDiscussion" xml:space="preserve">
+    <value>Eztabaida berria sortu</value>
+  </data>
+  <data name="CreateMessage" xml:space="preserve">
+    <value>Hasi eztabaida</value>
+  </data>
+  <data name="CreateTaskOnDiscussion" xml:space="preserve">
+    <value>Ataza sortu eztabaidan oinarrituta</value>
+  </data>
+  <data name="DeleteDiscussionPopup" xml:space="preserve">
+    <value>Ziur zaude eztabaida hau ezabatu nahi duzula?</value>
+  </data>
+  <data name="DeleteMessage" xml:space="preserve">
+    <value>Eztabaida ezabatu</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Ezin da zure iragazkiekin bat datorren eztabaidarik erakutsi atal honetan</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripzioa</value>
+  </data>
+  <data name="DiscussionNotFound_Describe" xml:space="preserve">
+    <value>Eztabaidak martxan dagoen proiektu batean sor daitezkeen edozein arazori zure taldekideen laguntzaz konponbidea bilatzeko erabiltzen dira. Eztabaidatu zure taldekideekin, edo gonbidatu beste proiektu bateko erabiltzaileak eztabaidan parte hartzera.</value>
+  </data>
+  <data name="DiscussionNotFound_Header" xml:space="preserve">
+    <value>Oraindik ez da eztabaidarik hasi</value>
+  </data>
+  <data name="DiscussionParticipants" xml:space="preserve">
+    <value>Harpidedunak</value>
+  </data>
+  <data name="EditMessage" xml:space="preserve">
+    <value>Eztabaida editatu</value>
+  </data>
+  <data name="EmptyMessageText" xml:space="preserve">
+    <value>Mezu bakoitzak testua eduki behar du</value>
+  </data>
+  <data name="FilterNoDiscussions" xml:space="preserve">
+    <value>Ez dago iragazki honekin bat datorren eztabaidarik</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Eztabaida</value>
+  </data>
+  <data name="MessageContent" xml:space="preserve">
+    <value>Testua</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Eztabaidak</value>
+  </data>
+  <data name="MessageTitle" xml:space="preserve">
+    <value>Izenburua</value>
+  </data>
+  <data name="OpenDiscussion" xml:space="preserve">
+    <value>Ireki</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Informazio gehiago</value>
+  </data>
+  <data name="SelectProject" xml:space="preserve">
+    <value>Hautatu proiektua</value>
+  </data>
+  <data name="StartFirstDiscussion" xml:space="preserve">
+    <value>Hasi lehenengo eztabaida</value>
+  </data>
+  <data name="SubscribePeopleInfoComment" xml:space="preserve">
+    <value>Hautatuako pertsonak jakinaraziak izango dira mezuaz eta honen iruzkinez.</value>
+  </data>
+  <data name="SubscribeUsers" xml:space="preserve">
+    <value>Jakinarazi</value>
+  </data>
+</root>

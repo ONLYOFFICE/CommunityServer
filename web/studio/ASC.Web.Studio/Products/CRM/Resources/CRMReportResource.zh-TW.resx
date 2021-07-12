@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>平均機會預算</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>成功機會的平均持續時間，天</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>已記帳 收費</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>開票發票</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>預算</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>空文檔生成器模板</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>根據預算</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>按號碼</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>來電</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>通話次數</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>通話時間</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>這一期的通話</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>已關閉</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>已關閉任務</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>按溫度水平的聯絡人</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>聯繫人按類型</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>與機會</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>沒有機會</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>轉換</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>數字</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>已建立</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>為了生成報告，機會預算必須帶入基礎貨幣。設置使用的貨幣匯率即可。</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>貨幣設定</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>當前季度</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>本週</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>今年</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>機會預算</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>以預算看機會</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>已數字看機會</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>以分階段看機會</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>以狀態看機會</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>機會數量</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>持續時間</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>在任何時候</value>
+  </data>
+  <data name="ErrorNullReportData" xml:space="preserve">
+    <value>無法獲取報告數據</value>
+  </data>
+  <data name="ErrorNullReportScript" xml:space="preserve">
+    <value>無法獲取報告腳本</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>產生的報表</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>您生成的所有報表都會顯示在這裡。您可以編輯，刪除或下載報表檔案。要建立報表，請從左側列表中選擇一個模板，設定篩選器，然後單擊“產生”按鈕。</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>產生報表</value>
+  </data>
+  <data name="IfAllOpportunitiesWon" xml:space="preserve">
+    <value>如果所有機會都贏了</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>傳入</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>按狀態開票</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>該期間的發票</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>項目</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>丟失</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>經理</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>經理</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>其中{0}未回答</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>將在未來30天內關閉</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>新</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>新聯絡人</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>有機會或沒有機會的新聯繫人</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>新任務</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>下個月</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>下個季度</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>下週</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>明年</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>沒有該報告的數據。選擇另一個過濾器。</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>已開啟</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>外向</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>逾期</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>逾期的任務</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>已付費</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>上個月</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>上季</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>上週</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>去年</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>已拒絕</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>建立報告中</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>您可以查看，下載，編輯或刪除{0} CRM /報告/生成的報告{1}中的所有生成的報告。</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>建立報告中({0}% complete)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>報表</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>按經理及日的銷售</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>經理按小時的銷售</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>經理銷售</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在{1}時間段{2}內成功關閉的機會。{0}選擇星期或月週期時，該報告顯示按以下類別分組的結果天，季度和年份將按月對數據進行分組。</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>經理按月份的銷售</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>銷售預測</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>該報告旨在根據機會概率顯示特定時間段內的銷售預測。它顯示所有經理或僅所選經理在所選{1}時間段{2}的機會數量。數據包括機會的總預算，估計的截止日期屬於所選的經理期間時間。</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>按機會預算進行銷售渠道</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>按機會數進行銷售渠道</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>銷售渠道</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>該報告旨在用於在特定時間段內建立銷售渠道。它顯示了所有經理或僅所選經理在選定{1}時間段{2}內的機會數量。
+{0}主要數據包括渠道中的機會數量，平均機會預算，成功關閉機會的平均持續時間，未結機會與已結機會的比率。
+{0}數據按機會編號和預算排序。</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>階段</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>總和</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在選定{1}時間段{2}之前的機會，聯繫人，任務和發票的摘要數據。該報告將顯示按狀態和階段指定的機會，按類型和階段分類的聯繫人，按狀態顯示的任務和發票。</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>目前摘要</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>期間摘要</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在所選{1}時間段{2}的機會，聯繫人，任務和發票的摘要數據。該報告將顯示預算中指定的機會及其數量，按時間段聯繫的類型，任務和發票。</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>以狀態看任務</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>該期間的任務</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>時間段 時間周期</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>總計</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>機會總預算</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>機會總數</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>經理期間的總銷售額</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="WithRespectToProbability" xml:space="preserve">
+    <value>關於概率</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>贏了</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在選定{1}時間段{2}內的聯繫人總數。該報告將顯示按類型以及是否存在機會指定的新聯繫人。數據僅按管理者分組。</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>由經理的聯繫人</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在所選{1}時間段{2}內贏得和失去的機會的總工作量。數據僅按管理者分組。</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>經理人的機會</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理的所選{1}時間段{2}的發票總數。該報告將顯示已發送發票的總數以及已付款，已拒絕和逾期的發票的數量。數據僅按管理者分組。</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>經理發票</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在所選{1}時間段{2}內的任務總數。該報告將顯示按類型指定的已關閉，新的和過期的任務。數據僅按管理者分組。</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>經理的任務</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>該報告旨在顯示所有經理或僅所選經理在所選{1}時間段{2}內的呼叫總數。該報告將顯示來電，去電的總數及其持續時間。數據僅按管理者分組。</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>請注意，僅當您連接Twilio時，此報告才可用。要進行連接，請按{0}連結{1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>經理的VoIP</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+</root>

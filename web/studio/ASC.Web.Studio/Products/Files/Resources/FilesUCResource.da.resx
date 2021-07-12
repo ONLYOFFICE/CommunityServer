@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="AceStatusEnum_FillForms" xml:space="preserve">
+    <value>Formfyldning</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Læs kun</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Fuld adgang</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Afvis Adgang</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Anmeldelse</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Tilføj konto</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Tilføj Box konto</value>
+  </data>
+  <data name="ButtonAddDropBox" xml:space="preserve">
+    <value>Tilføj Dropbox konto</value>
+  </data>
+  <data name="ButtonAddGoogle" xml:space="preserve">
+    <value>Tilføj Google konto</value>
+  </data>
+  <data name="ButtonAddNextcloud" xml:space="preserve">
+    <value>Tilføj Nextcloud konto</value>
+  </data>
+  <data name="ButtonAddSkyDrive" xml:space="preserve">
+    <value>Tilføj OneDrive konto</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Anden konto</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Annullere alle</value>
+  </data>
+  <data name="ButtonChangeOwner" xml:space="preserve">
+    <value>Ændre ejer</value>
+  </data>
+  <data name="ButtonChangeThirdParty" xml:space="preserve">
+    <value>Ændre tredje parts info</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Rens filter</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="ButtonCopy" xml:space="preserve">
+    <value>Opret en kopi</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Kopier</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Kopi</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Opret</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Mappe</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>Præsentation</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Regneark</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Dokument</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Slet</value>
+  </data>
+  <data name="ButtonDeleteThirdParty" xml:space="preserve">
+    <value>frakobl 3. part</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Hent</value>
+  </data>
+  <data name="ButtonDuplicate" xml:space="preserve">
+    <value>Opret en fil kopi</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="ButtonEmbedd" xml:space="preserve">
+    <value>Indlejre dokument</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>Tøm Skraldespanden</value>
+  </data>
+  <data name="ButtonFilterArchive" xml:space="preserve">
+    <value>Arkiv</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Alle filer</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Mapper</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Billeder</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Medie</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>Præsentationer</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Regneark</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Gå til '{0}'</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>Gå til Mine Dokumenter</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Lær mere...</value>
+  </data>
+  <data name="ButtonLock" xml:space="preserve">
+    <value>Blokere / ckeck ud</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Flyt eller kopiere</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Flyt til</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Åben</value>
+  </data>
+  <data name="ButtonOverwrite" xml:space="preserve">
+    <value>overskriv med version opdatering</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Omdøb</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>Genopret</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Send med DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>deling indstillinger</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>Vis version historik</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Spring over</value>
+  </data>
+  <data name="ButtonToParentFolder" xml:space="preserve">
+    <value>Tilbage til mappen ovenover</value>
+  </data>
+  <data name="ButtonUnlock" xml:space="preserve">
+    <value>Ophæv / tjek ind</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>På toppen</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>upload</value>
+  </data>
+  <data name="ButtonVersion" xml:space="preserve">
+    <value>Version historik</value>
+  </data>
+  <data name="ButtonVersionComplete" xml:space="preserve">
+    <value>Afslut version</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Annulleret </value>
+  </data>
+  <data name="CaptionCopyConvertOpen" xml:space="preserve">
+    <value>Konverter og åbn dokument</value>
+  </data>
+  <data name="ChangeOwnerDescription" xml:space="preserve">
+    <value>Når ændringerne er blevet anvendt, får den nuværende fil / mappe ejer adgangsrettigheder i henhold til adgangsindstillingerne for den gruppe, han tilhører eller ifølge standardmappens tilladelser</value>
+  </data>
+  <data name="ChangeOwnerHeader" xml:space="preserve">
+    <value>Ændre ejer</value>
+  </data>
+  <data name="ChooseFormatToDownload" xml:space="preserve">
+    <value>Vælg format for hver enkelt fil som skal hentes</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Fælles indstillinger</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Vis besked, når du flytter elementet til papirkurven</value>
+  </data>
+  <data name="ConfirmDuplicateDescr" xml:space="preserve">
+    <value>Der vil være to forskellige filer i mappen.</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>Overskivelse bekræftet</value>
+  </data>
+  <data name="ConfirmOverwriteDescr" xml:space="preserve">
+    <value>Filen vil blive tilføjet til filen med det samme navn som versionen</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Bekræftelse</value>
+  </data>
+  <data name="ConfirmRemoveDescription" xml:space="preserve">
+    <value>Bemærk: Denne handling kan ikke fortrydes.</value>
+  </data>
+  <data name="ConfirmRemoveSharpBoxDescription" xml:space="preserve">
+    <value>Bemærk: Fjernelse fra din konto kan ikke fortrydes.</value>
+  </data>
+  <data name="ConfirmSkipDescr" xml:space="preserve">
+    <value>Ingen fil vil blive kopieret. Den oprindelige fil gemmes i destinationsmappen.</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenCbxLabelText" xml:space="preserve">
+    <value>Gem også fil kopien i orginalformat </value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenTitle" xml:space="preserve">
+    <value>Dokumentfilen, du åbner, konverteres til Office Open XML-formatet for hurtigere visning og redigering</value>
+  </data>
+  <data name="ConfirmStoreOriginalOpenToMyText" xml:space="preserve">
+    <value>Filkopien vil blive oprettet i  {0} mit dokument {1} mappe</value>
+  </data>
+  <data name="ConfirmStoreOriginalUploadCbxLabelText" xml:space="preserve">
+    <value>Gem filkopien i orginal format</value>
+  </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Flyt bekræftelse</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>Er du sikker på at du vil fjerne disse elementer fra listen?</value>
+  </data>
+  <data name="ConfirmUpdateIfExist" xml:space="preserve">
+    <value>Opdater filversionen til den eksisterende fil med samme navn. {0} Ellers oprettes en kopi af filen. {1}</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Forbindelse URL</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Konverter</value>
+  </data>
+  <data name="ConvertAndDownload" xml:space="preserve">
+    <value>Hent som</value>
+  </data>
+  <data name="CopyConvertEnd" xml:space="preserve">
+    <value>Konverteringen var vellykket.</value>
+  </data>
+  <data name="CopyConvertEndTo" xml:space="preserve">
+    <value>filen er blevet oprettet i  '{0}'  mappen</value>
+  </data>
+  <data name="CopyConvertError" xml:space="preserve">
+    <value>Konverterings fejl</value>
+  </data>
+  <data name="CopyConvertExec" xml:space="preserve">
+    <value>Konverterer...</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>Fælles Dokumenter</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>Du har lige oprettet din ONLYOFFICE portal.{0} overfør dine offline filer to portalen for at samarbejde om dem uden af forlade applikationen. {0}{0} åben din portal i en browser for at se flere features, inklusiv {1}Projects{2}, {1}CRM{2}, {1}Calendar{2}, {1}Mail{2} og mere.</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Åben i browser</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>For eventuelle købsspørgsmål, email os på {0}.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>Hvis du har nogle tekniske problemer, kontakt os på {0}.</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Velkommen til din portal.</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Tillykke</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Dokumenter</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Gem til mappe</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Besked</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Tilføj besked</value>
+  </data>
+  <data name="DocuSignMessageRemove" xml:space="preserve">
+    <value>Fjern meddelelse</value>
+  </data>
+  <data name="DocuSignName" xml:space="preserve">
+    <value>Dokument navn</value>
+  </data>
+  <data name="DocuSignRecipientAdd" xml:space="preserve">
+    <value>Tilføj {!Bruger}</value>
+  </data>
+  <data name="DocuSignRecipients" xml:space="preserve">
+    <value>Signer modtager liste</value>
+  </data>
+  <data name="DownloadAs" xml:space="preserve">
+    <value>Hent som</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>Hent</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>Hent</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Størrelse</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Højde</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Bredde</value>
+  </data>
+  <data name="EmptyScreenDescrCorporate" xml:space="preserve">
+    <value>'Fælles Dokumenter' sektionen viser alle de dokumenter som er delt af portal administratoren til fælles brug. Kun portal administratoren kan oprette mapper i denne sektion, men med den adgang der er givet til portal brugerne kan de også overføre filer hertil.</value>
+  </data>
+  <data name="EmptyScreenDescrDragDrop" xml:space="preserve">
+    <value>Træk og slip filerne fra din computer hertil, for nemmere at overføre dem til portalen. </value>
+  </data>
+  <data name="EmptyScreenDescrForme" xml:space="preserve">
+    <value>"Delt med mig" bruges til at vise de filer, som dine venner eller kolleger gav dig adgang til. Hvis du ikke har set de seneste ændringer i dokumenterne, er de markeret som 'nye'. Du kan fjerne filerne fra listen ved at klikke på den relevante knap.</value>
+  </data>
+  <data name="EmptyScreenDescrMy" xml:space="preserve">
+    <value>De dokumenter og billedfiler, du {0} opretter {1} eller {2} upload {3} til portalen, holdes her i afsnittet "Mine dokumenter". Du kan {4} åbne {5} og {6} redigere {7} dem ved hjælp af ONLYOFFICE ™ portalredaktøren, dele dem med venner eller kolleger, organisere i mapper</value>
+  </data>
+  <data name="EmptyScreenDescrMyPoor" xml:space="preserve">
+    <value>De dokumenter og billedfiler du {2} uploader {3} til portalen holdes her i afsnittet "Mine dokumenter". Du kan dele dem med venner eller kolleger, organisere i mapper</value>
+  </data>
+  <data name="EmptyScreenDescrProject" xml:space="preserve">
+    <value>De dokumenter og billedfiler, du opretter eller uploader til dit projekt, bevares i dette afsnit. Du kan åbne og redigere dem ved hjælp af ONLYOFFICE ™ portal editoren, organisere i mapper.</value>
+  </data>
+  <data name="EmptyScreenDescrTrash" xml:space="preserve">
+    <value> 'Papirkurv' er hvor alle de slettede filer flyttes. Du kan enten gendanne dem, hvis de slettes ved en fejltagelse eller slette dem permanent. Bemærk, at når du sletter filerne fra 'Papirkurven', kan de ikke gendannes længere.</value>
+  </data>
+  <data name="EmptyScreenFilter" xml:space="preserve">
+    <value>Ingen filer, der skal vises for dette filter her</value>
+  </data>
+  <data name="EmptyScreenFilterDescr" xml:space="preserve">
+    <value>Ingen filer eller mapper matcher dine filtre. Vælg andre filter indstillinger eller rens filtret for at se alle filer i denne sektion. Du kan også kigge efter filen i andre sektioner.</value>
+  </data>
+  <data name="EmptyScreenFolderHeader" xml:space="preserve">
+    <value>Ingen fil i denne mappe</value>
+  </data>
+  <data name="EmptyScreenHeader" xml:space="preserve">
+    <value>Ingen filer, der skal vises i dette afsnit</value>
+  </data>
+  <data name="EmptyScreenThirdPartyDscr" xml:space="preserve">
+    <value>Ikke forbundne konti</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fejl</value>
+  </data>
+  <data name="FileChoiceFormat" xml:space="preserve">
+    <value>vøælg filen i {0} format</value>
+  </data>
+  <data name="FileChoiceType" xml:space="preserve">
+    <value>Vælg filer af type: {0}</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Mapper</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Start nu</value>
+  </data>
+  <data name="LinkViaMail" xml:space="preserve">
+    <value>Via email</value>
+  </data>
+  <data name="LostDataConvert" xml:space="preserve">
+    <value>Hvis du vælger at konvertere filen til formatet forskelligt fra originalen, kan nogle data gå tabt</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Vælg alle</value>
+  </data>
+  <data name="MaxFileSize" xml:space="preserve">
+    <value>maksimal filens størrelse er {0}</value>
+  </data>
+  <data name="MoreFeatures" xml:space="preserve">
+    <value>Har du et hold {0} at samarbejde med? {0} {1} Få mere at vide {2}</value>
+  </data>
+  <data name="MoreFeaturesItem1" xml:space="preserve">
+    <value>Dokumenthåndtering</value>
+  </data>
+  <data name="MoreFeaturesItem2" xml:space="preserve">
+    <value>CRM og fakturering</value>
+  </data>
+  <data name="MoreFeaturesItem3" xml:space="preserve">
+    <value>Jobliste og Gantt diagram</value>
+  </data>
+  <data name="MoreFeaturesItem4" xml:space="preserve">
+    <value>Email Aggregator</value>
+  </data>
+  <data name="MoreFeaturesText" xml:space="preserve">
+    <value>Have et projekt og et team at samarbejde med? {0} Vi har forberedt noget for dig. {1}</value>
+  </data>
+  <data name="MoreFeaturesTextList" xml:space="preserve">
+    <value>Inviter dine kolleger eller underleverandører og drage fordel af yderligere funktioner:</value>
+  </data>
+  <data name="MoreFeaturesTitle" xml:space="preserve">
+    <value>Velkommen til ONLYOFFICE for grupper!</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mine Dokumenter</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Forhåndvisning</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Åben</value>
+  </data>
+  <data name="OpenParent" xml:space="preserve">
+    <value>Åben lokalitet</value>
+  </data>
+  <data name="OverwriteListHide" xml:space="preserve">
+    <value>Skjul dokumentliste</value>
+  </data>
+  <data name="OverwriteListShow" xml:space="preserve">
+    <value>Vis dokmentliste</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Kodeord</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Projektdokumenter</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Marker som læst</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Marker alt som læst</value>
+  </data>
+  <data name="SaveAsFileTitle" xml:space="preserve">
+    <value>Filnavn</value>
+  </data>
+  <data name="SaveAsOpenTab" xml:space="preserve">
+    <value>Åben gemte dokument i ny fane</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Vælg mappe</value>
+  </data>
+  <data name="SelectOverwrite" xml:space="preserve">
+    <value>Vælg venligst handlingen</value>
+  </data>
+  <data name="SettingUpdateIfExist" xml:space="preserve">
+    <value>Standard instillinger</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Delt med mig</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>Ekstern linkadgang</value>
+  </data>
+  <data name="SharingLinkDescr" xml:space="preserve">
+    <value>Giver adgang til linket og indlejringskoden</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Vis mere</value>
+  </data>
+  <data name="ShowThisWindowMinimized" xml:space="preserve">
+    <value>Vis dette vindue minimeret</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Indstillinger</value>
+  </data>
+  <data name="SwitchViewToCompact" xml:space="preserve">
+    <value>Skift til kompakt visning</value>
+  </data>
+  <data name="SwitchViewToNormal" xml:space="preserve">
+    <value>Skift til almindelig visning</value>
+  </data>
+  <data name="ThirdPartyAccounts" xml:space="preserve">
+    <value>Tredjeparts konti</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ThirdPartyConnectAccount" xml:space="preserve">
+    <value>Tilknyt konto</value>
+  </data>
+  <data name="ThirdPartyConnectAccounts" xml:space="preserve">
+    <value>Tilknyt konti</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsDescription" xml:space="preserve">
+    <value>Du kan forbinde de følgende servicer til din ONLYOFFICE bruger. De vil blive vist i 'Mine dokumenter' mappen og du vil have mulighed for at redigere og gemme alle dine dokumenter i et enkelt Workspace.</value>
+  </data>
+  <data name="ThirdPartyConnectAccountsKeys" xml:space="preserve">
+    <value>For en vellykket forbindelse indtast de nødvendige data på {0} denne side {1}.</value>
+  </data>
+  <data name="ThirdPartyConnectingAccount" xml:space="preserve">
+    <value>Tilknytter konto</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Udfyld for at ændre</value>
+  </data>
+  <data name="ThirdPartyDeleteCaption" xml:space="preserve">
+    <value>Slet tredje part</value>
+  </data>
+  <data name="ThirdPartyDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>Dropbox</value>
+  </data>
+  <data name="ThirdPartyEnableSettings" xml:space="preserve">
+    <value>Aktiver tredje parts indstillinger for brugere</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Mappe titel</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyOwnCloud" xml:space="preserve">
+    <value>ownCloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Tilslut</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Gør delt og sat i fælles dokumenter</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySharePointDescr" xml:space="preserve">
+    <value>SharePoint / OneDrive for Business</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyWebDav" xml:space="preserve">
+    <value>WebDAV</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Søg i</value>
+  </data>
+  <data name="TitleSearchSubfolder" xml:space="preserve">
+    <value>og {0} alle undermapper {1}</value>
+  </data>
+  <data name="TitleSearchWithoutSubfolder" xml:space="preserve">
+    <value>Klik for at søge uden undermapper</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Vælg</value>
+  </data>
+  <data name="TooltipCreate" xml:space="preserve">
+    <value>Du kan oprette dokumenter ({0}), regneark ({1}), præsentationer ({2}) og downloade dem til de fleste populære formater.</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Du kan redigere følgende filer: {0}.</value>
+  </data>
+  <data name="TooltipOpen" xml:space="preserve">
+    <value>Du kan åbne filerne med følgende størrelser: {0}.</value>
+  </data>
+  <data name="TooltipUpload" xml:space="preserve">
+    <value>Du kan uploade alle filer, du ønsker at Dokumenter</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>Skraldespand</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>Fjern fra liste</value>
+  </data>
+  <data name="UpdateIfExist" xml:space="preserve">
+    <value>Overskriv eksisterende fil med samme navn</value>
+  </data>
+  <data name="UpgradeYourPlan" xml:space="preserve">
+    <value>Opgrader din plan</value>
+  </data>
+</root>

@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>접근</value>
+  </data>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>읽기 전용</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>전체 액세스</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>액세스 거부</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>관리자</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>계속</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>파일이름 입력</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>작성자</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>나</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>변환 및 열기</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>다운로드</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>편집</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>댓글</value>
+  </data>
+  <data name="CommentAutosave" xml:space="preserve">
+    <value>자동 저장</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>생성되었습니다</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>DocuSign으로 만든 파일</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>편집되었습니다.</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>업로드 되었습니다</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>으로 변환</value>
+  </data>
+  <data name="DashboardUseMoreCollaborationToolsSecondLine" xml:space="preserve">
+    <value>코멘트를 추가하고, 특정 사용자에게 주소를 지정</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>문서명</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>거부되었습니다</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>오류:</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>잘못 된 요청입니다.</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>빈 파일</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>필요한 파일을 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>하위 폴더로 폴더를 복사 할 수 없습니다</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>필요한 폴더를 찾을 수 없습니다</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>적어도 {0}개의 메일 메시지를 보낼 수 없음. 실패 원인이 무엇인지 확인하려면 메일 모듈 확인</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>다운로드수가 너무 많습니다.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>이 파일 형식은 지원 되지 않습니다</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>저장한 저자를 알 수 없음</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>작업을 수행하기에 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>만들 수있는 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>파일이 열려 있기 때문에 삭제할 수 없습니다.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>편집중인 파일이 있어 폴더를 삭제할 수 없습니다.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>파일을 삭제하기에 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>폴더를 삭제하기에 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>파일을 편집할 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>이 문서는 다른 탭에 의해 편집되고 있습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>파일을 볼 수있는 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>폴더 콘텐츠를 볼 수있는 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>파일의 이름을 바꿀 수있는 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>폴더의 이름을 바꾸하기에 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>파일이 편집중이므로 업데이트할 수 없습니다.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>폴더 콘텐츠를 볼 수있는 충분한 권한이 없습니다</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>열린 파일을 업데이트 할 수 없습니다</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>휴지통에있는 요소를 미리보기 할 수 없습니다</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>모두</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>파일</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>폴더 이름:</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>게스트</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>신규</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>복원</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>미리보기</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>암호</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>사용자와 동일한 작업을 수행 | '일반 문서'섹션에 링크 Dropbox, Box 및 기타 계정 | '일반 문서'섹션에서 문서 및 폴더에 대한 액세스 권한을 설정합니다</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>생성, 수정, 저장하고 문서를 공유 할 수 있습니다. 귀하의 Google 드라이브, Dropbox 및 Box 계정을 연결하고 한 곳에서 모든 문서가 있습니다.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>생성, 수정, 저장하고 문서를 공유 할 수 있습니다. 귀하의 Google 드라이브, Dropbox 및 Box 계정을 연결하고 한 곳에서 모든 문서가 있습니다.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>자신의 문서뿐만 아니라 적절한 액세스 권한이있는 공유 문서를 작성 및 편집 | 읽기 / 문서 및 폴더에 다른 사용자에게 편집 권한을 부여 | '내 문서'섹션에 링크 Dropbox 및 기타 계정</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!사용자}가 제거되었습니다</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>읽은 상태로 표시</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>공유</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>폴더</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>버전 표시</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>크기</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>공유 때 알림</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>폴더명</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>계정</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>공유하고 '일반 문서'폴더에 넣어 확인</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>생성되었습니다</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>업데이트 되었습니다</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>문서</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>삭제되었습니다</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>선택</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>공유 설정</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>파일 동작 표시</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>폴더 작업 표시</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>하위 폴더</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>업로드 되었습니다</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ver.</value>
+  </data>
+</root>

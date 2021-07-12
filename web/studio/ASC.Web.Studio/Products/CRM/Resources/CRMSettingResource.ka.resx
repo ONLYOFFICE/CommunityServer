@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddOption" xml:space="preserve">
+    <value>ვარიანტის დამატება</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>ამ კატეგორიის დამატება</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>ამ სტადიის დამატება</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>ამ ველის დამატება</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>ამ სახეობის დამატება</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>ფერის შეცვლა</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>სიმბოლოს შეცვლა</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>ჩეკბოქსი</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>სვეტი</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>საერთო პარამეტრები</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>მომხმარებლის ველი</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>თარიღი</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>ვალუტა – დეფოლტურად</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>კატეგორიის წაშლა</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>ტიპის წაშლა</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>ველის წაშლა</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>სტადიის წაშლა</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>აღწერა</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>კონტაქტის ტიპები საშუალებას გაძლევთ გარკვეული გზით დაახასიათოთ თქვენი პოტენციური კლიენტები. მაგალითად, კონრაქტის ტიპები შეიძლება იყოს "ცივი", "ცხელი", "თბილი"' რომლებიც აღნიშნავს კლიენტის მზადყოფნას იყიდოს თქვენი პროდუქტი.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>კონტაქტის ტიპის რედაქტირება და წაშლა შესაძლებელია მხოლოდ მაშინ როდესაც არ არსებობს მსგავსი კონტაქტის ტიპი.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>გარიგების ეტაპები გეხმარებათ განსაზღვროთ აუცილებელი ნაბიჯები გარიგების დამთავრებამდე. მაგალითად თქვენ დაამატოთ გარიგების ეტაპი "კომერციული შემოთავაზება", "წინასწარ გადახდა", "სამუშაოების შესრულება". გადათრევის გზით მიუთითეთბ  გარიგების ეტაპების აუცილებელი თანმიმდევრობა.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>გარიგების ეტაპის რედაქტირება ან წაშლა შესაძლებელია მხოლოდ იმ შემთხვევაში თუ არ არსებობს გარიგებები ამ ეტაპზე.</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>ყველა მონაცემების ერთ ZIP-არქივში ჩამოტვირთვა</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>გაშვებულია ZIP-არქივის შექმნა რასაც დასჭირდება რამოდენიმე წუთი, დამოკიდებულია მონაცემთა მოცულობაზე. როდესაც ოპერაცია დასრულდება, თქვენ მოგივატ წერილი ლინკით ZIP არქივის ჩამოსატვირთათ.</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>კატეგორიის დამუშავება</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>სახეობის დამუშავება</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>ველის დამუშავება</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>სტადიის დამუშავება</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>«{0}» კატეგორიის დამუშავება</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>კონტაქტის სახეობის დამუშავება {0}</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>«{0}» სტადიის დამუშავება</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>მომხმარებელთა ველები ცარიელია</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>ეს ველი აიცლებლად უნდა იქნეს კორექტულად შევსებული</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>ყველა მონაცემის ექპორტი</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>ექსპორტის ფუნქცია შექმნის ZIP-არქივს, რომელშიც შესული იქნება CSV ფორმატის ფაილები მთელი თქვენი მონაცემებით (კონტაქტები, გარიგებები, ღონისძიებები, ისტორიით და ა.შ.)</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>ველების სია</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>ველის არჩევა</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>აირჩიეთ ველები, რომლებიც გამოსახული იქნება ფორმაში</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>კოდის ფორმა</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>გამოიყენეთ ეს ფორმა თქვენი საიტისთვის</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>შემოწმება</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>ესეთი ინტერფეისი ექნება ფორმას თქვენს საიტზე</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>თვისებების ფორმები</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>შეიყვანეთ საიტის დომენის სახელი, რომელზეც გამოიყენება ფორმა, და URL გადამისამართება</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>ფორმის გენერირება</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>სახელწოდება</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>იარლიყი</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>წარმატების ალბათობა</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>ვარიანტის წაშლა</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>გადამისამართების URL</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>სტრიქონები</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>შენახულია!</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>არჩევის ველი</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>არჩევანი</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>მომხმარებლის ველის რედაქტირება</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>ზომა</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>ტექსტის ველი</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>ტექსტი</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>სახელწოდება</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>სახეობა</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>ფორმა "შესაძლებელი კლიენტები საიტიდან"</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>ფუნქცია "შესაძლო კლიენტები საიტიდან" - არის CRM ის ონლაინ ინსტრუმენტი, რომელსაც შეუძლია ველების განსაზღვრა და კოდის გენერირება კონკრეტული ვებ-ფორმის შესაქმნელად. ეს ფორმები გამოიყენება კონტაქტების შესაქმნელად თქვენს პორტალზე სხვა ვებ-საიტიდან.</value>
+  </data>
+</root>

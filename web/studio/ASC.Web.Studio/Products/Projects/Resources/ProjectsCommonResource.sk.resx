@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddParticipants" xml:space="preserve">
+    <value>Spravovať odberateľov</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Všetky</value>
+  </data>
+  <data name="AllDepartments" xml:space="preserve">
+    <value>Všetky {!groups}</value>
+  </data>
+  <data name="AllTaskMoveButton" xml:space="preserve">
+    <value>Presunúť s prepojenými úlohami</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Všetci {!users}</value>
+  </data>
+  <data name="AutoTimer" xml:space="preserve">
+    <value>Štart/Stop časovač</value>
+  </data>
+  <data name="AutoTimerLogHours" xml:space="preserve">
+    <value>Pridať čas</value>
+  </data>
+  <data name="AutoTimerPause" xml:space="preserve">
+    <value>Pauza</value>
+  </data>
+  <data name="AutoTimerReset" xml:space="preserve">
+    <value>Obnoviť</value>
+  </data>
+  <data name="AutoTimerStart" xml:space="preserve">
+    <value>Štart</value>
+  </data>
+  <data name="BannerMobileProjects" xml:space="preserve">
+    <value>Projekty Teamlab</value>
+  </data>
+  <data name="BannerMobileText" xml:space="preserve">
+    <value>Vyskúšajte mobilnú aplikáciu</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Skryť</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Všeobecné nastavenia</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopírovať</value>
+  </data>
+  <data name="CreateNewButton" xml:space="preserve">
+    <value>Vytvoriť</value>
+  </data>
+  <data name="CreateProjectButtonText" xml:space="preserve">
+    <value>Založiť nový projekt</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Odstrániť</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="DocsModuleTitle" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EmptyScreenContactsButton" xml:space="preserve">
+    <value>Pripojiť alebo pridať kontakt</value>
+  </data>
+  <data name="EmptyScreenContactsDescribe" xml:space="preserve">
+    <value>Vyberte existujúci CRM kontakt zo zoznamu na prepojenie s projektom ktorý spravujete, alebo pridajte nové kontakty. Upraviť osobné údaje kontaktu. Hlbšia integrácia s CRM vám pomôže spravovať svoju prácu efektívnejšie.</value>
+  </data>
+  <data name="EmptyScreenContasctsHeader" xml:space="preserve">
+    <value>Zoznam kontaktov je prázdny</value>
+  </data>
+  <data name="Filter_NoProjects" xml:space="preserve">
+    <value>Žiadny projekt nezodpovedá tomuto filtru</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Sledovať</value>
+  </data>
+  <data name="HelpAnswerFollowProject" xml:space="preserve">
+    <value>Zaškrtnite toto pole, ak nie ste manažérom projektu ktorý vytvárate, ale chcete sledovať všetky zmeny v ňom. Informácie o všetkých novovytvorených míľnikoch, úlohách a diskusiách budú zahrnuté do denného Oznámenia o novinkách.</value>
+  </data>
+  <data name="HelpAnswerPrivateProject" xml:space="preserve">
+    <value>{1}Súkromný projekt{2} je spôsob, ako obmedziť prístup k vášmu projektu tak, že len členovia vášho tímu k nemu budú mať prístup. Uloženie projektu ako súkromný taktiež umožňuje nastaviť prístupové práva pre každého člena tímu vo vnútri tohto projektu.</value>
+  </data>
+  <data name="HelpAnswerPrivateProjectTeam" xml:space="preserve">
+    <value>{1}Súkromný projekt{2} je spôsob, ako obmedziť prístup k vášmu projektu tak, že len členovia vášho tímu k nemu budú mať prístup.</value>
+  </data>
+  <data name="HelpAnswerProjectMilestone" xml:space="preserve">
+    <value>Kľúčový míľnik sa používa na vytvorenie míľnika, ktorý považujete za dôležitejší ako ostatné.{0} Všetky kľúčové míľniky sú označené červenou ikonkou kľúča, umiestnenou vedľa jeho názvu.</value>
+  </data>
+  <data name="HelpAnswerProjectStatus" xml:space="preserve">
+    <value>Môžete prepínať medzi troma stavmi projektu:{0}{1}Aktívny.{2} Všetky vytvorené projekty, na ktorých v súčasnej dobe pracujete sú označené ako aktívne, až kým sa nerozhodnete pre ich pozastavenie alebo uzatvorenie.{0}{1}Pozastavený.{2} Ak sa rozhodnete dočasne pozastaviť prácu na svojom projekte, zmeňte jeho stav na Pozastavený. Ak chcete obnoviť projekt, jednoducho ho aktivujte nastavením zodpovedajúceho stavu.{0}{1}Uzatvorený.{2} Keď je práca na projekte ukončená a všetky úlohy sú uzavreté, ukončite projekt zmenou jeho ​​stavu na Uzatvorený. Pre ďalšiu prácu ho bude potrebné znovu aktivovať.</value>
+  </data>
+  <data name="HelpAnswerProjectTeam" xml:space="preserve">
+    <value>Ak chcete pridať členov do svojho tímu, kliknite na odkaz {1}Správa tímu{2} a vyberte zo zoznamu používateľov, ktorých chcete pridať.{0} Môžete tiež pridať/odobrať členov tímu neskôr, prepnutím na záložku {1}Tím{2} na vašom projektovom {1}prehľade{2} a kliknutím na tlačidlo {1}Správa tímu{2}.</value>
+  </data>
+  <data name="HelpAnswerRestrictAccessTeam" xml:space="preserve">
+    <value>V predvolenom nastavení, každý člen projektového tímu môže vidieť všetok obsah vo vnútri vybraného projektu: míľniky, úlohy, dokumenty a diskusie. Ak chcete obmedziť prístup, vyberte člena tímu ktorému chcete nastaviť prístupové práva a kliknite na jeden z odkazov vpravo. Rovnakým spôsobom môžete nastaviť prístupové práva pre každého člena projektového tímu, ak nemá oprávnenia správcu portálu. ONLYOFFICE™ správca má plný prístup k celému obsahu vo všetkých projektoch.</value>
+  </data>
+  <data name="HelpQuestionFollowProject" xml:space="preserve">
+    <value>Čo znamená Sledovať tento projekt?</value>
+  </data>
+  <data name="HelpQuestionPrivateProject" xml:space="preserve">
+    <value>Čo je to súkromný projekt?</value>
+  </data>
+  <data name="HelpQuestionProjectMilestone" xml:space="preserve">
+    <value>Čo znamená míľnik?</value>
+  </data>
+  <data name="HelpQuestionProjectStatus" xml:space="preserve">
+    <value>Aké stavy projektu existujú?</value>
+  </data>
+  <data name="HelpQuestionProjectTeam" xml:space="preserve">
+    <value>Ako riadiť svoj tím?</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Skryť</value>
+  </data>
+  <data name="HideEntitiesInPausedProjects" xml:space="preserve">
+    <value>Skryť entity v pozastavených projektoch
+
+</value>
+  </data>
+  <data name="hintSubscribersPrivateProject" xml:space="preserve">
+    <value>Tento užívateľ nedostane oznámenie pre túto diskusiu, pretože projekt má súkromný stav a užívateľ nie je členom projektového tímu.</value>
+  </data>
+  <data name="LearnMoreLink" xml:space="preserve">
+    <value>Viac informácií...</value>
+  </data>
+  <data name="LeftMenuActiveProjects" xml:space="preserve">
+    <value>Aktívny</value>
+  </data>
+  <data name="LeftMenuFollowedProjects" xml:space="preserve">
+    <value>Projekty, ktoré sledujem</value>
+  </data>
+  <data name="LeftMenuLatest" xml:space="preserve">
+    <value>Posledné</value>
+  </data>
+  <data name="LeftMenuMyDiscussions" xml:space="preserve">
+    <value>Moje Diskusie</value>
+  </data>
+  <data name="LeftMenuMyProjects" xml:space="preserve">
+    <value>Moje Projekty</value>
+  </data>
+  <data name="ModuleContacts" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="MoveTaskHeader" xml:space="preserve">
+    <value>Presunúť úlohu</value>
+  </data>
+  <data name="NewCommentForMessage" xml:space="preserve">
+    <value>Nové komentáre v diskusii</value>
+  </data>
+  <data name="NewCommentForTask" xml:space="preserve">
+    <value>Nové komentáre v úlohách</value>
+  </data>
+  <data name="NoCRMContactsForLink" xml:space="preserve">
+    <value>Žiadny kontakt pre odkaz</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Žiadne dáta</value>
+  </data>
+  <data name="NoteTaskHaveLinks" xml:space="preserve">
+    <value>Úloha je prepojená s inými úlohami, v prípade že úlohu odstránite všetky odkazy budú odstránené.</value>
+  </data>
+  <data name="OneTaskMoveButton" xml:space="preserve">
+    <value>Odstrániť odkazy a presunúť</value>
+  </data>
+  <data name="PersonalSettings" xml:space="preserve">
+    <value>Osobné nastavenia
+
+</value>
+  </data>
+  <data name="PopupNoteUndone" xml:space="preserve">
+    <value>Poznámka: Táto akcia sa nedá vrátiť späť.</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Náhľad</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Robiť to isté ako projektový manažér|Menovať projektového manažéra|Vytvoriť a upraviť, vymazať akýkoľvek projekt|Vytvoriť/upraviť šablóny</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Vytváraj tímy a prideľuj úlohy. Naplánuj projektové míľniky, sleduj aktivity v projektoch a vytváraj reporty.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Vytváraj tímy a prideľuj úlohy. Naplánuj projektové míľniky, sleduj aktivity v rámci projektu a generuj reporty.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Zobraziť projekty a zapojiť sa do diskusie|Vytvárať a upravovať míľniky, úlohy, diskusie, dokumenty|Sledovať čas pre úlohy, generovať reporty|Formovať projektový tím a nastavovať prístupové práva</value>
+  </data>
+  <data name="ProjectLinkedWithContacts" xml:space="preserve">
+    <value>Kontakty, ktoré budú spojené s projektom</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Názov projektu</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Čítať viac</value>
+  </data>
+  <data name="RemoveMemberFromTeam" xml:space="preserve">
+    <value>Odobrať užívateľa z tímu</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Nahradiť</value>
+  </data>
+  <data name="ReportFolder" xml:space="preserve">
+    <value>Priečinok reportu</value>
+  </data>
+  <data name="ReportsModuleTitle" xml:space="preserve">
+    <value>Reporty</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="SaveAndAddMore" xml:space="preserve">
+    <value>Uložiť &amp; Vytvoriť novú úlohu</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Uložiť zmeny</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>Hľadať</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Vybrať</value>
+  </data>
+  <data name="SelectOrAddCRMContact" xml:space="preserve">
+    <value>Vyberte si z existujúcich kontaktov alebo pridajte nový</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
+  <data name="SettingsWhoCanCreateProject" xml:space="preserve">
+    <value>Každý používateľ môže vytvoriť projekt
+
+</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Zobraziť</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Zobraziť na stránke</value>
+  </data>
+  <data name="SpentBilledTotally" xml:space="preserve">
+    <value>Platená doba</value>
+  </data>
+  <data name="SpentTotally" xml:space="preserve">
+    <value>Strávený čas</value>
+  </data>
+  <data name="StartPage" xml:space="preserve">
+    <value>Úvodná stránka
+
+</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="SubscribeOnNewComment" xml:space="preserve">
+    <value>Prihlásiť sa na odber komentárov</value>
+  </data>
+  <data name="TaskAddedMessage" xml:space="preserve">
+    <value>Úloha pridaná</value>
+  </data>
+  <data name="TaskCompareDateError" xml:space="preserve">
+    <value>Dátum začiatku musí byť skorší ako dátum splatnosti</value>
+  </data>
+  <data name="TaskMoveNote" xml:space="preserve">
+    <value>Úloha ktorú chcete presunúť je prepojená s inými úlohami. {0} Vyberte jednu z nasledujúcich akcií:</value>
+  </data>
+  <data name="TaskUpdateButton" xml:space="preserve">
+    <value>Odstrániť odkazy a aktualizovať</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Zvoľte text, ktorý chcete skryť zo stránok feedu a zo zoznamu stránok diskusií a kliknite na tlačidlo "Vystrihnúť text".</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>Vystrihnúť text</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Čas</value>
+  </data>
+  <data name="TimeTracking" xml:space="preserve">
+    <value>Sledovanie času
+</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Celkovo</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Nesledovať</value>
+  </data>
+  <data name="UnlinkProjects" xml:space="preserve">
+    <value>Odpojiť projekt od kontaktu</value>
+  </data>
+  <data name="UnSubscribeOnNewComment" xml:space="preserve">
+    <value>Zrušiť odber z komentárov</value>
+  </data>
+  <data name="UpdateDeadlineHeader" xml:space="preserve">
+    <value>Upraviť konečný termín</value>
+  </data>
+  <data name="UpdateDeadlineNote" xml:space="preserve">
+    <value>Úloha ktorú chcete upraviť je prepojená s inými úlohami. {0} Vyberte jednu z nasledujúcich akcií:</value>
+  </data>
+  <data name="WatermarkHours" xml:space="preserve">
+    <value>hh</value>
+  </data>
+  <data name="WatermarkMinutes" xml:space="preserve">
+    <value>mm</value>
+  </data>
+  <data name="WriteComment" xml:space="preserve">
+    <value>Pridať komentár</value>
+  </data>
+</root>

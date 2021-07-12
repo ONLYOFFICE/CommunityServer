@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Contul Google a fost reconectat cu succes</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Conturi</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acțiuni</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Adaugă cont</value>
+  </data>
+  <data name="AddFilterConditionBtnLabel" xml:space="preserve">
+    <value>Adaugă condiție</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Alias)</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Toate</value>
+  </data>
+  <data name="AndLabel" xml:space="preserve">
+    <value>și</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Agendă</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>Toată ziua</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>hartă</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Răspunde</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Poate</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Da</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Când</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Unde</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Cine</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Renunță</value>
+  </data>
+  <data name="CcLabel" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Setări comune</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Crează căsuță de email</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Crează un nou contact</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Companie</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Șterge</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Terminat</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Scrie un nou mesaj</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Accesați CRM</value>
+  </data>
+  <data name="EmptyScrFiltersButton" xml:space="preserve">
+    <value>Crează filtru</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>Crează un director</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Scrie un nou mesaj</value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Adresa incorectă</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Adresa incorectă</value>
+  </data>
+  <data name="FilterActionMarkWithTagLabel" xml:space="preserve">
+    <value>Adaugă etichetă</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Altele</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Nume</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Companii</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Nespecificat</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Săptămâna anterioară</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Astăzi</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Ieri</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Persoane</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Citește</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Afișează</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Stare</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Către adresa de email</value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Necitit</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>cu atașamente</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Cu eticheta</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>De la</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Accesează Calendarul</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Accesează evenimentul</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Ajutor</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Ascunde</value>
+  </data>
+  <data name="IfLabel" xml:space="preserve">
+    <value>Dacă</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="InfoSelectMessage" xml:space="preserve">
+    <value>mesaj</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>De la</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Răspuns automat prin e-mail</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>Către</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Gestionați conturile</value>
+  </data>
+  <data name="MarkImportantLabel" xml:space="preserve">
+    <value>Marchează important</value>
+  </data>
+  <data name="MarkNotImportantLabel" xml:space="preserve">
+    <value>Marchează neimportant</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Mesaj nou</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>nici unul</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Marchează important</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Nu este Spam</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>De acord</value>
+  </data>
+  <data name="OrLabel" xml:space="preserve">
+    <value>sau</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Ciornă</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Redirecţionează</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Răspunde</value>
+  </data>
+  <data name="PageHeaderTemplate" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Tipărește tot</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Tipărește</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Restaurează</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Mesajul se salvează</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selectează</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Afișează</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Subiect</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Etichete</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Către</value>
+  </data>
+  <data name="ToOrCcLabel" xml:space="preserve">
+    <value>Către sau Cc</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Încearcă din nou</value>
+  </data>
+  <data name="UserFolders" xml:space="preserve">
+    <value>Dosare</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Alertă</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>cu atașamente</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Cu etichete</value>
+  </data>
+</root>

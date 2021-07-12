@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Правы доступу на партале</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Дзеянні</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Дадаць</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Дадаць {!group}</value>
+  </data>
+  <data name="AddMembers" xml:space="preserve">
+    <value>Дадаць удзельнікаў</value>
+  </data>
+  <data name="BlockedMessage" xml:space="preserve">
+    <value>Адключаны</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Скасаваць</value>
+  </data>
+  <data name="ChangeStatus" xml:space="preserve">
+    <value>Змяніць статус</value>
+  </data>
+  <data name="ChangeStatusButton" xml:space="preserve">
+    <value>Змяніць статус карыстальніка</value>
+  </data>
+  <data name="ChangeStatusDialogConstraint" xml:space="preserve">
+    <value>Калі колькасць перавышае бягучы тарыфны план, то вам патрэбна палепшыць тарыфны план і паўтарыць аперацыю, інакш статус астатніх карыстальнікаў не зменіцца.</value>
+  </data>
+  <data name="ChangeStatusDialogHeader" xml:space="preserve">
+    <value>Змяніць статус карыстальніка</value>
+  </data>
+  <data name="ChangeStatusDialogRestriction" xml:space="preserve">
+    <value>Вы не можаце змяніць статус уладальніка партала і свой уласны статус</value>
+  </data>
+  <data name="ChangeStatusDialogToActive" xml:space="preserve">
+    <value>Карыстальнікі са статусам "Адключаны" будуць уключаныя.</value>
+  </data>
+  <data name="ChangeStatusDialogToTerminate" xml:space="preserve">
+    <value>Карыстальнікі са статусам "Актыўны" будуць адключаныя</value>
+  </data>
+  <data name="ChangeType" xml:space="preserve">
+    <value>Змяніць тып</value>
+  </data>
+  <data name="ChangeTypeDialogConstraint" xml:space="preserve">
+    <value>Палепшыце свой тарыфны план і паўтарыце аперацыю, інакш тып іншых карыстальнікаў не зменіцца.</value>
+  </data>
+  <data name="ChangeTypeDialogHeader" xml:space="preserve">
+    <value>Змяніць тып карыстальніка</value>
+  </data>
+  <data name="ChangeTypeDialogRestriction" xml:space="preserve">
+    <value>Вы не можаце змяніць тып адміністратараў партала і свой уласны тып</value>
+  </data>
+  <data name="ChangeTypeDialogToGuest" xml:space="preserve">
+    <value>Карыстальнікі тыпу "{!User}" перавядуцца ў тып "{!Guest}"</value>
+  </data>
+  <data name="ChangeTypeDialogToUser" xml:space="preserve">
+    <value>Карыстальнікі тыпу "{!Guest}" перавядуцца ў тып "{!User}"</value>
+  </data>
+  <data name="ClearButton" xml:space="preserve">
+    <value>Скінуць фільтр</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Пацвярджэнне</value>
+  </data>
+  <data name="DeleteBtnHint" xml:space="preserve">
+    <value>Выдаліць можна толькі карыстальнікаў альбо гасцей са статусам "Адключаны"</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Выдаліць</value>
+  </data>
+  <data name="DeleteProfileAfterReassignment" xml:space="preserve">
+    <value>Пасля завяршэння перадачы даных выдаліць профіль</value>
+  </data>
+  <data name="DeleteUserProfiles" xml:space="preserve">
+    <value>Выдаленне карыстальнікаў з партала</value>
+  </data>
+  <data name="DeleteUsersDataConfirmation" xml:space="preserve">
+    <value>Выдаляцца асабістыя дакументы гэтых карыстальнікаў, якія даступныя іншым. Каб гэтага пазбегнуць, перад выдаленнем неабходна запусціць перадачу даных.</value>
+  </data>
+  <data name="DeleteUsersDescriptionText" xml:space="preserve">
+    <value>Абраныя адключаныя карыстальнікі выдаляцца з партала. </value>
+  </data>
+  <data name="DepartmentMaster" xml:space="preserve">
+    <value>{!Head}</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Адкінуць выбар</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Адключыць</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная пошта</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Уключыць</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Увядзіце імя</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Запампаваны файл не знойдзены</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Памер выявы занадта вялікі</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Памер файла выявы занадта вялікі</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Невядомы тып файла выявы</value>
+  </data>
+  <data name="ExampleValues" xml:space="preserve">
+    <value>Прыклады значэнняў</value>
+  </data>
+  <data name="FieldsInFile" xml:space="preserve">
+    <value>Палі ў файле</value>
+  </data>
+  <data name="FieldsOnPortal" xml:space="preserve">
+    <value>Палі на партале ONLYOFFICE</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Імя</value>
+  </data>
+  <data name="HideSelectedUserList" xml:space="preserve">
+    <value>Схаваць спіс абраных карыстальнікаў</value>
+  </data>
+  <data name="ImportColumn" xml:space="preserve">
+    <value>Слупок</value>
+  </data>
+  <data name="ImportDelimiterDQ" xml:space="preserve">
+    <value>Двукоссі</value>
+  </data>
+  <data name="ImportDelimiterSQ" xml:space="preserve">
+    <value>Апостраф</value>
+  </data>
+  <data name="ImportEncodingASCII" xml:space="preserve">
+    <value>ASCII</value>
+  </data>
+  <data name="ImportEncodingCP866" xml:space="preserve">
+    <value>CP-866</value>
+  </data>
+  <data name="ImportEncodingKOI8R" xml:space="preserve">
+    <value>KOI8-R</value>
+  </data>
+  <data name="ImportEncodingUTF8" xml:space="preserve">
+    <value>UTF-8</value>
+  </data>
+  <data name="ImportEncodingWindows1251" xml:space="preserve">
+    <value>Windows1251</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>З файла</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ImportPeople" xml:space="preserve">
+    <value>Імпарт карыстальнікаў</value>
+  </data>
+  <data name="ImportSeparatorColon" xml:space="preserve">
+    <value>Двукроп’е</value>
+  </data>
+  <data name="ImportSeparatorComma" xml:space="preserve">
+    <value>Коска</value>
+  </data>
+  <data name="ImportSeparatorSemicolon" xml:space="preserve">
+    <value>Коска з кропкай</value>
+  </data>
+  <data name="ImportSeparatorSpace" xml:space="preserve">
+    <value>Прагал</value>
+  </data>
+  <data name="ImportSeparatorTab" xml:space="preserve">
+    <value>Табуляцыя</value>
+  </data>
+  <data name="ImportWizardFirstStep" xml:space="preserve">
+    <value>Імпарт кантактаў</value>
+  </data>
+  <data name="ImportWizardFourthStep" xml:space="preserve">
+    <value>Дадаць на партал</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>Наладка адпаведнасці</value>
+  </data>
+  <data name="ImportWizardThirdStep" xml:space="preserve">
+    <value>Рэдагаваць кантакты</value>
+  </data>
+  <data name="InviteLink" xml:space="preserve">
+    <value>Запрасіць карыстальнікаў</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Прозвішча</value>
+  </data>
+  <data name="LblActive" xml:space="preserve">
+    <value>Актыўны</value>
+  </data>
+  <data name="LblCancelButton" xml:space="preserve">
+    <value>Скасаваць</value>
+  </data>
+  <data name="LblChangeEmail" xml:space="preserve">
+    <value>Змяніць электронную пошту</value>
+  </data>
+  <data name="LblChangePassword" xml:space="preserve">
+    <value>Змяніць пароль</value>
+  </data>
+  <data name="LblCreateNew" xml:space="preserve">
+    <value>Стварыць</value>
+  </data>
+  <data name="LblDeleteProfile" xml:space="preserve">
+    <value>Выдаліць профіль</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Рэдагаваць</value>
+  </data>
+  <data name="LblOKButton" xml:space="preserve">
+    <value>Добра</value>
+  </data>
+  <data name="LblReassignData" xml:space="preserve">
+    <value>Перадаць даныя</value>
+  </data>
+  <data name="LblRemoveData" xml:space="preserve">
+    <value>Выдаліць асабістыя даныя</value>
+  </data>
+  <data name="LblResendInvites" xml:space="preserve">
+    <value>Адправіць запрашэнне яшчэ раз</value>
+  </data>
+  <data name="LblSendActivation" xml:space="preserve">
+    <value>Адправіць спасылку актывацыі яшчэ раз</value>
+  </data>
+  <data name="LblSendEmail" xml:space="preserve">
+    <value>Адправіць ліст</value>
+  </data>
+  <data name="LblSendMessage" xml:space="preserve">
+    <value>Адправіць паведамленне</value>
+  </data>
+  <data name="LblSubscriptions" xml:space="preserve">
+    <value>Падпіскі</value>
+  </data>
+  <data name="LblTerminated" xml:space="preserve">
+    <value>Адключаны</value>
+  </data>
+  <data name="LblTips" xml:space="preserve">
+    <value>Падказкі</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Удзельнікі</value>
+  </data>
+  <data name="NotFoundDescription" xml:space="preserve">
+    <value>У гэтым раздзеле няма людзей, якія адпавядаюць фільтру. Калі ласка, абярыце іншыя параметры альбо ачысціце фільтр.</value>
+  </data>
+  <data name="NotFoundTitle" xml:space="preserve">
+    <value>Нічога, што б адпавядала крытэрыям пошуку, не знойдзена</value>
+  </data>
+  <data name="NotImport" xml:space="preserve">
+    <value>Не імпартаваць</value>
+  </data>
+  <data name="OnTop" xml:space="preserve">
+    <value>Наверх</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Рабіць тое самае, што карыстальнік|Ствараць профілі і групы|Імпартаваць профілі|Запрашаць карыстальнікаў</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Запрашайце альбо імпартуйце новых карыстальнікаў. Кіруйце імі праглядайце звесткі пра іх.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Запрашайце альбо імпартуйце новых карыстальнікаў. Кіруйце імі праглядайце звесткі пра іх.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Людзі</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Праглядаць профілі і групы</value>
+  </data>
+  <data name="ReadAboutNonProfit" xml:space="preserve">
+    <value>Альбо {0}прачытайце пра некамерцыйнае выкарыстанне{1}</value>
+  </data>
+  <data name="ReassignAbortButton" xml:space="preserve">
+    <value>Перарваць перадачу</value>
+  </data>
+  <data name="ReassignAbortToastrMsg" xml:space="preserve">
+    <value>Перадача даных перарваная</value>
+  </data>
+  <data name="ReassignButton" xml:space="preserve">
+    <value>Перадаць</value>
+  </data>
+  <data name="ReassignCrmModule" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="ReassignDocumentsModule" xml:space="preserve">
+    <value>Дакументы</value>
+  </data>
+  <data name="ReassignErrorToastrMsg" xml:space="preserve">
+    <value>Перадача даных перарваная праз памылкі сервера</value>
+  </data>
+  <data name="ReassignMailModule" xml:space="preserve">
+    <value>Пошта</value>
+  </data>
+  <data name="ReassignmentData" xml:space="preserve">
+    <value>Перадача даных</value>
+  </data>
+  <data name="ReassignProjectsModule" xml:space="preserve">
+    <value>Праекты</value>
+  </data>
+  <data name="ReassignRestartButton" xml:space="preserve">
+    <value>Запусціць перадачу нанова</value>
+  </data>
+  <data name="ReassignsProgressNotifyInfo" xml:space="preserve">
+    <value>Вы можаце закрыць гэтую старонку. Калі працэс завершыцца, то адміністратару, які яго запусціў, на пошту прыйдзе апавяшчэнне.</value>
+  </data>
+  <data name="ReassignsProgressUserInfo" xml:space="preserve">
+    <value>Працэс перадачы даных ад карыстальніка {0}карыстальніку {1} запушчаны, ён можа выконвацца працяглы час.</value>
+  </data>
+  <data name="ReassignsReadMore" xml:space="preserve">
+    <value>Падрабязней пра перадачу даных</value>
+  </data>
+  <data name="ReassignStatusAborted" xml:space="preserve">
+    <value>Перарвана, частка даных магла перадацца</value>
+  </data>
+  <data name="ReassignStatusError" xml:space="preserve">
+    <value>Памылка сервера</value>
+  </data>
+  <data name="ReassignStatusFinished" xml:space="preserve">
+    <value>Усе даныя перададзеныя</value>
+  </data>
+  <data name="ReassignStatusNotStarted" xml:space="preserve">
+    <value>Даныя не былі перададзеныя</value>
+  </data>
+  <data name="ReassignStatusQueued" xml:space="preserve">
+    <value>У чарзе</value>
+  </data>
+  <data name="ReassignStatusStarted" xml:space="preserve">
+    <value>Запушчана</value>
+  </data>
+  <data name="ReassignsToUser" xml:space="preserve">
+    <value>Каму будуць перададзеныя даныя -</value>
+  </data>
+  <data name="ReassignsTransferedListHdr" xml:space="preserve">
+    <value>Будуць перададзеныя:</value>
+  </data>
+  <data name="ReassignsTransferedListItem1" xml:space="preserve">
+    <value>Агульныя і асабістыя дакументы, даступныя іншым карыстальнікам партала;</value>
+  </data>
+  <data name="ReassignsTransferedListItem2" xml:space="preserve">
+    <value>Адкрытыя праекты, этапы і задачы;</value>
+  </data>
+  <data name="ReassignsTransferedListItem3" xml:space="preserve">
+    <value>Кантакты, адкрытыя задачы, незакрытыя дзеянні, мерапрыемствы CRM;</value>
+  </data>
+  <data name="ReassignTalkModule" xml:space="preserve">
+    <value>Чат</value>
+  </data>
+  <data name="RemovingAbortButton" xml:space="preserve">
+    <value>Перарваць выдаленне</value>
+  </data>
+  <data name="RemovingAbortToastrMsg" xml:space="preserve">
+    <value>Выдаленне даных перарвана</value>
+  </data>
+  <data name="RemovingData" xml:space="preserve">
+    <value>Выдаленне асабістых даных</value>
+  </data>
+  <data name="RemovingErrorToastrMsg" xml:space="preserve">
+    <value>Выдаленне даных перарвана праз памылкі сервера</value>
+  </data>
+  <data name="RemovingListHdr" xml:space="preserve">
+    <value>Будуць выдаленыя:</value>
+  </data>
+  <data name="RemovingListItem1" xml:space="preserve">
+    <value>Усе асабістыя дакументы;</value>
+  </data>
+  <data name="RemovingListItem2" xml:space="preserve">
+    <value>Файлы справаздач CRM;</value>
+  </data>
+  <data name="RemovingListItem3" xml:space="preserve">
+    <value>Усе лісты і ўкладзеныя файлы;</value>
+  </data>
+  <data name="RemovingListItem4" xml:space="preserve">
+    <value>Далучаныя з чата файлы;</value>
+  </data>
+  <data name="RemovingProgressUserInfo" xml:space="preserve">
+    <value>Працэс выдалення асабістых даных карыстальніка {0} запушчаны, ён можа выконвацца працяглы час.</value>
+  </data>
+  <data name="RemovingReadMore" xml:space="preserve">
+    <value>Падрабязней пра выдаленне асабістых даных</value>
+  </data>
+  <data name="RemovingRestartButton" xml:space="preserve">
+    <value>Запусціць выдаленне нанова</value>
+  </data>
+  <data name="RemovingStatusAborted" xml:space="preserve">
+    <value>Перарвана, частка даных магла страціцца</value>
+  </data>
+  <data name="RemovingStatusFinished" xml:space="preserve">
+    <value>Усе даныя выдаленыя</value>
+  </data>
+  <data name="RemovingStatusNotStarted" xml:space="preserve">
+    <value>Даныя не былі выдаленыя</value>
+  </data>
+  <data name="ResendInviteDialogAfterActivation" xml:space="preserve">
+    <value>Пасля таго, як карыстальнікі ўхваляць запрашэнне, іх статус зменіцца на "Актыўны"</value>
+  </data>
+  <data name="ResendInviteDialogHeader" xml:space="preserve">
+    <value>Адправіць запрашэнне яшчэ раз</value>
+  </data>
+  <data name="ResendInviteDialogTargetUsers" xml:space="preserve">
+    <value>Запрашэнне на партал яшчэ раз будзе адпраўлена абраным карыстальнікам са статусам "Чаканне", якія не адключаныя.</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Вылучыць усе</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Налады</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Паказваць на старонцы</value>
+  </data>
+  <data name="ShowSelectedUserList" xml:space="preserve">
+    <value>Паказаць спіс абраных карыстальнікаў</value>
+  </data>
+  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
+    <value>Карыстальнік паспяхова выдалены</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="TotalCount" xml:space="preserve">
+    <value>Агульная колькасць</value>
+  </data>
+  <data name="WaitingForConfirmation" xml:space="preserve">
+    <value>Чаканне пацвярджэння</value>
+  </data>
+  <data name="WriteButton" xml:space="preserve">
+    <value>Адправіць ліст</value>
+  </data>
+</root>

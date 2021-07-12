@@ -1,0 +1,607 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>検証コードフィールドは空にすることはできません</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>携帯電話番号を入力してください</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>検証コードフィールドは空にすることはできません</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>追加する</value>
+  </data>
+  <data name="AddFilter" xml:space="preserve">
+    <value>フィルタを追加する</value>
+  </data>
+  <data name="AscOrDesc" xml:space="preserve">
+    <value>昇順/降順</value>
+  </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>バックアップ・コピーは正常に作成されました。</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>忙しい</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>電話番号の購入が成功です</value>
+  </data>
+  <data name="CallIncoming" xml:space="preserve">
+    <value>着呼</value>
+  </data>
+  <data name="CallMissed" xml:space="preserve">
+    <value>不在着信</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>変更は適用されました。</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>変更は正常に適用されました。</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>エラーが発生してしまいました。管理者を連絡ください。</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>完成です</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>続行してよろしいですか。</value>
+  </data>
+  <data name="ContactSelectorAddText" xml:space="preserve">
+    <value>顧客を作成する</value>
+  </data>
+  <data name="ContactSelectorEmptyList" xml:space="preserve">
+    <value>このリストには連絡先がありません</value>
+  </data>
+  <data name="ContactSelectorEmptyNameError" xml:space="preserve">
+    <value>企業のタイトルを入力してください</value>
+  </data>
+  <data name="ContactSelectorNoResult" xml:space="preserve">
+    <value>そのような連絡先がありません</value>
+  </data>
+  <data name="ContactSelectorNotFoundError" xml:space="preserve">
+    <value>該当する企業は見つかりません</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>続ける</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>作成する</value>
+  </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>レポート作成中のエラー</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>編集する</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>コメントは空白にできません</value>
+  </data>
+  <data name="EmptySelectedArea" xml:space="preserve">
+    <value>アバターのエリアを選択します</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>メールを入力する</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>このフィールドを記入してください</value>
+  </data>
+  <data name="ErrorEmptyGroupTitle" xml:space="preserve">
+    <value>グルップ題名を入力してください。</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>名を入力してください</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>姓を入力してください</value>
+  </data>
+  <data name="ErrorGroupNotExist" xml:space="preserve">
+    <value>該当するグルップは見つかりません</value>
+  </data>
+  <data name="ErrorHeadNotExist" xml:space="preserve">
+    <value>該当する個人は見つかりません</value>
+  </data>
+  <data name="ErrorInvalidUserFirstName" xml:space="preserve">
+    <value>無効な名</value>
+  </data>
+  <data name="ErrorInvalidUserLastName" xml:space="preserve">
+    <value>無効な姓</value>
+  </data>
+  <data name="ErrorMesLongField64" xml:space="preserve">
+    <value>最大は６４文字です。</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>登録日付が生年月日の後でなければなりません</value>
+  </data>
+  <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
+    <value>同じアカウントとコンタクトを2回追加させることはできません</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>無効なメール</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>ポータル名はすでにつ使われています</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>ポータル名では無効な文字が含まれています。</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>ポータル名はあまりに短いです</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>ポータル名の変更は失敗しました</value>
+  </data>
+  <data name="FinishImportUserTitle" xml:space="preserve">
+    <value>ユーザーは正常に追加された</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="GroupSelectorAddSuccess" xml:space="preserve">
+    <value>グループ｛０｝は正常に作成されました。</value>
+  </data>
+  <data name="GroupSelectorAddText" xml:space="preserve">
+    <value>グルップを作成する</value>
+  </data>
+  <data name="GroupSelectorEmptyList" xml:space="preserve">
+    <value>このリストにはグループがありません</value>
+  </data>
+  <data name="GroupSelectorNoResults" xml:space="preserve">
+    <value>そのようなグループがありません</value>
+  </data>
+  <data name="ImportOf" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>IPアドレス書式は間違っているようです</value>
+  </data>
+  <data name="InviteButton" xml:space="preserve">
+    <value>招待する</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>設定が正常に更新されました</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>空のフィールド</value>
+  </data>
+  <data name="LdapSettingsIncorrectPortNumber" xml:space="preserve">
+    <value>ポート番号が間違っているようです</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>ライセンスが間違っているようです</value>
+  </data>
+  <data name="LinkCopySuccess" xml:space="preserve">
+    <value>リンクはクリップボードにコピーされた</value>
+  </data>
+  <data name="LoadingDescription" xml:space="preserve">
+    <value>しばらくお待ちください...</value>
+  </data>
+  <data name="LoadingPleaseWait" xml:space="preserve">
+    <value>データをロードしています。お待ちください...</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>読み込み中...</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>一日中</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>イベントはキャンセルされました。</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>キャンセル：｛0｝</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>イベントは完成されました。</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0}は事前に招待を受け入れました</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0}は招待を断りました</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>返事：｛０｝</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0}は招待を受け入れました</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0}に招待されています</value>
+  </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>招待：{0}</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+    <value>と</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>約</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+    <value>に</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>各</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>に</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+    <value>に</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+    <value>最後の</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+    <value>で</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+    <value>または</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+    <value>不明な形式</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+    <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+    <value>st</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>時刻</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>回</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>まで</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>週日</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>週日</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>週</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>週間</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>イベントはキャンセルされました。</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>更新：｛０｝</value>
+  </data>
+  <data name="MailNoSubject" xml:space="preserve">
+    <value>件名なし</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>メッセージを送信中にエラーが発生してしまいました。</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>イベントキャンセル通知は参加者に送信されました</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>メッセージは送信された</value>
+  </data>
+  <data name="MeLabel" xml:space="preserve">
+    <value>私</value>
+  </data>
+  <data name="MilestoneSelectorNoItems" xml:space="preserve">
+    <value>このプロジェクトはマイルストンがありません</value>
+  </data>
+  <data name="MilestoneSelectorNoResult" xml:space="preserve">
+    <value>そのようなマイルストーンがありません</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>表示しない</value>
+  </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>オフライン</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
+    <value>オンライン</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>開く</value>
+  </data>
+  <data name="OpenTalk" xml:space="preserve">
+    <value>チャットを開始します</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>操作の実行中にエラーが発生しました。 </value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>操作は正常に完了した</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}ポータル名を変更しようとしています 。{1}{0}操作を確認してください。{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>ポータル改名の確認</value>
+  </data>
+  <data name="ProjectSelectorAddText" xml:space="preserve">
+    <value>プロジェクトを作成する</value>
+  </data>
+  <data name="ProjectSelectorEmptyList" xml:space="preserve">
+    <value>このリストにはプロジェクトがありません</value>
+  </data>
+  <data name="ProjectSelectorEmptyManagerError" xml:space="preserve">
+    <value>各プロジェクトには、マネージャーを持っている必要があります</value>
+  </data>
+  <data name="ProjectSelectorEmptyTitleError" xml:space="preserve">
+    <value>各プロジェクトが題名を持っているのは必要です</value>
+  </data>
+  <data name="ProjectSelectorNoItems" xml:space="preserve">
+    <value>プロジェクトはグループがありません</value>
+  </data>
+  <data name="ProjectSelectorNoResult" xml:space="preserve">
+    <value>そのようなプロジェクトがありません</value>
+  </data>
+  <data name="ProjectSelectorNotPersonError" xml:space="preserve">
+    <value>個人はいません</value>
+  </data>
+  <data name="RestoreConsumerPath" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>同様の制限</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>設定は正常に保存されました</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>ファイルを選択してください</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>フォルダーを選択する</value>
+  </data>
+  <data name="SelectorCompany" xml:space="preserve">
+    <value>企業</value>
+  </data>
+  <data name="SelectorCompanyName" xml:space="preserve">
+    <value>企業名</value>
+  </data>
+  <data name="SelectorContactType" xml:space="preserve">
+    <value>顧客タイプ</value>
+  </data>
+  <data name="SelectorEmail" xml:space="preserve">
+    <value>メール</value>
+  </data>
+  <data name="SelectorFirstName" xml:space="preserve">
+    <value>名</value>
+  </data>
+  <data name="SelectorGroup" xml:space="preserve">
+    <value>グループ</value>
+  </data>
+  <data name="SelectorHead" xml:space="preserve">
+    <value>組長</value>
+  </data>
+  <data name="SelectorLastName" xml:space="preserve">
+    <value>姓</value>
+  </data>
+  <data name="SelectorManager" xml:space="preserve">
+    <value>マネージャー</value>
+  </data>
+  <data name="SelectorPerson" xml:space="preserve">
+    <value>個人</value>
+  </data>
+  <data name="SelectorSelectedItems" xml:space="preserve">
+    <value>選択された</value>
+  </data>
+  <data name="SelectorTitle" xml:space="preserve">
+    <value>題名</value>
+  </data>
+  <data name="SelectorType" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
+  <data name="SelectorUser" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="SelectorVisitor" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="ShareInviteLinkDscr" xml:space="preserve">
+    <value>自分のウェブオフィスを作成しました。こちらでご参加ください：{0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>次のを表示する</value>
+  </data>
+  <data name="StartFilter" xml:space="preserve">
+    <value>フィルターを開始</value>
+  </data>
+  <data name="StorageButtonEnable" xml:space="preserve">
+    <value>接続する</value>
+  </data>
+  <data name="StorageButtonResetToDefault" xml:space="preserve">
+    <value>既定値にリセットする</value>
+  </data>
+  <data name="StorageCdnTitle" xml:space="preserve">
+    <value>CDN設定</value>
+  </data>
+  <data name="StorageStorageTitle" xml:space="preserve">
+    <value>ストレージ設定</value>
+  </data>
+  <data name="SuccessfullyImportCountUsers" xml:space="preserve">
+    <value>{0}人のユーザーはポータルに追加したのは成功です。</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>設定が正常に更新されました</value>
+  </data>
+  <data name="TemplateNotFound" xml:space="preserve">
+    <value>テンプレートが見つかりません</value>
+  </data>
+  <data name="TipsAndTricksSubscribeBtn" xml:space="preserve">
+    <value>ヒント・と・トリックを購読する</value>
+  </data>
+  <data name="TipsAndTricksUnsubscribeBtn" xml:space="preserve">
+    <value>ヒント・と・トリックを購読停止する</value>
+  </data>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>空ファイル</value>
+  </data>
+  <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
+    <value>ファイルアップロード中にエラーが発生してしまいました。</value>
+  </data>
+  <data name="UploadVoipRingtoneFileFormatErrorMsg" xml:space="preserve">
+    <value>サポートされている形式：mp3</value>
+  </data>
+  <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
+    <value>ファイルサイズは５ＭＢを超過できません。</value>
+  </data>
+  <data name="UserPending" xml:space="preserve">
+    <value>ペンディング</value>
+  </data>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>｛０｝のプロファイルは正常に作成されました。</value>
+  </data>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>プロファイルを作成する</value>
+  </data>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>このリストにはユーザーがありません</value>
+  </data>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>有効なユーザー最大数を超えています</value>
+  </data>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>グループはまだ作成されていません。「人達」モジュールでユーザーをグループ化できます。</value>
+  </data>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>このグループにユーザーがいません</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>そのようなユーザーがありません</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>今終了すると、入力されたデータまたは保存されていないデータはすべて失われます。</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}つまり: {1} 全てのポータルユーザに利用可能なコンテンツを表示したり、{2} コメントを入力したり、{3} ファイルを添付とダウンロードしたりすることができます。{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>追加の権限が必要な場合に、ポータル管理者を連絡してください。</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>ONLYOFFICEへようこそ</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>ポータル管理者に「お客様」として招待されていただきました。</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>作業を開始する</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>ONLYOFFICEへようこそ！</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>パスワードを設定していません。ポータルログインページで「パスワードを忘れた場合」をクリックして、パスワードを設定できます。　続行しますか？</value>
+  </data>
+</root>

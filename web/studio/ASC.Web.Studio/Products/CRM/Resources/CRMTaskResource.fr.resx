@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Créer une nouvelle tâche</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Créer tâche</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Date limite</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Tâche fermée</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Lier avec le contact</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Créer la première tâche</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Créer une tâche</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Période personnalisée</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Autres utilisateurs</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Supprimer la tâche</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Date limite</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Modifier la tâche</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Les tâches sont un moyen facile de créer un rappel de ce qui doit être fait. Par exemple, une tâche peut servir à rappeler un rendez-vous ou un appel téléphonique. Vous pouvez créer des tâches de {0}catégories différentes{1}, les lier avec un contact, une opportunité ou une action, ou créer un simple rappel pour vous-même.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Aucune tâche correspondant à votre filtre ne peut être affichée dans cette section. Veuillez sélectionner d'autres options de filtrage ou désactiver le filtre pour afficher toutes les tâches de cette section. Vous pouvez également rechercher les tâches dont vous avez besoin dans les onglets Contacts, Opportunités ou Actions.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Aucune tâche à afficher pour ce filtre ici</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>La liste des tâches est vide</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Un fichier CSV correctement formé doit être sélectionné sur le disque dur de votre ordinateur. Il doit contenir des champs ou des colonnes, séparés par un délimiteur défini, qui seront utilisés pour importer des tâches. Les fichiers contenant plus de {0} lignes doivent être divisés en parties plus petites pour une importation correcte.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Sélectionner un fichier CSV</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Adaptez les colonnes de votre fichier avec les champs correspondants de CRM ONLYOFFICE™. Payez votre attention sur le fait que pour correctement importer des tâches, vous devez avoir au moins des colonnes suivantes de votre fichier correspondantes aux champs: 'Nom de la tâche', 'Responsable' et  'Date limite' de CRM ONLYOFFICE™. Les champs qui contiennent les dates doivent avoir le format suivant: {0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Veuillez vérifier les champs</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Passer à la liste des tâches</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>L'importation des tâches peut prendre plusieurs minutes selon la quantité de vos données.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>L'importation a commencé</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Importer les tâches</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Mes tâches</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>Jamais</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Fermées</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Ouvertes</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>En retard</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 minutes</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 minutes</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>une demi-heure</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>une heure</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>un jour</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 heures</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Responsable</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Sauvegarde de la tâche</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Tâche</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Catégories de tâches</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Catégorie de la tâche</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Appel téléphonique</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Opportunité</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Démo</value>
+  </data>
+  <data name="TaskCategory_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Contrôle d'exécution</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Déjeuner</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Rendez-vous</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Livraison</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Réseaux sociaux</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Expression de gratitude</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Description de la tâche</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Responsable</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tâches</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Statut de la tâche</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Fermée</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Ouverte</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Titre de la tâche</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Prochaines</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 jours</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Temps</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Aujourd'hui</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Aujourd'hui</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Les catégories de tâche vous permettent de diviser vos tâches en groupes selon les objectifs que vous souhaitez atteindre. Les catégories de tâche par défaut sont les suivantes : appel téléphonique, opportunité, démo, email, fax, contrôle d'exécution, déjeuner, rendez-vous, note, livraison, réseaux sociaux, expression de gratitude. Pour pouvoir les modifier, les droits d'administrateur sont nécessaires.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Toutes les tâches</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Semaine</value>
+  </data>
+</root>

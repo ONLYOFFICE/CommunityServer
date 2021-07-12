@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Доступ</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Зовнішній портал</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Тільки для читання</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Повний доступ</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Заборонити доступ</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Перевірити</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Адміністратор</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Щоб працювати з файлом, ви повинні надати доступ до нього</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>ПРОДОВЖИТИ</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Відкриття цього файлу в ONLYOFFICE ™ створить нову копію цього файлу у форматі Office Open XML на вашому Диску Google. Таким чином, вихідний файл не буде змінено. Для подальшого редагування файлу в ONLYOFFICE ™ вам доведеться відкрити нову копію.</value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Не показувати це знову</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Введіть назву файлу</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Вибрати тип файлу</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Я</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Конвертувати та відкрити</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Скачати</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Редагувати</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Додати</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Коментар</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Змінено власника</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Перетворений з {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Скопійовано</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Створено</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Створено за допомогю підпису DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Відредаговано</value>
+  </data>
+  <data name="CommentOverwrite" xml:space="preserve">
+    <value>Переписати</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Відновлено після перегляду {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Відновлено з документу зміненого {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Завантажено</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Url з'єднання</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Сконвертувати в</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Назва документу</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Відхилено</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Під час операції надсилання сталася помилка</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Відправка документа через DocuSign була скасована</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Документ був відправлений для підписання через DocuSign</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Анульовано</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Введіть коментар</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Невірний запит.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Ви не можете вибрати цього користувача</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Перетворення займає надто багато часу.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Сталася помилка в Службі документів</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Файл відкрито для редагування {0}. Наразі функція спільного редагування для цього формату файлу не підтримується.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>Файл відкрито для редагування в мобільній програмі {0}</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Порожній документ</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Потрібний файл не знайдено</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Файл більше {0} не буде сконвертовано</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Файл, більший за {0}, не буде скопійовано</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>Файл, більший за {0}, не буде відреаговано</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Файл, більший за {0}, не буде переміщений</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Не можна скопіювати папки в свою підпапку</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Потрібна папка не знайдена</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Невірний заголовок</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value> На даний момент файл заблоковано іншим користувачем</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Немає доступних облікових записів для надсилання повідомлення. Перейдіть до Пошти та підключіть поштову скриньку.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Не можна надіслати щонайменше {0} поштових повідомлень. Будь ласка, відвідайте модуль пошти, щоб побачити причину невдачі.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Занадто багато завантажень.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Вибачте, але даний формат файлу не підтримується</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Автор збереження невідомий</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Файл було пошкоджено, коли ви намагалися його зберегти</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Не вдалося зберегти файл</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Недостатньо прав для здійснення операції</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Не вдається авторизуватися у постачальника {0} з обумовленими обліковими даними.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>У Вас недостатньо прав для створення</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Неможливо видалити файл, тому що файл відкрит для редагування</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Неможливо видалити папку, тому що один з файлів відкрито на редагування</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Недостатньо прав для видалення файлу</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Недостатньо прав для видалення папки</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Недостатньо прав для редагування файлу</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Цей документ редагується вами на іншій вкладці</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Недостатньо прав для перегляду файлу</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Недостатньо прав для перегляду папки</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Недостатньо прав для перейменування файлу</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Недостатньо прав для перейменування папки</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Неможливо оновити файл, тому що файл відкритий на редагування</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Недостатньо прав для перегляду папки</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Вміст сторонньої папки недоступний. Спробуйте повторно підключити обліковий запис.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Помилка початку редагування файлу</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Не можна оновлювати файл, відкритий на редагування</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Заборонено переглядати елементи кошика</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Всі</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Папка</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Ім'я папки</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Гість</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>Нове</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Логін</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Відновити</value>
+  </data>
+  <data name="MessageFileCreated" xml:space="preserve">
+    <value>Файл створено в папці "{0}"</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Попередній перегляд</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Зробити так само як користувач|Зв'язати Dropbox, Box та інші облікові записи в розділі "Загальні документи"|Настроїти права доступу до документів і папок у розділі "Загальні документи"</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Створюйте, редагуйте, зберігайте та спільно використовуйте документи на порталі. Долучайте облікові записи Google Drive, Dropbox і Box та зберігайте всі документи в одному місці.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Створюйте, редагуйте, зберігайте та спільно використовуйте документи на порталі. Долучайте облікові записи Google Drive, Dropbox і Box та зберігайте всі документи в одному місці.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Створення та редагування власних і спільних документів з належними правами доступу|Надання прав на читання та/або редагування документів і папок іншим користувачам|Долучити облікові записи Dropbox, Box та інші в розділі 'Мої документи'</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Користувача {!User} видалено</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Відзначити як прочитане</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Пошук</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Доступ</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Повідомити, якщо до папки є спільний доступ</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Показати версії</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Розмір</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Сповістити, коли документ підписано через DocuSign</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Сповістити, коли документ змінив статус DocuSign</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Сповіщати при наданні доступу</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Сповістити про завершення розсилки</value>
+  </data>
+  <data name="ThirdPartyCorrect" xml:space="preserve">
+    <value>Заповніть, щоб змінити</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Назва папки</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Повторно підключити</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Аккаунт</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Зробити доступним і помістити в папку 'Загальні документи'</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Створено</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Документів</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Оновлено</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Видалено</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Виділити</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Параметри дозволів</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Показати дії з файлами</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Відобразити дії з папками</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Підпапок</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Завантажено</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Позначити як версію</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Позначити як переглянуте</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Історія версій:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Ім'я</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Прізвище</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Файл розблоковано</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>вер.</value>
+  </data>
+</root>

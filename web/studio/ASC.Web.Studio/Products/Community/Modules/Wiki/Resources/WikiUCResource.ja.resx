@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EditSectionCaption" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="EditSectionTitleFormat" xml:space="preserve">
+    <value>セクションを編集：{0}</value>
+  </data>
+  <data name="editWiki_File" xml:space="preserve">
+    <value>ファイル</value>
+  </data>
+  <data name="editWiki_FileName" xml:space="preserve">
+    <value>ファイル名</value>
+  </data>
+  <data name="editWiki_PageBody" xml:space="preserve">
+    <value>テキスト</value>
+  </data>
+  <data name="editWiki_PageName" xml:space="preserve">
+    <value>ページタイトル</value>
+  </data>
+  <data name="editWiki_PagePreview" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="editWiki_UploadCaption" xml:space="preserve">
+    <value>ファイルをアップロード</value>
+  </data>
+  <data name="editWiki_UploadFileName" xml:space="preserve">
+    <value>アップロードしたファイル名</value>
+  </data>
+  <data name="Enlarge" xml:space="preserve">
+    <value>ズーム·イン</value>
+  </data>
+  <data name="HelpPage_DefaultBody" xml:space="preserve">
+    <value>あなたが前に任意のマークアップ言語を使用したことがない場合でも、ウィキページを作成するのは非常に簡単です。あなたが知る必要があるすべては、下記のいくつかの簡単なルールです。我々は、あなたがそれらを有用見つけることを願っています。
+
+@@TOC@@
+
+==セクション、段落、リスト、行==
+
+新しいセクションを開始するには、段落の先頭に=記号を使用します。
+
+&lt;nowiki&gt;
+&lt;p&gt;
+=Section=&lt;br&gt;
+==Subsection==&lt;br&gt;
+===Sub-subsection===&lt;br&gt;
+
+&lt;p&gt;
+Inserting @@TOC@@ in a page will unite all page sections and subsections in a table of contents.
+&lt;/p&gt;
+
+ウィキマークアップは改行を無視します。あなたは、段落内の文章を区切るためにそれらを使用するかもしれません。 
+
+&lt;p&gt;
+Use the «br» tag to break lines without starting a new paragraph.  
+&lt;/p&gt;
+
+新しい段落を開始するには、任意のテキストエディタで行うと思います同じようにEnterキーを2回押します。 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+箇条書きのリストを作ることは簡単です：
+
+&lt;nowiki&gt;
+&lt;p&gt;
+* アスタリスクで各リストポイントを開始;&lt;br&gt;
+** ある複数のアスタリスク;&lt;br&gt;
+** 深いリストレベルは.&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+# 番号付きリストも悪くはありません:&lt;br&gt;
+## 彼らはよく構造を見;&lt;br&gt;
+## とは読みやすい.&lt;br&gt;
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+ 行の先頭にスペースがある場合は、
+ その行はそれがタイプされたのと同じ方法で書式設定されます;
+ 同じフォントで、改行を入れずに;[[no links]].
+
+あなたがする必要がある場合は、行の先頭にスペースを使用することができます: 
+
+*いくつかの以前にフォーマットされたテキストを貼り付ける;
+*ソースコードを表示; 
+*アスキーアートを作成/貼り付け (テキストシンボルを使用してイメージを作成する).
+
+水平線は、4つのダッシュ（ - ）で表され: 
+&lt;nowiki&gt;
+&lt;p&gt;
+---- 
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==リンクの挿入==
+
+&lt;nowiki&gt;
+&lt;p&gt;
+別のWikiページへのリンクを挿入するには、二重角括弧でページタイトルを入れ: &lt;br&gt; [[Help]]&lt;/p&gt;
+
+&lt;p&gt;
+シンボル|ページ上に表示させたいリンクとタイトルが異なっている場合には、後にリンクのタイトルを入力: &lt;br&gt; [[Wiki Markup Help Page|Help Page]] &lt;/p&gt; 
+
+&lt;p&gt;
+外部リンクはこのように、右側のテキストに挿入され: &lt;br&gt; http://example.com&lt;/p&gt; 
+
+&lt;p&gt;
+外部リンクのタイトルを変更する必要がある場合は、スペースの後に単角括弧に入れて、あなたのタイトルを入力します: &lt;br&gt; [http://example.com example]&lt;/p&gt; 
+
+&lt;p&gt;
+電子メールアドレスを挿入するには、単一の大括弧を使用: &lt;br&gt; [mailto:mail@example.com]&lt;/p&gt; 
+
+&lt;p&gt; 
+To add a page to category, add the link to the desired category [[Category: Desired category]] at the bottom of the page.
+&lt;/p&gt;
+&lt;/nowiki&gt; 
+
+==テキストの書式設定==
+
+あなたのテキストの書式を設定するには、以下のヒントを参考にしてください。:
+
+''イタリック''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+''イタリック体のテキストがここに入ります''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+'''大胆な'''
+
+&lt;nowiki&gt;
+&lt;p&gt;
+'''あなたの太字のテキストがここに入ります'''
+ &lt;/p&gt;
+&lt;/nowiki&gt; 
+
+'''''太字のイタリック'''''
+&lt;nowiki&gt;
+&lt;p&gt;
+'''''ボールドイタリック体のテキストがここに入ります'''''
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+__下線__
+
+&lt;nowiki&gt;
+&lt;p&gt;
+__あなたの下線付きのテキストがここに入ります__
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+--ストライク--
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+--あなたは三振するテキストがここに入ります--
+ &lt;/p&gt;
+&lt;/nowiki&gt;
+
+インデックス: &lt;sup&gt;上付き文字&lt;/sup&gt; と &lt;sub&gt;添字&lt;/sub&gt;
+
+&lt;nowiki&gt;
+
+&lt;p&gt;
+&lt;sub&gt;your subscript index&lt;/sub&gt;&lt;br&gt;
+&lt;sup&gt;your superscript index&lt;/sup&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+You may also use &lt;small&gt; small text &lt;/small&gt; for commentaries, special formatting for displaying &lt;code lang="language"&gt;program code&lt;/code&gt; fragments and fixed pitch text for &lt;tt&gt;technical terms&lt;/tt&gt;.
+&lt;/p&gt; 
+
+&lt;/nowiki&gt;
+
+==画像の挿入==
+
+以前のwikiにアップロードする必要がありますwikiページにできるイメージの挿入であるために。
+
+各種の画像を挿入するには、以下のリンクを使用し:
+
+&lt;nowiki&gt;
+&lt;p&gt;
+Image = [[Image:Image Title]]&lt;/p&gt;
+&lt;p&gt;
+Image with fixed width = [[Image: Image Title | Width_px]]&lt;/p&gt;
+&lt;p&gt;
+Image with description = [[Image:Image Title  | Description]]&lt;/p&gt;
+&lt;p&gt;
+Thumbnail image =  [[Image:Image Title | thumb]] – the image will be compressed and aligned to the right.
+&lt;/p&gt;
+&lt;/nowiki&gt;
+
+==ウィキ転送にHTML==
+
+あなたがここに移転したいHTML形式のテキストをお持ちの場合は、迅速かつ容易にそれを行うことがあります。 '' 'アクション'''パネルに'' '新しいページを作成'''をクリックしてください。次に、上記の書式パネル上のウィキのアイコンをクリックして、エディタウィンドウとwikiマーク表示への切り替えにあなたのテキストを貼り付けます。 htmlタグは、wikiマークアップに変更されます。任意のキーを押しは'''公開'''場合は、正しいマイナーエラーが結果をチェックします。あなたのページは準備ができています。</value>
+  </data>
+  <data name="HelpPageCaption" xml:space="preserve">
+    <value>助ける</value>
+  </data>
+  <data name="MainPage_DefaultBody" xml:space="preserve">
+    <value>'''ONLYOFFICE™ Wikiへようこそ！''' 
+
+ここでは、ページを作成するインターリンク、Webブラウザを経由してカテゴリにそれらを団結させることがあります。ウィキには、次の機能によって特徴づけ、プロジェクト関連のドキュメントを維持するための便利なツールです：
+
+*複数の著者。各'' 'ONLYOFFICE™'''のメンバーは、どのページの内容を編集することができます。
+*迅速な編集。すべてのページに空く'' '編集'''リンクをクリックして、右のあなたのブラウザーで編集を開始します。
+*HTMLからWikiへ簡単に転送する。学ぶ [[Internal:Help#HTML to Wiki Transfer|how]] 
+*ページのバージョンをサポートしています。その前のバージョンにページを戻すことによって編集されているか確認してください。
+
+@@TOC@@
+
+==ウィキナビゲーションと構造==
+
+あなたは''を通じてwikiをナビゲートすることができる"ナビゲーションパネル'''常に利用可能なあなたは''' '''ONLYOFFICE™'''wikiの内部にある間。
+
+===ページ===
+
+ユーザが作成したすべてのWikiページは、アルファベット順にソートされ [[Internal:Index|Index]] page.&lt;br&gt; 
+新しく作成されたすべてのページが上に時系列で表示されます [[Internal:NewPages|New Pages]] page.&lt;br&gt;
+最も最近編集されたページのリストが上に配置されている [[Internal:Recently|Recently Edited]] page.
+
+===カテゴリー===
+
+あなたは、カテゴリに複数の関連ページに団結することができる。それらに対応するページとは、すべてのカテゴリが上に表示されます [[Internal:Categories|Categories]] page. あなたは既に既存のカテゴリにページを追加したり、独自に作成することがあります。クリック [[Internal:Help|here]] カテゴリにページを割り当てる方法の詳細については、。 
+
+===ファイル===
+
+あなたは、wikiに、任意のサイズと形式のファイルと同様に、Wikiページを作成するときにアップロードされた写真へのリンクを与えることをアップロードすることができます。それについての詳細を読む [[Internal:Help#Inserting Images|here]].
+
+===助ける===
+
+Creating pages for '''ONLYOFFICE™''' wiki is easy. All you need to know is a few simple rules. Visit the [[Internal:Help|wiki markup tips]] to read through the wiki markup rules.  
+
+
+==wikiを作成する==
+
+To create your own wiki, start with creating a new page by clicking on the '''Create new page''' link on the '''Actions''' panel. Next type your text in the text editor space. Use the [[Internal:Help|wiki markup tips]] for the text to be displayed correctly on a page.
+
+これはあなたがあなたの特定のニーズに合わせて、すべてを組織することができるあなたの個人的な空間であることを忘れないでください。このページの内容はあっても編集可能です。たとえば、ここに書かれているかを消去するかもしれませんし、ユーザーの便宜のためにあなたのプロジェクトへのリンクを貼り付けます。 &lt;br&gt;Good luck!</value>
+  </data>
+  <data name="MainPage_EmptyPage" xml:space="preserve">
+    <value>ページが存在しません。それを作成および編集するには{here}をクリックしてください。</value>
+  </data>
+  <data name="miniToolBar_Anchor" xml:space="preserve">
+    <value>アンカー</value>
+  </data>
+  <data name="miniToolBar_Bold" xml:space="preserve">
+    <value>大胆な</value>
+  </data>
+  <data name="miniToolBar_CodeEscaped" xml:space="preserve">
+    <value>プリブロック</value>
+  </data>
+  <data name="miniToolBar_CodeInline" xml:space="preserve">
+    <value>視覚的に、サードパーティ製のコードを強調表示するには</value>
+  </data>
+  <data name="miniToolBar_Comment" xml:space="preserve">
+    <value>コメント</value>
+  </data>
+  <data name="miniToolBar_Escape" xml:space="preserve">
+    <value>HTMLコードの例</value>
+  </data>
+  <data name="miniToolBar_ExternalLink" xml:space="preserve">
+    <value>外部リンク</value>
+  </data>
+  <data name="miniToolBar_FileLink" xml:space="preserve">
+    <value>ローカルファイルのリンク</value>
+  </data>
+  <data name="miniToolBar_H1" xml:space="preserve">
+    <value>H1</value>
+  </data>
+  <data name="miniToolBar_H2" xml:space="preserve">
+    <value>H2</value>
+  </data>
+  <data name="miniToolBar_H3" xml:space="preserve">
+    <value>H3</value>
+  </data>
+  <data name="miniToolBar_H4" xml:space="preserve">
+    <value>H4 (節度と一緒に使用)</value>
+  </data>
+  <data name="miniToolBar_HR" xml:space="preserve">
+    <value>水平線</value>
+  </data>
+  <data name="miniToolBar_Image" xml:space="preserve">
+    <value>画像</value>
+  </data>
+  <data name="miniToolBar_Italic" xml:space="preserve">
+    <value>イタリック</value>
+  </data>
+  <data name="miniToolBar_LineBreak" xml:space="preserve">
+    <value>新しい行</value>
+  </data>
+  <data name="miniToolBar_NoBr" xml:space="preserve">
+    <value>NOBRタグ</value>
+  </data>
+  <data name="miniToolBar_NoWiki" xml:space="preserve">
+    <value>ウィキ言語によって解釈することはできません</value>
+  </data>
+  <data name="miniToolBar_PageLink" xml:space="preserve">
+    <value>ページリンク</value>
+  </data>
+  <data name="miniToolBar_SpetialTags" xml:space="preserve">
+    <value>特殊なタグ</value>
+  </data>
+  <data name="miniToolBar_Striked" xml:space="preserve">
+    <value>ストライク</value>
+  </data>
+  <data name="miniToolBar_Subscript" xml:space="preserve">
+    <value>添字</value>
+  </data>
+  <data name="miniToolBar_Superscript" xml:space="preserve">
+    <value>上付き文字</value>
+  </data>
+  <data name="miniToolBar_Symbols" xml:space="preserve">
+    <value>特殊記号</value>
+  </data>
+  <data name="miniToolBar_Underlined" xml:space="preserve">
+    <value>下線</value>
+  </data>
+  <data name="miniToolBar_WrapperBox" xml:space="preserve">
+    <value>ブロック</value>
+  </data>
+  <data name="wikiErrorFileSizeLimitText" xml:space="preserve">
+    <value>アップロードされたファイルの最大サイズを超えています</value>
+  </data>
+  <data name="wikiFileDownloadCaption" xml:space="preserve">
+    <value>ファイルをダウンロード</value>
+  </data>
+  <data name="wikiInternalCategoriesKeyCaption" xml:space="preserve">
+    <value>カテゴリー</value>
+  </data>
+  <data name="wikiMaxUploadSizeFormat" xml:space="preserve">
+    <value>最大アップロードファイルサイズは{0}です</value>
+  </data>
+  <data name="wikiPageEditSectionCaptionFormat" xml:space="preserve">
+    <value>, Section: "{0}"</value>
+  </data>
+  <data name="wikiPageMoved" xml:space="preserve">
+    <value>=ページは移動しました=
+ページ名に変更 [[{0}|{0}]].
+あなたは、最新のバージョンを見つけることができます [[{0}|here]]</value>
+  </data>
+  <data name="wikiTOCFakeCaption" xml:space="preserve">
+    <value>目次</value>
+  </data>
+</root>

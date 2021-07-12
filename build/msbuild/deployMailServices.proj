@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy">
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.Xml.XmlMassUpdate" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.CopyDirectory" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.RemoveDuplicatesAssemblies" />
+  <UsingTask AssemblyFile="MSBuild.Community.Tasks.dll" TaskName="MSBuild.Community.Tasks.RegexReplace" />
+  <PropertyGroup>
+    <BuildTargets   Condition=" '$(BuildTargets)' == 'Build'  ">Restore;Build</BuildTargets>
+    <Configuration Condition="$(Configuration)==''">Debug</Configuration>
+    <RootDir Condition="$(RootDir)==''">..\..\</RootDir>
+    <BinDir>$(RootDir)web\studio\ASC.Web.Studio\bin\</BinDir>
+    <DeployTo>MailFiles</DeployTo>
+    <DeployDir Condition="$(DeployDir)==''">$(RootDir)build\deploy\</DeployDir>
+    <OutDir Condition="$(OutDir)==''">$(DeployDir)$(DeployTo)\</OutDir>
+  </PropertyGroup>
+    <ItemGroup>
+	<MailServiceToDeploy Include="MailAggregator">
+		<ProjPath>module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj</ProjPath>
+	</MailServiceToDeploy>
+	<MailServiceToDeploy Include="MailAggregator">
+		<ProjPath>module\ASC.Mail\Services\ASC.Mail.EmlDownloader\ASC.Mail.EmlDownloader.csproj</ProjPath>
+	</MailServiceToDeploy>
+	<MailServiceToDeploy Include="MailAggregatorSrv">
+		<ProjPath>module\ASC.Mail\Services\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj</ProjPath>
+	</MailServiceToDeploy>
+	<MailServiceToDeploy Include="MailAggregatorSrv">
+		<ProjPath>module\ASC.Mail\Services\ASC.Mail.EmlDownloader\ASC.Mail.EmlDownloader.csproj</ProjPath>
+	</MailServiceToDeploy>
+	<MailServiceToDeploy Include="MailWatchdog">
+		<ProjPath>module\ASC.Mail\Services\ASC.Mail.Watchdog.Service\ASC.Mail.Watchdog.Service.csproj</ProjPath>
+	</MailServiceToDeploy>
+	<MailServiceToDeploy Include="MailCleaner">
+		<ProjPath>module\ASC.Mail\Services\ASC.Mail.StorageCleaner\ASC.Mail.StorageCleaner.Service.csproj</ProjPath>
+	</MailServiceToDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Web.Autofac.Config.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Web.Consumers.Config.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Web.Storage.Config.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Agg.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Agg.Log4net.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Agg.NLog.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Agg.Srv.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Agg.Srv.Log4net.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Agg.Srv.NLog.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Dog.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Dog.Log4net.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Dog.NLog.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Cln.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Cln.Log4net.Substitutions.xml"/>
+    <SubstitutionsFiles Include="$(RootDir)build\config\private\Mail.Cln.NLog.Substitutions.xml"/>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <SystemdFiles Include="$(RootDir)build\msdeploy\SAAS.MAIL\onlyofficeMailAggregator.service"/>
+    <SystemdFiles Include="$(RootDir)build\msdeploy\SAAS.MAIL\onlyofficeMailAggregatorSrv.service"/>
+    <SystemdFiles Include="$(RootDir)build\msdeploy\SAAS.MAIL\onlyofficeMailCleaner.service"/>
+    <SystemdFiles Include="$(RootDir)build\msdeploy\SAAS.MAIL\onlyofficeMailWatchdog.service"/>
+  </ItemGroup>
+  
+  <Target Name="Deploy">
+
+    <RemoveDir Directories="$(OutDir)" ContinueOnError="true" Condition="'$(LeaveOutDir)' != '0'" />
+
+    <MSBuild
+      Projects="$(MSBuildProjectFullPath)"
+      Targets="DeployMail"
+      Properties="OutDir=$(OutDir);DeployTo=$(DeployTo);ServiceName=%(MailServiceToDeploy.Identity);ProjPath=%(MailServiceToDeploy.ProjPath);Disable_CopyWebApplication=true"/>
+	  
+    <Copy
+      SourceFiles="@(SubstitutionsFiles)"
+      DestinationFiles="@(SubstitutionsFiles->'$(OutDir)Substitutions\%(Filename)%(Extension)')"/>
+      
+    <Copy
+      SourceFiles="@(SystemdFiles)"
+      DestinationFiles="@(SystemdFiles->'$(OutDir)Systemd\%(Filename)%(Extension)')"/>
+      
+    <Copy
+      SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.consumers.config"
+      DestinationFolder="$(OutDir)Services\MailAggregator\"/>
+
+    <Copy
+      SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.storage.config"
+      DestinationFolder="$(OutDir)Services\MailAggregator\"/>
+
+    <Copy
+      SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.consumers.config"
+      DestinationFolder="$(OutDir)Services\MailAggregatorSrv\"/>
+
+    <Copy
+      SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.storage.config"
+      DestinationFolder="$(OutDir)Services\MailAggregatorSrv\"/>
+	  
+    <Copy
+      SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.autofac.config"
+      DestinationFolder="$(OutDir)Services\%(MailServiceToDeploy.Identity)\"/>
+      
+    <Copy
+      SourceFiles="$(RootDir)web\studio\ASC.Web.Studio\web.storage.config"
+      DestinationFolder="$(OutDir)Services\MailCleaner\"/>
+
+
+    <Delete 
+        Files="$(OutDir)Services\MailAggregator\Mono.Security.dll;$(OutDir)Services\MailAggregatorSrv\Mono.Security.dll;$(OutDir)Services\MailCleaner\Mono.Security.dll;$(OutDir)Services\MailWatchdog\Mono.Security.dll" 
+        TreatErrorsAsWarnings="true"/>
+
+    <XmlUpdate
+      XmlFileName="$(OutDir)Services\MailAggregator\web.storage.config"
+      XPath="/storage/handler/add[@name='disc']/property/@value"
+      Value="..\..\Data\"/>
+
+    <XmlUpdate
+      XmlFileName="$(OutDir)Services\MailAggregatorSrv\web.storage.config"
+      XPath="/storage/handler/add[@name='disc']/property/@value"
+      Value="..\..\Data\"/>
+
+    <XmlUpdate
+      XmlFileName="$(OutDir)Services\MailCleaner\web.storage.config"
+      XPath="/storage/handler/add[@name='disc']/property/@value"
+      Value="..\..\Data\"/>
+
+  </Target>
+
+  <Target Name="DeployMail">
+    <Message Text="Deploying service $(ServiceName)"/>
+
+	<PropertyGroup>
+	  <ServicePath>$(OutDir)Services\$(ServiceName)\</ServicePath>
+	</PropertyGroup>
+  
+    <Message Text="Deploying service path $([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)$(ServicePath)'))"/>
+	
+    <MSBuild
+		BuildInParallel="true"
+        Projects="$(RootDir)$(ProjPath)"
+        Targets="$(BuildTargets)"
+        Properties="Configuration=$(Configuration);OutDir=$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)$(ServicePath)'));AlToolPath=%(AlToolPath.FullPath);Constants=$(Constants);Disable_CopyWebApplication=true"
+        StopOnFirstFailure="true"/>
+		
+  </Target>
+  
+</Project>

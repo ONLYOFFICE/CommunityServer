@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Vytvoriť nový míľnik</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Aplikovať</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Vyberte zodpovednú osobu</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakty</value>
+  </data>
+  <data name="CreateNewTask" xml:space="preserve">
+    <value>Pridať novú úlohu</value>
+  </data>
+  <data name="CRMCompanyName" xml:space="preserve">
+    <value>Názov firmy</value>
+  </data>
+  <data name="CRMDescrForSelector" xml:space="preserve">
+    <value>Nájsť firmu alebo osobu podľa názvu ...</value>
+  </data>
+  <data name="CRMFirstName" xml:space="preserve">
+    <value>Krstné meno</value>
+  </data>
+  <data name="CRMLastName" xml:space="preserve">
+    <value>Priezvisko</value>
+  </data>
+  <data name="DelayDay" xml:space="preserve">
+    <value>deň</value>
+  </data>
+  <data name="DelayDays" xml:space="preserve">
+    <value>dni</value>
+  </data>
+  <data name="DiscussionNotFound" xml:space="preserve">
+    <value>Diskusia nebola nájdená</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskusie</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumenty</value>
+  </data>
+  <data name="EditMilestone" xml:space="preserve">
+    <value>Upraviť míľnik</value>
+  </data>
+  <data name="EditThisTask" xml:space="preserve">
+    <value>Upraviť úlohu</value>
+  </data>
+  <data name="EmptyMessageTitle" xml:space="preserve">
+    <value>Každá správa musí mať názov</value>
+  </data>
+  <data name="EmptyProjectManager" xml:space="preserve">
+    <value>Každý projekt musí mať manažéra</value>
+  </data>
+  <data name="EmptyProjectTitle" xml:space="preserve">
+    <value>Každý projekt musí mať názov</value>
+  </data>
+  <data name="GanttActiveTasksPrjDesc" xml:space="preserve">
+    <value>aktívne úlohy</value>
+  </data>
+  <data name="GanttCollapse" xml:space="preserve">
+    <value>Zbaliť zoznam úloh pod míľniky</value>
+  </data>
+  <data name="GanttDayShort" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="GanttExpand" xml:space="preserve">
+    <value>Rozbaliť zoznam úloh pod míľnikmi</value>
+  </data>
+  <data name="GanttLeftPanelAddDate" xml:space="preserve">
+    <value>Pridať</value>
+  </data>
+  <data name="GanttLeftPanelBeginDate" xml:space="preserve">
+    <value>Dátum začiatku</value>
+  </data>
+  <data name="GanttLeftPanelCloseStatus" xml:space="preserve">
+    <value>Zatvorené</value>
+  </data>
+  <data name="GanttLeftPanelEndDate" xml:space="preserve">
+    <value>Dátum ukončenia</value>
+  </data>
+  <data name="GanttLeftPanelHighPriority" xml:space="preserve">
+    <value>Vysoký</value>
+  </data>
+  <data name="GanttLeftPanelOpenStatus" xml:space="preserve">
+    <value>otvorené</value>
+  </data>
+  <data name="GanttLeftPanelPriority" xml:space="preserve">
+    <value>Priorita</value>
+  </data>
+  <data name="GanttLeftPanelResponsibles" xml:space="preserve">
+    <value>Zodpovedný</value>
+  </data>
+  <data name="GanttLeftPanelStatus" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="GanttMilestonesPrjDesc" xml:space="preserve">
+    <value>Míľniky</value>
+  </data>
+  <data name="GanttNewMilestone" xml:space="preserve">
+    <value>Nový míľnik</value>
+  </data>
+  <data name="GanttNewTask" xml:space="preserve">
+    <value>Nová úloha</value>
+  </data>
+  <data name="GanttNotAvailableTaskLink" xml:space="preserve">
+    <value>Pre vytváranie odkazov nie sú k dispozícii žiadne úlohy</value>
+  </data>
+  <data name="GanttOnBeforeUnloadMessage" xml:space="preserve">
+    <value>Ak teraz opustíte túto stránku, nedávne zmeny ktoré ste vykonali nemusia byť uložené.</value>
+  </data>
+  <data name="GanttResponsibles" xml:space="preserve">
+    <value>{0} zodpovedných používateľov</value>
+  </data>
+  <data name="GanttSubtasksTaskDesc" xml:space="preserve">
+    <value>Podriadené úlohy</value>
+  </data>
+  <data name="GanttSubtaskTaskDesc" xml:space="preserve">
+    <value>Podriadená úloha</value>
+  </data>
+  <data name="GanttTaskDetails" xml:space="preserve">
+    <value>Detaily</value>
+  </data>
+  <data name="GanttTaskOverdue" xml:space="preserve">
+    <value>Úloha je {0} dní po termíne</value>
+  </data>
+  <data name="GanttTasksMilDesc" xml:space="preserve">
+    <value>úlohy</value>
+  </data>
+  <data name="GanttTaskWithoutMilestones" xml:space="preserve">
+    <value>Úlohy bez míľnikov</value>
+  </data>
+  <data name="GanttWeekShort" xml:space="preserve">
+    <value>Týždeň</value>
+  </data>
+  <data name="GanttYear" xml:space="preserve">
+    <value>rok</value>
+  </data>
+  <data name="GroupMenuSelectedItems" xml:space="preserve">
+    <value>vybraný</value>
+  </data>
+  <data name="IncorrectDate" xml:space="preserve">
+    <value>Formát dátumu je neplatný</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Nesprávny formát času</value>
+  </data>
+  <data name="MilestoneAdded" xml:space="preserve">
+    <value>Míľnik pridaný</value>
+  </data>
+  <data name="MilestoneRemoved" xml:space="preserve">
+    <value>Míľnik odstránený</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Míľniky</value>
+  </data>
+  <data name="MilestonesRemoved" xml:space="preserve">
+    <value>Míľniky odstránené
+
+</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Míľnik upravený</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Premiestniť</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Nasledujúci</value>
+  </data>
+  <data name="NoActiveParticipantsNote" xml:space="preserve">
+    <value>Nie sú aktívni účastníci</value>
+  </data>
+  <data name="NoMilestone" xml:space="preserve">
+    <value>Žiadny míľnik</value>
+  </data>
+  <data name="OverviewModule" xml:space="preserve">
+    <value>Prehľad</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Predchádzajúce</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Projekt nebol nájdený</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projekty</value>
+  </data>
+  <data name="RelatedLinkTypeEE" xml:space="preserve">
+    <value>koniec-koniec</value>
+  </data>
+  <data name="RelatedLinkTypeES" xml:space="preserve">
+    <value>koniec-štart</value>
+  </data>
+  <data name="RelatedLinkTypeSE" xml:space="preserve">
+    <value>štart-koniec</value>
+  </data>
+  <data name="RelatedLinkTypeSS" xml:space="preserve">
+    <value>štart-štart</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Zobraziť, stiahnuť, upraviť alebo odstrániť všetky vygenerované reporty môžete v {0}Dokumenty/Moje Dokumenty{1}</value>
+  </data>
+  <data name="ReportTmplNotFound" xml:space="preserve">
+    <value>Šablóna nebola nájdená</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Zatvorené</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Zatvorené</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Otvorené</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Otvorené</value>
+  </data>
+  <data name="StatusSuspendProject" xml:space="preserve">
+    <value>Pozastavené</value>
+  </data>
+  <data name="SuccessfullyAdded" xml:space="preserve">
+    <value>Úspešne pridané</value>
+  </data>
+  <data name="TagsSelectorAddText" xml:space="preserve">
+    <value>Vytvoriť novú značku</value>
+  </data>
+  <data name="TagsSelectorEmptyList" xml:space="preserve">
+    <value>V tomto zozname nie sú žiadne značky</value>
+  </data>
+  <data name="TagsSelectorEmptyTitleError" xml:space="preserve">
+    <value>Každá značka musí mať názov</value>
+  </data>
+  <data name="TagsSelectorNoItems" xml:space="preserve">
+    <value>V tejto skupine nie sú žiadne značky</value>
+  </data>
+  <data name="TagsSelectorTitle" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="TaskAdded" xml:space="preserve">
+    <value>Úloha pridaná</value>
+  </data>
+  <data name="TaskNotFound" xml:space="preserve">
+    <value>Úloha nebola nájdená</value>
+  </data>
+  <data name="TaskRemoved" xml:space="preserve">
+    <value>Úloha bola odstránená</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Úlohy</value>
+  </data>
+  <data name="TasksRemoved" xml:space="preserve">
+    <value>Úlohy odstránené
+
+</value>
+  </data>
+  <data name="TasksUpdated" xml:space="preserve">
+    <value>Úlohy aktualizované 
+</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Úloha bola aktualizovaná</value>
+  </data>
+  <data name="TeamModule" xml:space="preserve">
+    <value>Tím</value>
+  </data>
+  <data name="TemplateSaved" xml:space="preserve">
+    <value>Šablóna uložená</value>
+  </data>
+  <data name="TimeRemoved" xml:space="preserve">
+    <value>Čas odstránený</value>
+  </data>
+  <data name="TimerNoData" xml:space="preserve">
+    <value>Žiadne dáta</value>
+  </data>
+  <data name="TimesRemoved" xml:space="preserve">
+    <value>Časy odstránené
+
+</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Sledovanie času
+</value>
+  </data>
+  <data name="TimeUpdated" xml:space="preserve">
+    <value>Čas bol aktualizovaný</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>Do zoznamu úloh</value>
+  </data>
+  <data name="ViewAllOpenTasks" xml:space="preserve">
+    <value>Zobraziť všetky otvorené úlohy</value>
+  </data>
+</root>

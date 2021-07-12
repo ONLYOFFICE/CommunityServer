@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AverageDealsBudget" xml:space="preserve">
+    <value>Průměrný rozpočet příležitostí</value>
+  </data>
+  <data name="AverageDealsDuration" xml:space="preserve">
+    <value>Průměrná délka úspěšné příležitosti, dny</value>
+  </data>
+  <data name="Billed" xml:space="preserve">
+    <value>Účtováno</value>
+  </data>
+  <data name="BilledInvoices" xml:space="preserve">
+    <value>Účtované faktury</value>
+  </data>
+  <data name="Budget" xml:space="preserve">
+    <value>Rozpočet</value>
+  </data>
+  <data name="BuildErrorEmptyDocbuilderTemplate" xml:space="preserve">
+    <value>Prázdná šablona pro tvorbu dokumentů</value>
+  </data>
+  <data name="ByBudget" xml:space="preserve">
+    <value>Podle rozpočtu</value>
+  </data>
+  <data name="ByCount" xml:space="preserve">
+    <value>Podle čísla</value>
+  </data>
+  <data name="Calls" xml:space="preserve">
+    <value>Hovory</value>
+  </data>
+  <data name="CallsCount" xml:space="preserve">
+    <value>Počet hovorů</value>
+  </data>
+  <data name="CallsDuration" xml:space="preserve">
+    <value>Trvání hovoru</value>
+  </data>
+  <data name="CallsForThePeriod" xml:space="preserve">
+    <value>Telefonáty za období</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Uzavřeno</value>
+  </data>
+  <data name="ClosedTasks" xml:space="preserve">
+    <value>Uzavřené úkoly</value>
+  </data>
+  <data name="ContactsByStage" xml:space="preserve">
+    <value>Kontakty podle úrovně teploty</value>
+  </data>
+  <data name="ContactsByType" xml:space="preserve">
+    <value>Kontakty podle typu</value>
+  </data>
+  <data name="ContactsWithDeals" xml:space="preserve">
+    <value>S příležitostmi</value>
+  </data>
+  <data name="ContactsWithoutDeals" xml:space="preserve">
+    <value>Bez příležitostí</value>
+  </data>
+  <data name="Conversion" xml:space="preserve">
+    <value>Konverzace</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Číslo</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Vytvořeno</value>
+  </data>
+  <data name="CurrencySettingsDialogBody" xml:space="preserve">
+    <value>Pro generování přehledu musí být rozpočet příležitosti převeden do základní měny. Abyste to provedli, nastavte použitý směnný kurt.</value>
+  </data>
+  <data name="CurrencySettingsDialogHdr" xml:space="preserve">
+    <value>Nastavení měny</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Aktuální měsíc</value>
+  </data>
+  <data name="CurrentQuarter" xml:space="preserve">
+    <value>Aktuální čtvrtletí</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Aktuální týden</value>
+  </data>
+  <data name="CurrentYear" xml:space="preserve">
+    <value>Aktuální rok</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Den</value>
+  </data>
+  <data name="DealsBudget" xml:space="preserve">
+    <value>Možnosti rozpočtu</value>
+  </data>
+  <data name="DealsByBudget" xml:space="preserve">
+    <value>Příležitosti podle rozpočtu</value>
+  </data>
+  <data name="DealsByCount" xml:space="preserve">
+    <value>Příležitosti podle počtu</value>
+  </data>
+  <data name="DealsByStage" xml:space="preserve">
+    <value>Příležitosti po etapách</value>
+  </data>
+  <data name="DealsByStatus" xml:space="preserve">
+    <value>Příležitosti podle stavu</value>
+  </data>
+  <data name="DealsCount" xml:space="preserve">
+    <value>Počet příležitostí</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Doba trvání</value>
+  </data>
+  <data name="DuringAllTime" xml:space="preserve">
+    <value>Po celou dobu</value>
+  </data>
+  <data name="GeneratedReports" xml:space="preserve">
+    <value>Generované reporty</value>
+  </data>
+  <data name="GeneratedReportsDescription" xml:space="preserve">
+    <value>Všechny vaše generované reporty jsou zobrazeny zde. Soubory s reporty můžete upravit, odstranit nebo stáhnout. Chcete-li vytvořit report, vyberte šablonu ze seznamu nalevo, nastavte filtry a klikněte na tlačítko "Generovat".</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generovat report</value>
+  </data>
+  <data name="Incoming" xml:space="preserve">
+    <value>Příchozí</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Faktury podle stavu</value>
+  </data>
+  <data name="InvoicesForThePeriod" xml:space="preserve">
+    <value>Faktury za období</value>
+  </data>
+  <data name="Item" xml:space="preserve">
+    <value>Položka</value>
+  </data>
+  <data name="Lost" xml:space="preserve">
+    <value>Ztracený</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Správce kontaktu</value>
+  </data>
+  <data name="Managers" xml:space="preserve">
+    <value>Správci kontaktů</value>
+  </data>
+  <data name="MissedCount" xml:space="preserve">
+    <value>Z toho {0} jsou nezodpovězené</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Měsíc</value>
+  </data>
+  <data name="Near" xml:space="preserve">
+    <value>Uzavře se v následujících 30 dnech</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Nový</value>
+  </data>
+  <data name="NewContacts" xml:space="preserve">
+    <value>Nové kontakty</value>
+  </data>
+  <data name="NewContactsWithAndWithoutDeals" xml:space="preserve">
+    <value>Nové kontakty s příležitostmi a bez příležitostí</value>
+  </data>
+  <data name="NewTasks" xml:space="preserve">
+    <value>Nové úkoly</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Další měsíc</value>
+  </data>
+  <data name="NextQuarter" xml:space="preserve">
+    <value>Další čtvrtletí</value>
+  </data>
+  <data name="NextWeek" xml:space="preserve">
+    <value>Další týden</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Další rok</value>
+  </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Žádné údaje pro report. Vyberte jiný filtr.</value>
+  </data>
+  <data name="Opened" xml:space="preserve">
+    <value>Otevřeno</value>
+  </data>
+  <data name="Outcoming" xml:space="preserve">
+    <value>Odchozí</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Po termínu</value>
+  </data>
+  <data name="OverdueTasks" xml:space="preserve">
+    <value>Úkoly po termínu</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Zaplaceno</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Předchozí měsíc</value>
+  </data>
+  <data name="PreviousQuarter" xml:space="preserve">
+    <value>Předchozí čtvrtletí</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Předchozí týden</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Předchozí rok</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Zamítnuto</value>
+  </data>
+  <data name="ReportBuilding" xml:space="preserve">
+    <value>Vytváření reportu</value>
+  </data>
+  <data name="ReportBuildingInfo" xml:space="preserve">
+    <value>Můžete zobrazit, stáhnout, upravit nebo smazat všechny vygenerované přehledy v {0}CRM/Reports/Generated reports{1}</value>
+  </data>
+  <data name="ReportBuildingProgress" xml:space="preserve">
+    <value>Vytváření reportu ({0}% dokončeno)</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Reporty</value>
+  </data>
+  <data name="SalesByDay" xml:space="preserve">
+    <value>Prodeje manažerů za den</value>
+  </data>
+  <data name="SalesByHour" xml:space="preserve">
+    <value>Prodeje manažerů za hodinu</value>
+  </data>
+  <data name="SalesByManagersReport" xml:space="preserve">
+    <value>Prodeje manažerů</value>
+  </data>
+  <data name="SalesByManagersReportDescription" xml:space="preserve">
+    <value>Cílem tohoto přehledu je ukázat úspěšně uzavřené příležitosti pro vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným. {0} Když je vybráno týdenní nebo měsíční období, přehled zobrazí výsledky shromážděné podle dnů, čtvrtletní a roční období bude shromažďovat data podle měsíců.</value>
+  </data>
+  <data name="SalesByMonth" xml:space="preserve">
+    <value>Prodeje manažerů za měsíc</value>
+  </data>
+  <data name="SalesForecastReport" xml:space="preserve">
+    <value>Prodejní předpověď</value>
+  </data>
+  <data name="SalesForecastReportDescription" xml:space="preserve">
+    <value>Cílem této zprávy je ukázat prodejní odhad za určité časové období s přihlédnutím k pravděpodobnosti příležitosti. Ukazuje počet příležitostí pro vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným.{0} Data zahrnují celkový rozpočet pro příležitosti, jehož odhadované uzavírací datum spadá do vybraného časového období.</value>
+  </data>
+  <data name="SalesFunnelByBudget" xml:space="preserve">
+    <value>Prodejní lístek podle rozpočtu příležitostí</value>
+  </data>
+  <data name="SalesFunnelByCount" xml:space="preserve">
+    <value>Prodejní lístek podle počtu příležitostí</value>
+  </data>
+  <data name="SalesFunnelReport" xml:space="preserve">
+    <value>Prodejní lístek</value>
+  </data>
+  <data name="SalesFunnelReportDescription" xml:space="preserve">
+    <value>Tato zpráva je určena k vytváření prodejního kanálu po určitou dobu. Ukazuje počet příležitostí pro vybrané {1}Časové období{2} všem manažerům anebo pouze těm vybraným.
+{0} Hlavní data obsahují počet příležitostí v kanálu, průměrný rozpočet příležitostí, průměrné trvání úspěšně uzavřených příležitostí, poměr otevřených a uzavřených příležitostí.
+{0} Data jsou seřazena podle čísla příležitosti a rozpočtu.</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Fáze</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>SUMA</value>
+  </data>
+  <data name="SummaryAtThisMomentDescription" xml:space="preserve">
+    <value>Cílem tohoto přehledu je ukázat souhrnná data pro příležitosti, kontakty, úkoly a faktury podle vybraného {1}Časového období{2} všem manažerům nebo pouze těm vybraným. Přehled zobrazí příležitosti určené stavem a jejich fází, kontakty podle typu a fáze, úkoly a faktury podle jejich stavu.</value>
+  </data>
+  <data name="SummaryAtThisMomentReport" xml:space="preserve">
+    <value>Momentální shrnutí</value>
+  </data>
+  <data name="SummaryForThePeriodReport" xml:space="preserve">
+    <value>Shrnutí pro období</value>
+  </data>
+  <data name="SummaryForThePeriodReportDescription" xml:space="preserve">
+    <value>Tento přehled je určen k zobrazení souhrnných dat pro příležitosti, kontakty, úkoly a faktury za vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným. Přehled zobrazí příležitosti určené podle rozpočtu a podle jejich počtu, kontakty podle typu, úkoly a faktury podle časového období.</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Úkoly podle stavu</value>
+  </data>
+  <data name="TasksForThePeriod" xml:space="preserve">
+    <value>Úkoly za období</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Časové období</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Celkem</value>
+  </data>
+  <data name="TotalDealsBudget" xml:space="preserve">
+    <value>Celkový rozpočet příležitostí</value>
+  </data>
+  <data name="TotalDealsCount" xml:space="preserve">
+    <value>Celkový počet příležitostí</value>
+  </data>
+  <data name="TotalSalesByManagers" xml:space="preserve">
+    <value>Celkové tržby za období podle manažerů</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Vyhráno
+</value>
+  </data>
+  <data name="WorkloadByContactsDescription" xml:space="preserve">
+    <value>Cílem tohoto přehledu je zobrazit celkový počet kontaktů za vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným. Přehled zobrazí nové kontakty určené podle typu, přítomnosti a absence příležitostí. Data jsou shromážděna pouze manažery.</value>
+  </data>
+  <data name="WorkloadByContactsReport" xml:space="preserve">
+    <value>Kontakty podle manažerů</value>
+  </data>
+  <data name="WorkloadByDealsDescription" xml:space="preserve">
+    <value>Cílem tohoto přehledu je zobrazit celkovou pracovní zátěž získaných a ztracených příležitostí za vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným. Data jsou shromážděna pouze manažery.</value>
+  </data>
+  <data name="WorkloadByDealsReport" xml:space="preserve">
+    <value>Příležitosti podle manažerů</value>
+  </data>
+  <data name="WorkloadByInvoicesDescription" xml:space="preserve">
+    <value>Cílem tohoto přehledu je zobrazit celkový počet faktur za vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným. Přehled zobrazí celkový počet zaslaných faktur, jakož i počet placených, zamítnutých a opožděných faktur. Data jsou shromážděna pouze manažery.</value>
+  </data>
+  <data name="WorkloadByInvoicesReport" xml:space="preserve">
+    <value>Faktury od manažerů</value>
+  </data>
+  <data name="WorkloadByTasksDescription" xml:space="preserve">
+    <value>Cílem tohoto přehledu je zobrazit celkový počet úkolů pro vybrané {1}Časové období{2} všem manažerům nebo pouze těm vybraným. V přehledu se zobrazí uzavřené, nové a opožděné úkoly určené podle typu. Data jsou shromážděna pouze manažery.</value>
+  </data>
+  <data name="WorkloadByTasksReport" xml:space="preserve">
+    <value>Úkoly správců</value>
+  </data>
+  <data name="WorkloadByVoipDescription" xml:space="preserve">
+    <value>Účelem tohoto přehledu je ukázat celkový počet hovorů pro vybrané {1}časové období{2} všem správcům kontaktů nebo jen těm vybraným. V přehledu se zobrazí celkový počet příchozích a odchozích hovorů i jejich trvání. Údaje jsou seskupeny pouze správci.</value>
+  </data>
+  <data name="WorkloadByVoipNotAllowed" xml:space="preserve">
+    <value>Prosím, vezměte na vědomí, že tento přehled bude k dispozici pouze, když se připojíte k Twilio. Pro připojení následujte {0}odkaz{1}</value>
+  </data>
+  <data name="WorkloadByVoipReport" xml:space="preserve">
+    <value>VoIP podle manažerů</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+</root>

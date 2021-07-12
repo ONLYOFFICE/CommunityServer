@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Izdzēst failu?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Izdzēst lapu?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Izdzēst</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Salīdzināt izvēlētas versijas</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Rediģēt</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Publicēt</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Atgriezties</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Augšuplādēt</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Versija {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Nav izveidotas kategorijas</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Visas wiki rakstu kategorijas ir uzskaitītas šeit. Kad kategorija ir izveidota lapā, ta tiek pievienota kategoriju sarakstam šeit.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>Nav failus kuri var būt parādīti šajā sekcijā</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Visus autorus faili augšupielādēti wiki lapām tiek saglabāti šajā sadaļā. Šos failus var pievienot lapās, izmantojot wiki vai HTML atzīmes.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>Nav lapas kuras var būt parādītas šajā sekcijā</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Indeksa lapā ir uzskaitīti visas lapas, kas izveidoja wiki autors alfabētiskā secībā. Kad lapa ir izveidota, tā tiek pievienota indeksam automātiski.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>Nav lapas kuras var būt parādītas šajā sekcijā</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Visas jaunizveidotas vai nesen rediģētas lapas ar to autoriem ir sarakstīti šeit. Tie ir pievienoti šim sarakstam automātiski un sakārtoti pēc to radīšanas vai rediģēšanas laikā.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>Nav lapas kuras var būt parādītas šajā sekcijā</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Visas nesen rediģētas lapas ar to autoriem ir sarakstīti šeit. Tie ir pievienoti šim sarakstam automātiski un sakārtoti pēc to rediģēšanas laikā.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Jauns Fails</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Jauna Lapa</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>Mājas</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Rediģēt failu</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Rediģēt lapu</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Tāds fails neeksistē.  {0Izveidot} failu ar šādu vārdu[[ vai apskatīt {1meklēšanas rezultātu}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class="wikiEmptyPage"&gt;&lt;div class="secondaryCaption"&gt;Pieprasīta lapa neeksistē. &lt;/div&gt;Vai jūs gribētu{0izveidot} to[[ vai apskatīt {1meklēšanas rezultātu}]]?&lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Augšuplādēt failu</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Izveidot jaunu lapu</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Izdzēst lapu</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Rediģēt lapu</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Kategorija: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Izprintēt Lapu</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Skatīties vēsturi</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Korporatīva Wiki vietne</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Nav izvēlēts fails augšuplādēšanai.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Iekšēja kļūda. Lūdzam sazināties ar administratoru.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Lapas formāta kļūda </value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Nebija nekādu izmaiņu.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Cits lietotājs rediģēja šo lapu. Lūdzu atsvaidziniet lapu, lai apskatīt pēdējo versiju.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Lapas Nosaukums ir tukšs.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Lapai ir nepareizs nosaukums. Ievadiet citu.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Lapa ar tādu nosaukumu jau eksistē.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Izmaiņas ir saglabātas.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Pievienot lapu kategorijai</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Lapas jaunumi/komentāri</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Jaunas Lapas</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Parakstīties uz Lapu</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Priekšskatījums</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Meklēt Wiki Vietnē</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Atrakstīties no lapas</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>komentārs pievienots</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>komentārs izdzēsts</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>komentārs rediģēts</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>fails pievienots</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>fails izdzēsts</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>lapa pievienota</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>lapa rediģēta</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>lapa atgriezta uz iepriekšēju versiju</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Salīdzināt Ver.{0} with Ver.{1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Augšuplādēt Failu</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>Vēsture</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Pēdējas izmaiņas veica {0} {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Vai jūs gribat atgriezties iepriekšējā versijā?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Ver.</value>
+  </data>
+</root>

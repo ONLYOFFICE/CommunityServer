@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Comment" xml:space="preserve">
+    <value>Nóta tráchta</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Inléite Amháin</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Rochtain Iomlán</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Athbhreithniú</value>
+  </data>
+  <data name="AddAccount" xml:space="preserve">
+    <value>Cuir cuntas leis</value>
+  </data>
+  <data name="ButtonAddBoxNet" xml:space="preserve">
+    <value>Cuir cuntas Box leis</value>
+  </data>
+  <data name="ButtonAddWebDav" xml:space="preserve">
+    <value>Cuntas eile</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="ButtonCancelAll" xml:space="preserve">
+    <value>Cealaigh uile</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>Glan an Scagaire</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Dún é</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>Cóipeáil</value>
+  </data>
+  <data name="ButtonCopyToClipboard" xml:space="preserve">
+    <value>Cóipeáil</value>
+  </data>
+  <data name="ButtonCreate" xml:space="preserve">
+    <value>Cruthaigh</value>
+  </data>
+  <data name="ButtonCreateDocument2" xml:space="preserve">
+    <value>Cruthaigh Cáipéis</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>Fillteán</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>Scarbhileog</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>Cáipéis</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Scrios</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Eagar</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>Cáipéisí</value>
+  </data>
+  <data name="ButtonFilterFiles" xml:space="preserve">
+    <value>Gach comhad</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>Fillteáin</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>Íomhánna</value>
+  </data>
+  <data name="ButtonFilterMedia" xml:space="preserve">
+    <value>Meáin</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>Scarbhileoga</value>
+  </data>
+  <data name="ButtonGotoFolder" xml:space="preserve">
+    <value>Téigh chuig '{0}'</value>
+  </data>
+  <data name="ButtonLearnMore" xml:space="preserve">
+    <value>Foghlaim tuilleadh...</value>
+  </data>
+  <data name="ButtonMoveCopy" xml:space="preserve">
+    <value>Bog nó Cóipeáil</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>Bog go</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Tá go maith</value>
+  </data>
+  <data name="ButtonOpenFile" xml:space="preserve">
+    <value>Oscail</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>Athainmnigh</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Cuir i dtaisce é</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>Uile</value>
+  </data>
+  <data name="ButtonSendDocuSign" xml:space="preserve">
+    <value>Seol le DocuSign</value>
+  </data>
+  <data name="ButtonSendDocuSignDialog" xml:space="preserve">
+    <value>Seol</value>
+  </data>
+  <data name="ButtonSendInEmail" xml:space="preserve">
+    <value>Seol trí ríomhphost</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>Léim thar seo</value>
+  </data>
+  <data name="ButtonUp" xml:space="preserve">
+    <value>Ar barr</value>
+  </data>
+  <data name="ButtonUpload" xml:space="preserve">
+    <value>Uasluchtaigh</value>
+  </data>
+  <data name="ButtonUploadFiles" xml:space="preserve">
+    <value>Uasluchtaigh comhaid</value>
+  </data>
+  <data name="ButtonUploadFolder" xml:space="preserve">
+    <value>Uasluchtaigh fillteán</value>
+  </data>
+  <data name="ButtonViaFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ButtonViaTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Cealaithe</value>
+  </data>
+  <data name="ConfirmDontShow" xml:space="preserve">
+    <value>Ná taispeáin an teachtaireacht seo arís</value>
+  </data>
+  <data name="ConfirmRemove" xml:space="preserve">
+    <value>Deimhniú</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Tiontaigh</value>
+  </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Comhghairdeas</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>Cáipéisí</value>
+  </data>
+  <data name="DocuSignFolder" xml:space="preserve">
+    <value>Cuir i dtaisce san fhillteán:</value>
+  </data>
+  <data name="DocuSignMessage" xml:space="preserve">
+    <value>Teachtaireacht</value>
+  </data>
+  <data name="DocuSignMessageAdd" xml:space="preserve">
+    <value>Cuir teachtaireacht leis</value>
+  </data>
+  <data name="EmbeddedSize" xml:space="preserve">
+    <value>Méid</value>
+  </data>
+  <data name="EmbedSizeAuto" xml:space="preserve">
+    <value>Uathoibríoch</value>
+  </data>
+  <data name="EmbedSizeHeight" xml:space="preserve">
+    <value>Airde</value>
+  </data>
+  <data name="EmbedSizeWidth" xml:space="preserve">
+    <value>Leithead</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Scagaire</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>Fillteáin</value>
+  </data>
+  <data name="GetGreeAccountBtn" xml:space="preserve">
+    <value>Tosaigh Anois</value>
+  </data>
+  <data name="GetShorten" xml:space="preserve">
+    <value>Giorraigh é</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>Roghnaigh uile</value>
+  </data>
+  <data name="MyFiles" xml:space="preserve">
+    <value>Mo Cháipéisí</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Réamhamharc</value>
+  </data>
+  <data name="OpenFolder" xml:space="preserve">
+    <value>Oscail</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Sainnigh mar Léite</value>
+  </data>
+  <data name="RemoveIsNewAll" xml:space="preserve">
+    <value>Sainnigh uile mar léite</value>
+  </data>
+  <data name="RemoveIsNewShort" xml:space="preserve">
+    <value>Sainnigh mar Léite</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Roghnaigh fillteán</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Comhroinn</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>Comhroinnte Liomsa</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Taispeáin tuilleadh</value>
+  </data>
+  <data name="SideCaptionSettings" xml:space="preserve">
+    <value>Socruithe</value>
+  </data>
+  <data name="ThirdPartyBoxNet" xml:space="preserve">
+    <value>Bosca</value>
+  </data>
+  <data name="ThirdPartyDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Teideal an fhillteáin</value>
+  </data>
+  <data name="ThirdPartyGoogleDrive" xml:space="preserve">
+    <value>Google Drive</value>
+  </data>
+  <data name="ThirdPartyNextcloud" xml:space="preserve">
+    <value>Nextcloud</value>
+  </data>
+  <data name="ThirdPartyReconnect" xml:space="preserve">
+    <value>Athcheangail</value>
+  </data>
+  <data name="ThirdPartyReconnectTitle" xml:space="preserve">
+    <value>Cuntas</value>
+  </data>
+  <data name="ThirdPartySharePoint" xml:space="preserve">
+    <value>SharePoint</value>
+  </data>
+  <data name="ThirdPartySkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="ThirdPartyYandex" xml:space="preserve">
+    <value>Yandex</value>
+  </data>
+  <data name="TitleSearchIn" xml:space="preserve">
+    <value>Cuardaigh i</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Roghnaigh</value>
+  </data>
+</root>

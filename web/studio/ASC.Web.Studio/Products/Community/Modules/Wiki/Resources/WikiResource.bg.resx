@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="cfmDeleteFile" xml:space="preserve">
+    <value>Изтрий файла?</value>
+  </data>
+  <data name="cfmDeletePage" xml:space="preserve">
+    <value>Да се ​​изтрие ли страницата?</value>
+  </data>
+  <data name="cmdCancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="cmdDelete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="cmdDiff" xml:space="preserve">
+    <value>Сравнете избраните версии</value>
+  </data>
+  <data name="cmdEdit" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="cmdHide" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="cmdPreview" xml:space="preserve">
+    <value>Предварителен преглед</value>
+  </data>
+  <data name="cmdPublish" xml:space="preserve">
+    <value>Публикувам</value>
+  </data>
+  <data name="cmdRevert" xml:space="preserve">
+    <value>Обръщам</value>
+  </data>
+  <data name="cmdUpload" xml:space="preserve">
+    <value>Качи</value>
+  </data>
+  <data name="cmdVersionTemplate" xml:space="preserve">
+    <value>Версия {0}</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesCaption" xml:space="preserve">
+    <value>Още не са създадени категории</value>
+  </data>
+  <data name="EmptyScreenWikiCategoriesText" xml:space="preserve">
+    <value>Тук са изброени всички категории на уики статия. След като дадена категория се създаде на дадена страница, тя се добавя към списъка с категории тук.</value>
+  </data>
+  <data name="EmptyScreenWikiFilesCaption" xml:space="preserve">
+    <value>В този раздел няма файлове за показване</value>
+  </data>
+  <data name="EmptyScreenWikiFilesText" xml:space="preserve">
+    <value>Файловете, качени за wiki страниците от всички автори на wiki, се съхраняват в този раздел. Тези файлове могат да бъдат прикачени към страниците с помощта на уики или html маркиране.</value>
+  </data>
+  <data name="EmptyScreenWikiIndexCaption" xml:space="preserve">
+    <value>Няма страници, които да се показват в този раздел</value>
+  </data>
+  <data name="EmptyScreenWikiIndexText" xml:space="preserve">
+    <value>Индексната страница изброява всички страници, създадени от авторите на уики по азбучен ред. След като страницата е създадена, тя се добавя автоматично към индекса.</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesCaption" xml:space="preserve">
+    <value>Няма страници, които да се показват в този раздел</value>
+  </data>
+  <data name="EmptyScreenWikiNewPagesText" xml:space="preserve">
+    <value>Тук са изброени всички новосъздадени или наскоро редактирани страници с техните автори. Те се добавят към този списък, автоматично сортирани по време на тяхното създаване или редактиране.</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedCaption" xml:space="preserve">
+    <value>Няма страници, които да се показват в този раздел</value>
+  </data>
+  <data name="EmptyScreenWikiRecentlyEditedText" xml:space="preserve">
+    <value>Тук са изброени всички наскоро редактирани страници с техните автори. Те се добавят към този списък автоматично сортирани по време на редактиране.</value>
+  </data>
+  <data name="MainWikiAddNewFile" xml:space="preserve">
+    <value>Нов файл</value>
+  </data>
+  <data name="MainWikiAddNewPage" xml:space="preserve">
+    <value>Нова страница</value>
+  </data>
+  <data name="MainWikiCaption" xml:space="preserve">
+    <value>У дома</value>
+  </data>
+  <data name="MainWikiEditFile" xml:space="preserve">
+    <value>Редактиране на файл</value>
+  </data>
+  <data name="MainWikiEditPage" xml:space="preserve">
+    <value>Редактиране на страница</value>
+  </data>
+  <data name="MainWikiFileIsNotExists" xml:space="preserve">
+    <value>Файлът не съществува. {0Create} файл с това име [[или търсене в {1search result}]]?</value>
+  </data>
+  <data name="MainWikiPageIsNotExists" xml:space="preserve">
+    <value>&lt;div class = "wikiEmptyPage"&gt; &lt;div class = "secondaryCaption"&gt; Исканата страница не съществува. &lt;/div&gt; Искате ли да го {0create} [[търси в {1search result}]]? &lt;/div&gt;</value>
+  </data>
+  <data name="menu_AddNewFile" xml:space="preserve">
+    <value>Качи файл</value>
+  </data>
+  <data name="menu_AddNewPage" xml:space="preserve">
+    <value>Създайте нова страница</value>
+  </data>
+  <data name="menu_DeleteThePage" xml:space="preserve">
+    <value>Изтриване на страница</value>
+  </data>
+  <data name="menu_EditThePage" xml:space="preserve">
+    <value>Редактиране на страница</value>
+  </data>
+  <data name="menu_ListPagesCatFormat" xml:space="preserve">
+    <value>Категория: {0}</value>
+  </data>
+  <data name="menu_PrintThePage" xml:space="preserve">
+    <value>Печат на страницата</value>
+  </data>
+  <data name="menu_ShowVersions" xml:space="preserve">
+    <value>Преглед на историята</value>
+  </data>
+  <data name="ModuleDescription" xml:space="preserve">
+    <value>Корпоративното уики</value>
+  </data>
+  <data name="ModuleName" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
+  <data name="msgFileEmpty" xml:space="preserve">
+    <value>Файлът за качване не е избран.</value>
+  </data>
+  <data name="msgInternalError" xml:space="preserve">
+    <value>Възникна вътрешна грешка. Моля, свържете се с администратора.</value>
+  </data>
+  <data name="msgMarkupError" xml:space="preserve">
+    <value>Грешка в маркирането на страницата</value>
+  </data>
+  <data name="msgNoChanges" xml:space="preserve">
+    <value>Няма промени.</value>
+  </data>
+  <data name="msgOldVersion" xml:space="preserve">
+    <value>Тази страница е редактирана от друг потребител. Моля, опреснете страницата, за да видите последната версия.</value>
+  </data>
+  <data name="msgPageNameEmpty" xml:space="preserve">
+    <value>Полето Заглавие на страницата е празно.</value>
+  </data>
+  <data name="msgPageNameIncorrect" xml:space="preserve">
+    <value>Името на страницата е неправилно. Моля, опитайте да въведете алтернативно име.</value>
+  </data>
+  <data name="msgPageTextEmpty" xml:space="preserve">
+    <value>Полето Текст е празно.</value>
+  </data>
+  <data name="msgSamePageExists" xml:space="preserve">
+    <value>Вече съществува страница с това заглавие.</value>
+  </data>
+  <data name="msgSaveSucess" xml:space="preserve">
+    <value>Промените са запазени.</value>
+  </data>
+  <data name="NotifyAction_AddPageToCat" xml:space="preserve">
+    <value>Добавете страница към категория</value>
+  </data>
+  <data name="NotifyAction_ChangePage" xml:space="preserve">
+    <value>Актуализации/коментари</value>
+  </data>
+  <data name="NotifyAction_NewPage" xml:space="preserve">
+    <value>Нови страници</value>
+  </data>
+  <data name="NotifyOnEditPage" xml:space="preserve">
+    <value>Абонирайте се за страницата</value>
+  </data>
+  <data name="PagePreview" xml:space="preserve">
+    <value>Предварителен преглед</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Търсене в Wiki</value>
+  </data>
+  <data name="UnNotifyOnEditPage" xml:space="preserve">
+    <value>Отписване от страницата</value>
+  </data>
+  <data name="wikiAction_CommentAdded" xml:space="preserve">
+    <value>Коментарът е добавен</value>
+  </data>
+  <data name="wikiAction_CommentDeleted" xml:space="preserve">
+    <value>коментарът е изтрит</value>
+  </data>
+  <data name="wikiAction_CommentEdited" xml:space="preserve">
+    <value>коментарът е редактиран</value>
+  </data>
+  <data name="wikiAction_FileAdded" xml:space="preserve">
+    <value>файлът е добавен</value>
+  </data>
+  <data name="wikiAction_FileDeleted" xml:space="preserve">
+    <value>файлът е изтрит</value>
+  </data>
+  <data name="wikiAction_PageAdded" xml:space="preserve">
+    <value>страницата е добавена</value>
+  </data>
+  <data name="wikiAction_PageEdited" xml:space="preserve">
+    <value>редактирана страница</value>
+  </data>
+  <data name="wikiAction_VersionRevert" xml:space="preserve">
+    <value>версията на страницата е отменена</value>
+  </data>
+  <data name="wikiCategoryAlfaList" xml:space="preserve">
+    <value>#,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,А,Б,В,Г,Д,Е,Ё,Ж,З,И,Й,К,Л,М,Н,О,П,Р,С,Т,У,Ф,Х,Ц,Ч,Ш,Щ,Ь,Ы,Ъ,Э,Ю,Я</value>
+  </data>
+  <data name="wikiDiffDescriptionFormat" xml:space="preserve">
+    <value>Сравнение на версията {0} с версията {1}</value>
+  </data>
+  <data name="wikiFileUploadSubject" xml:space="preserve">
+    <value>Качи файл</value>
+  </data>
+  <data name="wikiHistoryCaption" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="wikiPageInfoFormat" xml:space="preserve">
+    <value>Последните промени от {0} в {1}</value>
+  </data>
+  <data name="wikiRevertConfirm" xml:space="preserve">
+    <value>Искате ли да възстановите тази версия?</value>
+  </data>
+  <data name="wikiVersionCaption" xml:space="preserve">
+    <value>Вер.</value>
+  </data>
+</root>

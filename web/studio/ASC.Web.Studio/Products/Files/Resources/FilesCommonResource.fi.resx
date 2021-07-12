@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>Oikeudet</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Ulkoinen portaali</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>Vain luku</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>Täydet oikeudet</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>Estä käyttö</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Arvioi</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Järjestelmänvalvoja</value>
+  </data>
+  <data name="AppAccessDenied" xml:space="preserve">
+    <value>Työstääksesi asiakirjaa sinun on annettava siihen pääsyoikeus</value>
+  </data>
+  <data name="AppButtonConvert" xml:space="preserve">
+    <value>Jatka</value>
+  </data>
+  <data name="AppConvertCopy" xml:space="preserve">
+    <value>Kun avaat tämän asiakirjan ONLYOFFICE™ palvelussa, siitä luodaan kopio Office Open XML muodossa Google Drive palveluun. Alkuperäistä tiedostoa ei muokata. Kun haluat muokata uudelleen asiakirjaa, avaa luotu kopio alkuperäisen sijaan. </value>
+  </data>
+  <data name="AppConvertCopyHide" xml:space="preserve">
+    <value>Älä näytä tätä enää</value>
+  </data>
+  <data name="AppEnterName" xml:space="preserve">
+    <value>Anna tiedostonimi</value>
+  </data>
+  <data name="AppEnterType" xml:space="preserve">
+    <value>Valitse tiedostotyyppi</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Omistaja</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>Minä</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="ButtonConvertOpen" xml:space="preserve">
+    <value>Muunna &amp; avaa</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Kommentti</value>
+  </data>
+  <data name="CommentChangeOwner" xml:space="preserve">
+    <value>Omistaja vaihtunut</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Muutoksen lähde: {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Kopioitu</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Luotu</value>
+  </data>
+  <data name="CommentCreateByDocuSign" xml:space="preserve">
+    <value>Luoja: DocuSign</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Muokattu</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Palautettu tarkistuksesta: {0}</value>
+  </data>
+  <data name="CommentRevertChanges" xml:space="preserve">
+    <value>Palautettu asiakirjan muutoksesta: {0}</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Ladattu</value>
+  </data>
+  <data name="ConnectionUrl" xml:space="preserve">
+    <value>Yhteys URL</value>
+  </data>
+  <data name="ConvertTo" xml:space="preserve">
+    <value>Muunna muotoon</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>Asiakirjan nimi</value>
+  </data>
+  <data name="DocuSignStatusDeclined" xml:space="preserve">
+    <value>Hylätty</value>
+  </data>
+  <data name="DocuSignStatusError" xml:space="preserve">
+    <value>Tapahtui virhetilanne lähetystoiminnon aikana</value>
+  </data>
+  <data name="DocuSignStatusNotSended" xml:space="preserve">
+    <value>Asiakirjan lähetys DocuSign toiminnon kautta on peruutettu</value>
+  </data>
+  <data name="DocuSignStatusSended" xml:space="preserve">
+    <value>Asiakirja lähetettiin allekirjoitettavaksi</value>
+  </data>
+  <data name="DocuSignStatusVoided" xml:space="preserve">
+    <value>Mitätöity</value>
+  </data>
+  <data name="EnterComment" xml:space="preserve">
+    <value>Kirjoita kommentti</value>
+  </data>
+  <data name="ErrorEntry" xml:space="preserve">
+    <value>Virhe</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>Virheellinen pyyntö.</value>
+  </data>
+  <data name="ErrorMassage_ChangeOwner" xml:space="preserve">
+    <value>Et voi valita tätä käyttäjää</value>
+  </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Muutos vie liian paljon aikaa.</value>
+  </data>
+  <data name="ErrorMassage_DocServiceException" xml:space="preserve">
+    <value>Virhe asiakirjapalvelussa. Ihan outo.</value>
+  </data>
+  <data name="ErrorMassage_EditingCoauth" xml:space="preserve">
+    <value>Tiedosto on avattu muokkausta varten, muokkaaja: {0}. Tällä hetkellä yhteistä muokkausta ei ole tuettu tälle tiedostomuodolle.</value>
+  </data>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0} muokkasi tiedostoa mobiilisovelluksella</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>Tyhjä tiedosto</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>Tarvittavaa tiedostoa ei löydy. Ei sitten mistään.</value>
+  </data>
+  <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
+    <value>Suurempaa kuin {0} tiedostoa ei muunneta</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>Tiedosto joka on enemmän kuin {0} ei voida kopioida</value>
+  </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>{0} suurempaa tiedostoa ei voi muokata</value>
+  </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>Tiedosto joka on suurempi kuin {0} ei voida siirtää</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>Kansiota ei voi kopioida sen alikansioon. Vähän niin kuin yrittäisi syödä oman päänsä.</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>Vaadittua kansiota ei löydy</value>
+  </data>
+  <data name="ErrorMassage_InvalidTitle" xml:space="preserve">
+    <value>Outo otsikko</value>
+  </data>
+  <data name="ErrorMassage_LockedFile" xml:space="preserve">
+    <value>Asiakirja on lukittuna toiselle käyttäjälle</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>Eipäs löydy tiliä, jonka kautta lähettää tiedosto. Tee jotain tai hyydy siihen.</value>
+  </data>
+  <data name="ErrorMassage_MailMergeCount" xml:space="preserve">
+    <value>Vähintään {0} sähköpostiviestiä ei voitu lähettää. Ole hyvä ja siirry Sähköposti moduuliin tarkistamaan mikä voisi olla epäonnistumisen syy.</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>Liian monta ladattavaa tiedostoa. Tässähän sekoaa täysin.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>Tätä tiedostomuotoa ei tueta. Ei sitten niin mitenkään.</value>
+  </data>
+  <data name="ErrorMassage_SaveAnonymous" xml:space="preserve">
+    <value>Tallennuksen tekijä tuntematon</value>
+  </data>
+  <data name="ErrorMassage_SaveCorrupted" xml:space="preserve">
+    <value>Tiedosto sekosi totaalisesti kun yritit tallettaa sen</value>
+  </data>
+  <data name="ErrorMassage_SaveUrlLost" xml:space="preserve">
+    <value>Tiedoston noutaminen epäonnistui</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>Oikeutesi eivät riitä toiminnon suorittamiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
+    <value>Tunnistautuminen palveluntarjoajaan {0} ei onnistu annetuilla tunnuksilla.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>Sinulla ei ole riittävästi oikeuksia luoda</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>Tiedostoa ei voi poistaa, koska se on avattu muokkaamista varten</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>Kansiota ei voi poistaa, koska jokin sen tiedostoista on avattu muokattavaksi. Loogista, eiks je?</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>Oikeutesi eivät riitä tiedoston poistamiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>Oikeutesi eivät riitä kansion poistamiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>Sinulla ei ole riittäviä oikeuksia tiedoston muokkaamiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
+    <value>Olet jo muokkaamassa tätä asiakirjaa toisella välilehdellä. Nyt menee hankalaksi.</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>Oikeutesi eivät riitä tiedoston tarkastelemiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>Oikeutesi eivät riitä kansion sisällön tarkastelemiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>Oikeutesi eivät riitä tiedoston uudelleennimeämiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>Oikeutesi eivät riitä kansion uudelleennimeämiseen</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>Tiedostoa ei voi päivittää, koska se on  avattu muokkaamista varten</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>Oikeutesi eivät riitä kansion sisällön tarkastelemiseen</value>
+  </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>Kolmannen osapuolen kansiohässäkkää ei löydy. Yritin kyllä. Kokeile jotain outoa uudelleenkytkentää tiliisi. Tai jotain.</value>
+  </data>
+  <data name="ErrorMassage_StartEditing" xml:space="preserve">
+    <value>Editorin käynnistysvirhe. Liekö akku tyhjentynyt.</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>Et voi päivittää tiedostoa, joka on avoinna muokkausta varten. Tietokone ei siihen pysty.</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>Et voi esikatsella osia Roskakorissa. Ne ovat jo liian pilaantuneita.</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>Kaikki</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Tiedosto</value>
+  </data>
+  <data name="Folder" xml:space="preserve">
+    <value>Kansio</value>
+  </data>
+  <data name="FolderName" xml:space="preserve">
+    <value>Kansion nimi</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Vierailija</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>uusi</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Käyttäjätunnus</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>Palauta</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Salasana</value>
+  </data>
+  <data name="ProductAdminOpportunities" xml:space="preserve">
+    <value>Tee kaikkea käyttäjänä|Yhdistä Dropbox, Box ja muita palveluita 'Yhteiset asiakirjat' -osiossa|Aseta käyttöoikeuksia asiakirjoille ja kansioille 'Yhteiset asiakirjat' osiossa</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>Luo, muokkaa ja jaa asiakirjoja. Muokkaa niitä yhteistyössä reaaliajassa. Tukee 100% MS Office formaatteja.</value>
+  </data>
+  <data name="ProductDescriptionEx" xml:space="preserve">
+    <value>Luo, muokkaa ja jaa asiakirjoja. Muokkaa niitä yhteistyössä reaaliajassa. Tukee 100% MS Office formaatteja.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="ProductUserOpportunities" xml:space="preserve">
+    <value>Luo ja muokkaa omia ja yhteisiä asiakirjoja sopivilla käyttöoikeuksilla|Myönnä muille käyttäjille asiakirjojen ja kansioiden luku- ja muokkausoikeuksia|Yhdistä Dropbox, Box ja muita pilvipalveluita/tilejä 'Omat Asiakirjat'  -osiossa.</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>{!User} poistettu</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>Merkitse luetuksi</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Etsi</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Jaa</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>Ilmoita, kun kansio jaetaan sinulle</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>Näytä versiot</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Koko</value>
+  </data>
+  <data name="SubscriptDocuSignComplete" xml:space="preserve">
+    <value>Lähetä tiedonanto kun asiakirja on allekirjoitettu DocuSign toiminnon kautta</value>
+  </data>
+  <data name="SubscriptDocuSignStatus" xml:space="preserve">
+    <value>Lähetä tiedonanto kun DocuSign asiakirja vaihtaa tilaa</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>Ilmoita, kun asiakirja jaetaan sinulle</value>
+  </data>
+  <data name="SubscriptForMailMerge" xml:space="preserve">
+    <value>Lähetä tiedonanto kun postitus on valmis</value>
+  </data>
+  <data name="ThirdPartyFolderTitle" xml:space="preserve">
+    <value>Kansion nimi</value>
+  </data>
+  <data name="ThirdPartySetCorporate" xml:space="preserve">
+    <value>Merkitse jaetuksi ja lisää Yhteisiin tiedostoihin</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>Luotu</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>Asiakirjoja</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>Päivitetty</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>Asiakirjat</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>Poistettu</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>Valitse</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>Pääsyoikeudet</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>Toimenpiteet</value>
+  </data>
+  <data name="TitleShowFolderActions" xml:space="preserve">
+    <value>Kansion toiminnot</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>Alikansioita</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>Lisätty</value>
+  </data>
+  <data name="TitleVersionComplete" xml:space="preserve">
+    <value>Merkitse uudeksi versioksi</value>
+  </data>
+  <data name="TitleVersionContinue" xml:space="preserve">
+    <value>Merkitse korjatuksi versioksi</value>
+  </data>
+  <data name="TitleVersionHistory" xml:space="preserve">
+    <value>Versiohistoria:</value>
+  </data>
+  <data name="UnknownFirstName" xml:space="preserve">
+    <value>Etunimi</value>
+  </data>
+  <data name="UnknownLastName" xml:space="preserve">
+    <value>Sukunimi</value>
+  </data>
+  <data name="UnlockComment" xml:space="preserve">
+    <value>Tiedoston lukitus on poistettu</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versio</value>
+  </data>
+</root>

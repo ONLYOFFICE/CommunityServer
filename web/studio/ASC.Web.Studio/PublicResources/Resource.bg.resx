@@ -1,0 +1,3475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutCompanyAddressTitle" xml:space="preserve">
+    <value>адрес</value>
+  </data>
+  <data name="AboutCompanyEmailTitle" xml:space="preserve">
+    <value>електронна поща</value>
+  </data>
+  <data name="AboutCompanyLicensor" xml:space="preserve">
+    <value>Авторско право</value>
+  </data>
+  <data name="AboutCompanyTelTitle" xml:space="preserve">
+    <value>тел.</value>
+  </data>
+  <data name="AboutCompanyTitle" xml:space="preserve">
+    <value>За тази програма</value>
+  </data>
+  <data name="AboutCompanyVersion" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="AccessRights" xml:space="preserve">
+    <value>Права за достъп</value>
+  </data>
+  <data name="AccessRightsAccessToProduct" xml:space="preserve">
+    <value>Достъп до модула {0} се дава на</value>
+  </data>
+  <data name="AccessRightsAddGroup" xml:space="preserve">
+    <value>Добави {!group}</value>
+  </data>
+  <data name="AccessRightsAddUser" xml:space="preserve">
+    <value>Добавяне на {!user}</value>
+  </data>
+  <data name="AccessRightsAllUsers" xml:space="preserve">
+    <value>Всички {!users}</value>
+  </data>
+  <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
+    <value>Промяна на собственика на портала</value>
+  </data>
+  <data name="AccessRightsChangeOwnerConfirmText" xml:space="preserve">
+    <value>Промените ще бъдат приложени след потвърждението по имейл.</value>
+  </data>
+  <data name="AccessRightsChangeOwnerText" xml:space="preserve">
+    <value>За да промените собственика на портала, изберете по-долу името на новия собственик на портала.</value>
+  </data>
+  <data name="AccessRightsDisabledProduct" xml:space="preserve">
+    <value>Модулът {0} е деактивиран и не се показва на портала. За да го активирате, вижте раздела Модули и инструменти на Настройките на портала</value>
+  </data>
+  <data name="AccessRightsEmptyUserList" xml:space="preserve">
+    <value>Списъкът {!user} е празен</value>
+  </data>
+  <data name="AccessRightsFullAccess" xml:space="preserve">
+    <value>Пълен достъп</value>
+  </data>
+  <data name="AccessRightsFullAccessOpportunities" xml:space="preserve">
+    <value>Имате същите права за достъп като собственика на портала, с изключение на правото да промените собственика на портала | Деактивиране или изтриване на портала</value>
+  </data>
+  <data name="AccessRightsOwnerCan" xml:space="preserve">
+    <value>Собственикът на портала може</value>
+  </data>
+  <data name="AccessRightsOwnerOpportunities" xml:space="preserve">
+    <value>Направи същото като администраторите на модули | Назначаване на администратори на модули | Задаване на права за достъп до модули | Управление на конфигурацията на портала | Управление на потребителски акаунти | Промяна на собственика на портала | Архивиране на данни за портала | Деактивиране или изтриване на портала</value>
+  </data>
+  <data name="AccessRightsProductAdminsCan" xml:space="preserve">
+    <value>{0} администраторите могат</value>
+  </data>
+  <data name="AccessRightsProductUsersCan" xml:space="preserve">
+    <value>{0} {!Users} могат</value>
+  </data>
+  <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
+    <value>{0} {!users} с различни права за достъп могат</value>
+  </data>
+  <data name="AccessRightsUsersFromList" xml:space="preserve">
+    <value>{!Users} от списъка</value>
+  </data>
+  <data name="AccountActivationTitle" xml:space="preserve">
+    <value>Профилът ви вече е почти активен</value>
+  </data>
+  <data name="AccountControlPageTitle" xml:space="preserve">
+    <value>Потвърждаване</value>
+  </data>
+  <data name="AccountDeactivation" xml:space="preserve">
+    <value>Деактивиране на портала</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Преди да изтриете портала, уверете се, че автоматичното фактуриране е изключено. Можете да проверите състоянието на автоматичното фактуриране в профила си в {0} Avangate {1}.</value>
+  </data>
+  <data name="AccountDeactivationMsg" xml:space="preserve">
+    <value>Връзка за потвърждаване на операцията е изпратена на: email (имейл адреса на собственика на портала).</value>
+  </data>
+  <data name="AccountDeletion" xml:space="preserve">
+    <value>Изтриване на портала</value>
+  </data>
+  <data name="AccountDeletionMsg" xml:space="preserve">
+    <value>Връзка за потвърждаване на операцията е изпратена на: email (имейл адреса на собственика на портала).</value>
+  </data>
+  <data name="ActivateAgainGetCodeButton" xml:space="preserve">
+    <value>Изпрати кода отново</value>
+  </data>
+  <data name="ActivateCodeLabel" xml:space="preserve">
+    <value>Въведете кода</value>
+  </data>
+  <data name="ActivateEmailAgain" xml:space="preserve">
+    <value>Активирайте отново имейла</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyCode" xml:space="preserve">
+    <value>Полето за валидиране не може да бъде празно</value>
+  </data>
+  <data name="ActivateMobilePhoneEmptyPhoneNumber" xml:space="preserve">
+    <value>Въведете номер на мобилен телефон</value>
+  </data>
+  <data name="ActivateSendButton" xml:space="preserve">
+    <value>Продължи</value>
+  </data>
+  <data name="ActivateTfaAppEmptyCode" xml:space="preserve">
+    <value>Полето за валидиране не може да бъде празно</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="AddDepartmentDlgTitle" xml:space="preserve">
+    <value>Създаване на нова {!group}</value>
+  </data>
+  <data name="AddGroupsForSharingButton" xml:space="preserve">
+    <value>Добавяне на групи</value>
+  </data>
+  <data name="AddIPRestrictionBtn" xml:space="preserve">
+    <value>Добавете разрешен IP адрес</value>
+  </data>
+  <data name="AddNewCommentButton" xml:space="preserve">
+    <value>Добави коментар</value>
+  </data>
+  <data name="AddToPortalBtn" xml:space="preserve">
+    <value>Добавяне към портала</value>
+  </data>
+  <data name="AddTrustedDomainButton" xml:space="preserve">
+    <value>Добавете доверен домейн</value>
+  </data>
+  <data name="AddUsersCaption" xml:space="preserve">
+    <value>Добавете {!Users}</value>
+  </data>
+  <data name="AddUsersForSharingButton" xml:space="preserve">
+    <value>Добавяне на потребители</value>
+  </data>
+  <data name="Administration" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Администратор</value>
+  </data>
+  <data name="AdministratorNotifySenderTypeName" xml:space="preserve">
+    <value>Уведомления на администратор</value>
+  </data>
+  <data name="AdminMessageButton" xml:space="preserve">
+    <value>Изпрати съобщение</value>
+  </data>
+  <data name="AdminMessageDescription" xml:space="preserve">
+    <value>Няма достъп до портала?</value>
+  </data>
+  <data name="AdminMessageEmail" xml:space="preserve">
+    <value>Имейл адрес, който може да се използва за връзка с вас</value>
+  </data>
+  <data name="AdminMessageLink" xml:space="preserve">
+    <value>Свържете се с администрацията на портала</value>
+  </data>
+  <data name="AdminMessageSent" xml:space="preserve">
+    <value>Съобщението ви бе изпратено успешно. Администраторът на портала ще се свърже с вас.</value>
+  </data>
+  <data name="AdminMessageSettingsEnable" xml:space="preserve">
+    <value>Активиране</value>
+  </data>
+  <data name="AdminMessageSettingsTitle" xml:space="preserve">
+    <value>Настройки на съобщенията на администратора</value>
+  </data>
+  <data name="AdminMessageSituation" xml:space="preserve">
+    <value>Моля, опишете проблема си</value>
+  </data>
+  <data name="AdminMessageTitle" xml:space="preserve">
+    <value>Ако сте съществуващ {!user} и имате проблеми с достъпа до този портал или искате да се регистрирате като нов портал {!user}, моля, свържете се с администратора на портала, като използвате формуляра по-долу.</value>
+  </data>
+  <data name="AdminSettings" xml:space="preserve">
+    <value>Администраторите</value>
+  </data>
+  <data name="AffilliateStatus" xml:space="preserve">
+    <value>Състояние на партньорството</value>
+  </data>
+  <data name="AllMailDomains" xml:space="preserve">
+    <value>Всички домейни</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>Всички права запазени</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. Всички права запазени.</value>
+  </data>
+  <data name="AnswerButton" xml:space="preserve">
+    <value>Отговор</value>
+  </data>
+  <data name="AnswerCallBtn" xml:space="preserve">
+    <value>Отговор</value>
+  </data>
+  <data name="Apps" xml:space="preserve">
+    <value>Услуги</value>
+  </data>
+  <data name="AppsDescription" xml:space="preserve">
+    <value>Разширете функционалността на вашия уеб офис, като използвате интеграцията с услуги на трети страни. Свържете се с администратора на портала, за да активирате необходимите услуги.</value>
+  </data>
+  <data name="AppsDescriptionHelp" xml:space="preserve">
+    <value>Научете повече информация в нашия {0} Помощен център {1}</value>
+  </data>
+  <data name="AssociateAccountConnect" xml:space="preserve">
+    <value>Свържете</value>
+  </data>
+  <data name="AssociateAccountConnected" xml:space="preserve">
+    <value>Свързан</value>
+  </data>
+  <data name="AssociateAccountDisconnect" xml:space="preserve">
+    <value>Прекъсване на връзката</value>
+  </data>
+  <data name="AssociateAccountNotConnected" xml:space="preserve">
+    <value>Няма връзка</value>
+  </data>
+  <data name="AtTime" xml:space="preserve">
+    <value>при</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Заверка</value>
+  </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Упълномощаване</value>
+  </data>
+  <data name="AuthorizationKeys" xml:space="preserve">
+    <value>Интегриране на услуги от трети страни</value>
+  </data>
+  <data name="AuthorizationKeysEnableButton" xml:space="preserve">
+    <value>Активиране</value>
+  </data>
+  <data name="AuthorizationKeysText" xml:space="preserve">
+    <value>Ключовете за оторизация са опцията, която ви позволява да свържете своя ONLYOFFICE™ портал с услуги на трети страни като Twitter, Facebook, DropBox и т.н. Свържете портала си с Facebook, Twitter или Linkedin, ако не искате да въвеждате вашите портала. Вие го въвеждате. Свържете го с такива услуги като DropBox, OneDrive и др., За да прехвърлите документите от всички тези хранилища в модула ONLYOFFICE™ Documents.</value>
+  </data>
+  <data name="AuthTermsService" xml:space="preserve">
+    <value>Условия за ползване</value>
+  </data>
+  <data name="AutoBackupOff" xml:space="preserve">
+    <value>Правя неспособен</value>
+  </data>
+  <data name="AutoBackupOn" xml:space="preserve">
+    <value>Активиране</value>
+  </data>
+  <data name="AutoBackupText" xml:space="preserve">
+    <value>Използвайте тази опция за автоматично архивиране на данните за портала.</value>
+  </data>
+  <data name="AutoDataBackup" xml:space="preserve">
+    <value>Автоматично архивиране</value>
+  </data>
+  <data name="AutoDataBackupHelp" xml:space="preserve">
+    <value>Опцията {0}Автоматично архивиране{1} се използва за автоматизиране на процеса на архивиране на данни за портала, за да може да се възстанови по-късно на локален сървър. Изберете хранилището на данни, автоматичния период на резервно копие и максималния брой запазени копия.{2}{0}Забележка:{1} преди да можете да запазите резервните данни в профил на трета страна (DropBox, Box.com, OneDrive или Google Диск), ще трябва да свържете този профил към папката "Общи документи" ONLYOFFICE.</value>
+  </data>
+  <data name="BackToHomeLink" xml:space="preserve">
+    <value>Отидете на заглавната страница</value>
+  </data>
+  <data name="Backup" xml:space="preserve">
+    <value>Резервно копие</value>
+  </data>
+  <data name="BackupConsumerStorage" xml:space="preserve">
+    <value>Памет за трети страни</value>
+  </data>
+  <data name="BackupCopyCount" xml:space="preserve">
+    <value>Максималният брой резервни копия за съхранение</value>
+  </data>
+  <data name="BackupDocsTeamlab" xml:space="preserve">
+    <value>ONLYOFFICE документи</value>
+  </data>
+  <data name="BackupDocsThirdparty" xml:space="preserve">
+    <value>Dropbox, Box, OneDrive, Google Диск ...</value>
+  </data>
+  <data name="BackupDownloadByLink" xml:space="preserve">
+    <value>Изтеглете архива</value>
+  </data>
+  <data name="BackupMakeCopyBtn" xml:space="preserve">
+    <value>Направете копие</value>
+  </data>
+  <data name="BackupMakeWithMail" xml:space="preserve">
+    <value>Включване на поща в архив</value>
+  </data>
+  <data name="BackupNotAvailableThirdServices" xml:space="preserve">
+    <value>Не са свързани услуги на трети страни. {0} Отидете в модула "Документи", за да се свържете.</value>
+  </data>
+  <data name="BackupReadyText" xml:space="preserve">
+    <value>Можете да изтеглите резервно копие на локалното си устройство, като използвате връзката по-долу. Връзката ще бъде активна 24 часа след заявеното време.</value>
+  </data>
+  <data name="BackupStorage" xml:space="preserve">
+    <value>Съхранение</value>
+  </data>
+  <data name="BackupTempTeamlab" xml:space="preserve">
+    <value>Временен</value>
+  </data>
+  <data name="BackupText" xml:space="preserve">
+    <value>Използвайте тази опция, ако искате да получите всички данни, съдържащи се на портала, като файл.</value>
+  </data>
+  <data name="BackupThirdStorageDisable" xml:space="preserve">
+    <value>Трябва да свържете акаунта на трета страна (DropBox, Box.com, OneDrive или Google Drive) в папката ONLYOFFICE Common Documents, преди да можете да запазите резервната си памет там.</value>
+  </data>
+  <data name="BindDepartmentButton" xml:space="preserve">
+    <value>Добави {!group}</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Дата на раждане</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Браузър</value>
+  </data>
+  <data name="BtnAddNewContact" xml:space="preserve">
+    <value>Добавете нов контакт</value>
+  </data>
+  <data name="ButtonSmsDisable" xml:space="preserve">
+    <value>Правя неспособен</value>
+  </data>
+  <data name="ButtonSmsEnable" xml:space="preserve">
+    <value>С SMS</value>
+  </data>
+  <data name="ButtonTfaAppEnable" xml:space="preserve">
+    <value>Чрез приложението за удостоверяване</value>
+  </data>
+  <data name="CallBtn" xml:space="preserve">
+    <value>Обадете се</value>
+  </data>
+  <data name="CallCompleteStatus" xml:space="preserve">
+    <value>Обаждането приключи</value>
+  </data>
+  <data name="CallConnectStatus" xml:space="preserve">
+    <value>Свързване</value>
+  </data>
+  <data name="CallGoingStatus" xml:space="preserve">
+    <value>Обаждането е в ход</value>
+  </data>
+  <data name="CallIncomingStatus" xml:space="preserve">
+    <value>Входящ</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="CancelConfirmMessage" xml:space="preserve">
+    <value>Всички въведени от вас данни ще бъдат загубени. Сигурен ли си, че искаш да продължиш?</value>
+  </data>
+  <data name="ChangeEmailSuccess" xml:space="preserve">
+    <value>Пощата е променена успешно</value>
+  </data>
+  <data name="ChangeLogoButton" xml:space="preserve">
+    <value>Промяна на логото</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Паролата е променена успешно</value>
+  </data>
+  <data name="ChangePortalOwnerMsg" xml:space="preserve">
+    <value>Връзка за потвърждаване на операцията е изпратена на: email (имейл адреса на собственика на портала).</value>
+  </data>
+  <data name="ChartDateFormat" xml:space="preserve">
+    <value>%d %b</value>
+  </data>
+  <data name="ChartMonthNames" xml:space="preserve">
+    <value>Януари, Февруари, Мар, Април, Май, Юни, Юли, Август, Септември, Октомври, Ноември, Декември</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Избирам</value>
+  </data>
+  <data name="ChooseOwner" xml:space="preserve">
+    <value>Изберете Собственик</value>
+  </data>
+  <data name="ChooseUser" xml:space="preserve">
+    <value>Изберете {!user}</value>
+  </data>
+  <data name="ClearFilterButton" xml:space="preserve">
+    <value>Изчистване на филтъра</value>
+  </data>
+  <data name="CloseButton" xml:space="preserve">
+    <value>Близо</value>
+  </data>
+  <data name="ColorThemeBrightBlue" xml:space="preserve">
+    <value>Светло син</value>
+  </data>
+  <data name="ColorThemeDarkGreen" xml:space="preserve">
+    <value>Тъмнозелено</value>
+  </data>
+  <data name="ColorThemeDeepBlue" xml:space="preserve">
+    <value>Тъмносин</value>
+  </data>
+  <data name="ColorThemeDefault" xml:space="preserve">
+    <value>Меко зелено</value>
+  </data>
+  <data name="ColorThemePureOrange" xml:space="preserve">
+    <value>Чисто оранжево</value>
+  </data>
+  <data name="ColorThemesTitle" xml:space="preserve">
+    <value>Цветни теми</value>
+  </data>
+  <data name="ColorThemeWildPink" xml:space="preserve">
+    <value>Диво розово</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Коментари</value>
+  </data>
+  <data name="CommentWasRemoved" xml:space="preserve">
+    <value>Коментарът бе изтрит</value>
+  </data>
+  <data name="CompleteCallBtn" xml:space="preserve">
+    <value>Прекъсване на връзката</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Потвърждаване</value>
+  </data>
+  <data name="ConfirmationTitle" xml:space="preserve">
+    <value>Потвърждаване</value>
+  </data>
+  <data name="ConfirmDeactivatePortalTitle" xml:space="preserve">
+    <value>Моля, потвърдете, че искате да деактивирате портала си</value>
+  </data>
+  <data name="ConfirmDeletePortalTitle" xml:space="preserve">
+    <value>Моля, потвърдете, че искате да изтриете портала си</value>
+  </data>
+  <data name="ConfirmDnsUpdateTitle" xml:space="preserve">
+    <value>Наистина ли искате да промените адреса на портала на {0}?</value>
+  </data>
+  <data name="ConfirmOwnerPortalSuccessMessage" xml:space="preserve">
+    <value>Собственикът на портала бе променен успешно. {0} След 10 секунди ще бъдете пренасочени {1} тук {2}</value>
+  </data>
+  <data name="ConfirmOwnerPortalTitle" xml:space="preserve">
+    <value>Моля, потвърдете, че искате да промените собственика на портала на {0}</value>
+  </data>
+  <data name="ConfirmPersonalJoin" xml:space="preserve">
+    <value>Присъедините</value>
+  </data>
+  <data name="ConfirmPersonalText" xml:space="preserve">
+    <value>Успешно потвърдихте регистрацията си. Създайте парола и започнете работата си!</value>
+  </data>
+  <data name="ConfirmReactivatePortalTitle" xml:space="preserve">
+    <value>Моля, потвърдете, че искате да активирате отново портала си</value>
+  </data>
+  <data name="ConfirmRemoveCommentMessage" xml:space="preserve">
+    <value>Наистина ли искате да изтриете коментара си?</value>
+  </data>
+  <data name="ConfirmRemoveCommentTitle" xml:space="preserve">
+    <value>Премахване на коментара</value>
+  </data>
+  <data name="CongratulateBirthday" xml:space="preserve">
+    <value>Поздравявам</value>
+  </data>
+  <data name="ConnectButton" xml:space="preserve">
+    <value>Свържете</value>
+  </data>
+  <data name="Consumersacesskey" xml:space="preserve">
+    <value>S3 accesskey</value>
+  </data>
+  <data name="ConsumersapiKey" xml:space="preserve">
+    <value>Rackspace apiKey</value>
+  </data>
+  <data name="ConsumersauthPwd" xml:space="preserve">
+    <value>Избери authPwd</value>
+  </data>
+  <data name="ConsumersauthUser" xml:space="preserve">
+    <value>Избор на потребител</value>
+  </data>
+  <data name="ConsumersBitly" xml:space="preserve">
+    <value>Bitly</value>
+  </data>
+  <data name="ConsumersbitlyClientId" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="ConsumersbitlyClientSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBitlyDescription" xml:space="preserve">
+    <value>Свържете услугата Bitly, за да съкратите връзките с покани за портала и споделените връзки в модула Документи.</value>
+  </data>
+  <data name="ConsumersBitlyInstruction" xml:space="preserve">
+    <value>Ако добавите услугата Bitly, ще получите съкратени връзки за покана на нови потребители към портала ONLYOFFICE™ и съкратени връзки към документи в модула Документи, които са споделени с външни потребители.</value>
+  </data>
+  <data name="ConsumersBitlyKey" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="ConsumersBitlySecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box</value>
+  </data>
+  <data name="ConsumersboxClientId" xml:space="preserve">
+    <value>ID на кутия</value>
+  </data>
+  <data name="ConsumersboxClientSecret" xml:space="preserve">
+    <value>Клавиш Box</value>
+  </data>
+  <data name="ConsumersBoxDescription" xml:space="preserve">
+    <value>Свържете приложението, за да управлявате файловете и папките на Box.</value>
+  </data>
+  <data name="ConsumersBoxInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата Box, ще можете да свържете вашата Box сметка в модула Documents. Това ще позволи да качвате и създавате нови файлове в Box, да редактирате съществуващите, да ги копирате и изтривате, да споделяте файлове и папки с потребители на ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>ID на кутия</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Клавиш Box</value>
+  </data>
+  <data name="ConsumersClickatell" xml:space="preserve">
+    <value>Clickatell</value>
+  </data>
+  <data name="ConsumersclickatellapiKey" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersClickatellDescription" xml:space="preserve">
+    <value>Активирайте приложението за двуфакторно удостоверяване чрез Clickatell.</value>
+  </data>
+  <data name="ConsumersClickatellInstruction" xml:space="preserve">
+    <value>С добавянето на услугата Clickatell ще можете да активирате двуфакторното удостоверяване и да получите SMS с код, който позволява на потребителя да влезе в портала ONLYOFFICE.</value>
+  </data>
+  <data name="ConsumersClickatellSecret" xml:space="preserve">
+    <value>apiKey</value>
+  </data>
+  <data name="ConsumersDocuSign" xml:space="preserve">
+    <value>DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientId" xml:space="preserve">
+    <value>Ключ DocuSign</value>
+  </data>
+  <data name="ConsumersdocuSignClientSecret" xml:space="preserve">
+    <value>DocuSign Secret</value>
+  </data>
+  <data name="ConsumersDocuSignDescription" xml:space="preserve">
+    <value>Свържете приложението, за да добавите електронния знак DocuSign към документите.</value>
+  </data>
+  <data name="ConsumersdocuSignHost" xml:space="preserve">
+    <value>Крайна точка за удостоверяване на DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата DocuSign, ще можете да подписвате файлове от модула Документи. Това ще позволи да се изпрати файл за електронния подпис на служителите на портала ONLYOFFICE™ чрез услугата DocuSugn. Подписаният файл ще бъде запазен в модула ONLYOFFICE™ Documents.</value>
+  </data>
+  <data name="ConsumersDocuSignKey" xml:space="preserve">
+    <value>Ключ DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignKeyDefault" xml:space="preserve">
+    <value>Крайна точка за удостоверяване на DocuSign</value>
+  </data>
+  <data name="ConsumersDocuSignSecret" xml:space="preserve">
+    <value>DocuSign Secret</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ConsumersdropboxClientId" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersdropboxClientSecret" xml:space="preserve">
+    <value>DropBox Key</value>
+  </data>
+  <data name="ConsumersDropBoxDescription" xml:space="preserve">
+    <value>Свържете приложението, за да управлявате Dropbox файлове и папки.</value>
+  </data>
+  <data name="ConsumersDropBoxInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата Dropbox, ще можете да свържете профила си в Dropbox в модула Документи. Това ще позволи да качвате и създавате нови файлове в Dropbox, да редактирате съществуващите, да ги копирате и изтривате, да споделяте файлове и папки с потребители на портала ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>DropBox Key</value>
+  </data>
+  <data name="ConsumersEasyBib" xml:space="preserve">
+    <value>EasyBib</value>
+  </data>
+  <data name="ConsumerseasyBibappkey" xml:space="preserve">
+    <value>Клавиш App</value>
+  </data>
+  <data name="ConsumersEasyBibDescription" xml:space="preserve">
+    <value>Свържете приложението EasyBib, за да създадете библиографски списъци.</value>
+  </data>
+  <data name="ConsumersEasyBibInstruction" xml:space="preserve">
+    <value>Когато добавите приложението EasyBib, можете лесно да създавате библиографски списъци във вашите документи.</value>
+  </data>
+  <data name="ConsumersEasyBibKey" xml:space="preserve">
+    <value>Клавиш App</value>
+  </data>
+  <data name="ConsumersEasyBibSecret" xml:space="preserve">
+    <value>Клавиш App</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersfacebookAccessToken_Default" xml:space="preserve">
+    <value>Токен на приложението</value>
+  </data>
+  <data name="ConsumersfacebookClientId" xml:space="preserve">
+    <value>ID на Facebook</value>
+  </data>
+  <data name="ConsumersfacebookClientSecret" xml:space="preserve">
+    <value>Ключ Facebook</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook в CRM ключ</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>Токен на приложението</value>
+  </data>
+  <data name="ConsumersFacebookDescription" xml:space="preserve">
+    <value>Свържете приложението, за да влезете в портала, като използвате профил в Facebook и потърсете контакти.</value>
+  </data>
+  <data name="ConsumersFacebookInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата Facebook, ще можете да свържете вашата Facebook сметка в страницата на вашия профил, така че да можете да влезете в портала ONLYOFFICE™, като го използвате. Също така ще можете да откриете Facebook профил на контакт в модула CRM и да го свържете на страницата 'Редактиране на лице/фирма'.</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>ID на Facebook</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Ключ Facebook</value>
+  </data>
+  <data name="ConsumersFacebookSecretDefalt" xml:space="preserve">
+    <value>Токен на приложението</value>
+  </data>
+  <data name="ConsumersFirebase" xml:space="preserve">
+    <value>Firebase</value>
+  </data>
+  <data name="Consumersfirebase_apiKey" xml:space="preserve">
+    <value>Ключ за уеб API</value>
+  </data>
+  <data name="Consumersfirebase_authorization" xml:space="preserve">
+    <value>Ключ на сървъра</value>
+  </data>
+  <data name="Consumersfirebase_messagingSenderId" xml:space="preserve">
+    <value>ID на подателя</value>
+  </data>
+  <data name="Consumersfirebase_projectId" xml:space="preserve">
+    <value>ID на проекта</value>
+  </data>
+  <data name="ConsumersFirebaseDescription" xml:space="preserve">
+    <value>Свържете услугата Firebase Cloud Messaging, за да получавате известия за изпратените до вас съобщения.</value>
+  </data>
+  <data name="ConsumersFirebaseInstruction" xml:space="preserve">
+    <value>Ако свържете Firebase Cloud Messaging, ще можете да получавате известия за изпратените до вас съобщения, дори когато сте офлайн.</value>
+  </data>
+  <data name="ConsumersFirebaseKey" xml:space="preserve">
+    <value>Ключ за уеб API</value>
+  </data>
+  <data name="ConsumersFirebaseKeyDefault" xml:space="preserve">
+    <value>ID на подателя</value>
+  </data>
+  <data name="ConsumersFirebaseSecret" xml:space="preserve">
+    <value>ID на проекта</value>
+  </data>
+  <data name="ConsumersFirebaseSecretDefault" xml:space="preserve">
+    <value>Ключ на сървъра</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="ConsumersgoogleClientId" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersgoogleClientSecret" xml:space="preserve">
+    <value>Ключ Google</value>
+  </data>
+  <data name="ConsumersGoogleCloud" xml:space="preserve">
+    <value>Google Cloud Storage</value>
+  </data>
+  <data name="ConsumersGoogleCloudbucket" xml:space="preserve">
+    <value>Кофа</value>
+  </data>
+  <data name="ConsumersGoogleCloudDescription" xml:space="preserve">
+    <value>Свържете услугата Google Cloud Storage за архивиране и съхраняване на данни от портала.</value>
+  </data>
+  <data name="ConsumersGoogleCloudInstruction" xml:space="preserve">
+    <value>Когато добавите услугата Google Cloud Storage към портала си, можете да я използвате за създаване на резервни копия на портала, като се уверите, че няма да бъдат загубени никакви данни. Използвайте го и за съхраняване на данни и статично съдържание от вашия портал.</value>
+  </data>
+  <data name="ConsumersGoogleCloudjsonPath" xml:space="preserve">
+    <value>Google Cloud Storage jathPath</value>
+  </data>
+  <data name="ConsumersGoogleDescription" xml:space="preserve">
+    <value>Свържете проекта, за да влезете в портала с помощта на профил в Google и да управлявате файлове и папки на Google Диск.</value>
+  </data>
+  <data name="ConsumersGoogleInstruction" xml:space="preserve">
+    <value>Ако добавите проект на услугата на Google, ще можете да свържете профила си в Google в страницата на потребителския си профил, за да можете да влезете в него чрез него, както и да свържете профила си в Google Диск в модула Документи. Това ще позволи да качвате и създавате нови файлове в Google Диск, да редактирате съществуващите, да ги копирате и изтривате, да споделяте файлове и папки с потребители на портала ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Ключ Google</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="ConsumersLinkedInDescription" xml:space="preserve">
+    <value>Свържете приложението, за да влезете в портала, като използвате профил в LinkedIn.</value>
+  </data>
+  <data name="ConsumersLinkedInInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата LinkedIn, ще можете да свържете вашата LinkedIn сметка на страницата на вашия профил, така че да можете да влезете в портала ONLYOFFICE™, като го използвате.</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>ID на Linkedin</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Ключ на Linkedin</value>
+  </data>
+  <data name="ConsumersRackspace" xml:space="preserve">
+    <value>Rackspace Cloud Storage</value>
+  </data>
+  <data name="ConsumersRackspaceDescription" xml:space="preserve">
+    <value>Свържете услугата Rackspace Cloud Storage, за да архивирате и съхранявате данни от вашия портал.</value>
+  </data>
+  <data name="ConsumersRackspaceInstruction" xml:space="preserve">
+    <value>Когато добавите услугата Rackspace Cloud Storage към вашия портал, можете да я използвате за създаване на резервни копия на портала, като се уверите, че няма да бъдат загубени данни. Използвайте го и за съхраняване на данни и статично съдържание от вашия портал.</value>
+  </data>
+  <data name="ConsumersRackspaceprivate_container" xml:space="preserve">
+    <value>Частни контейнери</value>
+  </data>
+  <data name="ConsumersRackspacepublic_container" xml:space="preserve">
+    <value>Публичен контейнер</value>
+  </data>
+  <data name="ConsumersRackspaceregion" xml:space="preserve">
+    <value>Област</value>
+  </data>
+  <data name="ConsumersS3" xml:space="preserve">
+    <value>Amazon AWS S3</value>
+  </data>
+  <data name="ConsumersS3Description" xml:space="preserve">
+    <value>Свържете Amazon AWS S3, за да архивирате и съхранявате данни от вашия портал.</value>
+  </data>
+  <data name="ConsumersS3Instruction" xml:space="preserve">
+    <value>Когато добавите Amazon AWS S3 към вашия портал, можете да го използвате за създаване на резервни копия на портала, като се уверите, че няма да бъдат загубени никакви данни. Използвайте го и за съхраняване на данни и статично съдържание от вашия портал.</value>
+  </data>
+  <data name="ConsumersS3region" xml:space="preserve">
+    <value>Област</value>
+  </data>
+  <data name="Consumerssecretaccesskey" xml:space="preserve">
+    <value>S3 секретен ключ за достъп</value>
+  </data>
+  <data name="ConsumersSelectel" xml:space="preserve">
+    <value>Избрано облачно съхранение</value>
+  </data>
+  <data name="ConsumersSelectelauthPwd" xml:space="preserve">
+    <value>Auth Pwd</value>
+  </data>
+  <data name="ConsumersSelectelauthUser" xml:space="preserve">
+    <value>Упълномощен потребител</value>
+  </data>
+  <data name="ConsumersSelectelCloudInstruction" xml:space="preserve">
+    <value>Когато добавите услугата Cloud Cloud Storage към вашия портал, можете да я използвате за създаване на резервни копия на портала, като се уверите, че няма да бъдат загубени никакви данни. Използвайте го и за съхраняване на данни и статично съдържание от вашия портал.</value>
+  </data>
+  <data name="ConsumersSelectelDescription" xml:space="preserve">
+    <value>Свържете услугата Selectel Cloud Storage, за да архивирате и съхранявате данни от вашия портал.</value>
+  </data>
+  <data name="ConsumersSelectelprivate_container" xml:space="preserve">
+    <value>Частни контейнери</value>
+  </data>
+  <data name="ConsumersSelectelpublic_container" xml:space="preserve">
+    <value>Обществен контейнер</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>OneDrive</value>
+  </data>
+  <data name="Consumersskydriveappkey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="Consumersskydriveappsecret" xml:space="preserve">
+    <value>Ключ OneDrive</value>
+  </data>
+  <data name="ConsumersSkyDriveDescription" xml:space="preserve">
+    <value>Свържете приложението, за да управлявате OneDrive файлове и папки.</value>
+  </data>
+  <data name="ConsumersSkyDriveInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата OneDrive, ще можете да свържете профила си в OneDrive в модула Документи. Това ще позволи да се качват и създават нови файлове в OneDrive, да се редактират съществуващи, да се копират и изтриват, да се споделят файлове и папки с потребители на портала ONLYOFFICE™.</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>OneDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>Ключ OneDrive</value>
+  </data>
+  <data name="ConsumersSmsc" xml:space="preserve">
+    <value>SMS център</value>
+  </data>
+  <data name="ConsumersSmscDescription" xml:space="preserve">
+    <value>Активирайте приложението за двуфакторно удостоверяване чрез SMS Center.</value>
+  </data>
+  <data name="ConsumersSmscInstruction" xml:space="preserve">
+    <value>С добавянето на услугата SMS Center можете да активирате двуфакторната автентификация и да получите SMS с код, който позволява на потребителя да влезе в портала ONLYOFFICE. Приложението SMS Center е полезно като доставчик за страните от ОНД.</value>
+  </data>
+  <data name="ConsumersSmscKey" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="Consumerssmsclogin" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="Consumerssmscpsw" xml:space="preserve">
+    <value>Парола или паролата MD5 hash в малки букви</value>
+  </data>
+  <data name="ConsumersSmscSecret" xml:space="preserve">
+    <value>Парола или паролата MD5 hash в малки букви</value>
+  </data>
+  <data name="ConsumersTwilio" xml:space="preserve">
+    <value>Twilio</value>
+  </data>
+  <data name="ConsumerstwilioAccountSid" xml:space="preserve">
+    <value>Сметка Sid</value>
+  </data>
+  <data name="ConsumerstwilioAuthToken" xml:space="preserve">
+    <value>Означение за удостоверяване</value>
+  </data>
+  <data name="ConsumersTwilioDescription" xml:space="preserve">
+    <value>Добавете Twilio, за да можете да извиквате CRM контакти направо от браузъра.</value>
+  </data>
+  <data name="ConsumersTwilioInstruction" xml:space="preserve">
+    <value>След като добавите Twilio, ще можете да извикате всеки CRM контакт направо от браузъра.</value>
+  </data>
+  <data name="ConsumersTwilioKey" xml:space="preserve">
+    <value>Сметка Sid</value>
+  </data>
+  <data name="ConsumersTwilioKeyDefault" xml:space="preserve">
+    <value>Телефонен номер от Twilio (изисква се за SMS разрешение)</value>
+  </data>
+  <data name="ConsumersTwilioSecret" xml:space="preserve">
+    <value>Означение за удостоверяване</value>
+  </data>
+  <data name="Consumerstwiliosender" xml:space="preserve">
+    <value>Телефонен номер от Twilio (изисква се за SMS разрешение)</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="ConsumerstwitterAccessToken_Default" xml:space="preserve">
+    <value>Жетон за достъп</value>
+  </data>
+  <data name="ConsumerstwitterAccessTokenSecret_Default" xml:space="preserve">
+    <value>Достъп до Token Secret</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter в CRM ключа</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>ID на Twitter</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Ключ за Twitter</value>
+  </data>
+  <data name="ConsumersTwitterDescription" xml:space="preserve">
+    <value>Свържете приложението, за да влезете в портала, като използвате профил в Twitter и потърсете контакти.</value>
+  </data>
+  <data name="ConsumersTwitterInstruction" xml:space="preserve">
+    <value>Ако добавите приложение на услугата Twitter, ще можете да свържете профила си в Twitter в страницата на профила си, така че да можете да влезете в портала ONLYOFFICE™, като го използвате. Също така ще можете да намерите профил в Twitter на човек в модула CRM и да го свържете на страницата 'Редактиране на човек/фирма' и след това да прегледате емисия на новини в Twitter.</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>ID на Twitter</value>
+  </data>
+  <data name="ConsumersTwitterKeyDefault" xml:space="preserve">
+    <value>Жетон за достъп</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Ключ за Twitter</value>
+  </data>
+  <data name="ConsumersTwitterSecretDefault" xml:space="preserve">
+    <value>Достъп до Token Secret</value>
+  </data>
+  <data name="Consumersusername" xml:space="preserve">
+    <value>Rackspace потребителско име</value>
+  </data>
+  <data name="ConsumersWordpress" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
+  <data name="ConsumersWordpressDescription" xml:space="preserve">
+    <value>Свържете приложението за публикуване на документи в WordPress.</value>
+  </data>
+  <data name="ConsumersWordpressInstruction" xml:space="preserve">
+    <value>Добавянето на WordPress приложението ви позволява лесно да публикувате документите на вашия WordPress сайт, запазвайки форматирането им.</value>
+  </data>
+  <data name="ConsumersWordpressKey" xml:space="preserve">
+    <value>Ключ за WordPress</value>
+  </data>
+  <data name="ConsumersWordpressSecret" xml:space="preserve">
+    <value>Тайната на WordPress</value>
+  </data>
+  <data name="ConsumerswpClientId" xml:space="preserve">
+    <value>Ключ за WordPress</value>
+  </data>
+  <data name="ConsumerswpClientSecret" xml:space="preserve">
+    <value>Тайната на WordPress</value>
+  </data>
+  <data name="ConsumersYahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="ConsumersyahooClientId" xml:space="preserve">
+    <value>Клиентски идентификатор</value>
+  </data>
+  <data name="ConsumersyahooClientSecret" xml:space="preserve">
+    <value>Клиентска тайна</value>
+  </data>
+  <data name="ConsumersYahooDescription" xml:space="preserve">
+    <value>Активирайте приложението за импортиране на контакти в Yahoo.</value>
+  </data>
+  <data name="ConsumersYahooInstruction" xml:space="preserve">
+    <value>Добавянето на приложението за услуги на Yahoo ще ви позволи да добавите нови потребители на ONLYOFFICE портал от списъка с контакти.</value>
+  </data>
+  <data name="ConsumersYahooKey" xml:space="preserve">
+    <value>Клиентски идентификатор</value>
+  </data>
+  <data name="ConsumersYahooSecret" xml:space="preserve">
+    <value>Клиентска тайна</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Информация за връзка</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Продължи</value>
+  </data>
+  <data name="ControlPanelLabel" xml:space="preserve">
+    <value>Контролен панел</value>
+  </data>
+  <data name="ControlPanelSettings" xml:space="preserve">
+    <value>Контролен панел</value>
+  </data>
+  <data name="CookieSettingsHelp" xml:space="preserve">
+    <value>{0}Продължителността на сесията{1} позволява да зададете време (в минути), преди потребителите на портала отново да трябва да въведат пълномощията на портала, за да получат достъп до портала.{2} След като запишете всички потребители ще бъдат излезли от портала.</value>
+  </data>
+  <data name="CookieSettingsLifeTime" xml:space="preserve">
+    <value>Време на живот (мин)</value>
+  </data>
+  <data name="CookieSettingsTitle" xml:space="preserve">
+    <value>Продължителност на сесията</value>
+  </data>
+  <data name="CopyEmailAndPassword" xml:space="preserve">
+    <value>Копиране на имейл и парола</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Копирайте връзката</value>
+  </data>
+  <data name="CorporateUse" xml:space="preserve">
+    <value>Корпоративно ползване</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForLdapUser" xml:space="preserve">
+    <value>Операцията по възстановяване на парола е забранена за LDAP потребител</value>
+  </data>
+  <data name="CouldNotRecoverPasswordForSsoUser" xml:space="preserve">
+    <value>Операцията по възстановяване на парола е забранена за потребители на SSO</value>
+  </data>
+  <data name="CreateEmailOnDomain" xml:space="preserve">
+    <value>Създайте имейл на домейн</value>
+  </data>
+  <data name="CreateNewProfile" xml:space="preserve">
+    <value>Създайте нов профил</value>
+  </data>
+  <data name="CreatingBackup" xml:space="preserve">
+    <value>създаване на резервно копие</value>
+  </data>
+  <data name="CustomDomainName" xml:space="preserve">
+    <value>Потребителско име на домейн</value>
+  </data>
+  <data name="Customization" xml:space="preserve">
+    <value>Персонализиране</value>
+  </data>
+  <data name="CustomNamingPeopleSchema" xml:space="preserve">
+    <value>Персонализиран</value>
+  </data>
+  <data name="CustomNavigationAddBtn" xml:space="preserve">
+    <value>Добавете артикул</value>
+  </data>
+  <data name="CustomNavigationAddDialogHeader" xml:space="preserve">
+    <value>Добавете артикул</value>
+  </data>
+  <data name="CustomNavigationBigImgHeader" xml:space="preserve">
+    <value>Голяма икона, 100x100</value>
+  </data>
+  <data name="CustomNavigationChangeImage" xml:space="preserve">
+    <value>Промяна на изображението</value>
+  </data>
+  <data name="CustomNavigationEditBtn" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="CustomNavigationEditDialogHeader" xml:space="preserve">
+    <value>Настройки на елемент</value>
+  </data>
+  <data name="CustomNavigationHelp" xml:space="preserve">
+    <value>{0}Навигация по избор{1} - настройката за промяна на навигационното меню.{2}Добавете свои собствени елементи за по-голяма използваемост на портала. Моля, обърнете внимание, че ако сайтът ви използва HTTPS, всички връзки трябва да са в HTTPS, в противен случай предупреждението ще се покаже в браузърите.</value>
+  </data>
+  <data name="CustomNavigationLabelHeader" xml:space="preserve">
+    <value>Етикет</value>
+  </data>
+  <data name="CustomNavigationRemoveBtn" xml:space="preserve">
+    <value>Премахни артикул</value>
+  </data>
+  <data name="CustomNavigationShowInMenu" xml:space="preserve">
+    <value>Показване в менюто</value>
+  </data>
+  <data name="CustomNavigationShowOnHomePage" xml:space="preserve">
+    <value>Показване на началната страница</value>
+  </data>
+  <data name="CustomNavigationSmallImgHeader" xml:space="preserve">
+    <value>Малка икона, 16x16</value>
+  </data>
+  <data name="CustomNavigationTitle" xml:space="preserve">
+    <value>Персонализирана навигация</value>
+  </data>
+  <data name="CustomNavigationURLHeader" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="DataBackup" xml:space="preserve">
+    <value>Архивиране на данни</value>
+  </data>
+  <data name="DataBackupHelp" xml:space="preserve">
+    <value>Опцията {0}Архивиране на данни{1} се използва за архивиране на данните за портала, за да може да се възстанови по-късно на локалния ви сървър. Изберете хранилището за данните (не забравяйте да въведете данните си от Amazon, за да имате достъп до нея).{2} Ако изберете да включите поща, ще се архивират само съобщенията за последните 30 дни. {2}{0} Забележка:{1} трябва да свържете сметката на трета страна (DropBox, Box.com, OneDrive или Google Drive) към папката ONLYOFFICE Common Documents, преди да можете да запазите резервното копие там.</value>
+  </data>
+  <data name="DataManagement" xml:space="preserve">
+    <value>Управление на данни</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>ден</value>
+  </data>
+  <data name="DaysOne" xml:space="preserve">
+    <value>дни</value>
+  </data>
+  <data name="DaysTwo" xml:space="preserve">
+    <value>дни</value>
+  </data>
+  <data name="DeactivateButton" xml:space="preserve">
+    <value>Деактивиране</value>
+  </data>
+  <data name="DeactivatePortalButton" xml:space="preserve">
+    <value>Деактивиране</value>
+  </data>
+  <data name="DeactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Профилът ви бе деактивиран успешно. {0} След 10 секунди ще бъдете пренасочени {1} тук {2}</value>
+  </data>
+  <data name="DeactivationDeletionPortal" xml:space="preserve">
+    <value>Деактивиране/изтриване на портала</value>
+  </data>
+  <data name="DeactivationDesc" xml:space="preserve">
+    <value>Използвайте тази опция за временно деактивиране на портала.</value>
+  </data>
+  <data name="DefaultPageSettingsChoiseOfProducts" xml:space="preserve">
+    <value>Избор на модул</value>
+  </data>
+  <data name="DefaultPageSettingsTitle" xml:space="preserve">
+    <value>Начална страница по подразбиране</value>
+  </data>
+  <data name="DefaultSettings" xml:space="preserve">
+    <value>Настройките по подразбиране</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="DeleteDepartmentConfirmation" xml:space="preserve">
+    <value>Това действие не може да бъде отменено. Наистина ли искате да изтриете {!group} {0}?</value>
+  </data>
+  <data name="DeletePortalButton" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="DeletePortalSuccessMessage" xml:space="preserve">
+    <value>Порталът ви бе успешно изтрит. {0} След 10 секунди ще бъдете пренасочени {1} тук {2}</value>
+  </data>
+  <data name="DeleteProfileBtn" xml:space="preserve">
+    <value>Изтрий моя акаунт</value>
+  </data>
+  <data name="DeleteProfileButton" xml:space="preserve">
+    <value>Изтрий профила ми</value>
+  </data>
+  <data name="DeleteProfileConfirmation" xml:space="preserve">
+    <value>Внимание! На път сте да изтриете профила си.</value>
+  </data>
+  <data name="DeleteProfileConfirmationInfo" xml:space="preserve">
+    <value>Като кликнете върху бутона 'Изтриване на моя профил', Вие се съгласявате с нашата {0} Декларация за поверителност {1}.</value>
+  </data>
+  <data name="DeleteProfileInfo" xml:space="preserve">
+    <value>Изпратете указанията за изтриване на профила на имейл адреса</value>
+  </data>
+  <data name="DeleteProfileSuccessMessage" xml:space="preserve">
+    <value>Профилът ви бе успешно изтрит.</value>
+  </data>
+  <data name="DeleteProfileSuccessMessageInfo" xml:space="preserve">
+    <value>Вижте нашата {0} Декларация за поверителност {1}, за да научите повече за изтриването на профила ви и свързаните с него данни.</value>
+  </data>
+  <data name="DeleteProfileTitle" xml:space="preserve">
+    <value>Изтриване на диалоговия прозорец на профила</value>
+  </data>
+  <data name="DeleteSelfProfile" xml:space="preserve">
+    <value>Изтриване на подпрофил</value>
+  </data>
+  <data name="DeleteUserConfirmation" xml:space="preserve">
+    <value>{!User} {0} ще бъде изтрит.</value>
+  </data>
+  <data name="DeleteUserDataConfirmation" xml:space="preserve">
+    <value>Личните документи на потребителите, които са достъпни за другите, ще бъдат изтрити. За да избегнете това, трябва да започнете процеса на преназначаване на данните, преди да го изтриете.</value>
+  </data>
+  <data name="DeletionDesc" xml:space="preserve">
+    <value>Използвайте тази опция за постоянно изтриване на портала.</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>{!Group}</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>{!Groups}</value>
+  </data>
+  <data name="DepEditHeader" xml:space="preserve">
+    <value>Редактиране {!group}</value>
+  </data>
+  <data name="DesktopEditorsFor" xml:space="preserve">
+    <value>ONLYOFFICE редактори за настолни компютри за {0}</value>
+  </data>
+  <data name="DisabledEmployeeTitle" xml:space="preserve">
+    <value>Хора с увреждания</value>
+  </data>
+  <data name="DisableUserButton" xml:space="preserve">
+    <value>Правя неспособен</value>
+  </data>
+  <data name="DisableUserHelp" xml:space="preserve">
+    <value>{!User} няма да се показва в списъка с активни {!users}</value>
+  </data>
+  <data name="DnsChangeMsg" xml:space="preserve">
+    <value>Връзка за потвърждаване на операцията е изпратена на {0} (имейл адреса на собственика на портала).</value>
+  </data>
+  <data name="DnsSettings" xml:space="preserve">
+    <value>Настройки за DNS</value>
+  </data>
+  <data name="DocService" xml:space="preserve">
+    <value>Служба за документи</value>
+  </data>
+  <data name="DocServiceText" xml:space="preserve">
+    <value>Местоположението на услугата документ указва адреса на сървъра с инсталираните услуги за документи. Моля, променете '&amp;lt; editors-dns-name &amp;gt;' за адреса на сървъра в долните редове, оставяйки останалата част от линията точно както е.</value>
+  </data>
+  <data name="DocServiceUrl" xml:space="preserve">
+    <value>Местоположение на услугата за документи</value>
+  </data>
+  <data name="DocServiceUrlApi" xml:space="preserve">
+    <value>Адрес на услугата за редактиране на документи</value>
+  </data>
+  <data name="DocServiceUrlExample" xml:space="preserve">
+    <value>Пример: {0}</value>
+  </data>
+  <data name="DocServiceUrlHelp2" xml:space="preserve">
+    <value>{1}Document Service{2} е услуга на сървъра, която позволява извършването на редактиране на документа и позволява конвертиране на документа в съответния формат OfficeOpen XML.</value>
+  </data>
+  <data name="DocServiceUrlInternal" xml:space="preserve">
+    <value>Адрес на услугата за документи за заявки от сървъра на Общността</value>
+  </data>
+  <data name="DocServiceUrlPortal2" xml:space="preserve">
+    <value>Адрес на сървъра на Общността за заявки от услугата за документи</value>
+  </data>
+  <data name="DocumentsForDevices" xml:space="preserve">
+    <value>ONLYOFFICE Документи за {0} устройства</value>
+  </data>
+  <data name="DownloadButton" xml:space="preserve">
+    <value>Изтегли</value>
+  </data>
+  <data name="DrnAgo" xml:space="preserve">
+    <value>{0} преди</value>
+  </data>
+  <data name="DrnAgoDaysI" xml:space="preserve">
+    <value>{0} ден</value>
+  </data>
+  <data name="DrnAgoDaysR1" xml:space="preserve">
+    <value>{0} дни</value>
+  </data>
+  <data name="DrnAgoDaysRm" xml:space="preserve">
+    <value>{0} дни</value>
+  </data>
+  <data name="DrnAgoFewMoments" xml:space="preserve">
+    <value>просто</value>
+  </data>
+  <data name="DrnAgoHoursI" xml:space="preserve">
+    <value>{0} час</value>
+  </data>
+  <data name="DrnAgoHoursR1" xml:space="preserve">
+    <value>{0} часа</value>
+  </data>
+  <data name="DrnAgoHoursRm" xml:space="preserve">
+    <value>{0} часа</value>
+  </data>
+  <data name="DrnAgoMinutesI" xml:space="preserve">
+    <value>{0} минути</value>
+  </data>
+  <data name="DrnAgoMinutesR1" xml:space="preserve">
+    <value>{0} минути</value>
+  </data>
+  <data name="DrnAgoMinutesRm" xml:space="preserve">
+    <value>{0} минути</value>
+  </data>
+  <data name="DrnAgoMonthsI" xml:space="preserve">
+    <value>{0} месец</value>
+  </data>
+  <data name="DrnAgoMonthsR1" xml:space="preserve">
+    <value>{0} месеца</value>
+  </data>
+  <data name="DrnAgoMonthsRm" xml:space="preserve">
+    <value>{0} месеца</value>
+  </data>
+  <data name="DrnAgoYearsI" xml:space="preserve">
+    <value>{0} година</value>
+  </data>
+  <data name="DrnAgoYearsR1" xml:space="preserve">
+    <value>{0} години</value>
+  </data>
+  <data name="DrnAgoYearsRm" xml:space="preserve">
+    <value>{0} години</value>
+  </data>
+  <data name="DrnDayBeforeYesterday" xml:space="preserve">
+    <value>Завчера</value>
+  </data>
+  <data name="DrnToday" xml:space="preserve">
+    <value>Днес</value>
+  </data>
+  <data name="DrnTomorrow" xml:space="preserve">
+    <value>Утре</value>
+  </data>
+  <data name="DrnYesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Редактиране</value>
+  </data>
+  <data name="EditPhoto" xml:space="preserve">
+    <value>Редактиране на снимка</value>
+  </data>
+  <data name="EditUserDialogTitle" xml:space="preserve">
+    <value>Редактирай профил</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Електронна поща</value>
+  </data>
+  <data name="EmailActivationDescription" xml:space="preserve">
+    <value>Инструкциите за активиране ще бъдат изпратени до въведената електронна поща</value>
+  </data>
+  <data name="EmailActivationPanelBodyText" xml:space="preserve">
+    <value>Използвайте връзката, предоставена в имейла за активиране. Не сте получили имейл с връзката за активиране?</value>
+  </data>
+  <data name="EmailActivationPanelHeaderText" xml:space="preserve">
+    <value>Моля, активирайте вашия имейл, за да получите достъп до всички функции на портала.</value>
+  </data>
+  <data name="EmailActivationPanelLinkText" xml:space="preserve">
+    <value>Искайте още веднъж активиране</value>
+  </data>
+  <data name="EmailActivationPanelSendText" xml:space="preserve">
+    <value>Имейл за активиране е изпратен на вашия имейл адрес. Моля, следвайте връзката в съобщението, за да активирате профила си.</value>
+  </data>
+  <data name="EmailActivationTitle" xml:space="preserve">
+    <value>Активиране на имейл</value>
+  </data>
+  <data name="EmailAndPasswordConfirmPassword" xml:space="preserve">
+    <value>Потвърди парола</value>
+  </data>
+  <data name="EmailAndPasswordCopiedToClipboard" xml:space="preserve">
+    <value>Имейлът и паролата са копирани в клипборда</value>
+  </data>
+  <data name="EmailAndPasswordDomain" xml:space="preserve">
+    <value>Порталът ви е регистриран в следния домейн:</value>
+  </data>
+  <data name="EmailAndPasswordEmptyPassword" xml:space="preserve">
+    <value>Грешна парола</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectEmail" xml:space="preserve">
+    <value>Грешен имейл адрес</value>
+  </data>
+  <data name="EmailAndPasswordIncorrectPromocode" xml:space="preserve">
+    <value>Неправилен промо код</value>
+  </data>
+  <data name="EmailAndPasswordOK" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="EmailAndPasswordPromocode" xml:space="preserve">
+    <value>Имате Промо код? Сложете го тук</value>
+  </data>
+  <data name="EmailAndPasswordRegEmail" xml:space="preserve">
+    <value>Порталът ви е регистриран от следния имейл:</value>
+  </data>
+  <data name="EmailAndPasswordSaved" xml:space="preserve">
+    <value>Тези настройки са запазени успешно</value>
+  </data>
+  <data name="EmailAndPasswordTypeChangeIt" xml:space="preserve">
+    <value>Променете го</value>
+  </data>
+  <data name="EmailAndPasswordTypePassword" xml:space="preserve">
+    <value>Въведете парола</value>
+  </data>
+  <data name="EmailAndPasswordWrongPassword" xml:space="preserve">
+    <value>Паролата и нейното потвърждение не съвпадат</value>
+  </data>
+  <data name="EmailChangeButton" xml:space="preserve">
+    <value>Смяна на имейл</value>
+  </data>
+  <data name="EmailChangeDescription" xml:space="preserve">
+    <value>Инструкциите за активиране ще бъдат изпратени до въведената електронна поща</value>
+  </data>
+  <data name="EmailChangeTitle" xml:space="preserve">
+    <value>Промяна на имейл</value>
+  </data>
+  <data name="EmailIsAvailable" xml:space="preserve">
+    <value>Налице е имейл</value>
+  </data>
+  <data name="EmailIsNotConfirmed" xml:space="preserve">
+    <value>Имейлът не е активиран</value>
+  </data>
+  <data name="EmailOnDomainIsNotCreated" xml:space="preserve">
+    <value>Имейлът на домейна не е създаден</value>
+  </data>
+  <data name="EmailPopupHelper" xml:space="preserve">
+    <value>{0}Основната електронна поща е необходима за възстановяване на достъпа до портала в случай на загуба на паролата и изпращане на уведомления.{1} Можете да създадете нова поща в домейна като основна. В този случай трябва да зададете еднократна парола, така че потребителят да може да влезе в портала за първи път.{2} Основният имейл може да се използва като вход при влизане в портала.{3}</value>
+  </data>
+  <data name="EmployeeAllDepartments" xml:space="preserve">
+    <value>Всички {!groups}</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>{!Users}</value>
+  </data>
+  <data name="EmployeesSearch" xml:space="preserve">
+    <value>Търсене на персонал</value>
+  </data>
+  <data name="EmptyUsageSpace" xml:space="preserve">
+    <value>Няма данни за мястото за съхранение</value>
+  </data>
+  <data name="EnableLDAPAuthentication" xml:space="preserve">
+    <value>Активиране на удостоверяването на LDAP</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Активиране на SSL</value>
+  </data>
+  <data name="EnableUserButton" xml:space="preserve">
+    <value>Активиране</value>
+  </data>
+  <data name="EnableUserHelp" xml:space="preserve">
+    <value>{!User} ще се покаже отново като активен</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Въведете нов имейл адрес</value>
+  </data>
+  <data name="Error403Text" xml:space="preserve">
+    <value>Нямате разрешение да преглеждате тази страница</value>
+  </data>
+  <data name="Error403Title" xml:space="preserve">
+    <value>Грешка 403 - Забранено</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Няма разрешения за извършване на това действие</value>
+  </data>
+  <data name="ErrorAccessRestricted" xml:space="preserve">
+    <value>Достъпът до портала е ограничен.</value>
+  </data>
+  <data name="ErrorBadKeys" xml:space="preserve">
+    <value>Лоши ключове</value>
+  </data>
+  <data name="ErrorBadRequest" xml:space="preserve">
+    <value>Неправилна заявка</value>
+  </data>
+  <data name="ErrorConfirmURLError" xml:space="preserve">
+    <value>Невалиден имейл или изтекла връзка</value>
+  </data>
+  <data name="ErrorDisabledProfile" xml:space="preserve">
+    <value>Потребителският ви профил е спрян</value>
+  </data>
+  <data name="ErrorEmailAlreadyExists" xml:space="preserve">
+    <value>{!User} с този имейл вече е регистриран</value>
+  </data>
+  <data name="ErrorEmailDomainNotAllowed" xml:space="preserve">
+    <value>Имейлите от този домейн не са разрешени за регистрация</value>
+  </data>
+  <data name="ErrorEmailEmpty" xml:space="preserve">
+    <value>Полето за имейл е празно</value>
+  </data>
+  <data name="ErrorEmailsAreTheSame" xml:space="preserve">
+    <value>Текущият имейл и новият имейл са едни и същи</value>
+  </data>
+  <data name="ErrorEmptyFields" xml:space="preserve">
+    <value>Моля, попълнете всички полета</value>
+  </data>
+  <data name="ErrorEmptyMessage" xml:space="preserve">
+    <value>Текстът на съобщението е празен</value>
+  </data>
+  <data name="ErrorEmptyUploadFileSelected" xml:space="preserve">
+    <value>Каченият файл не можа да бъде намерен</value>
+  </data>
+  <data name="ErrorEmptyUserEmail" xml:space="preserve">
+    <value>Напишете своя емайл адрес</value>
+  </data>
+  <data name="ErrorEmptyUserFirstName" xml:space="preserve">
+    <value>Въведете първото си име</value>
+  </data>
+  <data name="ErrorEmptyUserLastName" xml:space="preserve">
+    <value>Въведете фамилното си име</value>
+  </data>
+  <data name="ErrorExpiredActivationLink" xml:space="preserve">
+    <value>Връзката е изтекла</value>
+  </data>
+  <data name="ErrorImageSizetLimit" xml:space="preserve">
+    <value>Размерът на изображението е твърде голям</value>
+  </data>
+  <data name="ErrorImageWeightLimit" xml:space="preserve">
+    <value>Размерът на файла с изображение е твърде голям</value>
+  </data>
+  <data name="ErrorIncorrectUserName" xml:space="preserve">
+    <value>Неправилно първо име или фамилия</value>
+  </data>
+  <data name="ErrorInvalidActivationLink" xml:space="preserve">
+    <value>Невалидна връзка за активиране</value>
+  </data>
+  <data name="ErrorIpSecurity" xml:space="preserve">
+    <value>Достъпът до портала е ограничен</value>
+  </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Датата на регистрация трябва да бъде по-късна от датата на раждане</value>
+  </data>
+  <data name="ErrorMessageLongField255" xml:space="preserve">
+    <value>Можете да въведете само до 255 знака за това поле.</value>
+  </data>
+  <data name="ErrorMessageLongField64" xml:space="preserve">
+    <value>Можете да въведете само до 64 знака за това поле.</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Вашият браузър не поддържа JavaScript!</value>
+  </data>
+  <data name="ErrorNotAllowedOption" xml:space="preserve">
+    <value>Вашият ценови план не поддържа тази опция</value>
+  </data>
+  <data name="ErrorNotCorrectDate" xml:space="preserve">
+    <value>Невалиден формат на датата</value>
+  </data>
+  <data name="ErrorNotCorrectEmail" xml:space="preserve">
+    <value>Неправилен имейл</value>
+  </data>
+  <data name="ErrorNotCorrectTrustedDomain" xml:space="preserve">
+    <value>Невалидно име на домейн</value>
+  </data>
+  <data name="ErrorPasswordEmpty" xml:space="preserve">
+    <value>Паролата е празна.</value>
+  </data>
+  <data name="ErrorPasswordLength" xml:space="preserve">
+    <value>от {0} до {1} символа</value>
+  </data>
+  <data name="ErrorPasswordMessage" xml:space="preserve">
+    <value>Паролата трябва да съдържа</value>
+  </data>
+  <data name="ErrorPasswordMessageStart" xml:space="preserve">
+    <value>Паролата трябва да съдържа</value>
+  </data>
+  <data name="ErrorPasswordNoDigits" xml:space="preserve">
+    <value>цифри</value>
+  </data>
+  <data name="ErrorPasswordNoSpaces" xml:space="preserve">
+    <value>няма интервали</value>
+  </data>
+  <data name="ErrorPasswordNoSpecialSymbols" xml:space="preserve">
+    <value>специални символи</value>
+  </data>
+  <data name="ErrorPasswordNoUpperCase" xml:space="preserve">
+    <value>главни букви</value>
+  </data>
+  <data name="ErrorPasswordOnlyLatinLetters" xml:space="preserve">
+    <value>само латински букви</value>
+  </data>
+  <data name="ErrorRequestLimitExceeded" xml:space="preserve">
+    <value>Ограничението на заявката е превишено</value>
+  </data>
+  <data name="ErrorUnknownFileImageType" xml:space="preserve">
+    <value>Неизвестен тип файл с изображение</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Потребителят не можа да бъде намерен</value>
+  </data>
+  <data name="ErrorUserNotFoundByEmail" xml:space="preserve">
+    <value>Потребителят с имейл '{0}' не можа да бъде намерен</value>
+  </data>
+  <data name="EuServerRegion" xml:space="preserve">
+    <value>Регион на ЕС (Ирландия)</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Всеки ден</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Всеки месец</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Всяка седмица</value>
+  </data>
+  <data name="FeedbackSupport" xml:space="preserve">
+    <value>Отзиви &amp;amp; поддържа</value>
+  </data>
+  <data name="FemaleSexStatus" xml:space="preserve">
+    <value>Женски пол</value>
+  </data>
+  <data name="FileSizeMaxExceed" xml:space="preserve">
+    <value>Максималният размер на файла е надвишен</value>
+  </data>
+  <data name="FileSizeNote" xml:space="preserve">
+    <value>Забележка: размерът на файла не може да надвишава {1} {0} {2}</value>
+  </data>
+  <data name="FileSizePostfix" xml:space="preserve">
+    <value>байта, KB, MB, GB, TB</value>
+  </data>
+  <data name="FilterInPeriod" xml:space="preserve">
+    <value>за период</value>
+  </data>
+  <data name="FilterInPeriodFromLabel" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="FilterInPeriodToLabel" xml:space="preserve">
+    <value>Да се</value>
+  </data>
+  <data name="FilterLast3Months" xml:space="preserve">
+    <value>последните 3 месеца</value>
+  </data>
+  <data name="FilterLastMonth" xml:space="preserve">
+    <value>миналия месец</value>
+  </data>
+  <data name="FilterLastWeek" xml:space="preserve">
+    <value>миналата седмица</value>
+  </data>
+  <data name="FinishInviteJoinEmailMessage" xml:space="preserve">
+    <value>Връзката за потвърждаване на профила ви е изпратена на посочения имейл</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Първо име</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Забравена парола?</value>
+  </data>
+  <data name="ForMobile" xml:space="preserve">
+    <value>За мобилни устройства</value>
+  </data>
+  <data name="ForSignInFollowMessage" xml:space="preserve">
+    <value>За да влезете, моля, следвайте {0} връзката {1}</value>
+  </data>
+  <data name="ForYourPC" xml:space="preserve">
+    <value>За вашия компютър</value>
+  </data>
+  <data name="FreeOfficeDesktopDndMobileApps" xml:space="preserve">
+    <value>Безплатни приложения за настолни и мобилни приложения ONLYOFFICE</value>
+  </data>
+  <data name="FreeSms" xml:space="preserve">
+    <value>Безплатен SMS</value>
+  </data>
+  <data name="FromTime" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="FullTextSearchServiceIsNotRunning" xml:space="preserve">
+    <value>Услугата за търсене в пълен текст не се изпълнява</value>
+  </data>
+  <data name="FullTextSearchServiceIsRunning" xml:space="preserve">
+    <value>Стартира се услугата за търсене на текст</value>
+  </data>
+  <data name="FullTextSearchSettings" xml:space="preserve">
+    <value>Настройки за сфинкс</value>
+  </data>
+  <data name="FullTextSearchSettingsHelp" xml:space="preserve">
+    <value>За да използвате пълното текстово търсене, трябва да имате инсталиран sphinx.2.2.10 на вашия сървър.</value>
+  </data>
+  <data name="FullTextSearchSettingsText" xml:space="preserve">
+    <value>Настройки за работа със сфинкс, индексиране и търсене на демон. Трябва да укажете хоста и номера на порта, който се слуша от демона searchd searchd. Тези настройки трябва да съвпадат с конфигурацията на сфинкса в секцията searchd на файла sphinx.conf.in.</value>
+  </data>
+  <data name="FullTextSearchTestButton" xml:space="preserve">
+    <value>Тест</value>
+  </data>
+  <data name="GeneralSubscriptionName" xml:space="preserve">
+    <value>Общ</value>
+  </data>
+  <data name="GetItNow" xml:space="preserve">
+    <value>Вземи го сега</value>
+  </data>
+  <data name="GetShortenLink" xml:space="preserve">
+    <value>Вземи съкратена връзка</value>
+  </data>
+  <data name="GoToContactListBtn" xml:space="preserve">
+    <value>Отидете в списъка с контакти</value>
+  </data>
+  <data name="GreetingLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="GreetingSettingsTitle" xml:space="preserve">
+    <value>Настройки на началната страница</value>
+  </data>
+  <data name="GreetingTitle" xml:space="preserve">
+    <value>Заглавие</value>
+  </data>
+  <data name="GroupCaption" xml:space="preserve">
+    <value>Група</value>
+  </data>
+  <data name="GroupHeadCaption" xml:space="preserve">
+    <value>Водеща група</value>
+  </data>
+  <data name="GroupsCaption" xml:space="preserve">
+    <value>Групи</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>{!Guest}</value>
+  </data>
+  <data name="GuestCaption" xml:space="preserve">
+    <value>Гост</value>
+  </data>
+  <data name="GuestsCaption" xml:space="preserve">
+    <value>Гости</value>
+  </data>
+  <data name="HelpAnswerAccountDeactivation" xml:space="preserve">
+    <value>Ако искате да {1} деактивирате {2} портала, вашият портал и цялата свързана с него информация ще бъде блокиран, така че никой да няма достъп до него за определен период. За да направите това, кликнете върху бутона {1} Деактивиране {2}. Връзка за потвърждаване на операцията ще бъде изпратена на имейл адреса на собственика на портала. {0} В случай, че искате да се върнете към портала ONLYOFFICE™ и да го възобновите, ще трябва да използвате втората връзка, посочена в имейла за потвърждение , Затова, моля, съхранявайте този емайл на сигурно място. {0} Ако не смятате, че ще използвате портала ONLYOFFICE™ и искате да {1} изтриете {2}, портала ви изпрати окончателно заявката си с {1} Изтрий Бутон {2}. Моля, имайте предвид, че няма да можете да активирате отново портала си или да възстановите информация, свързана с него.</value>
+  </data>
+  <data name="HelpAnswerAdminMessSettings" xml:space="preserve">
+    <value>{1}Настройки на съобщенията на администратора{2} е начин да се свържете с администратора на портала.{0}Активирайте тази опция, за да се покаже формата за връзка на страницата {1}Вход{2}, за да могат хората да изпратят съобщението до портала администратор в случай, че имат проблеми с достъпа до портала.{0}За да направите въведените параметри в сила, кликнете върху бутона {1}Запази{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerColorTheme" xml:space="preserve">
+    <value>{1}Теми на цветовете{2} ви позволяват да персонализирате интерфейса на портала си в съответствие с марката на фирмата си.{0}Изберете една от цветовите теми от списъка в ляво.{0}{1}Запис{2} бутон в долната част на този раздел.</value>
+  </data>
+  <data name="HelpAnswerDefaultPageSettings" xml:space="preserve">
+    <value>{0}Начална страница по подразбиране{1} е начин да изберете модула, към който отивате веднага след като влезете в портала или кликнете върху логото ONLYOFFICE™, когато вече сте влезли в профила си. {0}Запазване на бутона{1} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerDNSSettings" xml:space="preserve">
+    <value>{1}Настройки на DNS{2} е начин за задаване на алтернативен URL адрес за вашия портал ONLYOFFICE™. полето по-долу.{0}За да направите въведените параметри в сила, кликнете върху бутона {1}Запази{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerGreetingSettings" xml:space="preserve">
+    <value>{1}Настройки на страницата за добре дошли{2} е начин да промените заглавието на портала по подразбиране, което да се показва на страницата {1}за добре дошли{2} на портала ви. Същото име се използва и за полето {1}От{2} на известията ви за пощата на портала.{0}Въведете името, което искате, в полето {1}Заглавие{2}.</value>
+  </data>
+  <data name="HelpAnswerLinkInviteSettings" xml:space="preserve">
+    <value>Споделете връзката, за да поканите колегите си в портала си.</value>
+  </data>
+  <data name="HelpAnswerLngTimeSettings" xml:space="preserve">
+    <value>{1}Настройки на езика и часовата зона{2} е начин да промените езика на целия портал за всички потребители на портала и да конфигурирате часовата зона, така че всички събития на портала ONLYOFFICE™ да се показват с правилната дата и час.{0}За да направите въведените параметри в сила, кликнете върху бутона {1}Запази{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerLogoSettings" xml:space="preserve">
+    <value>{1}Настройки на логото{2} е начин да промените логото по подразбиране, което да се показва в страницата за {1}Добре дошли{2} на портала ви.{0} За да смените логото на портала, кликнете върху {1}​​Промяна на лого{2} връзката вдясно и изберете изображението, съхранено на компютъра ви, за да я заредите в портала си. {0}Моля, имайте предвид, че можете да качите изображение, което не е по-голямо от {1}250x100 пиксела{2}, в противен случай ще се извърши преоразмеряване място. Максималният размер на изображението не може да надвишава {1}1 МБ{2}.</value>
+  </data>
+  <data name="HelpAnswerMailDomainSettings" xml:space="preserve">
+    <value>{1}Настройки на домейни с доверителна поща{2} е начин да посочите пощенските сървъри, използвани за саморегистрация на потребителя. {0}Можете да проверите опцията {1}Персонализирани домейни{2} и да въведете доверен пощенски сървър в полето по-долу, така че лицето, което има акаунт в него, ще може да го регистрира (само), като кликне върху връзката Присъедини се на страницата {1}Вход{2} или да деактивира тази опция.{0}За да направи параметрите ако зададете да влезете в сила, кликнете върху бутона {1}Запази{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerPasswordSettings" xml:space="preserve">
+    <value>{1}Настройки за силата на паролата{2} е начин да се определи ефективността на паролата при противопоставяне на атаките за познаване и груба атака.{0}Използвайте лентата {1}Минимална дължина на паролата{2}, за да определите колко дълго трябва да е паролата бъда. Поставете отметки в съответните полета по-долу, за да определите набора от символи, който трябва да се използва в паролата.{0} За да направите въведените параметри в сила, кликнете върху бутона {1}Запази{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerPortalAccessSettings" xml:space="preserve">
+    <value>{1}Обществен портал{2} е безплатна опция, която позволява на всеки да вижда публичното ви съдържание без регистрация. Не са налични частни проекти и CRM модулът е изключен за такива портали.{0} Регистрацията на публични портали не е ограничена по брой потребители, нови потребители се добавят при искане до администратора на портала. Използвайте опцията {1}Регистриране на нови потребители незабавно{2}, за да премахнете необходимостта от потвърждаване на регистрацията.</value>
+  </data>
+  <data name="HelpAnswerPortalRename" xml:space="preserve">
+    <value>Тук можете да промените адреса на вашия портал. Въведете частта, която ще се появи до адреса на портала onlyoffice.com/onlyoffice.eu. {0} {1} Моля, обърнете внимание {2}: старият ви портал ще стане достъпен за нови потребители на ONLYOFFICE, след като кликнете върху {1} ​​Запази Бутон {2}.</value>
+  </data>
+  <data name="HelpAnswerPortalVersion" xml:space="preserve">
+    <value>{1}Версията на портала{2} е начин за превключване между наличните версии на портала ONLYOFFICE™.{0} Можете да използвате новата версия или да се върнете към предишната версия на портала.{0} Натиснете бутона {1}Запази{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerTeamTemplate" xml:space="preserve">
+    <value>{1}Шаблонът на отбора{2} е персонализируем начин за наименование на организацията (или групата), нейните членове и техните дейности.{0} Разгънете списъка {1}Шаблон{2}, за да изберете една от наличните предварителни настройки или въведете самите имена избират опцията {1}Custom{2} от списъка.{0} За да приложите избрания шаблон, използвайте бутона {1}Save{2} в долната част на секцията.</value>
+  </data>
+  <data name="HelpAnswerTransferPortal" xml:space="preserve">
+    <value>Мигрирането на портала към сървърите на региона, който е най-близо до географското ви местоположение, ще ускори реакцията на портала. Колкото по-близо се намират потребителите и клиентите в региона на сървъра, толкова по-бързо ще бъде скоростта на портала.{0}За да започнете процеса на мигриране, кликнете върху бутона {1}Промяна на региона на сървъра{2} в долната част на секцията.{0}{1}Забележка:{2} След като процесът се стартира, той не може да бъде отменен. Моля, имайте предвид също, че поради технически ограничения само пощата за последните 30 дни ще бъде прехвърлена.</value>
+  </data>
+  <data name="HelpCenter" xml:space="preserve">
+    <value>Помощен център</value>
+  </data>
+  <data name="HelpJoinToAffilliate" xml:space="preserve">
+    <value>Целта на програмата е законно да рекламира ONLYOFFICE™, за да получи комисионна за абонаменти, закупени от посочените лица.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Крия</value>
+  </data>
+  <data name="HintAim" xml:space="preserve">
+    <value>Въведете своя профил в AIM</value>
+  </data>
+  <data name="HintBlogger" xml:space="preserve">
+    <value>Въведете профила си в Blogger</value>
+  </data>
+  <data name="HintEmail" xml:space="preserve">
+    <value>Въведете имейла си</value>
+  </data>
+  <data name="HintFacebook" xml:space="preserve">
+    <value>Въведете вашия Facebook профил</value>
+  </data>
+  <data name="HintForSocialAccounts" xml:space="preserve">
+    <value>Въведете потребителското име или идентификационния номер на профила си</value>
+  </data>
+  <data name="HintGoggletalk" xml:space="preserve">
+    <value>Въведете профила си в GoogleTalk</value>
+  </data>
+  <data name="HintGooglebuzz" xml:space="preserve">
+    <value>Въведете профила си в GoogleBuzz</value>
+  </data>
+  <data name="HintGooglemail" xml:space="preserve">
+    <value>Въведете профила си в Google</value>
+  </data>
+  <data name="HintIcq" xml:space="preserve">
+    <value>Въведете своя ICQ акаунт</value>
+  </data>
+  <data name="HintJabber" xml:space="preserve">
+    <value>Въведете своя Jabber акаунт</value>
+  </data>
+  <data name="HintLivejournal" xml:space="preserve">
+    <value>Въведете вашия профил в LiveJournal</value>
+  </data>
+  <data name="HintMobphone" xml:space="preserve">
+    <value>Въведете номера на мобилния си телефон</value>
+  </data>
+  <data name="HintMsn" xml:space="preserve">
+    <value>Въведете профила си в MSN</value>
+  </data>
+  <data name="HintMyspace" xml:space="preserve">
+    <value>Въведете профила си в MySpace</value>
+  </data>
+  <data name="HintPhone" xml:space="preserve">
+    <value>Въведете Вашият телефонен номер</value>
+  </data>
+  <data name="HintSkype" xml:space="preserve">
+    <value>Въведете профила си в Skype</value>
+  </data>
+  <data name="HintTwitter" xml:space="preserve">
+    <value>Въведете профила си в Twitter</value>
+  </data>
+  <data name="HintYahoo" xml:space="preserve">
+    <value>Въведете своя Yahoo акаунт</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Вход за хост</value>
+  </data>
+  <data name="HostName" xml:space="preserve">
+    <value>Домакин</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Парола на хоста</value>
+  </data>
+  <data name="ImportButtonManually" xml:space="preserve">
+    <value>Ръчно</value>
+  </data>
+  <data name="ImportContactsAlreadyExists" xml:space="preserve">
+    <value>{!User} вече съществува</value>
+  </data>
+  <data name="ImportContactsCancelButton" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="ImportContactsEmail" xml:space="preserve">
+    <value>Електронна поща</value>
+  </data>
+  <data name="ImportContactsEmptyData" xml:space="preserve">
+    <value>Не са получени контакти. {0} Можете също да импортирате контакти от други профили.</value>
+  </data>
+  <data name="ImportContactsEmptyEmail" xml:space="preserve">
+    <value>Въведете потребителския имейл</value>
+  </data>
+  <data name="ImportContactsEmptyFirstName" xml:space="preserve">
+    <value>Въведете името на потребителя</value>
+  </data>
+  <data name="ImportContactsEmptyLastName" xml:space="preserve">
+    <value>Въведете фамилното име на потребителя</value>
+  </data>
+  <data name="ImportContactsErrorEmail" xml:space="preserve">
+    <value>Въведете имейла си</value>
+  </data>
+  <data name="ImportContactsErrorFirstName" xml:space="preserve">
+    <value>Въведете първото си име</value>
+  </data>
+  <data name="ImportContactsErrorHeader" xml:space="preserve">
+    <value>Грешка при импортиране</value>
+  </data>
+  <data name="ImportContactsErrorLastName" xml:space="preserve">
+    <value>Въведете фамилното си име</value>
+  </data>
+  <data name="ImportContactsFirstable" xml:space="preserve">
+    <value>Моля, въведете името, фамилията и имейла на {!user}, които ще бъдат добавени към портала в горните полета. Кликнете върху бутона 'Добавяне', за да добавите {!User} към списъка.</value>
+  </data>
+  <data name="ImportContactsFirstName" xml:space="preserve">
+    <value>Първо име</value>
+  </data>
+  <data name="ImportContactsFromFile" xml:space="preserve">
+    <value>От файл</value>
+  </data>
+  <data name="ImportContactsFromFileError" xml:space="preserve">
+    <value>Файлът, избран за импортиране, има грешен формат. {0} Моля, изберете друг файл и повторете процеса на импортиране.</value>
+  </data>
+  <data name="ImportContactsFromFileErrorTooLarge" xml:space="preserve">
+    <value>Избраният файл е твърде голям. Размерът на качения файл не трябва да надвишава: {0} kB.</value>
+  </data>
+  <data name="ImportContactsHeader" xml:space="preserve">
+    <value>Добавете {!users} към портала</value>
+  </data>
+  <data name="ImportContactsIncorrectFields" xml:space="preserve">
+    <value>Уверете се, че всички потребителски полета, включително име, фамилия и имейл адрес, са попълнени правилно</value>
+  </data>
+  <data name="ImportContactsInvalidEmail" xml:space="preserve">
+    <value>Невалиден потребителски имейл</value>
+  </data>
+  <data name="ImportContactsInvalidFirstName" xml:space="preserve">
+    <value>Невалидно потребителско име</value>
+  </data>
+  <data name="ImportContactsInvalidLastName" xml:space="preserve">
+    <value>Невалидно фамилно име на потребител</value>
+  </data>
+  <data name="ImportContactsLastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="ImportContactsOkButton" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="ImportDelimiter" xml:space="preserve">
+    <value>Разделител</value>
+  </data>
+  <data name="ImportEncoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="ImportFileCSV" xml:space="preserve">
+    <value>Изберете CSV файл, експортиран от Outlook, Gmail, Thunderbird или друго приложение, или генериран ръчно.</value>
+  </data>
+  <data name="ImportFileName" xml:space="preserve">
+    <value>Име на файл</value>
+  </data>
+  <data name="ImportFromGoogle" xml:space="preserve">
+    <value>Импортиране от Google</value>
+  </data>
+  <data name="ImportFromYahoo" xml:space="preserve">
+    <value>Импортиране от Yahoo</value>
+  </data>
+  <data name="ImportSelectAnotherSource" xml:space="preserve">
+    <value>Изберете друг източник</value>
+  </data>
+  <data name="ImportTextDelimiter" xml:space="preserve">
+    <value>Разделител на текст</value>
+  </data>
+  <data name="ImportUserLimitHeader" xml:space="preserve">
+    <value>Настоящият план за ценообразуване ви позволява да добавите {0} потребители.</value>
+  </data>
+  <data name="ImportUserLimitReason" xml:space="preserve">
+    <value>Надстройте плана за ценообразуване или добавете още потребители като гости с разрешения само за преглед. По-късно ще можете да промените ролите си в модула 'Хора'.</value>
+  </data>
+  <data name="ImportUserLimitTitle" xml:space="preserve">
+    <value>Добавяне на потребители</value>
+  </data>
+  <data name="ImportUserOpenPortalLimitReason" xml:space="preserve">
+    <value>Надстройте плана си или добавете още потребители като гости с разрешения само за преглед. Ще можете да промените техните роли по-късно в модула 'Хора' или в {0} прочетете за използването с нестопанска цел {1}</value>
+  </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Вашият ценови план не ви позволява да добавяте повече потребители</value>
+  </data>
+  <data name="ImportWizardSecondStep" xml:space="preserve">
+    <value>Създаване на съответствие</value>
+  </data>
+  <data name="In" xml:space="preserve">
+    <value>в</value>
+  </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Невалидно потребителско име или парола.</value>
+  </data>
+  <data name="InviteDescription" xml:space="preserve">
+    <value>За да започнете работа с портала, трябва да видите дали името ви {0}на името{1} и {0}фамилията{1} са правилни във формата на дясната страна и да зададете {0}лична парола{1}, за да можете да влезете.</value>
+  </data>
+  <data name="InviteLinkTitle" xml:space="preserve">
+    <value>Връзка за покана</value>
+  </data>
+  <data name="InviteLinkValidInterval" xml:space="preserve">
+    <value>Тази връзка е валидна само за {0} дни.</value>
+  </data>
+  <data name="InvitePassword" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="InvitePublicSubTitle" xml:space="preserve">
+    <value>Получихте линк към този портал от ваш приятел, познат или колега</value>
+  </data>
+  <data name="InviteSubTitle" xml:space="preserve">
+    <value>Вие сте били добавени към този портал от ваш приятел, познат или колега</value>
+  </data>
+  <data name="InviteTitle" xml:space="preserve">
+    <value>Вие сте поканени да се присъедините към този портал!</value>
+  </data>
+  <data name="InviteUsersAsCollaborators" xml:space="preserve">
+    <value>Добавете потребители като {!Guests}</value>
+  </data>
+  <data name="InviteUsersToPortalLink" xml:space="preserve">
+    <value>Поканете потребители на портала</value>
+  </data>
+  <data name="IPSecurityDisable" xml:space="preserve">
+    <value>Правя неспособен</value>
+  </data>
+  <data name="IPSecurityEnable" xml:space="preserve">
+    <value>Активиране</value>
+  </data>
+  <data name="IpSecurityHelp" xml:space="preserve">
+    <value>{0}IP Security{1} се използва за ограничаване на влизането в портала от всички IP адреси, с изключение на определени адреси. Можете да зададете разрешените IP адреси, като използвате точните IP адреси в IPv4 формат (#. #. #. #, Където # е числова стойност от 0 до 255) или IP диапазон (в #. #. #. # - #. #. #. # формат). IP защитата не работи за собствениците на портала, те могат да имат достъп до портала от всеки IP адрес.</value>
+  </data>
+  <data name="IpSecurityNav" xml:space="preserve">
+    <value>IP сигурност</value>
+  </data>
+  <data name="IpSecurityWarning" xml:space="preserve">
+    <value>Първо трябва да посочите текущия си IP адрес или IP диапазона, към който принадлежи текущият ви IP адрес, в противен случай достъпът до вашия портал ще бъде блокиран веднага след като запазите настройките. Собственикът на портала ще има достъп до портала от всеки IP адрес.</value>
+  </data>
+  <data name="IsMailMigration" xml:space="preserve">
+    <value>Мигрирайте и ONLYOFFICE™ Mail (не се препоръчва)</value>
+  </data>
+  <data name="JoinToAffilliateProgram" xml:space="preserve">
+    <value>Станете наш партньор</value>
+  </data>
+  <data name="KeepTariffInviteGuests" xml:space="preserve">
+    <value>Можете да продължите да добавяте потребителите като {!Guest) или да променяте ценовия план за този с по-голям брой потребители.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Език</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="LdapSettings" xml:space="preserve">
+    <value>Настройки на LDAP</value>
+  </data>
+  <data name="LdapSettingsAuthentication" xml:space="preserve">
+    <value>Удостоверяване на потребителя</value>
+  </data>
+  <data name="LdapSettingsAuthenticationHelper" xml:space="preserve">
+    <value>Активирайте тази опция, ако текущият потребител на Windows няма права да чете от LDAP сървър/Active Directory и да въвежда пълномощията на друг потребител с права за четене.</value>
+  </data>
+  <data name="LdapSettingsConnectError" xml:space="preserve">
+    <value>Грешка при свързването</value>
+  </data>
+  <data name="LdapSettingsEmptyField" xml:space="preserve">
+    <value>Празно поле</value>
+  </data>
+  <data name="LdapSettingsEnableLdapAuthenticationHelper" xml:space="preserve">
+    <value>Активирайте тази опция, ако искате автоматично да добавяте потребители от LDAP сървър/Active Directory към ONLYOFFICE™. Добавените потребители ще могат да оторизират използването на своите идентификационни данни за LDAP сървър/Active Directory. ONLYOFFICE™ не съхранява локално потребителските пароли и ще удостоверява, че потребителите изпращат своите данни за вход и парола към LDAP сървър/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsErrorCantCreateUsers" xml:space="preserve">
+    <value>Потребителите не могат да бъдат създадени, получените данни са неправилни.</value>
+  </data>
+  <data name="LdapSettingsErrorCantGetLdapSettings" xml:space="preserve">
+    <value>Сървърът не можа да получи настройки.</value>
+  </data>
+  <data name="LdapSettingsErrorCantSaveLdapSettings" xml:space="preserve">
+    <value>Сървърът не може да запази настройки.</value>
+  </data>
+  <data name="LdapSettingsErrorCredentialsNotValid" xml:space="preserve">
+    <value>Грешно име или парола.</value>
+  </data>
+  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
+    <value>LDAP домейнът не е намерен.</value>
+  </data>
+  <data name="LdapSettingsErrorGroupsNotFound" xml:space="preserve">
+    <value>Не бяха намерени групи.</value>
+  </data>
+  <data name="LdapSettingsErrorIncorrectLdapFilter" xml:space="preserve">
+    <value>Невалидна стойност на потребителския филтър.</value>
+  </data>
+  <data name="LdapSettingsErrorLostRights" xml:space="preserve">
+    <value>Опитали сте се да отнемете админ права от себе си. Вашите администраторски права не бяха засегнати.</value>
+  </data>
+  <data name="LdapSettingsErrorRemovedYourself" xml:space="preserve">
+    <value>Профилът ви не е свързан с LDAP директорията и вашата LDAP парола вече не е активна. Моля, променете или задайте паролата за профила си на страницата с настройки на подпрофила.</value>
+  </data>
+  <data name="LdapSettingsErrorUnknownError" xml:space="preserve">
+    <value>Неизвестна грешка.</value>
+  </data>
+  <data name="LdapSettingsErrorUsersNotFound" xml:space="preserve">
+    <value>Не бяха намерени потребители.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupAttribute" xml:space="preserve">
+    <value>Не можа да се получи групов атрибут за една или няколко групи.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupFilter" xml:space="preserve">
+    <value>Неправилен групов филтър.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongGroupNameAttribute" xml:space="preserve">
+    <value>Не можа да се получи атрибут на име на група за една или няколко групи.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongLoginAttribute" xml:space="preserve">
+    <value>Не можа да се получи атрибут за вход за един или няколко потребители.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongServerOrPort" xml:space="preserve">
+    <value>Не може да се свърже с LDAP сървър. Моля, проверете дали адресът на сървъра и номерът на порта са верни.</value>
+  </data>
+  <data name="LdapSettingsErrorWrongUserAttribute" xml:space="preserve">
+    <value>Потребителският атрибут не можа да се получи за един или няколко потребители.</value>
+  </data>
+  <data name="LdapSettingsGroupAttribute" xml:space="preserve">
+    <value>Атрибут на групата</value>
+  </data>
+  <data name="LdapSettingsGroupAttributeHelper" xml:space="preserve">
+    <value>Въведете атрибута обект на групата, който указва кои потребители включва тази група.</value>
+  </data>
+  <data name="LdapSettingsGroupDN" xml:space="preserve">
+    <value>Група DN</value>
+  </data>
+  <data name="LdapSettingsGroupDNHelper" xml:space="preserve">
+    <value>Въведете отличителното име в директорията, съдържаща групи, които искате да добавите.</value>
+  </data>
+  <data name="LdapSettingsGroupFilter" xml:space="preserve">
+    <value>Групов филтър</value>
+  </data>
+  <data name="LdapSettingsGroupFilterHelper" xml:space="preserve">
+    <value>Използвайте LDAP филтъра за търсене, за да изберете групи, които ще бъдат импортирани. Моля, обърнете внимание, че ще се добавят само потребители от тези групи.</value>
+  </data>
+  <data name="LdapSettingsGroupMembership" xml:space="preserve">
+    <value>Членство в група</value>
+  </data>
+  <data name="LdapSettingsGroupMembershipHelper" xml:space="preserve">
+    <value>Активирайте тази опция, ако искате да добавите групи от LDAP сървър/Active Directory към ONLYOFFICE™. Моля, обърнете внимание, че ще се добавят само потребители, които принадлежат към тези групи.</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttribute" xml:space="preserve">
+    <value>Атрибут на име на група</value>
+  </data>
+  <data name="LdapSettingsGroupNameAttributeHelper" xml:space="preserve">
+    <value>Моля, посочете атрибута на обекта, който съответства на името на групата.</value>
+  </data>
+  <data name="LdapSettingsInternalServerError" xml:space="preserve">
+    <value>Вътрешна грешка на сървъра.</value>
+  </data>
+  <data name="LdapSettingsLogin" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="LdapSettingsLoginAttribute" xml:space="preserve">
+    <value>Атрибут за вход</value>
+  </data>
+  <data name="LdapSettingsLoginAttributeHelper" xml:space="preserve">
+    <value>Въведете атрибута на обекта, съответстващ на потребителското име.</value>
+  </data>
+  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
+    <value>Промяна на LDAP потребителите на обикновените потребители на портала</value>
+  </data>
+  <data name="LdapSettingsMonoLogin" xml:space="preserve">
+    <value>Вход DN</value>
+  </data>
+  <data name="LdapSettingsPassword" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="LdapSettingsPasswordHelper" xml:space="preserve">
+    <value>Въведете паролата за потребителя с права за достъп за четене на данни от LDAP сървър/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsPortNumber" xml:space="preserve">
+    <value>Номер на пристанище</value>
+  </data>
+  <data name="LdapSettingsPortNumberHelper" xml:space="preserve">
+    <value>Въведете номера на порта за вашия LDAP сървър/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsRestoreDefault" xml:space="preserve">
+    <value>Настройките по подразбиране</value>
+  </data>
+  <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
+    <value>Възстановяване на настройките по подразбиране</value>
+  </data>
+  <data name="LdapSettingsSaveSettings" xml:space="preserve">
+    <value>Запаметете настройките</value>
+  </data>
+  <data name="LdapSettingsServer" xml:space="preserve">
+    <value>Сървър</value>
+  </data>
+  <data name="LdapSettingsServerHelper" xml:space="preserve">
+    <value>Въведете URL адреса на LDAP сървъра без номера на порта, например LDAP://mycompany.com.</value>
+  </data>
+  <data name="LdapSettingsStatusAddingGroupUser" xml:space="preserve">
+    <value>добавяне на потребител</value>
+  </data>
+  <data name="LdapSettingsStatusCertificateVerification" xml:space="preserve">
+    <value>Проверка на сертификата</value>
+  </data>
+  <data name="LdapSettingsStatusCheckingLdapSettings" xml:space="preserve">
+    <value>Проверка на настройките за поддръжка на LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusDisconnecting" xml:space="preserve">
+    <value>Прекъсване на LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
+    <value>Извличане на списъка от групи от LDAP сървъра</value>
+  </data>
+  <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
+    <value>Извличане на потребителския списък от LDAP сървъра</value>
+  </data>
+  <data name="LdapSettingsStatusGivingRights" xml:space="preserve">
+    <value>Задаване на потребител {0} като {1} admin</value>
+  </data>
+  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
+    <value>Зареждане на база данни за LDAP</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingGroupUser" xml:space="preserve">
+    <value>премахване на потребителя</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
+    <value>Премахване на остарели групи, които са били заредени през LDAP по-рано</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldRights" xml:space="preserve">
+    <value>Премахване на остарели права за достъп, които са били заредени чрез LDAP по-рано</value>
+  </data>
+  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
+    <value>Деактивиране на остарели потребителски профили, които са били заредени през LDAP по-рано</value>
+  </data>
+  <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
+    <value>Запазване на групи</value>
+  </data>
+  <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
+    <value>Запазване на настройките</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUserPhoto" xml:space="preserve">
+    <value>Запазване на снимка</value>
+  </data>
+  <data name="LdapSettingsStatusSavingUsers" xml:space="preserve">
+    <value>Запазване на потребители</value>
+  </data>
+  <data name="LdapSettingsStatusSyncingUsers" xml:space="preserve">
+    <value>Синхронизиране на потребителите</value>
+  </data>
+  <data name="LdapSettingsStatusUpdatingAccessRights" xml:space="preserve">
+    <value>Актуализиране на правата за достъп на потребителите</value>
+  </data>
+  <data name="LdapSettingsStatusUpdatingUserPhotos" xml:space="preserve">
+    <value>Актуализиране на потребителските снимки</value>
+  </data>
+  <data name="LdapSettingsStrongAuthRequired" xml:space="preserve">
+    <value>Изисква се по-сигурен тип удостоверяване. Моля, използвайте encripted връзка или разрешете обикновена идентификация на сървъра.</value>
+  </data>
+  <data name="LdapSettingsSuccess" xml:space="preserve">
+    <value>Запазването е завършено успешно</value>
+  </data>
+  <data name="LdapSettingsSyncUsers" xml:space="preserve">
+    <value>Потребителите на синхронизиране</value>
+  </data>
+  <data name="LdapSettingsTenantQuotaSettled" xml:space="preserve">
+    <value>Досега е достигнат лимитът на текущия потребителски план</value>
+  </data>
+  <data name="LdapSettingsTlsNotSupported" xml:space="preserve">
+    <value>StartTLS не се поддържа за текущия LDAP сървър.</value>
+  </data>
+  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
+    <value>Твърде много LDAP операции.</value>
+  </data>
+  <data name="LdapSettingsUserAttribute" xml:space="preserve">
+    <value>Потребителски атрибут</value>
+  </data>
+  <data name="LdapSettingsUserAttributeHelper" xml:space="preserve">
+    <value>Въведете атрибута на потребителския обект, използван за определяне дали този потребител е член на групите.</value>
+  </data>
+  <data name="LdapSettingsUserDN" xml:space="preserve">
+    <value>Потребителски DN</value>
+  </data>
+  <data name="LdapSettingsUserDNHelper" xml:space="preserve">
+    <value>Въведете отличителното име в директорията, съдържаща потребители, които искате да добавите.</value>
+  </data>
+  <data name="LdapSettingsUserFilter" xml:space="preserve">
+    <value>Потребителски филтър</value>
+  </data>
+  <data name="LdapSettingsUserFilterHelper" xml:space="preserve">
+    <value>Използвайте LDAP филтъра за търсене, за да изберете потребителите, които трябва да бъдат импортирани.</value>
+  </data>
+  <data name="LdapSettingsUserNameHelper" xml:space="preserve">
+    <value>Моля, посочете {0} потребител, който има права за четене на LDAP сървър/Active Directory.</value>
+  </data>
+  <data name="LdapSettingsWrongSidAttribute" xml:space="preserve">
+    <value>Не може да се получи уникален идентификатор за обекти на потребител/група. По подразбиране системата ще се опита да съответства на един от следните идентификатори: entryUUID, nsuniqueid, GUID, objectSid. Ако никой от атрибутите не съответства на вашия LDAP сървър, моля посочете необходимия атрибут в настройката ldap.unique.id на файла web.appsettings.config.</value>
+  </data>
+  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Потребителят е импортиран от LDAP. Свържете се с вашия LDAP администратор, ако искате да промените полетата на заключения профил.</value>
+  </data>
+  <data name="LdapUsersListLockTitle" xml:space="preserve">
+    <value>Потребителят е импортиран от LDAP</value>
+  </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Научете повече ...</value>
+  </data>
+  <data name="LicenseError" xml:space="preserve">
+    <value>Лицензът не е правилен</value>
+  </data>
+  <data name="LicenseErrorExpired" xml:space="preserve">
+    <value>Лицензът не е валиден за тази версия на портала.</value>
+  </data>
+  <data name="LicenseErrorPortal" xml:space="preserve">
+    <value>Броят на порталите надвишава този, разрешен от лиценза</value>
+  </data>
+  <data name="LicenseErrorQuota" xml:space="preserve">
+    <value>Броят на потребителите надвишава този, разрешен от лиценза</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Качено успешно</value>
+  </data>
+  <data name="LicenseUploadedOverdue" xml:space="preserve">
+    <value>Качено успешно. {0} Поддръжката и актуализациите не са налице за този лиценз след {2}. {1}</value>
+  </data>
+  <data name="LoadingMsg" xml:space="preserve">
+    <value>Зареждане, моля изчакайте</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Зареждане...</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Местоположение</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Впиши се</value>
+  </data>
+  <data name="LoginFailIPSecurityMsg" xml:space="preserve">
+    <value>Достъпът до портала е ограничен. Свържете се с администратора на портала.</value>
+  </data>
+  <data name="LoginRegistryButton" xml:space="preserve">
+    <value>Присъедините</value>
+  </data>
+  <data name="LoginSettings" xml:space="preserve">
+    <value>Настройки за вход</value>
+  </data>
+  <data name="LoginSettingsDescription" xml:space="preserve">
+    <value>{0}Двуфакторната идентификация{1} чрез приложение за генериране на код е активирана за всички потребители от администратора на облачните услуги.</value>
+  </data>
+  <data name="LoginSocialNetworks" xml:space="preserve">
+    <value>Влезте чрез социалните мрежи</value>
+  </data>
+  <data name="LoginWithAccount" xml:space="preserve">
+    <value>или влезте с:</value>
+  </data>
+  <data name="LoginWithAccountNotFound" xml:space="preserve">
+    <value>Не може да се намери свързан профил на трета страна. Първо трябва да свържете профила си за социални мрежи в страницата за редактиране на потребителския профил.</value>
+  </data>
+  <data name="LoginWithBruteForce" xml:space="preserve">
+    <value>Разрешението е временно блокирано.</value>
+  </data>
+  <data name="LogoSettingsTitle" xml:space="preserve">
+    <value>Настройки на логото</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>Този имейл се генерира автоматично и не е необходимо да отговаряте.</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>карта</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>Няма местоположение</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Организатор</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Повтаряне</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>Кога</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Където</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Кой</value>
+  </data>
+  <data name="MailReadedMsg" xml:space="preserve">
+    <value>Няма непрочетени съобщения. Моля, отидете в Mail, за да прочетете всичките си съобщения.</value>
+  </data>
+  <data name="MailService" xml:space="preserve">
+    <value>Пощенски сървър</value>
+  </data>
+  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
+    <value>Успешно свързване</value>
+  </data>
+  <data name="MailServiceExample" xml:space="preserve">
+    <value>Пример: {0}</value>
+  </data>
+  <data name="MailServiceGoToMailserver" xml:space="preserve">
+    <value>Конфигурирайте Mail Server</value>
+  </data>
+  <data name="MailServiceHelp" xml:space="preserve">
+    <value>Тази опция позволява да свържете портала си с {0} Mail Server {1}, инсталиран на отдалечен компютър, като използвате {2} Docker инсталацията {3}. {4} {0} Забележка: {1} уверете се, че портовете {0} } 3306 {1} и {0} 8081 {1} се отварят на компютъра, на който е инсталиран {0} Mail Server {1}. Също така силно препоръчваме да промените паролата си за достъп до базата данни на {0} Mail Server {1}.</value>
+  </data>
+  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
+    <value>Скриване на разширените настройки</value>
+  </data>
+  <data name="MailServiceHost" xml:space="preserve">
+    <value>Хост на базата данни на сървъра за поща</value>
+  </data>
+  <data name="MailServicePassword" xml:space="preserve">
+    <value>Парола на базата данни на сървъра за поща</value>
+  </data>
+  <data name="MailServicePingingErrorMsg" xml:space="preserve">
+    <value>Грешка при препращане към хоста {0}: {1}</value>
+  </data>
+  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
+    <value>Услугата е свързана успешно</value>
+  </data>
+  <data name="MailServiceServerIp" xml:space="preserve">
+    <value>IP сървър на поща</value>
+  </data>
+  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
+    <value>Покажи разширените настройки</value>
+  </data>
+  <data name="MailServiceText" xml:space="preserve">
+    <value>Веднъж свързан, {0} Mail Server {1} ще стане {2} на разположение {3} в модула {0} Mail {1} ​​и ще можете да създавате пощенски кутии за потребителите на портала, като използвате собственото си име ,</value>
+  </data>
+  <data name="MailServiceTitle" xml:space="preserve">
+    <value>Настройки за връзка с пощенски сървър</value>
+  </data>
+  <data name="MailServiceUser" xml:space="preserve">
+    <value>Потребителско име на база данни на сървъра за поща</value>
+  </data>
+  <data name="MailServiceWarning" xml:space="preserve">
+    <value>Предупреждение: вече имате настройки на Mail Domain и пощенски кутии за потребители, които присъстват в модула {0} Mail {1}. Промяната на настройките тук ви дава възможност да осъзнаете, че тези промени могат да повлияят на работата им и да доведат до неуспех на пощенския сървър. Ако напълно преместите {0} сървъра за поща {1} на друг компютър и/или промените идентификационните данни за достъп до базата данни, просто актуализирайте {0} IP адреса на пощенския сървър {1} и/или идентификационните данни тук. Ако сте създали нов {0} Mail Server {1} и искате да го свържете, първо трябва да изтриете старите данни на страницата {2} Mail Server {3}.</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="MaleSexStatus" xml:space="preserve">
+    <value>Мъжки</value>
+  </data>
+  <data name="ManagementCategoryCommon" xml:space="preserve">
+    <value>Често срещани</value>
+  </data>
+  <data name="ManagementCategoryIntegration" xml:space="preserve">
+    <value>Интеграция</value>
+  </data>
+  <data name="ManagementCategorySecurity" xml:space="preserve">
+    <value>Сигурност</value>
+  </data>
+  <data name="ManagementCategoryStatistic" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLink" xml:space="preserve">
+    <value>Създайте вашата CRM база данни</value>
+  </data>
+  <data name="ManagerEmptyScreen_CRMLinkDscr" xml:space="preserve">
+    <value>Управление на клиенти, проследяване на продажбите и фактуриране</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLink" xml:space="preserve">
+    <value>Работа с .docx, .xlsx и .pptx онлайн</value>
+  </data>
+  <data name="ManagerEmptyScreen_DocumentsLinkDscr" xml:space="preserve">
+    <value>Преглеждайте и редактирайте документи направо в портала</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLink" xml:space="preserve">
+    <value>Преглеждайте членовете на екипа си</value>
+  </data>
+  <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
+    <value>Преглед на портала {!users}, добавяне или импортиране</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
+    <value>Участвайте в проекти</value>
+  </data>
+  <data name="ManagerEmptyScreen_ProjectsLinkDscr" xml:space="preserve">
+    <value>Контролирайте задачите и проследявайте изпълнението с диаграма на Гант</value>
+  </data>
+  <data name="ManagerEmptyScreen_StepsHeader" xml:space="preserve">
+    <value>Ето няколко стъпки, за да започнете:</value>
+  </data>
+  <data name="ManagerEmptyScreen_WelcomeHeader" xml:space="preserve">
+    <value>Добре дошли в ONLYOFFICE, {0}!</value>
+  </data>
+  <data name="MarkAllAsRead" xml:space="preserve">
+    <value>Маркирай като прочетено</value>
+  </data>
+  <data name="MessageAuthorize" xml:space="preserve">
+    <value>Моля, упълномощавайте се.</value>
+  </data>
+  <data name="MessageEmailActivationInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Указанията за активиране на имейла са изпратени на имейл адреса {0}</value>
+  </data>
+  <data name="MessageEmailChangeInstuctionsSentOnEmail" xml:space="preserve">
+    <value>Указанията за промяна на имейла са изпратени успешно</value>
+  </data>
+  <data name="MessageEmailConfirmed" xml:space="preserve">
+    <value>Имейлът ви бе активиран успешно.</value>
+  </data>
+  <data name="MessageReSendInviteInstructionsOnEmail" xml:space="preserve">
+    <value>Изпратете инструкциите за поканите до {0} имейл адреса</value>
+  </data>
+  <data name="MessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
+    <value>Изпратете указанията за активиране на имейла на имейл адреса {0}</value>
+  </data>
+  <data name="MessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Изпратете указанията за промяна на имейла на имейл адреса {0}</value>
+  </data>
+  <data name="MessageSendPasswordChangeInstructionsOnEmail" xml:space="preserve">
+    <value>Изпратете инструкциите за промяна на паролата на имейл адреса {0}</value>
+  </data>
+  <data name="MessageSendPasswordRecoveryInstructionsOnEmail" xml:space="preserve">
+    <value>Моля, въведете имейла, който сте използвали при регистрацията в портала. Инструкциите за възстановяване на паролата ще бъдат изпратени на този имейл адрес.</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>ONLYOFFICE™ е облачен офис, който ви позволява да управлявате документи, проекти, екипни и клиентски отношения на едно място.</value>
+  </data>
+  <data name="MetaKeywords" xml:space="preserve">
+    <value>онлайн редактор на документи, инструмент за управление на проекти, бизнес инструменти, CRM система, диаграма на Гант, онлайн сътрудничество, облачен офис, онлайн дума, управление на документи, онлайн електронни таблици, онлайн офис, съвместно редактиране, онлайн офис приложение, онлайн документи</value>
+  </data>
+  <data name="Migration" xml:space="preserve">
+    <value>Миграция</value>
+  </data>
+  <data name="MigrationNotAvailable" xml:space="preserve">
+    <value>Функцията {1} Регионална миграция на портала {1} е достъпна само за собствениците на платени портали.</value>
+  </data>
+  <data name="MigrationNotAvailableOwner" xml:space="preserve">
+    <value>Функцията {1} Регионална миграция на портала {1} е достъпна само за собствениците на портали.</value>
+  </data>
+  <data name="MigrationPortalProcessTitle" xml:space="preserve">
+    <value>Мигрирането на портала {0} е в ход.</value>
+  </data>
+  <data name="MigrationPortalText" xml:space="preserve">
+    <value>Когато миграцията към новия процес на съхранение приключи, порталът ще бъде готов за работа отново.</value>
+  </data>
+  <data name="MigrationPortalTitle" xml:space="preserve">
+    <value>Миграция</value>
+  </data>
+  <data name="MobileNewNumber" xml:space="preserve">
+    <value>Нов мобилен телефон</value>
+  </data>
+  <data name="MobilePhone" xml:space="preserve">
+    <value>Основен мобилен телефон</value>
+  </data>
+  <data name="MobilePhoneChange" xml:space="preserve">
+    <value>Промяна на телефонен номер</value>
+  </data>
+  <data name="MobilePhoneChangeDescription" xml:space="preserve">
+    <value>Към номера на страница променете телефонния номер.</value>
+  </data>
+  <data name="MobilePhoneChangeDescriptionSms" xml:space="preserve">
+    <value>За да промените телефонния номер, използвайте текстовото съобщение с кода, който е бил изпратен на новия ви телефон.</value>
+  </data>
+  <data name="MobilePhoneChangeSent" xml:space="preserve">
+    <value>Изпратено</value>
+  </data>
+  <data name="MobilePhoneChangeTitle" xml:space="preserve">
+    <value>Промяна на мобилния телефон</value>
+  </data>
+  <data name="MobilePhoneEraseDescription" xml:space="preserve">
+    <value>Инструкциите за промяна на потребителския мобилен номер ще бъдат изпратени на потребителския имейл адрес</value>
+  </data>
+  <data name="MobilePhoneMustErase" xml:space="preserve">
+    <value>За да промените номера, трябва да изтриете текущия си телефонен номер</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Мониторинг</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Повече действия</value>
+  </data>
+  <data name="MoreLanguages" xml:space="preserve">
+    <value>Още езици</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Моят профил</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
+  <data name="NameInFirstLine" xml:space="preserve">
+    <value>Имената на полетата в първия ред</value>
+  </data>
+  <data name="NamingPeopleSchema" xml:space="preserve">
+    <value>Шаблон</value>
+  </data>
+  <data name="NamingPeopleSettings" xml:space="preserve">
+    <value>Шаблон на екипа</value>
+  </data>
+  <data name="NeverShow" xml:space="preserve">
+    <value>Никога не показвай</value>
+  </data>
+  <data name="NewPortalName" xml:space="preserve">
+    <value>Ново име на портала</value>
+  </data>
+  <data name="NoMailServerDomainsMsg" xml:space="preserve">
+    <value>Още не сте добавили домейни. Следвайте връзката {0} {1}, за да добавите първия домейн.</value>
+  </data>
+  <data name="NoMissedCallsMsg" xml:space="preserve">
+    <value>Няма пропуснати повиквания</value>
+  </data>
+  <data name="NoRedirectOperatorsMsg" xml:space="preserve">
+    <value>Няма други налични оператори, моля отговорете.</value>
+  </data>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Ролите за потребителите, добавени като {!Guests}, могат да бъдат променени по-късно в модула {0}Хора{1}.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>Те няма да бъдат включени в общия брой потребители в ценообразуването на портала.</value>
+  </data>
+  <data name="NotFoundLanguage" xml:space="preserve">
+    <value>В случай, че не можете да намерите вашия език в списъка на наличните, не се колебайте да ни пишете на {0}documentation@onlyoffice.com{1}, за да участвате в превода и да получите до 1 година безплатно.</value>
+  </data>
+  <data name="NotifyBy" xml:space="preserve">
+    <value>Известие от:</value>
+  </data>
+  <data name="NotifyByEmail" xml:space="preserve">
+    <value>Електронна поща</value>
+  </data>
+  <data name="NotifyByEmailAndTMTalk" xml:space="preserve">
+    <value>Email &amp; Talk</value>
+  </data>
+  <data name="NotifyByTMTalk" xml:space="preserve">
+    <value>Говоря</value>
+  </data>
+  <data name="NotifyPortalMigration" xml:space="preserve">
+    <value>Уведомете {!users} за миграцията на портала</value>
+  </data>
+  <data name="OffMailDomains" xml:space="preserve">
+    <value>Хора с увреждания</value>
+  </data>
+  <data name="OKButton" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="OnlyofficeApps" xml:space="preserve">
+    <value>Приложения</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="OrgServerRegion" xml:space="preserve">
+    <value>ORG Region</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Собственик</value>
+  </data>
+  <data name="PaidPeriodExpiredStandaloneLife" xml:space="preserve">
+    <value>Вашият абонамент за поддръжка и актуализации е изтекъл</value>
+  </data>
+  <data name="PaidPeriodStandaloneLife" xml:space="preserve">
+    <value>Вашият абонамент за поддръжка и актуализации ще изтече в {0} {1}</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="PasswordChangeButton" xml:space="preserve">
+    <value>Промяна на паролата</value>
+  </data>
+  <data name="PasswordChangeTitle" xml:space="preserve">
+    <value>Промяна на парола</value>
+  </data>
+  <data name="PasswordMinLength" xml:space="preserve">
+    <value>Минимална дължина на паролата</value>
+  </data>
+  <data name="PasswordRecoveryTitle" xml:space="preserve">
+    <value>Възстановяване на парола</value>
+  </data>
+  <data name="PasswordSymbolsCountLabel" xml:space="preserve">
+    <value>знаци</value>
+  </data>
+  <data name="PasswordUseDigits" xml:space="preserve">
+    <value>Използвайте цифри</value>
+  </data>
+  <data name="PasswordUseSpecialSymbols" xml:space="preserve">
+    <value>Използвайте специални символи</value>
+  </data>
+  <data name="PasswordUseUpperCase" xml:space="preserve">
+    <value>Използвайте главни букви</value>
+  </data>
+  <data name="PassworResetTitle" xml:space="preserve">
+    <value>Сега можете да създадете нова парола.</value>
+  </data>
+  <data name="PaymentRequired" xml:space="preserve">
+    <value>Изисква се плащане</value>
+  </data>
+  <data name="Payments" xml:space="preserve">
+    <value>Плащания</value>
+  </data>
+  <data name="PaymentsTitle" xml:space="preserve">
+    <value>История на плащане</value>
+  </data>
+  <data name="PendingTitle" xml:space="preserve">
+    <value>В очакване на</value>
+  </data>
+  <data name="People" xml:space="preserve">
+    <value>Хора</value>
+  </data>
+  <data name="PersonalFreeSpaceException" xml:space="preserve">
+    <value>Превишена е квотата за дисково пространство</value>
+  </data>
+  <data name="PersonalTariffExceedLimit" xml:space="preserve">
+    <value>Размерът на мястото за съхранение е на път да бъде превишен: {0}</value>
+  </data>
+  <data name="PersonalTariffExceedLimitInfoText" xml:space="preserve">
+    <value>Нямате свободно пространство за съхранение. Когато квотата за съхранение бъде превишена, няма да можете да създавате или качвате нови файлове и всички съществуващи промени в файловете ще бъдат отхвърлени. как можете да получите допълнително свободно пространство.</value>
+  </data>
+  <data name="PhotoMaxSize" xml:space="preserve">
+    <value>JPG или PNG, макс. {0}</value>
+  </data>
+  <data name="PhotoNotSelected" xml:space="preserve">
+    <value>Не е избрана снимка</value>
+  </data>
+  <data name="PleaseWaitMessage" xml:space="preserve">
+    <value>Моля Изчакай...</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Порт</value>
+  </data>
+  <data name="PortalAccessSettingsAnyone" xml:space="preserve">
+    <value>Публичен портал</value>
+  </data>
+  <data name="PortalAccessSettingsAuthorized" xml:space="preserve">
+    <value>Частен портал</value>
+  </data>
+  <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
+    <value>Превишен лимит ({0} Mb дисково пространство)</value>
+  </data>
+  <data name="PortalAccessSettingsTariffException" xml:space="preserve">
+    <value>Тази функция е активирана само на безплатна тарифа</value>
+  </data>
+  <data name="PortalAccessSettingsTitle" xml:space="preserve">
+    <value>Настройки за достъп до портала</value>
+  </data>
+  <data name="PortalAccessSettingsUserLimitException" xml:space="preserve">
+    <value>Превишен лимит ({0} активни потребители)</value>
+  </data>
+  <data name="PortalName" xml:space="preserve">
+    <value>Име на портала</value>
+  </data>
+  <data name="PortalOwner" xml:space="preserve">
+    <value>Собственик на портала</value>
+  </data>
+  <data name="PortalRenameTitle" xml:space="preserve">
+    <value>Преименуване на портала</value>
+  </data>
+  <data name="PortalSecurity" xml:space="preserve">
+    <value>Достъп до портала</value>
+  </data>
+  <data name="PoweredBy" xml:space="preserve">
+    <value>Задвижвани от</value>
+  </data>
+  <data name="PreviewButton" xml:space="preserve">
+    <value>Предварителен преглед</value>
+  </data>
+  <data name="PricingPageSettingsCbxText" xml:space="preserve">
+    <value>Страницата за цените е достъпна само за администратори</value>
+  </data>
+  <data name="PricingPageSettingsHelp" xml:space="preserve">
+    <value>{0}Настройки на ценовите страници{1} позволяват на администратора на портала да активира или деактивира видимостта на страницата за ценообразуване за всички потребители, което я прави видима само за администраторите на портала.</value>
+  </data>
+  <data name="PricingPageSettingsTitle" xml:space="preserve">
+    <value>Настройки на ценообразуването</value>
+  </data>
+  <data name="PrintButton" xml:space="preserve">
+    <value>Печат</value>
+  </data>
+  <data name="ProductsAndInstruments" xml:space="preserve">
+    <value>Модули и инструменти</value>
+  </data>
+  <data name="ProductsAndInstruments_Info" xml:space="preserve">
+    <value>Изберете модулите и инструментите ONLYOFFICE, от които се нуждаете. Деактивираните модули и инструменти ще бъдат скрити от всички портали {!users}. Имайте предвид, че след като активирате отново модулите и инструментите, те ще станат достъпни и за всички {!users} на портала. За да ограничите достъпа, вижте раздела Права за достъп на Настройките на портала.</value>
+  </data>
+  <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
+    <value>Инструменти</value>
+  </data>
+  <data name="ProductsAndInstruments_Products" xml:space="preserve">
+    <value>Модули</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профил</value>
+  </data>
+  <data name="ProfileRemoved" xml:space="preserve">
+    <value>Потребителският профил бе премахнат</value>
+  </data>
+  <data name="ProfileTypePopupHelper" xml:space="preserve">
+    <value>Гостите имат ограничен достъп до някои функции и модули на портала</value>
+  </data>
+  <data name="ProjectsForDevices" xml:space="preserve">
+    <value>ONLYOFFICE Проекти за {0} устройства</value>
+  </data>
+  <data name="PublishButton" xml:space="preserve">
+    <value>Публикувам</value>
+  </data>
+  <data name="ReactivatePortalButton" xml:space="preserve">
+    <value>Възстановете</value>
+  </data>
+  <data name="ReactivatePortalSuccessMessage" xml:space="preserve">
+    <value>Профилът ви бе успешно активиран отново. {0} След 10 секунди ще бъдете пренасочени {1} тук {2}</value>
+  </data>
+  <data name="ReassignData" xml:space="preserve">
+    <value>Преназначете данни</value>
+  </data>
+  <data name="ReassignDataRemoveUserError" xml:space="preserve">
+    <value>Процесът на превъзлагане на данни за {0} не е завършен.</value>
+  </data>
+  <data name="RedirectCallBtn" xml:space="preserve">
+    <value>Пренасочване</value>
+  </data>
+  <data name="RegDateCaption" xml:space="preserve">
+    <value>Дата на Регистрация</value>
+  </data>
+  <data name="RegisterNewUsersImmediately" xml:space="preserve">
+    <value>Незабавно регистрирайте нови {!users}</value>
+  </data>
+  <data name="RegistrationEmailWatermark" xml:space="preserve">
+    <value>Вашият имейл за регистрация</value>
+  </data>
+  <data name="RegistrationLoginWatermark" xml:space="preserve">
+    <value>Влизам</value>
+  </data>
+  <data name="RejectCallBtn" xml:space="preserve">
+    <value>Отхвърляне</value>
+  </data>
+  <data name="Remember" xml:space="preserve">
+    <value>Помня</value>
+  </data>
+  <data name="RememberHelper" xml:space="preserve">
+    <value>Продължителността на сесията по подразбиране е 20 минути. Проверете тази опция, за да я настроите на 1 година. За да зададете собствена стойност, преминете към настройките.</value>
+  </data>
+  <data name="RemoveData" xml:space="preserve">
+    <value>Изтриване на лични данни</value>
+  </data>
+  <data name="RequestNewButton" xml:space="preserve">
+    <value>Заявка за нова</value>
+  </data>
+  <data name="ResendInviteDescription" xml:space="preserve">
+    <value>Поканата ще бъде изпратена до въведената електронна поща</value>
+  </data>
+  <data name="ResendInvitesButton" xml:space="preserve">
+    <value>Повторно изпращане на</value>
+  </data>
+  <data name="ResendInvitesText" xml:space="preserve">
+    <value>Искате ли отново да изпратите покани?</value>
+  </data>
+  <data name="ResendInviteTitle" xml:space="preserve">
+    <value>Повторно изпратете покана</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Нулиране</value>
+  </data>
+  <data name="RestoreAction" xml:space="preserve">
+    <value>Възстанови</value>
+  </data>
+  <data name="RestoreBackupList" xml:space="preserve">
+    <value>Списък с резервни копия</value>
+  </data>
+  <data name="RestoreBackupListClearText" xml:space="preserve">
+    <value>Ако изтриете всички елементи от списъка, съответните им файлове също ще бъдат изтрити. Това действие не може да бъде отменено. За да изтриете всички файлове, използвайте връзката: {0} Изчисти списъка {1}.</value>
+  </data>
+  <data name="RestoreBtn" xml:space="preserve">
+    <value>Възстанови</value>
+  </data>
+  <data name="RestoreComputerFile" xml:space="preserve">
+    <value>Компютърен файл</value>
+  </data>
+  <data name="RestoreDefaultButton" xml:space="preserve">
+    <value>Възстановяване на по подразбиране</value>
+  </data>
+  <data name="RestoreDesc" xml:space="preserve">
+    <value>Използвайте тази опция, за да възстановите портала от предварително записания архивен файл.</value>
+  </data>
+  <data name="RestoreEmptyList" xml:space="preserve">
+    <value>Все още не са създадени резервни копия. Създайте едно или повече резервни копия, които да се показват в този списък.</value>
+  </data>
+  <data name="RestoreHelp" xml:space="preserve">
+    <value>Опцията {0}Възстановяване на данни{1} се използва за възстановяване на предварително запазените данни за портала (от локален сървър или SaaS портал). Изберете хранилището, където се съхраняват данните, въведете необходимите данни и проверете {0}Изпращане на известие до потребителите на портала{1}, за да уведомите потребителите на портала за операциите по архивиране/възстановяване.</value>
+  </data>
+  <data name="RestorePortalProcessText" xml:space="preserve">
+    <value>След като процесът на възстановяване приключи, ще бъдете автоматично пренасочени към портала си.</value>
+  </data>
+  <data name="RestorePortalProcessTitle" xml:space="preserve">
+    <value>Възстановяването на портала е в ход.</value>
+  </data>
+  <data name="RestoreSendNotification" xml:space="preserve">
+    <value>Изпращане на известие за възстановяване на портала на потребителите</value>
+  </data>
+  <data name="RestoreShowListBackup" xml:space="preserve">
+    <value>Показване на списъка с резервни копия</value>
+  </data>
+  <data name="RestoreTitle" xml:space="preserve">
+    <value>Възстановяване на данни</value>
+  </data>
+  <data name="RestoreWarningText" xml:space="preserve">
+    <value>Порталът ще стане недостъпен по време на процеса на възстановяване. След завършване на възстановяването всички промени, направени след датата на избраната точка за възстановяване, ще бъдат загубени.</value>
+  </data>
+  <data name="ReturnToImportSettingsBtn" xml:space="preserve">
+    <value>Върнете се към настройките за импортиране</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Запази</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Търсене</value>
+  </data>
+  <data name="SearchNotFoundDescript" xml:space="preserve">
+    <value>Уверете се, че всички думи са написани правилно. Опитайте да използвате различни ключови думи.</value>
+  </data>
+  <data name="SearchNotFoundMessage" xml:space="preserve">
+    <value>Нищо не е намерено.</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Резултати от търсенето</value>
+  </data>
+  <data name="SeeAllBtn" xml:space="preserve">
+    <value>Виж всички</value>
+  </data>
+  <data name="SeeAllVideos" xml:space="preserve">
+    <value>Гледайте всички видеоклипове</value>
+  </data>
+  <data name="SelectDataSource" xml:space="preserve">
+    <value>Изберете източник на данни</value>
+  </data>
+  <data name="SelectProduct" xml:space="preserve">
+    <value>Избирам</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Изпращам</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Имейл адрес на подателя</value>
+  </data>
+  <data name="SenderName" xml:space="preserve">
+    <value>Екранно име на подателя</value>
+  </data>
+  <data name="SendInviteAgain" xml:space="preserve">
+    <value>Изпратете отново поканата</value>
+  </data>
+  <data name="SendInviteToJoinButton" xml:space="preserve">
+    <value>Изпрати покана</value>
+  </data>
+  <data name="SendInviteToJoinButtonBlock" xml:space="preserve">
+    <value>Кликнете тук, за да се присъедините</value>
+  </data>
+  <data name="SendInviteToJoinDescription" xml:space="preserve">
+    <value>Искате да станете портал {!user}?</value>
+  </data>
+  <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
+    <value>Моля, въведете имейл адреса, на който ще бъде изпратена поканата:</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Изпращане на тестова поща</value>
+  </data>
+  <data name="ServerErrorText" xml:space="preserve">
+    <value>Сървърният софтуер съдържа грешка при обработката на заявката ви. Моля, изчакайте известно време и опитайте отново. Ако грешката продължава, вероятно ще трябва да се свържете с администратора на сайта.</value>
+  </data>
+  <data name="ServerErrorTitle" xml:space="preserve">
+    <value>Грешка в сървъра</value>
+  </data>
+  <data name="ServerRegion" xml:space="preserve">
+    <value>Регион на сървъра</value>
+  </data>
+  <data name="SetPassword" xml:space="preserve">
+    <value>Задайте парола</value>
+  </data>
+  <data name="SettingsAlreadyCurrentPortalVersion" xml:space="preserve">
+    <value>Това вече е текущата версия</value>
+  </data>
+  <data name="SettingsBadPortalVersion" xml:space="preserve">
+    <value>Невалидна версия на портала</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Секс</value>
+  </data>
+  <data name="SgServerRegion" xml:space="preserve">
+    <value>Тихоокеанска Азия (Сингапур)</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Шоу</value>
+  </data>
+  <data name="ShowAllButton" xml:space="preserve">
+    <value>Покажи всички</value>
+  </data>
+  <data name="ShowAllSearchResult" xml:space="preserve">
+    <value>Показване на всички резултати</value>
+  </data>
+  <data name="ShowingTipsSettingMsg" xml:space="preserve">
+    <value>Активиране/деактивиране на пояснения</value>
+  </data>
+  <data name="ShowNext" xml:space="preserve">
+    <value>Покажи следващото</value>
+  </data>
+  <data name="SignInFromAnyDomainInviteTitle" xml:space="preserve">
+    <value>Регистрацията е достъпна за потребители с имейл акаунт във всеки домейн. За да се регистрирате, въведете имейла си и кликнете върху Изпрати покана. На посочения имейл ще бъде изпратено имейл съобщение с връзка за активиране на вашия профил ONLYOFFICE™.</value>
+  </data>
+  <data name="SingleSignOnSettings" xml:space="preserve">
+    <value>Единично влизане</value>
+  </data>
+  <data name="SmlAmazement" xml:space="preserve">
+    <value>Изненада</value>
+  </data>
+  <data name="SmlBomb" xml:space="preserve">
+    <value>Бомба</value>
+  </data>
+  <data name="SmlCrazy" xml:space="preserve">
+    <value>Луд</value>
+  </data>
+  <data name="SmlCry" xml:space="preserve">
+    <value>Вик</value>
+  </data>
+  <data name="SmlDance" xml:space="preserve">
+    <value>Танц</value>
+  </data>
+  <data name="SmlDrink" xml:space="preserve">
+    <value>Питие</value>
+  </data>
+  <data name="SmlEvil" xml:space="preserve">
+    <value>Ядосан</value>
+  </data>
+  <data name="SmlEye" xml:space="preserve">
+    <value>Намигване</value>
+  </data>
+  <data name="SmlGreen" xml:space="preserve">
+    <value>Зелен</value>
+  </data>
+  <data name="SmlHollywood" xml:space="preserve">
+    <value>Холивудска усмивка</value>
+  </data>
+  <data name="SmlMourning" xml:space="preserve">
+    <value>Тъжен</value>
+  </data>
+  <data name="SmlMusic" xml:space="preserve">
+    <value>Музика</value>
+  </data>
+  <data name="SmlOK" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="SmlSmile" xml:space="preserve">
+    <value>Усмивка</value>
+  </data>
+  <data name="SmlSmirk" xml:space="preserve">
+    <value>Хилене</value>
+  </data>
+  <data name="SmlSorry" xml:space="preserve">
+    <value>Съжалявам</value>
+  </data>
+  <data name="SmlSOS" xml:space="preserve">
+    <value>Sos</value>
+  </data>
+  <data name="SmlSpectacles" xml:space="preserve">
+    <value>Очила</value>
+  </data>
+  <data name="SmlSuper" xml:space="preserve">
+    <value>Супер</value>
+  </data>
+  <data name="SmlTongue" xml:space="preserve">
+    <value>Език</value>
+  </data>
+  <data name="SmlYAHOO" xml:space="preserve">
+    <value>Ура</value>
+  </data>
+  <data name="SmsAuthDescription" xml:space="preserve">
+    <value>{0}Двуфакторната идентификация{1} е по-сигурен начин за влизане на потребителите в портала. След въвеждането на идентификационните данни, потребителят ще трябва да въведе кода от полученият SMS до мобилния телефон с номера, посочен при първото влизане в портала чрез двуфакторното удостоверяване.{2}Активирайте тази опция за по-сигурно достъп до портала от всички потребители на портала.{2}За да приложите промените, които сте направили, кликнете върху бутона {0}Запазване{1} под този раздел.{2}</value>
+  </data>
+  <data name="SmsAuthenticationMessageError" xml:space="preserve">
+    <value>Грешен код</value>
+  </data>
+  <data name="SmsAuthenticationMessageToUser" xml:space="preserve">
+    <value>Код: {0}</value>
+  </data>
+  <data name="SmsAuthenticationTimeout" xml:space="preserve">
+    <value>Времето за използване на кода е изтекло. Моля, заявете ново текстово съобщение.</value>
+  </data>
+  <data name="SmsAuthNoteDescription" xml:space="preserve">
+    <value>{0}Забележка{1}: SMS съобщенията могат да се изпращат само ако имате само положително салдо. Винаги можете да проверите текущия си баланс в профила си в SMS доставчика. Не забравяйте своевременно да попълвате баланса си.</value>
+  </data>
+  <data name="SmsAuthNoteKeysDescription" xml:space="preserve">
+    <value>{0}Забележка{1}: преди да можете да използвате двуфакторното SMS удостоверяване, трябва да изберете поне един доставчик на SMS и да го конфигурирате на страницата {3}{0}Услуги на трети лица{1}{4},</value>
+  </data>
+  <data name="SmsAuthNoteQuotaDescription" xml:space="preserve">
+    <value>{0}Забележка{1}: двуфакторното удостоверяване чрез SMS е достъпно само за платени портали.</value>
+  </data>
+  <data name="SmsAuthTitle" xml:space="preserve">
+    <value>Двуфакторно удостоверяване</value>
+  </data>
+  <data name="SmsBalance" xml:space="preserve">
+    <value>{0} баланс</value>
+  </data>
+  <data name="SmsBalanceAccount" xml:space="preserve">
+    <value>вижте в профила си {0}</value>
+  </data>
+  <data name="SmsNotAvailable" xml:space="preserve">
+    <value>Настройките за SMS не са налични</value>
+  </data>
+  <data name="SmsTooMuchError" xml:space="preserve">
+    <value>Изпратили сте твърде много текстови съобщения. Моля, опитайте отново по-късно.</value>
+  </data>
+  <data name="SmtpCustomSettings" xml:space="preserve">
+    <value>Потребителски настройки</value>
+  </data>
+  <data name="SmtpMailServerSettings" xml:space="preserve">
+    <value>Настройки на сървъра за поща</value>
+  </data>
+  <data name="SmtpSettings" xml:space="preserve">
+    <value>Настройки за SMTP</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>Ако използвате профил в Gmail за SMTP сървър, няма да можете да изпращате поща, докато не направите следното: влезте в профила си в Gmail, който използвате чрез стандартния му уеб интерфейс, и потвърдете всички въпроси за потвърждаване на опита за достъп до ONLYOFFICE™ акаунт, в случай че има такива. {0} Препоръчваме да използвате портове 587 или 25 за изпращане на имейл съобщения, тъй като други стойности могат да попречат на SMTP от правилната работа.</value>
+  </data>
+  <data name="SmtpSettingsText" xml:space="preserve">
+    <value>Настройките за SMTP са необходими, за да настроите имейл акаунт, който ще се използва за изпращане на уведомления от портала, използвайки вашия собствен SMTP сървър, вместо този, който използва ONLYOFFICE™. Моля, попълнете всички полета и натиснете бутона 'Запази'. Можете да използвате бутона 'Изпращане на тестова поща', за да проверите дали всички въведени от вас настройки са правилни и да работят както се предполага.</value>
+  </data>
+  <data name="SocialProfiles" xml:space="preserve">
+    <value>Социални профили</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Източник</value>
+  </data>
+  <data name="SpamSubscriptionDescription" xml:space="preserve">
+    <value>Известия по имейл с актуализации на продукта, съобщения и специални оферти</value>
+  </data>
+  <data name="SpecifyAnExistingEmail" xml:space="preserve">
+    <value>Посочете съществуващ имейл адрес</value>
+  </data>
+  <data name="SsoSettingsCantCreateUser" xml:space="preserve">
+    <value>Потребителят не можа да се създаде с този маркер за удостоверяване</value>
+  </data>
+  <data name="SsoSettingsCantSaveSettings" xml:space="preserve">
+    <value>Настройките не можаха да се запазят</value>
+  </data>
+  <data name="SsoSettingsCouldNotBeNull" xml:space="preserve">
+    <value>Настройките не можаха да бъдат нули</value>
+  </data>
+  <data name="SsoSettingsDisabled" xml:space="preserve">
+    <value>Единичното влизане е деактивирано</value>
+  </data>
+  <data name="SsoSettingsEmptyToken" xml:space="preserve">
+    <value>Токът за удостоверяване не можа да бъде намерен</value>
+  </data>
+  <data name="SsoSettingsInvalidBinding" xml:space="preserve">
+    <value>Невалидно свързване: {0}</value>
+  </data>
+  <data name="SsoSettingsInvalidEntityId" xml:space="preserve">
+    <value>Невалиден идентификатор на субект</value>
+  </data>
+  <data name="SsoSettingsInvalidMapping" xml:space="preserve">
+    <value>Невалидно картографиране на полета</value>
+  </data>
+  <data name="SsoSettingsNotValidToken" xml:space="preserve">
+    <value>Невалиден маркер за удостоверяване</value>
+  </data>
+  <data name="SsoSettingsUserTerminated" xml:space="preserve">
+    <value>Този потребител е деактивиран</value>
+  </data>
+  <data name="SsoUserEditCanOnlyAdminTitle" xml:space="preserve">
+    <value>Потребителят е импортиран от SSO. Свържете се с администратора на SSO, ако искате да промените полетата на заключените профили.</value>
+  </data>
+  <data name="SsoUsersListLockTitle" xml:space="preserve">
+    <value>Потребителят е импортиран от SSO</value>
+  </data>
+  <data name="StatisticsDescription" xml:space="preserve">
+    <value>За да увеличите пространството за съхранение, изберете подобрен план за ценообразуване. {0} За да освободите място за съхранение, можете да изтриете личните данни на потребителите с увреждания. За да направите това, отидете в потребителския профил и изберете действие 'Изтриване на лични данни' от падащото меню вдясно от името.</value>
+  </data>
+  <data name="StatisticsTitle" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>Съхранение</value>
+  </data>
+  <data name="StorageText" xml:space="preserve">
+    <value>На тази страница можете да свържете хранилище на трета страна и да започнете да мигрирате към избраното хранилище. След като процесът на миграция стартира, портала ще стане недостъпен.</value>
+  </data>
+  <data name="StorageTitle" xml:space="preserve">
+    <value>Настройки за съхранение</value>
+  </data>
+  <data name="StudioDomainSettings" xml:space="preserve">
+    <value>Настройки на доверени поща</value>
+  </data>
+  <data name="StudioPasswordSettings" xml:space="preserve">
+    <value>Настройки за сила на паролата</value>
+  </data>
+  <data name="StudioTimeLanguageSettings" xml:space="preserve">
+    <value>Настройки на езика и часовата зона</value>
+  </data>
+  <data name="StudioVersionSettings" xml:space="preserve">
+    <value>Версия на портала</value>
+  </data>
+  <data name="SubscribeButton" xml:space="preserve">
+    <value>Абонирай се</value>
+  </data>
+  <data name="SubscribtionAdminNotifications" xml:space="preserve">
+    <value>Събития и известия за собственика или администратора на портала</value>
+  </data>
+  <data name="SubscribtionDailyNews" xml:space="preserve">
+    <value>Портални ежедневни новини и събития</value>
+  </data>
+  <data name="SubscribtionProjectName" xml:space="preserve">
+    <value>Име на проекта</value>
+  </data>
+  <data name="SubscriptionFromAll" xml:space="preserve">
+    <value>от всички</value>
+  </data>
+  <data name="SubscriptionNoticeVia" xml:space="preserve">
+    <value>Уведомяване чрез</value>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>Абонаменти</value>
+  </data>
+  <data name="SuccessfullyPortalRenameMessage" xml:space="preserve">
+    <value>Порталът е преименуван успешно</value>
+  </data>
+  <data name="SuccessfullySaveGreetingSettingsMessage" xml:space="preserve">
+    <value>Настройките на страницата за добре дошли са запазени успешно</value>
+  </data>
+  <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
+    <value>Настройките са актуализирани успешно</value>
+  </data>
+  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
+    <value>Инструкции за изтриване на потребителския ви профил са изпратени на адрес {0}</value>
+  </data>
+  <data name="SuccessResendInvitesText" xml:space="preserve">
+    <value>Поканите бяха изпратени успешно</value>
+  </data>
+  <data name="SupportBlockEmailBth" xml:space="preserve">
+    <value>Изпратете имейл</value>
+  </data>
+  <data name="SupportBlockTitle" xml:space="preserve">
+    <value>Свържете се с нас, за да откриете специални оферти</value>
+  </data>
+  <data name="TarffDowngradeErrorDescription" xml:space="preserve">
+    <value>Намалете необходимия параметър или изберете друг план за ценообразуване.</value>
+  </data>
+  <data name="TariffButtonBuy" xml:space="preserve">
+    <value>Купи сега</value>
+  </data>
+  <data name="TariffButtonExtend" xml:space="preserve">
+    <value>Удължаване</value>
+  </data>
+  <data name="TariffCanProlong" xml:space="preserve">
+    <value>Можете да удължите текущия план или да го промените, като използвате таблицата по-долу.</value>
+  </data>
+  <data name="TariffChooseLabel" xml:space="preserve">
+    <value>Изберете план, който най-добре отговаря на вашите нужди. Препоръчителният план е подчертан по-долу.</value>
+  </data>
+  <data name="TariffDowngrade" xml:space="preserve">
+    <value>Този план не може да бъде избран</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsStorage" xml:space="preserve">
+    <value>Позволен е размерът на пространството за съхранение: {0}. Текущо пространство за съхранение: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorStatisticsUsers" xml:space="preserve">
+    <value>Брой позволени потребители на портала: {0}. Настоящ брой потребители: {1}.</value>
+  </data>
+  <data name="TariffDowngradeErrorTitle" xml:space="preserve">
+    <value>Не можете да изберете този план, тъй като пространството за съхранение или броят на потребителите надхвърлят ограниченията на избрания план за ценообразуване:</value>
+  </data>
+  <data name="TariffEnabledAutorenew" xml:space="preserve">
+    <value>Периодичните плащания са включени</value>
+  </data>
+  <data name="TariffExceedLimit" xml:space="preserve">
+    <value>Размерът на мястото за съхранение е на път да бъде превишен: {0}</value>
+  </data>
+  <data name="TariffExceedLimitInfoText" xml:space="preserve">
+    <value>Можете да премахнете ненужните файлове или {0} тук {1}, за да намерите по-добър план за ценообразуване за портала си.</value>
+  </data>
+  <data name="TariffExpiredDate" xml:space="preserve">
+    <value>Изтича на {0}.</value>
+  </data>
+  <data name="TariffFree" xml:space="preserve">
+    <value>Използвате безплатен план.</value>
+  </data>
+  <data name="TariffLinkStandalone" xml:space="preserve">
+    <value>{0}Кликнете тук{1}, за да качите лицензен файл за портала си.</value>
+  </data>
+  <data name="TariffLinkStandaloneLife" xml:space="preserve">
+    <value>За да го подновите, {0} кликнете тук {1}.</value>
+  </data>
+  <data name="TariffPaymentDelay" xml:space="preserve">
+    <value>Вашият абонамент е изтекъл.</value>
+  </data>
+  <data name="TariffPaymentDelayText" xml:space="preserve">
+    <value>Вашият ONLYOFFICE™ портал ще бъде блокиран {2}. Моля, {0} кликнете тук {1}, за да удължите съществуващия план или да го промените за подходящ.</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Брой портали, които сте създали: {0}</value>
+  </data>
+  <data name="TariffRemarkDisabledMonth" xml:space="preserve">
+    <value>Планът за ценообразуване не е достъпен до края на платената година.</value>
+  </data>
+  <data name="TariffRemarkDisabledYear" xml:space="preserve">
+    <value>Планът за ценообразуване не е достъпен до края на тригодишния план за ценообразуване.</value>
+  </data>
+  <data name="TariffRemarkProlongDisable" xml:space="preserve">
+    <value>За да удължите срока автоматично, моля, уверете се, че отметката за повтарящо се плащане в профила си в Avangate е включена.</value>
+  </data>
+  <data name="TariffRemarkProlongEnable" xml:space="preserve">
+    <value>За да отмените повтарящите се плащания, моля, отворете профила си в Avangate.</value>
+  </data>
+  <data name="TariffRemarkSale" xml:space="preserve">
+    <value>Само до {0}.</value>
+  </data>
+  <data name="Tariffs" xml:space="preserve">
+    <value>Ценови планове</value>
+  </data>
+  <data name="TariffsCurrencyRu" xml:space="preserve">
+    <value>За вашето удобство парите в руските рубли се изчисляват по фиксирания обменен курс {0} руски рубли за 1 щатски долар.</value>
+  </data>
+  <data name="TariffSettings" xml:space="preserve">
+    <value>Плащания</value>
+  </data>
+  <data name="TariffStatistics" xml:space="preserve">
+    <value>Брой активни потребители, които сте добавили: {0}</value>
+  </data>
+  <data name="TariffStatisticsStorage" xml:space="preserve">
+    <value>Използвано пространство за съхранение: {0}</value>
+  </data>
+  <data name="TariffTrial" xml:space="preserve">
+    <value>Използвате FreeTrial план.</value>
+  </data>
+  <data name="TariffTrialOverdue" xml:space="preserve">
+    <value>Благодарим ви, че проверихте ONLYOFFICE™! {2} {0} Срокът за безплатен пробен период изтече. {1}</value>
+  </data>
+  <data name="TemporaryPasswordToAccess" xml:space="preserve">
+    <value>Временна парола за достъп до портала</value>
+  </data>
+  <data name="TenantCreated" xml:space="preserve">
+    <value>Създаден е портал</value>
+  </data>
+  <data name="TenantStorageSpace" xml:space="preserve">
+    <value>Съхранено пространство за портала</value>
+  </data>
+  <data name="TenantUsedSpace" xml:space="preserve">
+    <value>Използвано пространство за съхранение</value>
+  </data>
+  <data name="TenantUsersTotal" xml:space="preserve">
+    <value>Брой активни {!users}</value>
+  </data>
+  <data name="TermsOfUsePopupHelperLink" xml:space="preserve">
+    <value>Прочетете повече за условията за ползване</value>
+  </data>
+  <data name="TfaAppAuthMessageError" xml:space="preserve">
+    <value>Грешен код</value>
+  </data>
+  <data name="TfaAppBackupCodesRemaining" xml:space="preserve">
+    <value>(останали: {0})</value>
+  </data>
+  <data name="TfaAppNotAvailable" xml:space="preserve">
+    <value>Настройките на TFA приложението не са налични</value>
+  </data>
+  <data name="TfaAppResetApp" xml:space="preserve">
+    <value>Нулиране на приложението</value>
+  </data>
+  <data name="TfaAppResetAppDescription" xml:space="preserve">
+    <value>Конфигурацията на приложението за удостоверяване ще бъде нулирана.</value>
+  </data>
+  <data name="TfaAppResetAppHeader" xml:space="preserve">
+    <value>Нулиране на конфигурацията на приложението</value>
+  </data>
+  <data name="TfaAppShowBackupCodes" xml:space="preserve">
+    <value>Показване на резервни кодове</value>
+  </data>
+  <data name="TfaAppShowBackupCodesDescription" xml:space="preserve">
+    <value>Кодовете за архивиране ви позволяват да потвърдите влизането, когато нямате достъп до телефона си. {0} Сега имате само {1} код (а), всеки от които може да се използва само веднъж. Отпечатайте ги и използвайте, когато е необходимо.</value>
+  </data>
+  <data name="TfaAppShowBackupCodesNote" xml:space="preserve">
+    <value>Можете да получите нови кодове по всяко време. Само кодове, които са генерирани последни, са валидни.</value>
+  </data>
+  <data name="TfaAppShowBackupCodesTitle" xml:space="preserve">
+    <value>Кодове за архивиране</value>
+  </data>
+  <data name="TfaTooMuchError" xml:space="preserve">
+    <value>Изпратили сте твърде много текстови съобщения. Моля, опитайте отново по-късно.</value>
+  </data>
+  <data name="ThirdPartyAuthorization" xml:space="preserve">
+    <value>Услуги от трети страни</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Часова зона</value>
+  </data>
+  <data name="TipsAndTricsSubscriptionDescription" xml:space="preserve">
+    <value>Известия по имейл с полезни съвети и трикове</value>
+  </data>
+  <data name="TitleAim" xml:space="preserve">
+    <value>AIM</value>
+  </data>
+  <data name="TitleBlogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="TitleEmail" xml:space="preserve">
+    <value>Електронна поща</value>
+  </data>
+  <data name="TitleFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="TitleGooglebuzz" xml:space="preserve">
+    <value>GoogleBuzz</value>
+  </data>
+  <data name="TitleGooglemail" xml:space="preserve">
+    <value>GMail</value>
+  </data>
+  <data name="TitleGoogletalk" xml:space="preserve">
+    <value>Гугъл разговор</value>
+  </data>
+  <data name="TitleIcq" xml:space="preserve">
+    <value>ICQ</value>
+  </data>
+  <data name="TitleJabber" xml:space="preserve">
+    <value>Jabber</value>
+  </data>
+  <data name="TitleLiveJournal" xml:space="preserve">
+    <value>LiveJournal</value>
+  </data>
+  <data name="TitleMobphone" xml:space="preserve">
+    <value>Мобилен телефон</value>
+  </data>
+  <data name="TitleMsn" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="TitleMyspace" xml:space="preserve">
+    <value>Моето пространство</value>
+  </data>
+  <data name="TitlePhone" xml:space="preserve">
+    <value>Телефонен номер</value>
+  </data>
+  <data name="TitleSkype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="TitleTwitter" xml:space="preserve">
+    <value>Twitter</value>
+  </data>
+  <data name="TitleYahoo" xml:space="preserve">
+    <value>Yahoo !!</value>
+  </data>
+  <data name="Top10Title" xml:space="preserve">
+    <value>Топ 10</value>
+  </data>
+  <data name="TotalFinded" xml:space="preserve">
+    <value>Общо намерени</value>
+  </data>
+  <data name="ToTime" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="TransferPortalButton" xml:space="preserve">
+    <value>Промяна на региона на сървъра</value>
+  </data>
+  <data name="TransferPortalContentPopup" xml:space="preserve">
+    <value>{0}На път сте да стартирате миграцията на портала в друг регион. Порталът няма да бъде достъпен по време на процеса на миграция. След приключване на уведомлението известието ще бъде изпратено на имейл адреса ви.{1}{0}Пощенски домейни, пощенски кутии (с изключение на услугите на трети страни) и съдържащи се имейли няма да бъдат прехвърлени по време на процеса на мигриране.{1}{0}Наистина ли искате да продължите?{1}</value>
+  </data>
+  <data name="TransferPortalProcessText" xml:space="preserve">
+    <value>След като процесът на мигриране приключи, ще бъдете автоматично пренасочени към новия URL адрес на портала ви.</value>
+  </data>
+  <data name="TransferPortalProcessTitle" xml:space="preserve">
+    <value>В ход е миграция на портала {0} към друг регион.</value>
+  </data>
+  <data name="TransferPortalTitle" xml:space="preserve">
+    <value>Регион на портала</value>
+  </data>
+  <data name="TransferPortalTitlePopup" xml:space="preserve">
+    <value>Промяна на региона на сървъра</value>
+  </data>
+  <data name="TransferPortalWarning" xml:space="preserve">
+    <value>Порталът няма да бъде достъпен по време на процеса на миграция. След приключване на миграцията URL адресът на портала ще бъде променен и всички връзки за споделени документи ще бъдат недостъпни.</value>
+  </data>
+  <data name="TrialPeriod" xml:space="preserve">
+    <value>Пробен период: {0} {1}</value>
+  </data>
+  <data name="TrialPeriodExpired" xml:space="preserve">
+    <value>Безплатният пробен период изтече</value>
+  </data>
+  <data name="TrialPeriodInfoText" xml:space="preserve">
+    <value>{0}Кликнете тук{1}, за да изберете най-подходящия ценови план за вашия портал.</value>
+  </data>
+  <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
+    <value>Използвате пробна версия</value>
+  </data>
+  <data name="TrustedDomainSignInTitle" xml:space="preserve">
+    <value>Персонализирани домейни</value>
+  </data>
+  <data name="TrustedDomainsInviteTitle" xml:space="preserve">
+    <value>Регистрацията е достъпна за потребители с имейл адрес в {0}. За да се регистрирате, въведете имейла си и кликнете върху Изпрати покана. На посочения имейл ще бъде изпратено имейл съобщение с връзка за активиране на вашия профил ONLYOFFICE™.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Възникна неизвестна грешка</value>
+  </data>
+  <data name="UnsubscribeButton" xml:space="preserve">
+    <value>Отписване</value>
+  </data>
+  <data name="UpgradePlan" xml:space="preserve">
+    <value>Надстройка на ценовия план</value>
+  </data>
+  <data name="UploadButton" xml:space="preserve">
+    <value>Качи</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>{!User}</value>
+  </data>
+  <data name="UserCaption" xml:space="preserve">
+    <value>Потребител</value>
+  </data>
+  <data name="UserForum" xml:space="preserve">
+    <value>Потребителски форум</value>
+  </data>
+  <data name="UserPost" xml:space="preserve">
+    <value>{!Userpost}</value>
+  </data>
+  <data name="UsersCaption" xml:space="preserve">
+    <value>Потребители</value>
+  </data>
+  <data name="UserStatusCaption" xml:space="preserve">
+    <value>Позиция на заеманата длъжност</value>
+  </data>
+  <data name="UserType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="UsServerRegion" xml:space="preserve">
+    <value>Регион Западен Орегон</value>
+  </data>
+  <data name="VideoGuides" xml:space="preserve">
+    <value>Видео ръководства</value>
+  </data>
+  <data name="VideoShowUnwatchedVideo" xml:space="preserve">
+    <value>Показване на непрочетени видеоклипове</value>
+  </data>
+  <data name="ViewTariffPlans" xml:space="preserve">
+    <value>Вижте ценовите планове</value>
+  </data>
+  <data name="VisitorsChartHitLabel" xml:space="preserve">
+    <value>хитове</value>
+  </data>
+  <data name="VisitorsChartHostLabel" xml:space="preserve">
+    <value>Силите</value>
+  </data>
+  <data name="VisitorsChartTitle" xml:space="preserve">
+    <value>Графика на използване</value>
+  </data>
+  <data name="VisitorsChartVisitsLabel" xml:space="preserve">
+    <value>Посещения</value>
+  </data>
+  <data name="VoipServiceAlreadyRunningMsg" xml:space="preserve">
+    <value>Връзката вече е установена в друг прозорец</value>
+  </data>
+  <data name="VoipServiceUnavailableMsg" xml:space="preserve">
+    <value>За съжаление услугата в момента не е налице. Моля, опитайте отново по-късно.</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Внимание!</value>
+  </data>
+  <data name="WebStudioName" xml:space="preserve">
+    <value>ONLYOFFICE™</value>
+  </data>
+  <data name="WelcomeDescription" xml:space="preserve">
+    <value>Благодарим ви, че избрахте ONLYOFFICE™! Поради съображения за сигурност трябва да се изпълни процедурата за настройка на паролата.</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Добре дошли във Вашия ONLYOFFICE™ портал</value>
+  </data>
+  <data name="WhatsNewSubscriptionName" xml:space="preserve">
+    <value>Какво ново</value>
+  </data>
+  <data name="WhiteLabel" xml:space="preserve">
+    <value>Бял етикет</value>
+  </data>
+  <data name="WizardGenTimeLang" xml:space="preserve">
+    <value>Настройки на езика и часовата зона</value>
+  </data>
+  <data name="WizardPageTitle" xml:space="preserve">
+    <value>Настройка на портала - преминете през тези лесни стъпки, за да стартирате вашия уеб-офис лесно</value>
+  </data>
+  <data name="WizardRegistrationSettings" xml:space="preserve">
+    <value>Настройки за регистрация</value>
+  </data>
+  <data name="WorkFromDate" xml:space="preserve">
+    <value>{!Regdate}</value>
+  </data>
+  <data name="YouDecidedToJoinThisPortal" xml:space="preserve">
+    <value>Решихте да се присъедините към този портал.</value>
+  </data>
+</root>

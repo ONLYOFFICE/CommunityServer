@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActualCloseDate" xml:space="preserve">
+    <value>實際交易日期</value>
+  </data>
+  <data name="AddNewDealProgress" xml:space="preserve">
+    <value>增加機會...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>新增電子郵件</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>正在添加發票...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>新增電話</value>
+  </data>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>創建新任務</value>
+  </data>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="AddressWatermark" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="AddThisTask" xml:space="preserve">
+    <value>儲存</value>
+  </data>
+  <data name="Batch" xml:space="preserve">
+    <value>批量</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>每小時</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>每個星期</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>每年</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>帳單地址</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>瀏覽</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>案件</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>已關閉</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>開啟</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="CheckAsPrimary" xml:space="preserve">
+    <value>標記為主要</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>選擇</value>
+  </data>
+  <data name="CityWatermark" xml:space="preserve">
+    <value>城市</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>您確定要更改此密鑰嗎？</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>注意：所有以前創建的表單將不再起作用</value>
+  </data>
+  <data name="ConfirmDeleteTask" xml:space="preserve">
+    <value>您確定要刪除此任務嗎？</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>
+所有輸入的信息將丟失。
+您確定要繼續嗎？</value>
+  </data>
+  <data name="ContactTwitterDescription" xml:space="preserve">
+    <value>請輸入您的Twitter帳戶的名稱。例如，teamlabdotcom</value>
+  </data>
+  <data name="CountryWatermark" xml:space="preserve">
+    <value>國家</value>
+  </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>本月</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>本週</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>自訂區間</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>商機</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>您確定要刪除“ {0}”大小寫嗎？</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>正在刪除案件...</value>
+  </data>
+  <data name="DeleteCompanyConfirmMessage" xml:space="preserve">
+    <value>您確定要刪除“ {0}”公司嗎？</value>
+  </data>
+  <data name="DeleteConfirmNote" xml:space="preserve">
+    <value>注意：此操作無法撤消</value>
+  </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>刪除聯絡人...</value>
+  </data>
+  <data name="DeleteDealConfirmMessage" xml:space="preserve">
+    <value>您確定要刪除“ {0}”機會嗎？</value>
+  </data>
+  <data name="DeleteDealInProgress" xml:space="preserve">
+    <value>刪除機會...</value>
+  </data>
+  <data name="DeletePersonConfirmMessage" xml:space="preserve">
+    <value>您確定要刪除“ {0}”人嗎？</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>郵寄地址</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>編輯電子郵件</value>
+  </data>
+  <data name="EditingDealProgress" xml:space="preserve">
+    <value>變更儲存中...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>變更儲存中...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>編輯電話</value>
+  </data>
+  <data name="EditSelectedCustomField" xml:space="preserve">
+    <value>編輯«{0}»字段</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>編輯任務</value>
+  </data>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>已選擇{0}</value>
+  </data>
+  <data name="EmptyItemList" xml:space="preserve">
+    <value>元素列表不能為空</value>
+  </data>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>每個字母都必須有一個身體</value>
+  </data>
+  <data name="EmptyTaskDeadline" xml:space="preserve">
+    <value>每個任務必須有截止日期</value>
+  </data>
+  <data name="EmptyTaskResponsible" xml:space="preserve">
+    <value>每個任務都必須有一個負責任的任務</value>
+  </data>
+  <data name="EmptyTaskTitle" xml:space="preserve">
+    <value>每個任務都必須有一個標題</value>
+  </data>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>找不到與“案例標題”相對應的字段</value>
+  </data>
+  <data name="ErrorContactIsNotSelected" xml:space="preserve">
+    <value>沒有人被選中</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>找不到與“名字”或“公司名稱”相對應的字段</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>最多{0}個電子郵件收件人</value>
+  </data>
+  <data name="ErrorEmptyCaseTitle" xml:space="preserve">
+    <value>輸入案例標題</value>
+  </data>
+  <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
+    <value>必填字段不得重複</value>
+  </data>
+  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
+    <value>不支援圖片格式</value>
+  </data>
+  <data name="ErrorMessage_NotSupportedFileFormat" xml:space="preserve">
+    <value>不支援檔案格式</value>
+  </data>
+  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
+    <value>將圖像上傳到服務器時發生錯誤</value>
+  </data>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>找不到與“商機標題”，“負責的機會”相對應的字段</value>
+  </data>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>找不到與“任務標題”，“負責任”，“到期日期”相對應的字段</value>
+  </data>
+  <data name="ErrorTheLastContactStage" xml:space="preserve">
+    <value>“ {0}”類型是最後一個。無法刪除。</value>
+  </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>“ {0}”類型是最後一個。無法刪除。</value>
+  </data>
+  <data name="ErrorTheLastDealMilestone" xml:space="preserve">
+    <value>這是唯一的機會階段。無法刪除。</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>“ {0}”類別是最後一個類別。無法刪除。</value>
+  </data>
+  <data name="ErrorTheLastTaskCategory" xml:space="preserve">
+    <value>“ {0}”類別是最後一個類別。無法刪除。</value>
+  </data>
+  <data name="ExpectedCloseDate" xml:space="preserve">
+    <value>預計交易截止日期</value>
+  </data>
+  <data name="FindTwitter" xml:space="preserve">
+    <value>在Twitter中查找帳戶</value>
+  </data>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>您的收件人列表已生成。 {0}單擊下面的連結將您的電子郵件地址傳遞到電子郵件程序。</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>前往設置</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>與專案連結</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>載入中...</value>
+  </data>
+  <data name="MakeVoIPCall" xml:space="preserve">
+    <value>撥打VoIP電話</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>案件</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="ManyContacts" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="ManyDeals" xml:space="preserve">
+    <value>商機</value>
+  </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="ManyTasks" xml:space="preserve">
+    <value>任務</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下一個</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>下一個（預覽）</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>沒有個案</value>
+  </data>
+  <data name="NoCloseDate" xml:space="preserve">
+    <value>沒有截止日期</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>沒有公司</value>
+  </data>
+  <data name="NoContacts" xml:space="preserve">
+    <value>沒有聯絡人</value>
+  </data>
+  <data name="NoDeals" xml:space="preserve">
+    <value>沒有機會</value>
+  </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>沒有活動</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>尚未選擇文件</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>沒有人</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>無主題</value>
+  </data>
+  <data name="NoTasks" xml:space="preserve">
+    <value>沒有任務</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>案件</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="OneContact" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="OneDeal" xml:space="preserve">
+    <value>商機</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>事件</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="OneTask" xml:space="preserve">
+    <value>任務</value>
+  </data>
+  <data name="PerPeriodDays" xml:space="preserve">
+    <value>在{0}天內</value>
+  </data>
+  <data name="PerPeriodHours" xml:space="preserve">
+    <value>在{0}小時內</value>
+  </data>
+  <data name="PerPeriodMonths" xml:space="preserve">
+    <value>在{0}個月內</value>
+  </data>
+  <data name="PerPeriodWeeks" xml:space="preserve">
+    <value>在{0}週內</value>
+  </data>
+  <data name="PerPeriodYears" xml:space="preserve">
+    <value>在{0}年內</value>
+  </data>
+  <data name="PleaseRefreshThePage" xml:space="preserve">
+    <value>請重新加載頁面</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>請稍候...</value>
+  </data>
+  <data name="PossibleSocialMediaAccounts" xml:space="preserve">
+    <value>{0}的可能配置總則</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>前一個</value>
+  </data>
+  <data name="Primary" xml:space="preserve">
+    <value>主要</value>
+  </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0}個收件人沒有電子郵件地址。</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>儲存變更</value>
+  </data>
+  <data name="SelectCSVFileButton" xml:space="preserve">
+    <value>選擇一個CSV文件</value>
+  </data>
+  <data name="SelectedCSVFileLabel" xml:space="preserve">
+    <value>選定的CSV文件：{0}</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>傳送</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>設置已成功更新</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>顯示更多</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>溫度等級</value>
+  </data>
+  <data name="StateWatermark" xml:space="preserve">
+    <value>州</value>
+  </data>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>成功關閉</value>
+  </data>
+  <data name="TaskIsOver" xml:space="preserve">
+    <value>«{0}»任務已關閉</value>
+  </data>
+  <data name="TeamlabWatermark" xml:space="preserve">
+    <value>由{0}提供支持</value>
+  </data>
+  <data name="TemplateFixedDeadline" xml:space="preserve">
+    <value>從容器開始起{0}天{1}小時{2}分鐘</value>
+  </data>
+  <data name="TemplateNotFixedDeadline" xml:space="preserve">
+    <value>從上一個任務{0}天{1}小時{2}分鐘開始</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>關閉失敗</value>
+  </data>
+  <data name="VoipCallAgent" xml:space="preserve">
+    <value>代理商</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>已回答</value>
+  </data>
+  <data name="VoipCallCaller" xml:space="preserve">
+    <value>撥打者</value>
+  </data>
+  <data name="VoipCallContactRemoved" xml:space="preserve">
+    <value>聯絡人已移除</value>
+  </data>
+  <data name="VoipCallCost" xml:space="preserve">
+    <value>成本</value>
+  </data>
+  <data name="VoipCallDate" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="VoipCallDuration" xml:space="preserve">
+    <value>持續時間</value>
+  </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>錯過</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>外向</value>
+  </data>
+  <data name="VoipCallType" xml:space="preserve">
+    <value>類型</value>
+  </data>
+  <data name="VoipSettingsLearnMore" xml:space="preserve">
+    <value>要了解更多，請訪問我們的{0}幫助中心{1}</value>
+  </data>
+  <data name="VoipSettingsPanelAdminText" xml:space="preserve">
+    <value>為此，請轉到門戶設置並打開“集成”-&gt;“第三方服務”部分</value>
+  </data>
+  <data name="VoipSettingsPanelHeader" xml:space="preserve">
+    <value>VoIP通話</value>
+  </data>
+  <data name="VoipSettingsPanelText" xml:space="preserve">
+    <value>要撥打和接聽VoIP電話，您需要連接Twilio服務。</value>
+  </data>
+  <data name="VoipSettingsPanelUserText" xml:space="preserve">
+    <value>為此，請與您的門戶網站管理員聯繫。</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>郵遞區號</value>
+  </data>
+</root>

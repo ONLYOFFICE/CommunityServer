@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddNewTask" xml:space="preserve">
+    <value>Δημιουργία νέας εργασίας</value>
+  </data>
+  <data name="AddNewTaskButtonText" xml:space="preserve">
+    <value>Δημιουργία νέας εργασίας</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Ημερομηνία λήξης</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
+  <data name="ClosedTask" xml:space="preserve">
+    <value>Κλειστή εργασία</value>
+  </data>
+  <data name="ConnectWithAContact" xml:space="preserve">
+    <value>Σύνδεσμος με επαφή</value>
+  </data>
+  <data name="CreateFirstTask" xml:space="preserve">
+    <value>Δημιουργία της πρώτης εργασίας</value>
+  </data>
+  <data name="CreateTask" xml:space="preserve">
+    <value>Δημιουργία εργασίας</value>
+  </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Προσαρμοσμένη περίοδος</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Άλλοι χρήστες</value>
+  </data>
+  <data name="DeleteTask" xml:space="preserve">
+    <value>Διαγραφή εργασίας</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Περιγραφή</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Ημερομηνία λήξης</value>
+  </data>
+  <data name="EditTask" xml:space="preserve">
+    <value>Επεξεργασία εργασίας</value>
+  </data>
+  <data name="EmptyContentTasksDescribe" xml:space="preserve">
+    <value>Οι εργασίες είναι ένας εύκολος τρόπος για να δημιουργήσετε μια υπενθύμιση για το τι πρέπει να κάνετε. Για παράδειγμα, μια εργασία μπορεί να χρησιμοποιηθεί για να υπενθυμίσει ένα ραντεβού ή μια τηλεφωνική κλήση. Μπορείτε να δημιουργήσετε εργασίες {0}διαφορετικών κατηγοριών{1}, να τις συνδέσετε με μια επαφή, ευκαιρία ή υπόθεση ή να δημιουργήσετε μια απλή υπενθύμιση για εσάς.</value>
+  </data>
+  <data name="EmptyContentTasksFilterDescribe" xml:space="preserve">
+    <value>Δεν εμφανίζονται εργασίες που να ταιριάζουν με το φίλτρο σας σε αυτήν την ενότητα. Παρακαλούμε επιλέξτε άλλες ρυθμίσεις φίλτρου ή διαγράψτε το φίλτρο για να δείτε όλες τις εργασίες σε αυτήν την ενότητα. Μπορείτε επίσης να αναζητήσετε τις εργασίες που χρειάζεστε στις καρτέλες επαφών, ευκαιριών ή περιπτώσεων.</value>
+  </data>
+  <data name="EmptyContentTasksFilterHeader" xml:space="preserve">
+    <value>Δεν θα εμφανίζονται εργασίες για αυτό το φίλτρο εδώ</value>
+  </data>
+  <data name="EmptyContentTasksHeader" xml:space="preserve">
+    <value>Η λίστα εργασιών είναι κενή</value>
+  </data>
+  <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
+    <value>Ένα σωστά διαμορφωμένο αρχείο CSV πρέπει να επιλεγεί στον σκληρό δίσκο του υπολογιστή σας. Πρέπει να περιέχει τα πεδία ή τις στήλες που διαχωρίζονται από τον επιλεγμένο οριοθέτη που θα χρησιμοποιηθεί για την εισαγωγή εργασιών. Τα αρχεία που περιέχουν περισσότερες από {0} σειρές θα πρέπει να χωριστούν σε μικρότερα μέρη για σωστή εισαγωγή.</value>
+  </data>
+  <data name="ImportFromCSVStepOneHeader" xml:space="preserve">
+    <value>Επιλέξτε ένα αρχείο CSV</value>
+  </data>
+  <data name="ImportFromCSVStepTwoDescription" xml:space="preserve">
+    <value>Ταιριάξτε τις στήλες αρχείων σας με τα αντίστοιχα CRM πεδία του ONLYOFFICE™. Παρακαλούμε δώστε προσοχή στο γεγονός ότι για να εισαγάγετε σωστά εργασίες, πρέπει να αντιστοιχίσετε τουλάχιστον τις ακόλουθες στήλες από το αρχείο σας με τα πεδία του CRM ONLYOFFICE™: «Τίτλος εργασίας», «Υπεύθυνος», «Ημερομηνία λήξης». Τα πεδία που περιέχουν τις ημερομηνίες πρέπει να έχουν την ακόλουθη μορφή:{0}.</value>
+  </data>
+  <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
+    <value>Παρακαλούμε, επαληθεύστε τα πεδία</value>
+  </data>
+  <data name="ImportStartingPanelButton" xml:space="preserve">
+    <value>Μετάβαση στην λίστα εργασιών</value>
+  </data>
+  <data name="ImportStartingPanelDescription" xml:space="preserve">
+    <value>Η εισαγωγή εργασιών μπορεί να διαρκέσει αρκετά λεπτά ανάλογα με την ποσότητα των δεδομένων σας.</value>
+  </data>
+  <data name="ImportStartingPanelHeader" xml:space="preserve">
+    <value>Η εισαγωγή ξεκίνησε</value>
+  </data>
+  <data name="ImportTasks" xml:space="preserve">
+    <value>Εισαγωγή εργασιών</value>
+  </data>
+  <data name="MyTasksFilter" xml:space="preserve">
+    <value>Οι Εργασίες μου</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>ποτέ</value>
+  </data>
+  <data name="OnlyClosedTasks" xml:space="preserve">
+    <value>Έκλεισε</value>
+  </data>
+  <data name="OnlyOpenTasks" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="OverdueTasksFilter" xml:space="preserve">
+    <value>Εκπρόθεσμο</value>
+  </data>
+  <data name="PerFifteenMinutes" xml:space="preserve">
+    <value>15 λεπτά</value>
+  </data>
+  <data name="PerFiveMinutes" xml:space="preserve">
+    <value>5 λεπτά</value>
+  </data>
+  <data name="PerHalfHour" xml:space="preserve">
+    <value>μισή ώρα</value>
+  </data>
+  <data name="PerHour" xml:space="preserve">
+    <value>μια ώρα</value>
+  </data>
+  <data name="PerNight" xml:space="preserve">
+    <value>μια μέρα</value>
+  </data>
+  <data name="PerTwoHours" xml:space="preserve">
+    <value>2 ώρες</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Υπεύθυνος</value>
+  </data>
+  <data name="SavingTask" xml:space="preserve">
+    <value>Αποθήκευση εργασίας</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Έναρξη εισαγωγής</value>
+  </data>
+  <data name="Task" xml:space="preserve">
+    <value>Εργασία</value>
+  </data>
+  <data name="TaskCategories" xml:space="preserve">
+    <value>Κατηγορίες εργασιών</value>
+  </data>
+  <data name="TaskCategory" xml:space="preserve">
+    <value>Κατηγορία εργασίας</value>
+  </data>
+  <data name="TaskCategory_Call" xml:space="preserve">
+    <value>Τηλεφωνική κλήση</value>
+  </data>
+  <data name="TaskCategory_Deal" xml:space="preserve">
+    <value>Ευκαιρία</value>
+  </data>
+  <data name="TaskCategory_Demo" xml:space="preserve">
+    <value>Δοκιμή</value>
+  </data>
+  <data name="TaskCategory_Fax" xml:space="preserve">
+    <value>Φαξ</value>
+  </data>
+  <data name="TaskCategory_FollowUP" xml:space="preserve">
+    <value>Έλεγχος εκτέλεσης</value>
+  </data>
+  <data name="TaskCategory_Lunch" xml:space="preserve">
+    <value>Μεσημεριανό</value>
+  </data>
+  <data name="TaskCategory_Meeting" xml:space="preserve">
+    <value>Ραντεβού</value>
+  </data>
+  <data name="TaskCategory_Note" xml:space="preserve">
+    <value>Σημείωση</value>
+  </data>
+  <data name="TaskCategory_Ship" xml:space="preserve">
+    <value>Παράδοση</value>
+  </data>
+  <data name="TaskCategory_SocialNetworks" xml:space="preserve">
+    <value>Κοινωνικά δίκτυα</value>
+  </data>
+  <data name="TaskCategory_ThankYou" xml:space="preserve">
+    <value>Έκφραση ευγνωμοσύνης</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Περιγραφή εργασίας</value>
+  </data>
+  <data name="TaskResponsible" xml:space="preserve">
+    <value>Ανάθεση σε</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Εργασίες</value>
+  </data>
+  <data name="TasksByStatus" xml:space="preserve">
+    <value>Κατάσταση</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Κατάσταση εργασίας</value>
+  </data>
+  <data name="TaskStatus_Closed" xml:space="preserve">
+    <value>Έκλεισε</value>
+  </data>
+  <data name="TaskStatus_Open" xml:space="preserve">
+    <value>Άνοιγμα</value>
+  </data>
+  <data name="TaskTitle" xml:space="preserve">
+    <value>Τίτλος εργασίας</value>
+  </data>
+  <data name="TheNextTasksFilter" xml:space="preserve">
+    <value>Επερχόμενο</value>
+  </data>
+  <data name="ThreeDays" xml:space="preserve">
+    <value>3 ημέρες</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Ώρα</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="TodayTasksFilter" xml:space="preserve">
+    <value>Σήμερα</value>
+  </data>
+  <data name="TooltipCategories" xml:space="preserve">
+    <value>Οι κατηγορίες εργασιών σάς επιτρέπουν να χωρίσετε τις εργασίες σας σε ομάδες ανάλογα με τους στόχους που σκοπεύετε να επιτύχετε. Οι προεπιλεγμένες κατηγορίες εργασιών είναι τηλεφωνική κλήση, ευκαιρία, επίδειξη, ηλεκτρονική αλληλογραφία, φαξ, έλεγχος εκτέλεσης, μεσημεριανό, ραντεβού, σημείωση, παράδοση, κοινωνικά δίκτυα, έκφραση ευγνωμοσύνης. Για να μπορέσετε να τα επεξεργαστείτε, απαιτούνται δικαιώματα διαχειριστή.</value>
+  </data>
+  <data name="TotalTasks" xml:space="preserve">
+    <value>Όλες οι εργασίες</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Εβδομάδα</value>
+  </data>
+</root>

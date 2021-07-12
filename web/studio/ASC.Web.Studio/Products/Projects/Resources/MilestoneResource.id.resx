@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestoneButton" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="ChooseProject" xml:space="preserve">
+    <value>Pilih proyek</value>
+  </data>
+  <data name="ChooseResponsible" xml:space="preserve">
+    <value>Pilih Penanggung jawab</value>
+  </data>
+  <data name="CloseMilestone" xml:space="preserve">
+    <value>Tutup Tahapan pekerjaan</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="DeadlineInMonth" xml:space="preserve">
+    <value>Bulan</value>
+  </data>
+  <data name="DeadlineInTwoMonths" xml:space="preserve">
+    <value>Dua bulan</value>
+  </data>
+  <data name="DeadlineInWeek" xml:space="preserve">
+    <value>Minggu</value>
+  </data>
+  <data name="DeleteMilestone" xml:space="preserve">
+    <value>Hapus tahapan pekerjaan</value>
+  </data>
+  <data name="DeleteMilestonePopup" xml:space="preserve">
+    <value>Anda yakin ingin menghapus tahap pekerjaan ini?</value>
+  </data>
+  <data name="DeleteMilestones" xml:space="preserve">
+    <value>Hapus Tahap Pekerjaan</value>
+  </data>
+  <data name="DeleteMilestonesPopup" xml:space="preserve">
+    <value>Apakah anda yakin untuk hapus tahap pekerjaan ini?</value>
+  </data>
+  <data name="DescrEmptyListMilFilter" xml:space="preserve">
+    <value>Tidak ada tahap pekerjaan yang sesuai dengan filter Anda pada bagian ini.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="FilterNoMilestones" xml:space="preserve">
+    <value>Tidak ada tahap pekerjaan yang sesuai dengan filter ini</value>
+  </data>
+  <data name="Milestone" xml:space="preserve">
+    <value>Tahap pekerjaan</value>
+  </data>
+  <data name="MilestoneDeadline" xml:space="preserve">
+    <value>Tanggal jatuh tempo</value>
+  </data>
+  <data name="MilestoneNotFound_Header" xml:space="preserve">
+    <value>Belum ada tahap pekerjaan yang direncanakan</value>
+  </data>
+  <data name="Milestones" xml:space="preserve">
+    <value>Tahap pekerjaan</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestamps" xml:space="preserve">
+    <value>Tahap pekerjaan menandai waktu penting di dalam proses perencanaan proyek. Saat sebuah tahap pekerjaan dibuat, Anda dapat mengisinya dengan tugas-tugas untuk seluruh peserta proyek. Buatlah rencana tahap pekerjaan dan tentukan tenggat waktunya untuk memastikan tugas tersebut selesai tepat waktu.</value>
+  </data>
+  <data name="MilestonesMarkMajorTimestampsVisitor" xml:space="preserve">
+    <value>Tahap pekerjaan ditandai dengan stempel waktu dalam proses perencanaan proyek. Setelah tahapan dibuat,harap diisi dengan tugas untuk semua peserta proyek.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Yang akan datang</value>
+  </data>
+  <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
+    <value>Anda tidak dapat menutup tahap pekerjaan dengan tugas yang masih terbuka</value>
+  </data>
+  <data name="NotifyResponsible" xml:space="preserve">
+    <value>Beritahukan</value>
+  </data>
+  <data name="NoTitleMessage" xml:space="preserve">
+    <value>Setiap tahap pekerjaan harus memiliki judul</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Terlambat</value>
+  </data>
+  <data name="PlanFirstMilestone" xml:space="preserve">
+    <value>Rencanakan tahap pekerjaan pertama</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Ingatkan saya 48 jam sebelum tenggat waktu</value>
+  </data>
+  <data name="Responsible" xml:space="preserve">
+    <value>Penanggung Jawab</value>
+  </data>
+  <data name="RootMilestone" xml:space="preserve">
+    <value>Tahap pekerjaan utama</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Judul</value>
+  </data>
+</root>

@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActiveTasks" xml:space="preserve">
+    <value>Aktive Oppgaver</value>
+  </data>
+  <data name="AutomaticallyGenerate" xml:space="preserve">
+    <value>Generer en slik rapport automatisk</value>
+  </data>
+  <data name="ChooseNearestMilestonesTimePeriod" xml:space="preserve">
+    <value>Tidsperiode</value>
+  </data>
+  <data name="ChooseTasksTimePeriod" xml:space="preserve">
+    <value>Opprettelsesdato</value>
+  </data>
+  <data name="ChooseTimeInterval" xml:space="preserve">
+    <value>Tidsperiode</value>
+  </data>
+  <data name="ClickToSortByThisColumn" xml:space="preserve">
+    <value>Klikk for å sortere med denne kolonnen</value>
+  </data>
+  <data name="CrteateTemplate" xml:space="preserve">
+    <value>Opprett Mal</value>
+  </data>
+  <data name="CsvColumnUserName" xml:space="preserve">
+    <value>Brukernavn</value>
+  </data>
+  <data name="DeadLine" xml:space="preserve">
+    <value>Frist</value>
+  </data>
+  <data name="EmptyTemplateTitle" xml:space="preserve">
+    <value>Du må tildele et navn til malen</value>
+  </data>
+  <data name="EveryDay" xml:space="preserve">
+    <value>Hver dag</value>
+  </data>
+  <data name="EveryMonth" xml:space="preserve">
+    <value>Hver måned</value>
+  </data>
+  <data name="EveryWeek" xml:space="preserve">
+    <value>Hver uke</value>
+  </data>
+  <data name="GenerateReport" xml:space="preserve">
+    <value>Generer Rapport</value>
+  </data>
+  <data name="IncorrectDateRage" xml:space="preserve">
+    <value>Ufullstendig datoområde</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Forrige måned</value>
+  </data>
+  <data name="LastWeek" xml:space="preserve">
+    <value>Forrige uke</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Forrige år</value>
+  </data>
+  <data name="NoMilestonesAndTasks" xml:space="preserve">
+    <value>Dette prosjektet inneholder ingen milepæler eller oppgaver</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andre</value>
+  </data>
+  <data name="Participiants" xml:space="preserve">
+    <value>Medlemmer</value>
+  </data>
+  <data name="PaymentStatuses" xml:space="preserve">
+    <value>Betalingsstatuser</value>
+  </data>
+  <data name="ReportClosedTasks" xml:space="preserve">
+    <value>Lukkede Oppgaverapporter</value>
+  </data>
+  <data name="ReportEmployeesWithoutActiveTasks_Title" xml:space="preserve">
+    <value>{!Users} uten aktive oppgaver</value>
+  </data>
+  <data name="ReportEmployment_Title" xml:space="preserve">
+    <value>Arbeidsmengde</value>
+  </data>
+  <data name="ReportLateMilestones_Title" xml:space="preserve">
+    <value>Forfalte Milepæler</value>
+  </data>
+  <data name="ReportLateTasks_Title" xml:space="preserve">
+    <value>Forfalte Oppgaver</value>
+  </data>
+  <data name="ReportOpenTasks" xml:space="preserve">
+    <value>Åpne Oppgaverapportering</value>
+  </data>
+  <data name="ReportPageTitle" xml:space="preserve">
+    <value>Rapport  «{0}»</value>
+  </data>
+  <data name="ReportProjectList_Title" xml:space="preserve">
+    <value>Prosjekt Liste</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveMilestones_Title" xml:space="preserve">
+    <value>Prosjekter uten aktive milepæler</value>
+  </data>
+  <data name="ReportProjectsWithoutActiveTasks_Title" xml:space="preserve">
+    <value>Prosjekter uten aktive oppgaver</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Rapporter</value>
+  </data>
+  <data name="ReportTaskList_Title" xml:space="preserve">
+    <value>Prosjekt Oppgaver</value>
+  </data>
+  <data name="ReportTimeSpendSummary_Title" xml:space="preserve">
+    <value>Rapport for Tidssporing</value>
+  </data>
+  <data name="ReportUpcomingMilestones_Title" xml:space="preserve">
+    <value>Kommende Milepæler</value>
+  </data>
+  <data name="ReportUserActivity_Title" xml:space="preserve">
+    <value>Brukeraktivitet</value>
+  </data>
+  <data name="ReportUserTasks_Title" xml:space="preserve">
+    <value>Bruker Oppgaver</value>
+  </data>
+  <data name="ShowTasks" xml:space="preserve">
+    <value>Vis oppgaver</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Maler</value>
+  </data>
+  <data name="TemplateTitle" xml:space="preserve">
+    <value>Mal  Tittel</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Nåværende måned</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Nåværende uke</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Nåværende år</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Bruker</value>
+  </data>
+  <data name="ViewByDepartments" xml:space="preserve">
+    <value>Vis med {!group}</value>
+  </data>
+  <data name="ViewByProjects" xml:space="preserve">
+    <value>Vis ved prosjekt</value>
+  </data>
+  <data name="ViewByUsers" xml:space="preserve">
+    <value>Vis ved bruker</value>
+  </data>
+  <data name="ViewByUserTasks" xml:space="preserve">
+    <value>Vis ved brukeroppgaver</value>
+  </data>
+  <data name="ViewClosedProjects" xml:space="preserve">
+    <value>Vis lukkede prosjekter</value>
+  </data>
+  <data name="Week" xml:space="preserve">
+    <value>Uke</value>
+  </data>
+  <data name="Weeks" xml:space="preserve">
+    <value>Uke</value>
+  </data>
+  <data name="Weeks2" xml:space="preserve">
+    <value>uke</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>I går</value>
+  </data>
+</root>

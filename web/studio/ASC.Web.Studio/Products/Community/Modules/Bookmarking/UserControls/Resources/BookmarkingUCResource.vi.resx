@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddBookmarkLink" xml:space="preserve">
+    <value>Tạo bookmark mới</value>
+  </data>
+  <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
+    <value>Thêm bookmark vào yêu thích</value>
+  </data>
+  <data name="AddToFavourite" xml:space="preserve">
+    <value>Thêm vào Yêu thích</value>
+  </data>
+  <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
+    <value>Đang tạo Bookmark...</value>
+  </data>
+  <data name="BookmarkDescription" xml:space="preserve">
+    <value>Mô tả</value>
+  </data>
+  <data name="BookmarkDetailsLinkTitle" xml:space="preserve">
+    <value>Mô tả chi tiết về bookmark</value>
+  </data>
+  <data name="BookmarkedBy" xml:space="preserve">
+    <value>Bookmark bởi</value>
+  </data>
+  <data name="BookmarkingSearch" xml:space="preserve">
+    <value>Tìm kiếm trong bookmark</value>
+  </data>
+  <data name="BookmarkName" xml:space="preserve">
+    <value>Tên</value>
+  </data>
+  <data name="BookmarkRaitingLinkTitle" xml:space="preserve">
+    <value>Số người dùng đã thêm bookmark này vào yêu thích</value>
+  </data>
+  <data name="BookmarksNavigationItem" xml:space="preserve">
+    <value>Bookmark</value>
+  </data>
+  <data name="BookmarkTagDescription" xml:space="preserve">
+    <value>Nhập các tag cần thiết và phân cách chúng bằng dấu phẩy</value>
+  </data>
+  <data name="BookmarkUrl" xml:space="preserve">
+    <value>URL</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="CheckBookmarkUrlButton" xml:space="preserve">
+    <value>Kiểm tra URL</value>
+  </data>
+  <data name="CheckingUrlIsInProgressLabel" xml:space="preserve">
+    <value>Đang kiểm tra URL...</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="CommentsGenitivePlural" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="CommentsGenitiveSingular" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="CommentsLinkTitle" xml:space="preserve">
+    <value>Xem bình luận về bookmark</value>
+  </data>
+  <data name="CommentsNominative" xml:space="preserve">
+    <value>Bình luận</value>
+  </data>
+  <data name="CreateNewBookmarkLinkTitle" xml:space="preserve">
+    <value>Tạo bookmark mới</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="EditFavouriteBookmarkLink" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="EditFavouriteBookmarkLinkTitle" xml:space="preserve">
+    <value>Chỉnh sửa bookmark</value>
+  </data>
+  <data name="EditFavouriteBookmarkTitle" xml:space="preserve">
+    <value>Chỉnh sửa bookmark</value>
+  </data>
+  <data name="EmptyBookmarkUrlErrorMessage" xml:space="preserve">
+    <value>Không được để trống trường bookmark URL</value>
+  </data>
+  <data name="EmptyScreenCaption" xml:space="preserve">
+    <value>Chưa có bookmark được thêm</value>
+  </data>
+  <data name="EmptyScreenLink" xml:space="preserve">
+    <value>Tạo bookmark đầu tiên</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Không tìm thấy bookmark</value>
+  </data>
+  <data name="EmptyScreenText" xml:space="preserve">
+    <value>Tạo bookmark của bạn, chia sẻ thông tin hữu ích với đồng nghiệp của bạn trực tiếp trên cổng thông tin, lưu các liên kết tới nguồn trang web cho phép bạn dễ dàng quay lại trang mà bạn yêu thích</value>
+  </data>
+  <data name="FavouritesNavigationItem" xml:space="preserve">
+    <value>Yêu thích</value>
+  </data>
+  <data name="MonthLabel" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="MostRecentLabel" xml:space="preserve">
+    <value>Gần đây nhất</value>
+  </data>
+  <data name="PopularityLabel" xml:space="preserve">
+    <value>Phổ biến nhất</value>
+  </data>
+  <data name="RemoveBookmarkFromFavouritesLinkTitle" xml:space="preserve">
+    <value>Xoá bookmark khỏi yêu thích</value>
+  </data>
+  <data name="RemoveButton" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn xóa bookmark này?</value>
+  </data>
+  <data name="RemoveFromFavouriteConfirmMessage" xml:space="preserve">
+    <value>Bạn có chắc là muốn loại bỏ bookmark {0} khỏi yêu thích?</value>
+  </data>
+  <data name="RemoveFromFavouriteTitle" xml:space="preserve">
+    <value>Xoá bookmark</value>
+  </data>
+  <data name="RemovingBookmarkFromFavouriteIsInProgressLabel" xml:space="preserve">
+    <value>Đang xóa bookmark...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="ShowLabel" xml:space="preserve">
+    <value>Hiển thị:</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Hiển thị trên trang</value>
+  </data>
+  <data name="SubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Theo dõi bình luận</value>
+  </data>
+  <data name="TagBookmarks" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="TopOfTheDayLabel" xml:space="preserve">
+    <value>Hàng đầu trong ngày</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
+    <value>Bỏ theo dõi bình luận</value>
+  </data>
+  <data name="WeekLabel" xml:space="preserve">
+    <value>Tuần</value>
+  </data>
+  <data name="YearLabel" xml:space="preserve">
+    <value>Năm</value>
+  </data>
+</root>

@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Access" xml:space="preserve">
+    <value>წვდომა</value>
+  </data>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>მხოლოდ წაკითხული</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>სრული წვდომა</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>ადმინისტრატორი</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>ავტორი:</value>
+  </data>
+  <data name="Author_Me" xml:space="preserve">
+    <value>მე</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>გადმოწერა</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>შეცვლა</value>
+  </data>
+  <data name="DocumentName" xml:space="preserve">
+    <value>დოკუმენტის დასახელება</value>
+  </data>
+  <data name="ErrorMassage_BadRequest" xml:space="preserve">
+    <value>არასწორი მოთხოვნა.</value>
+  </data>
+  <data name="ErrorMassage_EmptyFile" xml:space="preserve">
+    <value>ცარიელი დოკუმენტი</value>
+  </data>
+  <data name="ErrorMassage_FileNotFound" xml:space="preserve">
+    <value>მოთხოვნილი ფაილი ვერ მოიძებნა</value>
+  </data>
+  <data name="ErrorMassage_FolderCopyError" xml:space="preserve">
+    <value>არ შეიძლება დააკოპიროთ პაპკა მის ქვეპაპკაში</value>
+  </data>
+  <data name="ErrorMassage_FolderNotFound" xml:space="preserve">
+    <value>მოთხოვნილი პაპკა ვერ მოიძებნა</value>
+  </data>
+  <data name="ErrorMassage_ManyDownloads" xml:space="preserve">
+    <value>ძალიან ბევრი ჩამოტვირთვები.</value>
+  </data>
+  <data name="ErrorMassage_NotSupportedFormat" xml:space="preserve">
+    <value>ბოდიშით, ფაილის ფორმატი არ არის მხარდაჭერილი</value>
+  </data>
+  <data name="ErrorMassage_SecurityException" xml:space="preserve">
+    <value>არასაკმარისი უფლებები მოქმედების შესასრულებლად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_Create" xml:space="preserve">
+    <value>თქვენ შესაქმნელად არ გაქვთ საკმარისი უფლებები</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFile" xml:space="preserve">
+    <value>შეუძლებელია ფაილის წაშლა, ვინაიდან ფაილი გახსნილია რედაქტირებისთვის</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteEditingFolder" xml:space="preserve">
+    <value>შეუძლებელია პაპკის წაშლა, ვინაიდან ერთ ერთი ფაილი გახსნილია რედაქტირებისთვის</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFile" xml:space="preserve">
+    <value>არასაკმარისი უფლებები ფაილის წასაშლელად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_DeleteFolder" xml:space="preserve">
+    <value>არასაკმარისი უფლებები პაპკის წასაშლელად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_EditFile" xml:space="preserve">
+    <value>არასაკმარისი უფლებები ფაილის რედაქტირებისთვის</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFile" xml:space="preserve">
+    <value>არასაკმარისი უფლებები ფაილის სანახავად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ReadFolder" xml:space="preserve">
+    <value>არასაკმარისი უფლებები პაპკის სანახავად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFile" xml:space="preserve">
+    <value>არასაკმარისი უფლებები ფაილის სახელის შესაცვლელად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_RenameFolder" xml:space="preserve">
+    <value>არასაკმარისი უფლებები პაპკის დასახელების შესაცვლელად</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_UpdateEditingFile" xml:space="preserve">
+    <value>შეუძლებელია ფაილის განახლება, ვინაიდან ფაილი გახსნილია რედაქტირებისთვის</value>
+  </data>
+  <data name="ErrorMassage_SecurityException_ViewFolder" xml:space="preserve">
+    <value>არასაკმარისი უფლებები პაპკის სანახავად</value>
+  </data>
+  <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
+    <value>არ შეიძლება ფაილის განახლება თუ ის გახსნილია რედაქტირებისთვის</value>
+  </data>
+  <data name="ErrorMassage_ViewTrashItem" xml:space="preserve">
+    <value>აკრძალულია სანაგვე ყუთში ელემენტების დათვალიერება</value>
+  </data>
+  <data name="Everyone" xml:space="preserve">
+    <value>ყველა</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>სტუმარი</value>
+  </data>
+  <data name="IsNew" xml:space="preserve">
+    <value>ახალი</value>
+  </data>
+  <data name="MakeCurrent" xml:space="preserve">
+    <value>აღდგენა</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>გადათვალიერება</value>
+  </data>
+  <data name="ProductDescription" xml:space="preserve">
+    <value>შექმენით, შეცვალეთ, ერთობლივად იმუშავეთ დოკუმენტებზე პორტალში. დააიმპორტეთ ფაილები Google Drive -იდან, Zoho -დან, Box -დან.</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>დოკუმენტები</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>მონიშნე წაკითხულად</value>
+  </data>
+  <data name="ShareFolder" xml:space="preserve">
+    <value>წვდომა პაპკასთან</value>
+  </data>
+  <data name="ShowVersions" xml:space="preserve">
+    <value>აჩვენე ვერსიები</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>ზომა</value>
+  </data>
+  <data name="SubscriptForAccess" xml:space="preserve">
+    <value>შემატყობინე წვდომის უფლების მიღებისთანავე</value>
+  </data>
+  <data name="TitleCreated" xml:space="preserve">
+    <value>შექმნილია</value>
+  </data>
+  <data name="TitleFiles" xml:space="preserve">
+    <value>დოკუმენტები</value>
+  </data>
+  <data name="TitleModified" xml:space="preserve">
+    <value>განახლდა</value>
+  </data>
+  <data name="TitlePage" xml:space="preserve">
+    <value>დოკუმენტები</value>
+  </data>
+  <data name="TitleRemoved" xml:space="preserve">
+    <value>წაიშალა</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>არჩევა</value>
+  </data>
+  <data name="TitleShareFile" xml:space="preserve">
+    <value>წვდომის პარამეტრები</value>
+  </data>
+  <data name="TitleShowActions" xml:space="preserve">
+    <value>ოპერაცია ფაილზე</value>
+  </data>
+  <data name="TitleSubfolders" xml:space="preserve">
+    <value>ქვე პაპკა</value>
+  </data>
+  <data name="TitleUploaded" xml:space="preserve">
+    <value>ატვირთულია</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>ვერ.</value>
+  </data>
+</root>

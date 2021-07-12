@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Notīrīt kešu</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Visi skripti, kas tiek izmantoti pareizai portāla darbībai tiek noglabāti kešatmiņā, lai nodrošinātu maksimālu ONLYOFFICE™ sniegumu. Reizēm (parasti pēc lielākas atjaunināšanas vai kļūdainu darbību novērošanas portālā) jums kešs ir jāiztīra. Izmantojiet pogu &lt;b&gt;Iztīrīt kešu&lt;/b&gt;, lai noņemtu skriptus no servera un tos no jauna ielādētu. Darbības laikā nezudīs nekādi portāla dati.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Izmantojiet šo iespēju, ka esat portāla darbībā pamanījuši ko nepareizu</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Kešs</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Ja jums radušies jautājumi, apskatiet mūsu {0}visbiežāk uzdoto jautājumu lapu{1} vai rakstiet mums uz {2}support.onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>Ja jums ir radušies kādi jautājumi, sazinieties ar mums uz {0}support.onlyoffice.com{1}</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Sazinieties ar mums</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Periods</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>Sadaļa &lt;b&gt;Logi&lt;/b&gt; ļauj jums lejupielādēt visus portāla logus no izvēlēta perioda, arhivētus .zip failā. Izvēlieties sākuma un beigu laiku un spiediet &lt;b&gt;Lejupielādēt&lt;/b&gt;, lai saņemtu logus.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Lejupielādēt visus logus</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Logi</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>Sadaļa &lt;b&gt;Porti&lt;/b&gt; satur visus ONLYOFFICE™ portāla darbībai nepieciešamos portus un to statusus (atvērts vai slēgts). Lai jūsu ONLYOFFICE™ serveris darbotos pienācīgi, šiem portiem ir jābūt ar statusu &lt;b&gt;Atvērts&lt;/b&gt;. Lūdzu, ņemiet vērā, ka dažiem portāliem ir nepieciešami tikai vai nu ienākošie, vai izejošie savienojumi, bet citiem – abi divi.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Visiem sekojošajiem portiem ir jābūt atvērtiem</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Porti</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>Sadaļā &lt;b&gt;Pakalpojumi&lt;/b&gt; tiek uzrādīti visi pieejamie ONLYOFFICE™ pakalpojumi un to statuss (darbojas vai apturēts). Jūs varat restartēt aktīvos pakalpojumus vai atsākt apturētos, izmantojot atbilstošo taustiņu pa labi no pakalpojuma statusa.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>ONLYOFFICE™ pakalpojumi un to aktuālais statuss</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Pakalpojumi</value>
+  </data>
+</root>

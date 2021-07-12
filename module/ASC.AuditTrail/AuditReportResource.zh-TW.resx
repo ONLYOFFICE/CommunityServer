@@ -1,0 +1,1421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>動作</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>動作ＩＤ</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>動作類型</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>管理員已添加：{0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>管理員已刪除：{0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>管理員消息設置已更新</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>管理員[{0}]。完全存取權限已打開</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>附加</value>
+  </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>審核生命週期設置已更新</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>審計跟蹤報告下載</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>審核跟蹤報告（{0}-{1}）</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>第三方授權密鑰已更新</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>瀏覽器</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>案例[{0}]。附件檔案：{1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>結案個案：{0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>案例創建：{0}</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>案例[{0}]。歷史事件已創建：{1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>案例[{0}]。創建的標籤：{1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>案例刪除：{0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>案例[{0}]。歷史記錄事件已刪除：{1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>案例[{0}]。標記已刪除：{1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>案例[{0}]。分離的文件：{1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>案例[{0}]。以相連的公司：{1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>案例[{0}]。相連的人：{1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>打開案例：{0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>案例[{0}]。存取已開啟</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>案例[{0}]。限制存取：{1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>案件。創建的標籤：{0}</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>刪除的案件：{0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>案件。標記已刪除：{0}</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>案例導出到CSV檔：{0}</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>從CSV檔導入的案例</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>案件</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>案例[{0}]。未相連公司：{1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>案例[{0}]。未相連的人：{1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>案例更新：{0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>創建的案例用戶字段：{0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>案例用戶字段已刪除：{0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>案例用戶字段順序已更新：{0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>案例用戶字段已更新：{0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>顏色主題已更改</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>一般設定</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>合併的公司：{0}-{1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>公司</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>公司[{0}]。附件：{1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>公司創建：{0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>公司[{0}]。歷史事件已創建：{1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>公司[{0}]。創建的人物標籤：{1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>公司[{0}]。創建的標籤：{1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>使用Web表單創建的公司：{0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>公司已刪除：{0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>公司[{0}]。歷史記錄事件已刪除：{1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>公司[{0}]。標記已刪除：{1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>公司[{0}]。分離的文件：{1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>公司[{0}]。關聯的人：{1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>公司[{0}]。已連結專案：{1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>公司[{0}]。未關聯的人：{1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>公司[{0}]。未關聯的項目：{1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>公司更新：{0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>公司[{0}]。人的溫度水平已更新</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>公司[{0}]。圖片已更新</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>公司[{0}]。主體信息已更新</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>公司[{0}]。溫度水平已更新</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>公司[{0}]。上傳的文件：{1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>公司用戶字段已創建：{0}</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>公司用戶字段已刪除：{0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>公司用戶字段順序更新：{0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>公司用戶字段已更新：{0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>已發送聯繫管理員郵件</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>聯繫人[{0}]。已連結專案：{1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>聯繫人[{0}]。創建的任務：{1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>聯繫人。創建的標籤：{0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>聯繫人已刪除：{0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>聯繫人。標記已刪除：{0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>聯繫人已導出到CSV檔：{0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>從CSV檔導入的聯繫人</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>聯繫人標籤設置已更新</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>已創建接觸溫度水平：{0}</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>觸點溫度水平已刪除：{0}</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>觸點溫度水平設置已更新</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>接觸溫度水平訂單更新：{0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>接觸溫度水平更新：{0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>接觸溫度水平[{0}]。顏色已更新</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>已創建聯繫人類型：{0}</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>聯繫人類型已刪除：{0}</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>聯絡人類型</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>聯繫人類型順序已更新：{0}</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>聯繫人類型已更新：{0}</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>聯繫人[{0}]。未相聯的專案：{1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>已創建聯繫人用戶字段：{0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>聯繫人用戶字段已刪除：{0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>聯繫人用戶字段順序更新：{0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>聯繫人用戶字段已更新：{0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Cookie設置已更新</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>複製</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>建立</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>所有數據導出</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>預設貨幣已更新</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>CRM實體。分離文件：{0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRM 檔案</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>客戶關係</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>發送給聯繫人的SMTP郵件：{0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>SMTP設置已更新</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>CRM任務類別順序已更新：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>CRM任務類別已創建：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>CRM任務類別已刪除：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>CRM任務類別已更新：{0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>CRM任務類別圖標已更新：{0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>CRM任務已關閉：{0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>CRM任務已創建：{0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>CRM任務已刪除：{0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>CRM任務已打開：{0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>CRM任務導出到CSV檔：{0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>從CSV檔導入的CRM任務</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>CRM任務</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>CRM任務已更新：{0}</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>測試郵件已發送</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>貨幣匯率更新：{0}-{1}</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>自定導航設置已更新</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>預設起始頁設置已更新</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>分離</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>專案[{0}]。討論[{1}]。附件：{2}</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>專案[{0}]。討論[{1}]。評論已創建</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>專案[{0}]。討論[{1}]。評論已刪除</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>專案[{0}]。討論[{1}]。評論已更新</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>專案[{0}]。建立的討論區：{1}</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>專案[{0}]。討論已刪除：{1}</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>專案[{0}]。討論[{1}]。分離的文件：{2}</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>討論</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>專案[{0}]。討論已更新：{1}</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>專案[{0}]。後續討論已更新：{1}</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>DNS設置已更新</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>文件服務位置已更新</value>
+  </data>
+  <data name="DocumentsForcesave" xml:space="preserve">
+    <value>強制保存設置已更新</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>覆蓋設置已更新</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="DocumentsStoreForcesave" xml:space="preserve">
+    <value>存儲forcesave設置已更新</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>第三方設置已更新</value>
+  </data>
+  <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
+    <value>上傳格式設置已更新</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>下載</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>輸出</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>將[{0}]的所有者設置為[{1}]</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>文件轉換為內部格式：{0}</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>文件[{0}]。從文件夾“ {1}”複製到文件夾：“ {2}”</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>文件[{0}]。複製已覆蓋，從文件夾“ {1}”到文件夾：“ {2}”</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>已創建文件：{0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>文件[{0}]。修訂：{1}。創建的版本</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>文件已刪除：{0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>文件[{0}]。修訂：{1}。版本已刪除</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>下載的文件：{0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>文件[{0}]。下載為：{1}</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>文件夾[{0}]。導入的文件：{1}。提供者：{2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>檔案已鎖定：{0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>文件[{0}]。從文件夾“ {1}”移動到文件夾：“ {2}”</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>文件[{0}]。已移至垃圾箱</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>文件[{0}]。覆蓋已從文件夾“ {1}”移動到文件夾“ {2}”</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>文件重命名：{0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>文件[{0}]。修訂：{1}。版本已還原</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>通過{0}簽名的文檔{1}</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>發送共享連結至[{0}]文件。收件人：[{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>檔案</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>文檔{1}已通過{0}發送給簽名</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>文件已解鎖：{0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>文件已更新: {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>文件[{0}]。存取已更新</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>文件[{0}]。修訂{1}。評論已更新</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>文件已上傳：{0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>文件夾[{0}]。複製到文件夾：{1}</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>文件夾[{0}]。複製並覆蓋到文件夾：{1}</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>創建的文件夾：{0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>文件夾已刪除：{0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>文件夾[{0}]。已移至文件夾：{1}</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>文件夾[{0}]。已移至垃圾箱</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>文件夾[{0}]。移動並覆蓋到文件夾：{1}</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>文件夾重命名：{0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>資料夾</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>文件夾[{0}]。存取權限已更新</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>追蹤</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Sphinx 設定已更新</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>歡迎頁面設置已更新</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>創建的組：{0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>群組已刪除：{0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>群組</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>群組更新：{0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>來賓帳戶</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>訪客已激活：{0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>訪客已創建：{0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>通過邀請創建的訪客：{0}</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>導入的訪客：{0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>歷史事件類別。訂單已更新：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>歷史事件類別已創建：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>歷史記錄事件類別已刪除：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>歷史記錄事件類別已更新：{0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>歷史記錄事件類別[{0}]。圖標已更新</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>匯入</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>發票已創建：{0}</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>發票默認條款已更新</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>發票已刪除：{0}</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>發票已下載：{0}</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>已創建發票項目：{0}</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>發票項目已刪除：{0}</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>發票項目已刪除：{0}</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>發票項目已更新：{0}</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>發票編號格式已更新</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>發票已刪除：{0}</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>發票設定</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>發票</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>發票[{0}]。狀態更新：{1}</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>已創建的發票稅：{0}</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>發票稅已刪除：{0}</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>發票稅已更新：{0}</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>發票已更新：{0}</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>語言設置已更新</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>許可證密鑰已上傳</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>連結</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>登入失敗</value>
+  </data>
+  <data name="LoginFailBruteForce" xml:space="preserve">
+    <value>登入失敗。太多的嘗試</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>登入失敗。個人資料已禁用</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>登入失敗。無效的用戶名密碼組合</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value>IP安全性：登入失敗</value>
+  </data>
+  <data name="LoginFailRecaptcha" xml:space="preserve">
+    <value>登入失敗。驗證碼無效</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>登入失敗.找不到關聯的社交帳戶</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>通過API登錄失敗</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>通過API和SMS代碼登錄失敗</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>通過API和社交媒體登錄失敗</value>
+  </data>
+  <data name="LoginFailViaApiTfa" xml:space="preserve">
+    <value>通過API和身份驗證器應用程序登錄失敗</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>通過ＳＭＳ登入失敗</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>通過SSO登入失敗</value>
+  </data>
+  <data name="LoginFailViaTfaApp" xml:space="preserve">
+    <value>通過身份驗證器應用程序登錄失敗</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>登入歷史報告下載</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>登入歷史報告({0}-{1})</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>登入成功</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>通過社交帳戶登入成功</value>
+  </data>
+  <data name="LoginSuccessSocialApp" xml:space="preserve">
+    <value>通過社交應用程序成功登錄</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>通過API成功登錄</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>通過API和SMS代碼成功登錄</value>
+  </data>
+  <data name="LoginSuccessViaApiTfa" xml:space="preserve">
+    <value>通過API和身份驗證器應用程序成功登錄</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>通過ＳＭＳ登入成功</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>通過API和社交媒體登錄成功</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>通過SSO成功登錄</value>
+  </data>
+  <data name="LoginSuccesViaTfaApp" xml:space="preserve">
+    <value>通過身份驗證器應用程序成功登錄</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>登出</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>郵件服務設置已更新</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>專案[{0}]。創建的里程碑：{1}</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>專案[{0}]。里程碑已刪除：{1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>里程碑</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>專案[{0}]。里程碑已更新：{1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>專案[{0}]。里程碑[{1}]。狀態更新：{2}</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>模組</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>搬移</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>機會。創建的標籤：{0}</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>機會已刪除：{0}</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>機會。標記已刪除：{0}</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>機會已導出到CSV文件：{0}</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>從CSV文件導入的機會</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>商機</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>機會[{0}]。附件：{1}</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>創建的機會：{0}</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>機會[{0}]。歷史事件已創建：{1}</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>機會[{0}]。創建的標籤：{1}</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>刪除的機會：{0}</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>機會[{0}]。歷史記錄事件已刪除：{1}</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>機會[{0}]。標記已刪除：{1}</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>機會[{0}]。分離的文件：{1}</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>機會[{0}]。公司已連上：{1}</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>機會[{0}]。關聯的人：{1}</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>機會[{0}]。存取已開啟</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>機會[{0}]。限制存取：{1}</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>創建的機會階段：{0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>機會階段已刪除：{0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>機會階段順序已更新：{0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>機會階段已更新：{0}</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>商機舞台顏色已更新：{0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>機會[{0}]。公司未關聯：{1}</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>機會[{0}]。未關聯的人：{1}</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>機會已更新：{0}</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>機會階段已更新：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>已創建機會用戶字段：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>機會用戶字段已刪除：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>機會用戶字段順序已更新：{0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>機會用戶字段已更新：{0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>組織簡介。地址已更新</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>組織簡介。公司名稱更新：{0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>組織簡介。發票商標已更新</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>其他設定</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>所有者更改：{0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>所有者[{0}]。已發送變更所有者說明</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>所有者[{0}]。已發送門戶停用說明</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>所有者[{0}]。發送門戶網站刪除說明</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>頁面</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>密碼強度設置已更新</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>人員[{0}]。附件：{1}</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>新人已創建：{0}</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>人員[{0}]。公司標籤已創建：{1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>人員[{0}]。歷史事件已創建：{1}</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>人員[{0}]。創建的標籤：{1}</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>使用Web表單創建的人：{0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>人已刪除：{0}</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>人員[{0}]。歷史記錄事件已刪除：{1}</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>人員[{0}]。標記已刪除：{1}</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>人員[{0}]。分離的文件：{1}</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>人員[{0}]。已連結專案：{1}</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>人已創建：{0}</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>合併的人員：{0}-{1}</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>人員[{0}]。未關聯的專案：{1}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>人已更新：{0}</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>人員[{0}]。公司溫度水平已更新</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>人員[{0}]。圖片已更新</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>人員[{0}]。主體信息已更新</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>人員[{0}]。溫度水平已更新</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>人員[{0}]。上傳的文件：{1}</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>創建的個人用戶字段：{0}</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>人員用戶字段已刪除：{0}</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>人員用戶字段順序更新：{0}</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>人員用戶字段已更新：{0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>門戶存取設置已更新</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>門戶已停用</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>門戶已刪除</value>
+  </data>
+  <data name="PrivacyRoomDisable" xml:space="preserve">
+    <value>隱私室已禁用</value>
+  </data>
+  <data name="PrivacyRoomEnable" xml:space="preserve">
+    <value>隱私室已啟用</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>產品[{0}]。存取已開啟</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>產品：[{0}]。組[{1}]。存取已開啟</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>產品：[{0}]。用戶[{1}]。存取已開啟</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>產品[{0}]。限制存取</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>產品[{0}]。管理員已添加：{1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>產品</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>產品[{0}]。管理員已刪除：{1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>產品清單更新</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>產品</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>創建的專案：{0}</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>模板[{0}]。創建的專案：{1}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>專案已刪除：{0}</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>專案[{0}]。成員已刪除：{1}</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>已追蹤專案：{0}</value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>專案[{0}]。關聯的公司：{1}</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>專案[{0}]。聯繫人已連接：{1}</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>專案[{0}]。關聯的人：{1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>從Basecamp導入的專案：{0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>專案</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>專案</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>已創建專案模板：{0}</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>專案模板已刪除：{0}</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>專案模板已更新：{0}</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>專案終止追蹤：{0}</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>專案[{0}]。公司關聯已斷連：{1}</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>專案[{0}]。未關聯的人：{1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>專案已更新：{0}</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>專案[{0}]。成員[{1}]。存取權限已更新</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>專案[{0}]。狀態更新：{1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>專案[{0}]。團隊更新：{1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>重新分配</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>報表</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>已創建專案報告模板：{0}</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>專案報告模板已刪除：{0}</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>專案報告模板已更新：{0}</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>傳送</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>邀請指示已發送：{0}</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>會話完成</value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>會議開始</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSO 已停用</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSO 已啟用</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>開始備份</value>
+  </data>
+  <data name="StartStorageDecryption" xml:space="preserve">
+    <value>開始存儲解密</value>
+  </data>
+  <data name="StartStorageEncryption" xml:space="preserve">
+    <value>開始存儲加密</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>開始門戶區域遷移</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。子任務已創建：{2}</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。子任務已刪除：{2}</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。子任務已更新：{2}</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。子任務[{2}]。狀態更新：{3}</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>系統帳號</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>目標ID</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。附件：{2}</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。評論已創建</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。評論已刪除</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。評論已更新</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>專案[{0}]。創建的任務：{1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>專案[{0}]。討論[{1}]。創建的任務：{2}</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>專案[{0}]。任務已刪除：{1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>專案[{0}]。任務1}。分離的文件：{2}</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>專案[{0}]。里程碑[{1}]。任務已移動：{2}</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>專案[{0}]。關聯的任務：{1}-{2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>任務</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>專案[{0}]。未關聯的任務：{1}-{2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。任務創建時間：{2}</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>任務時間已刪除：{0}</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>任務時間[{0}]。狀態更新：{1}</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。任務時間更新：{2}</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。與里程碑斷開連接。</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>專案[{0}]。任務已更新：{1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>專案[{0}]。以下任務已更新：{1}</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>專案[{0}]。任務[{1}]。狀態更新：{2}</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>團隊模板已更改</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>已創建第三方：{0}。提供者：{1}</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>第三方已刪除：{0}。提供者：{1}</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>第三方更新：{0}。提供者：{1}</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>時間跟蹤</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>時區設置已更新</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>可信郵件域設置已更新</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsDisabled" xml:space="preserve">
+    <value>兩因素身份驗證設置已更新：兩因素身份驗證已禁用</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledBySms" xml:space="preserve">
+    <value>兩因素身份驗證設置已更新：啟用了SMS確認</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledByTfaApp" xml:space="preserve">
+    <value>兩因素身份驗證設置已更新：身份驗證應用已啟用</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>兩因素身份驗證設置已更新</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>取消追蹤</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>未知帳戶</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>取消連結</value>
+  </data>
+  <data name="UpdateAccessActionType" xml:space="preserve">
+    <value>更新的存取權限</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>更新資料</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>上傳</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>用戶激活：{0}</value>
+  </data>
+  <data name="UserAddedAvatar" xml:space="preserve">
+    <value>用戶[{0}]。頭像已添加</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>用戶創建：{0}</value>
+  </data>
+  <data name="UserCreatedViaInvite" xml:space="preserve">
+    <value>通過邀請創建的用戶：{0}</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>數據重新分配：從用戶{0}到用戶{1}</value>
+  </data>
+  <data name="UserDataRemoving" xml:space="preserve">
+    <value>{0}的用戶數據已刪除</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>用戶已刪除：{0}</value>
+  </data>
+  <data name="UserDeletedAvatar" xml:space="preserve">
+    <value>用戶[{0}]。頭像已刪除</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>用戶[{0}]。文件更新：{1}</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>用戶導入：{0}</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>社會帳戶已關聯。提供者：{0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>用戶已刪除：{0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>用戶[{0}]。發送激活說明</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>發送刪除配置文件說明</value>
+  </data>
+  <data name="UserSentEmailInstructions" xml:space="preserve">
+    <value>用戶[{0}]。已發送電子郵件更改說明</value>
+  </data>
+  <data name="UserSentPasswordInstructions" xml:space="preserve">
+    <value>用戶[{0}]。發送密碼更改說明</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>使用者</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>用戶[{0}]。發送激活說明</value>
+  </data>
+  <data name="UsersUpdatedStatus" xml:space="preserve">
+    <value>用戶[{0}]。更新狀態</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>用戶[{0}]。更新類型</value>
+  </data>
+  <data name="UserTfaDisconnected" xml:space="preserve">
+    <value>
+Authenticator應用程序已斷開連接：{0}</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>新的備份代碼已創建</value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>社交帳戶未關聯。提供者：{0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>用戶更新：{0}</value>
+  </data>
+  <data name="UserUpdatedAvatarThumbnails" xml:space="preserve">
+    <value>用戶[{0}]。頭像縮略圖更新</value>
+  </data>
+  <data name="UserUpdatedEmail" xml:space="preserve">
+    <value>電郵已更新</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>語言已更新</value>
+  </data>
+  <data name="UserUpdatedMobileNumber" xml:space="preserve">
+    <value>用戶[{0}]。手機號碼已更新：{1}</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>密碼已更新</value>
+  </data>
+  <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
+    <value>網站聯繫表密鑰已更新</value>
+  </data>
+</root>

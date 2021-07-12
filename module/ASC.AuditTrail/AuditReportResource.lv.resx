@@ -1,0 +1,1360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Darbība</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Darbības ID</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>Darbības veids</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>Pievienots administrators: {0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>Dzēsts administrators: {0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>Atjaunināti administratora ziņojuma uzstādījumi</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>Administratori [{0}]. Atvērta pilnā piekļuve</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>Pievienot</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>Audita žurnāla atskaite lejupielādēta</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>Audita žurnāla atskaite ({0}-{1})</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>Trešās puses autorizācijas atslēgas atjauninātas</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>Pārlūks</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>Lietas [{0}]. Pievienotie faili: {1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>Slēgta lieta: {0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>Izveidota lieta: {0}</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>Lietas [{0}]. Izveidots vēstures notikums: {1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>Lietas [{0}]. Izveidota birka: {1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>Lieta dzēsta: {0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>Lietas [{0}]. Dzēsts vēstures notikums: {1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>Lietas [{0}]. Birka dzēsta: {1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>Lietas [{0}]. Atvienots fails: {1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>Lietas [{0}]. Saistīts uzņēmums: {1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>Lietas [{0}]. Piesaistīta persona: {1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>Lieta atvērta: {0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>Lietas [{0}]. Atvērta piekļuve</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>Lietas [{0}]. Piekļuve ierobežota: {1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>Lietas. Izveidota birka: {0}</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>Dzēstas lietas: {0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>Lietas. Birka dzēsta: {0}</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>CSV failā eksportētas lietas: {0}</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>No CSV faila importētas lietas</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Lietas</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>Lietas [{0}]. Uzņēmums atvienots: {1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>Lietas [{0}]. Atvienota persona: {1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>Lieta atjaunināta: {0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>Izveidots lietas lietotāja lauks: {0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>Dzēsts lietas lietotāja lauks: {0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta lietas lietotāja lauku secība: {0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>Atjaunināts lietas lietotāja lauks: {0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>Mainīta krāsu tēma</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>Kopējie uzstādījumi</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>Apvienotie uzņēmumi: {0} - {1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>Uzņēmumi</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Pievienoti faili: {1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>Izveidots uzņēmums: {0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Pievienots vēstures notikums: {1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Izveidota personu birka: {1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Izveidota birka: {1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>Ar tīmekļa formu izveidots uzņēmums: {0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>Uzņēmums dzēsts: {0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Dzēsts vēstures notikums: {1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Dzēsta birka: {1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Atvienots fails: {1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Piesaistīta persona: {1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Piesaistīts projekts: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Persona atvienota: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Projekts atvienots: {1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>Uzņēmums atjaunināts: {0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>Uzņēmums [{0}].Atjaunināts personas temperatūras līmenis</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Atjaunināta fotogrāfija</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Atjaunota pamatinformācija</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Atjaunināts temperatūras līmenis</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>Uzņēmumi [{0}]. Augšupielādēti faili: {1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>Izveidots uzņēmuma lietotāja lauks: {0}</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>Uzņēmuma lietotāja lauks dzēsts: {0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta uzņēmuma lietotāja lauka secība: {0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>Uzņēmuma lietotāja lauks atjaunināts: {0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>Nosūtīts ziņojums administratoram</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>Kontakti [{0}]. Piesaistīts projekts: {1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>Kontakti [{0}]. Izveidots uzdevums: {1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>Kontakti. Izveidota birka: {0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>Kontakti dzēsti: {0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>Kontakti. Birka dzēsta: {0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>Kontakti eksportēti uz CSV faili: {0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>Kontakti importēti CSV faila</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>Kontakta birkas uzstādījumi atjaunināti</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>Izveidots kontaktu temperatūras līmenis: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>Dzēsts kontaktu temperatūras līmenis: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>Kontaktu temperatūras līmeņa uzstādījumi atjaunināti</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta kontakta temperatūras līmeņu secība: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>Kontaktu temperatūras līmenis atjaunināts: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>Kontaktu temperatūras līmenis [{0}].Krāsa atjaunināta</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>Izveidots kontakta veids: {0}</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>Kontakta veids dzēsts: {0}</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>Kontaktu veidi</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>Kontaktu veidu secība atjaunināta: {0}</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>Kontakta veids atjaunināts: {0}</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>Kontakti [{0}]. Atvienots projekts: {1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>Izveidots kontakta lietotāju lauks: {0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>Dzēsts kontaktu lietotāja lauks: {0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Kontaktu lietotāja lauku secības atjaunināta: {0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>Kontaktu lietotāja lauks atjaunināts: {0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Atjaunināti sīkdatņu uzstādījumi</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>Kopēt</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>Visi dati eksportēti</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>Atjaunota valūta pēc noklusējuma</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>CRM elements. Atvienots fails: {0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRM faili</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>SMTP pasts nosūtīts kontaktiem: {0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>SMTP uzstādījumi atjaunināti</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta CRM uzdevumu kategoriju secība: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>Izveidota CRM uzņēmuma kategorija: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>CRM uzdevuma kategorija dzēsta: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>Atjaunināta CRM uzdevuma kategorija: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>Atjaunināta CRM uzdevuma kategorijas ikona: {0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>CRM uzdevums slēgts: {0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>Izveidots CRM uzdevums: {0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>Dzēsts CRM uzdevums: {0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>Atvērts CRM uzdevums: {0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>CSV failā eksportētie CRM uzdevumi: {0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>No CSV faila importētie CRM uzdevumi: {0}</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>CRM uzdevumi</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>Atjauninātie CRM uzdevumi: {0}</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>Pārbaudes vēstule nosūtīta</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>Atjaunināts valūtas kurss: {0} - {1}</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>Personalizētās navigācijas uzstādījumi atjaunināti</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Datums</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>Atjaunināti sākumlapas noklusējuma uzstādījumi</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>Dzēst</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>Atvienot</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusijas [{1}]. Pievienoti faili: {2}</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusijas [{1}]. Izveidots komentārs</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusijas [{1}]Komentārs dzēsts</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusijas [{1}]Komentārs atjaunināts</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Izveidota diskusija: {1}</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusija dzēsta: {1}</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusijas [{1}] Pievienots fails: {2}</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Diskusijas</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Atjaunināta diskusija: {1}</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>Projekti [{0}]. Sekošanai diskusijām atjaunināta: {1}</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>Atjaunināti DNS uzstādījumi</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>Dokumentu servisa atrašanās vieta atjaunināta</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>Atjaunināti pārrakstīšanas uzstādījumi</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Dokumenti</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>Trešās puses pakalpojumi atjaunināti</value>
+  </data>
+  <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
+    <value>Augšupielādējamo formāta uzstādījumu atjaunināšana veikta</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>Lejupielādēt</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>Eksportēt</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>Uzstādīt īpašnieku [{0}] - [{1}]</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Iekšējā formātā konvertēts fails: {0}</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Faili [{0}]. Pārkopēti no mapes "{1}" mapē "{2}"</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>Faili [{0}]. Pārkopēti ar pārrakstīšanu no mapes "{1}" mapē: "{2}"</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Izveidots fails: {0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>Faili [{0}]. Revīzija {1}. Izveidota versija</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>Dzēsts fails: {0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>Faili [{0}]. Revīzija {1}. Versija dzēsta</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>Lejupielādēts fails: {0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>Faili [{0}]. Lejupielādēts kā: {1}</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>Mapes [{0}]. Fails importēts: {1}. Provaideris: {2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>Bloķēts fails: {0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>Faili [{0}]. Pārvietots no mapes "{1}" mapē: "{2}"</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>Faili [{0}]. Pārvietoti uz atkritni</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>Faili [{0}]. Pārvietots ar pārrakstīšanu no mapes "{1}" mapē: "{2}"</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>Pārdēvēts fails: {0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>Faili [{0}]. Revīzija: {1}. Versija atjaunota</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>Dokuments {1} parakstīts ar {0}</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>Nosūtīta piekļuves saite failam [{0}]. Saņēmēji: [{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Faili</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>Dokuments {1} nosūtīts parakstīšanai ar {0}</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>Atbloķēts fails: {0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>Atjaunināts fails: {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>Faili [{0}]. Atjaunināta piekļuve</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>Faili [{0}]. Revīzija {1}. Komentārs atjaunināts</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Augšupielādēts fails: {0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>Mapes [{0}]. Iekopētas mapē: {1}</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>Mapes [{0}]. Iekopētas ar pārrakstīšanu mapē: {1}</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>Izveidota mape: {0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>Mape dzēsta: {0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>Mapes [{0}]. Pārvietots uz mapi: {1}</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>Mapes [{0}]. Pārvietots uz atkritni</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>Mapes [{0}]. Pārvietots ar pārrakstīšanu mapē: {1}</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>Mape pārdēvēta: {0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Mapes</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>Mapes [{0}]. Atjaunināta piekļuve</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>Sekot</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Sphinx uzstādījumi atjaunināti</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>Vispārīgi</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>Sagaidīšanas lapas uzstādījumi atjaunināti</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>Izveidota grupa: {0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>Dzēsta grupa: {0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>Grupas</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>Atjaunināta grupa: {0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>Viesa konts</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>Aktivizēts viesis: {0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>Izveidots viesis: {0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>Pēc ielūguma izveidots viesis: {0}</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>Viesis importēts: {0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Vēstures notikumu kategorijas. Secība atjaunināta: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>Vēstures notikuma kategorija izveidota: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>Vēstures notikuma kategorija dzēsta: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>Vēstures notikuma kategorija atjaunināta: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>Vēstures notikumu kategorijas [{0}]. Ikona atjaunināta</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>Importēšana</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>Izveidots rēķins: {0}</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>Rēķina noklusējuma nostatījumi atjaunināti</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>Rēķins dzēsts: {0}</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>Rēķins lejupielādēts: {0}</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>Izveidots rēķina elements: {0}</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>Rēķina pozīcija dzēsta: {0}</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>Rēķina pozīcijas dzēstas: {0}</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>Rēķina pozīcija atjaunināta: {0}</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>Rēķina numerācijas formāts atjaunināts</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>Dzēsti rēķini: {0}</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>Rēķinu iestatījumi</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>Rēķini</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>Rēķini [{0}]. Statuss atjaunināts: {1}</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>Izveidots rēķina nodoklis: {0}</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>Rēķina nodoklis dzēsts: {0}</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>Rēķina nodoklis atjaunināts: {0}</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>Rēķins atjaunināts: {0}</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP adrese</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>Valodas iestatījumi atjaunināti</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>Licences atslēga ir augšupielādēta</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>Saite</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>Neizdevusies ieeja</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>Ieeja neizdevās. Profils ir bloķēts</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>Neizdevās ieiet. Nederīgs lietotājvārds un/vai parole</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value>IP drošība: neizdevās ieiet</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>Ieeja neizdevās. Nav atrasts saistītais sociālā tīkla konts</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>Neizdevās ieiet ar API</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>Neizdevās ieiet ar API un SMS kodu</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>Ieeja ar API un sociālo mediju neizdevās</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>Ieeja ar SMS neizdevās</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>Ieeja ar SSO neizdevās</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>Pieteikšanās vēstures atskaite lejupielādēta</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>Pieteikšanās vēstures atskaite ({0}-{1})</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Veiksmīga pieteikšanās</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>Ieeja ar sociālā tīkla kontu izdevās</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>Veiksmīga ieeja ar API</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>Veiksmīga ieeja ar API un SMS kodu</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>Ieeja ar SMS izdevās</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>Ieeja ar API un sociālo mediju izdevās</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>Veiksmīga ieeja ar SSO</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Iziet</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>Pasta servisa uzstādījumi atjaunināti</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Izveidots posms: {1}</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>Projekti [{0}]. Dzēsts posms: {1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Posmi</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Atjaunināts posms: {1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>Projekti [{0}]. Posmi [{1}]. Atjaunināts statuss: {2}</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>Modulis</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>Pārvietot</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>Iespējas. Izveidota birka:{0}</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>Dzēstas iespējas: {0}</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>Iespējas. Dzēsta birka: {0}</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>Uz CSV failu eksportētās iespējas: {0}</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>No CSV faila eksportētās iespējas</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Iespējas</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>Iespējas [{0}]. Pievienoti faili: {1}</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>Izveidota iespēja: {0}</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>Iespējas [{0}]. Izveidots vēstures notikums: {1}</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>Iespējas [{0}]. Izveidota birka: {1}</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>Dzēsta iespēja: {0}</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>Iespējas [{0}]. Dzēsts vēstures notikums: {1}</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>Iespējas [{0}]. Birka dzēsta: {1}</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>Iespējas [{0}]. Fails atvienots: {1}</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>Iespējas [{0}]. Piesaistīts uzņēmums: {1}</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>Iespējas [{0}]. Piesaistīta persona: {1}</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>Iespējas [{0}]. Atvērta piekļuve</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>Iespējas [{0}]. Piekļuve ierobežota: {1}</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>Izveidota iespējas stadija: {0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>Dzēsta iespējas stadija: {0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta iespējas stadiju secība: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>Atjaunināta iespējas stadija: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>Atjaunināta iespējas stadijas krāsa: {0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>Iespējas [{0}]. Uzņēmums atvienots: {1}</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>Iespējas [{0}]. Persona atsaistīta: {1}</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>Iespēja atjaunināta: {0}</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>Atjaunināta iespējas stadija: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>Izveidots iespējas lietotāju lauks: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>Dzēsts iespējas lietotāju lauks: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta iespējas lietotāju lauku secība: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>Atjaunināts iespējas lietotāju lauks: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>Organizācijas profils. Adrese atjaunināta</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>Organizācijas profils. Uzņēmuma nosaukums atjaunināts:{0} </value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>Organizācijas profils. Rēķina logo atjaunināts.</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>Citi uzstādījumi</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>Citi</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>Mainīts īpašnieks: {0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>Īpašnieks [{0}]. Nosūtītas īpašnieka instrukcijas</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>Īpašnieks [{0}]. Nosūtītas portāla deaktivizācijas instrukcijas</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>Īpašnieks [{0}]. Nosūtītas portāla dzēšanas instrukcijas</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>Lapa</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>Paroles drošuma uzstādījumi atjaunināti</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>Personas</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>Personas [{0}]. Pievienoti faili: {1}</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>Izveidota persona: {0}</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>Personas [{0}]. Izveidota uzņēmuma birka: {1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>Personas [{0}]. Izveidots vēstures notikums: {1}</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>Personas [{0}]. Izveidota birka: {1}</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>Ar tīmekļa veidlapu izveidota persona: {0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>Persona dzēsta: {0}</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>Personas [{0}]. Dzēsts vēstures notikums: {1}</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>Personas [{0}]. Birka dzēsta: {1}</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>Personas [{0}]. Fails atvienots: {1}</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>Personas [{0}]. Piesaistīts projekts: {1}</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>Izveidotas personas: {0}</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>Apvienotas personas: {0} - {1}</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>Personas</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>Personas [{0}]. Atvienots projekts: {1}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>Atjaunināta persona: {0}</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>Personas [{0}]. Atjaunināts uzņēmuma temperatūras līmenis</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>Personas [{0}]. Foto atjaunināts</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Personas [{0}]. Atjaunināta pamatinformācija</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Personas [{0}]. Atjaunināts temperatūras līmenis</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>Personas [{0}]. Atjaunināti faili: {1}</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>Izveidots personas lietotāja lauks: {0}</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>Dzēsts personas lietotāja lauks: {0}</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Atjaunināta personas lietotāju lauku secība: {0}</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>Personas lietotāja lauks atjaunināts: {0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>Platforma</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>Portāla piekļuves iestatījumi atjaunināti</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>Portāls deaktivizēts</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>Portāls dzēsts</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>Produkti [{0}]. Atvērta piekļuve</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>Produkti: [{0}]. Grupas [{1}]. Atvērta piekļuve</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>Produkti: [{0}]. Lietotāji [{1}]. Atvērta piekļuve</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>Produkti [{0}]. Ierobežota piekļuve</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>Produkti [{0}]. Pievienots administrators: {1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>Produkts</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>Produkti [{0}]. Administrators dzēsts: {1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>Produktu saraksts atjaunināts</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>Produkti</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>Izveidots projekts: {0}</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>Veidnes [{0}].Izveidots projekts: {1}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Dzēsts projekts: {0}</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>Projekti [{0}]. Dzēsts dalībnieks: {1}</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>Sekots projektam: {0}</value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>Projekti [{0}]. Piesaistīts uzņēmums: {1}</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>Projekti [{0}]. Saistīti kontakti: {1}</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>Projekti [{0}]. Piesaistīta persona: {1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>Projekti importēti no Basecamp: {0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Projekti</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>Izveidota projekta veidne: {0}</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>Dzēsta projekta veidne: {0}</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>Atjaunināta projekta veidne: {0}</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>Pārtraukta sekošana projektam: {0}</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>Projekti [{0}]. Atvienots uzņēmums: {1}</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>Projekti [{0}]. Atvienota persona: {1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>Projekts atjaunināts: {0}</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>Projekti [{0}]. Dalībnieki [{1}]. Atjauninātas piekļuves tiesības</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>Projekti [{0}]. Atjaunināts statuss: {1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>Projekti [{0}]. Atjaunināta komanda: {1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>Pārzīmēšana</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>Atskaites</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>Izveidota projekta atskaites veidne: {0}</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>Dzēsta projekta atskaites veidne: {0}</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>Atjaunināta projekta atskaites veidne: {0}</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>Nosūtīt</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>Nosūtītas ielūguma instrukcijas: {0}</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>Sesija pabeigta</value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>Sesija uzsākta</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSO atspējots</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSO iespējots</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>Uzsākt rezerves kopēšanu</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>Uzsākt portāla apgabala pārnesi</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Izveidots apakšuzdevums: {2}</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Dzēsts apakšuzdevums: {2}</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Atjaunināts apakšuzdevums: {2}</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Apakšuzdevumi [{2}]. Atjaunināts statuss: {3}</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>Sistēmas konts</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>Mērķa ID</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Pievienoti faili: {2}</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Izveidots komentārs</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>Projekti [{0}].Uzdevumi [{1}]. Dzēsts komentārs</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Atjaunināts komentārs</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Izveidots uzdevums: {1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>Projekti [{0}]. Diskusijas [{1}]. Izveidots uzņēmums: {2}</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>Projekti [{0}]. Dzēsts uzdevums: {1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevums: {1}. Atvienots fails: {2}</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>Projekti [{0}]. Posmi [{1}]. Pārvietots uzdevums: {2}</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>Projekti [{0}]. Saistīti uzdevumi: {1} - {2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Uzdevumi</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>Projekti [{0}]. Atvienoti uzdevumi: {1} - {2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Izveidots uzdevuma laiks: {2}</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>Dzēsti uzdevuma laiki: {0}</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>Uzdevuma izpildes laiki [{0}]. Atjaunināts statuss: {1}</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Atjaunināts uzdevuma laiks: {2}</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Atvienots no posmiem.</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Projekti [{0}]. Atjaunināts uzdevums: {1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>Projekti [{0}]. Atjaunināta sekošana uzdevumam: {1}</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>Projekti [{0}]. Uzdevumi [{1}]. Atjaunināts statuss: {2}</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>Mainīta komandas veidne</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>Izveidota trešā puse: {0}. Provaideris: {1}</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>Trešā puse dzēsta: {0}. Provaideris: {1}</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>Trešā puse atjaunināta: {0}. Provaideris: {1}</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Laika skaitīšana</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>Laika zonas uzstādījumi</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>Atjaunināti uzticamo pasta kontu domēnu iestatījumi</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>Divu faktoru autentifikācijas uzstādījumi ir atjaunināti</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>Nesekot</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>Nezināms konts</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>Saites dzēšana</value>
+  </data>
+  <data name="UpdateAccessActionType" xml:space="preserve">
+    <value>Atjaunināta piekļuve</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>Atjaunināt</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>Augšupielādēt</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>Aktivizēts lietotājs: {0}</value>
+  </data>
+  <data name="UserAddedAvatar" xml:space="preserve">
+    <value>Lietotāji [{0}]. Pievienots avatars</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Lietotājs</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>Izveidots lietotājs: {0}</value>
+  </data>
+  <data name="UserCreatedViaInvite" xml:space="preserve">
+    <value>Pēc uzaicinājuma izveidots lietotājs: {0}</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Dati pārnesti: no lietotāja {0} uz lietotāju {1}</value>
+  </data>
+  <data name="UserDataRemoving" xml:space="preserve">
+    <value>Ir dzēsti lietotāja dati {0}</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>Dzēsts lietotājs: {0}</value>
+  </data>
+  <data name="UserDeletedAvatar" xml:space="preserve">
+    <value>Lietotāji [{0}]. Dzēsts avatars</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>Lietotāji [{0}] Atjaunināts fails: {1}</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>Importēts lietotājs: {0}</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>Piesaistīts sociālā tīkla konts. Provaideris: {0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>Dzēsti lietotāji: {0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>Lietotāji [{0}]. Nosūtītas aktivizācijas instrukcijas</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>Nosūtīt instrukcijas profila dzēšanai</value>
+  </data>
+  <data name="UserSentEmailInstructions" xml:space="preserve">
+    <value>Lietotāji [{0}]. Nosūtītas e-pasta maiņas instrukcijas</value>
+  </data>
+  <data name="UserSentPasswordInstructions" xml:space="preserve">
+    <value>Lietotāji [{0}]. Nosūtītas paroles maiņas instrukcijas</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>Lietotāji</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>Lietotāji [{0}]. Nosūtītas aktivizācijas instrukcijas</value>
+  </data>
+  <data name="UsersUpdatedStatus" xml:space="preserve">
+    <value>Lietotāji [{0}]. Atjaunināts statuss</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>Lietotāji [{0}]. Atjaunināts veids</value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>Atvienots sociālā tīkla konts. Provaideris: {0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Atjaunināts lietotājs: {0}</value>
+  </data>
+  <data name="UserUpdatedAvatarThumbnails" xml:space="preserve">
+    <value>Lietotāji [{0}]. Atjaunots avatara sīktēls</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>Valoda atjaunināta</value>
+  </data>
+  <data name="UserUpdatedMobileNumber" xml:space="preserve">
+    <value>Lietotāji [{0}]. Atjaunināts mobilā tālruņa numurs: {1}</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>Parole atjaunināta</value>
+  </data>
+  <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
+    <value>Vietnes kontaktveidlapas atslēga atjaunināta</value>
+  </data>
+</root>

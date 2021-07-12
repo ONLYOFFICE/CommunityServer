@@ -1,0 +1,1393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCol" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="ActionIdCol" xml:space="preserve">
+    <value>Идентификационен номер на действие</value>
+  </data>
+  <data name="ActionTypeCol" xml:space="preserve">
+    <value>Тип действие</value>
+  </data>
+  <data name="AdministratorAdded" xml:space="preserve">
+    <value>Добавен е администратор: {0}</value>
+  </data>
+  <data name="AdministratorDeleted" xml:space="preserve">
+    <value>Администраторът е изтрит: {0}</value>
+  </data>
+  <data name="AdministratorMessageSettingsUpdated" xml:space="preserve">
+    <value>Настройки на администраторските съобщения Актуализирани</value>
+  </data>
+  <data name="AdministratorOpenedFullAccess" xml:space="preserve">
+    <value>Администратори [{0}]. Отворен е пълен достъп</value>
+  </data>
+  <data name="AttachActionType" xml:space="preserve">
+    <value>Прикрепете</value>
+  </data>
+  <data name="AuditSettingsUpdated" xml:space="preserve">
+    <value>Актуализирани настройки за одит на живота</value>
+  </data>
+  <data name="AuditTrailReportDownloaded" xml:space="preserve">
+    <value>Доклад за одитния маршрут Изтеглено</value>
+  </data>
+  <data name="AuditTrailReportName" xml:space="preserve">
+    <value>Отчет за следата за одит ({0} - {1})</value>
+  </data>
+  <data name="AuthorizationKeysSetting" xml:space="preserve">
+    <value>Актуализирани са ключовете за оторизация на трети страни</value>
+  </data>
+  <data name="BrowserCol" xml:space="preserve">
+    <value>Браузър</value>
+  </data>
+  <data name="CaseAttachedFiles" xml:space="preserve">
+    <value>Случаи [{0}]. Прикачени файлове: {1}</value>
+  </data>
+  <data name="CaseClosed" xml:space="preserve">
+    <value>Затворен случай: {0}</value>
+  </data>
+  <data name="CaseCreated" xml:space="preserve">
+    <value>Създаден случай: {0}</value>
+  </data>
+  <data name="CaseCreatedHistoryEvent" xml:space="preserve">
+    <value>Случаи [{0}]. Създадено събитие за историята: {1}</value>
+  </data>
+  <data name="CaseCreatedTag" xml:space="preserve">
+    <value>Случаи [{0}]. Етикетът е създаден: {1}</value>
+  </data>
+  <data name="CaseDeleted" xml:space="preserve">
+    <value>Делото е изтрито: {0}</value>
+  </data>
+  <data name="CaseDeletedHistoryEvent" xml:space="preserve">
+    <value>Случаи [{0}]. Събитието в историята е изтрито: {1}</value>
+  </data>
+  <data name="CaseDeletedTag" xml:space="preserve">
+    <value>Случаи [{0}]. Изтрит маркер: {1}</value>
+  </data>
+  <data name="CaseDetachedFile" xml:space="preserve">
+    <value>Случаи [{0}]. Файл откъснат: {1}</value>
+  </data>
+  <data name="CaseLinkedCompany" xml:space="preserve">
+    <value>Случаи [{0}]. Свързани фирми: {1}</value>
+  </data>
+  <data name="CaseLinkedPerson" xml:space="preserve">
+    <value>Случаи [{0}]. Свързан човек: {1}</value>
+  </data>
+  <data name="CaseOpened" xml:space="preserve">
+    <value>Отворен случай: {0}</value>
+  </data>
+  <data name="CaseOpenedAccess" xml:space="preserve">
+    <value>Случаи [{0}]. Достъпът е отворен</value>
+  </data>
+  <data name="CaseRestrictedAccess" xml:space="preserve">
+    <value>Случаи [{0}]. Ограничен достъп: {1}</value>
+  </data>
+  <data name="CasesCreatedTag" xml:space="preserve">
+    <value>Случаи. Етикетът е създаден: {0}</value>
+  </data>
+  <data name="CasesDeleted" xml:space="preserve">
+    <value>Изтрити случаи: {0}</value>
+  </data>
+  <data name="CasesDeletedTag" xml:space="preserve">
+    <value>Случаи. Изтрит маркер: {0}</value>
+  </data>
+  <data name="CasesExportedToCsv" xml:space="preserve">
+    <value>Случаи, експортирани в CSV файла: {0}</value>
+  </data>
+  <data name="CasesImportedFromCSV" xml:space="preserve">
+    <value>Случаи, внесени от CSV файла</value>
+  </data>
+  <data name="CasesModule" xml:space="preserve">
+    <value>Случаи</value>
+  </data>
+  <data name="CaseUnlinkedCompany" xml:space="preserve">
+    <value>Случаи [{0}]. Фирмата не е свързана: {1}</value>
+  </data>
+  <data name="CaseUnlinkedPerson" xml:space="preserve">
+    <value>Случаи [{0}]. Лицето е прекъснало връзката: {1}</value>
+  </data>
+  <data name="CaseUpdated" xml:space="preserve">
+    <value>Обновен случай: {0}</value>
+  </data>
+  <data name="CaseUserFieldCreated" xml:space="preserve">
+    <value>Създадено е поле за потребителски случай: {0}</value>
+  </data>
+  <data name="CaseUserFieldDeleted" xml:space="preserve">
+    <value>Полето на потребителското поле е изтрито: {0}</value>
+  </data>
+  <data name="CaseUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Служебни полета за поръчка на поръчка Обновено: {0}</value>
+  </data>
+  <data name="CaseUserFieldUpdated" xml:space="preserve">
+    <value>Служебно поле на потребителя Обновен: {0}</value>
+  </data>
+  <data name="ColorThemeChanged" xml:space="preserve">
+    <value>Променена е цветната тема</value>
+  </data>
+  <data name="CommonCrmSettingsModule" xml:space="preserve">
+    <value>Общи настройки</value>
+  </data>
+  <data name="CompaniesMerged" xml:space="preserve">
+    <value>Компании, обединени: {0} - {1}</value>
+  </data>
+  <data name="CompaniesModule" xml:space="preserve">
+    <value>Компании</value>
+  </data>
+  <data name="CompanyAttachedFiles" xml:space="preserve">
+    <value>Фирми [{0}]. Прикачени файлове: {1}</value>
+  </data>
+  <data name="CompanyCreated" xml:space="preserve">
+    <value>Създадена фирма: {0}</value>
+  </data>
+  <data name="CompanyCreatedHistoryEvent" xml:space="preserve">
+    <value>Фирми [{0}]. Създадено събитие за историята: {1}</value>
+  </data>
+  <data name="CompanyCreatedPersonsTag" xml:space="preserve">
+    <value>Фирми [{0}]. Етикет на лицата е създаден: {1}</value>
+  </data>
+  <data name="CompanyCreatedTag" xml:space="preserve">
+    <value>Фирми [{0}]. Етикетът е създаден: {1}</value>
+  </data>
+  <data name="CompanyCreatedWithWebForm" xml:space="preserve">
+    <value>Фирмата е създадена с уеб формуляр: {0}</value>
+  </data>
+  <data name="CompanyDeleted" xml:space="preserve">
+    <value>Фирмата е изтрита: {0}</value>
+  </data>
+  <data name="CompanyDeletedHistoryEvent" xml:space="preserve">
+    <value>Фирми [{0}]. Събитието в историята е изтрито: {1}</value>
+  </data>
+  <data name="CompanyDeletedTag" xml:space="preserve">
+    <value>Фирми [{0}]. Изтрит маркер: {1}</value>
+  </data>
+  <data name="CompanyDetachedFile" xml:space="preserve">
+    <value>Фирми [{0}]. Файл откъснат: {1}</value>
+  </data>
+  <data name="CompanyLinkedPerson" xml:space="preserve">
+    <value>Фирми [{0}]. Свързан човек: {1}</value>
+  </data>
+  <data name="CompanyLinkedProject" xml:space="preserve">
+    <value>Фирми [{0}]. Свързани с проекта: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedPerson" xml:space="preserve">
+    <value>Фирми [{0}]. Лицето е прекъснало връзката: {1}</value>
+  </data>
+  <data name="CompanyUnlinkedProject" xml:space="preserve">
+    <value>Фирми [{0}]. Прекъсване на връзката между проекта: {1}</value>
+  </data>
+  <data name="CompanyUpdated" xml:space="preserve">
+    <value>Фирмата е актуализирана: {0}</value>
+  </data>
+  <data name="CompanyUpdatedPersonsTemperatureLevel" xml:space="preserve">
+    <value>Фирми [{0}]. Актуализирано ниво на температурата на човека</value>
+  </data>
+  <data name="CompanyUpdatedPhoto" xml:space="preserve">
+    <value>Фирми [{0}]. Снимка актуализирана</value>
+  </data>
+  <data name="CompanyUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Фирми [{0}]. Основна информация Актуализирана</value>
+  </data>
+  <data name="CompanyUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Фирми [{0}]. Актуализирано ниво на температурата</value>
+  </data>
+  <data name="CompanyUploadedFiles" xml:space="preserve">
+    <value>Фирми [{0}]. Файлове, качени: {1}</value>
+  </data>
+  <data name="CompanyUserFieldCreated" xml:space="preserve">
+    <value>Създадено е потребителско поле на компанията: {0}</value>
+  </data>
+  <data name="CompanyUserFieldDeleted" xml:space="preserve">
+    <value>Изтрито е потребителското поле на компанията: {0}</value>
+  </data>
+  <data name="CompanyUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Потребителски полета на компанията Поръчано обновяване: {0}</value>
+  </data>
+  <data name="CompanyUserFieldUpdated" xml:space="preserve">
+    <value>Потребителско поле на компанията Обновено: {0}</value>
+  </data>
+  <data name="ContactAdminMailSent" xml:space="preserve">
+    <value>Свържете се с Admin Mail Sent</value>
+  </data>
+  <data name="ContactLinkedProject" xml:space="preserve">
+    <value>Контакти [{0}]. Свързани с проекта: {1}</value>
+  </data>
+  <data name="ContactsCreatedCrmTasks" xml:space="preserve">
+    <value>Контакти [{0}]. Създадена задача: {1}</value>
+  </data>
+  <data name="ContactsCreatedTag" xml:space="preserve">
+    <value>Контакти. Етикетът е създаден: {0}</value>
+  </data>
+  <data name="ContactsDeleted" xml:space="preserve">
+    <value>Изтрити контакти: {0}</value>
+  </data>
+  <data name="ContactsDeletedTag" xml:space="preserve">
+    <value>Контакти. Изтрит маркер: {0}</value>
+  </data>
+  <data name="ContactsExportedToCsv" xml:space="preserve">
+    <value>Контакти, експортирани в CSV файла: {0}</value>
+  </data>
+  <data name="ContactsImportedFromCSV" xml:space="preserve">
+    <value>Контакти, внесени от CSV файла</value>
+  </data>
+  <data name="ContactsModule" xml:space="preserve">
+    <value>Контакти</value>
+  </data>
+  <data name="ContactsSettingsModule" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ContactsTagSettingsUpdated" xml:space="preserve">
+    <value>Настройки на етикета на контактите Актуализирани</value>
+  </data>
+  <data name="ContactTemperatureLevelCreated" xml:space="preserve">
+    <value>Ниво на температура на контакт, създадено: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelDeleted" xml:space="preserve">
+    <value>Нивото на температурата на контакт е изтрито: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelSettingsUpdated" xml:space="preserve">
+    <value>Настройки за ниво на температурата на контакт Актуализирани</value>
+  </data>
+  <data name="ContactTemperatureLevelsUpdatedOrder" xml:space="preserve">
+    <value>Нивата на температурата на контакт се актуализират: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdated" xml:space="preserve">
+    <value>Актуализирано ниво на температурата на контакт: {0}</value>
+  </data>
+  <data name="ContactTemperatureLevelUpdatedColor" xml:space="preserve">
+    <value>Ниво на температурата на контакт [{0}]. Цвят е актуализиран</value>
+  </data>
+  <data name="ContactTypeCreated" xml:space="preserve">
+    <value>Типът на контактите е създаден: {0}</value>
+  </data>
+  <data name="ContactTypeDeleted" xml:space="preserve">
+    <value>Видът на контакта е изтрит: {0}</value>
+  </data>
+  <data name="ContactTypesModule" xml:space="preserve">
+    <value>Видове контакти</value>
+  </data>
+  <data name="ContactTypesUpdatedOrder" xml:space="preserve">
+    <value>Типове контакти с поръчка Актуализирано: {0}</value>
+  </data>
+  <data name="ContactTypeUpdated" xml:space="preserve">
+    <value>Типът на контакта е актуализиран: {0}</value>
+  </data>
+  <data name="ContactUnlinkedProject" xml:space="preserve">
+    <value>Контакти [{0}]. Прекъсване на връзката между проекта: {1}</value>
+  </data>
+  <data name="ContactUserFieldCreated" xml:space="preserve">
+    <value>Създадено е потребителско поле за контакт: {0}</value>
+  </data>
+  <data name="ContactUserFieldDeleted" xml:space="preserve">
+    <value>Изтрито е потребителското поле за контакт: {0}</value>
+  </data>
+  <data name="ContactUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Потребителски полета за контакти Поръчка Обновена: {0}</value>
+  </data>
+  <data name="ContactUserFieldUpdated" xml:space="preserve">
+    <value>Контакт с потребителското поле е актуализиран: {0}</value>
+  </data>
+  <data name="CookieSettingsUpdated" xml:space="preserve">
+    <value>Настройки на 'бисквитките' Актуализирани</value>
+  </data>
+  <data name="CopyActionType" xml:space="preserve">
+    <value>Копие</value>
+  </data>
+  <data name="CreateActionType" xml:space="preserve">
+    <value>Създавам</value>
+  </data>
+  <data name="CrmAllDataExported" xml:space="preserve">
+    <value>Всички данни са експортирани</value>
+  </data>
+  <data name="CrmDefaultCurrencyUpdated" xml:space="preserve">
+    <value>Актуализирана валута по подразбиране</value>
+  </data>
+  <data name="CrmEntityDetachedFile" xml:space="preserve">
+    <value>CRM обект. Отделен файл: {0}</value>
+  </data>
+  <data name="CrmFilesModule" xml:space="preserve">
+    <value>CRM файлове</value>
+  </data>
+  <data name="CrmProduct" xml:space="preserve">
+    <value>CRM</value>
+  </data>
+  <data name="CrmSmtpMailSent" xml:space="preserve">
+    <value>SMTP поща е изпратена до контакти: {0}</value>
+  </data>
+  <data name="CrmSmtpSettingsUpdated" xml:space="preserve">
+    <value>Актуализирани са настройките за SMTP</value>
+  </data>
+  <data name="CrmTaskCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Поръчката на категориите задачи на CRM е актуализирана: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryCreated" xml:space="preserve">
+    <value>Създадена е категория за CRM задача: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryDeleted" xml:space="preserve">
+    <value>Изтрита CRM категория на задачата: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdated" xml:space="preserve">
+    <value>CRM категория на задачата е актуализирана: {0}</value>
+  </data>
+  <data name="CrmTaskCategoryUpdatedIcon" xml:space="preserve">
+    <value>Икона на категорията за CRM за актуализация: {0}</value>
+  </data>
+  <data name="CrmTaskClosed" xml:space="preserve">
+    <value>Закрита задача за CRM: {0}</value>
+  </data>
+  <data name="CrmTaskCreated" xml:space="preserve">
+    <value>Създадена задача за CRM: {0}</value>
+  </data>
+  <data name="CrmTaskDeleted" xml:space="preserve">
+    <value>CRM Задаване е изтрито: {0}</value>
+  </data>
+  <data name="CrmTaskOpened" xml:space="preserve">
+    <value>Отворена е задача за CRM: {0}</value>
+  </data>
+  <data name="CrmTasksExportedToCsv" xml:space="preserve">
+    <value>CRM Задачи, експортирани в CSV файла: {0}</value>
+  </data>
+  <data name="CrmTasksImportedFromCSV" xml:space="preserve">
+    <value>CRM Задачи, внесени от CSV файла</value>
+  </data>
+  <data name="CrmTasksModule" xml:space="preserve">
+    <value>Задачи за CRM</value>
+  </data>
+  <data name="CrmTaskUpdated" xml:space="preserve">
+    <value>Актуализирани задачи за CRM: {0}</value>
+  </data>
+  <data name="CrmTestMailSent" xml:space="preserve">
+    <value>Тествайте изпратената поща</value>
+  </data>
+  <data name="CurrencyRateUpdated" xml:space="preserve">
+    <value>Промяна на валутата: {0} - {1}</value>
+  </data>
+  <data name="CustomNavigationSettingsUpdated" xml:space="preserve">
+    <value>Потребителски настройки за навигация Актуализирани</value>
+  </data>
+  <data name="DateCol" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DefaultStartPageSettingsUpdated" xml:space="preserve">
+    <value>Настройки по подразбиране за начална страница Актуализирани</value>
+  </data>
+  <data name="DeleteActionType" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="DetachActionType" xml:space="preserve">
+    <value>Отвързвам</value>
+  </data>
+  <data name="DiscussionAttachedFiles" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусии [{1}]. Прикачени файлове: {2}</value>
+  </data>
+  <data name="DiscussionCommentCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусии [{1}]. Коментарът е създаден</value>
+  </data>
+  <data name="DiscussionCommentDeleted" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусии [{1}]. Коментарът е изтрит</value>
+  </data>
+  <data name="DiscussionCommentUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусии [{1}]. Коментар Актуализиран</value>
+  </data>
+  <data name="DiscussionCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Създаване на дискусия: {1}</value>
+  </data>
+  <data name="DiscussionDeleted" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусията бе изтрита: {1}</value>
+  </data>
+  <data name="DiscussionDetachedFile" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусии [{1}]. Файл откъснат: {2}</value>
+  </data>
+  <data name="DiscussionsModule" xml:space="preserve">
+    <value>Дискусии</value>
+  </data>
+  <data name="DiscussionUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Обсъждане актуализирано: {1}</value>
+  </data>
+  <data name="DiscussionUpdatedFollowing" xml:space="preserve">
+    <value>Проекти [{0}]. Следната дискусия е актуализирана: {1}</value>
+  </data>
+  <data name="DnsSettingsUpdated" xml:space="preserve">
+    <value>Актуализирани настройки на DNS</value>
+  </data>
+  <data name="DocumentServiceLocationSetting" xml:space="preserve">
+    <value>Местоположение на услугата за документи Актуализирано</value>
+  </data>
+  <data name="DocumentsModule" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="DocumentsOverwritingSettingsUpdated" xml:space="preserve">
+    <value>Настройки за презаписване Актуализирани</value>
+  </data>
+  <data name="DocumentsProduct" xml:space="preserve">
+    <value>Документи</value>
+  </data>
+  <data name="DocumentsSettingsModule" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="DocumentsThirdPartySettingsUpdated" xml:space="preserve">
+    <value>Настройки на трети страни Актуализирани</value>
+  </data>
+  <data name="DocumentsUploadingFormatsSettingsUpdated" xml:space="preserve">
+    <value>Актуализиране на настройките за форматите</value>
+  </data>
+  <data name="DownloadActionType" xml:space="preserve">
+    <value>Изтегли</value>
+  </data>
+  <data name="ExportActionType" xml:space="preserve">
+    <value>Износ</value>
+  </data>
+  <data name="FileChangeOwner" xml:space="preserve">
+    <value>Задайте собственик на [{0}] на [{1}]</value>
+  </data>
+  <data name="FileConverted" xml:space="preserve">
+    <value>Файл, преобразуван във вътрешен формат: {0}</value>
+  </data>
+  <data name="FileCopied" xml:space="preserve">
+    <value>Файлове [{0}]. Копирано от папка "{1}" в папка: "{2}"</value>
+  </data>
+  <data name="FileCopiedWithOverwriting" xml:space="preserve">
+    <value>Файлове [{0}]. Копирана с презапис от папка "{1}" в папка: "{2}"</value>
+  </data>
+  <data name="FileCreated" xml:space="preserve">
+    <value>Файлът е създаден: {0}</value>
+  </data>
+  <data name="FileCreatedVersion" xml:space="preserve">
+    <value>Файлове [{0}]. Преразглеждане: {1}. Версия е създадена</value>
+  </data>
+  <data name="FileDeleted" xml:space="preserve">
+    <value>Изтрит файл: {0}</value>
+  </data>
+  <data name="FileDeletedVersion" xml:space="preserve">
+    <value>Файлове [{0}]. Преразглеждане: {1}. Изтрита версия</value>
+  </data>
+  <data name="FileDownloaded" xml:space="preserve">
+    <value>Файлът е изтеглен: {0}</value>
+  </data>
+  <data name="FileDownloadedAs" xml:space="preserve">
+    <value>Файлове [{0}]. Изтегли като: {1}</value>
+  </data>
+  <data name="FileImported" xml:space="preserve">
+    <value>Папки [{0}]. Файл, импортиран: {1}. Доставчик: {2}</value>
+  </data>
+  <data name="FileLocked" xml:space="preserve">
+    <value>Файлът е заключен: {0}</value>
+  </data>
+  <data name="FileMoved" xml:space="preserve">
+    <value>Файлове [{0}]. Преместено от папка "{1}" в папка: "{2}"</value>
+  </data>
+  <data name="FileMovedToTrash" xml:space="preserve">
+    <value>Файлове [{0}]. Преместено в папката за боклук</value>
+  </data>
+  <data name="FileMovedWithOverwriting" xml:space="preserve">
+    <value>Файлове [{0}]. Преместен с презапис от папка "{1}" към папка: "{2}"</value>
+  </data>
+  <data name="FileRenamed" xml:space="preserve">
+    <value>Преименуван на файл: {0}</value>
+  </data>
+  <data name="FileRestoreVersion" xml:space="preserve">
+    <value>Файлове [{0}]. Преразглеждане: {1}. Версия е възстановена</value>
+  </data>
+  <data name="FilesDocumentSigned" xml:space="preserve">
+    <value>Документ {1} подписан чрез {0}</value>
+  </data>
+  <data name="FileSendAccessLink" xml:space="preserve">
+    <value>Изпратена е споделена връзка към файла [{0}]. Получатели: [{1}]</value>
+  </data>
+  <data name="FilesModule" xml:space="preserve">
+    <value>Файлове</value>
+  </data>
+  <data name="FilesRequestSign" xml:space="preserve">
+    <value>Документът {1} е изпратен, за да се подпише чрез {0}</value>
+  </data>
+  <data name="FileUnlocked" xml:space="preserve">
+    <value>Файлът е отключен: {0}</value>
+  </data>
+  <data name="FileUpdated" xml:space="preserve">
+    <value>Файлът е актуализиран: {0}</value>
+  </data>
+  <data name="FileUpdatedAccess" xml:space="preserve">
+    <value>Файлове [{0}]. Достъпът е актуализиран</value>
+  </data>
+  <data name="FileUpdatedRevisionComment" xml:space="preserve">
+    <value>Файлове [{0}]. Версия {1}. Коментар Актуализиран</value>
+  </data>
+  <data name="FileUploaded" xml:space="preserve">
+    <value>Файлът е качен: {0}</value>
+  </data>
+  <data name="FolderCopied" xml:space="preserve">
+    <value>Папки [{0}]. Копирано в папка: {1}</value>
+  </data>
+  <data name="FolderCopiedWithOverwriting" xml:space="preserve">
+    <value>Папки [{0}]. Копирано с презаписване в папка: {1}</value>
+  </data>
+  <data name="FolderCreated" xml:space="preserve">
+    <value>Създадена папка: {0}</value>
+  </data>
+  <data name="FolderDeleted" xml:space="preserve">
+    <value>Изтрита папка: {0}</value>
+  </data>
+  <data name="FolderMoved" xml:space="preserve">
+    <value>Папки [{0}]. Преместено в папка: {1}</value>
+  </data>
+  <data name="FolderMovedToTrash" xml:space="preserve">
+    <value>Папки [{0}]. Преместено в папката за боклук</value>
+  </data>
+  <data name="FolderMovedWithOverwriting" xml:space="preserve">
+    <value>Папки [{0}]. Преместено с презаписване в папка: {1}</value>
+  </data>
+  <data name="FolderRenamed" xml:space="preserve">
+    <value>Преименувана папка: {0}</value>
+  </data>
+  <data name="FoldersModule" xml:space="preserve">
+    <value>Папки</value>
+  </data>
+  <data name="FolderUpdatedAccess" xml:space="preserve">
+    <value>Папки [{0}]. Достъпът е актуализиран</value>
+  </data>
+  <data name="FollowActionType" xml:space="preserve">
+    <value>Последвам</value>
+  </data>
+  <data name="FullTextSearchSetting" xml:space="preserve">
+    <value>Настройките на сфинкса са актуализирани</value>
+  </data>
+  <data name="GeneralModule" xml:space="preserve">
+    <value>Общ</value>
+  </data>
+  <data name="GreetingSettingsUpdated" xml:space="preserve">
+    <value>Актуализирани настройки на началната страница</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>Създадена група: {0}</value>
+  </data>
+  <data name="GroupDeleted" xml:space="preserve">
+    <value>Групата е изтрита: {0}</value>
+  </data>
+  <data name="GroupsModule" xml:space="preserve">
+    <value>Групи</value>
+  </data>
+  <data name="GroupUpdated" xml:space="preserve">
+    <value>Групата се актуализира: {0}</value>
+  </data>
+  <data name="GuestAccount" xml:space="preserve">
+    <value>Акаунт за гости</value>
+  </data>
+  <data name="GuestActivated" xml:space="preserve">
+    <value>Активирано гост: {0}</value>
+  </data>
+  <data name="GuestCreated" xml:space="preserve">
+    <value>Създаден от гост: {0}</value>
+  </data>
+  <data name="GuestCreatedViaInvite" xml:space="preserve">
+    <value>Гост, създаден чрез покана: {0}</value>
+  </data>
+  <data name="GuestImported" xml:space="preserve">
+    <value>Гост внесен: {0}</value>
+  </data>
+  <data name="HistoryEventCategoriesUpdatedOrder" xml:space="preserve">
+    <value>Категории събития в историята. Поръчката е актуализирана: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryCreated" xml:space="preserve">
+    <value>Създадена е категория на събитието: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryDeleted" xml:space="preserve">
+    <value>История на събитието - изтрита: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdated" xml:space="preserve">
+    <value>История на събитието Категория Актуализирана: {0}</value>
+  </data>
+  <data name="HistoryEventCategoryUpdatedIcon" xml:space="preserve">
+    <value>Категории събития в историята [{0}]. Икона Актуализирана</value>
+  </data>
+  <data name="ImportActionType" xml:space="preserve">
+    <value>Внос</value>
+  </data>
+  <data name="InvoiceCreated" xml:space="preserve">
+    <value>Създадена фактура: {0}</value>
+  </data>
+  <data name="InvoiceDefaultTermsUpdated" xml:space="preserve">
+    <value>Актуализирани условия на фактурата по подразбиране</value>
+  </data>
+  <data name="InvoiceDeleted" xml:space="preserve">
+    <value>Изтрита фактура: {0}</value>
+  </data>
+  <data name="InvoiceDownloaded" xml:space="preserve">
+    <value>Фактура е изтеглена: {0}</value>
+  </data>
+  <data name="InvoiceItemCreated" xml:space="preserve">
+    <value>Създадена фактура: {0}</value>
+  </data>
+  <data name="InvoiceItemDeleted" xml:space="preserve">
+    <value>Изтрит елемент на фактурата: {0}</value>
+  </data>
+  <data name="InvoiceItemsDeleted" xml:space="preserve">
+    <value>Изтритите елементи на фактурата: {0}</value>
+  </data>
+  <data name="InvoiceItemUpdated" xml:space="preserve">
+    <value>Актуална фактура: {0}</value>
+  </data>
+  <data name="InvoiceNumberFormatUpdated" xml:space="preserve">
+    <value>Актуализиран формат на фактура</value>
+  </data>
+  <data name="InvoicesDeleted" xml:space="preserve">
+    <value>Изтрити фактури: {0}</value>
+  </data>
+  <data name="InvoiceSettingsModule" xml:space="preserve">
+    <value>Настройки за фактури</value>
+  </data>
+  <data name="InvoicesModule" xml:space="preserve">
+    <value>Фактури</value>
+  </data>
+  <data name="InvoicesUpdatedStatus" xml:space="preserve">
+    <value>Фактури [{0}]. Състояние се актуализира: {1}</value>
+  </data>
+  <data name="InvoiceTaxCreated" xml:space="preserve">
+    <value>Данък върху фактурата, създаден: {0}</value>
+  </data>
+  <data name="InvoiceTaxDeleted" xml:space="preserve">
+    <value>Изтрит данък върху фактурата: {0}</value>
+  </data>
+  <data name="InvoiceTaxUpdated" xml:space="preserve">
+    <value>Данъкът върху фактурата е актуализиран: {0}</value>
+  </data>
+  <data name="InvoiceUpdated" xml:space="preserve">
+    <value>Актуализирана фактура: {0}</value>
+  </data>
+  <data name="IpCol" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="LanguageSettingsUpdated" xml:space="preserve">
+    <value>Езикови настройки Актуализирани</value>
+  </data>
+  <data name="LicenseKeyUploaded" xml:space="preserve">
+    <value>Качен е лицензният ключ</value>
+  </data>
+  <data name="LinkActionType" xml:space="preserve">
+    <value>Връзка</value>
+  </data>
+  <data name="LoginFail" xml:space="preserve">
+    <value>Неуспешно влизане</value>
+  </data>
+  <data name="LoginFailBruteForce" xml:space="preserve">
+    <value>Неуспешно влизане. Твърде много опити</value>
+  </data>
+  <data name="LoginFailDisabledProfile" xml:space="preserve">
+    <value>Неуспешно влизане. Профилът е деактивиран</value>
+  </data>
+  <data name="LoginFailInvalidCombination" xml:space="preserve">
+    <value>Неуспешно влизане. Невалидна комбинация от потребителско име и парола</value>
+  </data>
+  <data name="LoginFailIpSecurity" xml:space="preserve">
+    <value>IP Security: Неуспешно влизане</value>
+  </data>
+  <data name="LoginFailSocialAccountNotFound" xml:space="preserve">
+    <value>Неуспешно влизане. Свързаният социален профил не е намерен</value>
+  </data>
+  <data name="LoginFailViaApi" xml:space="preserve">
+    <value>Неуспешно влизане чрез API</value>
+  </data>
+  <data name="LoginFailViaApiSms" xml:space="preserve">
+    <value>Неуспешно влизане чрез API и SMS код</value>
+  </data>
+  <data name="LoginFailViaApiSocialAccount" xml:space="preserve">
+    <value>Вход чрез API и социални медии не успя</value>
+  </data>
+  <data name="LoginFailViaSms" xml:space="preserve">
+    <value>Входът чрез SMS е неуспешен</value>
+  </data>
+  <data name="LoginFailViaSSO" xml:space="preserve">
+    <value>Вход чрез SSO Неуспешно</value>
+  </data>
+  <data name="LoginFailViaTfaApp" xml:space="preserve">
+    <value>Вход чрез приложение за удостоверяване Неуспешно</value>
+  </data>
+  <data name="LoginHistoryReportDownloaded" xml:space="preserve">
+    <value>История на влизането Доклад Изтеглено</value>
+  </data>
+  <data name="LoginHistoryReportName" xml:space="preserve">
+    <value>Отчет за историята на входните данни ({0} - {1})</value>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>Вход успех</value>
+  </data>
+  <data name="LoginSuccessSocialAccount" xml:space="preserve">
+    <value>Вход чрез социален профил Успех</value>
+  </data>
+  <data name="LoginSuccessSocialApp" xml:space="preserve">
+    <value>Успешно влизане чрез социално приложение</value>
+  </data>
+  <data name="LoginSuccessViaApi" xml:space="preserve">
+    <value>Успешно влизане чрез API</value>
+  </data>
+  <data name="LoginSuccessViaApiSms" xml:space="preserve">
+    <value>Успешно влизане чрез API &amp; SMS код</value>
+  </data>
+  <data name="LoginSuccessViaSms" xml:space="preserve">
+    <value>Вход чрез SMS успешно</value>
+  </data>
+  <data name="LoginSuccessViaSocialAccount" xml:space="preserve">
+    <value>Вход чрез API и социални медии Успешно</value>
+  </data>
+  <data name="LoginSuccessViaSSO" xml:space="preserve">
+    <value>Успешно влизане чрез SSO</value>
+  </data>
+  <data name="LoginSuccesViaTfaApp" xml:space="preserve">
+    <value>Успешно влизане чрез приложение за удостоверяване</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Излез от профила си</value>
+  </data>
+  <data name="MailServiceSettingsUpdated" xml:space="preserve">
+    <value>Настройки на пощенската услуга Актуализирани</value>
+  </data>
+  <data name="MilestoneCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Създаден минал етап: {1}</value>
+  </data>
+  <data name="MilestoneDeleted" xml:space="preserve">
+    <value>Проекти [{0}]. Изтрит етап: {1}</value>
+  </data>
+  <data name="MilestonesModule" xml:space="preserve">
+    <value>Важни събития</value>
+  </data>
+  <data name="MilestoneUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Milestone Updated: {1}</value>
+  </data>
+  <data name="MilestoneUpdatedStatus" xml:space="preserve">
+    <value>Проекти [{0}]. Важни събития [{1}]. Състояние се актуализира: {2}</value>
+  </data>
+  <data name="ModuleCol" xml:space="preserve">
+    <value>Модул</value>
+  </data>
+  <data name="MoveActionType" xml:space="preserve">
+    <value>Ход</value>
+  </data>
+  <data name="OpportunitiesCreatedTag" xml:space="preserve">
+    <value>Възможности. Етикетът е създаден: {0}</value>
+  </data>
+  <data name="OpportunitiesDeleted" xml:space="preserve">
+    <value>Изтрити възможности: {0}</value>
+  </data>
+  <data name="OpportunitiesDeletedTag" xml:space="preserve">
+    <value>Възможности. Изтрит маркер: {0}</value>
+  </data>
+  <data name="OpportunitiesExportedToCsv" xml:space="preserve">
+    <value>Възможности, експортирани в CSV файла: {0}</value>
+  </data>
+  <data name="OpportunitiesImportedFromCSV" xml:space="preserve">
+    <value>Възможности, внесени от CSV файла</value>
+  </data>
+  <data name="OpportunitiesModule" xml:space="preserve">
+    <value>Възможни сделки</value>
+  </data>
+  <data name="OpportunityAttachedFiles" xml:space="preserve">
+    <value>Възможности [{0}]. Прикачени файлове: {1}</value>
+  </data>
+  <data name="OpportunityCreated" xml:space="preserve">
+    <value>Създадена възможност: {0}</value>
+  </data>
+  <data name="OpportunityCreatedHistoryEvent" xml:space="preserve">
+    <value>Възможности [{0}]. Създадено събитие за историята: {1}</value>
+  </data>
+  <data name="OpportunityCreatedTag" xml:space="preserve">
+    <value>Възможности [{0}]. Етикетът е създаден: {1}</value>
+  </data>
+  <data name="OpportunityDeleted" xml:space="preserve">
+    <value>Възможност за изтрита: {0}</value>
+  </data>
+  <data name="OpportunityDeletedHistoryEvent" xml:space="preserve">
+    <value>Възможности [{0}]. Събитието в историята е изтрито: {1}</value>
+  </data>
+  <data name="OpportunityDeletedTag" xml:space="preserve">
+    <value>Възможности [{0}]. Изтрит маркер: {1}</value>
+  </data>
+  <data name="OpportunityDetachedFile" xml:space="preserve">
+    <value>Възможности [{0}]. Файл откъснат: {1}</value>
+  </data>
+  <data name="OpportunityLinkedCompany" xml:space="preserve">
+    <value>Възможности [{0}]. Свързани фирми: {1}</value>
+  </data>
+  <data name="OpportunityLinkedPerson" xml:space="preserve">
+    <value>Възможности [{0}]. Свързан човек: {1}</value>
+  </data>
+  <data name="OpportunityOpenedAccess" xml:space="preserve">
+    <value>Възможности [{0}]. Достъпът е отворен</value>
+  </data>
+  <data name="OpportunityRestrictedAccess" xml:space="preserve">
+    <value>Възможности [{0}]. Ограничен достъп: {1}</value>
+  </data>
+  <data name="OpportunityStageCreated" xml:space="preserve">
+    <value>Създаден е възможен етап: {0}</value>
+  </data>
+  <data name="OpportunityStageDeleted" xml:space="preserve">
+    <value>Изтрит етап на възможността: {0}</value>
+  </data>
+  <data name="OpportunityStagesUpdatedOrder" xml:space="preserve">
+    <value>Възможност за актуализиране на етапите: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdated" xml:space="preserve">
+    <value>Възможност за актуализиране на етапа: {0}</value>
+  </data>
+  <data name="OpportunityStageUpdatedColor" xml:space="preserve">
+    <value>Цвят на стадията за възможност е актуализиран: {0}</value>
+  </data>
+  <data name="OpportunityUnlinkedCompany" xml:space="preserve">
+    <value>Възможности [{0}]. Фирмата не е свързана: {1}</value>
+  </data>
+  <data name="OpportunityUnlinkedPerson" xml:space="preserve">
+    <value>Възможности [{0}]. Лицето е прекъснало връзката: {1}</value>
+  </data>
+  <data name="OpportunityUpdated" xml:space="preserve">
+    <value>Възможност да се актуализира: {0}</value>
+  </data>
+  <data name="OpportunityUpdatedStage" xml:space="preserve">
+    <value>Възможност за актуализиране на етапа: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldCreated" xml:space="preserve">
+    <value>Създадено е потребителско поле за възможности: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldDeleted" xml:space="preserve">
+    <value>Изтрито е потребителско поле за възможност: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Потребителски полета за възможностите Обновяване на поръчката: {0}</value>
+  </data>
+  <data name="OpportunityUserFieldUpdated" xml:space="preserve">
+    <value>Обновено потребителско поле за възможности: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedAddress" xml:space="preserve">
+    <value>Профил на организацията. Адресът е актуализиран</value>
+  </data>
+  <data name="OrganizationProfileUpdatedCompanyName" xml:space="preserve">
+    <value>Профил на организацията. Име на фирмата се актуализира: {0}</value>
+  </data>
+  <data name="OrganizationProfileUpdatedInvoiceLogo" xml:space="preserve">
+    <value>Профил на организацията. Лого на фактурата актуализирано</value>
+  </data>
+  <data name="OtherCrmSettingsModule" xml:space="preserve">
+    <value>Други настройки</value>
+  </data>
+  <data name="OthersProduct" xml:space="preserve">
+    <value>Други</value>
+  </data>
+  <data name="OwnerChanged" xml:space="preserve">
+    <value>Собственикът е променен: {0}</value>
+  </data>
+  <data name="OwnerSentChangeOwnerInstructions" xml:space="preserve">
+    <value>Собственик [{0}]. Изпратени са указания за собственика</value>
+  </data>
+  <data name="OwnerSentPortalDeactivationInstructions" xml:space="preserve">
+    <value>Собственик [{0}]. Инструкции за деактивиране на изпратен портал</value>
+  </data>
+  <data name="OwnerSentPortalDeleteInstructions" xml:space="preserve">
+    <value>Собственик [{0}]. Изпратени инструкции за изтриване на портала</value>
+  </data>
+  <data name="PageCol" xml:space="preserve">
+    <value>Страница</value>
+  </data>
+  <data name="PasswordStrengthSettingsUpdated" xml:space="preserve">
+    <value>Настройки за сила на паролата Актуализирани</value>
+  </data>
+  <data name="PeopleProduct" xml:space="preserve">
+    <value>Хора</value>
+  </data>
+  <data name="PersonAttachedFiles" xml:space="preserve">
+    <value>Лица [{0}]. Прикачени файлове: {1}</value>
+  </data>
+  <data name="PersonCreated" xml:space="preserve">
+    <value>Създаден човек: {0}</value>
+  </data>
+  <data name="PersonCreatedCompanyTag" xml:space="preserve">
+    <value>Лица [{0}]. Фирмен маркер, създаден: {1}</value>
+  </data>
+  <data name="PersonCreatedHistoryEvent" xml:space="preserve">
+    <value>Лица [{0}]. Създадено събитие за историята: {1}</value>
+  </data>
+  <data name="PersonCreatedTag" xml:space="preserve">
+    <value>Лица [{0}]. Етикетът е създаден: {1}</value>
+  </data>
+  <data name="PersonCreatedWithWebForm" xml:space="preserve">
+    <value>Лице, създадено с уеб формуляр: {0}</value>
+  </data>
+  <data name="PersonDeleted" xml:space="preserve">
+    <value>Изтрито лице: {0}</value>
+  </data>
+  <data name="PersonDeletedHistoryEvent" xml:space="preserve">
+    <value>Лица [{0}]. Събитието в историята е изтрито: {1}</value>
+  </data>
+  <data name="PersonDeletedTag" xml:space="preserve">
+    <value>Лица [{0}]. Изтрит маркер: {1}</value>
+  </data>
+  <data name="PersonDetachedFile" xml:space="preserve">
+    <value>Лица [{0}]. Файл откъснат: {1}</value>
+  </data>
+  <data name="PersonLinkedProject" xml:space="preserve">
+    <value>Лица [{0}]. Свързани с проекта: {1}</value>
+  </data>
+  <data name="PersonsCreated" xml:space="preserve">
+    <value>Създадени лица: {0}</value>
+  </data>
+  <data name="PersonsMerged" xml:space="preserve">
+    <value>Обединени лица: {0} - {1}</value>
+  </data>
+  <data name="PersonsModule" xml:space="preserve">
+    <value>Лица</value>
+  </data>
+  <data name="PersonUnlinkedProject" xml:space="preserve">
+    <value>Лица [{0}]. Прекъсване на връзката между проекта: {1}</value>
+  </data>
+  <data name="PersonUpdated" xml:space="preserve">
+    <value>Актуализирано лице: {0}</value>
+  </data>
+  <data name="PersonUpdatedCompanyTemperatureLevel" xml:space="preserve">
+    <value>Лица [{0}]. Обновено ниво на температурата на фирмата</value>
+  </data>
+  <data name="PersonUpdatedPhoto" xml:space="preserve">
+    <value>Лица [{0}]. Снимка актуализирана</value>
+  </data>
+  <data name="PersonUpdatedPrincipalInfo" xml:space="preserve">
+    <value>Лица [{0}]. Основна информация Актуализирана</value>
+  </data>
+  <data name="PersonUpdatedTemperatureLevel" xml:space="preserve">
+    <value>Лица [{0}]. Актуализирано ниво на температурата</value>
+  </data>
+  <data name="PersonUploadedFiles" xml:space="preserve">
+    <value>Лица [{0}]. Файлове, качени: {1}</value>
+  </data>
+  <data name="PersonUserFieldCreated" xml:space="preserve">
+    <value>Създадено е потребителско поле за човек: {0}</value>
+  </data>
+  <data name="PersonUserFieldDeleted" xml:space="preserve">
+    <value>Изтрито е потребителското поле на потребителя: {0}</value>
+  </data>
+  <data name="PersonUserFieldsUpdatedOrder" xml:space="preserve">
+    <value>Потребителски полета на потребителя Поръчано обновяване: {0}</value>
+  </data>
+  <data name="PersonUserFieldUpdated" xml:space="preserve">
+    <value>Потребителското поле на потребителя е актуализирано: {0}</value>
+  </data>
+  <data name="PlatformCol" xml:space="preserve">
+    <value>Платформа</value>
+  </data>
+  <data name="PortalAccessSettingsUpdated" xml:space="preserve">
+    <value>Настройки за достъп до портала Актуализирани</value>
+  </data>
+  <data name="PortalDeactivated" xml:space="preserve">
+    <value>Порталът е деактивиран</value>
+  </data>
+  <data name="PortalDeleted" xml:space="preserve">
+    <value>Порталът е изтрит</value>
+  </data>
+  <data name="ProductAccessOpened" xml:space="preserve">
+    <value>Продукти [{0}]. Достъпът е отворен</value>
+  </data>
+  <data name="ProductAccessOpenedForGroups" xml:space="preserve">
+    <value>Продукти: [{0}]. Групи [{1}]. Достъпът е отворен</value>
+  </data>
+  <data name="ProductAccessOpenedForUsers" xml:space="preserve">
+    <value>Продукти: [{0}]. Потребители [{1}]. Достъпът е отворен</value>
+  </data>
+  <data name="ProductAccessRestricted" xml:space="preserve">
+    <value>Продукти [{0}]. Ограничен достъп</value>
+  </data>
+  <data name="ProductAddedAdministrator" xml:space="preserve">
+    <value>Продукти [{0}]. Добавен е администратор: {1}</value>
+  </data>
+  <data name="ProductCol" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="ProductDeletedAdministrator" xml:space="preserve">
+    <value>Продукти [{0}]. Администраторът е изтрит: {1}</value>
+  </data>
+  <data name="ProductsListUpdated" xml:space="preserve">
+    <value>Списък на продуктите актуализиран</value>
+  </data>
+  <data name="ProductsModule" xml:space="preserve">
+    <value>Продукти</value>
+  </data>
+  <data name="ProjectCreated" xml:space="preserve">
+    <value>Създаден проект: {0}</value>
+  </data>
+  <data name="ProjectCreatedFromTemplate" xml:space="preserve">
+    <value>Шаблони [{0}]. Създаден проект: {1}</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Проектът е изтрит: {0}</value>
+  </data>
+  <data name="ProjectDeletedMember" xml:space="preserve">
+    <value>Проекти [{0}]. Изтрит член: {1}</value>
+  </data>
+  <data name="ProjectFollowed" xml:space="preserve">
+    <value>Проследяване на проекта: {0}</value>
+  </data>
+  <data name="ProjectLinkedCompany" xml:space="preserve">
+    <value>Проекти [{0}]. Свързани фирми: {1}</value>
+  </data>
+  <data name="ProjectLinkedContacts" xml:space="preserve">
+    <value>Проекти [{0}]. Свързани контакти: {1}</value>
+  </data>
+  <data name="ProjectLinkedPerson" xml:space="preserve">
+    <value>Проекти [{0}]. Свързан човек: {1}</value>
+  </data>
+  <data name="ProjectsImportedFromBasecamp" xml:space="preserve">
+    <value>Проекти, внесени от Basecamp: {0}</value>
+  </data>
+  <data name="ProjectsModule" xml:space="preserve">
+    <value>Проекти</value>
+  </data>
+  <data name="ProjectsProduct" xml:space="preserve">
+    <value>Проекти</value>
+  </data>
+  <data name="ProjectsSettingsModule" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ProjectTemplateCreated" xml:space="preserve">
+    <value>Създаден е шаблон на проекта: {0}</value>
+  </data>
+  <data name="ProjectTemplateDeleted" xml:space="preserve">
+    <value>Шаблонът за проекта е изтрит: {0}</value>
+  </data>
+  <data name="ProjectTemplateUpdated" xml:space="preserve">
+    <value>Шаблонът на проекта е актуализиран: {0}</value>
+  </data>
+  <data name="ProjectUnfollowed" xml:space="preserve">
+    <value>Проследяване на проекта: {0}</value>
+  </data>
+  <data name="ProjectUnlinkedCompany" xml:space="preserve">
+    <value>Проекти [{0}]. Фирмата не е свързана: {1}</value>
+  </data>
+  <data name="ProjectUnlinkedPerson" xml:space="preserve">
+    <value>Проекти [{0}]. Лицето е прекъснало връзката: {1}</value>
+  </data>
+  <data name="ProjectUpdated" xml:space="preserve">
+    <value>Проектът е актуализиран: {0}</value>
+  </data>
+  <data name="ProjectUpdatedMemberRights" xml:space="preserve">
+    <value>Проекти [{0}]. Членове [{1}]. Права на достъп актуализирани</value>
+  </data>
+  <data name="ProjectUpdatedStatus" xml:space="preserve">
+    <value>Проекти [{0}]. Състояние се актуализира: {1}</value>
+  </data>
+  <data name="ProjectUpdatedTeam" xml:space="preserve">
+    <value>Проекти [{0}]. Екипът е актуализиран: {1}</value>
+  </data>
+  <data name="ReassignsActionType" xml:space="preserve">
+    <value>Преназначава</value>
+  </data>
+  <data name="ReportsModule" xml:space="preserve">
+    <value>Доклади</value>
+  </data>
+  <data name="ReportTemplateCreated" xml:space="preserve">
+    <value>Създаден е шаблон на отчета за проекта: {0}</value>
+  </data>
+  <data name="ReportTemplateDeleted" xml:space="preserve">
+    <value>Изтрит е шаблонът на отчета за проекта: {0}</value>
+  </data>
+  <data name="ReportTemplateUpdated" xml:space="preserve">
+    <value>Шаблонът на отчета за проекта е актуализиран: {0}</value>
+  </data>
+  <data name="SendActionType" xml:space="preserve">
+    <value>Изпращам</value>
+  </data>
+  <data name="SentInviteInstructions" xml:space="preserve">
+    <value>Изпратени са указания за покани: {0}</value>
+  </data>
+  <data name="SessionCompleted" xml:space="preserve">
+    <value>Сесията е завършена</value>
+  </data>
+  <data name="SessionStarted" xml:space="preserve">
+    <value>Започна сесия</value>
+  </data>
+  <data name="SettingsProduct" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SSODisabled" xml:space="preserve">
+    <value>SSO инвалиди</value>
+  </data>
+  <data name="SSOEnabled" xml:space="preserve">
+    <value>SSO Активирано</value>
+  </data>
+  <data name="StartBackupSetting" xml:space="preserve">
+    <value>Стартирайте архивиране</value>
+  </data>
+  <data name="StartTransferSetting" xml:space="preserve">
+    <value>Стартирайте миграцията на региона на портала</value>
+  </data>
+  <data name="SubtaskCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Създадена подзадача: {2}</value>
+  </data>
+  <data name="SubtaskDeleted" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Изтрита подзадача: {2}</value>
+  </data>
+  <data name="SubtaskUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Актуализирана подзадача: {2}</value>
+  </data>
+  <data name="SubtaskUpdatedStatus" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Подзадачи [{2}]. Състояние се актуализира: {3}</value>
+  </data>
+  <data name="SystemAccount" xml:space="preserve">
+    <value>Системен акаунт</value>
+  </data>
+  <data name="TargetIdCol" xml:space="preserve">
+    <value>Целеви идентификатор</value>
+  </data>
+  <data name="TaskAttachedFiles" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Прикачени файлове: {2}</value>
+  </data>
+  <data name="TaskCommentCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Коментарът е създаден</value>
+  </data>
+  <data name="TaskCommentDeleted" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Коментарът е изтрит</value>
+  </data>
+  <data name="TaskCommentUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Коментар Актуализиран</value>
+  </data>
+  <data name="TaskCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Създадена задача: {1}</value>
+  </data>
+  <data name="TaskCreatedFromDiscussion" xml:space="preserve">
+    <value>Проекти [{0}]. Дискусии [{1}]. Създадена задача: {2}</value>
+  </data>
+  <data name="TaskDeleted" xml:space="preserve">
+    <value>Проекти [{0}]. Заданието е изтрита: {1}</value>
+  </data>
+  <data name="TaskDetachedFile" xml:space="preserve">
+    <value>Проекти [{0}]. Задача: {1}. Файл откъснат: {2}</value>
+  </data>
+  <data name="TaskMovedToMilestone" xml:space="preserve">
+    <value>Проекти [{0}]. Важни събития [{1}]. Преместена задача: {2}</value>
+  </data>
+  <data name="TasksLinked" xml:space="preserve">
+    <value>Проекти [{0}]. Свързани са задачи: {1} - {2}</value>
+  </data>
+  <data name="TasksModule" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="TasksUnlinked" xml:space="preserve">
+    <value>Проекти [{0}]. Свързани са задачи: {1} - {2}</value>
+  </data>
+  <data name="TaskTimeCreated" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Създадено е време за задача: {2}</value>
+  </data>
+  <data name="TaskTimesDeleted" xml:space="preserve">
+    <value>Изтрити са задачите: {0}</value>
+  </data>
+  <data name="TaskTimesUpdatedStatus" xml:space="preserve">
+    <value>Време на задачите [{0}]. Състояние се актуализира: {1}</value>
+  </data>
+  <data name="TaskTimeUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Промененото време на задачата: {2}</value>
+  </data>
+  <data name="TaskUnlinkedMilestone" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Прекъсна се връзката от етапите.</value>
+  </data>
+  <data name="TaskUpdated" xml:space="preserve">
+    <value>Проекти [{0}]. Task Updated: {1}</value>
+  </data>
+  <data name="TaskUpdatedFollowing" xml:space="preserve">
+    <value>Проекти [{0}]. Следната актуализация на задачата: {1}</value>
+  </data>
+  <data name="TaskUpdatedStatus" xml:space="preserve">
+    <value>Проекти [{0}]. Задачи [{1}]. Състояние се актуализира: {2}</value>
+  </data>
+  <data name="TeamTemplateChanged" xml:space="preserve">
+    <value>Шаблонът на екипа е променен</value>
+  </data>
+  <data name="ThirdPartyCreated" xml:space="preserve">
+    <value>Създадено от трета страна: {0}. Доставчик: {1}</value>
+  </data>
+  <data name="ThirdPartyDeleted" xml:space="preserve">
+    <value>Изтрита трета страна: {0}. Доставчик: {1}</value>
+  </data>
+  <data name="ThirdPartyUpdated" xml:space="preserve">
+    <value>Актуализирана от трета страна: {0}. Доставчик: {1}</value>
+  </data>
+  <data name="TimeTrackingModule" xml:space="preserve">
+    <value>Проследяване на времето</value>
+  </data>
+  <data name="TimeZoneSettingsUpdated" xml:space="preserve">
+    <value>Настройки на часовата зона Актуализирани</value>
+  </data>
+  <data name="TrustedMailDomainSettingsUpdated" xml:space="preserve">
+    <value>Актуализирани настройки на доверителна поща</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsDisabled" xml:space="preserve">
+    <value>Настройки за дву-факторно удостоверяване</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledBySms" xml:space="preserve">
+    <value>Настройки за удостоверяване с два фактора Актуализирани: потвърждението за SMS е активирано</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsEnabledByTfaApp" xml:space="preserve">
+    <value>Актуализирани настройки за удостоверяване с два фактора: Приложението за удостоверяване е активирано</value>
+  </data>
+  <data name="TwoFactorAuthenticationSettingsUpdated" xml:space="preserve">
+    <value>Актуализирани са две факторни настройки за удостоверяване</value>
+  </data>
+  <data name="UnfollowActionType" xml:space="preserve">
+    <value>Не следвай</value>
+  </data>
+  <data name="UnknownAccount" xml:space="preserve">
+    <value>Неизвестен профил</value>
+  </data>
+  <data name="UnlinkActionType" xml:space="preserve">
+    <value>Прекратяване на връзката с</value>
+  </data>
+  <data name="UpdateAccessActionType" xml:space="preserve">
+    <value>Актуализиран достъп</value>
+  </data>
+  <data name="UpdateActionType" xml:space="preserve">
+    <value>Актуализация</value>
+  </data>
+  <data name="UploadActionType" xml:space="preserve">
+    <value>Качи</value>
+  </data>
+  <data name="UserActivated" xml:space="preserve">
+    <value>Активирано от потребителя: {0}</value>
+  </data>
+  <data name="UserAddedAvatar" xml:space="preserve">
+    <value>Потребители [{0}]. Аватар е добавен</value>
+  </data>
+  <data name="UserCol" xml:space="preserve">
+    <value>Потребител</value>
+  </data>
+  <data name="UserCreated" xml:space="preserve">
+    <value>Създаден от потребителя: {0}</value>
+  </data>
+  <data name="UserCreatedViaInvite" xml:space="preserve">
+    <value>Потребителят е създаден чрез покана: {0}</value>
+  </data>
+  <data name="UserDataReassigns" xml:space="preserve">
+    <value>Данните са преназначени: от потребител {0} до потребител {1}</value>
+  </data>
+  <data name="UserDataRemoving" xml:space="preserve">
+    <value>Потребителските данни за {0} са изтрити</value>
+  </data>
+  <data name="UserDeleted" xml:space="preserve">
+    <value>Потребителят е изтрит: {0}</value>
+  </data>
+  <data name="UserDeletedAvatar" xml:space="preserve">
+    <value>Потребители [{0}]. Изтрит аватар</value>
+  </data>
+  <data name="UserFileUpdated" xml:space="preserve">
+    <value>Потребители [{0}]. Файлът е актуализиран: {1}</value>
+  </data>
+  <data name="UserImported" xml:space="preserve">
+    <value>Потребителят е внесен: {0}</value>
+  </data>
+  <data name="UserLinkedSocialAccount" xml:space="preserve">
+    <value>Свързан социален профил. Доставчик: {0}</value>
+  </data>
+  <data name="UsersDeleted" xml:space="preserve">
+    <value>Изтрити потребители: {0}</value>
+  </data>
+  <data name="UserSentActivationInstructions" xml:space="preserve">
+    <value>Потребители [{0}]. Изпратени инструкции за активиране</value>
+  </data>
+  <data name="UserSentDeleteInstructions" xml:space="preserve">
+    <value>Изпратени са инструкции за изтриване на профила</value>
+  </data>
+  <data name="UserSentEmailInstructions" xml:space="preserve">
+    <value>Потребители [{0}]. Инструкции за промяна на изпратените имейли</value>
+  </data>
+  <data name="UserSentPasswordInstructions" xml:space="preserve">
+    <value>Потребители [{0}]. Изпратени са инструкции за промяна на паролата</value>
+  </data>
+  <data name="UsersModule" xml:space="preserve">
+    <value>Потребители</value>
+  </data>
+  <data name="UsersSentActivationInstructions" xml:space="preserve">
+    <value>Потребители [{0}]. Изпратени са указания за активиране</value>
+  </data>
+  <data name="UsersUpdatedStatus" xml:space="preserve">
+    <value>Потребители [{0}]. Актуализирано състояние</value>
+  </data>
+  <data name="UsersUpdatedType" xml:space="preserve">
+    <value>Потребители [{0}]. Актуализиран тип</value>
+  </data>
+  <data name="UserTfaDisconnected" xml:space="preserve">
+    <value>Приложението за удостоверител е прекъснато: {0}</value>
+  </data>
+  <data name="UserTfaGenerateCodes" xml:space="preserve">
+    <value>Създават се нови резервни кодове</value>
+  </data>
+  <data name="UserUnlinkedSocialAccount" xml:space="preserve">
+    <value>Връзката на социалния профил е прекъсната. Доставчик: {0}</value>
+  </data>
+  <data name="UserUpdated" xml:space="preserve">
+    <value>Потребителят е актуализиран: {0}</value>
+  </data>
+  <data name="UserUpdatedAvatarThumbnails" xml:space="preserve">
+    <value>Потребители [{0}]. Аватар Актуализирани</value>
+  </data>
+  <data name="UserUpdatedEmail" xml:space="preserve">
+    <value>Имейл актуализиран</value>
+  </data>
+  <data name="UserUpdatedLanguage" xml:space="preserve">
+    <value>Езикът е актуализиран</value>
+  </data>
+  <data name="UserUpdatedMobileNumber" xml:space="preserve">
+    <value>Потребители [{0}]. Мобилен номер, актуализиран: {1}</value>
+  </data>
+  <data name="UserUpdatedPassword" xml:space="preserve">
+    <value>Актуализирана парола</value>
+  </data>
+  <data name="WebsiteContactFormUpdatedKey" xml:space="preserve">
+    <value>Форма за контакт с уебсайта Обновен</value>
+  </data>
+</root>

@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Tambahkan dan Buat Invoice Baru</value>
+  </data>
+  <data name="AddBillingAddress" xml:space="preserve">
+    <value>Tambahkan alamat penagihan</value>
+  </data>
+  <data name="AddDeliveryAddress" xml:space="preserve">
+    <value>Tambahkan alamat pengiriman</value>
+  </data>
+  <data name="AddLineButton" xml:space="preserve">
+    <value>Tambahkan Baris</value>
+  </data>
+  <data name="AddressesUpdated" xml:space="preserve">
+    <value>Alamat telah berhasil diperbarui</value>
+  </data>
+  <data name="AddTaxHeaderText" xml:space="preserve">
+    <value>Buat pajak baru</value>
+  </data>
+  <data name="AddTaxProcessText" xml:space="preserve">
+    <value>Membuat pajak</value>
+  </data>
+  <data name="AddThisAndCreateInvoiceItemButton" xml:space="preserve">
+    <value>Simpan dan Buat Item Baru</value>
+  </data>
+  <data name="AddThisInvoiceButton" xml:space="preserve">
+    <value>Tambahkan Invoice Ini</value>
+  </data>
+  <data name="AllInvoices" xml:space="preserve">
+    <value>Semua invoice</value>
+  </data>
+  <data name="AmountCol" xml:space="preserve">
+    <value>Jumlah</value>
+  </data>
+  <data name="AttachDocumentButton" xml:space="preserve">
+    <value>Lampirkan dokumen</value>
+  </data>
+  <data name="AutomaticallyGenerated" xml:space="preserve">
+    <value>Disusun otomatis</value>
+  </data>
+  <data name="BillTo" xml:space="preserve">
+    <value>Tagihkan Ke</value>
+  </data>
+  <data name="ByCurrency" xml:space="preserve">
+    <value>Mata uang</value>
+  </data>
+  <data name="ByDueDate" xml:space="preserve">
+    <value>Tanggal jatuh tempo</value>
+  </data>
+  <data name="ChangeFormat" xml:space="preserve">
+    <value>Ubah format</value>
+  </data>
+  <data name="ChangeFormatInfo" xml:space="preserve">
+    <value>Semua invoice berikutnya akan menerakan format prefiks/nomor yang diatur menggunakan kolom di bawah ini. Centang kotak yang sesuai untuk menampilkan angka secara otomatis</value>
+  </data>
+  <data name="ChangeInvoiceStatus" xml:space="preserve">
+    <value>Ubah Status</value>
+  </data>
+  <data name="ClientNotes" xml:space="preserve">
+    <value>Catatan klien</value>
+  </data>
+  <data name="ClientNotessHelpInfoText" xml:space="preserve">
+    <value>Akan ditampilkan pada invoice dan badan surat jika Anda mengirim invoice bersama ONLYOFFICE™ Mail.</value>
+  </data>
+  <data name="ConsigneeEqualClient" xml:space="preserve">
+    <value>bertepatan dengan klien</value>
+  </data>
+  <data name="CreateFirstInvoice" xml:space="preserve">
+    <value>Buat invoice pertama</value>
+  </data>
+  <data name="CreateFirstInvoiceItem" xml:space="preserve">
+    <value>Buat item pertama</value>
+  </data>
+  <data name="CreateFirstInvoiceTax" xml:space="preserve">
+    <value>Buat pajak pertama</value>
+  </data>
+  <data name="CreateInvoiceItem" xml:space="preserve">
+    <value>Buat item</value>
+  </data>
+  <data name="CreateInvoiceItemProggress" xml:space="preserve">
+    <value>Membuat item invoice</value>
+  </data>
+  <data name="CreateInvoiceTax" xml:space="preserve">
+    <value>Buat pajak</value>
+  </data>
+  <data name="CreateNewInvoice" xml:space="preserve">
+    <value>Buat invoice baru</value>
+  </data>
+  <data name="CreateNewInvoiceItem" xml:space="preserve">
+    <value>Buat item baru</value>
+  </data>
+  <data name="CreateNewInvoiceTax" xml:space="preserve">
+    <value>Buat pajak baru</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Mata uang</value>
+  </data>
+  <data name="CurrencyRequiredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus menggunakan mata uang</value>
+  </data>
+  <data name="DaysCount" xml:space="preserve">
+    <value>{0} hari</value>
+  </data>
+  <data name="DefaultTermsInfo" xml:space="preserve">
+    <value>Ketentuan standar ini akan digunakan pada invoice berikutnya.</value>
+  </data>
+  <data name="DeleteInvoiceConfirmMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus invoice '{0}' ?</value>
+  </data>
+  <data name="DeleteInvoiceInProgress" xml:space="preserve">
+    <value>Menghapus invoice...</value>
+  </data>
+  <data name="DeleteInvoiceItemInProgress" xml:space="preserve">
+    <value>Menghapus item...</value>
+  </data>
+  <data name="DeleteItemConfirmMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus «{0}» ini?</value>
+  </data>
+  <data name="DeleteTaxConfirmMessage" xml:space="preserve">
+    <value>Apakah Anda yakin ingin menghapus pajak  «{0}»?</value>
+  </data>
+  <data name="DeleteTaxInProgress" xml:space="preserve">
+    <value>Menghapus pajak...</value>
+  </data>
+  <data name="DeleteThisInvoice" xml:space="preserve">
+    <value>Hapus invoice ini</value>
+  </data>
+  <data name="DeletingInvoices" xml:space="preserve">
+    <value>Menghapus invoice</value>
+  </data>
+  <data name="DescriptionCol" xml:space="preserve">
+    <value>Deskripsi</value>
+  </data>
+  <data name="DiscountCol" xml:space="preserve">
+    <value>Diskon</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Unduh</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Tanggal jatuh tempo</value>
+  </data>
+  <data name="DueDateHelpInfoText" xml:space="preserve">
+    <value>Silakan, atur kustom tanggal jatuh tempo atau pilih salah satu preset di sebelah kanan untuk menghubungkan tanggal ini dengan Tanggal terbit.</value>
+  </data>
+  <data name="DueDateInvalidErrorMsg" xml:space="preserve">
+    <value>Tanggal penerbitan lebih dari tanggal jatuh tempo</value>
+  </data>
+  <data name="DueDatePresetInfoText" xml:space="preserve">
+    <value>Jatuh tempo penerimaan</value>
+  </data>
+  <data name="DueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus memiliki tanggal jatuh tempo</value>
+  </data>
+  <data name="DuplicateAndCreateNewInvoiceButton" xml:space="preserve">
+    <value>Duplikat dan Buat Invoice Baru</value>
+  </data>
+  <data name="DuplicateInvoice" xml:space="preserve">
+    <value>Gandakan invoice</value>
+  </data>
+  <data name="DuplicateInvoiceButton" xml:space="preserve">
+    <value>Gandakan Invoice</value>
+  </data>
+  <data name="DuplicateInvoiceHeader" xml:space="preserve">
+    <value>Gandakan invoice «{0}»</value>
+  </data>
+  <data name="EditBillingAddress" xml:space="preserve">
+    <value>Sunting alamat penagihan</value>
+  </data>
+  <data name="EditDeliveryAddress" xml:space="preserve">
+    <value>Sunting alamat pengiriman</value>
+  </data>
+  <data name="EditInvoice" xml:space="preserve">
+    <value>Edit invoice</value>
+  </data>
+  <data name="EditInvoiceHeader" xml:space="preserve">
+    <value>Edit invoice «{0}»</value>
+  </data>
+  <data name="EditInvoiceItem" xml:space="preserve">
+    <value>Sunting</value>
+  </data>
+  <data name="EditInvoiceTax" xml:space="preserve">
+    <value>Sunting pajak</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsDescribe" xml:space="preserve">
+    <value>Bagian ini memungkinkan Anda untuk mengatur daftar item yang dapat dimasukkan ke dalam invoice. Setelah daftar dibuat, Anda dapat memilih item yang diperlukan untuk menambah dokumen pembayaran Anda. Anda juga dapat menambahkan item baru setiap kali diperlukan.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterDescribe" xml:space="preserve">
+    <value>Tidak ada item invoice yang sesuai dengan filter Anda pada bagian ini. Silakan pilih filter lain atau hapus filter untuk melihat semua item invoice di bagian ini. Atau Anda dapat membuat item invoice yang diinginkan jika tidak tersedia.</value>
+  </data>
+  <data name="EmptyContentInvoiceItemsFilterHeader" xml:space="preserve">
+    <value>Tidak ada item invoice untuk filter ini </value>
+  </data>
+  <data name="EmptyContentInvoiceItemsHeader" xml:space="preserve">
+    <value>Daftar Produk &amp; Layanan kosong</value>
+  </data>
+  <data name="EmptyContentInvoicesDescribe" xml:space="preserve">
+    <value>Bagian 'Invoice' memungkinkan Anda untuk membuat dokumen pembayaran yang dapat Anda sediakan untuk klien Anda. Setelah invoice ditambahkan, daftar yang tersedia akan ditampilkan di sini.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterDescribe" xml:space="preserve">
+    <value>Tidak ada invoice yang sesuai dengan filter Anda pada bagian ini. Silakan pilih filter lain atau hapus filter untuk melihat semua invoice di bagian ini. Atau Anda dapat membuat invoice yang diinginkan jika tidak tersedia pada daftar.</value>
+  </data>
+  <data name="EmptyContentInvoicesFilterHeader" xml:space="preserve">
+    <value>Tidak ada invoice untuk filter ini </value>
+  </data>
+  <data name="EmptyContentInvoicesHeader" xml:space="preserve">
+    <value>Daftar invoice kosong</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesDescribe" xml:space="preserve">
+    <value>Pajak invoice memungkinkan Anda untuk menerapkan pajak tambahan khusus untuk negara-negara atau daerah di mana Anda atau klien Anda tinggal. Anda dapat menambahkan jenis pajak, suku bunga dan deskripsi. Anda juga dapat menambahkan pajak baru setiap kali diperlukan.</value>
+  </data>
+  <data name="EmptyContentInvoiceTaxesHeader" xml:space="preserve">
+    <value>Daftar pajak invoice kosong</value>
+  </data>
+  <data name="EmptyOpportunitiesText" xml:space="preserve">
+    <value>Tidak ada kesempatan ditemukan</value>
+  </data>
+  <data name="EmptyProductText" xml:space="preserve">
+    <value>Pilih Item</value>
+  </data>
+  <data name="EmptyTaxNameError" xml:space="preserve">
+    <value>Nama pajak bidang tidak boleh kosong</value>
+  </data>
+  <data name="EmptyTaxRateError" xml:space="preserve">
+    <value>Tingkat bidang tidak boleh kosong</value>
+  </data>
+  <data name="EmptyTaxText" xml:space="preserve">
+    <value>Tidak ada</value>
+  </data>
+  <data name="ErrorEmptyPrice" xml:space="preserve">
+    <value>Harga kosong</value>
+  </data>
+  <data name="ErrorIncorrectPrice" xml:space="preserve">
+    <value>Harga salah</value>
+  </data>
+  <data name="ErrorIncorrectQuantity" xml:space="preserve">
+    <value>Kuantitas salah</value>
+  </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Kurs</value>
+  </data>
+  <data name="ExchangeRateRequiredErrorMsg" xml:space="preserve">
+    <value>Anda harus mengisi bidang ini</value>
+  </data>
+  <data name="FormInvoiceItemInventoryStock" xml:space="preserve">
+    <value>Stok Persediaan</value>
+  </data>
+  <data name="FormInvoiceItemName" xml:space="preserve">
+    <value>Nama Item</value>
+  </data>
+  <data name="FormInvoiceItemPrice" xml:space="preserve">
+    <value>Harga</value>
+  </data>
+  <data name="FormInvoiceItemStockQuantity" xml:space="preserve">
+    <value>Kuantitas stok</value>
+  </data>
+  <data name="FormInvoiceItemTaxes" xml:space="preserve">
+    <value>Pajak</value>
+  </data>
+  <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
+    <value>Temukan dengan judul, SKU atau deskripsi</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="InvoiceClient" xml:space="preserve">
+    <value>Klien</value>
+  </data>
+  <data name="InvoiceClientReqiuredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus memiliki klien</value>
+  </data>
+  <data name="InvoiceConsignee" xml:space="preserve">
+    <value>Penerima Barang</value>
+  </data>
+  <data name="InvoiceCurrencyHelpInfo" xml:space="preserve">
+    <value>Standar mata uang CRM Anda digunakan untuk menetapkan harga di Katalog Produk &amp; Layanan. &lt;br/&gt; Untuk mengubahnya, silakan kunjungi &lt;a href="settings.aspx?type=common" target="_blank"&gt; Pengaturan Umum &lt;/ a &gt;</value>
+  </data>
+  <data name="InvoiceItemActiveStatus" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="InvoiceItemArchivedStatus" xml:space="preserve">
+    <value>Diarsipkan</value>
+  </data>
+  <data name="InvoiceItemName" xml:space="preserve">
+    <value>Nama</value>
+  </data>
+  <data name="InvoiceItemNegativeQuantityErrorText" xml:space="preserve">
+    <value>Satu atau lebih item invoice memiliki jumlah stok negatif</value>
+  </data>
+  <data name="InvoiceItemPrice" xml:space="preserve">
+    <value>Harga</value>
+  </data>
+  <data name="InvoiceItemWithIventoryStock" xml:space="preserve">
+    <value>Dengan stok persediaan</value>
+  </data>
+  <data name="InvoiceItemWithoutIventoryStock" xml:space="preserve">
+    <value>Tanpa stok persediaan</value>
+  </data>
+  <data name="InvoiceLanguage" xml:space="preserve">
+    <value>Bahasa Invoice</value>
+  </data>
+  <data name="InvoiceLanguageRequiredErrorMsgs" xml:space="preserve">
+    <value>Setiap invoice harus menggunakan bahasa</value>
+  </data>
+  <data name="InvoiceNumber" xml:space="preserve">
+    <value>Nomor invoice</value>
+  </data>
+  <data name="InvoiceNumberBusyError" xml:space="preserve">
+    <value>Nomor invoice sudah digunakan</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="InvoiceTax1Name" xml:space="preserve">
+    <value>Nama Pajak 1</value>
+  </data>
+  <data name="InvoiceTax1Rate" xml:space="preserve">
+    <value>Jumlah pajak 1</value>
+  </data>
+  <data name="InvoiceTax2Name" xml:space="preserve">
+    <value>Nama Pajak 2</value>
+  </data>
+  <data name="InvoiceTax2Rate" xml:space="preserve">
+    <value>Jumlah Pajak 2</value>
+  </data>
+  <data name="InvoiceTaxAlreadyRegisteredError" xml:space="preserve">
+    <value>Pajak dengan nama seperti itu telah didaftarkan</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionText" xml:space="preserve">
+    <value>Kategori pajak memungkinkan Anda membuat pajak tambahan khusus untuk negara-negara atau daerah Anda atau dimana klien Anda tinggal. Anda dapat menambahkan nama pajak, suku bunga dan deskripsi</value>
+  </data>
+  <data name="InvoiceTaxesDescriptionTextEditDelete" xml:space="preserve">
+    <value>Anda dapat menghapus kategori pajak hanya jika tidak digunakan di bagian Produk &amp; Layanan.</value>
+  </data>
+  <data name="InvoiceTaxName" xml:space="preserve">
+    <value>Nama Pajak</value>
+  </data>
+  <data name="InvoiceTaxRate" xml:space="preserve">
+    <value>Jumlah</value>
+  </data>
+  <data name="IssueDate" xml:space="preserve">
+    <value>Tanggal Invoice</value>
+  </data>
+  <data name="IssueDateRequiredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus memiliki tanggal</value>
+  </data>
+  <data name="ItemCol" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ItemCurrencyHelpInfo" xml:space="preserve">
+    <value>Mata uang CRM default Anda. &lt;br/&gt; Untuk mengubahnya, silakan kunjungi &lt;a href="?type=common" target="_blank"&gt; Pengaturan umum &lt;/a&gt;</value>
+  </data>
+  <data name="IventoryStockHelpInfo" xml:space="preserve">
+    <value>Tambahkan jumlah item yang saat ini tersedia. Jumlah ini akan berkurang setiap kali item ditambahkan ke invoice. Jika ada penambahan persediaan, tambahkan saja ke inventaris Anda saat ini.</value>
+  </data>
+  <data name="LinkOpportunityButton" xml:space="preserve">
+    <value>Tautkan dengan kesempatan</value>
+  </data>
+  <data name="MakeOutAnInvoice" xml:space="preserve">
+    <value>Terbitkan invoice</value>
+  </data>
+  <data name="MarkAsDraft" xml:space="preserve">
+    <value>Tandai sebagai konsep</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Tandai Lunas</value>
+  </data>
+  <data name="MarkAsRejected" xml:space="preserve">
+    <value>Tandai sebagai ditolak</value>
+  </data>
+  <data name="MarkAsSend" xml:space="preserve">
+    <value>Tandai sebagai ditagih</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Angka</value>
+  </data>
+  <data name="NumberFormatErrorMsg" xml:space="preserve">
+    <value>Format salah atau invoice dengan nomor yang sama sudah ada</value>
+  </data>
+  <data name="NumberFormatRequiredErrorMsg" xml:space="preserve">
+    <value>Nomor awal kosong</value>
+  </data>
+  <data name="NumberRequiredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus memiliki nomor</value>
+  </data>
+  <data name="OverdueInvoicesFilter" xml:space="preserve">
+    <value>Terlambat</value>
+  </data>
+  <data name="PONumber" xml:space="preserve">
+    <value>Nomor PO</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>Awalan</value>
+  </data>
+  <data name="PriceCol" xml:space="preserve">
+    <value>Harga</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Cetak</value>
+  </data>
+  <data name="ProductsAndServices" xml:space="preserve">
+    <value>Produk dan Layanan</value>
+  </data>
+  <data name="ProductsAndServicesEmptyItemErrorMsgs" xml:space="preserve">
+    <value>Pilih produk atau layanan dari daftar atau tambah baru</value>
+  </data>
+  <data name="ProductsAndServicesRequiredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus memiliki item</value>
+  </data>
+  <data name="QuantityCol" xml:space="preserve">
+    <value>Kuantitas</value>
+  </data>
+  <data name="QuantityItem" xml:space="preserve">
+    <value>Kuantitas</value>
+  </data>
+  <data name="SaveNumberSettingsProgress" xml:space="preserve">
+    <value>Menyimpan pengaturan nomor...</value>
+  </data>
+  <data name="SaveTermsSettingsProgress" xml:space="preserve">
+    <value>Menyimpan pengaturan istilah ...</value>
+  </data>
+  <data name="SavingInvoiceServerError" xml:space="preserve">
+    <value>Error "{0}" terjadi saat menyimpan invoice. Silakan coba beberapa saat lagi.</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Penjual</value>
+  </data>
+  <data name="SendByEmail" xml:space="preserve">
+    <value>Kirim lewat Email</value>
+  </data>
+  <data name="SetDefault" xml:space="preserve">
+    <value>Atur Default</value>
+  </data>
+  <data name="SetDefaultTerms" xml:space="preserve">
+    <value>Atur istilah default</value>
+  </data>
+  <data name="SetEmpty" xml:space="preserve">
+    <value>Atur kosong</value>
+  </data>
+  <data name="ShipTo" xml:space="preserve">
+    <value>Kirim Ke</value>
+  </data>
+  <data name="ShowInvoiceProfile" xml:space="preserve">
+    <value>Tampilkan profil invoice</value>
+  </data>
+  <data name="StartNumber" xml:space="preserve">
+    <value>Nomor awal</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StockKeepingUnit" xml:space="preserve">
+    <value>Stock Keeping Unit (SKU)</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="TaxCol" xml:space="preserve">
+    <value>Pajak</value>
+  </data>
+  <data name="Terms" xml:space="preserve">
+    <value>Istilah</value>
+  </data>
+  <data name="TermsRequiredErrorMsg" xml:space="preserve">
+    <value>Setiap invoice harus menggunakan ketentuan</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total Invoice</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Total invoice</value>
+  </data>
+  <data name="TrackInventory" xml:space="preserve">
+    <value>Daftar Persediaan</value>
+  </data>
+  <data name="UpdateInvoiceItem" xml:space="preserve">
+    <value>Perbarui Item «{0}»</value>
+  </data>
+  <data name="UpdateTaxHeaderText" xml:space="preserve">
+    <value>Perbarui pajak «{0}» </value>
+  </data>
+  <data name="UpdateTaxProcessText" xml:space="preserve">
+    <value>Menyimpan perubahan...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Peringatan</value>
+  </data>
+</root>

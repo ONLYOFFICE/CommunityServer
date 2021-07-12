@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>Firemné diskusné fóra</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>Fóra</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>Vytvoriť nové fórum</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>Vytvoriť nové fórum</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Všetko</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>Naozaj chcete vykonať túto akciu?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Vytvoriť</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>Vymazať</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>Upraviť</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>Žiadne fóra zatiaľ neboli spustené</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>Vytvorte prvé fórum</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>Vytvorte si vlastné fóra, zúčastnite sa diskusií, zdieľajte niektoré zaujímavé informácie, organizujte ankety ktoré urobia Vaše fóra interaktívnejšie.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Témy neboli nájdené</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>Vytvorte si vlastné fóra, zúčastnite sa diskusií, zdieľajte niektoré zaujímavé informácie, organizujte ankety ktoré urobia Vaše fóra interaktívnejšie.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>Zatiaľ neboli vytvorené žiadne témy</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Vytvorte prvú tému</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Vytvorte si vlastné témy, zúčastnite sa diskusií, podeľte sa o niektoré zaujímavé informácie, zorganizujte prieskumy ktoré urobia fóra interaktívnejšie.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Nemáte povolenie na vykonanie tejto akcie</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>Zadajte názov kategórie</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>Neznáma chyba pri vytváraní kategórie</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>Počas úpravy kategórie sa vyskytla chyba</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>Vlož meno</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>Pri odhlásení/prihlásení odberu sa vyskytla chyba</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>Zadajte názov fóra</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>Téma na fóre "{0}"</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>Všetky fóra</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>Zmeniť</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Moderátori</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>Vlož meno</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>Vytvoriť novú anketu</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>Pridať nový príspevok</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>Vytvoriť novú tému</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>Nové témy fóra</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>Príspevky</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>Posledná aktualizácia</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Uložiť</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>Hľadať vo fóre</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>Príspevky</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Prihlásiť sa na odber nových tém</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>Prihláste sa na odber tohoto fóra</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>Prihláste sa na odber tejto témy</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>Fórum bolo úspešne vytvorené</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>Fórum</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>Kategória</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>Popis</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>Editor kategórie</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>Názov</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>Popis fóra</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>Editor fóra</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>Meno fóra</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>Fóra</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Téma</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>Témy</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>Nové príspevky témy</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>Vytvoriť novú kategóriu</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>Zrušiť odber nových tém</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>Zrušiť odber z tohto fóra</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>Zrušiť odber z tejto témy</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>Videní</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>Viditeľný zoznam</value>
+  </data>
+</root>

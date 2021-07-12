@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>Por</value>
+  </data>
+  <data name="ByComments" xml:space="preserve">
+    <value>Comentarios</value>
+  </data>
+  <data name="ByCreateDate" xml:space="preserve">
+    <value>Fecha de creación</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ByDate" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="ByDeadline" xml:space="preserve">
+    <value>Fecha límite</value>
+  </data>
+  <data name="ByHours" xml:space="preserve">
+    <value>Tiempo</value>
+  </data>
+  <data name="ByMilestone" xml:space="preserve">
+    <value>Hito</value>
+  </data>
+  <data name="ByNote" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="ByOrder" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="ByParticipant" xml:space="preserve">
+    <value>Participante</value>
+  </data>
+  <data name="ByPriority" xml:space="preserve">
+    <value>Prioridad</value>
+  </data>
+  <data name="ByProject" xml:space="preserve">
+    <value>Proyecto</value>
+  </data>
+  <data name="ByResponsible" xml:space="preserve">
+    <value>Responsable</value>
+  </data>
+  <data name="ByStartDate" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="ByTag" xml:space="preserve">
+    <value>Con etiqueta</value>
+  </data>
+  <data name="ByTitle" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="ClearFilter" xml:space="preserve">
+    <value>Reajustar el filtro</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Periodo personalizado</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Fecha límite</value>
+  </data>
+  <data name="FollowDiscussions" xml:space="preserve">
+    <value>Discusiones que sigo</value>
+  </data>
+  <data name="FollowProjects" xml:space="preserve">
+    <value>Seguido</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Grupos</value>
+  </data>
+  <data name="Me" xml:space="preserve">
+    <value>Yo</value>
+  </data>
+  <data name="MyDiscussions" xml:space="preserve">
+    <value>Mis discusiones</value>
+  </data>
+  <data name="MyMilestones" xml:space="preserve">
+    <value>Hitos con mis tareas</value>
+  </data>
+  <data name="MyProjects" xml:space="preserve">
+    <value>Mis proyectos</value>
+  </data>
+  <data name="MyTasks" xml:space="preserve">
+    <value>Mis tareas</value>
+  </data>
+  <data name="NoResponsible" xml:space="preserve">
+    <value>Sin responsable</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Otro</value>
+  </data>
+  <data name="OtherMilestones" xml:space="preserve">
+    <value>Otros hitos</value>
+  </data>
+  <data name="OtherParticipant" xml:space="preserve">
+    <value>Otro participante</value>
+  </data>
+  <data name="OtherProjects" xml:space="preserve">
+    <value>Otros proyectos</value>
+  </data>
+  <data name="OtherUsers" xml:space="preserve">
+    <value>Otros usuarios</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Vencido(s)</value>
+  </data>
+  <data name="PaymentStatusBilled" xml:space="preserve">
+    <value>Pagado</value>
+  </data>
+  <data name="PaymentStatusNotBilled" xml:space="preserve">
+    <value>No pagado</value>
+  </data>
+  <data name="PaymentStatusNotChargeable" xml:space="preserve">
+    <value>Impagable</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data>
+  <data name="PreviousWeek" xml:space="preserve">
+    <value>Semana anterior</value>
+  </data>
+  <data name="ProjectMenager" xml:space="preserve">
+    <value>Gerente de proyecto</value>
+  </data>
+  <data name="Recent" xml:space="preserve">
+    <value>Últimos 7 días</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Seleccionar</value>
+  </data>
+  <data name="StatusAllClosedTask" xml:space="preserve">
+    <value>Todos cerrados</value>
+  </data>
+  <data name="StatusAllOpenTask" xml:space="preserve">
+    <value>Todos abiertos</value>
+  </data>
+  <data name="StatusArchivedDiscussion" xml:space="preserve">
+    <value>Archivadas</value>
+  </data>
+  <data name="StatusClosedMilestone" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="StatusClosedProject" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="StatusClosedTask" xml:space="preserve">
+    <value>Cerrada</value>
+  </data>
+  <data name="StatusOpenDiscussion" xml:space="preserve">
+    <value>Abiertas</value>
+  </data>
+  <data name="StatusOpenMilestone" xml:space="preserve">
+    <value>Abierto</value>
+  </data>
+  <data name="StatusOpenProject" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="StatusOpenTask" xml:space="preserve">
+    <value>Abierta</value>
+  </data>
+  <data name="StatusSuspend" xml:space="preserve">
+    <value>En pausa</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tareas</value>
+  </data>
+  <data name="TeamMember" xml:space="preserve">
+    <value>Miembro del equipo</value>
+  </data>
+  <data name="TimePeriod" xml:space="preserve">
+    <value>Periodo de tiempo</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoy</value>
+  </data>
+  <data name="Upcoming" xml:space="preserve">
+    <value>Próximas</value>
+  </data>
+  <data name="UpcomingMilestones" xml:space="preserve">
+    <value>Próximas</value>
+  </data>
+  <data name="WithoutTag" xml:space="preserve">
+    <value>Sin etiqueta</value>
+  </data>
+</root>

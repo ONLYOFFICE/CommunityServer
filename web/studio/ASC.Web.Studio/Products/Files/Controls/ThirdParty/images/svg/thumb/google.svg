@@ -1,0 +1,20 @@
+<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="96X96 / folder / google">
+<g clip-path="url(#clip0)">
+<path id="google_dark_green" d="M71.2777 72.3298L74.5562 66.6504L67.0568 53.6611L71.2777 72.3298Z" fill="#089156"/>
+<g id="google_green">
+<path d="M53 78.0083L60.4995 90.9992L71.2777 72.3299L67.0569 53.6616L53 78.0083Z" fill="#0BA25E"/>
+<path d="M67.0569 53.6616L74.5563 66.6507L72.3465 70.4786L74.5565 66.6507L67.057 53.6614L67.0569 53.6616Z" fill="#0BA25E"/>
+</g>
+<path id="google_dark_blue" d="M74.5564 78.0081H67.9989L60.4994 90.9989L74.5564 78.0081Z" fill="#296AD9"/>
+<path id="google_blue" d="M60.4995 90.9987L88.6135 91.0001L96.113 78.0094L74.5562 78.0082L60.4995 90.9987Z" fill="#2A71E9"/>
+<path id="google_dark_yellow" d="M81.1108 78.0079L96.113 78.0093L77.835 72.3311L81.1108 78.0079Z" fill="#E3B73A"/>
+<path id="google_yellow" d="M96.113 78.0094L82.0562 53.6609H67.0568L77.836 72.3314L96.113 78.0094Z" fill="#FCCD48"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="96" height="96" fill="white"/>
+</clipPath>
+</defs>
+</svg>

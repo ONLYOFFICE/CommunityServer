@@ -1,0 +1,394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessRightSettings" xml:space="preserve">
+    <value>Права доступу на порталі</value>
+  </data>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>Додати етап</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>Додати керівника проєкту</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>Додати завдання</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>Керівник проєкту може</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>додавати учасників в команду проєкту або вилучати їх</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>налаштувавати права учасників проєкту (лише для {0}приватного проєкту{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>керувати (створювати, редагувати, видаляти) етапами, завданнями, дискусіями, документами, а також {2}{0}обмежувати доступ до них{1}</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleForOpen" xml:space="preserve">
+    <value>Управляти (створити,редагувати, видалити) віхами, завданнями, обговореннями, документами</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>Написати в месенджер</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>Написати лист</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>Закрити проєкт</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>Створити перший проєкт</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Створити новий проєкт</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>Вилучити проєкт</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>Дійсно вилучити цей проєкт ?</value>
+  </data>
+  <data name="DeleteProjects" xml:space="preserve">
+    <value>Вилучити проєкти</value>
+  </data>
+  <data name="DeleteProjectsPopup" xml:space="preserve">
+    <value>Дійсно вилучити ці проєкти?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>У цьому розділі немає проєктів згідно вашому пошуку</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>Редагувати проєкт</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>Створюйте проєкти та працюйте ефективно</value>
+  </data>
+  <data name="EmptyListProjDescribeVisitor" xml:space="preserve">
+    <value>Використовувати проєкти для ефективної роботи</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>Список проєктів порожній</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>Слідкувати за новинами проєкту</value>
+  </data>
+  <data name="GanttAddTask" xml:space="preserve">
+    <value>Додати задачу у віху</value>
+  </data>
+  <data name="GanttAllTeamMembers" xml:space="preserve">
+    <value>Усі відповідальні</value>
+  </data>
+  <data name="GanttAssignResponsible" xml:space="preserve">
+    <value>Призначити відповідальних</value>
+  </data>
+  <data name="GanttChartFullMode" xml:space="preserve">
+    <value>Повноекранний режим</value>
+  </data>
+  <data name="GanttChartLeftPanelMode" xml:space="preserve">
+    <value>Режим лівої панелі</value>
+  </data>
+  <data name="GanttClose" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="GanttCreateLink" xml:space="preserve">
+    <value>Створити зв'язок</value>
+  </data>
+  <data name="GanttCreateLinkDesc" xml:space="preserve">
+    <value>Посилання створюється</value>
+  </data>
+  <data name="GanttDoubleClickonTitle" xml:space="preserve">
+    <value>Двічі клікніть по назві на лівій панелі</value>
+  </data>
+  <data name="GanttDoubleClickResp" xml:space="preserve">
+    <value>Клацніть правою кнопкою миші на відповідального користувача на лівій панелі</value>
+  </data>
+  <data name="GanttEditTitle" xml:space="preserve">
+    <value>Редагувати назву</value>
+  </data>
+  <data name="GanttEmptyScreenDescription" xml:space="preserve">
+    <value>Щоб переглянути діаграму Ганта, потрібно вибрати щонайменше один проєкт, який ви бажаєте візуалізувати за допомогою діаграми.</value>
+  </data>
+  <data name="GanttEmptyScreenTitle" xml:space="preserve">
+    <value>Не вибрано жодного проєкту</value>
+  </data>
+  <data name="GanttGart" xml:space="preserve">
+    <value>Діаграма Ганта</value>
+  </data>
+  <data name="GanttHighPriority" xml:space="preserve">
+    <value>Високий пріоритет</value>
+  </data>
+  <data name="GanttLegend" xml:space="preserve">
+    <value>Підпис</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>Активні</value>
+  </data>
+  <data name="GanttLegendAppClosed" xml:space="preserve">
+    <value>Закриті</value>
+  </data>
+  <data name="GanttLegendAppearence" xml:space="preserve">
+    <value>Об'єкти схеми можуть мати різний вигляд залежно від ситуації:</value>
+  </data>
+  <data name="GanttLegendAppOverdue" xml:space="preserve">
+    <value>Прострочений</value>
+  </data>
+  <data name="GanttLegendHelpActionPanel" xml:space="preserve">
+    <value>Ви можете запустити панель із основним списком дій за допомогою клавіші H.</value>
+  </data>
+  <data name="GanttLegendInvalidLink" xml:space="preserve">
+    <value>Недійсне посилання</value>
+  </data>
+  <data name="GanttLegendSimbDesc" xml:space="preserve">
+    <value>Наведені нижче символи відображаються, коли курсор миші наведено на об'єкти діаграми.</value>
+  </data>
+  <data name="GanttLegendTitle" xml:space="preserve">
+    <value>Умовні позначення діаграми</value>
+  </data>
+  <data name="GanttLinkTasks" xml:space="preserve">
+    <value>Поєднайте завдання</value>
+  </data>
+  <data name="GanttLinkTasksDesc" xml:space="preserve">
+    <value>Наведіть курсор на завдання, натисніть на біле коло, перетягніть курсор до іншого завдання і потім відпустіть його біля білого кола.</value>
+  </data>
+  <data name="GanttLinkType" xml:space="preserve">
+    <value>Тип посилання</value>
+  </data>
+  <data name="GanttLinkWith" xml:space="preserve">
+    <value>Поєднайтесь з</value>
+  </data>
+  <data name="GanttOpenTaskOnly" xml:space="preserve">
+    <value>Відкрити тільки завдання і віхи</value>
+  </data>
+  <data name="GanttPresetToday" xml:space="preserve">
+    <value>Сьогодні</value>
+  </data>
+  <data name="GanttPrint" xml:space="preserve">
+    <value>Роздрукувати</value>
+  </data>
+  <data name="GanttRedo" xml:space="preserve">
+    <value>Переробити</value>
+  </data>
+  <data name="GanttReopen" xml:space="preserve">
+    <value>Відкрити знову</value>
+  </data>
+  <data name="GanttRightClickTaskMil" xml:space="preserve">
+    <value>Клацніть правою кнопкою миші на завдання (віху)</value>
+  </data>
+  <data name="GanttRightClickTaskMilDesc" xml:space="preserve">
+    <value>Відкрити меню, що випадає</value>
+  </data>
+  <data name="GanttRightEmptyClick" xml:space="preserve">
+    <value>Клацніть правою кнопкою миші на вільний простір</value>
+  </data>
+  <data name="GanttRightEmptyClickDesc" xml:space="preserve">
+    <value>Створити нову задачу</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafe" xml:space="preserve">
+    <value>Клацніть правою кнопкою миші в порожньому просторі та перетягніть праворуч</value>
+  </data>
+  <data name="GanttRightEmptyClickStrafeDesc" xml:space="preserve">
+    <value>Створити нову задачу з крайнім терміном</value>
+  </data>
+  <data name="GanttSeeFullGuide" xml:space="preserve">
+    <value>Детальніше</value>
+  </data>
+  <data name="GanttShowWhole" xml:space="preserve">
+    <value>Підлаштувати під розмір екрана</value>
+  </data>
+  <data name="GanttTaskWithoutDeadline" xml:space="preserve">
+    <value>Безстрокове завдання</value>
+  </data>
+  <data name="GanttTimelineDays" xml:space="preserve">
+    <value>Дні</value>
+  </data>
+  <data name="GanttTimelineMonth" xml:space="preserve">
+    <value>Місяць</value>
+  </data>
+  <data name="GanttTimelineScale" xml:space="preserve">
+    <value>Шкала часу</value>
+  </data>
+  <data name="GanttTimelineWeek" xml:space="preserve">
+    <value>Тиждень</value>
+  </data>
+  <data name="GanttTimlineTitle" xml:space="preserve">
+    <value>Використовуйте колесо миші, щоб змінити масштаб шкали часу</value>
+  </data>
+  <data name="GanttTodayTitle" xml:space="preserve">
+    <value>Швидко поверніться до сьогоднішніх завдань з будь-якого місця</value>
+  </data>
+  <data name="GanttUndo" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="GanttUndoNote" xml:space="preserve">
+    <value>Список скасування також буде очищено, і ви не зможете скасувати всі попередні дії.</value>
+  </data>
+  <data name="GanttZoomLeft" xml:space="preserve">
+    <value>Перемістити ліворуч</value>
+  </data>
+  <data name="GanttZoomRight" xml:space="preserve">
+    <value>Перемістити праворуч</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>Приватний проєкт</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>Зберегти проєкт як приватний</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>Управління командою</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>Ручне задання часу</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>Неможна закривати проект з активними етапами</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>Неможна закривати проект з активнимі завданнями</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>Сповіщати керівника проєкту через ел.пошту</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Проєкт</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>Вилучення проєкту</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Опис</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>Керівник проєкту</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Проєкти</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Статус проєкту</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>Шаблон проєкту</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>Шаблони проєкту</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>Назва</value>
+  </data>
+  <data name="RefreshChart" xml:space="preserve">
+    <value>Оновити діаграму</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>Зберегти проєкт</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>Вибрати шаблон проєкту</value>
+  </data>
+  <data name="SelectTags" xml:space="preserve">
+    <value>Вибрати</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="TitleMilestoneClosedTasks" xml:space="preserve">
+    <value>Закриті завдання. Клоцніть, щоб відкрити список всіх завдань для цього етапу</value>
+  </data>
+  <data name="TitleMilestoneOpenTasks" xml:space="preserve">
+    <value>Відкриті завдання. Натисніть, щоб відкрити повний список завдань цього етапу</value>
+  </data>
+  <data name="TitleMilestoneResponsibleUser" xml:space="preserve">
+    <value>Відповідальний за етап. Клоцніть, щоб переглянути всі етапи, за які цей користувач відповідальний</value>
+  </data>
+  <data name="TitleProjectManager" xml:space="preserve">
+    <value>Керівник проєкту. Клацніть, щоб переглянути перелік усіх проєктів, у яких цей користувач є керівником</value>
+  </data>
+  <data name="TitleProjectOpenTasks" xml:space="preserve">
+    <value>Відкриті завдання. Натисніть, щоб переглянути повний список завдань у цьому проєкті</value>
+  </data>
+  <data name="TitleProjectTeam" xml:space="preserve">
+    <value>Команда. Клацніть, щоб переглянути список усіх учасників цього проєкту</value>
+  </data>
+  <data name="TitleTaskOpenSubtasks" xml:space="preserve">
+    <value>Відкриті підзавдання. Натисніть, щоб відкрився повний список підзавдань для цього завдання</value>
+  </data>
+  <data name="TitleTaskResponsibleUser" xml:space="preserve">
+    <value>Відповідальний за завдання. Клікніть, щоб переглянути список завдань, відповідальним за які являється данний користувач</value>
+  </data>
+  <data name="TitleTaskResponsibleUsers" xml:space="preserve">
+    <value>Відповідальні за завдання. Натисніть, щоб переглянути список усіх користувачів, відповідальних за це завдання </value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>Переглянути активні етапи</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>Переглянути активні завдання</value>
+  </data>
+</root>

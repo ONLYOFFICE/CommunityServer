@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CacheClearBtnText" xml:space="preserve">
+    <value>Wyczyść pamięć podręczną</value>
+  </data>
+  <data name="CacheHelpText" xml:space="preserve">
+    <value>Wszystkie skrypty używane do poprawnego działania portalu są buforowane w celu uzyskania maksymalnej skuteczności ONLYOFFICE ™. Czasami (zwykle po poważnej aktualizacji lub gdy podczas zachowania portalu występuje nieprawidłowość) należy wyczyścić pamięć podręczną. Użyj przycisku &lt;b&gt; Wyczyść pamięć podręczną &lt;/ b&gt;, aby spróbować skrypty z serwera i załadować je ponownie. Podczas operacji nie zostaną utracone żadne dane portalu.</value>
+  </data>
+  <data name="CacheText" xml:space="preserve">
+    <value>Użyj tej opcji, jeśli zauważysz pewną nieprawidłowość w zachowaniu portalu</value>
+  </data>
+  <data name="CacheTitle" xml:space="preserve">
+    <value>Pamięć podręczna</value>
+  </data>
+  <data name="ContactUsText" xml:space="preserve">
+    <value>Sprawdź nasze {0} stronę FAQ {1}, jeśli masz pytania lub skontaktuj się z nami pod adresem {2}support@onlyoffice.com{3}</value>
+  </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>W razie jakichkolwiek pytań skontaktuj się z nami pod adresem {0} support.onlyoffice.com {1}</value>
+  </data>
+  <data name="ContactUsTitle" xml:space="preserve">
+    <value>Skontaktuj się z nami</value>
+  </data>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Okres</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>Sekcja &lt;b&gt; Logi &lt;/ b&gt; umożliwia pobieranie wszystkich dzienników portalu przez określony czas archiwizowany do pliku .zip. Wybierz czas rozpoczęcia i zakończenia i kliknij przycisk &lt;b&gt; Pobierz &lt;/ b&gt;, aby pobrać dzienniki.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Pobierz wszystkie dzienniki</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Logi</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>Sekcja &lt;b&gt; Porty &lt;/ b&gt; zawiera listę wszystkich portów niezbędnych do poprawnego działania portalu ONLYOFFICE ™ oraz ich statusu (otwarte lub zamknięte). Aby serwer ONLYOFFICE ™ mógł prawidłowo działać, porty muszą mieć status &lt;b&gt; Otwórz &lt;/ b&gt;. Należy pamiętać, że niektóre porty wymagają zezwolenia tylko na połączenia przychodzące lub wychodzące, podczas gdy inne będą wymagały obu typów połączeń.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>Wszystkie następujące porty muszą być otwarte</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Porty</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>Sekcja &lt;b&gt; Usługi &lt;/ b&gt; wyświetla listę wszystkich dostępnych usług ONLYOFFICE ™ i ich statusu (uruchamiania lub zatrzymywania). Możesz uruchomić ponownie uruchomione usługi lub uruchomić zatrzymane, używając odpowiedniego przycisku akcji po prawej stronie statusu usługi.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>Usługi ONLYOFFICE ™ i ich obecny stan</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Usługi</value>
+  </data>
+</root>

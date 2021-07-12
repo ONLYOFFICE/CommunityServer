@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AutoupdateContactListDescription" xml:space="preserve">
+    <value>Danh sách liên hệ sẽ được tự động cập nhật khi có người được thêm/xóa khỏi danh sách nhân viên, nên bạn không phải kiểm tra nó một cách thủ công.</value>
+  </data>
+  <data name="BrowsersNotification" xml:space="preserve">
+    <value>Thông báo trong trình duyệt</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Phòng chat</value>
+  </data>
+  <data name="ChatTabs" xml:space="preserve">
+    <value>Thẻ trò chuyện</value>
+  </data>
+  <data name="ContactListWithSettings" xml:space="preserve">
+    <value>Danh Sách Liên hệ có cài đặt</value>
+  </data>
+  <data name="DefaultNotificationText" xml:space="preserve">
+    <value>Theo mặc định tất cả thông báo sẽ được gửi cả đến Talk và địa chỉ email của bạn. Bạn có thể thiết lập chúng tại</value>
+  </data>
+  <data name="DeleteSentFiles" xml:space="preserve">
+    <value>Xóa các file đã gửi</value>
+  </data>
+  <data name="GroupListOfContact" xml:space="preserve">
+    <value>Danh sách liên hệ đang tham gia nhóm</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>ở đây</value>
+  </data>
+  <data name="HideOfflineContacts" xml:space="preserve">
+    <value>Ẩn liên hệ offline</value>
+  </data>
+  <data name="Mailing" xml:space="preserve">
+    <value>Thư tín</value>
+  </data>
+  <data name="MoreInformation" xml:space="preserve">
+    <value>Thêm thông tin về thông báo {0}</value>
+  </data>
+  <data name="NotificationSetup" xml:space="preserve">
+    <value>Cài đặt Thông báo</value>
+  </data>
+  <data name="OverviewContent" xml:space="preserve">
+    <value>Talk là hệ thống nhắn tin nhanh cho phép nhân viên trao đổi tin nhắn văn bản tức thời theo thời gian thực.</value>
+  </data>
+  <data name="OverviewContentDescription" xml:space="preserve">
+    <value>Talk cung cấp tất cả các tính năng truyền thống mà bạn mong đợi từ một messenger - chọn trạng thái, lưu lịch sử, chuyển file, hỗ trợ trò chuyện nhiều người, và hơn thế nữa.</value>
+  </data>
+  <data name="OverviewSectionTitle" xml:space="preserve">
+    <value>Tổng quan về Talk</value>
+  </data>
+  <data name="OverviewWebClientDescription" xml:space="preserve">
+    <value>Khởi động trình web và bắt đầu sử dụng Talk ngay mà không cần cài đặt trước.</value>
+  </data>
+  <data name="ProfilePage" xml:space="preserve">
+    <value>Trang hồ sơ</value>
+  </data>
+  <data name="SendMessageHotButton" xml:space="preserve">
+    <value>Gửi tin nhắn bằng Ctrl+Enter</value>
+  </data>
+  <data name="SettingsOfInputField" xml:space="preserve">
+    <value>Cài đặt trường nhập vào</value>
+  </data>
+  <data name="StartWebClientLink" xml:space="preserve">
+    <value>Khởi chạy Trình web</value>
+  </data>
+  <data name="StartWebClientLinkDescription" xml:space="preserve">
+    <value>Không cài đặt thêm! Nhấp để khởi chạy trình web và bắt đầu trò chuyện ngay</value>
+  </data>
+  <data name="SubscriptionSectionText" xml:space="preserve">
+    <value>Mục đăng ký theo dõi của {0}</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Loại:</value>
+  </data>
+  <data name="VoicesOfEvents" xml:space="preserve">
+    <value>Lồng tiếng sự kiện</value>
+  </data>
+</root>

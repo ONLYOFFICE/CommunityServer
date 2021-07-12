@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Certains paramètres d'entrée ne sont pas valides.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>L'accès au document est refusé.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Impossible de trouver le document ou il n'existe pas dans le dossier choisi.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Les fichiers vides ne sont pas pris en charge.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Impossible de trouver le message.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>La taille totale de toutes les pièces jointes dépasse la limite.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Une erreur inattendue s'est produite. Réessayez ultérieurement.</value>
+  </data>
+  <data name="CreatingLinkHeader" xml:space="preserve">
+    <value>Création du lien</value>
+  </data>
+  <data name="DeliveryFailureAutomaticMessage" xml:space="preserve">
+    <value>Ce message a été créé automatiquement par un logiciel de remise de courrier.</value>
+  </data>
+  <data name="DeliveryFailureBtn" xml:space="preserve">
+    <value>Modifier le message</value>
+  </data>
+  <data name="DeliveryFailureFAQInformation" xml:space="preserve">
+    <value>Si l'erreur persiste, veuillez lire le {url_begin}FAQ section{url_end} pour en savoir plus sur le problème.  </value>
+  </data>
+  <data name="DeliveryFailureMessageIdentificator" xml:space="preserve">
+    <value>Échec de la remise du message aves le sujet "{subject}" from {date}. </value>
+  </data>
+  <data name="DeliveryFailureReason" xml:space="preserve">
+    <value>Raison</value>
+  </data>
+  <data name="DeliveryFailureRecipients" xml:space="preserve">
+    <value>Message ne peut pas être délivré au(x) destinataire(s)</value>
+  </data>
+  <data name="DeliveryFailureRecommendations" xml:space="preserve">
+    <value>Veuillez vérifier les adresses de destinataires et le format de message.  Si vous êtes sûr que votre message est correct, vérifiez tous les paramètres du compte  {account_name}, et, si tout est correct, connectez-vous au service de messagerie que vous utilisez et confirmez toutes les questions de vérification, s'il y en a. Après cela, essayez à nouveau.</value>
+  </data>
+  <data name="DeliveryFailureSubject" xml:space="preserve">
+    <value>La remise du message a échoué </value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Ce champ ne peut pas être vide</value>
+  </data>
+  <data name="ErrorIncorrectEmailAddress" xml:space="preserve">
+    <value>Adresse email dans le champ %1 est incorrecte</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Le tag %1 existe déjà</value>
+  </data>
+  <data name="ErrorTagNameCantBeEmpty" xml:space="preserve">
+    <value>Le nom du tag ne peut pas être vide</value>
+  </data>
+  <data name="ErrorUserFoldeNameCantBeEmpty" xml:space="preserve">
+    <value>Nom de dossier ne doit pas être vide </value>
+  </data>
+  <data name="ErrorUserFolderNameAlreadyExists" xml:space="preserve">
+    <value>Dossier %1 existe déjà</value>
+  </data>
+  <data name="FieldNameBcc" xml:space="preserve">
+    <value>Cci</value>
+  </data>
+  <data name="FieldNameCc" xml:space="preserve">
+    <value>Cc</value>
+  </data>
+  <data name="FieldNameFrom" xml:space="preserve">
+    <value>De</value>
+  </data>
+  <data name="FieldNameTo" xml:space="preserve">
+    <value>À</value>
+  </data>
+  <data name="FinishedHeader" xml:space="preserve">
+    <value>Terminé</value>
+  </data>
+  <data name="GetAttachmentsHeader" xml:space="preserve">
+    <value>Télécharger les pièces jointes</value>
+  </data>
+  <data name="ImapConnectionTimeoutError" xml:space="preserve">
+    <value>Délai d'attente de la connexion avec le serveur IMAP est dépassé.</value>
+  </data>
+  <data name="ImapResponse" xml:space="preserve">
+    <value>IMAP response:</value>
+  </data>
+  <data name="Pop3ConnectionTimeoutError" xml:space="preserve">
+    <value>Délai d'attente de la connexion avec le serveur POP3 est dépassé.</value>
+  </data>
+  <data name="Pop3Response" xml:space="preserve">
+    <value>POP3 response:</value>
+  </data>
+  <data name="PreparationArchiveHeader" xml:space="preserve">
+    <value>Création de l'archive</value>
+  </data>
+  <data name="SetupTenantAndUserHeader" xml:space="preserve">
+    <value>Configuration clients</value>
+  </data>
+  <data name="SmtpConnectionTimeoutError" xml:space="preserve">
+    <value>Délai d'attente de la connexion avec le serveur SMTP est dépassé.</value>
+  </data>
+  <data name="SmtRresponse" xml:space="preserve">
+    <value>SMTP response:</value>
+  </data>
+  <data name="ZippingAttachmentsHeader" xml:space="preserve">
+    <value>Compresser les pièces-jointes</value>
+  </data>
+</root>

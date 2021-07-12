@@ -1,0 +1,895 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountCreationErrorBodyHeader" xml:space="preserve">
+    <value>Chyba připojení k účtu.</value>
+  </data>
+  <data name="AccountCreationErrorGmailFooter" xml:space="preserve">
+    <value>Pokud chyba přetrvává, přečtěte si {0}FAQ sekci{1}, kde se o problému dozvíte více.</value>
+  </data>
+  <data name="AccountCreationErrorHeader" xml:space="preserve">
+    <value>Chyba připojení k účtu</value>
+  </data>
+  <data name="AccountEdit" xml:space="preserve">
+    <value>Nastavení účtu</value>
+  </data>
+  <data name="AccountGoogleReconnectSuccess" xml:space="preserve">
+    <value>Účet Google byl úspěšně znovu připojen</value>
+  </data>
+  <data name="AccountNotificationText" xml:space="preserve">
+    <value>Účet je připojen pomocí OAuth, úprava je omezená.</value>
+  </data>
+  <data name="AccountsLabel" xml:space="preserve">
+    <value>Účty</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Akce</value>
+  </data>
+  <data name="ActivateAccountShure" xml:space="preserve">
+    <value>Chcete aktivovat %1?</value>
+  </data>
+  <data name="AddAccountBtnLabel" xml:space="preserve">
+    <value>Přidat účet</value>
+  </data>
+  <data name="AddAccountInfoQuestion" xml:space="preserve">
+    <value>Chcete právě teď přidat svůj první e-mailový účet?</value>
+  </data>
+  <data name="AddAccountInfoText" xml:space="preserve">
+    <value>Na ONLYOFFICE ™ Mail jste neměli připojené žádné poštovní účty. Prosím, přidejte svůj poštovní účet a začněte přijímat a odesílat e-mailové zprávy.</value>
+  </data>
+  <data name="AddAccountInfoTitle" xml:space="preserve">
+    <value>Přidejte nový účet, abyste mohli začít používat ONLYOFFICE™ Mail.</value>
+  </data>
+  <data name="AdministrationLabel" xml:space="preserve">
+    <value>Poštovní server</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>(Alias)</value>
+  </data>
+  <data name="AliasNotificationText" xml:space="preserve">
+    <value>%mailbox_address% alias poštovní schránky, editovaný pouze v administrativním panelu</value>
+  </data>
+  <data name="AllLabel" xml:space="preserve">
+    <value>Vše</value>
+  </data>
+  <data name="AttachmentsBadInputParamsError" xml:space="preserve">
+    <value>Některé vstupní parametry jsou neplatné.</value>
+  </data>
+  <data name="AttachmentsDocumentAccessDeniedError" xml:space="preserve">
+    <value>Přístup k dokumentu je zamítnut.</value>
+  </data>
+  <data name="AttachmentsDocumentNotFoundError" xml:space="preserve">
+    <value>Dokument nebyl nalezen nebo neexistuje ve vybraném úložišti.</value>
+  </data>
+  <data name="AttachmentsEmptyFileNotSupportedError" xml:space="preserve">
+    <value>Prázdné soubory nejsou podporovány.</value>
+  </data>
+  <data name="AttachmentsExecutableWarning" xml:space="preserve">
+    <value>Spustitelné soubory nemusí být povoleny některými službami (např. Gmail)</value>
+  </data>
+  <data name="AttachmentsLimitLabel" xml:space="preserve">
+    <value>Poznámka: Velikost souboru nesmí překročit %1 MB. Celková velikost všech souborů by neměla překročit %2 MB.</value>
+  </data>
+  <data name="AttachmentsMessageNotFoundError" xml:space="preserve">
+    <value>Zpráva nebyla nalezena.</value>
+  </data>
+  <data name="AttachmentsTotalLimitError" xml:space="preserve">
+    <value>Celková velikost všech příloh překračuje limit.</value>
+  </data>
+  <data name="AttachmentsUnknownError" xml:space="preserve">
+    <value>Vyskytla se neočekávaná chyba. Prosím, zkuste to znovu později.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBody" xml:space="preserve">
+    <value>{0}Poštovní účet nemohl být dlouho připojen a musel být deaktivován.{1} Zkontrolujte prosím všechna zadaná nastavení účtu nebo se přihlaste do poštovní služby, kterou používáte, a zkontrolujte nastavení zabezpečení. Pokud jste si jisti, že všechny problémy s připojením k účtu jsou vyřešeny, můžete ho vždy povolit ve vašem seznamu připojených účtů.</value>
+  </data>
+  <data name="AuthErrorDisablePopupBodyHeader" xml:space="preserve">
+    <value>Poštovní účet byl zakázán kvůli chybě připojení.</value>
+  </data>
+  <data name="AuthErrorDisablePopupHeader" xml:space="preserve">
+    <value>Poštovní účet byl zakázán</value>
+  </data>
+  <data name="AuthErrorPopupBody" xml:space="preserve">
+    <value>V {0}e-mailovém účtu{1} se vyskytly problémy s odesíláním a přijímáním. Důvodem může být změna hesla účtu. Zkontrolujte prosím všechna zadaná nastavení účtu nebo se přihlaste k poštovní službě, kterou používáte, a zkontrolujte nastavení zabezpečení.</value>
+  </data>
+  <data name="AuthErrorPopupBodyHeader" xml:space="preserve">
+    <value>Během připojení k účtu došlo k chybě.</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>Zakázat</value>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>Žádné pozdější události</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>Žádné dřívější události</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>celý den</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Předcházející den</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Kalendář</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>mapa</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>Žádné umístění</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizátor</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Účastníci</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Opakování</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Odpovědět</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Možná</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>Kdy</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Kde</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Kdo</value>
+  </data>
+  <data name="CancelBtnLabel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="ChangeAccountSettingsBtn" xml:space="preserve">
+    <value>Změnit nastavení účtu</value>
+  </data>
+  <data name="ChooseTag" xml:space="preserve">
+    <value>Vybrat značku</value>
+  </data>
+  <data name="CloseBtnLabel" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="CollapseAllLabel" xml:space="preserve">
+    <value>Sbalit všechno</value>
+  </data>
+  <data name="CommonSettingsLabel" xml:space="preserve">
+    <value>Obecné nastavení</value>
+  </data>
+  <data name="ConversationCollapsedBlockedPopupBody" xml:space="preserve">
+    <value>Tato konverzace obsahuje sbalené zprávy, které mohou zahrnovat skryté obrázky. Chcete je vytisknout?</value>
+  </data>
+  <data name="ConversationImagesBlockedPopupBody" xml:space="preserve">
+    <value>Tato konverzace obsahuje obrázky, které v tuto chvíli nelze zobrazit. Chcete je vytisknout?</value>
+  </data>
+  <data name="CopyFileToMyDocumentsFolderErrorMsg" xml:space="preserve">
+    <value>Při kopírování souboru se vyskytla chyba.</value>
+  </data>
+  <data name="CopyingToMyDocumentsLabel" xml:space="preserve">
+    <value>Kopírovat do složky "Moje dokumenty"</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Vytvořit kontakt</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Vytvořte schránku</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_1" xml:space="preserve">
+    <value>Poskytujeme vám připravenou bezplatnou výchozí doménu, abyste mohli okamžitě vytvořit novou poštovní schránku.</value>
+  </data>
+  <data name="CreateMyMailboxPopupBody_2" xml:space="preserve">
+    <value>Tato doména je společná pro všechny portály, proto doporučujeme, aby se vaše firemní doména používala pro firemní emailovou korespondenci.</value>
+  </data>
+  <data name="CreateMyMailboxPopupHeader" xml:space="preserve">
+    <value>Vytvořte schránku</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Vytvořit nový kontakt</value>
+  </data>
+  <data name="CreateNewCRMCompany" xml:space="preserve">
+    <value>Vytvořit novou CRM společnost</value>
+  </data>
+  <data name="CreateNewCRMPerson" xml:space="preserve">
+    <value>Vytvořit novou CRM osobu</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>vytvořit osobní kontakt</value>
+  </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Společnost</value>
+  </data>
+  <data name="CRMContactsLabel" xml:space="preserve">
+    <value>CRM kontakty</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DeactivateAccountShure" xml:space="preserve">
+    <value>Chcete deaktivovat %1?</value>
+  </data>
+  <data name="DeactivatedAccountsNotification" xml:space="preserve">
+    <value>Některé z vašich účtů nedostávají poštu.</value>
+  </data>
+  <data name="DefaultAccountText" xml:space="preserve">
+    <value>Tento účet se používá k předem nastavenému odesílání pošty</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
+  <data name="DeleteAccountShure" xml:space="preserve">
+    <value>Chcete odstranit %1?</value>
+  </data>
+  <data name="DeleteTagShure" xml:space="preserve">
+    <value>Opravdu chcete odstranit značku %1?</value>
+  </data>
+  <data name="DeletionMessage" xml:space="preserve">
+    <value>Odstraňování zpráv</value>
+  </data>
+  <data name="DeliveryFailurePopupBody" xml:space="preserve">
+    <value>Prosím, zkontrolujte adresy příjemců vašich zpráv a formát zpráv. Pokud jste si jisti, že vaše zpráva je správná, zkontrolujte všechna nastavení účtu {account_name} a pokud je vše správné, přihlaste se k poštovní službě, kterou používáte,a pokud se vyskytnou nějaké ověřovací otázky, tak je potvrďte. Poté to zkuste znovu.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyFooter" xml:space="preserve">
+    <value>V případě, že chyba přetrvává, tak si prosím přečtěte {faq_link_open_tag}FAQ sekci{faq_link_close_tag}, kde se o problému dozvíte více.</value>
+  </data>
+  <data name="DeliveryFailurePopupBodyHeader" xml:space="preserve">
+    <value>Doručení zprávy "{subject}" se nezdařilo.</value>
+  </data>
+  <data name="DeliveryFailurePopupHeader" xml:space="preserve">
+    <value>Doručování zprávy se nezdařilo.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupBodyHeader" xml:space="preserve">
+    <value>Poštovní účty byly zakázány.</value>
+  </data>
+  <data name="DisableAllMailboxesPopupHeader" xml:space="preserve">
+    <value>Poštovní účty byly zakázány</value>
+  </data>
+  <data name="DisableAllMailboxesPopupText" xml:space="preserve">
+    <value>Váš portál nebyl používán poměrně dlouho, takže vaše poštovní účty připojené k službě ONLYOFFICE ™ Mail byly zakázány. Pokud je chcete stále používat, přejděte na stránku svého účtu a znovu je aktivujte.
+</value>
+  </data>
+  <data name="DoneLabel" xml:space="preserve">
+    <value>Hotovo</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Upravit kontakt</value>
+  </data>
+  <data name="EmailInFailurePopupBodyHeader" xml:space="preserve">
+    <value>Nahrávání přílohy do vybrané složky selhalo.</value>
+  </data>
+  <data name="EmailInFailurePopupHeader" xml:space="preserve">
+    <value>Chyba příloh</value>
+  </data>
+  <data name="EmailInFolderAccessRightsFailurePopupText" xml:space="preserve">
+    <value>Do vybrané složky Přílohy nešlo získat přístup, a tak byla odpojena od vašeho poštovního účtu {account}. Zkontrolujte prosím, zda máte pro vybranou složku dostatečná přístupová práva a znovu ji připojte.</value>
+  </data>
+  <data name="EmailInFolderNotFoundFailurePopupText" xml:space="preserve">
+    <value>Vybraná složka Přílohy nebyla nalezena a byla odpojena od poštovního účtu {account}. Prosím zkontrolujte, zda vybraná složka existuje a znovu ji připojte.</value>
+  </data>
+  <data name="EmptyDraftsButton" xml:space="preserve">
+    <value>Vytvořit první návrh</value>
+  </data>
+  <data name="EmptyDraftsDescription" xml:space="preserve">
+    <value>Sekce Návrh umožňuje vytvořit a třídit zprávy, které později můžete poslat různým lidem. Zde můžete zaškrtnout nejdůležitější zprávy nebo odstranit ty nepotřebné.</value>
+  </data>
+  <data name="EmptyDraftsHeader" xml:space="preserve">
+    <value>V této složce nejsou k zobrazení žádné zprávy</value>
+  </data>
+  <data name="EmptyInboxButton" xml:space="preserve">
+    <value>Vytvořit novou zprávu</value>
+  </data>
+  <data name="EmptyInboxDescription" xml:space="preserve">
+    <value>Sekce Doručená pošta vám umožňuje spravovat přijaté zprávy. Zde si můžete prohlédnout historii korespondence, zaškrtnout nejdůležitější zprávy, seskupit e-maily podle kategorií pomocí značek nebo odstranit ty nepotřebné.</value>
+  </data>
+  <data name="EmptyInboxHeader" xml:space="preserve">
+    <value>Nebyly přijaty žádné zprávy</value>
+  </data>
+  <data name="EmptyScrAccountsButton" xml:space="preserve">
+    <value>Nastavit první účet</value>
+  </data>
+  <data name="EmptyScrAccountsDescription" xml:space="preserve">
+    <value>Nastavte si účet, abyste v pořádku odesílali, přijímali a udržovali své zprávy přímo na portálu. Získejte přístup k historii zpráv, kontaktům a souborům prostřednictvím libovolného prohlížeče kdykoli a kdekoliv. Třiďte zprávy pomocí vlastních značek. Vytvořte poštovní schránku pro připravenou, bezplatnou výchozí doménu.</value>
+  </data>
+  <data name="EmptyScrAccountsHeader" xml:space="preserve">
+    <value>Zatím není nastaven žádný účet</value>
+  </data>
+  <data name="EmptyScrCrmButton" xml:space="preserve">
+    <value>Přejít do CRM</value>
+  </data>
+  <data name="EmptyScrCrmDescription" xml:space="preserve">
+    <value>Tento seznam kontaktů bude obsahovat všechny klienty z CRM</value>
+  </data>
+  <data name="EmptyScrCrmHeader" xml:space="preserve">
+    <value>Seznam kontaktů je prázdný</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>Tento seznam kontaktů zobrazí všechny osobní kontakty z adresáře. Dosud jste žádné kontakty nezadali.</value>
+  </data>
+  <data name="EmptyScrTagsButton" xml:space="preserve">
+    <value>Vytvořit novou e-mailovou etiketu</value>
+  </data>
+  <data name="EmptyScrTagsDescription" xml:space="preserve">
+    <value>Nejprve musíte vytvořit značku a až poté ji použít </value>
+  </data>
+  <data name="EmptyScrTagsHeader" xml:space="preserve">
+    <value>Nebyly vytvořeny žádné značky</value>
+  </data>
+  <data name="EmptyScrUserFoldersButton" xml:space="preserve">
+    <value>Vytvořte složku</value>
+  </data>
+  <data name="EmptySentButton" xml:space="preserve">
+    <value>Vytvořit novou zprávu</value>
+  </data>
+  <data name="EmptySentDescription" xml:space="preserve">
+    <value>Sekce Odeslané umožňuje spravovat odeslané zprávy. Zde můžete zaškrtnout nejdůležitější zprávy, seskupit e-maily podle kategorií pomocí značek anebo odstranit nepotřebné zprávy.</value>
+  </data>
+  <data name="EmptySentHeader" xml:space="preserve">
+    <value>Dosud nebyly odeslány žádné zprávy</value>
+  </data>
+  <data name="EmptySpamDescription" xml:space="preserve">
+    <value>Sekce Spam obsahuje zprávy označené jako nevyžádaná pošta. Zde můžete smazat e-maily, klasifikovat je jako "nevyžádanou poštu" nebo vymazat celou sekci.</value>
+  </data>
+  <data name="EmptySpamHeader" xml:space="preserve">
+    <value>V této složce nejsou k zobrazení žádné zprávy</value>
+  </data>
+  <data name="EmptyTrashDescription" xml:space="preserve">
+    <value>Sekce Koše obsahuje zprávy, které byly odstraněny. Zde můžete obnovit některé e-maily nebo je trvale smazat.</value>
+  </data>
+  <data name="EmptyTrashHeader" xml:space="preserve">
+    <value>V této složce nejsou k zobrazení žádné zprávy</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Automatické odpověď pošty je povolena</value>
+  </data>
+  <data name="ErrorAccountAlreadyExists" xml:space="preserve">
+    <value>Tento účet již existuje</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Kalendář je nedostupný</value>
+  </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Prázdné pole</value>
+  </data>
+  <data name="ErrorEmptyToField" xml:space="preserve">
+    <value>Vyprázdnit pole 'Do' </value>
+  </data>
+  <data name="ErrorIncorrectAddress" xml:space="preserve">
+    <value>Nesprávná adresa</value>
+  </data>
+  <data name="ErrorIncorrectEmail" xml:space="preserve">
+    <value>Nesprávná adresa</value>
+  </data>
+  <data name="ErrorNoMailboxSelectedField" xml:space="preserve">
+    <value>Žádná vybraná poštovní schránka</value>
+  </data>
+  <data name="ErrorNotification" xml:space="preserve">
+    <value>Vyskytla se neznámá chyba</value>
+  </data>
+  <data name="ErrorNoUserSelectedField" xml:space="preserve">
+    <value>Žádný uživatel nebyl vybrán</value>
+  </data>
+  <data name="ErrorOpenMessage" xml:space="preserve">
+    <value>Došlo k problému při otevírání zprávy.</value>
+  </data>
+  <data name="ErrorOpenMessageHelp" xml:space="preserve">
+    <value>Prosím, obnovte stránku a pokuste se tuto zprávu znovu otevřít. Pokud problém přetrvává, prosím {0}kontaktujte náš tým podpory.{1}</value>
+  </data>
+  <data name="ErrorParseMessageHelp" xml:space="preserve">
+    <value>Ospravedlňujeme se za nepříjemnosti, ale poštovní zprávu se nezdařilo načíst do služby ONLYOFFICE ™ Mail. Použijte kopii původní zprávy přidanou jako přílohu a otevřete ji pomocí libovolného softwaru poštovního klienta nebo {0}kontaktujte náš tým podpory.{1}</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>Toto telefonní číslo již existuje</value>
+  </data>
+  <data name="ErrorTagNameAlreadyExists" xml:space="preserve">
+    <value>Značka %1 již existuje</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Nepodporovaný formát souboru</value>
+  </data>
+  <data name="ExistAccountText" xml:space="preserve">
+    <value>Chcete-li tento účet znovu připojit, tak jej prosím nejdříve odeberte ze seznamu připojených účtů na stránce 'Nastavení &gt; Správa účtů'.</value>
+  </data>
+  <data name="ExistingAccountLabel" xml:space="preserve">
+    <value>Existující účet</value>
+  </data>
+  <data name="ExpandAllLabel" xml:space="preserve">
+    <value>Všechno rozbalit</value>
+  </data>
+  <data name="ExportConversationPopupHeader" xml:space="preserve">
+    <value>Exportovat zprávu do CRM</value>
+  </data>
+  <data name="ExportFailurePopupHeader" xml:space="preserve">
+    <value>Chyba při exportu pošty</value>
+  </data>
+  <data name="ExportFailurePopupName" xml:space="preserve">
+    <value>Během exportování zprávy došlo k chybě.</value>
+  </data>
+  <data name="ExportFailurePopupText" xml:space="preserve">
+    <value>Zpráva, kterou se pokoušíte exportovat, je již propojena s vybranou položkou CRM.</value>
+  </data>
+  <data name="ExportMessageText" xml:space="preserve">
+    <value>Exportování zprávy do historie kontaktů CRM bylo úspěšně dokončené</value>
+  </data>
+  <data name="FilterAnotherGroup" xml:space="preserve">
+    <value>Ostatní</value>
+  </data>
+  <data name="FilterByContactStage" xml:space="preserve">
+    <value>Úroveň důležitosti</value>
+  </data>
+  <data name="FilterByDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="FilterByPeriod" xml:space="preserve">
+    <value>Vlastní období</value>
+  </data>
+  <data name="FilterByTitle" xml:space="preserve">
+    <value>Jméno</value>
+  </data>
+  <data name="FilterChoose" xml:space="preserve">
+    <value>Vybrat</value>
+  </data>
+  <data name="FilterCompany" xml:space="preserve">
+    <value>Společnosti</value>
+  </data>
+  <data name="FilterContactStage" xml:space="preserve">
+    <value>Úroveň důležitosti</value>
+  </data>
+  <data name="FilterContactStageNotSpecified" xml:space="preserve">
+    <value>Neuvedeno</value>
+  </data>
+  <data name="FilterFromSender" xml:space="preserve">
+    <value>Od odesílatele</value>
+  </data>
+  <data name="FilterImportant" xml:space="preserve">
+    <value>důležité</value>
+  </data>
+  <data name="FilterPeriodCustom" xml:space="preserve">
+    <value>Vlastní období</value>
+  </data>
+  <data name="FilterPeriodGroup" xml:space="preserve">
+    <value>Podle období</value>
+  </data>
+  <data name="FilterPeriodLastWeek" xml:space="preserve">
+    <value>Poslední týden</value>
+  </data>
+  <data name="FilterPeriodToday" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
+  <data name="FilterPeriodYesterday" xml:space="preserve">
+    <value>Včera</value>
+  </data>
+  <data name="FilterPerson" xml:space="preserve">
+    <value>Osoby</value>
+  </data>
+  <data name="FilterRead" xml:space="preserve">
+    <value>Číst</value>
+  </data>
+  <data name="FilterShowGroup" xml:space="preserve">
+    <value>Zobrazit</value>
+  </data>
+  <data name="FilterStatusGroup" xml:space="preserve">
+    <value>Stav</value>
+  </data>
+  <data name="FilterToMailAddress" xml:space="preserve">
+    <value>Na e-mailovou adresu </value>
+  </data>
+  <data name="FilterUnread" xml:space="preserve">
+    <value>Nepřečtený</value>
+  </data>
+  <data name="FilterWithAttachments" xml:space="preserve">
+    <value>S přílohami</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>S kalendářem</value>
+  </data>
+  <data name="FilterWithOpportunity" xml:space="preserve">
+    <value>S příležitostmi</value>
+  </data>
+  <data name="FilterWithTags" xml:space="preserve">
+    <value>Se značkou</value>
+  </data>
+  <data name="ForwardSubjectPrefix" xml:space="preserve">
+    <value>Fwd</value>
+  </data>
+  <data name="ForwardTitle" xml:space="preserve">
+    <value>Přeposlaná zpráva</value>
+  </data>
+  <data name="FromLabel" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>Můžete {0} nebo to změnit v {1} </value>
+  </data>
+  <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
+    <value>Chcete-li to povolit, přejděte na {0}.</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Přejít do Kalendáře</value>
+  </data>
+  <data name="GoToEventLink" xml:space="preserve">
+    <value>Přejít do Události</value>
+  </data>
+  <data name="GroupCouldNotSetAsDefault" xml:space="preserve">
+    <value>Skupina nemůže být nastavena jako výchozí poštovní schránka</value>
+  </data>
+  <data name="HelpCenterLabel" xml:space="preserve">
+    <value>Nápověda</value>
+  </data>
+  <data name="HideImagesLabel" xml:space="preserve">
+    <value>Vždy skrýt obrázky z</value>
+  </data>
+  <data name="HidePasswordLinkLabel" xml:space="preserve">
+    <value>Skrýt</value>
+  </data>
+  <data name="ImportAccountHeader" xml:space="preserve">
+    <value>Účet je úspěšně připojený.</value>
+  </data>
+  <data name="ImportAccountRestrictLabel" xml:space="preserve">
+    <value>Všechna pošta za posledních 30 dní bude importována.</value>
+  </data>
+  <data name="ImportAccountText" xml:space="preserve">
+    <value>Probíhá importování zpráv. Může to nějaký čas trvat. Toto okno můžete zavřít a pokračovat v používání pošty nebo můžete zavřít i prohlížeč. Import bude pokračovat na pozadí.</value>
+  </data>
+  <data name="ImportantLabel" xml:space="preserve">
+    <value>důležité</value>
+  </data>
+  <data name="ImportGmailAttention" xml:space="preserve">
+    <value>Některé zprávy, které byly přijaty dříve s použitím jiných služeb, nemusí být importovány. Přečtěte si prosím {0}FAQ sekci{1} pro více informací.</value>
+  </data>
+  <data name="ImportProblemText" xml:space="preserve">
+    <value>Pokud se při importu pošty vyskytne chyba, přečtěte si {0}FAQ sekci{1} pro více podrobností.</value>
+  </data>
+  <data name="InsertedViaLink" xml:space="preserve">
+    <value>Vloženo přes odkaz</value>
+  </data>
+  <data name="Kilobytes" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="LinkConversationPopupHeader" xml:space="preserve">
+    <value>Připojit konverzaci s CRM</value>
+  </data>
+  <data name="LinkConversationText" xml:space="preserve">
+    <value>Spojení konverzace s historií kontaktů CRM bylo úspěšně dokončeno</value>
+  </data>
+  <data name="LinkFailurePopupHeader" xml:space="preserve">
+    <value>Chyba při propojení konverzace</value>
+  </data>
+  <data name="LinkFailurePopupName" xml:space="preserve">
+    <value>Během propojování konverzace s CRM došlo k chybě.</value>
+  </data>
+  <data name="LinkFailurePopupText" xml:space="preserve">
+    <value>Vybraná položka CRM již není k dispozici nebo došlo ke ztrátě připojení. Prosím, zkontrolujte umístění vybrané položky CRM a zkontrolujte připojení k síti. Pokud chyba přetrvává, obraťte se na správce portálu.</value>
+  </data>
+  <data name="LoadingAttachments" xml:space="preserve">
+    <value>Načítání příloh...</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Automatická odpověď </value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="MailboxCreation" xml:space="preserve">
+    <value>Vytváření poštovní schránky...</value>
+  </data>
+  <data name="MailBoxUpdate" xml:space="preserve">
+    <value>Aktualizace poštovní schránky...</value>
+  </data>
+  <data name="ManageAccountsLabel" xml:space="preserve">
+    <value>Spravovat účty</value>
+  </data>
+  <data name="ManageSignatureLabel" xml:space="preserve">
+    <value>Spravovat podpis</value>
+  </data>
+  <data name="MarkAllRecipientsLabel" xml:space="preserve">
+    <value>Označit všechny příjemce pošty</value>
+  </data>
+  <data name="MarkAllSendersLabel" xml:space="preserve">
+    <value>Označit všechny odesílatele pošty</value>
+  </data>
+  <data name="Megabytes" xml:space="preserve">
+    <value>MB</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>Tato zpráva obsahuje obrázky, které v tuto chvíli nelze zobrazit. Chcete pokračovat?</value>
+  </data>
+  <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Pokračovat bez obrázků</value>
+  </data>
+  <data name="MessageImagesBlockedPopupBody" xml:space="preserve">
+    <value>Tato zpráva obsahuje obrázky, které v tuto chvíli nelze zobrazit. Chcete to vytisknout?</value>
+  </data>
+  <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
+    <value>Potvrdit tisknutí bez obrázků</value>
+  </data>
+  <data name="MessageNotSent" xml:space="preserve">
+    <value>Zpráva nebyla odeslána. Opravdu ji chcete smazat?</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>%1 více
+</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>Více detailů</value>
+  </data>
+  <data name="MovingMessages" xml:space="preserve">
+    <value>Přesouvání zpráv</value>
+  </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Přidat e-mailový účet</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>Nová zpráva</value>
+  </data>
+  <data name="NoActionText" xml:space="preserve">
+    <value>Žádné další kroky nejsou nutné.</value>
+  </data>
+  <data name="NoLettersFilterDescription" xml:space="preserve">
+    <value>V této složce nelze zobrazit žádné zprávy odpovídající vašemu filtru. Zvolte prosím další možnosti filtru nebo zrušte filtr pro zobrazení všech zpráv v této složce.</value>
+  </data>
+  <data name="NoLettersFilterHeader" xml:space="preserve">
+    <value>Pro tento filtr nejsou k zobrazení žádné zprávy</value>
+  </data>
+  <data name="NoneLabel" xml:space="preserve">
+    <value>žádný</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>bez předmětu</value>
+  </data>
+  <data name="NotImportantLabel" xml:space="preserve">
+    <value>Nedůležité</value>
+  </data>
+  <data name="NotSpamLabel" xml:space="preserve">
+    <value>Není spam
+</value>
+  </data>
+  <data name="ObtainingDefaultDomainSettings" xml:space="preserve">
+    <value>Získání výchozího nastavení domény ...</value>
+  </data>
+  <data name="OkBtnLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PageHeaderDraft" xml:space="preserve">
+    <value>Návrh</value>
+  </data>
+  <data name="PageHeaderForward" xml:space="preserve">
+    <value>Přeposlat</value>
+  </data>
+  <data name="PageHeaderReply" xml:space="preserve">
+    <value>Odpovědět</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Osobní kontakty</value>
+  </data>
+  <data name="PrintAllBtnLabel" xml:space="preserve">
+    <value>Vytisknout vše</value>
+  </data>
+  <data name="PrintBtnLabel" xml:space="preserve">
+    <value>Tisk</value>
+  </data>
+  <data name="QuotaPopupBody" xml:space="preserve">
+    <value>Dostupný úložný prostor na disku je na vašem portálu překročen. Není možné načíst všechny zprávy a odeslat zprávy nové. Prosím, vymažte některé zprávy ze složky Doručená pošta nebo odstraňte některé soubory z modulu Dokumenty. Můžete také změnit cenový plán, abyste získali více volného místa na disku.</value>
+  </data>
+  <data name="QuotaPopupHeader" xml:space="preserve">
+    <value>Dostupné úložiště na disku je překročeno</value>
+  </data>
+  <data name="QuotedTextHiddenMsg" xml:space="preserve">
+    <value>[Citovaný text je skrytý]</value>
+  </data>
+  <data name="ReadLabel" xml:space="preserve">
+    <value>Označit jako přečtené</value>
+  </data>
+  <data name="RemoveSpamQuestion" xml:space="preserve">
+    <value>Chcete odstranit všechny zprávy ze Spamu?</value>
+  </data>
+  <data name="RemoveTrashQuestion" xml:space="preserve">
+    <value>Chcete odstranit všechny zprávy z Koše?</value>
+  </data>
+  <data name="ReplySubjectPrefix" xml:space="preserve">
+    <value>Re</value>
+  </data>
+  <data name="ResetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Reset složky EMail-In byl neúspěšný.</value>
+  </data>
+  <data name="ResetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Reset složky EMail-In byl úspěšný.</value>
+  </data>
+  <data name="ResetCrmContactsFilterDescription" xml:space="preserve">
+    <value>Na této stránce nelze zobrazit žádné kontakty CRM, které odpovídají vašemu filtru. Zvolte prosím další možnosti filtru nebo zrušte filtr pro zobrazení všech kontaktů CRM.</value>
+  </data>
+  <data name="ResetCrmContactsFilterHeader" xml:space="preserve">
+    <value>V tomto filtru nejsou k zobrazení žádné kontakty CRM</value>
+  </data>
+  <data name="ResetFilterButton" xml:space="preserve">
+    <value>Resetovat filtr</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>Nebyly nalezeny žádné kontakty odpovídající vybranému filtru. Chcete-li zobrazit všechny kontakty, vyberte prosím jiný filtr nebo ho zrušte.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>Neexistují žádné kontakty odpovídající tomuto filtru</value>
+  </data>
+  <data name="ResetTlContactsFilterDescription" xml:space="preserve">
+    <value>Na této stránce nelze zobrazit žádné portálové kontakty odpovídající vašemu filtru. Zvolte prosím další možnosti filtru nebo zrušte filtr pro zobrazení všech kontaktů portálu.</value>
+  </data>
+  <data name="ResetTlContactsFilterHeader" xml:space="preserve">
+    <value>Pro tento filtr nejsou k zobrazení žádné  portálové kontakty</value>
+  </data>
+  <data name="RestoreBtnLabel" xml:space="preserve">
+    <value>Obnovit</value>
+  </data>
+  <data name="RestoringMessages" xml:space="preserve">
+    <value>Obnova zpráv</value>
+  </data>
+  <data name="SaveAllAttachmentsToMyDocsSuccess" xml:space="preserve">
+    <value>Bylo úspěšně uloženo %real_count% from %count% ve složce Moje dokumenty.</value>
+  </data>
+  <data name="SaveAttachmentsToDocumentsFailure" xml:space="preserve">
+    <value>Ukládání bylo úspěšné.</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%' je úspěšně uložen v Kalendáři.</value>
+  </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' je úspěšně uložený v '%folder_name%'.</value>
+  </data>
+  <data name="SavingMessage" xml:space="preserve">
+    <value>Ukládání zprávy</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Vybrat</value>
+  </data>
+  <data name="SendFromDeactivateAccount" xml:space="preserve">
+    <value>Tento účet byl deaktivován. Prosím, aktivujte tento účet nebo vyberte jiný.</value>
+  </data>
+  <data name="SendingMessage" xml:space="preserve">
+    <value>Odesílání zprávy</value>
+  </data>
+  <data name="ServerLabel" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="ServerMailboxNotificationText" xml:space="preserve">
+    <value>Serverová poštovní schránka editovaná pouze v administračním panelu</value>
+  </data>
+  <data name="SetAccountEMailInFolderFailure" xml:space="preserve">
+    <value>Nastavení složky EMail-In bylo neúspěšné.</value>
+  </data>
+  <data name="SetAccountEMailInFolderSuccess" xml:space="preserve">
+    <value>Nastavení složky EMail-In bylo úspěšné.</value>
+  </data>
+  <data name="SetAsDefaultAccountText" xml:space="preserve">
+    <value>Nastavit jako výchozí a použít k odeslání pošty</value>
+  </data>
+  <data name="SharingSettingForFiles" xml:space="preserve">
+    <value>Nastavení sdílení souborů</value>
+  </data>
+  <data name="ShowPasswordLinkLabel" xml:space="preserve">
+    <value>Zobrazit</value>
+  </data>
+  <data name="SignatureInformationText" xml:space="preserve">
+    <value>Tento podpis bude přidán na konci všech dopisů z tohoto účtu. Zde můžete napsat své jméno, kontakty nebo slogan.</value>
+  </data>
+  <data name="SpamLabel" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="SubjectLabel" xml:space="preserve">
+    <value>Předmět</value>
+  </data>
+  <data name="TagCreation" xml:space="preserve">
+    <value>Ukládání značky...</value>
+  </data>
+  <data name="TagNotificationText" xml:space="preserve">
+    <value>Importováno z CRM. Tuto značku zde nelze editovat nebo odstranit.</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Značky</value>
+  </data>
+  <data name="TeamLabContactsLabel" xml:space="preserve">
+    <value>Kontakty portálu</value>
+  </data>
+  <data name="ToLabel" xml:space="preserve">
+    <value>Pro</value>
+  </data>
+  <data name="TotalContacts" xml:space="preserve">
+    <value>Celkový počet kontaktů:</value>
+  </data>
+  <data name="TryAgainButton" xml:space="preserve">
+    <value>Zkusit znovu</value>
+  </data>
+  <data name="UnlinkFromCRMPopupHeader" xml:space="preserve">
+    <value>Odpojit z CRM</value>
+  </data>
+  <data name="UnreadLabel" xml:space="preserve">
+    <value>Označit jako nepřečtené</value>
+  </data>
+  <data name="UseSingatureLabel" xml:space="preserve">
+    <value>Použít podpis</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Varování</value>
+  </data>
+  <data name="WithAttachments" xml:space="preserve">
+    <value>S přílohami</value>
+  </data>
+  <data name="WithoutTags" xml:space="preserve">
+    <value>Bez značek</value>
+  </data>
+  <data name="WithTags" xml:space="preserve">
+    <value>Se značkami</value>
+  </data>
+</root>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FooterCommonV10" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt; &lt;/td&gt;&lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
+              &lt;img src="%IMAGEPATH%/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
+              &lt;img src="%IMAGEPATH%/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
+              &lt;img src="%IMAGEPATH%/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Haluatko teknistä tukea?&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Ostoon liittyvät kysymykset&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Tilaa koejakso&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
+              &lt;a href="%SUPPORTURL%" target="_blank" style="color: #333;"&gt;Lähetä kysymyksesi&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
+              &lt;a href="mailto:%SALESEMAIL%" style="color: #333;"&gt;Lähetä meille sähköpostia&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
+              &lt;a href="%DEMOURL%" target="_blank" style="color: #333;"&gt;Lähetä pyyntö&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;</value>
+  </data>
+</root>

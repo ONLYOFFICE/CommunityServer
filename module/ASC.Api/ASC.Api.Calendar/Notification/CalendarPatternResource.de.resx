@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CalendarSharingEmailPattern" xml:space="preserve">
+    <value>#if($SharingType == "calendar") 
+h1.Zugriff auf Kalender erteilt: $CalendarName
+
+"$UserName":"$UserLink" hat Ihnen den Zugriff auf den Kalender $CalendarName erteilt. 
+
+^Sie erhalten diese Nachricht, weil Sie ein registrierter Benutzer bzw. Benutzerin des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Wenn Sie keine Benachrichtigungen über für Sie freigegebene Kalender erhalten möchten, verwalten Sie Ihre "Anmeldungseinstellungen":"$RecipientSubscriptionConfigURL".^
+
+#end 
+#if($SharingType == "event") 
+h1.Zugriff auf Ereignis erteilt: $EventName
+
+"$UserName":"$UserLink" hat Ihnen den Zugriff auf das Ereignis $EventName erteilt.
+
+^Sie erhalten diese Nachricht, weil Sie ein registrierter Benutzer bzw. Benutzerin des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Wenn Sie keine Benachrichtigungen über für Sie freigegebene Ereignisse erhalten möchten, verwalten Sie die "Einstellungen Ihrer Benachrichtigungen":"$RecipientSubscriptionConfigURL".^ 
+#end
+
+</value>
+  </data>
+  <data name="CalendarSharingJabberPattern" xml:space="preserve">
+    <value>#if($SharingType == "calendar")
+Kalender. Zugriff auf Kalender erteilt: $CalendarName 
+#end 
+#if($SharingType == "event") 
+Kalender. Zugriff auf Ereignis erteilt: $EventName 
+#end</value>
+  </data>
+  <data name="CalendarSharingSubject" xml:space="preserve">
+    <value>#if($SharingType == "calendar")
+Kalender. Zugriff auf Kalender erteilt: $CalendarName 
+#end 
+#if($SharingType == "event") 
+Kalender. Zugriff auf Ereignis erteilt: $EventName 
+#end</value>
+  </data>
+  <data name="EventAlertEmailPattern" xml:space="preserve">
+    <value>h1.Erinnerung an Ereignis: $EventName
+
+Das Ereignis $EventName wird am $EventStartDate #if($EventEndDate!="")- $EventEndDate stattfinden.#end #if($EventDescription!="") 
+
+Beschreibung des Ereignisses:
+
+$EventDescription 
+#end
+
+^Sie erhalten diese Nachricht, weil Sie ein registrierter Benutzer bzw. Benutzerin des Portals "${__VirtualRootPath}":"${__VirtualRootPath}" sind. Wenn Sie keine Erinnerungen an Ereignisse erhalten möchten, verwalten Sie Ihre "Einstellungen Ihrer Benachrichtigungen":"$RecipientSubscriptionConfigURL".^</value>
+  </data>
+  <data name="EventAlertJabberPattern" xml:space="preserve">
+    <value>Das Ereignis $EventName wird am $EventStartDate #if($EventEndDate!="")- $EventEndDate stattfinden.#end #if($EventDescription!="")
+
+Beschreibung des Ereignisses:   
+
+$EventDescription 
+#end</value>
+  </data>
+  <data name="EventAlertSubject" xml:space="preserve">
+    <value>Kalender. Erinnerung an Ereignis: $EventName</value>
+  </data>
+</root>

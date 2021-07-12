@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddMilestone" xml:space="preserve">
+    <value>הוסף אבן דרך</value>
+  </data>
+  <data name="AddNewProject" xml:space="preserve">
+    <value>הוסף פרוייקט זה</value>
+  </data>
+  <data name="AddProjectManager" xml:space="preserve">
+    <value>הוסף מנהל פרויקט</value>
+  </data>
+  <data name="AddTask" xml:space="preserve">
+    <value>הוסף משימה</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
+    <value>מנהל הפרוייקט יכול</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleA" xml:space="preserve">
+    <value>הוסף/הסר משתמשים בצוות הפרוייקט</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleB" xml:space="preserve">
+    <value>הקצה הרשאות גישה לחברי הפרוייקט (רלווטי רק עבור {0}פרוייקט פרטי{1})</value>
+  </data>
+  <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
+    <value>נהל (צור, ערוך, מחק) אבני דרך, משימות, דיונים, מסמכים - ו{2}{0}הגבל את הגישה אליהם{1}</value>
+  </data>
+  <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
+    <value>צור קשר בשיחה ישירה</value>
+  </data>
+  <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
+    <value>שלח מייל</value>
+  </data>
+  <data name="CloseProject" xml:space="preserve">
+    <value>סמן את הפרוייקט כ-סגור</value>
+  </data>
+  <data name="CreateFirstProject" xml:space="preserve">
+    <value>צור את הפרוייקט הראשון</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>צור פרוייקט חדש</value>
+  </data>
+  <data name="DeleteProject" xml:space="preserve">
+    <value>מחק פרוייקט</value>
+  </data>
+  <data name="DeleteProjectPopup" xml:space="preserve">
+    <value>האם אתה בטוח שברצונך למחוק פרוייקט זה?</value>
+  </data>
+  <data name="DescrEmptyListProjFilter" xml:space="preserve">
+    <value>אין פרוייקטים התואמים למסנן שלך</value>
+  </data>
+  <data name="EditProject" xml:space="preserve">
+    <value>עריכת פרוייקט</value>
+  </data>
+  <data name="EmptyListProjDescribe" xml:space="preserve">
+    <value>צור את הפרוייקטים - זה יאפשר לך לעבוד יותר ביעילות</value>
+  </data>
+  <data name="EmptyListProjHeader" xml:space="preserve">
+    <value>רשימת הפרוייקטים ריקה</value>
+  </data>
+  <data name="FollowingProjects" xml:space="preserve">
+    <value>עקוב אחר פרוייקט זה</value>
+  </data>
+  <data name="GanttLegendAppActive" xml:space="preserve">
+    <value>פעיל</value>
+  </data>
+  <data name="HiddenProject" xml:space="preserve">
+    <value>פרוייקט פרטי (מוסתר)</value>
+  </data>
+  <data name="IUnerstandForEditHidden" xml:space="preserve">
+    <value>שמור פרוייקט זה כפרוייקט פרטי (מוסתר)</value>
+  </data>
+  <data name="ManagmentTeam" xml:space="preserve">
+    <value>נהל צוות</value>
+  </data>
+  <data name="ManualTimeInput" xml:space="preserve">
+    <value>קלט ידני של משך זמן עבודה</value>
+  </data>
+  <data name="NotClosedPrjWithActiveMilestone" xml:space="preserve">
+    <value>אין באפשרותך לסגור פרוייקט שמכיל אבני דרך פעילות.</value>
+  </data>
+  <data name="NotClosePrjWithActiveTasks" xml:space="preserve">
+    <value>אין באפשרותך לסגור פרוייקט שמכיל משימות פעילות.</value>
+  </data>
+  <data name="NotifyProjectManager" xml:space="preserve">
+    <value>הודע למנהל הפרוייקט באמצעות מייל</value>
+  </data>
+  <data name="OkButton" xml:space="preserve">
+    <value>אישור</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>פרוייקט</value>
+  </data>
+  <data name="ProjectDeleted" xml:space="preserve">
+    <value>מחק פרוייקט</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>תיאור</value>
+  </data>
+  <data name="ProjectLeader" xml:space="preserve">
+    <value>מנהל פרוייקט</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>פרוייקטים</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>סטטוס של הפרוייקט</value>
+  </data>
+  <data name="ProjectTeam" xml:space="preserve">
+    <value>צוות</value>
+  </data>
+  <data name="ProjectTemplate" xml:space="preserve">
+    <value>תבנית פרוייקט</value>
+  </data>
+  <data name="ProjectTemplates" xml:space="preserve">
+    <value>תבניות פרוייקט</value>
+  </data>
+  <data name="ProjectTitle" xml:space="preserve">
+    <value>שם הפרוייקט</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>שמור פרוייקט</value>
+  </data>
+  <data name="SelectProjectTemplate" xml:space="preserve">
+    <value>בחר בתבנית פרוייקט</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>תגיות</value>
+  </data>
+  <data name="ViewActiveMilestones" xml:space="preserve">
+    <value>הצג אבני דרך פעילות</value>
+  </data>
+  <data name="ViewActiveTasks" xml:space="preserve">
+    <value>הצג משימות פתוחות</value>
+  </data>
+</root>

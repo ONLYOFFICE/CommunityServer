@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddonDescription" xml:space="preserve">
+    <value>기업 포럼 토론</value>
+  </data>
+  <data name="AddonName" xml:space="preserve">
+    <value>포럼</value>
+  </data>
+  <data name="AddThreadButton" xml:space="preserve">
+    <value>새 포럼 만들기</value>
+  </data>
+  <data name="AddThreadCategoryTitle" xml:space="preserve">
+    <value>새로운 포럼을 만들기</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>전체</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="ConfirmMessage" xml:space="preserve">
+    <value>당신은이 작업을 수행 할 수 있도록 하시겠습니까?</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>생성</value>
+  </data>
+  <data name="DeleteButton" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="EditShortButton" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="EditTopicBreadCrumbs" xml:space="preserve">
+    <value>수정</value>
+  </data>
+  <data name="EmptyScreenForumCaption" xml:space="preserve">
+    <value>어떤 포럼 아직 시작되지 않았습니다</value>
+  </data>
+  <data name="EmptyScreenForumLink" xml:space="preserve">
+    <value>첫 번째 포럼을 만들기</value>
+  </data>
+  <data name="EmptyScreenForumText" xml:space="preserve">
+    <value>포럼을 만들기 토론에 참여하여 포럼 더 상호 작용하는 투표를 조직, 새로운 정보를 공유 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>주제를 찾을 수 없습니다</value>
+  </data>
+  <data name="EmptyScreenSearchText" xml:space="preserve">
+    <value>포럼을 만들기 토론에 참여하여 포럼 더 상호 작용하는 투표를 조직, 새로운 정보를 공유 할 수 있습니다.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>어떤 항목은 아직 만들어지지 된</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>첫 번째 항목을 만듭니다</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>주제를 만들기 토론에 참여하여 포럼 더 상호 작용하는 투표를 조직, 새로운 정보를 공유 할 수 있습니다.</value>
+  </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>이 작업을 수행 할 수있는 권한 없음</value>
+  </data>
+  <data name="ErrorCategoryEmptyName" xml:space="preserve">
+    <value>카테고리 이름을 입력합니다</value>
+  </data>
+  <data name="ErrorCreateThreadCategory" xml:space="preserve">
+    <value>알 수없는 오류 카테고리를 만드는 동안</value>
+  </data>
+  <data name="ErrorEditThreadCategory" xml:space="preserve">
+    <value>카테고리를 편집하는 동안 오류가 발생했습니다</value>
+  </data>
+  <data name="ErrorEmptyName" xml:space="preserve">
+    <value>이름을 입력</value>
+  </data>
+  <data name="ErrorSubscription" xml:space="preserve">
+    <value>수신 거부 / 구독하는 중에 오류가 발생했습니다</value>
+  </data>
+  <data name="ErrorThreadEmptyName" xml:space="preserve">
+    <value>포럼 이름을 입력</value>
+  </data>
+  <data name="FindTopicDescription" xml:space="preserve">
+    <value>'{0}'포럼에서 주제</value>
+  </data>
+  <data name="ForumsBreadCrumbs" xml:space="preserve">
+    <value>모든 포럼</value>
+  </data>
+  <data name="MakeModeratorsButton" xml:space="preserve">
+    <value>변경</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>운영자</value>
+  </data>
+  <data name="NameEmptyString" xml:space="preserve">
+    <value>이름을 입력</value>
+  </data>
+  <data name="NewPollButton" xml:space="preserve">
+    <value>새 설문 조사 만들기</value>
+  </data>
+  <data name="NewPostButton" xml:space="preserve">
+    <value>새 게시물을 추가</value>
+  </data>
+  <data name="NewTopicButton" xml:space="preserve">
+    <value>새 주제를 만들기</value>
+  </data>
+  <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
+    <value>새로운 포럼 주제</value>
+  </data>
+  <data name="PostCount" xml:space="preserve">
+    <value>게시물</value>
+  </data>
+  <data name="RecentUpdate" xml:space="preserve">
+    <value>최근 업데이트</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="SearchDefaultString" xml:space="preserve">
+    <value>포럼 검색</value>
+  </data>
+  <data name="ShotPostCount" xml:space="preserve">
+    <value>게시물</value>
+  </data>
+  <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>새 주제에 가입</value>
+  </data>
+  <data name="SubscribeOnThread" xml:space="preserve">
+    <value>이 포럼에 가입</value>
+  </data>
+  <data name="SubscribeOnTopic" xml:space="preserve">
+    <value>이 주제에 가입</value>
+  </data>
+  <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
+    <value>포럼이 생성되었습니다</value>
+  </data>
+  <data name="Thread" xml:space="preserve">
+    <value>포럼</value>
+  </data>
+  <data name="ThreadCategory" xml:space="preserve">
+    <value>범주</value>
+  </data>
+  <data name="ThreadCategoryDescription" xml:space="preserve">
+    <value>설명</value>
+  </data>
+  <data name="ThreadCategoryEditor" xml:space="preserve">
+    <value>카테고리 편집기</value>
+  </data>
+  <data name="ThreadCategoryName" xml:space="preserve">
+    <value>제목</value>
+  </data>
+  <data name="ThreadDescription" xml:space="preserve">
+    <value>포럼 설명</value>
+  </data>
+  <data name="ThreadEditor" xml:space="preserve">
+    <value>포럼 편집기</value>
+  </data>
+  <data name="ThreadName" xml:space="preserve">
+    <value>포럼 이름</value>
+  </data>
+  <data name="ThreadSubscriptionTitle" xml:space="preserve">
+    <value>포럼</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>주제</value>
+  </data>
+  <data name="TopicCount" xml:space="preserve">
+    <value>주제</value>
+  </data>
+  <data name="TopicSubscriptionTitle" xml:space="preserve">
+    <value>새로운 주제 글</value>
+  </data>
+  <data name="TypeCategoryName" xml:space="preserve">
+    <value>새로운 카테고리를 만들기</value>
+  </data>
+  <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
+    <value>새 항목에서 수신 거부</value>
+  </data>
+  <data name="UnSubscribeOnThread" xml:space="preserve">
+    <value>이 포럼에서 탈퇴</value>
+  </data>
+  <data name="UnSubscribeOnTopic" xml:space="preserve">
+    <value>이 주제에서 탈퇴</value>
+  </data>
+  <data name="ViewCount" xml:space="preserve">
+    <value>조회 수</value>
+  </data>
+  <data name="VisibleList" xml:space="preserve">
+    <value>표시 목록</value>
+  </data>
+</root>

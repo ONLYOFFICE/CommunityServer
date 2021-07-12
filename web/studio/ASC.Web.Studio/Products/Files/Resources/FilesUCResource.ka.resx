@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AceStatusEnum_Read" xml:space="preserve">
+    <value>მხოლოდ წაკითხული</value>
+  </data>
+  <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
+    <value>სრული წვდომა</value>
+  </data>
+  <data name="AceStatusEnum_Restrict" xml:space="preserve">
+    <value>წვდომის შეზღუდვა</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
+  <data name="ButtonClearFilter" xml:space="preserve">
+    <value>ფილტრის გასუფთავება</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>დახურვა</value>
+  </data>
+  <data name="ButtonCopyTo" xml:space="preserve">
+    <value>კოპირება</value>
+  </data>
+  <data name="ButtonCreateFolder" xml:space="preserve">
+    <value>საქაღალდის შექმნა</value>
+  </data>
+  <data name="ButtonCreatePresentation" xml:space="preserve">
+    <value>პრეზენტაციის შექმნა</value>
+  </data>
+  <data name="ButtonCreateSpreadsheet" xml:space="preserve">
+    <value>ცხრილის შექმნა</value>
+  </data>
+  <data name="ButtonCreateText" xml:space="preserve">
+    <value>დოკუმენტის შექმნა</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>წაშლა</value>
+  </data>
+  <data name="ButtonDownload" xml:space="preserve">
+    <value>გადმოწერა</value>
+  </data>
+  <data name="ButtonEdit" xml:space="preserve">
+    <value>რედაქტირება</value>
+  </data>
+  <data name="ButtonEmptyTrash" xml:space="preserve">
+    <value>სანაგვე ყუთის გასუფთავება</value>
+  </data>
+  <data name="ButtonFilterDocument" xml:space="preserve">
+    <value>დოკუმენტები</value>
+  </data>
+  <data name="ButtonFilterFolder" xml:space="preserve">
+    <value>საქაღალდეები</value>
+  </data>
+  <data name="ButtonFilterImage" xml:space="preserve">
+    <value>გამოსხულება</value>
+  </data>
+  <data name="ButtonFilterPresentation" xml:space="preserve">
+    <value>პრეზენტაციები</value>
+  </data>
+  <data name="ButtonFilterSpreadsheet" xml:space="preserve">
+    <value>ცხრილები</value>
+  </data>
+  <data name="ButtonGotoMy" xml:space="preserve">
+    <value>ჩემ დოკუმენტებში გადასვლა</value>
+  </data>
+  <data name="ButtonMoveTo" xml:space="preserve">
+    <value>გადაადგილე</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>Ок</value>
+  </data>
+  <data name="ButtonRename" xml:space="preserve">
+    <value>სახელის გადარქმევა</value>
+  </data>
+  <data name="ButtonRestore" xml:space="preserve">
+    <value>აღდგენა</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>შენახვა</value>
+  </data>
+  <data name="ButtonSelectAll" xml:space="preserve">
+    <value>ყველა</value>
+  </data>
+  <data name="ButtonShareAccess" xml:space="preserve">
+    <value>წვდომის პარამეტრები</value>
+  </data>
+  <data name="ButtonShowVersions" xml:space="preserve">
+    <value>აჩვენე ვერსიები</value>
+  </data>
+  <data name="ButtonSkip" xml:space="preserve">
+    <value>გამოტოვე</value>
+  </data>
+  <data name="ConfirmOverwrite" xml:space="preserve">
+    <value>გადაწერის დადასტურება</value>
+  </data>
+  <data name="ConfirmUnsubscribe" xml:space="preserve">
+    <value>დარწმუნებული ხართ, რომ გსურთ ამ ელემენტების წაშლა სიიდან?</value>
+  </data>
+  <data name="CorporateFiles" xml:space="preserve">
+    <value>საერთო დოკუმენტები</value>
+  </data>
+  <data name="Documents" xml:space="preserve">
+    <value>დოკუმენტები</value>
+  </data>
+  <data name="DownloadFile" xml:space="preserve">
+    <value>დოკუმენტის გადმოწერა</value>
+  </data>
+  <data name="DownloadFolder" xml:space="preserve">
+    <value>საქაღალდის გადმოწერა</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>ფილტრი</value>
+  </data>
+  <data name="Folders" xml:space="preserve">
+    <value>საქაღალდეები</value>
+  </data>
+  <data name="MainHeaderSelectAll" xml:space="preserve">
+    <value>ყველას არჩევა</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>შემოწმება</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>პაროლი</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>პროექტის დოკუმენტები</value>
+  </data>
+  <data name="RemoveIsNew" xml:space="preserve">
+    <value>მონიშნე წაკითხულად</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>საქაღალდის არჩევა</value>
+  </data>
+  <data name="SharedForMe" xml:space="preserve">
+    <value>ხელმისაწვდომია ჩემთვის</value>
+  </data>
+  <data name="SharingLinkCaption" xml:space="preserve">
+    <value>საჯარო წვდომა</value>
+  </data>
+  <data name="TitleSelectFile" xml:space="preserve">
+    <value>არჩევა</value>
+  </data>
+  <data name="Trash" xml:space="preserve">
+    <value>სანაგვე ყუთი</value>
+  </data>
+  <data name="Unsubscribe" xml:space="preserve">
+    <value>სიიდან ამოშლა</value>
+  </data>
+</root>

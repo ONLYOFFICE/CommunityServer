@@ -1,0 +1,481 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.6.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Eksportu ləğv et</value>
+  </data>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Giriş haqları və etiketlər</value>
+  </data>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value> "Web sayt kontakt forması" vasitəsi ilə əlavə olunmuş istifadəçilər üçün giriş haqları tyin edin, əks halda CRM istifadəçiləri yeni kontaktları görəcəklər. Etiketlər yaradın ki, onların vasitəsi ilə yeni müştərilər siyahıda qeyd olunacaqlar.</value>
+  </data>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portala giriş hüququ</value>
+  </data>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Yeni tapşırıq şablonu əlavə et</value>
+  </data>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>yeni tapşırıq şablon konteyneri əlavə et</value>
+  </data>
+  <data name="AddOption" xml:space="preserve">
+    <value>Seçənək əlavə et</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Etiket əlavə et</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Tapşırıq  şablonu konteyneri əlavə et</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Tapşırıq şablonu konteyneri əlavə edilməsi</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Tapşırıq şablonu əlavə edilməsi</value>
+  </data>
+  <data name="AddThisCategory" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AddThisDealMilestone" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AddThisField" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AddThisStage" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AddThisTag" xml:space="preserve">
+    <value>Qeyd et</value>
+  </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Bu tapşırıq şablonunu əlavə et</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Bu tapşırıq şablon konteynerini əlavə et</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Autentifikasiya</value>
+  </data>
+  <data name="BothPersonAndCompany" xml:space="preserve">
+    <value>Şəxs və şirkət</value>
+  </data>
+  <data name="ChangeColor" xml:space="preserve">
+    <value>Rəngi dəyiş</value>
+  </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>İkonanı dəyişdir</value>
+  </data>
+  <data name="CheckBox" xml:space="preserve">
+    <value>Yoxlama qutusu</value>
+  </data>
+  <data name="Cols" xml:space="preserve">
+    <value>Sütunlar</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Ümumi ayarlar</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Kateqoriyanın yaradılması</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Növün yaradılması</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Yeni istifadəçi sahəsi yaradın</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Mərhələnin yaradılması</value>
+  </data>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Sahənin yaradılması</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Yeni kateqoriya yarat</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Yeni kateqoriya</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Yeni mərhələ yarat</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Yeni mərhələ</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Yeni sahə yarat</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Yeni sahə</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Yeni növ yarat</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Yeni növ</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Yeni etiket yaradın</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Yeni etiket</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Valyuta ayarları</value>
+  </data>
+  <data name="CustomFields" xml:space="preserve">
+    <value>İstifadəçi sahələri</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Sazişi uğursuz qapadır.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Sazişi uğurla qapadır.</value>
+  </data>
+  <data name="DefaultCurrency" xml:space="preserve">
+    <value>Varsayılan valyuta</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Kateqoriyanı sil</value>
+  </data>
+  <data name="DeleteContactStage" xml:space="preserve">
+    <value>Növü sil</value>
+  </data>
+  <data name="DeleteCustomField" xml:space="preserve">
+    <value>Sahəni sil</value>
+  </data>
+  <data name="DeleteDealMilestone" xml:space="preserve">
+    <value>Mərhələni sil</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Etiketi sil</value>
+  </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Tapşırıq şablonunu sil</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Tapşırıq şablonunun konteynerini sil</value>
+  </data>
+  <data name="DeleteUnusedTags" xml:space="preserve">
+    <value>istifadə olunmayan etiketləri sil</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Açıqlama</value>
+  </data>
+  <data name="DescriptionTextContactStage" xml:space="preserve">
+    <value>Kontakt növləri Sizə potensial müştərilərinizi xarakterizə etməyə kömək edir. Misal üçün, kontakt növləri "Soyuq", "İsti", "İlıq" ola bilərlər ki, kontaktın Sizin məhsulunuzu alma və ya xidmətlərinizdən faydalanma dərəcəsini göstərəcək.</value>
+  </data>
+  <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
+    <value>Verilən tipin kontaktı olmadığı halda kontakt tipini redaktə etmək və ya silmək mümkündür.</value>
+  </data>
+  <data name="DescriptionTextDealMilestone" xml:space="preserve">
+    <value>Saziş mərhələləri anlaşmanın tammamlanması üçün gərəkli addımları təyin etməyinizi sağlayır. Örnək olaraq, "Kommersiya təklifi", "Öncədən ödəmə", "İcra" olaraq saziş mərhələləri əlavə edə bilərsiniz. Daşıyaraq saziş mərhələləri üçün lazımlıq sırasını ayarlayın.</value>
+  </data>
+  <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
+    <value>Yalnız verilən mərhələdə saziş olmadığı halda saziş mərhələsini redaktə etmək və ya silmək mümkündür.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Tarix olay kateqoriyaları keçmiş olayları qruplara bölməyə imkan verir. Standart tarix olay kateqoriyaları, poçt, qeyd, telefon, görüşdürlər. Bunları redaktə etmək üçün Sizin administrator hüquqlarınız olmalıdır.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Yalnız verilən kateqoriyada olayların olmadığı halda olaylar kateqoriyasını redaktə etmək və ya silmək mümkündür.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Tapşırıq kateqoriyaları Sizə tapşırıqları nail olmaq istədiyiniz məqsədlərdən asılı olaraq qruplara bölməyə imkan verir. Misal üçün, tapşırığın kateqoriyası "Görüş", "Telefon zəngi", "Təşəkkür bildirişi" ola bilər.</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>Yalnız verilən kateqoriyada tapşırıq olmadığı halda tapşırıq kateqoriyasını redaktə etmək və ya silmək mümkündür.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Gün olarak yerdəyişmə</value>
+  </data>
+  <data name="DownloadAllDataInZipArchive" xml:space="preserve">
+    <value>Bütün verilənləri bir ZIP-arxivdə endir</value>
+  </data>
+  <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
+    <value>ZİP arxivin yaradılması başlandı</value>
+  </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>ZIP arxivi endirmək üçün keçid</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Kateqoriyanı redaktə et</value>
+  </data>
+  <data name="EditContactStage" xml:space="preserve">
+    <value>Növü redaktə et</value>
+  </data>
+  <data name="EditCustomField" xml:space="preserve">
+    <value>Sahəni redaktə et</value>
+  </data>
+  <data name="EditDealMilestone" xml:space="preserve">
+    <value>Mərhələni redaktə et</value>
+  </data>
+  <data name="EditSelectedCategory" xml:space="preserve">
+    <value>«{0}» tapşırıq kateqoriyasını redaktə et</value>
+  </data>
+  <data name="EditSelectedContactStage" xml:space="preserve">
+    <value>«{0}» kontakt növünü redaktə et</value>
+  </data>
+  <data name="EditSelectedDealMilestone" xml:space="preserve">
+    <value>«{0}» saziş mərhələsini redaktə et</value>
+  </data>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>«{0}» tapşırıq şablonunu redaktə et</value>
+  </data>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>«{0}» tapşırıq şablon konteynerini redaktə et</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Tapşırıq şablonunu redaktə et</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Tapşırıq şablonu kateqoriyasını redaktə et</value>
+  </data>
+  <data name="EmptyContentCustomFields" xml:space="preserve">
+    <value>İstifadəçi sahəsi boşdur</value>
+  </data>
+  <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
+    <value>İstifadəçi sahələri kontakt haqqında əlavə məlumatı, sazişi və ya tədbiri təyin etməyə imkan verir. Misal üçün, Siz "Mənbə" sahəsi əlavə edə bilərsiniz ki, müştərinin haradan gəldiyini, hansı reklama görə gəldiyini, satış haqqında məlumatları öyrənəsiniz. İstifadəçi sahəsini redaktə etmək və ya silmək bu sahə ilə əlaqəli kontaktların və ya sazişlərin olmadığı halda mümkündür.</value>
+  </data>
+  <data name="EmptyContentTags" xml:space="preserve">
+    <value>Etiket siyahısı boşdur</value>
+  </data>
+  <data name="EmptyContentTagsDescript" xml:space="preserve">
+    <value>Etiketlər kontaktları (şirkətləri və şəxsləri), sazişləri və tədbirləri, ümumi nələrisə olanları xarakterizə etmək və qruplaşdırmaq üçün istifadə olunurlar . Misal üçün, daha yaxşı sıralama üçün Siz bir fəaliyyət sahəsinə aid olan bütün şəxsləri və müxtəlif şirkətləri ümumi etiketlə işarələyə bilərsiniz. Etiketi redaktə etmək və silmək bu etiketlə əlaqəli kontaktların, sazişlərin və tədbirlərin olmadığı halda mümkündür.</value>
+  </data>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Tapşırıq kateqoriyaları siyahısı boşdur</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Tapşırıq şablonları CRM modulunda bir tipli tapşırıqları yaratmağa imkan verir. Tapşırıqları kontaktlara, mümkün sazişlərə və tədbirlərə bircə dəfə siçanı basmaqla əlavə etmək olar. Hər bir tapşırıq şablonu üçün tapşırıq yaratmaq məqsədi ilə konteyner seçin.</value>
+  </data>
+  <data name="EmptyField" xml:space="preserve">
+    <value>Bu sahə düzgün doldurulmalıdır</value>
+  </data>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Hər sahənin başlığı olmalıdır</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>Sahənin başlığı boş ola bilməz</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>SSL'ə izn ver</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Eksport</value>
+  </data>
+  <data name="ExportData" xml:space="preserve">
+    <value>Bütün verilənləri eksport et</value>
+  </data>
+  <data name="ExportDataSettingsInfo" xml:space="preserve">
+    <value>Eksport funksiyası Sizin bütün verilənlərinizlə (kontaktlar, sazişlər, tədbirlər, tarix və sair) CSV formatda faylları içərən ZİP arxiv yaradır. Bizim elektron poçt ünvanımıza yaradılmış arxivə keçid olan elektron poçt məktubu göndəriləcək.</value>
+  </data>
+  <data name="ExternalClient" xml:space="preserve">
+    <value>Xarici proqram siyahısı yarat</value>
+  </data>
+  <data name="FieldList" xml:space="preserve">
+    <value>Sahə siyahısı</value>
+  </data>
+  <data name="FieldsSelection" xml:space="preserve">
+    <value>Sahə seçimi</value>
+  </data>
+  <data name="FieldsSelectionDescription" xml:space="preserve">
+    <value>Forma üzerində görünəcək sahələri seçin</value>
+  </data>
+  <data name="FormCode" xml:space="preserve">
+    <value>Forma mənbə kodu</value>
+  </data>
+  <data name="FormCodeDescription" xml:space="preserve">
+    <value>Bu formanı öz saytınızda istifadə edin</value>
+  </data>
+  <data name="FormPreview" xml:space="preserve">
+    <value>Öncədən bax</value>
+  </data>
+  <data name="FormPreviewDescription" xml:space="preserve">
+    <value>Forma saytınızda belə görünəcək</value>
+  </data>
+  <data name="FormProperties" xml:space="preserve">
+    <value>Forma özəllikləri</value>
+  </data>
+  <data name="FormPropertiesDescription" xml:space="preserve">
+    <value>Web sayt kontakt formasının əsas ayarları</value>
+  </data>
+  <data name="GenerateForm" xml:space="preserve">
+    <value>Forma yarat</value>
+  </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>Tarix olay kateqoriyaları</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Ev sahibi</value>
+  </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Ev sahibi logini</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Ev sahibi parolu</value>
+  </data>
+  <data name="InternalSMTP" xml:space="preserve">
+    <value>Daxili SMTP ({0} elektron poçt alıcıları maksimum)</value>
+  </data>
+  <data name="JustForCompany" xml:space="preserve">
+    <value>Sadəcə şirkət üçün</value>
+  </data>
+  <data name="JustForPerson" xml:space="preserve">
+    <value>Sadəcə şəxs üçün</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="Likelihood" xml:space="preserve">
+    <value>Uğur ehtimalı</value>
+  </data>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Bildir {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>"Web sayt kontakt forması" yeni kontakt əlavə olunması haqqında bildiriş alacaq {!users} seçin.</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Öncəki tapşırıqdan say</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Konteynerin başlanğıcından say</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Digər sahələr</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="RemoveOption" xml:space="preserve">
+    <value>Seçənəyi sil</value>
+  </data>
+  <data name="ReturnURL" xml:space="preserve">
+    <value>Yenidən yönləndirmə URL'i</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Formanın doldurulmasından sonra istifadəçinin göndəriləcəyi saytınızın ünvanı.</value>
+  </data>
+  <data name="Rows" xml:space="preserve">
+    <value>Sətirlər</value>
+  </data>
+  <data name="SaveCompleted" xml:space="preserve">
+    <value>Qeyd edildi!</value>
+  </data>
+  <data name="SelectBox" xml:space="preserve">
+    <value>Qutu seçin</value>
+  </data>
+  <data name="SelectOptions" xml:space="preserve">
+    <value>Seçimlər</value>
+  </data>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Göndərənin göstərilən adı</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Göndərənin elektron poçt ünvanı</value>
+  </data>
+  <data name="SettingCustomFields" xml:space="preserve">
+    <value>İstifadəçi sahələrini düzənlə</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Ölçü</value>
+  </data>
+  <data name="SubmitFormData" xml:space="preserve">
+    <value>Göndərilmiş verilənlər</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Tapşırıq şablonları</value>
+  </data>
+  <data name="TextArea" xml:space="preserve">
+    <value>Mətn sahəsi</value>
+  </data>
+  <data name="TextField" xml:space="preserve">
+    <value>Mətn</value>
+  </data>
+  <data name="TitleItem" xml:space="preserve">
+    <value>Başlıq</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="WebFormKey" xml:space="preserve">
+    <value>Web forma açarı</value>
+  </data>
+  <data name="WebFormKeyDescription" xml:space="preserve">
+    <value>Formanın gerçəkliyini təsdiqləyən unikal web formalı açar verilənlərin göndərilməsi üçün istifadə olunur və formanın düzgün işləməsini təmin edir. Bu, təhlqkəsizlik məqsədi ilə edilir ki, spamın, dələduzluğun qarşısı alınsın və sizin web formanız sanksiyasız istifadədən qorunsun. Əgər Siz yeni  açar yaradacaqsınızsa, köhnə açarla işləyən formalar işlərini dayandıracaqlar.</value>
+  </data>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Web sayt kontakt forması</value>
+  </data>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Etibarsız forma açarı</value>
+  </data>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Web sayt Kontakt Forması funksionallığını istifadə edin ki, saytınızda dərc edə biləcəyiniz formanı yaradasınız. Forma yeni kontaktları avtomatik olaraq tutmağa imkan verəcək. Formanın xüsusiyyətlərini təyin edin, lazım olan sahələri seçin və öz web formanızı yaratmaq üçün kod yaradın.</value>
+  </data>
+</root>
